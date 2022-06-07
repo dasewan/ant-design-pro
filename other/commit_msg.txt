@@ -1,0 +1,30 @@
+🎉 init(模块): 初始化功能
+💥 feat(模块): 添加了个很棒的功能
+🐛 fix(模块): 修复了一些 bug
+📝 docs(模块): 更新了一下文档
+🌷 UI(模块): 修改了一下样式
+🏰 chore(模块): 对脚手架做了些更改
+🌐 locale(模块): 为国际化做了微小的贡献userblack
+💡 idea(模块): 新需求
+🧐 querstion(模块): 问题
+⚡ perf(模块): 改进性能的代码更改
+🎨 style(模块): 不影响代码含义的变化（空白，格式化，缺少分号等）
+🧪 test(模块): 添加缺失测试或更正现有测试
+😞 revert(模块): 特殊情况，当前 commit 用于撤销以前的 commit
+
+        [<emoji>] [revert: ?]<type>[(scope)?]: <message>
+        💥 feat(模块): 添加了个很棒的功能
+        🐛 fix(模块): 修复了一些 bug
+        📝 docs(模块): 更新了一下文档
+        🌷 UI(模块): 修改了一下样式
+        🏰 chore(模块): 对脚手架做了些更改
+        🌐 locale(模块): 为国际化做了微小的贡献
+
+
+模块
+    helper
+    laravel
+    infyomlabs
+    Repository
+    auth
+    用户

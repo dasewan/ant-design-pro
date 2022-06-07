@@ -1,4 +1,4 @@
-import { getNotices } from '@/services/ant-design-pro/api';
+import { getNoticeIconItems as getNotices } from '@/services/ant-design-pro/NoticeIconItem';
 import { message, Tag } from 'antd';
 import { groupBy } from 'lodash';
 import moment from 'moment';
@@ -26,7 +26,7 @@ const getNoticeData = (notices: API.NoticeIconItem[]): Record<string, API.Notice
     }
 
     if (newNotice.id) {
-      newNotice.key = newNotice.id;
+      newNotice.key = newNotice.id + '';
     }
 
     if (newNotice.extra && newNotice.status) {

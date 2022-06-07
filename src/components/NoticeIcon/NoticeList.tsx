@@ -1,3 +1,4 @@
+import type { NoticeIconItemType } from '@/pages/enums';
 import { Avatar, List } from 'antd';
 import classNames from 'classnames';
 import React from 'react';
@@ -9,7 +10,7 @@ export type NoticeIconTabProps = {
   showViewMore?: boolean;
   style?: React.CSSProperties;
   title: string;
-  tabKey: API.NoticeIconItemType;
+  tabKey: NoticeIconItemType;
   onClick?: (item: API.NoticeIconItem) => void;
   onClear?: () => void;
   emptyText?: string;
