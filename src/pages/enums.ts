@@ -19,7 +19,10 @@ export const NEWS_ENUM = {
   17: { text: '部分还款', color: 'green' },
   19: { text: '提额', color: 'green' },
   21: { text: '降额', color: 'red' },
-  23: { text: '逾期', color: 'red' },
+  23: { text: '催记', color: 'blue' },
+  25: { text: '查阅', color: 'blue' },
+  27: { text: '短信', color: 'blue' },
+  29: { text: '拉黑', color: 'red' },
 };
 // 客户当前页面
 export const INDEX_ACTION_ENUM = {

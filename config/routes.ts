@@ -41,6 +41,20 @@
     redirect: '/welcome',
   },
   {
+    name: '客户管理',
+    icon: 'smile',
+    // path: '/auser',
+    // component: './AUser',
+    routes: [
+      {
+        name: '客户管理',
+        icon: 'smile',
+        path: '/auser',
+        component: './AUser',
+      },
+    ],
+  },
+  {
     component: './404',
   },
 ];
