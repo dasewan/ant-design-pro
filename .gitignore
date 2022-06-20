@@ -38,3 +38,15 @@ screenshot
 .eslintcache
 
 build
+/src/services/ant-design-pro/
+/src/services/swagger/
+/src/pages/AUser/_mock.ts
+/src/pages/AUser/components/BlackForm.tsx
+/src/pages/AUser/components/CreateForm.tsx
+/src/pages/AUser/components/CreditForm.tsx
+/src/pages/AUser/data.d.ts
+/src/pages/AUser/components/DrawerFC.tsx
+/src/pages/AUser/index.less
+/src/pages/AUser/index.tsx
+/src/pages/AUser/service.ts
+/src/pages/AUser/components/UpdateForm.tsx
