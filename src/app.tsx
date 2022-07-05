@@ -1,12 +1,17 @@
 import Footer from '@/components/Footer';
 import RightContent from '@/components/RightContent';
+import type { RequestConfig } from '@@/plugin-request/request';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { PageLoading, SettingDrawer } from '@ant-design/pro-components';
+import type { MessageArgsProps } from 'antd';
+import { message } from 'antd';
+import type { ReactChild, ReactFragment, ReactPortal } from 'react';
 import type { RunTimeLayoutConfig } from 'umi';
 import { history, Link } from 'umi';
 import defaultSettings from '../config/defaultSettings';
 import { getAdminV1CurrentUsers as queryCurrentUser } from './services/ant-design-pro/CurrentUser';
+import type { Context } from 'D:/x/github/ant-design-pro/node_modules/umi-request';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -82,7 +87,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
     childrenRender: (children, props) => {
-      // if (initialState?.loading) return <PageLoading />;
+      if (initialState?.loading) return <PageLoading />;
       return (
         <>
           {children}
@@ -104,4 +109,51 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     },
     ...initialState?.settings,
   };
+};
+const errorHandler = function (error: {
+  response: any;
+  data: {
+    message:
+      | string
+      | ReactChild
+      | ReactFragment
+      | ReactPortal
+      | MessageArgsProps
+      | null
+      | undefined;
+  };
+  message: any;
+}) {
+  if (error.response) {
+    // 请求已发送但服务端返回状态码非 2xx 的响应
+    console.log(error);
+    message.error(error.data.message);
+  } else {
+    // 请求初始化时出错或者没有响应返回的异常
+    console.log(error.message);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-throw-literal
+  throw error; // 如果throw. 错误将继续抛出.
+
+  // 如果return, 则将值作为返回. 'return;' 相当于return undefined, 在处理结果时判断response是否有值即可.
+  // return {some: 'data'};
+};
+const demo1Middleware = async (ctx: Context, next: () => void) => {
+  const { req } = ctx;
+  const { options } = req;
+  ctx.req.options.params = {
+    ...options.params,
+    XDEBUG_SESSION_START: 10178,
+  };
+  await next();
+};
+
+const demo2Middleware = async (ctx: Context, next: () => void) => {
+  await next();
+};
+
+export const request: RequestConfig = {
+  errorHandler,
+  middlewares: [demo1Middleware, demo2Middleware],
 };

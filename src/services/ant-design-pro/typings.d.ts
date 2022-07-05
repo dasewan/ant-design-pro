@@ -1,4 +1,235 @@
 declare namespace API {
+  type ABCreditHistory = {
+    /** id */
+    id?: number;
+    /** 用户id* */
+    a_user_id?: number;
+    /** 类型 1：提额 2：降额* */
+    b_type?: number;
+    /** 改动前的授信额度* */
+    c_before_credit_amount?: number;
+    /** 改动金额* */
+    d_amount?: number;
+    /** 管理员id* */
+    e_admin_id?: number;
+    /** 关联订单id* */
+    f_borrow_id?: number;
+    /** 提降额风控id* */
+    g_risk_id?: number;
+    /** 备注 */
+    h_comment?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type ACUserNew = {
+    /** id */
+    id?: number;
+    /** 用户id* */
+    a_user_id?: number;
+    /** 类型  1：注册  3：登录  5：认证  7：机审  9：人审  11：放款  13：展期  15：还款  17：部分还款  19：提额  21：降额* 23:催记（订单：阶段：催员：逾期天数） 25:查阅（系统消息内容） 27:短信（[类型]短信内容） 29:拉黑（备注） */
+    b_type?: number;
+    /** 备注* */
+    c_comment?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type AEBorrowAdminOperate = {
+    /** id */
+    id?: number;
+    /** 用户id* */
+    a_user_id?: number;
+    /** 管理员id* */
+    b_admin_id?: number;
+    /** 1人审 3催记 5发送短信 7拉黑 9关闭订单 11销账 13减免 15展期 17发送优惠券 */
+    c_type?: number;
+    /** 订单id* */
+    d_borrow_id?: number;
+    /** 备注 */
+    e_comment?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type AEBorrowAdminOperates = {
+    /** id */
+    id?: number;
+    /** 用户id* */
+    a_user_id?: number;
+    /** 管理员id* */
+    b_admin_id?: number;
+    /** 1人审 3催记 5发送短信 7拉黑 9关闭订单 11销账 13减免 15展期 17发送优惠券 */
+    c_type?: number;
+    /** 订单id* */
+    d_borrow_id?: number;
+    /** 备注 */
+    e_comment?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type AFChannel = {
+    /** id */
+    id?: number;
+    /** 渠道名称 */
+    a_title?: string;
+    /** 应用ID */
+    b_app_id?: string;
+    /** 应用密钥 */
+    c_app_secret?: string;
+    /** 状态  200:正常   404:冻结 500:禁用 */
+    d_status?: number;
+    /** 渠道类型 */
+    e_type?: string;
+    /** 结算类型 */
+    f_divide_into_type?: string;
+    /** 结算金额 */
+    g_divide_one_money?: number;
+    /** 扣量起始 */
+    h_reg_hide_basic?: number;
+    /** 扣量率（百分比） */
+    i_reg_hide_rate?: number;
+    /** 每日最大注册人数 0为不限制 */
+    j_max_register?: number;
+    /** 媒体串 */
+    k_media_source?: string;
+    /** 推广链接 */
+    l_media_url?: string;
+    /** 本司对接人 */
+    m_self_user?: string;
+    /** 联系人 */
+    n_contact_user?: string;
+    /** 联系电话 */
+    o_contact_phone?: string;
+    /** 联系地址 */
+    p_contact_address?: string;
+    /** 联系备注 */
+    q_contact_comment?: string;
+    /** 本渠道可借产品 */
+    r_products?: string;
+    /** 本渠道可借产品包 */
+    s_products_package?: string;
+    /** 是否存在多笔在途订单  1:允许   0:不允许 */
+    t_allow_many_borrow?: number;
+    /** 每日最大放款笔数 */
+    u_max_loan?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type AGBlackReason = {
+    /** id */
+    id?: number;
+    /** a_k_reasons.id */
+    a_reason_id?: number;
+    /** 备注* */
+    b_comment?: string;
+    /** 批量id* */
+    c_batch_sn?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type AHUserSup = {
+    /** id */
+    id?: number;
+    /** 用户id* */
+    a_user_id?: number;
+    /** 累积提额次数 */
+    b_raise_count?: number;
+    /** 累积提额金额 */
+    c_raise_amount?: number;
+    /** 累积降额次数 */
+    d_drop_count?: number;
+    /** 累积降额金额 */
+    e_drop_amount?: number;
+    /** 催收日志数量 */
+    f_urge_log?: number;
+    /** 短信发送数量 */
+    g_sms_count?: number;
+    /** 推送数量 */
+    h_push_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type AIBlackUser = {
+    /** id */
+    id?: number;
+    /** 用户id* */
+    a_user_id?: number;
+    /** 手机号命中* */
+    c_phone_hit_id?: number;
+    /** 身份证号命中* */
+    d_idnumber_hit_id?: number;
+    /** 身份证号2命中* */
+    e_idnumber2_hit_id?: number;
+    /** 银行卡号命中* */
+    f_bankcard_no_hit_id?: number;
+    /** imei命中* */
+    g_imei_hit_id?: number;
+    /** mac命中* */
+    h_mac_hit_id?: number;
+    /** device命中* */
+    i_device_hit_id?: number;
+    /** 1:当前是黑名单  2：历史是黑名单 */
+    h_status?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type AKReason = {
+    /** id */
+    id?: number;
+    /** 类型 1：拉黑原因 2：关闭原因 3：审批通过原因 4：审批拒绝原因 5：拒绝放款原因 6：平账原因 7：催收原因 */
+    a_type?: number;
+    /** 状态 1：开启 0：关闭 */
+    b_status?: number;
+    /** 原因* */
+    c_title?: string;
+    /** 影响个数* */
+    d_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type AUser = {
     /** id */
     id?: number;
@@ -80,6 +311,8 @@ declare namespace API {
     al_last_ettled_time?: string;
     /** created_at */
     created_at?: string;
+    /** 累计逾期天数* */
+    an_total_overdue_days?: number;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
@@ -182,8 +415,141 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type DBorrow = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** 渠道 */
+    b_channel_id?: number;
+    /** 认证id */
+    c_verify_id?: number;
+    /** 产品id */
+    d_product_id?: number;
+    /** 产品快照id */
+    e_product_snapshots_id?: number;
+    /** 优惠券快照id */
+    f_coupon_snapshots_id?: number;
+    /** 风控id */
+    g_risk_id?: number;
+    /** 订单号 */
+    h_sn?: string;
+    /** 三方订单号 */
+    i_outer_sn?: string;
+    /** 状态 */
+    j_status?: number;
+    /** 状态明细 */
+    k_sub_status?: number;
+    /** 借款次数 */
+    l_borrow_count?: number;
+    /** 借款金额 */
+    m_borrow_amount?: number;
+    /** 下次金额计算基数 */
+    n_sub_borrow_amount?: number;
+    /** 成功放款时间 */
+    o_loan_time?: string;
+    /** 放款金额 */
+    p_loan_amount?: number;
+    /** 应还款时间 */
+    q_expect_repay_time?: string;
+    /** 应还金额 */
+    r_amount_due?: number;
+    /** 已还金额 */
+    s_amount_paid?: number;
+    /** 结清时间 */
+    t_settled_time?: string;
+    /** 结清期数(分期) */
+    u_settled_period?: string;
+    /** 结清金额 */
+    v_amount_due?: number;
+    /** 损益（逾期或者结清后计算才展示损益，否则展示为空） */
+    w_loss_amount?: number;
+    /** 订单信息计算日期（计划任务计算日期，） */
+    x_calculate_date?: string;
+    /** 是否展示展期按钮 */
+    y_show_extend_btn?: number;
+    /** 最近一次展期时间 */
+    z_last_extend_time?: string;
+    /** 风控分数 */
+    aa_risk_score?: number;
+    /** 展期次数 */
+    ab_extend_times?: number;
+    /** 部分还款次数 */
+    ac_partial_times?: number;
+    /** 减免次数 */
+    ad_reduce_times?: number;
+    /** 优惠券次数 */
+    ae_coupon_times?: number;
+    /** 查看次数(电销,审核,催收人员) */
+    af_operate_times?: number;
+    /** 间隔天数（距离上次结清后再创建订单时的天数） */
+    ag_span_days?: number;
+    /** 累计逾期天数 */
+    ah_total_overdue_days?: number;
+    /** 逾期天数 (计划任务更新) */
+    ai_overdue_days?: number;
+    /** 身份证1 */
+    aj_idnumber?: string;
+    /** 电话 */
+    ak_phone?: string;
+    /** 姓名1 */
+    al_name1?: string;
+    /** 银行卡 */
+    am_bankcard?: string;
+    /** 姓名2 */
+    an_name3?: string;
+    /** 标签 */
+    ao_tags?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type deleteACUserNewsIdParams = {
+    /** id of ACUserNew */
+    id: number;
+  };
+
+  type deleteAdminV1ABCreditHistoriesIdParams = {
+    /** id of ABCreditHistory */
+    id: number;
+  };
+
+  type deleteAdminV1AGBlackReasonsIdParams = {
+    /** id of AGBlackReason */
+    id: number;
+  };
+
+  type deleteAdminV1AKReasonsIdParams = {
+    /** id of AKReason */
+    id: number;
+  };
+
+  type deleteAdminV1AUsersIdParams = {
+    /** id of AUser */
+    id: number;
+  };
+
   type deleteAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
+    id: number;
+  };
+
+  type deleteAEBorrowAdminOperatesIdParams = {
+    /** id of AEBorrowAdminOperate */
+    id: number;
+  };
+
+  type deleteAFChannelsIdParams = {
+    /** id of AFChannel */
+    id: number;
+  };
+
+  type deleteAHUserSupsIdParams = {
+    /** id of AHUserSup */
     id: number;
   };
 
@@ -192,14 +558,128 @@ declare namespace API {
     id: number;
   };
 
+  type deleteRBlacksIdParams = {
+    /** id of RBlack */
+    id: number;
+  };
+
+  type deleteUsersIdParams = {
+    /** id of User */
+    id: number;
+  };
+
+  type getACUserNewsIdParams = {
+    /** id of ACUserNew */
+    id: number;
+  };
+
+  type getAdminV1ABCreditHistoriesIdParams = {
+    /** id of ABCreditHistory */
+    id: number;
+  };
+
+  type getAdminV1ABCreditHistoriesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1ACUserNewsParams = {
+    /** a_user_id */
+    a_user_id: number;
+  };
+
+  type getAdminV1AGBlackReasonsIdParams = {
+    /** id of AGBlackReason */
+    id: number;
+  };
+
+  type getAdminV1AGBlackReasonsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1AKReasonsIdParams = {
+    /** id of AKReason */
+    id: number;
+  };
+
+  type getAdminV1AKReasonsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1AUsersIdParams = {
+    /** id of AUser */
+    id: number;
+  };
+
+  type getAdminV1AUsersParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1ChannelsEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
     id: number;
   };
 
+  type getAdminV1UsersEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAEBorrowAdminOperatesIdParams = {
+    /** id of AEBorrowAdminOperate */
+    id: number;
+  };
+
+  type getAFChannelsIdParams = {
+    /** id of AFChannel */
+    id: number;
+  };
+
+  type getAFChannelsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAHUserSupsIdParams = {
+    /** id of AHUserSup */
+    id: number;
+  };
+
+  type getAHUserSupsParams = {
+    /** Page */
+    current: number;
+    /** pageSize */
+    pageSize: number;
+  };
+
   type getNoticeIconItemsIdParams = {
     /** id of NoticeIconItem */
     id: number;
+  };
+
+  type getRBlacksIdParams = {
+    /** id of RBlack */
+    id: number;
+  };
+
+  type getUsersIdParams = {
+    /** id of User */
+    id: number;
+  };
+
+  type getUsersParams = {
+    /** Page */
+    current: number;
+    /** pageSize */
+    pageSize: number;
   };
 
   type GVerify = {
@@ -566,13 +1046,63 @@ declare namespace API {
     updated_at?: string;
   };
 
+  type putACUserNewsIdParams = {
+    /** id of ACUserNew */
+    id: number;
+  };
+
+  type putAdminV1ABCreditHistoriesIdParams = {
+    /** id of ABCreditHistory */
+    id: number;
+  };
+
+  type putAdminV1AGBlackReasonsIdParams = {
+    /** id of AGBlackReason */
+    id: number;
+  };
+
+  type putAdminV1AKReasonsIdParams = {
+    /** id of AKReason */
+    id: number;
+  };
+
+  type putAdminV1AUsersIdParams = {
+    /** id of AUser */
+    id: number;
+  };
+
   type putAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
     id: number;
   };
 
+  type putAEBorrowAdminOperatesIdParams = {
+    /** id of AEBorrowAdminOperate */
+    id: number;
+  };
+
+  type putAFChannelsIdParams = {
+    /** id of AFChannel */
+    id: number;
+  };
+
+  type putAHUserSupsIdParams = {
+    /** id of AHUserSup */
+    id: number;
+  };
+
   type putNoticeIconItemsIdParams = {
     /** id of NoticeIconItem */
+    id: number;
+  };
+
+  type putRBlacksIdParams = {
+    /** id of RBlack */
+    id: number;
+  };
+
+  type putUsersIdParams = {
+    /** id of User */
     id: number;
   };
 
@@ -619,6 +1149,71 @@ declare namespace API {
     s_on_submitted?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+  };
+
+  type RBlack = {
+    /** id */
+    id?: number;
+    /** 信息* */
+    a_info?: string;
+    /** 信息命中次数* */
+    b_hit_count?: number;
+    /** 1:手机号 2:身份证号 3:身份证2号 4:银行卡 5:imei 6:mac 7:设备 */
+    c_type?: number;
+    /** 结束时间* */
+    d_overdate?: string;
+    /** 管理员id* */
+    e_admin_id?: number;
+    /** 原因 */
+    f_black_reason_id?: string;
+    /** 类型 1：导入黑名单 2：系统录入 3：管理员录入* */
+    g_type?: number;
+    /** 备注 */
+    h_remark?: string;
+    /** 是否已扫描* 0：未扫描 1：已扫描 */
+    i_scan?: number;
+    /** 扫描结束时间* */
+    j_scan_date?: string;
+    /** 影响灰名单数量 */
+    k_gray_hit_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type RBlackComplex = {
+    /** user_id */
+    user_id?: number;
+    /** a_reason_id */
+    a_reason_id?: number;
+    /** d_overdate */
+    d_overdate?: string;
+    /** 信息* */
+    b_comment?: string;
+  };
+
+  type User = {
+    /** id */
+    id?: number;
+    /** role_id */
+    role_id?: number;
+    /** name */
+    name: string;
+    /** email */
+    email: string;
+    /** email_verified_at */
+    email_verified_at?: string;
+    /** password */
+    password: string;
+    /** remember_token */
+    remember_token?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */

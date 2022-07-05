@@ -26,23 +26,23 @@ export const NEWS_ENUM = {
 };
 // 客户当前页面
 export const INDEX_ACTION_ENUM = {
-  11: { text: '创建订单' },
-  12: { text: '认证列表' },
-  13: { text: '活体' },
-  14: { text: '签约' },
-  21: { text: '待机审' },
-  22: { text: '待人审' },
-  23: { text: '待放款', status: 'Success' },
-  31: { text: '活体被拒', status: 'Error' },
-  32: { text: '机审被拒', status: 'Error' },
-  33: { text: '人审被拒', status: 'Error' },
+  11: { text: '创建订单', status: 'Processing' },
+  12: { text: '认证列表', status: 'Processing' },
+  13: { text: '活体', status: 'Processing' },
+  14: { text: '签约', status: 'Processing' },
+  21: { text: '待机审', status: 'Processing' },
+  22: { text: '待人审', status: 'Processing' },
+  23: { text: '待放款', status: 'Processing' },
+  31: { text: '活体被拒', status: 'Warning' },
+  32: { text: '机审被拒', status: 'Warning' },
+  33: { text: '人审被拒', status: 'Warning' },
   41: { text: '逾前还款', status: 'Success' },
   42: { text: '还款日', status: 'Success' },
   43: { text: '逾期', status: 'Error' },
   44: { text: '严重逾期', status: 'Error' },
-  52: { text: '认证列表' },
-  53: { text: '活体' },
-  54: { text: '签约' },
+  52: { text: '认证列表', status: 'Processing' },
+  53: { text: '活体', status: 'Processing' },
+  54: { text: '签约', status: 'Processing' },
 };
 //授信
 export const CREDIT_TYPE_ENUM = {

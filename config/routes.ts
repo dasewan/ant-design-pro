@@ -41,15 +41,15 @@
     redirect: '/welcome',
   },
   {
-    name: '客户管理',
+    name: 'user',
     icon: 'smile',
-    // path: '/auser',
+    // path: '/user',
     // component: './AUser',
     routes: [
       {
-        name: '客户管理',
+        name: 'user-list',
         icon: 'smile',
-        path: '/auser',
+        path: '/user-list',
         component: './AUser',
       },
     ],
