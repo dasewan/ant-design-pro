@@ -51,4 +51,7 @@ export default {
   'menu.editor.koni': '拓扑编辑器',
   'menu.user': '用户管理',
   'menu.user.user-list': '用户列表',
+  'menu.user.blackinfo-list': '黑名单信息',
+  'menu.user.blackinfo-list.blackphone-list': '手机号码',
+  'menu.user.blackinfo-list.blackidnumber-list': '证件号',
 };

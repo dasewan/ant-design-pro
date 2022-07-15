@@ -52,6 +52,29 @@
         path: '/user-list',
         component: './AUser',
       },
+      {
+        name: 'blackinfo-list',
+        icon: 'smile',
+        path: '/blackinfo-list',
+        component: './RBlack',
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            name: 'blackphone-list',
+            icon: 'smile',
+            path: '/blackinfo-list/phone',
+            component: './RBlack/Phone',
+            // hideInMenu:true,
+          },
+          {
+            name: 'blackidnumber-list',
+            icon: 'smile',
+            path: '/blackinfo-list/idnumber',
+            component: './RBlack/Idnumber',
+            // hideInMenu:true,
+          },
+        ],
+      },
     ],
   },
   {

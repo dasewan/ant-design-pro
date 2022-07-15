@@ -230,6 +230,56 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type ALAdminFile = {
+    /** id */
+    id?: number;
+    /** 用户id* */
+    a_admin_id?: number;
+    /** 上传类型 1：黑名单 2：电销 3：批量发送短信  */
+    b_type?: number;
+    /** 状态 1：上传成功 2：导入成功 */
+    c_status?: number;
+    /** facebook* */
+    d_original_filename?: string;
+    /** 文件大小 */
+    e_filesize?: number;
+    /** facebook* */
+    f_mime_type?: string;
+    /** facebook* */
+    g_new_filename?: string;
+    /** 加密密码* */
+    h_password?: string;
+    /** 文件* */
+    file?: string;
+    /** 下载次数* */
+    i_download_times?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type AMBlackHitHistory = {
+    /** id */
+    id?: number;
+    /** 黑名单id* */
+    a_black_id: number;
+    /** 用户id* */
+    b_user_id: number;
+    /** 手机号码 */
+    c_user_phone?: string;
+    /** 借款次数* */
+    d_loan_count: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type AUser = {
     /** id */
     id?: number;
@@ -523,8 +573,23 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1AIBlackUsersIdParams = {
+    /** id of AIBlackUser */
+    id: number;
+  };
+
   type deleteAdminV1AKReasonsIdParams = {
     /** id of AKReason */
+    id: number;
+  };
+
+  type deleteAdminV1ALAdminFilesIdParams = {
+    /** id of ALAdminFile */
+    id: number;
+  };
+
+  type deleteAdminV1AMBlackHitHistoriesIdParams = {
+    /** id of AMBlackHitHistory */
     id: number;
   };
 
@@ -555,11 +620,6 @@ declare namespace API {
 
   type deleteNoticeIconItemsIdParams = {
     /** id of NoticeIconItem */
-    id: number;
-  };
-
-  type deleteRBlacksIdParams = {
-    /** id of RBlack */
     id: number;
   };
 
@@ -598,12 +658,47 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1AIBlackUsersIdParams = {
+    /** id of AIBlackUser */
+    id: number;
+  };
+
+  type getAdminV1AIBlackUsersParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1AKReasonsIdParams = {
     /** id of AKReason */
     id: number;
   };
 
   type getAdminV1AKReasonsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1ALAdminFilesIdParams = {
+    /** id of ALAdminFile */
+    id: number;
+  };
+
+  type getAdminV1ALAdminFilesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1ALAdminFilesTempleteNameParams = {
+    /** id of ALAdminFile */
+    name: string;
+  };
+
+  type getAdminV1AMBlackHitHistoriesIdParams = {
+    /** id of AMBlackHitHistory */
+    id: number;
+  };
+
+  type getAdminV1AMBlackHitHistoriesParams = {
     /** foo */
     foo: number;
   };
@@ -618,6 +713,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1CaptchaTypeParams = {
+    /** type of Captcha */
+    id: number;
+  };
+
   type getAdminV1ChannelsEnumParams = {
     /** foo */
     foo: number;
@@ -626,6 +726,11 @@ declare namespace API {
   type getAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
     id: number;
+  };
+
+  type getAdminV1RBlacksParams = {
+    /** foo */
+    foo: number;
   };
 
   type getAdminV1UsersEnumParams = {
@@ -1061,8 +1166,23 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1AIBlackUsersIdParams = {
+    /** id of AIBlackUser */
+    id: number;
+  };
+
   type putAdminV1AKReasonsIdParams = {
     /** id of AKReason */
+    id: number;
+  };
+
+  type putAdminV1ALAdminFilesIdParams = {
+    /** id of ALAdminFile */
+    id: number;
+  };
+
+  type putAdminV1AMBlackHitHistoriesIdParams = {
+    /** id of AMBlackHitHistory */
     id: number;
   };
 
@@ -1197,6 +1317,8 @@ declare namespace API {
     d_overdate?: string;
     /** 信息* */
     b_comment?: string;
+    /** 批量id（a_l_admin_file.id） */
+    c_batch_sn?: number;
   };
 
   type User = {

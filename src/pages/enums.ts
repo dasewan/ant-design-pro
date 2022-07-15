@@ -172,3 +172,8 @@ export const COMMON_STATUS_YUNXU_ARRAY = [
   { label: '允许', value: 'y' },
   { label: '不允许', value: 'n' },
 ];
+export const BLACK_TYPE = {
+  1: { text: '导入excel', status: '' },
+  2: { text: '系统', status: 'Error' },
+  3: { text: '管理员手动', status: 'Error' },
+};
