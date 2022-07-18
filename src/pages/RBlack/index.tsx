@@ -41,7 +41,6 @@ const RBlack: FC<RBlackProps> = (props) => {
 
   const _handleTabChange = (key: string) => {
     const url = match.url === '/' ? '' : match.url;
-    console.log(url, key);
     history.push(`${url}/${key}`);
   };
 

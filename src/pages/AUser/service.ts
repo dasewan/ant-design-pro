@@ -2,7 +2,11 @@
 /* eslint-disable */
 
 // export { postRBlacks } from '@/services/ant-design-pro/RBlack';
-export { postAdminV1ABCreditHistories } from '@/services/ant-design-pro/ABCreditHistory';
+export {
+  getAdminV1ABCreditHistories as getABCreditHistories,
+  postAdminV1ABCreditHistories as postABCreditHistories,
+  postAdminV1ABCreditHistories,
+} from '@/services/ant-design-pro/ABCreditHistory';
 export { getAdminV1ACUserNews as getACUserNews } from '@/services/ant-design-pro/ACUserNew';
 export { getAEBorrowAdminOperatesId as operates } from '@/services/ant-design-pro/AEBorrowAdminOperate';
 export { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';

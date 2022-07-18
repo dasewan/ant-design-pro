@@ -644,8 +644,8 @@ declare namespace API {
   };
 
   type getAdminV1ACUserNewsParams = {
-    /** a_user_id */
-    a_user_id: number;
+    /** foo */
+    foo: number;
   };
 
   type getAdminV1AGBlackReasonsIdParams = {

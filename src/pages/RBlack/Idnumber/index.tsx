@@ -95,13 +95,9 @@ const TableList: React.FC = () => {
    */
   const _getAKReasons = async () => {
     const data: RequestOptionsType[] = [];
-    console.log('_getAKReasons');
-    console.log(reasons.length);
     if (reasons.length == 0) {
       const res = await getAKReasons({ foo: 1 });
-      console.log(res);
       for (const item of res.data!) {
-        console.log(item);
         data.push({
           label: item.c_title,
           value: item.id,
@@ -133,7 +129,6 @@ const TableList: React.FC = () => {
       return true;
     } catch (error) {
       hide();
-      console.log(error);
       message.error('配置失败请重试！');
       return false;
     }
@@ -331,7 +326,6 @@ const TableList: React.FC = () => {
         }}
         pagination={{
           pageSize: 50,
-          onChange: (page) => console.log(page),
         }}
       />
       <DrawerFC

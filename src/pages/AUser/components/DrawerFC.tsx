@@ -9,7 +9,7 @@ export type DrawerFCProps = {
   onClose: () => void;
   currentRow: API.AUser;
   type: string;
-  aCUserNews: Map<number, API.ACUserNew[]>;
+  data: API.ACUserNew[];
   id: number;
 };
 
@@ -23,23 +23,19 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
       }}
       closable={false}
     >
-      {props.type == 'aCUserNews' && props.aCUserNews.has(props.id) && (
+      {props.type == 'aCUserNews' && (
         <ProList<API.ACUserNew>
-          onRow={(record: any) => {
+          onRow={() => {
             return {
-              onMouseEnter: () => {
-                console.log(record);
-              },
-              onClick: () => {
-                console.log(record);
-              },
+              onMouseEnter: () => {},
+              onClick: () => {},
             };
           }}
           // loading={props.aCUserNews.get(props.id) ? false:true}
           rowKey="name"
           headerTitle={props.currentRow?.a_phone}
           tooltip="记录用户部分节点"
-          dataSource={props.aCUserNews.get(props.id)}
+          dataSource={props.data}
           showActions="hover"
           showExtra="hover"
           metas={{
@@ -57,7 +53,6 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
             },
             subTitle: {
               render: (_, value) => {
-                console.log(NEWS_ENUM);
                 return (
                   <Space size={0}>
                     <Tag color={NEWS_ENUM[value.b_type!].color}>

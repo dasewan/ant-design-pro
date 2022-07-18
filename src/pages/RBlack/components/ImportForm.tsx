@@ -65,13 +65,11 @@ const ImportForm: React.FC<FormProps> = (props) => {
     if (reasons.length == 0) {
       const res = await getReasonsEnum({ foo: 1 });
       for (const item of res.data!) {
-        console.log(item);
         data.push({
           label: item.c_title,
           value: item.id,
         });
       }
-      console.log(data);
       setReasons(data);
       return data;
     } else {
@@ -112,7 +110,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
       }),
     );
   };
-  const _handleUploadChange = (info: UploadChangeParam) => console.log(info);
+  const _handleUploadChange = (info: UploadChangeParam) => info;
 
   return (
     <ModalForm<FormRecord>

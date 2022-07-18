@@ -1,7 +1,3 @@
-import {
-  getAdminV1ABCreditHistories as index,
-  postAdminV1ABCreditHistories,
-} from '@/services/ant-design-pro/ABCreditHistory';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormRadio, ProFormText } from '@ant-design/pro-form';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -10,6 +6,7 @@ import { Badge, Col, Divider, message, Row, Typography } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from '../data';
+import { getABCreditHistories, postABCreditHistories } from '../service';
 
 const { Text } = Typography;
 
@@ -31,7 +28,7 @@ const handle = async (fields: FormValueType, id: number | undefined) => {
   const hide = message.loading('正在配置');
 
   try {
-    await postAdminV1ABCreditHistories({
+    await postABCreditHistories({
       a_user_id: id,
       ...fields,
     });
@@ -122,10 +119,9 @@ const CreditForm: React.FC<FormProps> = (props) => {
         options={false}
         rowKey="id"
         // @ts-ignore
-        request={() => index({ a_user_id: props.values.id! })}
+        request={() => getABCreditHistories({ a_user_id: props.values.id! })}
         columns={columns}
         postData={(data: any[]) => {
-          console.log(data);
           return data;
         }}
       />

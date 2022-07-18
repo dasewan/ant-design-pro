@@ -3,7 +3,7 @@ import { TableDropdown } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Rate, Spin } from 'antd';
+import { Rate, Spin, Tag } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
@@ -19,8 +19,11 @@ import DrawerFC from './components/DrawerFC';
 
 const TableList: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  /** 授信model */
   const [creditModalVisible, handleCreditModalVisible] = useState<boolean>(false);
+  /** 黑名单model */
   const [blackModalVisible, handleBlackModalVisible] = useState<boolean>(false);
+  /** drawer是否显示 */
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<TableListItem>();
@@ -54,11 +57,6 @@ const TableList: React.FC = () => {
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
-    const tmp = res.aFChannels as API.AFChannel[];
-    const aFChannels = {};
-    tmp.map((item) => {
-      aFChannels[item.id!] = { text: item.a_title };
-    });
     return {
       data: res.data,
       // success 请返回 true，
@@ -89,7 +87,6 @@ const TableList: React.FC = () => {
     if (admins.length == 0) {
       const res = await getUserEnum({ foo: 1 });
       for (const item of res.data!) {
-        console.log(item);
         data.push({
           label: item.name,
           value: item.id,
@@ -110,13 +107,11 @@ const TableList: React.FC = () => {
     if (reasons.length == 0) {
       const res = await getReasonsEnum({ foo: 1 });
       for (const item of res.data!) {
-        console.log(item);
         data.push({
           label: item.c_title,
           value: item.id,
         });
       }
-      console.log(data);
       setReasons(data);
       return data;
     } else {
@@ -132,13 +127,11 @@ const TableList: React.FC = () => {
     if (channels.length == 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
-        console.log(item);
         data.push({
           label: item.a_title,
           value: item.id,
         });
       }
-      console.log(data);
       setChannels(data);
       return data;
     } else {
@@ -155,6 +148,7 @@ const TableList: React.FC = () => {
     setId(_id);
     if (!aCUserNews.get(_id) || aCUserNews.get(_id)?.length == 0) {
       setLoading(true);
+      // @ts-ignore
       const res = await getACUserNews({ a_user_id: _id });
       const tmp = res.data as API.ACUserNew[];
       aCUserNews.set(_id, tmp);
@@ -227,11 +221,25 @@ const TableList: React.FC = () => {
       title: '信用分',
       dataIndex: 'g_credit_fraction',
       fieldProps: { placeholder: '支持区间' },
+      render: (_, record) => {
+        if (record.q_block_type == 'black') {
+          return <Tag color="FF0000">{_}</Tag>;
+        } else if (record.q_block_type == 'gray') {
+          return <Tag color="#FFCC00">{_}</Tag>;
+        } else if (record.q_block_type == 'white') {
+          return <Tag color="#87d068">{_}</Tag>;
+        } else {
+          return _;
+        }
+      },
     },
     {
       title: '授信额度',
       dataIndex: 'f_credit_amount',
       fieldProps: { placeholder: '支持区间' },
+      render: (_, record) => {
+        return record.q_block_type == 'black' ? <del>{_}</del> : _;
+      },
     },
     {
       title: '客户当前页面',
@@ -363,21 +371,23 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
-        const menuItems = [{ key: 'credit', name: '授信', icon: <SubnodeOutlined /> }];
+        const menuItems = [];
         if (record.q_block_type != 'black') {
           menuItems.push({ key: 'black', name: '拉黑', icon: <LockOutlined /> });
+          menuItems.push({ key: 'credit', name: '授信', icon: <SubnodeOutlined /> });
         }
-        const dropDown = (
-          <TableDropdown
-            key="actionGroup"
-            // onSelect={onClick}
-            onSelect={(e) => {
-              setCurrentRow(record);
-              _onActionClick(e);
-            }}
-            menus={menuItems}
-          />
-        );
+        const dropDown =
+          menuItems.length > 0 ? (
+            <TableDropdown
+              key="actionGroup"
+              // onSelect={onClick}
+              onSelect={(e) => {
+                setCurrentRow(record);
+                _onActionClick(e);
+              }}
+              menus={menuItems}
+            />
+          ) : null;
         return [
           <a
             key="credit_amount"
@@ -399,7 +409,7 @@ const TableList: React.FC = () => {
     <Spin tip="Loading..." spinning={loading}>
       <PageContainer>
         <ProTable<TableListItem, TableListPagination>
-          headerTitle="客户列表"
+          // headerTitle="客户列表"
           revalidateOnFocus={false}
           actionRef={actionRef}
           rowKey="id"
@@ -413,7 +423,6 @@ const TableList: React.FC = () => {
           }}
           pagination={{
             pageSize: 50,
-            onChange: (page) => console.log(page),
           }}
         />
         <CreditForm
@@ -462,7 +471,7 @@ const TableList: React.FC = () => {
           }}
           currentRow={currentRow!}
           type={type}
-          aCUserNews={aCUserNews}
+          data={aCUserNews.get(id)!}
           id={id}
         />
       </PageContainer>

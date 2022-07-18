@@ -361,6 +361,8 @@ declare namespace API {
     al_last_ettled_time?: string;
     /** created_at */
     created_at?: string;
+    /** 累计逾期天数* */
+    an_total_overdue_days?: number;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
@@ -601,6 +603,21 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAEBorrowAdminOperatesIdParams = {
+    /** id of AEBorrowAdminOperate */
+    id: number;
+  };
+
+  type deleteAFChannelsIdParams = {
+    /** id of AFChannel */
+    id: number;
+  };
+
+  type deleteAHUserSupsIdParams = {
+    /** id of AHUserSup */
+    id: number;
+  };
+
   type deleteNoticeIconItemsIdParams = {
     /** id of NoticeIconItem */
     id: number;
@@ -627,8 +644,8 @@ declare namespace API {
   };
 
   type getAdminV1ACUserNewsParams = {
-    /** a_user_id */
-    a_user_id: number;
+    /** foo */
+    foo: number;
   };
 
   type getAdminV1AGBlackReasonsIdParams = {
@@ -711,9 +728,63 @@ declare namespace API {
     id: number;
   };
 
+  type getAdminV1RBlacksParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1UsersEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAEBorrowAdminOperatesIdParams = {
+    /** id of AEBorrowAdminOperate */
+    id: number;
+  };
+
+  type getAFChannelsIdParams = {
+    /** id of AFChannel */
+    id: number;
+  };
+
+  type getAFChannelsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAHUserSupsIdParams = {
+    /** id of AHUserSup */
+    id: number;
+  };
+
+  type getAHUserSupsParams = {
+    /** Page */
+    current: number;
+    /** pageSize */
+    pageSize: number;
+  };
+
   type getNoticeIconItemsIdParams = {
     /** id of NoticeIconItem */
     id: number;
+  };
+
+  type getRBlacksIdParams = {
+    /** id of RBlack */
+    id: number;
+  };
+
+  type getUsersIdParams = {
+    /** id of User */
+    id: number;
+  };
+
+  type getUsersParams = {
+    /** Page */
+    current: number;
+    /** pageSize */
+    pageSize: number;
   };
 
   type GVerify = {
@@ -1125,8 +1196,33 @@ declare namespace API {
     id: number;
   };
 
+  type putAEBorrowAdminOperatesIdParams = {
+    /** id of AEBorrowAdminOperate */
+    id: number;
+  };
+
+  type putAFChannelsIdParams = {
+    /** id of AFChannel */
+    id: number;
+  };
+
+  type putAHUserSupsIdParams = {
+    /** id of AHUserSup */
+    id: number;
+  };
+
   type putNoticeIconItemsIdParams = {
     /** id of NoticeIconItem */
+    id: number;
+  };
+
+  type putRBlacksIdParams = {
+    /** id of RBlack */
+    id: number;
+  };
+
+  type putUsersIdParams = {
+    /** id of User */
     id: number;
   };
 
@@ -1173,6 +1269,73 @@ declare namespace API {
     s_on_submitted?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+  };
+
+  type RBlack = {
+    /** id */
+    id?: number;
+    /** 信息* */
+    a_info?: string;
+    /** 信息命中次数* */
+    b_hit_count?: number;
+    /** 1:手机号 2:身份证号 3:身份证2号 4:银行卡 5:imei 6:mac 7:设备 */
+    c_type?: number;
+    /** 结束时间* */
+    d_overdate?: string;
+    /** 管理员id* */
+    e_admin_id?: number;
+    /** 原因 */
+    f_black_reason_id?: string;
+    /** 类型 1：导入黑名单 2：系统录入 3：管理员录入* */
+    g_type?: number;
+    /** 备注 */
+    h_remark?: string;
+    /** 是否已扫描* 0：未扫描 1：已扫描 */
+    i_scan?: number;
+    /** 扫描结束时间* */
+    j_scan_date?: string;
+    /** 影响灰名单数量 */
+    k_gray_hit_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type RBlackComplex = {
+    /** user_id */
+    user_id?: number;
+    /** a_reason_id */
+    a_reason_id?: number;
+    /** d_overdate */
+    d_overdate?: string;
+    /** 信息* */
+    b_comment?: string;
+    /** 批量id（a_l_admin_file.id） */
+    c_batch_sn?: number;
+  };
+
+  type User = {
+    /** id */
+    id?: number;
+    /** role_id */
+    role_id?: number;
+    /** name */
+    name: string;
+    /** email */
+    email: string;
+    /** email_verified_at */
+    email_verified_at?: string;
+    /** password */
+    password: string;
+    /** remember_token */
+    remember_token?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
