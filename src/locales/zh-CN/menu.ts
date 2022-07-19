@@ -54,4 +54,7 @@ export default {
   'menu.user.blackinfo-list': '黑名单信息',
   'menu.user.blackinfo-list.blackphone-list': '手机号码',
   'menu.user.blackinfo-list.blackidnumber-list': '证件号',
+  'menu.user.black-user-list': '黑名单用户',
+  'menu.user.black-user-list.black-user': '黑名单用户',
+  'menu.user.black-user-list.black-user-with-repay': '已结清黑名单用户',
 };

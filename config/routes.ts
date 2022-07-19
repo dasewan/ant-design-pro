@@ -75,6 +75,27 @@
           },
         ],
       },
+      {
+        name: 'black-user-list',
+        icon: 'smile',
+        path: '/black-user-list',
+        component: './AIBlackUser',
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            name: 'black-user',
+            icon: 'smile',
+            path: '/black-user-list/black-user',
+            component: './AIBlackUser/BlackUser',
+          },
+          {
+            name: 'black-user-with-repay',
+            icon: 'smile',
+            path: '/black-user-list/black-user-with-repay',
+            component: './AIBlackUser/BlackUserWithRepay',
+          },
+        ],
+      },
     ],
   },
   {
