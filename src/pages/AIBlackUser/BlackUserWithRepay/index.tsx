@@ -204,7 +204,6 @@ const TableList: React.FC = () => {
         }),
       },
     },
-
     //todo 跳转到此用户规则匹配记录
     {
       title: '信用分',
@@ -390,6 +389,34 @@ const TableList: React.FC = () => {
       hideInTable: true,
       valueType: 'checkbox',
       valueEnum: hitEnum,
+    },
+    {
+      title: '结清时间',
+      dataIndex: ['a_user', 'al_last_ettled_time'],
+      valueType: 'dateRange',
+      render: (_, record) => {
+        return moment(record.a_user!.al_last_ettled_time).format('YY-MM-DD HH:mm');
+      },
+      search: {
+        transform: (value: any) => ({
+          'a_user-al_last_ettled_time[0]': value[0],
+          'a_user-al_last_ettled_time[1]': value[1],
+        }),
+      },
+    },
+    {
+      title: '最近访问时间',
+      dataIndex: ['a_user', 'am_access_time'],
+      valueType: 'dateRange',
+      render: (_, record) => {
+        return moment(record.a_user!.am_access_time).format('YY-MM-DD HH:mm');
+      },
+      search: {
+        transform: (value: any) => ({
+          'a_user-am_access_time[0]': value[0],
+          'a_user-am_access_time[1]': value[1],
+        }),
+      },
     },
     {
       title: '操作',
