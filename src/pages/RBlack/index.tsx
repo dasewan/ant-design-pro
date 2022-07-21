@@ -1,9 +1,11 @@
 import ImportForm from '@/pages/RBlack/components/ImportForm';
+import { getRBlackTab } from '@/pages/RBlack/service';
 import { DownloadOutlined, EllipsisOutlined, FileTextOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
+import type { TabPaneProps } from 'antd';
 import { Button, Dropdown, Menu } from 'antd';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { history } from 'umi';
 
 type RBlackProps = {
@@ -16,26 +18,53 @@ type RBlackProps = {
   };
 };
 
-const tabList = [
-  {
-    key: 'phone',
-    tab: '手机号码',
-  },
-  {
-    key: 'idnumber',
-    tab: '证件号',
-  },
-  {
-    key: 'bankcard',
-    tab: '银行卡号',
-  },
-];
-
 const RBlack: FC<RBlackProps> = (props) => {
+  /** 导入黑名单excel */
   const [importModalVisible, handleImportModalVisible] = useState<boolean>(false);
+  /** tabs */
+  const [tabList, setTabList] = useState<
+    (TabPaneProps & {
+      key?: React.ReactText;
+    })[]
+  >([
+    {
+      key: 'phone',
+      tab: '手机号码',
+    },
+    {
+      key: 'idnumber',
+      tab: '证件号',
+    },
+    {
+      key: 'bankcard',
+      tab: '银行卡号',
+    },
+  ]);
   const { match } = props;
+  /** 获取tab */
+  const _getRBlackTab = async () => {
+    // @ts-ignore
+    const res = await getRBlackTab({ foo: null });
+    tabList.forEach((value) => {
+      const tabCount = res.data?.find((item: API.CommonTab) => item.key == value.key)?.tab_count;
+      const todayCount = res.data?.find(
+        (item: API.CommonTab) => item.key == value.key,
+      )?.today_count;
+      if (tabCount != undefined && tabCount > 0) {
+        value.tab = (
+          <div>
+            {value.tab + ' ' + tabCount}
+            <span className={'statistic-today-increase'}>
+              {todayCount != undefined && todayCount > 0 ? '+' + todayCount : ''}
+            </span>
+          </div>
+        );
+      }
+    });
+    setTabList(tabList);
+  };
   useEffect(() => {
-    history.push(`/blackinfo-list/phone`);
+    _getRBlackTab().then(() => history.push(`/blackinfo-list/phone`));
     return () => {};
   }, []);
 

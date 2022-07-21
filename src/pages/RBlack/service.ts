@@ -7,5 +7,6 @@ export { getAdminV1CaptchaType as getCaptchaType } from '@/services/ant-design-p
 export {
   deleteAdminV1RBlacksId as destory,
   getAdminV1RBlacks as index,
+  getAdminV1RBlackTab as getRBlackTab,
 } from '@/services/ant-design-pro/RBlack';
 export { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';

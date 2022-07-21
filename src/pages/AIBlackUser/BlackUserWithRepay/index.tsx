@@ -391,7 +391,11 @@ const TableList: React.FC = () => {
       valueEnum: hitEnum,
     },
     {
-      title: '结清时间',
+      title: (
+        <Badge dot offset={[3, 0]} color={'green'}>
+          <span className="ant-table-cell-content">结清时间</span>
+        </Badge>
+      ),
       dataIndex: ['a_user', 'al_last_ettled_time'],
       valueType: 'dateRange',
       render: (_, record) => {
@@ -405,7 +409,11 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '最近访问时间',
+      title: (
+        <Badge dot offset={[3, 0]} color={'green'}>
+          <span className="ant-table-cell-content">最近访问时间</span>
+        </Badge>
+      ),
       dataIndex: ['a_user', 'am_access_time'],
       valueType: 'dateRange',
       render: (_, record) => {
