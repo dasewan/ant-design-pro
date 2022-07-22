@@ -104,7 +104,7 @@ const RBlack: FC<RBlackProps> = (props) => {
                       <a
                         target="_blank"
                         rel="noopener noreferrer"
-                        href={'/admin/v1/aLAdminFiles_templete/white_info_list.xlsx'}
+                        href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
                       >
                         模版下载
                       </a>

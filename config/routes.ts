@@ -53,6 +53,12 @@
         component: './AUser',
       },
       {
+        name: 'white-info-list',
+        icon: 'smile',
+        path: '/white-info-list',
+        component: './BAWhite',
+      },
+      {
         name: 'blackinfo-list',
         icon: 'smile',
         path: '/blackinfo-list',

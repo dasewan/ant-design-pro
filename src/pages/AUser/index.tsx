@@ -120,7 +120,7 @@ const TableList: React.FC = () => {
   };
 
   /**
-   * 查询管理员enum
+   * 查询渠道enum
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
