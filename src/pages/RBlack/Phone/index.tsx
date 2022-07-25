@@ -5,16 +5,9 @@ import type { ProFormInstance } from '@ant-design/pro-form';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { message, Popover, Spin } from 'antd';
+import { message, Popover } from 'antd';
 import React, { useRef, useState } from 'react';
-import {
-  destory,
-  getAKReasons,
-  getAMBlackHitHistories,
-  getCaptchaType,
-  getUsersEnum,
-  index,
-} from '../service';
+import { destory, getAKReasons, getCaptchaType, getUsersEnum, index } from '../service';
 import type { TableListItem, TableListPagination } from './data';
 
 export type FormValueType = Partial<{ code: string }>;
@@ -28,7 +21,6 @@ export type FormValueType = Partial<{ code: string }>;
 // };
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
-  const [loading, setLoading] = useState(false);
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
   /** 拉黑原因enum */
@@ -37,10 +29,6 @@ const TableList: React.FC = () => {
   const [confirmDisabled, setConfirmDisabled] = useState(true);
   const formRef = useRef<ProFormInstance>();
   const [id, setId] = useState<number>(0);
-  /** 已查询详情的用户动态缓存 */
-  const [aMBlackHitHistories, setAMBlackHitHistories] = useState<
-    Map<number, API.AMBlackHitHistory[]>
-  >(new Map());
   /** drawer */
   const [showDetail, setShowDetail] = useState<boolean>(false);
   /** 当前黑名单信息 */
@@ -133,28 +121,16 @@ const TableList: React.FC = () => {
       return false;
     }
   };
+
   /**
-   * 获取命中历史
-   * @param _id
+   * 授信额度drawer
+   * @param record
    */
-  const _getAMBlackHitHistories = async (_id: number) => {
-    setId(_id);
-    if (!aMBlackHitHistories.get(_id) || aMBlackHitHistories.get(_id)?.length == 0) {
-      setLoading(true);
-      // @ts-ignore
-      const res = await getAMBlackHitHistories({ a_black_id: _id });
-      const tmp = res.data as API.AMBlackHitHistory[];
-      aMBlackHitHistories.set(_id, tmp);
-      setAMBlackHitHistories(aMBlackHitHistories);
-      setShowDetail(true);
-      setLoading(false);
-      return tmp;
-    } else {
-      setShowDetail(true);
-      setLoading(false);
-      return aMBlackHitHistories.get(_id);
-    }
+  const _showDrawer = (record: TableListItem) => {
+    setCurrentRow(record);
+    setShowDetail(true);
   };
+
   /**
    * 验证码
    */
@@ -223,8 +199,7 @@ const TableList: React.FC = () => {
         return record.b_hit_count! > 0 ? (
           <a
             onClick={async () => {
-              await _getAMBlackHitHistories(record.id!);
-              setCurrentRow(record);
+              _showDrawer(record);
             }}
           >
             {record.b_hit_count!}
@@ -311,7 +286,7 @@ const TableList: React.FC = () => {
   ];
 
   return (
-    <Spin tip="Loading..." spinning={loading}>
+    <div>
       <ProTable<TableListItem, TableListPagination>
         revalidateOnFocus={false}
         actionRef={actionRef}
@@ -333,11 +308,9 @@ const TableList: React.FC = () => {
         onClose={() => {
           setShowDetail(false);
         }}
-        data={aMBlackHitHistories.get(id)!}
-        id={id}
         currentRow={currentRow!}
       />
-    </Spin>
+    </div>
   );
 };
 

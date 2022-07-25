@@ -3,11 +3,11 @@ import { TableDropdown } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Rate, Spin, Tag } from 'antd';
+import { Rate, Tag } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { getACUserNews, getChannelsEnum, getReasonsEnum, getUserEnum, index } from './service';
+import { getChannelsEnum, getReasonsEnum, getUserEnum, index } from './service';
 //提降额
 import CreditForm from './components/CreditForm';
 // 加入黑名单
@@ -18,7 +18,6 @@ import { INDEX_ACTION_ENUM } from '../enums';
 import DrawerFC from './components/DrawerFC';
 
 const TableList: React.FC = () => {
-  const [loading, setLoading] = useState(false);
   /** 授信model */
   const [creditModalVisible, handleCreditModalVisible] = useState<boolean>(false);
   /** 黑名单model */
@@ -27,14 +26,12 @@ const TableList: React.FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<TableListItem>();
-  /** 已查询详情的用户id缓存 */
-  const [id, setId] = useState<number>(0);
+
   /** DrawerFC 类型 */
   const [type, setType] = useState<string>('');
   /** 已查询详情的用户id缓存 */
   const [ids, setids] = useState<Set<number>>(new Set());
-  /** 已查询详情的用户动态缓存 */
-  const [aCUserNews, setACUserNews] = useState<Map<number, API.ACUserNew[]>>(new Map());
+
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
   /** 渠道enum */
@@ -140,29 +137,6 @@ const TableList: React.FC = () => {
   };
 
   /**
-   * 获取用户动态
-   * @param _id
-   */
-  const _getACUserNews = async (_id: number) => {
-    setType('aCUserNews');
-    setId(_id);
-    if (!aCUserNews.get(_id) || aCUserNews.get(_id)?.length == 0) {
-      setLoading(true);
-      // @ts-ignore
-      const res = await getACUserNews({ a_user_id: _id });
-      const tmp = res.data as API.ACUserNew[];
-      aCUserNews.set(_id, tmp);
-      setACUserNews(aCUserNews);
-      setShowDetail(true);
-      setLoading(false);
-      return tmp;
-    } else {
-      setShowDetail(true);
-      setLoading(false);
-      return aCUserNews.get(_id);
-    }
-  };
-  /**
    * action操作
    * @param e
    */
@@ -172,6 +146,17 @@ const TableList: React.FC = () => {
     } else if (e == 'credit') {
       handleCreditModalVisible(true);
     }
+  };
+
+  /**
+   * 授信额度drawer
+   * @param record
+   * @param _type
+   */
+  const _showDrawer = (record: TableListItem, _type: string) => {
+    setCurrentRow(record);
+    setType(_type);
+    setShowDetail(true);
   };
 
   const columns: ProColumns<TableListItem>[] = [
@@ -193,9 +178,8 @@ const TableList: React.FC = () => {
       render: (_, record) => {
         return (
           <a
-            onClick={async () => {
-              await _getACUserNews(record.id!);
-              setCurrentRow(record);
+            onClick={() => {
+              _showDrawer(record, 'aCUserNews');
             }}
           >
             {moment(record.created_at).format('YY-MM-DD HH:mm')}
@@ -238,7 +222,15 @@ const TableList: React.FC = () => {
       dataIndex: 'f_credit_amount',
       fieldProps: { placeholder: '支持区间' },
       render: (_, record) => {
-        return record.q_block_type == 'black' ? <del>{_}</del> : _;
+        return (
+          <a
+            onClick={() => {
+              _showDrawer(record, 'aBCreditHistory');
+            }}
+          >
+            {record.f_credit_amount}
+          </a>
+        );
       },
     },
     {
@@ -406,76 +398,72 @@ const TableList: React.FC = () => {
   ];
 
   return (
-    <Spin tip="Loading..." spinning={loading}>
-      <PageContainer>
-        <ProTable<TableListItem, TableListPagination>
-          // headerTitle="客户列表"
-          revalidateOnFocus={false}
-          actionRef={actionRef}
-          rowKey="id"
-          search={{
-            labelWidth: 120,
-          }}
-          request={_index}
-          columns={columns}
-          postData={(data: any[]) => {
-            return data;
-          }}
-          pagination={{
-            pageSize: 50,
-          }}
-        />
-        <CreditForm
-          onSubmit={async (success) => {
-            if (success) {
-              await _remove(currentRow?.id || 0);
-              handleCreditModalVisible(false);
-              setCurrentRow(undefined);
-              if (actionRef.current) {
-                actionRef.current.reload();
-              }
-            }
-          }}
-          onCancel={() => {
+    <PageContainer>
+      <ProTable<TableListItem, TableListPagination>
+        // headerTitle="客户列表"
+        revalidateOnFocus={false}
+        actionRef={actionRef}
+        rowKey="id"
+        search={{
+          labelWidth: 120,
+        }}
+        request={_index}
+        columns={columns}
+        postData={(data: any[]) => {
+          return data;
+        }}
+        pagination={{
+          pageSize: 50,
+        }}
+      />
+      <CreditForm
+        onSubmit={async (success) => {
+          if (success) {
+            await _remove(currentRow?.id || 0);
             handleCreditModalVisible(false);
             setCurrentRow(undefined);
-          }}
-          modalVisible={creditModalVisible}
-          values={currentRow || {}}
-        />
-        <BlackForm
-          onSubmit={async (success) => {
-            if (success) {
-              await _remove(currentRow?.id || 0);
-              setCurrentRow(undefined);
-              handleBlackModalVisible(false);
-              if (actionRef.current) {
-                actionRef.current.reload();
-              }
+            if (actionRef.current) {
+              actionRef.current.reload();
             }
-          }}
-          onCancel={() => {
+          }
+        }}
+        onCancel={() => {
+          handleCreditModalVisible(false);
+          setCurrentRow(undefined);
+        }}
+        modalVisible={creditModalVisible}
+        values={currentRow || {}}
+      />
+      <BlackForm
+        onSubmit={async (success) => {
+          if (success) {
+            await _remove(currentRow?.id || 0);
+            setCurrentRow(undefined);
             handleBlackModalVisible(false);
-            setCurrentRow(undefined);
-          }}
-          modalVisible={blackModalVisible}
-          values={currentRow || {}}
-          columns={columns}
-          reasonEnum={reasons}
-        />
-        <DrawerFC
-          showDetail={showDetail}
-          onClose={() => {
-            setCurrentRow(undefined);
-            setShowDetail(false);
-          }}
-          currentRow={currentRow!}
-          type={type}
-          data={aCUserNews.get(id)!}
-          id={id}
-        />
-      </PageContainer>
-    </Spin>
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+          }
+        }}
+        onCancel={() => {
+          handleBlackModalVisible(false);
+          setCurrentRow(undefined);
+        }}
+        modalVisible={blackModalVisible}
+        values={currentRow || {}}
+        columns={columns}
+        reasonEnum={reasons}
+      />
+      <DrawerFC
+        showDetail={showDetail}
+        onClose={() => {
+          setCurrentRow(undefined);
+          setShowDetail(false);
+        }}
+        aUser={currentRow!}
+        type={type}
+      />
+    </PageContainer>
   );
 };
 

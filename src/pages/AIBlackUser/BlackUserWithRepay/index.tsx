@@ -1,5 +1,4 @@
 import DrawerFC from '@/pages/AUser/components/DrawerFC';
-import { getACUserNews } from '@/pages/AUser/service';
 import type { FormValueType } from '@/pages/RBlack/Idnumber';
 import { getCaptchaType } from '@/pages/RBlack/service';
 import { DollarOutlined } from '@ant-design/icons';
@@ -7,7 +6,7 @@ import { ProForm, ProFormCaptcha } from '@ant-design/pro-components';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Badge, message, Popover, Rate, Spin } from 'antd';
+import { Badge, message, Popover, Rate } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
@@ -24,14 +23,11 @@ const hitEnum = {
 };
 
 const TableList: React.FC = () => {
-  const [loading, setLoading] = useState(false);
   const [currentRow, setCurrentRow] = useState<API.AUser>();
   /** DrawerFC 类型 */
   const [type, setType] = useState<string>('');
   /** 已查询详情的用户id缓存 */
   const [id, setId] = useState<number>(0);
-  /** 已查询详情的用户动态缓存 */
-  const [aCUserNews, setACUserNews] = useState<Map<number, API.ACUserNew[]>>(new Map());
   /** drawer是否显示 */
   const [showDetail, setShowDetail] = useState<boolean>(false);
   /** 验证码确定按钮 */
@@ -66,27 +62,14 @@ const TableList: React.FC = () => {
   };
 
   /**
-   * 获取用户动态
-   * @param _id
+   * 授信额度drawer
+   * @param record
+   * @param _type
    */
-  const _getACUserNews = async (_id: number) => {
-    setType('aCUserNews');
-    setId(_id);
-    if (!aCUserNews.get(_id) || aCUserNews.get(_id)?.length == 0) {
-      setLoading(true);
-      // @ts-ignore
-      const res = await getACUserNews({ a_user_id: _id });
-      const tmp = res.data as API.ACUserNew[];
-      aCUserNews.set(_id, tmp);
-      setACUserNews(aCUserNews);
-      setShowDetail(true);
-      setLoading(false);
-      return tmp;
-    } else {
-      setShowDetail(true);
-      setLoading(false);
-      return aCUserNews.get(_id);
-    }
+  const _showDrawer = (record: API.AUser, _type: string) => {
+    setCurrentRow(record);
+    setType(_type);
+    setShowDetail(true);
   };
 
   /**
@@ -188,9 +171,8 @@ const TableList: React.FC = () => {
       render: (_, record) => {
         return (
           <a
-            onClick={async () => {
-              await _getACUserNews(record.id!);
-              setCurrentRow(record.a_user);
+            onClick={() => {
+              _showDrawer(record.a_user!, 'aCUserNews');
             }}
           >
             {moment(record.a_user!.created_at).format('YY-MM-DD HH:mm')}
@@ -217,6 +199,17 @@ const TableList: React.FC = () => {
       title: '授信额度',
       dataIndex: ['a_user', 'f_credit_amount'],
       fieldProps: { placeholder: '支持区间' },
+      render: (_, record) => {
+        return (
+          <a
+            onClick={() => {
+              _showDrawer(record.a_user!, 'aBCreditHistory');
+            }}
+          >
+            {record.a_user!.f_credit_amount}
+          </a>
+        );
+      },
       search: {
         transform: (value: any) => ({ 'a_user-f_credit_amount': value }),
       },
@@ -456,7 +449,7 @@ const TableList: React.FC = () => {
   ];
 
   return (
-    <Spin tip="Loading..." spinning={loading}>
+    <div>
       <ProTable<TableListItem, TableListPagination>
         // headerTitle="客户列表"
         revalidateOnFocus={false}
@@ -480,12 +473,10 @@ const TableList: React.FC = () => {
           setCurrentRow(undefined);
           setShowDetail(false);
         }}
-        currentRow={currentRow!}
+        aUser={currentRow!}
         type={type}
-        data={aCUserNews.get(id)!}
-        id={id}
       />
-    </Spin>
+    </div>
   );
 };
 
