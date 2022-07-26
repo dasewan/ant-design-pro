@@ -58,4 +58,7 @@ export default {
   'menu.user.black-user-list.black-user': '黑名单用户',
   'menu.user.black-user-list.black-user-with-repay': '已结清黑名单用户',
   'menu.user.white-info-list': '白名单信息',
+  'menu.user.white-user-list': '白名单用户',
+  'menu.user.white-user-list.white-user': '白名单用户',
+  'menu.user.white-user-list.white-user-with-overdue': '已结清黑名单用户',
 };

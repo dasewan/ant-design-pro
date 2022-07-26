@@ -59,6 +59,27 @@
         component: './BAWhite',
       },
       {
+        name: 'white-user-list',
+        icon: 'smile',
+        path: '/white-user-list',
+        component: './BAWhiteUser',
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            name: 'white-user',
+            icon: 'smile',
+            path: '/white-user-list/white-user',
+            component: './BAWhiteUser/BAWhiteUser',
+          },
+          {
+            name: 'white-user-with-overdue',
+            icon: 'smile',
+            path: '/white-user-list/white-user-with-overdue',
+            component: './BAWhiteUser/BAWhiteUserWithOverdue',
+          },
+        ],
+      },
+      {
         name: 'blackinfo-list',
         icon: 'smile',
         path: '/blackinfo-list',
