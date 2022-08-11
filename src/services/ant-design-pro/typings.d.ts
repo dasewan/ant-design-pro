@@ -628,6 +628,119 @@ declare namespace API {
     id: number;
   };
 
+  type GAMarketingDetail = {
+    /** id */
+    id?: number;
+    a_a_a_a_user?: AUser;
+    /** 手机号* */
+    a_phone: string;
+    /** 用户名* */
+    b_name?: string;
+    /** Email* */
+    c_email?: string;
+    /** 用户id* */
+    d_user_id?: number;
+    /** 营销id* */
+    e_marketing_id?: number;
+    /** 营销历史id* */
+    f_marketing_history_id?: number;
+    /** 短信次数* */
+    g_sms_times?: number;
+    /** 邮件次数* */
+    h_email_times?: number;
+    /** 渠道id* */
+    i_channel_id?: number;
+    /** 间隔天数* */
+    j_span_days?: number;
+    /** 查看次数* */
+    k_view_count?: number;
+    /** 上次成功时间* */
+    l_last_marketing_time?: string;
+    /** 最近查看时间* */
+    m_last_viewed_time?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type GBMarketing = {
+    /** id */
+    id?: number;
+    /** 当前历史id* */
+    a_marketing_history_id?: number;
+    /** 渠道id* */
+    b_channel_id?: number;
+    /** 管理员id* */
+    c_admin_id?: number;
+    /** 导入数量* */
+    d_import_count?: number;
+    /** 有效数量* */
+    e_valid_count?: number;
+    /** 注册数量* */
+    f_register_count?: number;
+    /** 营销次数* */
+    g_marketing_times?: number;
+    /** 发送短信总数* */
+    h_sms_times?: number;
+    /** 发送邮件总数* */
+    i_email_times?: number;
+    /** 备注 */
+    j_comment?: string;
+    /** 文件id* */
+    k_admin_file_id?: number;
+    /** 执行类型 */
+    l_type?: string;
+    /** 状态：1待执行 2：执行中 3：执行成功 4：执行失败** */
+    m_status?: number;
+    /** p_last_marketing_time */
+    p_last_marketing_time?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+    g_c_marketing_histories?: GCMarketingHistory;
+  };
+
+  type GCMarketingHistory = {
+    /** id */
+    id?: number;
+    /** 营销id* */
+    a_marketing_id?: number;
+    /** 管理员id* */
+    b_admin_id?: number;
+    /** 短信模版* */
+    c_sms_templete_id?: number;
+    /** 主题* */
+    d_theme_id?: number;
+    /** 营销批次 */
+    e_batch_sn?: string;
+    /** 注册数量* */
+    f_register_count?: number;
+    /** 查看数量（用户去重，隔天统计)* */
+    j_viewed_deduplication_count?: number;
+    /** 营销数量* */
+    k_marketing_count?: number;
+    /** 类型 1：未注册 2：未查看* */
+    l_type?: number;
+    /** 状态：1待执行 2：执行中 3：执行成功 4：执行失败* */
+    m_status?: number;
+    /** 备注 */
+    g_comment?: string;
+    /** h_begin_at */
+    h_begin_at?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type getACUserNewsIdParams = {
     /** id of ACUserNew */
     id: number;

@@ -1,8 +1,8 @@
-export const BORROE_ENUM = {
-  10: { text: '全部', disabled: true, color: 'red' },
-  1100: { text: '运行中', status: 'Processing' },
-  2: { text: '已上线', status: 'Success' },
-  3: { text: '异常', status: 'Error' },
+export const STATUS_ENUM = {
+  1: { text: '待执行', status: 'Default' },
+  2: { text: '执行中', status: 'Processing' },
+  3: { text: '执行成功', status: 'Success' },
+  4: { text: '执行失败', status: 'Error' },
 };
 
 export type NoticeIconItemType = 'notification' | 'message' | 'event';

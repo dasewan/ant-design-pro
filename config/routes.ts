@@ -1,4 +1,4 @@
-﻿export default [
+export default [
   {
     path: '/user',
     layout: false,
@@ -90,15 +90,13 @@
             name: 'blackphone-list',
             icon: 'smile',
             path: '/blackinfo-list/phone',
-            component: './RBlack/Phone',
-            // hideInMenu:true,
+            component: './RBlack/Phone', // hideInMenu:true,
           },
           {
             name: 'blackidnumber-list',
             icon: 'smile',
             path: '/blackinfo-list/idnumber',
-            component: './RBlack/Idnumber',
-            // hideInMenu:true,
+            component: './RBlack/Idnumber', // hideInMenu:true,
           },
         ],
       },
@@ -123,8 +121,42 @@
           },
         ],
       },
+      {
+        name: 'g-b-marketing',
+        icon: 'smile',
+        path: '/g-b-marketing',
+        component: './GBMarketing',
+      },
+      {
+        name: 'marketing-detail-list',
+        icon: 'smile',
+        path: '/marketing-detail-list',
+        component: './GCMarketingDetail',
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            name: 'marketing-success-user',
+            icon: 'smile',
+            path: '/marketing-detail-list/marketing-success-user',
+            component: './GCMarketingDetail/MarketingSuccessUser',
+          },
+          {
+            name: 'marketing-user-with-overdue',
+            icon: 'smile',
+            path: '/marketing-detail-list/marketing-user-with-overdue',
+            component: './GCMarketingDetail/MarketingUserWithOverdue',
+          },
+          {
+            name: 'marketing-list',
+            icon: 'smile',
+            path: '/marketing-detail-list/marketing-list',
+            component: './GCMarketingDetail/MarketingList',
+          },
+        ],
+      },
     ],
   },
+
   {
     component: './404',
   },

@@ -728,6 +728,41 @@ declare namespace API {
     id: number;
   };
 
+  type getAdminV1GAMarketingDetailsIdParams = {
+    /** id of GAMarketingDetail */
+    id: number;
+  };
+
+  type getAdminV1GAMarketingDetailsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GAMarketingDetailsTabParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GBMarketingsIdParams = {
+    /** id of GBMarketing */
+    id: number;
+  };
+
+  type getAdminV1GBMarketingsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GCMarketingHistoriesIdParams = {
+    /** id of GCMarketingHistory */
+    id: number;
+  };
+
+  type getAdminV1GCMarketingHistoriesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1RBlacksParams = {
     /** foo */
     foo: number;
