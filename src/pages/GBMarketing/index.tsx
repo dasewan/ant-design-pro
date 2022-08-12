@@ -408,6 +408,7 @@ const TableList: React.FC = () => {
             // @ts-ignore
             disabled: !(
               record.m_status == 3 &&
+              // @ts-ignore
               !record.g_c_marketing_histories.some(
                 (item: API.GCMarketingHistory) => item.m_status == 1 || item.m_status == 2,
               ) &&
