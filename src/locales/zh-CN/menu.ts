@@ -66,4 +66,6 @@ export default {
   'menu.user.marketing-detail-list.marketing-success-user': '已注册用户',
   'menu.user.marketing-detail-list.marketing-user-with-overdue': '已逾期用户',
   'menu.user.marketing-detail-list.marketing-list': '未注册名单',
+  'menu.operation': 'operation2',
+  'menu.operation.product': '产品管理',
 };
