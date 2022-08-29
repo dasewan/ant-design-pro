@@ -138,15 +138,15 @@ export const OPERATE_ENUM = {
 };
 //产品结算方式
 export const PRODUCT_SETTLEMENT_TYPE = {
-  1: { text: '先扣除手续费和利息', color: '#87d068' },
-  2: { text: '先扣除手续费', color: '#2db7f5' },
-  3: { text: '到期扣除所有费用', color: '#f50' },
+  1: { text: '头收', color: '#87d068' },
+  2: { text: '只头收服务费', color: '#2db7f5' },
+  3: { text: '后收', color: '#f50' },
 };
 //产品结算方式
 export const PRODUCT_TYPE = {
   1: { text: '真实产品', color: 'success' },
   2: { text: '虚拟产品', color: 'default' },
-  3: { text: '贷超茶品', color: 'processing' },
+  3: { text: '贷超产品', color: 'processing' },
 };
 //状态：启用/禁用
 export const COMMON_STATUS_QIYONG = {

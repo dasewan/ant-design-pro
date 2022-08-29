@@ -68,4 +68,5 @@ export default {
   'menu.user.marketing-detail-list.marketing-list': '未注册名单',
   'menu.operation': 'operation2',
   'menu.operation.product': '产品管理',
+  'menu.operation.product-detail': '产品详情',
 };
