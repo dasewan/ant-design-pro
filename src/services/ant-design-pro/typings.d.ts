@@ -185,6 +185,7 @@ declare namespace API {
   type AIBlackUser = {
     /** id */
     id?: number;
+    a_user?: AUser;
     /** 用户id* */
     a_user_id?: number;
     /** 手机号命中* */
@@ -253,6 +254,8 @@ declare namespace API {
     file?: string;
     /** 下载次数* */
     i_download_times?: number;
+    /** 备注* */
+    j_comment?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -359,10 +362,138 @@ declare namespace API {
     ak_consume?: number;
     /** al_last_ettled_time */
     al_last_ettled_time?: string;
+    /** am_access_time */
+    am_access_time?: string;
     /** created_at */
     created_at?: string;
     /** 累计逾期天数* */
     an_total_overdue_days?: number;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type BAWhite = {
+    /** id */
+    id?: number;
+    a_a_a_a_user?: AUser;
+    /** 信息* */
+    a_phone: string;
+    /** 用户id* */
+    b_user_id?: number;
+    /** 注册离新增间隔天数* */
+    c_span_days?: number;
+    /** 营销次数* */
+    d_market_times?: number;
+    /** 渠道id* */
+    e_channel_id?: number;
+    /** 是否已扫描* 0：未扫描 1：已扫描 */
+    f_scan?: number;
+    /** 扫描结束时间* */
+    g_scan_date?: string;
+    /** 文件id* */
+    h_admin_file_id?: number;
+    /** 有效时间* */
+    i_valid_date?: string;
+    /** 白名单状态 1：正常 2：有过逾期 3：有过严重逾期 4：在逾 5：过期 6：禁止 */
+    j_status?: number;
+    /** 管理员id */
+    k_admin_id?: number;
+    /** 授信额度 */
+    l_credit_amount?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type BBProductSnapshotCopy = {
+    /** id */
+    id?: number;
+    /** 快照id */
+    a_product_snapshot_id?: number;
+    /** 产品名称* */
+    b_name?: number;
+    /** 产品额度* */
+    c_amount: number;
+    /** 产品单位* */
+    d_unit?: number;
+    /** 产品周期* */
+    e_life?: number;
+    /** 结算方式* 1:先扣除手续费和利息 2:先扣除手续费 3:到期扣除所有费用 */
+    f_settlement_type?: number;
+    /** 利息* */
+    g_interest?: number;
+    /** 服务费率* */
+    h_service_fee_rate?: number;
+    /** 逾期费率* */
+    i_overdue_rate?: number;
+    /** 违约金费率* */
+    j_violate_fee_rate?: number;
+    /** 展期费率* */
+    k_extend_rate?: number;
+    /** 最低还款金额* */
+    l_min_pay?: number;
+    /** 是否允许部分还款* */
+    m_can_part_pay?: number;
+    /** 是否可以展期 */
+    n_can_extend?: number;
+    /** 产品类型* 1:真实产品 2:虚拟产品 3:贷超产品 */
+    o_type?: number;
+    /** 产品链接 */
+    p_url?: number;
+    /** 解锁信用分* */
+    q_unlock_credit_fraction?: number;
+    /** 最小结清次数 */
+    r_settled_times?: number;
+    /** 最大逾期天数 */
+    s_max_overdue_days?: number;
+    /** 最大逾期次数 */
+    t_max_overdue_times?: number;
+    /** 状态* */
+    u_status?: number;
+    /** 展示排序 */
+    v_sort?: number;
+    /** 浏览次数 */
+    w_views?: number;
+    /** 描述* */
+    x_introduction?: number;
+    /** 备注* */
+    y_comment?: number;
+    /** 产品期数* */
+    z_period?: number;
+    /** 产品额度类型：1 灵活额度（用户授信额度）2：固定额度* */
+    a_a_amount_type?: number;
+    /** 每日可借数量* */
+    a_b_day_valid_count: number;
+    /** 每日可借数量* */
+    a_c_admin_id?: number;
+    /** 产品标签* */
+    a_d_tags?: number;
+    /** 产品特点* */
+    a_e_features?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type BCProductFeature = {
+    /** id */
+    id?: number;
+    /** 产品id */
+    a_product_id?: number;
+    /** 标题* */
+    b_title: string;
+    /** 内容* */
+    c_content: string;
+    /** created_at */
+    created_at?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
@@ -422,12 +553,37 @@ declare namespace API {
     x_introduction?: string;
     /** 备注* */
     y_comment?: string;
+    /** 产品期数* */
+    z_period?: number;
+    /** 产品额度类型：1 灵活额度（用户授信额度）2：固定额度* */
+    a_a_amount_type?: number;
+    /** 每日可借数量* */
+    a_b_day_valid_count?: number;
+    /** 快照数量* */
+    a_c_snapshot_count?: number;
+    /** 产品标签* */
+    a_d_tags?: string;
+    /** 产品特点* */
+    a_e_features?: string;
+    /** App\Models\BProduct */
+    a_a_a_a_b_c_product_features?: BCProductFeature[];
     /** created_at */
     created_at?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+  };
+
+  type CommonTab = {
+    /** key */
+    key?: string;
+    /** tab_count */
+    tab_count?: number;
+    /** today_count */
+    today_count?: number;
+    /** tooltip */
+    tooltip?: string;
   };
 
   type CurrentUser = {
@@ -598,8 +754,48 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1BAWhitesIdParams = {
+    /** id of BAWhite */
+    id: number;
+  };
+
+  type deleteAdminV1BBProductSnapshotCopiesIdParams = {
+    /** id of BBProductSnapshotCopy */
+    id: number;
+  };
+
+  type deleteAdminV1BCProductFeaturesIdParams = {
+    /** id of BCProductFeature */
+    id: number;
+  };
+
+  type deleteAdminV1BProductsIdParams = {
+    /** id of BProduct */
+    id: number;
+  };
+
   type deleteAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
+    id: number;
+  };
+
+  type deleteAdminV1GAMarketingDetailsIdParams = {
+    /** id of GAMarketingDetail */
+    id: number;
+  };
+
+  type deleteAdminV1GBMarketingsIdParams = {
+    /** id of GBMarketing */
+    id: number;
+  };
+
+  type deleteAdminV1GCMarketingHistoriesIdParams = {
+    /** id of GCMarketingHistory */
+    id: number;
+  };
+
+  type deleteAdminV1HProductSnapshotsIdParams = {
+    /** id of HProductSnapshot */
     id: number;
   };
 
@@ -826,6 +1022,56 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1BAWhitesIdParams = {
+    /** id of BAWhite */
+    id: number;
+  };
+
+  type getAdminV1BAWhitesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BAWhitesUsersParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BAWhiteTabParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BBProductSnapshotCopiesIdParams = {
+    /** id of BBProductSnapshotCopy */
+    id: number;
+  };
+
+  type getAdminV1BBProductSnapshotCopiesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BCProductFeaturesIdParams = {
+    /** id of BCProductFeature */
+    id: number;
+  };
+
+  type getAdminV1BCProductFeaturesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BProductsIdParams = {
+    /** id of BProduct */
+    id: number;
+  };
+
+  type getAdminV1BProductsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1CaptchaTypeParams = {
     /** type of Captcha */
     id: number;
@@ -841,7 +1087,57 @@ declare namespace API {
     id: number;
   };
 
+  type getAdminV1GAMarketingDetailsIdParams = {
+    /** id of GAMarketingDetail */
+    id: number;
+  };
+
+  type getAdminV1GAMarketingDetailsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GAMarketingDetailsTabParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GBMarketingsIdParams = {
+    /** id of GBMarketing */
+    id: number;
+  };
+
+  type getAdminV1GBMarketingsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GCMarketingHistoriesIdParams = {
+    /** id of GCMarketingHistory */
+    id: number;
+  };
+
+  type getAdminV1GCMarketingHistoriesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1HProductSnapshotsIdParams = {
+    /** id of HProductSnapshot */
+    id: number;
+  };
+
+  type getAdminV1HProductSnapshotsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1RBlacksParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1RBlackTabParams = {
     /** foo */
     foo: number;
   };
@@ -960,6 +1256,7 @@ declare namespace API {
   type HProductSnapshot = {
     /** id */
     id?: number;
+    a_a_a_a_b_b_product_snapshot_copy?: BBProductSnapshotCopy;
     /** 当前快照id */
     a_product_id?: number;
     /** 产品名称* */
@@ -1010,6 +1307,18 @@ declare namespace API {
     x_introduction?: string;
     /** 备注* */
     y_comment?: string;
+    /** 产品期数* */
+    z_period?: number;
+    /** 产品额度类型：1 灵活额度（用户授信额度）2：固定额度* */
+    a_a_amount_type?: number;
+    /** 每日可借数量* */
+    a_b_day_valid_count?: number;
+    /** 每日可借数量* */
+    a_c_admin_id?: number;
+    /** 产品标签* */
+    a_d_tags: string;
+    /** 产品标签* */
+    a_e_features: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1304,8 +1613,48 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1BAWhitesIdParams = {
+    /** id of BAWhite */
+    id: number;
+  };
+
+  type putAdminV1BBProductSnapshotCopiesIdParams = {
+    /** id of BBProductSnapshotCopy */
+    id: number;
+  };
+
+  type putAdminV1BCProductFeaturesIdParams = {
+    /** id of BCProductFeature */
+    id: number;
+  };
+
+  type putAdminV1BProductsIdParams = {
+    /** id of BProduct */
+    id: number;
+  };
+
   type putAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
+    id: number;
+  };
+
+  type putAdminV1GAMarketingDetailsIdParams = {
+    /** id of GAMarketingDetail */
+    id: number;
+  };
+
+  type putAdminV1GBMarketingsIdParams = {
+    /** id of GBMarketing */
+    id: number;
+  };
+
+  type putAdminV1GCMarketingHistoriesIdParams = {
+    /** id of GCMarketingHistory */
+    id: number;
+  };
+
+  type putAdminV1HProductSnapshotsIdParams = {
+    /** id of HProductSnapshot */
     id: number;
   };
 
