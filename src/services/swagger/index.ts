@@ -24,6 +24,9 @@ import * as GBMarketing from './GBMarketing';
 import * as GCMarketingHistory from './GCMarketingHistory';
 import * as HProductSnapshot from './HProductSnapshot';
 import * as NoticeIconItem from './NoticeIconItem';
+import * as RBlack from './RBlack';
+import * as User from './User';
+
 export default {
   ABCreditHistory,
   ACUserNew,
