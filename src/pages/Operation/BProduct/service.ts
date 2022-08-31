@@ -6,6 +6,7 @@ export {
   getAdminV1BProductsId as show,
   postAdminV1BProducts as store,
   putAdminV1BProductsId as update,
+  putAdminV1BProductsSort as sort,
 } from '@/services/ant-design-pro/BProduct';
 export { getAdminV1HProductSnapshots as index2 } from '@/services/ant-design-pro/HProductSnapshot';
 export { getAdminV1UsersEnum as getUserEnum } from '@/services/ant-design-pro/User';

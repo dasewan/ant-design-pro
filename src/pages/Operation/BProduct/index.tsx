@@ -1,10 +1,14 @@
+import { MenuOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Button, Tag } from 'antd';
+import { Button, message, Modal, Tag } from 'antd';
+import { arrayMoveImmutable } from 'array-move';
 import React, { useRef, useState } from 'react';
+import type { SortableContainerProps, SortEnd } from 'react-sortable-hoc';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import type { TableListItem, TableListPagination } from './data';
-import { fieldLabels, index } from './service';
+import { fieldLabels, index, sort } from './service';
 
 import OverviewModel from '@/pages/Operation/BProduct/components/OverviewModel';
 import Snapshot from '@/pages/Operation/BProduct/components/Snapshot';
@@ -17,6 +21,15 @@ import {
   PRODUCT_TYPE,
 } from '@/pages/Operation/BProduct/enums';
 import { history } from '@@/core/history';
+// 排序相关固定模版start
+const DragHandle = SortableHandle(() => <MenuOutlined style={{ cursor: 'grab', color: '#999' }} />);
+const SortableItem = SortableElement((props: React.HTMLAttributes<HTMLTableRowElement>) => (
+  <tr {...props} />
+));
+const SortableBody = SortableContainer((props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+  <tbody {...props} />
+));
+// 排序相关固定模版end
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -28,6 +41,8 @@ const TableList: React.FC = () => {
   const [snapshotModalVisible, setSnapshotModalVisible] = useState<boolean>(false);
   /** 当前数据 */
   const [newRecord, setNewRecord] = useState<TableListItem>();
+  // 排序固定模版
+  const [dataSource, setDataSource] = useState<TableListItem[]>([]);
 
   /** table */
   const _index = async (
@@ -44,6 +59,10 @@ const TableList: React.FC = () => {
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
     const res = await index({ foo: null, page: params.current, ...params });
+    // 排序固定模版
+    if (res.data) {
+      setDataSource(res.data);
+    }
     return {
       data: res.data,
       // success 请返回 true，
@@ -53,6 +72,59 @@ const TableList: React.FC = () => {
       total: res.total,
     };
   };
+  /**
+   * 排序固定模版start
+   * @param newData
+   */
+  const confirm = (newData: API.BProduct[]) => {
+    const ids = newData.map((item: TableListItem) => item.id).join('##');
+    const names = newData.map((item: TableListItem) => item.b_name).join(',');
+    const content = '新的产品顺序为:' + names;
+    Modal.confirm({
+      title: '确认排序?',
+      content: content,
+      onOk: async () => {
+        // @ts-ignore
+        const res = await sort({ foo: null, ids: ids });
+        console.log(res);
+        if (res.success) {
+          message.success('排序成功');
+          actionRef.current?.reload();
+        } else {
+          message.error('排序失败');
+        }
+        return Promise.resolve();
+      },
+      onCancel: () => Promise.resolve(),
+    });
+  };
+
+  const onSortEnd = ({ oldIndex, newIndex }: SortEnd) => {
+    if (oldIndex !== newIndex) {
+      const newData = arrayMoveImmutable(dataSource!.slice(), oldIndex, newIndex).filter(
+        (el: TableListItem) => !!el,
+      );
+      confirm(newData);
+    }
+  };
+
+  const DraggableContainer = (props: SortableContainerProps) => (
+    <SortableBody
+      useDragHandle
+      disableAutoscroll
+      helperClass="row-dragging"
+      onSortEnd={onSortEnd}
+      {...props}
+    />
+  );
+
+  const DraggableBodyRow: React.FC<any> = ({ className, style, ...restProps }) => {
+    // function findIndex base on Table rowKey props and should always be a right array index
+    const indexKey = dataSource.findIndex((x) => x.id === restProps['data-row-key']);
+    return <SortableItem index={indexKey} {...restProps} />;
+  };
+  // 排序固定模版end
+
   /**
    * 展示试算model
    * @param record
@@ -256,20 +328,34 @@ const TableList: React.FC = () => {
         },
       ],
     },
-
     {
       title: '操作',
-      dataIndex: 'option',
+      dataIndex: 'id',
       valueType: 'option',
+      width: 220,
       fixed: 'right',
       render: (_, record) => {
         const edit = (
-          <a onClick={() => history.push(`/operation/product/detail/${record.id}`)}>编辑</a>
+          <a key="edit" onClick={() => history.push(`/operation/product/detail/${record.id}`)}>
+            编辑
+          </a>
         );
-        const overdue = <a onClick={() => onOverviewClick(record)}>预览</a>;
-        const tryCalcute = <a onClick={() => onTryCalcuteClick(record)}>试算</a>;
-        const snapshot = <a onClick={() => onSnapshotClick(record)}>快照</a>;
-        return [overdue, tryCalcute, snapshot, edit];
+        const overdue = (
+          <a key="overdue" onClick={() => onOverviewClick(record)}>
+            预览
+          </a>
+        );
+        const tryCalcute = (
+          <a key="tryCalcute" onClick={() => onTryCalcuteClick(record)}>
+            试算
+          </a>
+        );
+        const snapshot = (
+          <a key="snapshot" onClick={() => onSnapshotClick(record)}>
+            快照
+          </a>
+        );
+        return [overdue, tryCalcute, snapshot, edit, <DragHandle key="drag" />];
       },
     },
   ];
@@ -284,7 +370,7 @@ const TableList: React.FC = () => {
             产品统计
           </Button>,
           <Button
-            key="3"
+            key="4"
             type="primary"
             onClick={() => history.push(`/operation/product/detail/0`)}
           >
@@ -306,11 +392,16 @@ const TableList: React.FC = () => {
         postData={(data: any[]) => {
           return data;
         }}
-        pagination={{
-          pageSize: 5,
-        }}
+        pagination={false}
         scroll={{ x: '50%' }}
         bordered={true}
+        // 排序固定模版
+        components={{
+          body: {
+            wrapper: DraggableContainer,
+            row: DraggableBodyRow,
+          },
+        }}
       />
       <OverviewModel
         onOk={onOverviewModelOk}

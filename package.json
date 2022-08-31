@@ -73,7 +73,9 @@
     "react-dom": "^17.0.0",
     "react-helmet-async": "^1.2.0",
     "tyarn": "^0.3.8",
-    "umi": "^3.5.0"
+    "umi": "^3.5.0",
+    "array-move": "latest",
+    "react-sortable-hoc": "latest"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.1.0",
