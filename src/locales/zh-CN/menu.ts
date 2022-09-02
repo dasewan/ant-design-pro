@@ -69,4 +69,5 @@ export default {
   'menu.operation': 'operation2',
   'menu.operation.product': '产品管理',
   'menu.operation.product-detail': '产品详情',
+  'menu.operation.channel': '渠道管理',
 };

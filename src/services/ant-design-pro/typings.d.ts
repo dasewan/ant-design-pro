@@ -95,7 +95,7 @@ declare namespace API {
     /** 应用密钥 */
     c_app_secret?: string;
     /** 状态  200:正常   404:冻结 500:禁用 */
-    d_status?: number;
+    d_status?: string;
     /** 渠道类型 */
     e_type?: string;
     /** 结算类型 */
@@ -724,6 +724,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1AFChannelsIdParams = {
+    /** id of AFChannel */
+    id: number;
+  };
+
   type deleteAdminV1AGBlackReasonsIdParams = {
     /** id of AGBlackReason */
     id: number;
@@ -801,11 +806,6 @@ declare namespace API {
 
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
-    id: number;
-  };
-
-  type deleteAFChannelsIdParams = {
-    /** id of AFChannel */
     id: number;
   };
 
@@ -957,6 +957,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1AFChannelsIdParams = {
+    /** id of AFChannel */
+    id: number;
+  };
+
+  type getAdminV1AFChannelsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1AGBlackReasonsIdParams = {
     /** id of AGBlackReason */
     id: number;
@@ -1077,6 +1087,11 @@ declare namespace API {
     id: number;
   };
 
+  type getAdminV1ChannelsDownloadIdParams = {
+    /** id of ALAdminFile */
+    id: number;
+  };
+
   type getAdminV1ChannelsEnumParams = {
     /** foo */
     foo: number;
@@ -1132,6 +1147,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1ProductsEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1RBlacksParams = {
     /** foo */
     foo: number;
@@ -1150,16 +1170,6 @@ declare namespace API {
   type getAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
-  };
-
-  type getAFChannelsIdParams = {
-    /** id of AFChannel */
-    id: number;
-  };
-
-  type getAFChannelsParams = {
-    /** foo */
-    foo: number;
   };
 
   type getAHUserSupsIdParams = {
@@ -1583,6 +1593,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1AFChannelsIdParams = {
+    /** id of AFChannel */
+    id: number;
+  };
+
   type putAdminV1AGBlackReasonsIdParams = {
     /** id of AGBlackReason */
     id: number;
@@ -1660,11 +1675,6 @@ declare namespace API {
 
   type putAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
-    id: number;
-  };
-
-  type putAFChannelsIdParams = {
-    /** id of AFChannel */
     id: number;
   };
 

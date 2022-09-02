@@ -174,6 +174,12 @@ export default [
         component: './Operation/BProduct/Detail',
         hideInMenu: true,
       },
+      {
+        name: 'channel',
+        icon: 'smile',
+        path: '/operation/channel',
+        component: './Operation/Channel',
+      },
     ],
   },
 
