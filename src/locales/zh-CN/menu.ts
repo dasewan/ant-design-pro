@@ -70,4 +70,6 @@ export default {
   'menu.operation.product': '产品管理',
   'menu.operation.product-detail': '产品详情',
   'menu.operation.channel': '渠道管理',
+  'menu.risk.risk': '风控管理',
+  'menu.risk.risk-item-cat': '风控字段分类管理',
 };

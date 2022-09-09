@@ -157,6 +157,19 @@ export default [
     ],
   },
   {
+    name: 'risk',
+    icon: 'smile',
+    path: '/risk',
+    routes: [
+      {
+        name: 'risk-item-cat',
+        icon: 'smile',
+        path: '/risk/risk-item-cat',
+        component: './Risk/RiskItemCat',
+      },
+    ],
+  },
+  {
     name: 'operation',
     icon: 'smile',
     path: '/operation',

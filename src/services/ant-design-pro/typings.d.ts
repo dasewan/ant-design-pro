@@ -283,6 +283,31 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type AnRiskItemCat = {
+    /** id */
+    id?: number;
+    /** CODE */
+    a_code?: string;
+    /** 字段名称  */
+    b_name?: string;
+    /** 字段名称国际化 */
+    c_local_name?: string;
+    /** 关联字段数 */
+    d_related_count?: number;
+    /** 描述 */
+    e_description?: string;
+    /** 描述国际化 */
+    f_local_description?: string;
+    /** 备注 */
+    g_comment?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type AUser = {
     /** id */
     id?: number;
@@ -754,6 +779,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1AnRiskItemCatsIdParams = {
+    /** id of AnRiskItemCat */
+    id: number;
+  };
+
   type deleteAdminV1AUsersIdParams = {
     /** id of AUser */
     id: number;
@@ -1018,6 +1048,16 @@ declare namespace API {
   };
 
   type getAdminV1AMBlackHitHistoriesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1AnRiskItemCatsIdParams = {
+    /** id of AnRiskItemCat */
+    id: number;
+  };
+
+  type getAdminV1AnRiskItemCatsParams = {
     /** foo */
     foo: number;
   };
@@ -1620,6 +1660,11 @@ declare namespace API {
 
   type putAdminV1AMBlackHitHistoriesIdParams = {
     /** id of AMBlackHitHistory */
+    id: number;
+  };
+
+  type putAdminV1AnRiskItemCatsIdParams = {
+    /** id of AnRiskItemCat */
     id: number;
   };
 
