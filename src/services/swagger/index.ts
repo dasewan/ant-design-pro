@@ -12,7 +12,7 @@ import * as AIBlackUser from './AIBlackUser';
 import * as AKReason from './AKReason';
 import * as ALAdminFile from './ALAdminFile';
 import * as AMBlackHitHistory from './AMBlackHitHistory';
-import * as AnRiskItemCat from './AnRiskItemCat';
+import * as ANRiskItemCat from './ANRiskItemCat';
 import * as AUser from './AUser';
 import * as BAWhite from './BAWhite';
 import * as BBProductSnapshotCopy from './BBProductSnapshotCopy';
@@ -39,8 +39,8 @@ export default {
   AIBlackUser,
   AKReason,
   AMBlackHitHistory,
+  ANRiskItemCat,
   AUser,
-  AnRiskItemCat,
   BAWhite,
   BBProductSnapshotCopy,
   BCProductFeature,

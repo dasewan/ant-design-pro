@@ -1,4 +1,4 @@
-export type TableListItem = API.AnRiskItemCat;
+export type TableListItem = API.ANRiskItemCat;
 
 export type TableListPagination = {
   total: number;

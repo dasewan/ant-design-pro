@@ -283,7 +283,7 @@ declare namespace API {
     deleted_at?: string;
   };
 
-  type AnRiskItemCat = {
+  type ANRiskItemCat = {
     /** id */
     id?: number;
     /** CODE */
@@ -779,8 +779,8 @@ declare namespace API {
     id: number;
   };
 
-  type deleteAdminV1AnRiskItemCatsIdParams = {
-    /** id of AnRiskItemCat */
+  type deleteAdminV1ANRiskItemCatsIdParams = {
+    /** id of ANRiskItemCat */
     id: number;
   };
 
@@ -1052,12 +1052,12 @@ declare namespace API {
     foo: number;
   };
 
-  type getAdminV1AnRiskItemCatsIdParams = {
-    /** id of AnRiskItemCat */
+  type getAdminV1ANRiskItemCatsIdParams = {
+    /** id of ANRiskItemCat */
     id: number;
   };
 
-  type getAdminV1AnRiskItemCatsParams = {
+  type getAdminV1ANRiskItemCatsParams = {
     /** foo */
     foo: number;
   };
@@ -1663,8 +1663,8 @@ declare namespace API {
     id: number;
   };
 
-  type putAdminV1AnRiskItemCatsIdParams = {
-    /** id of AnRiskItemCat */
+  type putAdminV1ANRiskItemCatsIdParams = {
+    /** id of ANRiskItemCat */
     id: number;
   };
 
