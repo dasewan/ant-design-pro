@@ -23,6 +23,7 @@ import * as CurrentUser from './CurrentUser';
 import * as GAMarketingDetail from './GAMarketingDetail';
 import * as GBMarketing from './GBMarketing';
 import * as GCMarketingHistory from './GCMarketingHistory';
+import * as GDRiskItem from './GDRiskItem';
 import * as HProductSnapshot from './HProductSnapshot';
 import * as NoticeIconItem from './NoticeIconItem';
 import * as RBlack from './RBlack';
@@ -50,6 +51,7 @@ export default {
   GAMarketingDetail,
   GBMarketing,
   GCMarketingHistory,
+  GDRiskItem,
   HProductSnapshot,
   NoticeIconItem,
   RBlack,

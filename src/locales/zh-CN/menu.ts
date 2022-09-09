@@ -72,4 +72,5 @@ export default {
   'menu.operation.channel': '渠道管理',
   'menu.risk.risk': '风控管理',
   'menu.risk.risk-item-cat': '风控字段分类管理',
+  'menu.risk.risk-item': '风控字段管理',
 };

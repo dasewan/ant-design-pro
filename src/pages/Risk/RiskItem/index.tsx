@@ -1,11 +1,14 @@
-import CreateForm from '@/pages/Risk/RiskItemCat/components/CreateForm';
+import CreateForm from '@/pages/Risk/RiskItem/components/CreateForm';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Button } from 'antd';
+import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
+import { Button, Tag } from 'antd';
+import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels, index } from './service';
+import { RISK_ITEM_TYPE } from './enums';
+import { FieldIndex, FieldLabels, getCatsEnum, index } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -13,6 +16,27 @@ const TableList: React.FC = () => {
   const [createModalVisible, handleCreateModalVisible] = useState<boolean>(false);
   /** 当前编辑数据 */
   const [id, setId] = useState<number>(0);
+  const [cats, setCats] = useState<RequestOptionsType[]>([]);
+
+  /**
+   * 查询分类enum
+   */
+  const _getCatsEnum: ProFieldRequestData = async () => {
+    const data: RequestOptionsType[] = [];
+    if (cats.length == 0) {
+      const res = await getCatsEnum({ foo: 1 });
+      for (const item of res.data!) {
+        data.push({
+          label: item.b_name,
+          value: item.id,
+        });
+      }
+      setCats(data);
+      return data;
+    } else {
+      return cats;
+    }
+  };
 
   /** table */
   const _index = async (
@@ -30,6 +54,7 @@ const TableList: React.FC = () => {
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
     // @ts-ignore
+    await _getCatsEnum();
 
     return {
       data: res.data,
@@ -52,22 +77,81 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.b_name,
-      dataIndex: FieldIndex.b_name,
+      title: FieldLabels.a_name,
+      dataIndex: FieldIndex.a_name,
     },
     {
-      title: FieldLabels.b_name,
-      dataIndex: FieldIndex.b_name,
+      title: FieldLabels.b_local_name,
+      dataIndex: FieldIndex.b_local_name,
     },
     {
-      title: FieldLabels.e_description,
-      dataIndex: FieldIndex.e_description,
+      title: FieldLabels.d_cat_id,
+      dataIndex: FieldIndex.d_cat_id,
+    },
+    {
+      title: FieldLabels.d_cat_id,
+      dataIndex: FieldIndex.d_cat_id,
+      valueType: 'select',
+      request: _getCatsEnum,
+    },
+    {
+      title: FieldLabels.e_type,
+      dataIndex: FieldIndex.e_type,
+      valueType: 'select',
+      initialValue: [],
+      valueEnum: RISK_ITEM_TYPE,
+      render: (_, record) => (
+        <Tag color={RISK_ITEM_TYPE[record.e_type!].color}>
+          {RISK_ITEM_TYPE[record.e_type!].text}
+        </Tag>
+      ),
+    },
+    {
+      title: FieldLabels.f_related_count,
+      dataIndex: FieldIndex.f_related_count,
+    },
+    {
+      title: FieldLabels.g_description,
+      dataIndex: FieldIndex.g_description,
       ellipsis: true,
     },
     {
-      title: FieldLabels.g_comment,
-      dataIndex: FieldIndex.g_comment,
+      title: FieldLabels.h_local_description,
+      dataIndex: FieldIndex.h_local_description,
       ellipsis: true,
+    },
+    {
+      title: FieldLabels.i_comment,
+      dataIndex: FieldIndex.i_comment,
+      ellipsis: true,
+    },
+    {
+      title: FieldLabels.created_at,
+      dataIndex: FieldIndex.created_at,
+      valueType: 'dateRange',
+      render: (_, record) => {
+        return moment(record!.created_at).format('YY-MM-DD HH:mm');
+      },
+      search: {
+        transform: (value: any) => ({
+          'created_at[0]': value[0],
+          'created_at[1]': value[1],
+        }),
+      },
+    },
+    {
+      title: FieldLabels.updated_at,
+      dataIndex: FieldIndex.updated_at,
+      valueType: 'dateRange',
+      render: (_, record) => {
+        return moment(record!.updated_at).format('YY-MM-DD HH:mm');
+      },
+      search: {
+        transform: (value: any) => ({
+          'updated_at[0]': value[0],
+          'updated_at[1]': value[1],
+        }),
+      },
     },
     {
       title: '操作',
@@ -131,6 +215,7 @@ const TableList: React.FC = () => {
         }}
         id={id}
         modalVisible={createModalVisible}
+        cats={cats}
       />
     </PageContainer>
   );

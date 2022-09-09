@@ -167,6 +167,12 @@ export default [
         path: '/risk/risk-item-cat',
         component: './Risk/RiskItemCat',
       },
+      {
+        name: 'risk-item',
+        icon: 'smile',
+        path: '/risk/risk-item',
+        component: './Risk/RiskItem',
+      },
     ],
   },
   {

@@ -829,6 +829,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GDRiskItemsIdParams = {
+    /** id of GDRiskItem */
+    id: number;
+  };
+
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -967,6 +972,35 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type GDRiskItem = {
+    /** id */
+    id?: number;
+    /** 字段名称  */
+    a_name?: string;
+    /** 字段名称国际化 */
+    b_local_name?: string;
+    /** CODE */
+    c_code?: string;
+    /** 分类id */
+    d_cat_id?: number;
+    /** 字段类型 1：整型 2：浮点型 3：字符串型 */
+    e_type?: number;
+    /** 关联细则数 */
+    f_related_count?: number;
+    /** 描述 */
+    g_description?: string;
+    /** 描述国际化 */
+    h_local_description?: string;
+    /** 备注 */
+    i_comment?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type getACUserNewsIdParams = {
     /** id of ACUserNew */
     id: number;
@@ -1048,6 +1082,11 @@ declare namespace API {
   };
 
   type getAdminV1AMBlackHitHistoriesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1ANRiskItemCatEnumsParams = {
     /** foo */
     foo: number;
   };
@@ -1173,6 +1212,16 @@ declare namespace API {
   };
 
   type getAdminV1GCMarketingHistoriesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GDRiskItemsIdParams = {
+    /** id of GDRiskItem */
+    id: number;
+  };
+
+  type getAdminV1GDRiskItemsParams = {
     /** foo */
     foo: number;
   };
@@ -1710,6 +1759,11 @@ declare namespace API {
 
   type putAdminV1GCMarketingHistoriesIdParams = {
     /** id of GCMarketingHistory */
+    id: number;
+  };
+
+  type putAdminV1GDRiskItemsIdParams = {
+    /** id of GDRiskItem */
     id: number;
   };
 
