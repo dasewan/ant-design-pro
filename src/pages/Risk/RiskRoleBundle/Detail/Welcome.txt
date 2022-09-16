@@ -1,0 +1,653 @@
+import type {ActionType, EditableFormInstance, ProColumns, ProFormInstance,} from '@ant-design/pro-components';
+import {
+  EditableProTable,
+  ProCard,
+  ProForm,
+  ProFormDependency,
+  ProFormDigit,
+  ProFormSelect,
+} from '@ant-design/pro-components';
+import React, {useRef, useState} from 'react';
+import {Button, Space} from 'antd';
+import {PlusOutlined} from '@ant-design/icons';
+
+
+type DataSourceType = {
+  id: React.Key;
+  associate?: string;
+  questionsNum?: number;
+  type?: string;
+  fraction?: number;
+  scoringMethod?: string;
+  rowSpan: number,
+  colSpan: number,
+  group?: boolean,
+  groupId: number,
+  groupCount: number,
+  groupIndex: number,
+  children?: DataSourceType[];
+  logic?: string,
+
+};
+
+const defaultData: DataSourceType[] = [
+  {
+    id: 1000,
+    associate: 'AND',
+    questionsNum: 1,
+    type: 'multiple',
+    scoringMethod: 'continuous',
+    fraction: 1,
+    rowSpan: 0,
+    colSpan: 0,
+    group: true,
+    groupId: 1,
+    groupCount: 2,
+    groupIndex: 1,
+    logic: 'open',
+  },
+  {
+    id: 1001,
+    associate: 'AND',
+    questionsNum: 11,
+    type: 'multiple',
+    scoringMethod: 'continuous',
+    fraction: 1,
+    rowSpan: 0,
+    colSpan: 0,
+    group: true,
+    groupId: 1,
+    groupCount: 2,
+    groupIndex: 2,
+  },
+  {
+    id: 2000,
+    associate: 'AND',
+    questionsNum: 2,
+    scoringMethod: 'continuous',
+    type: 'radio',
+    fraction: 2,
+    rowSpan: 0,
+    colSpan: 0,
+    group: false,
+    groupId: 2,
+    groupCount: 1,
+    groupIndex: 1,
+    logic: 'closed',
+  },
+  {
+    id: 3000,
+    associate: 'AND',
+    questionsNum: 3,
+    type: 'judge',
+    scoringMethod: 'continuous',
+    fraction: 3,
+    rowSpan: 0,
+    colSpan: 0,
+    group: false,
+    groupId: 3,
+    groupCount: 1,
+    groupIndex: 1,
+    logic: 'open',
+  },
+  {
+    id: 4000,
+    associate: 'AND',
+    questionsNum: 4,
+    scoringMethod: 'continuous',
+    type: 'vacant',
+    fraction: 4,
+    rowSpan: 0,
+    colSpan: 0,
+    group: false,
+    groupId: 4,
+    groupCount: 1,
+    groupIndex: 1,
+    logic: 'open',
+  },
+];
+
+export default () => {
+  const [editableKeys, setEditableRowKeys] = useState<React.Key[]>(() => []);
+  const [groupCount, setGroupCount] = useState<Map<number, number>>(new Map());
+  const [groupMaxIndex, setGroupMaxIndex] = useState<Map<number, number>>(new Map());
+  const [groupMinIndex, setGroupMinIndex] = useState<Map<number, number>>(new Map());
+  const [groupRoleNextId, setGroupRoleNextId] = useState<Map<number, number>>(new Map());
+  // const [currentRecord, setCurrentRecord] = useState<DataSourceType>();
+  const [groupNextId, setGroupNextId] = useState<number>(0);
+  const [dataSource, setDataSource] = useState<DataSourceType[]>(() => defaultData);
+  const formRef = useRef<ProFormInstance<any>>();
+  const actionRef = useRef<ActionType>();
+  const editableFormRef = useRef<EditableFormInstance>();
+
+  const _index = async () => {
+    const groupCountTmp: Map<number, number> = new Map();
+    const groupMaxIndexTmp: Map<number, number> = new Map();
+    const groupMinIndexTmp: Map<number, number> = new Map();
+    const groupRoleNextIdTmp: Map<number, number> = new Map();
+    let groupNextIdTmp: number = 0;
+    defaultData.map((item) => {
+      const idTmp = item.id as number;
+      if (!groupCountTmp.has(item.groupId)) {
+        groupCountTmp.set(item.groupId, item.groupCount);
+      }
+      if (!groupMaxIndexTmp.has(item.groupId)) {
+        groupMaxIndexTmp.set(item.groupId, item.groupIndex);
+      } else if (groupMaxIndexTmp.get(item.groupId)! < item.groupIndex) {
+        groupMaxIndexTmp.set(item.groupId, item.groupIndex);
+      }
+
+      if (!groupMinIndexTmp.has(item.groupId)) {
+        groupMinIndexTmp.set(item.groupId, item.groupIndex);
+      } else if (groupMinIndexTmp.get(item.groupId)! > item.groupIndex) {
+        groupMinIndexTmp.set(item.groupId, item.groupIndex);
+      }
+      if (!groupRoleNextIdTmp.has(item.groupId)) {
+        groupRoleNextIdTmp.set(item.groupId, idTmp);
+      } else if (groupRoleNextIdTmp.get(item.groupId)! < idTmp) {
+        groupRoleNextIdTmp.set(item.groupId, idTmp);
+      }
+      if (groupNextIdTmp < item.groupId) {
+        groupNextIdTmp = item.groupId;
+      }
+    })
+    setGroupCount(groupCountTmp);
+    setGroupMaxIndex(groupMaxIndexTmp);
+    setGroupMinIndex(groupMinIndexTmp);
+    setGroupRoleNextId(groupRoleNextIdTmp);
+    setGroupNextId(groupNextIdTmp);
+    console.log('index', groupCountTmp, groupMaxIndexTmp, groupMinIndexTmp, groupRoleNextIdTmp, groupNextIdTmp);
+    return defaultData;
+  };
+  const formatGroup = () => {
+    const tableDataSource = formRef.current?.getFieldValue('table') as DataSourceType[];
+    console.log('formatGroup:origin', tableDataSource);
+    const tableDataSourceTmp = [...tableDataSource];
+    tableDataSourceTmp.sort((_a, _b) => _a.groupId - _b.groupId);
+    // setDataSource(tableDataSourceTmp);
+    formRef.current?.setFieldsValue({
+      table: tableDataSourceTmp,
+    });
+    console.log('formatGroup:afterFormat', tableDataSourceTmp);
+  }
+
+
+  const onEditChange = (_: React.Key[], __: DataSourceType[]) => {
+    console.log('onEditChange:Key[]', _);
+    console.log('onEditChangeDataSourceType[]', __);
+    setEditableRowKeys(_);
+  };
+  const onChange = (value: DataSourceType[]) => {
+    console.log("onChange:", value);
+
+  }
+  const onEditSave = (key: React.Key, row: DataSourceType, originRow: DataSourceType) => {
+    console.log("onEditSave:param", key, row, originRow);
+    const tableDataSource = formRef.current?.getFieldValue('table') as DataSourceType[];
+    console.log("onEditSave:tableDataSource", tableDataSource);
+
+    const _groupCount = tableDataSource.filter((item) => item.groupId == row.groupId)?.length;
+    groupCount?.set(row.groupId, _groupCount);
+    setGroupCount(groupCount);
+    const maxIndex = tableDataSource.filter((item) => item.groupId == row.groupId)?.sort((a, b) => b.groupIndex - a.groupIndex)[0].groupIndex
+    groupMaxIndex?.set(row.groupId, maxIndex);
+    setGroupMaxIndex(groupMaxIndex);
+    const minIndex = tableDataSource.filter((item) => item.groupId == row.groupId)?.sort((a, b) => a.groupIndex - b.groupIndex)[0].groupIndex
+    groupMinIndex?.set(row.groupId, minIndex);
+    setGroupMinIndex(groupMinIndex);
+
+    groupMinIndex?.set(row.groupId, minIndex);
+    setGroupMinIndex(groupMinIndex);
+
+    console.log('onEditSave:groupInfo', groupCount, groupMaxIndex, groupMinIndex);
+    return Promise.resolve();
+    /*    return new Promise((resolve, reject) => {
+          console.log('resolve------');
+          resolve(1);
+        }).then(r => {
+          console.log('then1------',r);
+        },r => {
+          console.log('then2------',r);
+        });*/
+  }
+  const onNewGroup = () => {
+    const groupNextIdTmp = groupNextId + 1;
+    setGroupNextId(groupNextIdTmp);
+    const groupRoleNextIdTmp = groupNextIdTmp * 1000;
+    groupRoleNextId.set(groupNextIdTmp, groupRoleNextIdTmp);
+    setGroupRoleNextId(groupRoleNextId);
+    const a = {
+      id: groupRoleNextIdTmp,
+      associate: '',
+      questionsNum: 10,
+      scoringMethod: '',
+      type: '',
+      fraction: 0,
+      rowSpan: 0,
+      colSpan: 4,
+      group: true,
+      groupId: groupNextIdTmp,
+      groupCount: 1,
+      groupIndex: 1,
+      logic: 'open',
+    }
+    console.log("onNewGroup:newGroup:", a);
+    actionRef.current?.addEditRecord?.(a);
+  }
+  const onDeleteGroupRole = (row: DataSourceType) => {
+    const tableDataSource = formRef.current?.getFieldValue('table') as DataSourceType[];
+
+    if (groupMinIndex.get(row.groupId) == row.groupIndex) {
+      const minIndex = tableDataSource.filter((item) => item.groupId == row.groupId && item.id !== row.id)?.sort((a, b) => a.groupIndex - b.groupIndex)[0].groupIndex
+      if (minIndex) {
+        groupMinIndex?.set(row.groupId, minIndex);
+        setGroupMinIndex(groupMinIndex);
+      }
+    }
+
+    if (groupMaxIndex.get(row.groupId) == row.groupIndex) {
+      const maxIndex = tableDataSource.filter((item) => item.groupId == row.groupId && item.id !== row.id)?.sort((a, b) => b.groupIndex - a.groupIndex)[0].groupIndex
+      if (maxIndex) {
+        groupMaxIndex?.set(row.groupId, maxIndex);
+        setGroupMaxIndex(groupMaxIndex);
+      }
+    }
+    if (groupCount.get(row.groupId)! > 1) {
+      groupCount.set(row.groupId, groupCount.get(row.groupId)! - 1);
+      setGroupCount(groupCount);
+    }
+    formRef.current?.setFieldsValue({
+      table: tableDataSource.filter((item) => item.id !== row.id),
+    });
+    formatGroup();
+  }
+  const onDeleteGroup = (_groupId: number) => {
+    const tableDataSource = formRef.current?.getFieldValue('table') as DataSourceType[];
+    formRef.current?.setFieldsValue({
+      table: tableDataSource.filter((item) => item.groupId !== _groupId),
+    });
+    formatGroup();
+  }
+  const onNewGroupRole = (_groupId: number) => {
+    const _groupCount = groupCount.get(_groupId)!;
+    const _groupIndex = groupMaxIndex.get(_groupId)!;
+    console.log("onNewGroupRole:groupId:", _groupId);
+    const _id = groupRoleNextId.get(_groupId)! + 1;
+    groupRoleNextId.set(_groupId, _id);
+    setGroupRoleNextId(groupRoleNextId);
+    const a = {
+      id: _id,
+      associate: '',
+      questionsNum: 101,
+      scoringMethod: '',
+      type: '',
+      fraction: 201,
+      rowSpan: 0,
+      colSpan: 4,
+      group: true,
+      groupId: _groupId,
+      groupCount: _groupCount + 1,
+      groupIndex: _groupIndex + 1,
+      logic: 'closed',
+    }
+    console.log("onNewGroupRole:childRow:", a);
+    actionRef.current?.addEditRecord?.(a);
+    formatGroup();
+  }
+  const valueEnum = {
+    open: '未解决',
+    closed: '已解决',
+  };
+  const columns: ProColumns<DataSourceType>[] = [
+    {
+      title: '组内关系',
+      dataIndex: 'logic',
+      // valueType: 'text',
+      ellipsis: true,
+      editable: false,
+      onCell: (row) => {
+        if (groupCount && groupCount.has(row.groupId) && groupCount.get(row.groupId)! > 1 && groupMinIndex.has(row.groupId)) {
+          if (row.groupIndex == groupMinIndex!.get(row.groupId)) {
+            return {rowSpan: groupCount.get(row.groupId)!};
+          } else {
+            return {rowSpan: 0};
+          }
+        }
+        return {}
+      },
+      render: (_, row) => {
+        if (groupCount.get(row.groupId) > 1) {
+          return <ProFormSelect
+            name={`group_logic_${row.groupId}`}
+            key={row.groupId}
+            fieldProps={{defaultValue: row.logic}}
+            label=" "
+            valueEnum={{
+              open: '未解决',
+              closed: '已解决',
+            }}
+            placeholder="Please select a country"
+          />
+        } else {
+          return null;
+        }
+
+        // return valueEnum[row?.logic];
+      },
+      renderFormItem: () => <ProFormSelect
+        name="associate"
+        label=" "
+        valueEnum={{
+          open: '未解决',
+          closed: '已解决',
+        }}
+        placeholder="Please select a country"
+      />,
+    },
+
+    /*{
+      title: '组内关系',
+      renderFormItem: () => <a />,
+      onCell: (row) => {
+        if(groupCount && groupCount.has(row.groupId) && groupCount.get(row.groupId)! > 1 && groupMinIndex.has(row.groupId)){
+          if(row.groupIndex == groupMinIndex!.get(row.groupId)){
+            return {rowSpan: groupCount.get(row.groupId)!};
+          }else{
+            return {rowSpan:0};
+          }
+        }
+        return  {}
+      },
+      render: (_, row) =>{
+
+        return <ProFormSelect
+          name={`group_logic_${row.groupId}`}
+          key={row.groupId}
+          label=" "
+          valueEnum={{
+            open: '未解决',
+            closed: '已解决',
+          }}
+          placeholder="Please select a country"
+        />
+      } ,
+    },*/
+    /*    {
+          title: '关联题库',
+          dataIndex: 'associate',
+          valueType: 'text',
+          ellipsis: true,
+          onCell: (row) => {
+            if(groupCount && groupCount.has(row.groupId) && groupCount.get(row.groupId)! > 1 && groupMinIndex.has(row.groupId)){
+              if(row.groupIndex == groupMinIndex!.get(row.groupId)){
+                return {rowSpan: groupCount.get(row.groupId)!};
+              }else{
+                return {rowSpan:0};
+              }
+            }
+            return  {}
+          },
+        },*/
+    {
+      title: 'ce',
+      width: "20%",
+      valueType: 'text',
+      render: (_, row) => {
+        return "id: " + row.id + "     GROUPID: " + row.groupId + "    GROUPIndex: " + row.groupIndex;
+      }
+    },
+    {
+      title: '题型',
+      width: "10%",
+      key: 'type',
+      dataIndex: 'type',
+      valueType: 'select',
+      valueEnum: {
+        multiple: {text: '多选题', status: 'Default'},
+        radio: {text: '单选题', status: 'Warning'},
+        vacant: {
+          text: '填空题',
+          status: 'Error',
+        },
+        judge: {
+          text: '判断题',
+          status: 'Success',
+        },
+      },
+
+    },
+    {
+      title: '题数',
+      width: "10%",
+      dataIndex: 'questionsNum',
+      valueType: 'digit',
+
+    },
+    {
+      title: '计分方式',
+      width: "10%",
+      dataIndex: 'scoringMethod',
+      valueType: 'select',
+      request: async () => [
+        {
+          value: 'discrete',
+          label: '离散型',
+        },
+        {
+          value: 'continuous',
+          label: '连续型',
+        },
+      ],
+      fieldProps: (_, {rowIndex}) => {
+        return {
+          onSelect: () => {
+            // 每次选中重置参数
+            editableFormRef.current?.setRowData?.(rowIndex, {fraction: []});
+          },
+        };
+      },
+    },
+    {
+      title: '分值',
+      width: "15%",
+      dataIndex: 'fraction',
+      valueType: (record) => {
+        const scoringMethod = record?.scoringMethod;
+        if (scoringMethod === 'discrete') return 'select';
+        return 'digit';
+      },
+      fieldProps: {
+        mode: 'multiple',
+      },
+      request: async () =>
+        ['A', 'B', 'D', 'E', 'F'].map((item, index) => ({
+          label: item,
+          value: index,
+        })),
+    },
+    {
+      title: '操作',
+      width: 300,
+      valueType: 'option',
+      render: (_, row) => {
+        return [
+
+          <a
+            key="edit"
+            onClick={() => {
+              actionRef.current?.startEditable(row.id);
+            }}
+          >
+            编辑
+          </a>,
+          <a
+            key="delete"
+            onClick={() => onDeleteGroupRole(row)}
+          >
+            移除细则
+          </a>
+        ];
+      },
+    },
+    {
+      title: '组操作',
+      renderFormItem: () => {
+        return <a/>;
+      },
+      editable: false,
+      width: 300,
+      fixed: 'right',
+      onCell: (row) => {
+        if (groupCount && groupCount.has(row.groupId) && groupCount.get(row.groupId)! > 1 && groupMinIndex.has(row.groupId)) {
+          if (row.groupIndex == groupMinIndex!.get(row.groupId)) {
+            return {rowSpan: groupCount.get(row.groupId)!};
+          } else {
+            return {rowSpan: 0};
+          }
+        }
+        return {}
+      },
+      render: (_, row) => {
+        let newGroupRoleAction = null;
+        if (groupCount && groupCount.has(row.groupId) && groupMinIndex.has(row.groupId)) {
+          if (row.groupIndex == groupMinIndex!.get(row.groupId)) {
+            newGroupRoleAction = <a
+              key="add"
+              onClick={() => onNewGroupRole(row.groupId)}
+            >
+              新增组内规则
+            </a>;
+          }
+        }
+
+        let removeGroupRoleAction = null;
+        if (groupCount && groupCount.has(row.groupId) && groupCount.get(row.groupId)! > 1 && groupMinIndex.has(row.groupId)) {
+          if (row.groupIndex == groupMinIndex!.get(row.groupId)) {
+            removeGroupRoleAction = <a
+              key="remove"
+              onClick={() => onDeleteGroup(row.groupId)}
+            >
+              删除组
+            </a>;
+          }
+        }
+        return [
+          newGroupRoleAction,
+          <span key='span'>&nbsp;&nbsp;&nbsp;&nbsp;</span>,
+          removeGroupRoleAction,
+        ];
+      },
+    },
+  ];
+
+  return (
+    <ProCard>
+      <div
+        style={{
+          maxWidth: 'auto',
+          margin: 'auto',
+        }}
+      >
+        <ProForm<{
+          table: DataSourceType[];
+        }>
+          formRef={formRef}
+          initialValues={{
+            table: dataSource,
+          }}
+          // @ts-ignore
+          request={_index}
+          onFinish={async (formData) => {
+            console.log(formData);
+          }}
+        >
+          <ProFormDependency name={['table']}>
+            {({table}) => {
+              const info = (table as DataSourceType[]).reduce(
+                (pre, item) => {
+                  return {
+                    totalScore: pre.totalScore + parseInt((item?.fraction || 0).toString(), 10),
+                    questions: pre.questions + parseInt((item?.questionsNum || 0).toString(), 10),
+                  };
+                },
+                {totalScore: 0, questions: 0},
+              );
+              return (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 16,
+                    paddingBlockEnd: 16,
+                  }}
+                >
+                  <div style={{flex: 1}}>总分：{info.totalScore}</div>
+                  <div style={{flex: 1}}>题数：{info.questions}</div>
+                  <div style={{flex: 2}}>
+                    <ProFormDigit name='score' label="及格分"/>
+                  </div>
+                  <div style={{flex: 2}}>
+                    <ProFormDigit label="考试时间(分钟)"/>
+                  </div>
+                </div>
+              );
+            }}
+          </ProFormDependency>
+          <EditableProTable<DataSourceType>
+            rowKey="id"
+            scroll={{
+              x: true,
+            }}
+            editableFormRef={editableFormRef}
+            controlled={false}
+            actionRef={actionRef}
+            onChange={onChange}
+            bordered={true}
+            formItemProps={{
+              label: '题库编辑',
+              rules: [
+                {
+                  validator: async (_, value) => {
+                    if (value.length < 1) {
+                      throw new Error('请至少添加一个题库');
+                    }
+
+                    if (value.length > 50) {
+                      throw new Error('最多可以设置五个题库');
+                    }
+                  },
+                },
+              ],
+            }}
+            maxLength={10}
+            name="table"
+            columns={columns}
+            recordCreatorProps={false}
+            editable={{
+              type: 'single',
+              editableKeys,
+              onlyAddOneLineAlertMessage: '111',
+              onChange: onEditChange,
+              onSave: onEditSave,
+              actionRender: (row, config, defaultDom) => {
+                return [
+                  defaultDom.save,
+                  defaultDom.delete || defaultDom.cancel,
+                ];
+              },
+            }}
+          />
+          <Space>
+            <Button
+              type="primary"
+              onClick={onNewGroup}
+              icon={<PlusOutlined/>}
+            >
+              新建规则组
+            </Button>
+          </Space>
+        </ProForm>
+      </div>
+    </ProCard>
+  );
+};

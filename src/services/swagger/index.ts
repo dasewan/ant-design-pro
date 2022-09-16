@@ -17,6 +17,7 @@ import * as AUser from './AUser';
 import * as BAWhite from './BAWhite';
 import * as BBProductSnapshotCopy from './BBProductSnapshotCopy';
 import * as BCProductFeature from './BCProductFeature';
+import * as BDRiskRoleBundle from './BDRiskRoleBundle';
 import * as BProduct from './BProduct';
 import * as Captcha from './Captcha';
 import * as CurrentUser from './CurrentUser';
@@ -24,6 +25,8 @@ import * as GAMarketingDetail from './GAMarketingDetail';
 import * as GBMarketing from './GBMarketing';
 import * as GCMarketingHistory from './GCMarketingHistory';
 import * as GDRiskItem from './GDRiskItem';
+import * as GERiskRoleGroup from './GERiskRoleGroup';
+import * as GFRiskRole from './GFRiskRole';
 import * as HProductSnapshot from './HProductSnapshot';
 import * as NoticeIconItem from './NoticeIconItem';
 import * as RBlack from './RBlack';
@@ -45,6 +48,7 @@ export default {
   BAWhite,
   BBProductSnapshotCopy,
   BCProductFeature,
+  BDRiskRoleBundle,
   BProduct,
   Captcha,
   CurrentUser,
@@ -52,6 +56,8 @@ export default {
   GBMarketing,
   GCMarketingHistory,
   GDRiskItem,
+  GERiskRoleGroup,
+  GFRiskRole,
   HProductSnapshot,
   NoticeIconItem,
   RBlack,

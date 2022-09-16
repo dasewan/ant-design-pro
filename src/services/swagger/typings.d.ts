@@ -525,6 +525,45 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type BDRiskRoleBundle = {
+    /** id */
+    id?: number;
+    /** 规则名称  */
+    a_name?: string;
+    /** 关联细则组数 */
+    b_related_role_group_count?: number;
+    /** 关联细则数 */
+    c_related_role_count?: number;
+    /** 分数上限 */
+    d_score_upper_limit?: number;
+    /** 执行逻辑 */
+    e_execute_logic?: string;
+    /** 最终决策 */
+    f_finnal_decision?: string;
+    /** 规则描述 */
+    g_description?: string;
+    /** 规则名称本地化  */
+    h_local_name?: string;
+    /** 同一bundles不同版本的标识 */
+    i_code?: string;
+    /** 版本号 */
+    j_version?: number;
+    /** 是否是最新版本 */
+    k_is_current?: number;
+    /** 版本序号 */
+    l_verdion_index?: number;
+    /** 当前版本数量 */
+    m_version_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+    /** App\Models\BDRiskRoleBundle */
+    a_a_a_a_g_f_risk_role?: GFRiskRole[];
+  };
+
   type BProduct = {
     /** id */
     id?: number;
@@ -804,6 +843,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1BDRiskRoleBundlesIdParams = {
+    /** id of BDRiskRoleBundle */
+    id: number;
+  };
+
   type deleteAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -831,6 +875,16 @@ declare namespace API {
 
   type deleteAdminV1GDRiskItemsIdParams = {
     /** id of GDRiskItem */
+    id: number;
+  };
+
+  type deleteAdminV1GERiskRoleGroupsIdParams = {
+    /** id of GERiskRoleGroup */
+    id: number;
+  };
+
+  type deleteAdminV1GFRiskRolesIdParams = {
+    /** id of GFRiskRole */
     id: number;
   };
 
@@ -1001,6 +1055,23 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type GERiskRoleGroup = {
+    /** id */
+    id?: number;
+    /** 规则id */
+    a_risk_role_bundle_id?: number;
+    /** 关联细则数 */
+    b_related_role_count?: number;
+    /** 执行逻辑 */
+    c_execute_logic?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type getACUserNewsIdParams = {
     /** id of ACUserNew */
     id: number;
@@ -1151,6 +1222,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1BDRiskRoleBundlesIdParams = {
+    /** id of BDRiskRoleBundle */
+    id: number;
+  };
+
+  type getAdminV1BDRiskRoleBundlesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -1216,12 +1297,37 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GDRiskItemEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GDRiskItemsIdParams = {
     /** id of GDRiskItem */
     id: number;
   };
 
   type getAdminV1GDRiskItemsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GERiskRoleGroupsIdParams = {
+    /** id of GERiskRoleGroup */
+    id: number;
+  };
+
+  type getAdminV1GERiskRoleGroupsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GFRiskRolesIdParams = {
+    /** id of GFRiskRole */
+    id: number;
+  };
+
+  type getAdminV1GFRiskRolesParams = {
     /** foo */
     foo: number;
   };
@@ -1293,6 +1399,45 @@ declare namespace API {
     current: number;
     /** pageSize */
     pageSize: number;
+  };
+
+  type GFRiskRole = {
+    /** id */
+    id?: number;
+    /** 规则id */
+    a_risk_role_bundle_id?: number;
+    /** 组id */
+    b_risk_role_group_id?: number;
+    /** 字段id */
+    c_risk_item_id?: number;
+    /** 取值类型 const：常数 operator：算术运算 */
+    d_value_type?: string;
+    /** 算术运算公式 */
+    e_value_operator?: string;
+    /** 关系运算符 */
+    f_relational_operator?: string;
+    /** 取值类型 const：常数 variable：变量 */
+    g_compare_type?: string;
+    /** 字段id */
+    h_compare_risk_item_id?: number;
+    /** 取值类型 const：常数 operator：算术运算 */
+    i_compare_value_type?: string;
+    /** 算术运算公式 */
+    j_compare_value_operator?: string;
+    /** 统计用md5(tmp_risk_item_id+value_type+value_operator...) */
+    k_role_item_profile?: string;
+    /** 组内细则数量 */
+    l_group_count?: number;
+    /** 组内细则index */
+    m_group_index?: number;
+    /** 执行逻辑 */
+    n_execute_logic?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type GVerify = {
@@ -1737,6 +1882,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1BDRiskRoleBundlesIdParams = {
+    /** id of BDRiskRoleBundle */
+    id: number;
+  };
+
   type putAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -1764,6 +1914,16 @@ declare namespace API {
 
   type putAdminV1GDRiskItemsIdParams = {
     /** id of GDRiskItem */
+    id: number;
+  };
+
+  type putAdminV1GERiskRoleGroupsIdParams = {
+    /** id of GERiskRoleGroup */
+    id: number;
+  };
+
+  type putAdminV1GFRiskRolesIdParams = {
+    /** id of GFRiskRole */
     id: number;
   };
 

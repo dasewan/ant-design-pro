@@ -173,6 +173,19 @@ export default [
         path: '/risk/risk-item',
         component: './Risk/RiskItem',
       },
+      {
+        name: 'risk-role-bundle',
+        icon: 'smile',
+        path: '/risk/risk-role-bundle',
+        component: './Risk/RiskRoleBundle',
+      },
+      {
+        name: 'risk-role-bundle-detail',
+        icon: 'smile',
+        path: '/risk/risk-role-bundle/detail/:id',
+        component: './Risk/RiskRoleBundle/Detail',
+        hideInMenu: true,
+      },
     ],
   },
   {
