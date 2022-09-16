@@ -25,6 +25,7 @@ import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { EditableProTable } from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
 import { Button, Card, Col, message, Popconfirm, Popover, Row, Select, Tooltip } from 'antd';
+import type { DefaultOptionType } from 'antd/es/cascader';
 import moment from 'moment';
 import type { FC } from 'react';
 import React, { useRef, useState } from 'react';
@@ -90,10 +91,19 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     const data: RequestOptionsType[] = [];
     if (roleItems.length == 0) {
       const res = await getRiskItemEnum({ foo: 1 });
-      for (const item of res.data!) {
+      for (const cat of res.data!) {
+        const children = [];
+        for (const item of cat.a_a_a_a_g_d_risk_item) {
+          children.push({
+            label: item.a_name,
+            value: item.id,
+            description: item.g_description,
+          });
+        }
         data.push({
-          label: item.a_name,
-          value: item.id,
+          label: cat.b_name,
+          value: cat.id,
+          children,
         });
       }
       setRoleItems(data);
@@ -145,7 +155,6 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     setGroupMaxIndex(groupMaxIndexTmp);
     setGroupMinIndex(groupMinIndexTmp);
     setGroupRoleNextId(groupRoleNextIdTmp);
-    console.log(roleNextIdTmp);
     setRoleNextId(roleNextIdTmp);
     setGroupNextId(groupNextIdTmp);
     setDataSource(_data);
@@ -163,8 +172,6 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         const res = await show(params);
         // fieldProps={{defaultValue:oldRecord?.a_d_tags?.split(',')}}
         // moment(value.created_at).format('YYYY-MM-DD HH:mm:ss')
-        setRawResultData(res.data);
-        setOldRecord(res.data![0]);
         // @ts-ignore
         initEditTable(res.data![0]!.a_a_a_a_g_f_risk_role!);
         const n_execute_logic_tmp = {};
@@ -185,7 +192,19 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             ),
             value: item.j_version,
           });
+          item.a_a_a_a_g_f_risk_role!.forEach((_gFRiskRoles: API.GFRiskRole) => {
+            _gFRiskRoles.c_risk_item_id = [
+              _gFRiskRoles.o_risk_item_cat_id,
+              _gFRiskRoles.c_risk_item_id,
+            ];
+            _gFRiskRoles.h_compare_risk_item_id = [
+              _gFRiskRoles.p_compare_risk_item_cat_id,
+              _gFRiskRoles.h_compare_risk_item_id,
+            ];
+          });
         });
+        setRawResultData(res.data);
+        setOldRecord(res.data![0]);
         setVersions(tmpVersion);
         setCurrentVersion(res.data![0]!.j_version);
         setCurrentId(res.data![0]!.id);
@@ -369,6 +388,18 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     });
     formatGroup();
   };
+  const displayRender = (labels: string[], selectedOptions: DefaultOptionType[]) =>
+    labels.map((label, i) => {
+      const option = selectedOptions[i];
+      if (i === labels.length - 1) {
+        return (
+          <Tooltip title={option.description} color="#f50" key={option.value}>
+            <span key={option.value}>{label}</span>
+          </Tooltip>
+        );
+      }
+      return <span key={option.value}>{label} / </span>;
+    });
 
   const columns: ProColumns<DataSourceType>[] = [
     {
@@ -431,11 +462,28 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     {
       title: FieldLabels2.c_risk_item_id,
       dataIndex: FieldIndex2.c_risk_item_id,
-      valueType: 'select',
+      valueType: 'cascader',
       ellipsis: true,
       width: '11%',
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.c_risk_item_id}` }],
+      },
+      fieldProps: {
+        // onFocus: (event) => console.log(111),
+        displayRender: displayRender,
+        // listHeight: 1,
+        /*        dropdownRender : menu => {
+                  console.log(123123);
+                  console.log(menu);
+                  console.log(1111);
+                  return <div>
+                    {menu}
+                    <Divider style={{margin: '4px 0'}}/>
+                    <div style={{padding: '8px', cursor: 'pointer'}} onClick={() => console.log(123)}>
+                      <Icon type="plus"/> Add item
+                    </div>
+                  </div>
+                }*/
       },
       request: async () => _getRoleItemEnum(),
     },
@@ -522,7 +570,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.h_compare_risk_item_id}` }],
       },
-      valueType: 'select',
+      fieldProps: {
+        displayRender: displayRender,
+      },
+      valueType: 'cascader',
       request: async () => _getRoleItemEnum(),
     },
     {

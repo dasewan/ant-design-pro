@@ -306,6 +306,8 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** App\Models\ANRiskItemCat */
+    a_a_a_a_g_d_risk_item?: GDRiskItem[];
   };
 
   type AUser = {
@@ -1432,6 +1434,10 @@ declare namespace API {
     m_group_index?: number;
     /** 执行逻辑 */
     n_execute_logic?: string;
+    /** 分类id */
+    o_risk_item_cat_id?: number;
+    /** 对比分类id */
+    p_compare_risk_item_cat_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
