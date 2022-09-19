@@ -7,6 +7,7 @@ export {
   getAdminV1GDRiskItemsId as show,
   postAdminV1GDRiskItems as store,
   putAdminV1GDRiskItemsId as update,
+  putAdminV1GDRiskItemsReletedCount as updateCount,
 } from '@/services/ant-design-pro/GDRiskItem';
 export const FieldLabels = {
   a_name: '字段名称',

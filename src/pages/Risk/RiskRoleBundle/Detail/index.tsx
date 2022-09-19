@@ -1,3 +1,4 @@
+import DrawerFC from '@/pages/Risk/RiskRoleBundle/Detail/components/DrawerFC';
 import {
   EXECUTE_LOGIC,
   EXECUTE_LOGIC_OPTION,
@@ -83,6 +84,8 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const [currentId, setCurrentId] = useState<number>(0);
   /** 风控字段enum */
   const [roleItems, setRoleItems] = useState<RequestOptionsType[]>([]);
+  /** drawer是否显示 */
+  const [functionVisable, setFunctionVisable] = useState<boolean>(false);
 
   /**
    * 查询风控字段enum
@@ -93,7 +96,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       const res = await getRiskItemEnum({ foo: 1 });
       for (const cat of res.data!) {
         const children = [];
-        for (const item of cat.a_a_a_a_g_d_risk_item) {
+        for (const item of cat.a_a_a_a_g_d_risk_item!) {
           children.push({
             label: item.a_name,
             value: item.id,
@@ -193,10 +196,12 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             value: item.j_version,
           });
           item.a_a_a_a_g_f_risk_role!.forEach((_gFRiskRoles: API.GFRiskRole) => {
+            // @ts-ignore
             _gFRiskRoles.c_risk_item_id = [
               _gFRiskRoles.o_risk_item_cat_id,
               _gFRiskRoles.c_risk_item_id,
             ];
+            // @ts-ignore
             _gFRiskRoles.h_compare_risk_item_id = [
               _gFRiskRoles.p_compare_risk_item_cat_id,
               _gFRiskRoles.h_compare_risk_item_id,
@@ -206,8 +211,8 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         setRawResultData(res.data);
         setOldRecord(res.data![0]);
         setVersions(tmpVersion);
-        setCurrentVersion(res.data![0]!.j_version);
-        setCurrentId(res.data![0]!.id);
+        setCurrentVersion(res.data![0]!.j_version!);
+        setCurrentId(res.data![0]!.id!);
         return {
           table: res.data![0]!.a_a_a_a_g_f_risk_role!,
           ...res.data![0],
@@ -401,6 +406,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       return <span key={option.value}>{label} / </span>;
     });
 
+  // columns 属性前为editTable 相关方法，columns属性后位高级表单方法
   const columns: ProColumns<DataSourceType>[] = [
     {
       title: FieldLabels2.n_execute_logic,
@@ -459,6 +465,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         />
       ),
     },
+    // 字段id
     {
       title: FieldLabels2.c_risk_item_id,
       dataIndex: FieldIndex2.c_risk_item_id,
@@ -471,11 +478,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       fieldProps: {
         // onFocus: (event) => console.log(111),
         displayRender: displayRender,
+        width: 100,
         // listHeight: 1,
         /*        dropdownRender : menu => {
-                  console.log(123123);
-                  console.log(menu);
-                  console.log(1111);
                   return <div>
                     {menu}
                     <Divider style={{margin: '4px 0'}}/>
@@ -487,7 +492,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       },
       request: async () => _getRoleItemEnum(),
     },
-    {
+    /*{
       title: FieldLabels2.d_value_type,
       dataIndex: FieldIndex2.d_value_type,
       valueType: 'select',
@@ -502,21 +507,28 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           label: '变量',
         },
       ],
-    },
+    },*/
+    // 算术运算公式
     {
       title: FieldLabels2.e_value_operator,
       // @ts-ignore
-      editable: (value, row, index) =>
-        editableFormRef.current?.getRowData(index)?.d_value_type == 'operator',
+      /*      editable: (value, row, index) =>
+              // @ts-ignore
+              editableFormRef.current?.getRowData(index)?.d_value_type == 'operator',*/
       formItemProps: {
-        rules: [{ required: true, message: `请输入${FieldLabels2.e_value_operator}` }],
+        // rules: [{ required: true, message: `请输入${FieldLabels2.e_value_operator}` }],
+      },
+      fieldProps: {
+        placeholder: '不填则为原始取值',
       },
       dataIndex: FieldIndex2.e_value_operator,
     },
+    // 关系运算符
     {
       title: FieldLabels2.f_relational_operator,
       dataIndex: FieldIndex2.f_relational_operator,
       valueType: 'select',
+      width: 100,
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.f_relational_operator}` }],
       },
@@ -531,10 +543,12 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         },
       ],
     },
+    // 对比类型
     {
       title: FieldLabels2.g_compare_type,
       dataIndex: FieldIndex2.g_compare_type,
       valueType: 'select',
+      width: 80,
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.g_compare_type}` }],
       },
@@ -560,29 +574,41 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         };
       },
     },
+    // 对比字段
     {
       title: FieldLabels2.h_compare_risk_item_id,
       dataIndex: FieldIndex2.h_compare_risk_item_id,
       ellipsis: true,
       // @ts-ignore
       editable: (value, row, index) =>
+        // @ts-ignore
         editableFormRef.current?.getRowData(index)?.g_compare_type == 'operator',
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.h_compare_risk_item_id}` }],
+        // style: {width: 120},
       },
       fieldProps: {
         displayRender: displayRender,
+        // style: {width: 120},
       },
       valueType: 'cascader',
       request: async () => _getRoleItemEnum(),
+
+      width: 120,
+      /*      render: (_, record) => {
+              console.log(_);
+              return <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' ,width:120}}>
+                {_}
+              </div>;
+            },*/
     },
-    {
+    /*{
       title: FieldLabels2.i_compare_value_type,
-      width: '10%',
+      width: '80',
       dataIndex: FieldIndex2.i_compare_value_type,
-      // @ts-ignore
       editable: (value, row, index) =>
-        editableFormRef.current?.getRowData(index)?.g_compare_type == 'operator',
+        // @ts-ignore
+      editableFormRef.current?.getRowData(index)?.g_compare_type == 'operator',
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.i_compare_value_type}` }],
       },
@@ -597,13 +623,31 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           label: '变量',
         },
       ],
-    },
+      render: (_, record) => {
+        return <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' ,width:80}}>
+          {_}
+        </div>;
+      },
+    },*/
+    // 算术运算公式
     {
       title: FieldLabels2.j_compare_value_operator,
       dataIndex: FieldIndex2.j_compare_value_operator,
+      width: 180,
+      ellipsis: true,
+      fieldProps: {
+        textWrap: 'word-break',
+      },
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.j_compare_value_operator}` }],
       },
+      /*      render: (_, record) => {
+              if(record.j_compare_value_operator!.length>10){
+                return <Tooltip title={record.j_compare_value_operator}>{record.j_compare_value_operator!.substring(0,10) + '...'}</Tooltip>;
+              }else{
+                return record.j_compare_value_operator;
+              }
+            },*/
     },
     {
       title: '操作',
@@ -988,7 +1032,12 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             }}
           </ProFormDependency>
         </Card>
-        <Card title="细则配置" className={styles.card} bordered={false}>
+        <Card
+          title="细则配置"
+          className={styles.card}
+          bordered={false}
+          extra={<a onClick={() => setFunctionVisable(true)}>支持的数学函数</a>}
+        >
           <EditableProTable<DataSourceType>
             rowKey="id"
             scroll={{
@@ -1031,6 +1080,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             }}
           />
         </Card>
+        <DrawerFC visable={functionVisable} onClose={() => setFunctionVisable(false)} />
       </PageContainer>
     </ProForm>
   );

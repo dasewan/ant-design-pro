@@ -1,14 +1,15 @@
 import CreateForm from '@/pages/Risk/RiskItem/components/CreateForm';
+import { EllipsisOutlined, SyncOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, Tag } from 'antd';
+import { Button, Dropdown, Menu, message, Tag } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { RISK_ITEM_TYPE } from './enums';
-import { FieldIndex, FieldLabels, getCatsEnum, index } from './service';
+import { FieldIndex, FieldLabels, getCatsEnum, index, updateCount } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -65,7 +66,6 @@ const TableList: React.FC = () => {
       total: res.total,
     };
   };
-
   /**
    * 展示预览model
    * @param _id
@@ -74,20 +74,31 @@ const TableList: React.FC = () => {
     setId(_id);
     handleCreateModalVisible(true);
   };
+  /**
+   * 更新关联规则数量
+   */
+  const _updateCount = async () => {
+    message.loading('正在更新');
+    const res = await updateCount();
+    if (res.success) {
+      message.success('更新成功');
+      actionRef.current?.reload();
+    } else {
+      message.success('更新失败');
+    }
+  };
 
   const columns: ProColumns<TableListItem>[] = [
     {
       title: FieldLabels.a_name,
       dataIndex: FieldIndex.a_name,
+      width: 410,
     },
-    {
-      title: FieldLabels.b_local_name,
-      dataIndex: FieldIndex.b_local_name,
-    },
-    {
-      title: FieldLabels.d_cat_id,
-      dataIndex: FieldIndex.d_cat_id,
-    },
+    /*    {
+          title: FieldLabels.b_local_name,
+          dataIndex: FieldIndex.b_local_name,
+          width:360,
+        },*/
     {
       title: FieldLabels.d_cat_id,
       dataIndex: FieldIndex.d_cat_id,
@@ -115,11 +126,11 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.g_description,
       ellipsis: true,
     },
-    {
-      title: FieldLabels.h_local_description,
-      dataIndex: FieldIndex.h_local_description,
-      ellipsis: true,
-    },
+    /*    {
+          title: FieldLabels.h_local_description,
+          dataIndex: FieldIndex.h_local_description,
+          ellipsis: true,
+        },*/
     {
       title: FieldLabels.i_comment,
       dataIndex: FieldIndex.i_comment,
@@ -179,6 +190,25 @@ const TableList: React.FC = () => {
           <Button key="3" type="primary" onClick={() => onEditClick(0)}>
             新建风控字段
           </Button>,
+          <Dropdown
+            key="dropdown"
+            trigger={['click']}
+            overlay={
+              <Menu
+                items={[
+                  {
+                    label: <a onClick={() => _updateCount()}>更新关联数</a>,
+                    key: 'item-2',
+                    icon: <SyncOutlined />,
+                  },
+                ]}
+              />
+            }
+          >
+            <Button key="4" style={{ padding: '0 8px' }}>
+              <EllipsisOutlined />
+            </Button>
+          </Dropdown>,
         ],
       }}
     >
