@@ -13,6 +13,7 @@ import {
   EditOutlined,
   PlusOutlined,
   QuestionCircleOutlined,
+  SyncOutlined,
 } from '@ant-design/icons';
 import type {
   ActionType,
@@ -854,7 +855,15 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 返回列表
               </Button>
               <Popconfirm
-                title="确定删除此规则吗？"
+                title={
+                  <>
+                    <span>确定删除此版本吗？</span>
+                    <br />
+                    <span style={{ fontSize: 6, color: 'red' }}>
+                      删除此版本后，此版本关联的策略也将同步删除此版本？
+                    </span>
+                  </>
+                }
                 onConfirm={onDeleteRiskRoleBundle}
                 disabled={versions.length < 2}
               >
@@ -865,6 +874,16 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   disabled={versions.length < 2}
                 >
                   删除当前版本
+                </Button>
+              </Popconfirm>
+              ,
+              <Popconfirm
+                title="确定更新当前版本到所有策略中吗？"
+                onConfirm={onDeleteRiskRoleBundle}
+                disabled={versions.length < 2}
+              >
+                <Button type="primary" danger icon={<SyncOutlined />}>
+                  更新当前版本到所有策略中
                 </Button>
               </Popconfirm>
               <Button type="primary" onClick={onNewGroup} icon={<PlusOutlined />}>
