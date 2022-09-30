@@ -890,6 +890,16 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GGRiskStrateiesIdParams = {
+    /** id of GGRiskStratey */
+    id: number;
+  };
+
+  type deleteAdminV1GIRiskStrategyBundlesIdParams = {
+    /** id of GIRiskStrategyBundle */
+    id: number;
+  };
+
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -1334,6 +1344,26 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GGRiskStrateiesIdParams = {
+    /** id of GGRiskStratey */
+    id: number;
+  };
+
+  type getAdminV1GGRiskStrateiesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GIRiskStrategyBundlesIdParams = {
+    /** id of GIRiskStrategyBundle */
+    id: number;
+  };
+
+  type getAdminV1GIRiskStrategyBundlesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -1438,6 +1468,58 @@ declare namespace API {
     o_risk_item_cat_id?: number;
     /** 对比分类id */
     p_compare_risk_item_cat_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type GGRiskStratey = {
+    /** id */
+    id?: number;
+    /** 策略名称  */
+    a_name?: string;
+    /** 关联细则组数 */
+    b_related_role_group_count?: number;
+    /** 关联细则数 */
+    c_related_role_count?: number;
+    /** d */
+    d?: number;
+    /** 同一strategy不同版本的标识 */
+    e_code?: string;
+    /** 版本号 */
+    f_version?: number;
+    /** 是否是最新版本 */
+    g_is_current?: number;
+    /** 版本序号 */
+    h_verdion_index?: number;
+    /** 当前版本数量 */
+    i_version_count?: number;
+    /** 是否熔断，收费项前如果拒绝，则不跑收费项 */
+    j_fuse?: string;
+    /** 管理员id */
+    k_admin_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+    /** App\Models\GGRiskStratey */
+    a_a_a_a_g_i_risk_strategy_bundles?: GIRiskStrategyBundle[];
+  };
+
+  type GIRiskStrategyBundle = {
+    /** id */
+    id?: number;
+    /** 关联细则数 */
+    a_risk_strategy_id?: number;
+    /** 关联细则数 */
+    b_risk_role_bundle_id?: number;
+    /** 执行顺序 */
+    c_sort?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1930,6 +2012,16 @@ declare namespace API {
 
   type putAdminV1GFRiskRolesIdParams = {
     /** id of GFRiskRole */
+    id: number;
+  };
+
+  type putAdminV1GGRiskStrateiesIdParams = {
+    /** id of GGRiskStratey */
+    id: number;
+  };
+
+  type putAdminV1GIRiskStrategyBundlesIdParams = {
+    /** id of GIRiskStrategyBundle */
     id: number;
   };
 

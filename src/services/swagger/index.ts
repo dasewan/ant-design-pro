@@ -27,6 +27,8 @@ import * as GCMarketingHistory from './GCMarketingHistory';
 import * as GDRiskItem from './GDRiskItem';
 import * as GERiskRoleGroup from './GERiskRoleGroup';
 import * as GFRiskRole from './GFRiskRole';
+import * as GGRiskStratey from './GGRiskStratey';
+import * as GIRiskStrategyBundle from './GIRiskStrategyBundle';
 import * as HProductSnapshot from './HProductSnapshot';
 import * as NoticeIconItem from './NoticeIconItem';
 import * as RBlack from './RBlack';
@@ -58,6 +60,8 @@ export default {
   GDRiskItem,
   GERiskRoleGroup,
   GFRiskRole,
+  GGRiskStratey,
+  GIRiskStrategyBundle,
   HProductSnapshot,
   NoticeIconItem,
   RBlack,

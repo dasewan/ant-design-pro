@@ -75,4 +75,6 @@ export default {
   'menu.risk.risk-item': '风控字段管理',
   'menu.risk.risk-role-bundle': '风控规则管理',
   'menu.risk.risk-role-bundle-detail': '风控规则详情',
+  'menu.risk.risk-strategy-bundle': '风控策略',
+  'menu.risk.risk-strategy-bundle-detail': '风控策略详情',
 };

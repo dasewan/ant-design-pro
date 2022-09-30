@@ -186,6 +186,19 @@ export default [
         component: './Risk/RiskRoleBundle/Detail',
         hideInMenu: true,
       },
+      {
+        name: 'risk-strategy-bundle',
+        icon: 'smile',
+        path: '/risk/risk-strategy-bundle',
+        component: './Risk/RiskStrategyBundle',
+      },
+      {
+        name: 'risk-strategy-bundle-detail',
+        icon: 'smile',
+        path: '/risk/risk-strategy-bundle/detail/:id',
+        component: './Risk/RiskStrategyBundle/Detail',
+        hideInMenu: true,
+      },
     ],
   },
   {

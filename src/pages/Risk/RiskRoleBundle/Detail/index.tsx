@@ -44,7 +44,7 @@ interface ErrorField {
   errors: string[];
 }
 
-type DataSourceType = API.GFRiskRole;
+// type API.GFRiskRole = API.GFRiskRole;
 type versionOptionType = { label?: React.ReactNode; value?: number };
 const { Option } = Select;
 
@@ -71,10 +71,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const [groupRoleNextId, setGroupRoleNextId] = useState<Map<number, number>>(new Map());
   /** 下个细则的id(服务端会重置组id) **/
   const [roleNextId, setRoleNextId] = useState<number>(0);
-  // const [currentRecord, setCurrentRecord] = useState<DataSourceType>();
+  // const [currentRecord, setCurrentRecord] = useState<API.GFRiskRole>();
   /** 下个组id(服务端会重置组id) **/
   const [groupNextId, setGroupNextId] = useState<number>(0);
-  const [dataSource, setDataSource] = useState<DataSourceType[]>([]);
+  const [dataSource, setDataSource] = useState<API.GFRiskRole[]>([]);
   /** 服务端原始返回 (切换版本使用)**/
   const [rawResultData, setRawResultData] = useState<API.BDRiskRoleBundle[]>();
   /** 所有版本 (切换版本使用)**/
@@ -120,7 +120,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    * 初始化editTable
    * @param _data
    */
-  const initEditTable = (_data: DataSourceType[]) => {
+  const initEditTable = (_data: API.GFRiskRole[]) => {
     const groupCountTmp: Map<number, number> = new Map();
     const groupMaxIndexTmp: Map<number, number> = new Map();
     const groupMinIndexTmp: Map<number, number> = new Map();
@@ -246,7 +246,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    * 格式化editTable ，防止editTable 错乱
    */
   const formatGroup = () => {
-    const tableDataSource = formRef.current?.getFieldValue('table') as DataSourceType[];
+    const tableDataSource = formRef.current?.getFieldValue('table') as API.GFRiskRole[];
     const tableDataSourceTmp = [...tableDataSource];
     tableDataSourceTmp.sort((_a, _b) => _a.b_risk_role_group_id! - _b.b_risk_role_group_id!);
     // setDataSource(tableDataSourceTmp);
@@ -260,7 +260,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    * @param _
    * @param __
    */
-  const onEditChange = (_: React.Key[], __: DataSourceType[]) => {
+  const onEditChange = (_: React.Key[], __: API.GFRiskRole[]) => {
     console.log(__);
     console.log(dataSource);
     console.log(currentVersion);
@@ -271,7 +271,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    *
    * @param value
    */
-  const onChange = (value: DataSourceType[]) => {
+  const onChange = (value: API.GFRiskRole[]) => {
     console.log(value);
   };
 
@@ -281,9 +281,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    * @param row
    * @param originRow
    */
-  const onEditSave = (key: React.Key, row: DataSourceType, originRow: DataSourceType) => {
+  const onEditSave = (key: React.Key, row: API.GFRiskRole, originRow: API.GFRiskRole) => {
     console.log(originRow);
-    const tableDataSource = formRef.current?.getFieldValue('table') as DataSourceType[];
+    const tableDataSource = formRef.current?.getFieldValue('table') as API.GFRiskRole[];
     const _groupCount = tableDataSource.filter(
       (item) => item.b_risk_role_group_id == row.b_risk_role_group_id!,
     )?.length;
@@ -328,7 +328,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    * @param _groupId
    */
   const onDeleteGroup = (_groupId: number) => {
-    const tableDataSource = formRef.current?.getFieldValue('table') as DataSourceType[];
+    const tableDataSource = formRef.current?.getFieldValue('table') as API.GFRiskRole[];
     formRef.current?.setFieldsValue({
       table: tableDataSource.filter((item) => item.b_risk_role_group_id! !== _groupId),
     });
@@ -360,8 +360,8 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    * 删除细则
    * @param row
    */
-  const onDeleteGroupRole = (row: DataSourceType) => {
-    const tableDataSource = formRef.current?.getFieldValue('table') as DataSourceType[];
+  const onDeleteGroupRole = (row: API.GFRiskRole) => {
+    const tableDataSource = formRef.current?.getFieldValue('table') as API.GFRiskRole[];
 
     if (groupMinIndex.get(row.b_risk_role_group_id!) == row.m_group_index!) {
       const minIndex = tableDataSource
@@ -408,7 +408,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     });
 
   // columns 属性前为editTable 相关方法，columns属性后位高级表单方法
-  const columns: ProColumns<DataSourceType>[] = [
+  const columns: ProColumns<API.GFRiskRole>[] = [
     {
       title: FieldLabels2.n_execute_logic,
       dataIndex: FieldIndex2.a_risk_role_bundle_id,
@@ -801,7 +801,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const onFinish = async (values: Record<string, any>) => {
     setError([]);
     message.loading('正在提交');
-    values.table = values.table?.map((item: DataSourceType) => JSON.stringify(item)).join('##');
+    values.table = values.table?.map((item: API.GFRiskRole) => JSON.stringify(item)).join('##');
     try {
       // @ts-ignore
       if (params.id > 0) {
@@ -1057,7 +1057,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           bordered={false}
           extra={<a onClick={() => setFunctionVisable(true)}>支持的数学函数</a>}
         >
-          <EditableProTable<DataSourceType>
+          <EditableProTable<API.GFRiskRole>
             rowKey="id"
             scroll={{
               x: true,

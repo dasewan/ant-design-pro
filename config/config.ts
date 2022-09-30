@@ -1,7 +1,6 @@
 // https://umijs.org/config/
 import { defineConfig } from 'umi';
 // import { join } from 'path';
-
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
@@ -75,4 +74,8 @@ export default defineConfig({
   mfsu: {},
   webpack5: {},
   exportStatic: {},
+  chainWebpack(config) {
+    // config.module.rule('media').test(/\.(mp3|4)$/).use('file-loader').loader(require.resolve('file-loader'));
+    config.module.rule('mjs-rule').test(/.m?js/).resolve.set('fullySpecified', false);
+  },
 });
