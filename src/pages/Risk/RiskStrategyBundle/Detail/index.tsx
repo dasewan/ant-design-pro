@@ -8,7 +8,9 @@ import {
   CloseCircleOutlined,
   DeleteOutlined,
   MenuOutlined,
+  MinusSquareOutlined,
   PlusOutlined,
+  PlusSquareOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import type { ProColumns, ProFormInstance } from '@ant-design/pro-components';
@@ -130,6 +132,8 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const [oldRiskRoleBundleId, setOldRiskRoleBundleId] = useState<number>(0);
   /** 切换规则版本model中指定code的规则数据 */
   const [riskRoleBundleModelData, setRiskRoleBundleModelData] = useState<BDRiskRoleBundle[]>();
+  const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
+  const [expanded, setExpanded] = useState<boolean>(false);
   // 拖拽排序模版start
   const components = {
     body: {
@@ -238,6 +242,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             tmpRiskRoleBundleCodeTableData.push(tmpFind.i_code!);
           }
         });
+
         const tmpVersion: versionOptionType[] = [];
         res.data!.map((item: API.GGRiskStratey) => {
           tmpVersion.push({
@@ -259,7 +264,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         setRiskRoleBundleTableData(tmpRiskRoleBundleTableData);
         setRiskRoleBundleCodeTableData(tmpRiskRoleBundleCodeTableData!);
         setCurrentId(res.data![0]!.id!);
-        return res.data[0];
+        return res.data![0];
       } else {
         await _getRoleItemEnum();
         const targetVersionData = rawResultData!.find((item) => item.f_version == version)!;
@@ -353,11 +358,32 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     setRiskRoleBundleTableData(tmp);
     handleTableModalVisible(false);
   };
+
+  /**
+   * 展开折叠所有
+   * @param _expanded
+   */
+  const _expandFoldAll = (_expanded: boolean) => {
+    if (_expanded) {
+      setExpandedRowKeys([]);
+    } else {
+      const _tmpExpandedRowKeys: string[] = [];
+      riskRoleBundleTableData?.map((_item) => {
+        _tmpExpandedRowKeys.push(_item.id!.toString());
+      });
+      setExpandedRowKeys(_tmpExpandedRowKeys);
+    }
+    setExpanded(!_expanded);
+  };
   const columns: ProColumns<BDRiskRoleBundle>[] = [
     {
       title: RiskRoleBundleFieldLabels.a_name,
       dataIndex: RiskRoleBundleFieldIndex.a_name,
       ellipsis: true,
+    },
+    {
+      title: RiskRoleBundleFieldLabels.j_version,
+      dataIndex: RiskRoleBundleFieldIndex.j_version,
     },
     {
       title: RiskRoleBundleFieldLabels.b_related_role_group_count,
@@ -656,6 +682,16 @@ const AdvancedForm: FC<Record<string, any>> = () => {
               >
                 返回列表
               </Button>
+              <Button
+                htmlType="button"
+                style={{ margin: '0 8px' }}
+                onClick={() => {
+                  _expandFoldAll(expanded);
+                }}
+                icon={expanded ? <MinusSquareOutlined /> : <PlusSquareOutlined />}
+              >
+                {expanded ? '折叠所有' : '展开所有'}
+              </Button>
               <Popconfirm
                 title={
                   <>
@@ -797,10 +833,24 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         <Card title="规则及细则" className={styles.card} bordered={false}>
           <DndProvider backend={HTML5Backend}>
             <ProTable<BDRiskRoleBundle>
-              rowKey="id"
+              rowKey={(record) => record.id!.toString()}
               toolBarRender={false}
               columns={columns}
-              expandable={{ expandedRowRender, defaultExpandAllRows: true }}
+              expandable={{
+                expandedRowRender,
+                defaultExpandAllRows: true,
+                expandedRowKeys: expandedRowKeys,
+                onExpand: (bool, row) => {
+                  if (bool) {
+                    setExpandedRowKeys([...expandedRowKeys, row.id!.toString()]);
+                  } else {
+                    const index = expandedRowKeys.findIndex((e) => e === row.id!.toString());
+                    const newArray = [...expandedRowKeys];
+                    newArray.splice(index, 1);
+                    setExpandedRowKeys(newArray);
+                  }
+                },
+              }}
               dataSource={riskRoleBundleTableData}
               search={false}
               pagination={false}

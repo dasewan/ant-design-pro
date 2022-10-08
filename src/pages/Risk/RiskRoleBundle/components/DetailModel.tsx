@@ -240,6 +240,7 @@ const DetailModel: FC<FormProps> = (props) => {
     <ModalForm
       layout="vertical"
       visible={props.modalVisible}
+      modalProps={{ destroyOnClose: true }}
       width={1900}
       formRef={formRef}
       // initialValues={{...oldRecord}}
