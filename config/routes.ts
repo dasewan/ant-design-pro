@@ -227,6 +227,19 @@ export default [
       },
     ],
   },
+  {
+    name: 'setting',
+    icon: 'smile',
+    path: '/setting',
+    routes: [
+      {
+        name: 'system-setting',
+        icon: 'smile',
+        path: '/setting/system-setting',
+        component: './Setting/SystemSettings',
+      },
+    ],
+  },
 
   {
     component: './404',

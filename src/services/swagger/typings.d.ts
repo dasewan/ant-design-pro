@@ -895,6 +895,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GHSettingsIdParams = {
+    /** id of GHSetting */
+    id: number;
+  };
+
   type deleteAdminV1GIRiskStrategyBundlesIdParams = {
     /** id of GIRiskStrategyBundle */
     id: number;
@@ -1354,6 +1359,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GHSettingsIdParams = {
+    /** id of GHSetting */
+    id: number;
+  };
+
+  type getAdminV1GHSettingsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GIRiskStrategyBundlesIdParams = {
     /** id of GIRiskStrategyBundle */
     id: number;
@@ -1509,6 +1524,39 @@ declare namespace API {
     deleted_at?: string;
     /** App\Models\GGRiskStratey */
     a_a_a_a_g_i_risk_strategy_bundles?: GIRiskStrategyBundle[];
+  };
+
+  type GHSetting = {
+    /** id */
+    id?: number;
+    /** title* */
+    a_title: string;
+    /** 描述* */
+    b_description: string;
+    /** code* */
+    c_code: string;
+    /** option* */
+    d_option_key: string;
+    /** value* */
+    e_value: string;
+    /** 父id */
+    f_parent_id?: number;
+    /** 状态* */
+    g_disabled?: string;
+    /** 字段类型* */
+    h_field_type?: string;
+    /** 配置分类* */
+    i_cat: string;
+    /** 展示排序 */
+    j_sort?: number;
+    /** badge */
+    k_badge?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type GIRiskStrategyBundle = {
@@ -2017,6 +2065,11 @@ declare namespace API {
 
   type putAdminV1GGRiskStrateiesIdParams = {
     /** id of GGRiskStratey */
+    id: number;
+  };
+
+  type putAdminV1GHSettingsIdParams = {
+    /** id of GHSetting */
     id: number;
   };
 

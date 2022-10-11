@@ -28,6 +28,7 @@ import * as GDRiskItem from './GDRiskItem';
 import * as GERiskRoleGroup from './GERiskRoleGroup';
 import * as GFRiskRole from './GFRiskRole';
 import * as GGRiskStratey from './GGRiskStratey';
+import * as GHSetting from './GHSetting';
 import * as GIRiskStrategyBundle from './GIRiskStrategyBundle';
 import * as HProductSnapshot from './HProductSnapshot';
 import * as NoticeIconItem from './NoticeIconItem';
@@ -61,6 +62,7 @@ export default {
   GERiskRoleGroup,
   GFRiskRole,
   GGRiskStratey,
+  GHSetting,
   GIRiskStrategyBundle,
   HProductSnapshot,
   NoticeIconItem,
