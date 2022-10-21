@@ -57,7 +57,7 @@ const Settings: React.FC = () => {
       window.removeEventListener('resize', resize);
     };
   }, [dom.current]);
-
+  // @ts-ignore
   useEffect(() => {
     async function _index() {
       if (!dataMap.has('register')) {
@@ -103,7 +103,6 @@ const Settings: React.FC = () => {
     return () => {
       return;
     };
-    return Promise.resolve();
   }, []);
   const getMenu = () => {
     // return Object.keys(menuMap).map((item) => <Item key={item}>{menuMap[item]}</Item>);
