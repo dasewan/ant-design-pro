@@ -8,6 +8,7 @@ import React, { useRef, useState } from 'react';
 import type { SortableContainerProps, SortEnd } from 'react-sortable-hoc';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import type { TableListItem, TableListPagination } from './data';
+import styles from './index.less';
 import { fieldLabels, index, sort } from './service';
 
 import OverviewModel from '@/pages/Operation/BProduct/components/OverviewModel';
@@ -58,7 +59,7 @@ const TableList: React.FC = () => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
-    const res = await index({ foo: null, page: params.current, ...params });
+    const res = await index({ foo: null, page: params.current, limit: 100, ...params });
     // 排序固定模版
     if (res.data) {
       setDataSource(res.data);
@@ -259,72 +260,86 @@ const TableList: React.FC = () => {
           title: fieldLabels.c_amount,
           dataIndex: 'c_amount',
           width: 100,
+          className: styles.blue2,
         },
         {
           title: fieldLabels.z_period,
           dataIndex: 'z_period',
           width: 100,
+          className: styles.blue2,
         },
         {
           title: fieldLabels.e_life,
           dataIndex: 'e_life',
           width: 100,
+          className: styles.blue2,
         },
         {
           title: fieldLabels.g_interest,
           dataIndex: 'g_interest',
           width: 100,
+          className: styles.blue2,
         },
         {
           title: fieldLabels.h_service_fee_rate,
           dataIndex: 'h_service_fee_rate',
           width: 100,
+          className: styles.blue2,
         },
         {
           title: fieldLabels.i_overdue_rate,
           dataIndex: 'i_overdue_rate',
           width: 100,
+          className: styles.blue2,
         },
         {
           title: fieldLabels.i_overdue_rate,
           dataIndex: 'i_overdue_rate',
           width: 100,
+          className: styles.blue2,
         },
         {
           title: fieldLabels.k_extend_rate,
           dataIndex: 'k_extend_rate',
           width: 100,
+          className: styles.blue2,
         },
         {
           title: fieldLabels.l_min_pay,
           dataIndex: 'l_min_pay',
           width: 120,
+          className: styles.blue2,
         },
       ],
     },
     {
       title: '可借条件',
       search: false,
+      className: styles.blue,
       children: [
         {
           title: fieldLabels.q_unlock_credit_fraction,
           dataIndex: 'q_unlock_credit_fraction',
           width: 100,
+          className: styles.blue,
         },
         {
           title: fieldLabels.r_settled_times,
           dataIndex: 'r_settled_times',
           width: 120,
+          className: styles.blue,
         },
         {
           title: fieldLabels.s_max_overdue_days,
           dataIndex: 's_max_overdue_days',
           width: 120,
+          className: styles.blue,
         },
         {
           title: fieldLabels.t_max_overdue_times,
           dataIndex: 't_max_overdue_times',
           width: 120,
+          className: styles.blue,
         },
       ],
     },

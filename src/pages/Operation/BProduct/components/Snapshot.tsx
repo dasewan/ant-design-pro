@@ -44,6 +44,7 @@ const Snapshot: React.FC<Props> = (props) => {
       foo: 0,
       // @ts-ignore
       a_product_id: props.productId,
+      limit: 100,
       page: params.current,
       ...params,
     });
@@ -422,7 +423,7 @@ const Snapshot: React.FC<Props> = (props) => {
           return data;
         }}
         pagination={{
-          pageSize: 5,
+          pageSize: 100,
         }}
         scroll={{ x: '50%' }}
         bordered={true}
