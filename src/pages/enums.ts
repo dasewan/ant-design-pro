@@ -23,6 +23,8 @@ export const NEWS_ENUM = {
   25: { text: '查阅', color: 'blue' },
   27: { text: '短信', color: 'blue' },
   29: { text: '拉黑', color: 'red' },
+  31: { text: '命中白名单', color: 'green' },
+  33: { text: '从白名单中移除', color: 'red' },
 };
 // 客户当前页面
 export const INDEX_ACTION_ENUM = {

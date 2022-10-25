@@ -142,7 +142,7 @@ const TableList: React.FC = () => {
     },
     {
       title: '导入管理员',
-      dataIndex: 'h_admin_file_id',
+      dataIndex: 'k_admin_id',
       valueType: 'select',
       request: _getUserEnum,
     },

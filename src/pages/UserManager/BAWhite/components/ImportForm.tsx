@@ -5,6 +5,7 @@ import {
   ModalForm,
   ProFormDatePicker,
   ProFormDigit,
+  ProFormRadio,
   ProFormSelect,
   ProFormText,
   ProFormUploadButton,
@@ -49,6 +50,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
       await importWhite({
         h_admin_file_id: fileId,
         ...fields,
+        a_phone: '',
       });
       hide();
       message.success('配置成功');
@@ -83,6 +85,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
   const uploadFile = async (options: UploadRequestOption) => {
     const formData = new FormData();
     formData.append('file', options.file);
+    formData.append('b_type', '4');
     const result = await request<{ success?: boolean; data?: number; message?: string }>(
       '/admin/v1/aLAdminFiles',
       {
@@ -99,11 +102,11 @@ const ImportForm: React.FC<FormProps> = (props) => {
     }
   };
   const _handleBeforeUpload = (file: RcFile) => {
-    if (file.size <= 3 * 1024 * 1024) return Promise.resolve();
+    if (file.size <= 800 * 1024) return Promise.resolve();
     return new Promise<void>((resolve, reject) =>
       Modal.confirm({
         title: '文件大小错误',
-        content: `文件大于3M,无法上传`,
+        content: `文件大于800k,无法上传`,
         onOk() {
           resolve();
         },
@@ -132,8 +135,11 @@ const ImportForm: React.FC<FormProps> = (props) => {
       }}
       params={{}}
       layout="horizontal"
-      labelCol={{ span: 4 }}
+      labelCol={{ span: 6 }}
       wrapperCol={{ span: 14 }}
+      initialValues={{
+        update_exist: 0,
+      }}
     >
       <ProFormUploadButton
         label="Upload"
@@ -148,7 +154,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
       />
       <ProFormSelect
         name="e_channel_id"
-        label="Select"
+        label="选择渠道"
         request={_getChannelsEnum}
         placeholder="Please select a channel"
         rules={[{ required: true, message: 'Please select your reason!' }]}
@@ -160,7 +166,22 @@ const ImportForm: React.FC<FormProps> = (props) => {
         min={100}
         max={10000}
         fieldProps={{ precision: 0 }}
-        tooltip="优先用excel中的金额"
+        tooltip="如果excel中的授信金额为空，则使用此值"
+      />
+      <ProFormRadio.Group
+        name="update_exist"
+        label="是否更新已注册用户"
+        radioType="button"
+        options={[
+          {
+            label: '不更新',
+            value: 0,
+          },
+          {
+            label: '更新',
+            value: 1,
+          },
+        ]}
       />
       <ProFormText
         // width="md"
