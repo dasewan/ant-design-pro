@@ -7,7 +7,6 @@ import {
   ProFormDigit,
   ProFormRadio,
   ProFormSelect,
-  ProFormText,
   ProFormUploadButton,
 } from '@ant-design/pro-form';
 import type { ProFieldRequestData } from '@ant-design/pro-utils';
@@ -183,12 +182,12 @@ const ImportForm: React.FC<FormProps> = (props) => {
           },
         ]}
       />
-      <ProFormText
+      {/*      <ProFormText
         // width="md"
-        name="j_comment"
+        name="comment"
         label="备注"
         placeholder="请输入备注"
-      />
+      />*/}
     </ModalForm>
   );
 };

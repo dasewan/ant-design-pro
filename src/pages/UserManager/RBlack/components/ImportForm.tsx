@@ -80,6 +80,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
   const uploadFile = async (options: UploadRequestOption) => {
     const formData = new FormData();
     formData.append('file', options.file);
+    formData.append('b_type', '1');
     const result = await request<{ success?: boolean; data?: number; message?: string }>(
       '/admin/v1/aLAdminFiles',
       {
@@ -96,11 +97,11 @@ const ImportForm: React.FC<FormProps> = (props) => {
     }
   };
   const _handleBeforeUpload = (file: RcFile) => {
-    if (file.size <= 3 * 1024 * 1024) return Promise.resolve();
+    if (file.size <= 800 * 1024) return Promise.resolve();
     return new Promise<void>((resolve, reject) =>
       Modal.confirm({
         title: '文件大小错误',
-        content: `文件大于3M,无法上传`,
+        content: `文件大于800k,无法上传`,
         onOk() {
           resolve();
         },

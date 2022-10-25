@@ -32,12 +32,24 @@ const RBlack: FC<RBlackProps> = (props) => {
       tab: '手机号码',
     },
     {
-      key: 'idnumber',
+      key: 'id-number',
       tab: '证件号',
     },
     {
-      key: 'bankcard',
+      key: 'id-number2',
+      tab: '证件号2',
+    },
+    {
+      key: 'bank-card',
       tab: '银行卡号',
+    },
+    {
+      key: 'imei',
+      tab: 'IMEI',
+    },
+    {
+      key: 'device',
+      tab: '设备',
     },
   ]);
   const { match } = props;
@@ -64,7 +76,7 @@ const RBlack: FC<RBlackProps> = (props) => {
     setTabList(tabList);
   };
   useEffect(() => {
-    _getRBlackTab().then(() => history.push(`/user-manager/blackinfo-list/phone`));
+    _getRBlackTab().then(() => history.push(`/user-manager/black-info-list/phone`));
     return () => {};
   }, []);
 
