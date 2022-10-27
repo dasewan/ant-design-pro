@@ -125,6 +125,7 @@ const TableList: React.FC = () => {
     {
       title: '批号',
       dataIndex: 'e_batch_sn',
+      ellipsis: true,
     },
     {
       title: '管理员',
@@ -146,22 +147,22 @@ const TableList: React.FC = () => {
       dataIndex: 'd_theme_id',
     },
     {
-      title: '查看数量',
+      title: '查看数',
       dataIndex: 'i_viewed_count',
       search: false,
     },
     {
-      title: '查看数量（去重）',
+      title: '查看数（去重）',
       dataIndex: 'j_viewed_deduplication_count',
       search: false,
     },
     {
-      title: '营销数量',
+      title: '营销数',
       dataIndex: 'k_marketing_count',
       search: false,
     },
     {
-      title: '注册数量',
+      title: '注册数',
       dataIndex: 'f_register_count',
     },
     {
@@ -202,7 +203,7 @@ const TableList: React.FC = () => {
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '营销名称',
-      dataIndex: 'm_title',
+      dataIndex: 'q_title',
       ellipsis: true,
       search: false,
     },
@@ -221,25 +222,35 @@ const TableList: React.FC = () => {
       params: { timestamp: Math.random() },
     },
     {
-      title: '导入数量',
+      title: '导入数',
       dataIndex: 'd_import_count',
     },
     {
-      title: '有效数量',
+      title: '有效数',
       dataIndex: 'e_valid_count',
     },
     {
-      title: '查看数量',
+      title: '已注册数',
+      dataIndex: 'r_register_count',
+      tooltip: '导入前已经注册的数，注意和《注册数》的区别',
+    },
+    {
+      title: '重复数',
+      dataIndex: 's_repeat_count',
+      tooltip: '此前已经通过别的渠道营销过',
+    },
+    {
+      title: '查看数',
       dataIndex: 'n_viewed_count',
       search: false,
     },
     {
-      title: '查看数量（去重）',
+      title: '查看数（去重）',
       dataIndex: 'o_viewed_deduplication_count',
       search: false,
     },
     {
-      title: '注册数量',
+      title: '注册数',
       dataIndex: 'f_register_count',
     },
     {
@@ -312,11 +323,13 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
-        // @ts-ignore
-        const cantMarketing = record.g_c_marketing_histories.some(
-          (item: API.GCMarketingHistory) => item.m_status == 1 || item.m_status == 2,
-        );
-        return record.m_status == 3 && !cantMarketing
+        return record.m_status == 3 &&
+          // @ts-ignore
+          !record.g_c_marketing_histories.some(
+            (item: API.GCMarketingHistory) => item.m_status == 1 || item.m_status == 2,
+          ) &&
+          (isNaN(moment().diff(moment(record.p_last_marketing_time), 'days')) ||
+            moment().diff(moment(record.p_last_marketing_time), 'days') > 2)
           ? [
               <a key="credit_amount" onClick={() => handleMarketing(record.id!.toString())}>
                 营销

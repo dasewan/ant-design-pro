@@ -117,7 +117,6 @@ const MarketingForm: React.FC<FormProps> = (props) => {
         request={_getSMSsEnum}
         fieldProps={{
           onChange: (value) => {
-            console.log(value);
             // @ts-ignore
             setSmsSelectedView(
               smsViews!.find((item) => {
@@ -249,15 +248,15 @@ const MarketingForm: React.FC<FormProps> = (props) => {
         options={[
           {
             label: '未注册',
-            value: 1,
+            value: 3,
           },
           {
             label: '未查看',
-            value: 2,
+            value: 4,
           },
           {
             label: '已查看',
-            value: 3,
+            value: 5,
           },
         ]}
       />

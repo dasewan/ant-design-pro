@@ -3,6 +3,7 @@ export const STATUS_ENUM = {
   2: { text: '执行中', status: 'Processing' },
   3: { text: '执行成功', status: 'Success' },
   4: { text: '执行失败', status: 'Error' },
+  5: { text: '无效', status: 'Error' },
 };
 
 export type NoticeIconItemType = 'notification' | 'message' | 'event';

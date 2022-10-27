@@ -100,11 +100,11 @@ const ImportForm: React.FC<FormProps> = (props) => {
     }
   };
   const _handleBeforeUpload = (file: RcFile) => {
-    if (file.size <= 3 * 1024 * 1024) return Promise.resolve();
+    if (file.size <= 800 * 1024) return Promise.resolve();
     return new Promise<void>((resolve, reject) =>
       Modal.confirm({
         title: '文件大小错误',
-        content: `文件大于3M,无法上传`,
+        content: `文件大于800k,无法上传`,
         onOk() {
           resolve();
         },
@@ -119,10 +119,11 @@ const ImportForm: React.FC<FormProps> = (props) => {
   return (
     <ModalForm<FormRecord>
       visible={props.modalVisible}
-      modalProps={{ destroyOnClose: true, maskClosable: false, confirmLoading: _confirmLoading }}
+      modalProps={{ destroyOnClose: true, maskClosable: false }}
       onVisibleChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
+          setConfirmLoading(true);
           props.onCancel();
         }
       }}
@@ -138,10 +139,15 @@ const ImportForm: React.FC<FormProps> = (props) => {
       initialValues={{
         l_type: 'delay',
       }}
+      submitter={{
+        submitButtonProps: {
+          disabled: _confirmLoading,
+        },
+      }}
     >
       <ProFormText
         // width="md"
-        name="m_title"
+        name="q_title"
         label="营销名称"
         placeholder="请输入备注"
         rules={[{ required: true, message: 'Please select your reason!' }]}
@@ -167,7 +173,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
       <ProFormRadio.Group
         tooltip={
           <div>
-            延时执行：明日凌晨3：45执行
+            延时执行：明日凌晨空闲时间执行
             <br />
             立即执行：执行期间可能会造成系统卡顿
           </div>
