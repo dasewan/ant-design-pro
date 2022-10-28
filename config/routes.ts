@@ -178,6 +178,12 @@ export default [
           },
         ],
       },
+      {
+        name: 'import-result-list',
+        icon: 'smile',
+        path: '/user-manager/import-result-list',
+        component: './UserManager/BEImportResult',
+      },
     ],
   },
   {

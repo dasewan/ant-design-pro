@@ -66,6 +66,7 @@ export default {
   'menu.user.white-user-list.white-user': '白名单用户',
   'menu.user.white-user-list.white-user-with-overdue': '已结清黑名单用户',
   'menu.user.g-b-marketing': '营销管理',
+  'menu.user.import-result-list': '导入结果',
   'menu.user.marketing-detail-list': '营销用户',
   'menu.user.marketing-detail-list.marketing-success-user': '已注册用户',
   'menu.user.marketing-detail-list.marketing-user-with-overdue': '已逾期用户',
