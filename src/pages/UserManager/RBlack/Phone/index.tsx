@@ -193,6 +193,10 @@ const TableList: React.FC = () => {
       copyable: true,
     },
     {
+      title: '导入序号',
+      dataIndex: 'l_admin_file_id',
+    },
+    {
       title: '命中次数',
       dataIndex: 'b_hit_count',
       render: (_, record) => {

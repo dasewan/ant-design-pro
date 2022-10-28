@@ -120,6 +120,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
       onVisibleChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
+          setConfirmLoading(true);
           props.onCancel();
         }
       }}
@@ -132,6 +133,11 @@ const ImportForm: React.FC<FormProps> = (props) => {
       layout="horizontal"
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 14 }}
+      submitter={{
+        submitButtonProps: {
+          disabled: _confirmLoading,
+        },
+      }}
     >
       <ProFormUploadButton
         label="Upload"
@@ -147,12 +153,16 @@ const ImportForm: React.FC<FormProps> = (props) => {
 
       <ProFormSelect
         name="a_reason_id"
-        label="Select"
+        label="拉黑原因"
         request={_getReasonEnum}
         placeholder="Please select a reason"
         rules={[{ required: true, message: 'Please select your reason!' }]}
       />
-      <ProFormDatePicker name="d_overdate" label="结束日期" tooltip="默认为永久黑名单" />
+      <ProFormDatePicker
+        name="d_overdate"
+        label="结束日期"
+        tooltip="默认为90天，90天后自动变为灰名单"
+      />
       <ProFormText
         // width="md"
         name="b_comment"

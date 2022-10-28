@@ -94,6 +94,10 @@ const TableList: React.FC = () => {
       params: { timestamp: Math.random() },
     },
     {
+      title: '导入序号',
+      dataIndex: 'n_admin_file_id',
+    },
+    {
       title: '录入时间',
       dataIndex: 'created_at',
       valueType: 'dateRange',

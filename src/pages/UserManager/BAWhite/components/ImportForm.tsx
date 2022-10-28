@@ -124,6 +124,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
       onVisibleChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
+          setConfirmLoading(true);
           props.onCancel();
         }
       }}
@@ -138,6 +139,11 @@ const ImportForm: React.FC<FormProps> = (props) => {
       wrapperCol={{ span: 14 }}
       initialValues={{
         update_exist: 0,
+      }}
+      submitter={{
+        submitButtonProps: {
+          disabled: _confirmLoading,
+        },
       }}
     >
       <ProFormUploadButton

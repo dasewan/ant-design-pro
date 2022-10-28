@@ -165,7 +165,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
       />
       <ProFormSelect
         name="b_channel_id"
-        label="Select"
+        label="渠道"
         request={_getChannelsEnum}
         placeholder="Please select a channel"
         rules={[{ required: true, message: 'Please select your reason!' }]}
