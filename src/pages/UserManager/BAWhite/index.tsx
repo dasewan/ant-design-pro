@@ -113,7 +113,7 @@ const TableList: React.FC = () => {
     },
     {
       title: '渠道',
-      dataIndex: 'l_channel_id',
+      dataIndex: 'e_channel_id',
       valueType: 'select',
       request: _getChannelsEnum,
       params: { timestamp: Math.random() },
