@@ -84,4 +84,5 @@ export default {
   'menu.risk.risk-strategy-bundle-detail': '风控策略详情',
   'menu.setting': '设置',
   'menu.setting.system-setting': '系统设置',
+  'menu.setting.verify-item': '认证项',
 };

@@ -268,6 +268,12 @@ export default [
         path: '/setting/system-setting',
         component: './Setting/SystemSettings',
       },
+      {
+        name: 'verify-item',
+        icon: 'smile',
+        path: '/setting/verify-item',
+        component: './Setting/QVerifyItem',
+      },
     ],
   },
 

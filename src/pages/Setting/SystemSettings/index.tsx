@@ -153,13 +153,13 @@ const Settings: React.FC = () => {
       <div style={{ display: readed ? 'none' : 'block' }}>
         <Result
           status="warning"
-          title="There are some problems with your operation."
+          title="配置系统参数前，请明确你将要修改系统参数的用途！"
           extra={
             /*            <Button disabled={sec > 0} type="primary" key="console" onClick={()=>setReaded(true)}>
                           Go Setting {sec}
                         </Button>*/
             <TimerButton
-              name={'Go Setting'}
+              name={'开始设置'}
               num={3}
               onClick={() => {
                 setReaded(true);
