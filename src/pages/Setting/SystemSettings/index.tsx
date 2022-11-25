@@ -1,5 +1,5 @@
 import { GridContent } from '@ant-design/pro-layout';
-import { Menu, Result } from 'antd';
+import { Alert, Menu, Result } from 'antd';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import SecurityView from './components/security';
 import styles from './style.less';
@@ -22,6 +22,13 @@ const Settings: React.FC = () => {
     borrow: '借贷配置',
     merchant: '商户配置',
     other: '其他配置',
+  };
+  const menuInfoMap: Record<string, React.ReactNode> = {
+    register: '',
+    verify: '建议不要中断用户认证流程（即使命中黑名单），这样可以完整的获取用户资料',
+    borrow: '',
+    merchant: '',
+    other: '',
   };
 
   const [initConfig, setInitConfig] = useState<SettingsState>({
@@ -93,7 +100,7 @@ const Settings: React.FC = () => {
         tmpMap.set('verify', verifyData);
         tmpMap.set('borrow', borrowData);
         tmpMap.set('merchant', merchantData);
-        tmpMap.set('other', otherData);
+
         setDataMap(tmpMap);
       }
       return dataMap;
@@ -145,6 +152,7 @@ const Settings: React.FC = () => {
             </div>
             <div className={styles.right}>
               <div className={styles.title}>{menuMap[initConfig.selectKey]}</div>
+              <Alert message={menuInfoMap[initConfig.selectKey]} type="info" />
               {renderChildren()}
             </div>
           </div>

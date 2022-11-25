@@ -270,10 +270,6 @@ const TableList: React.FC = () => {
       dataIndex: 'b_name',
     },
     {
-      title: fieldLabels.f_valid_days,
-      dataIndex: 'f_valid_days',
-    },
-    {
       title: fieldLabels.i_description,
       dataIndex: 'i_description',
       ellipsis: true,

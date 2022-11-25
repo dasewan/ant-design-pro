@@ -217,6 +217,12 @@ export default [
         hideInMenu: true,
       },
       {
+        name: 'risk-tag',
+        icon: 'smile',
+        path: '/risk/risk-tag',
+        component: './Risk/RiskTag',
+      },
+      {
         name: 'risk-strategy-bundle',
         icon: 'smile',
         path: '/risk/risk-strategy-bundle',
