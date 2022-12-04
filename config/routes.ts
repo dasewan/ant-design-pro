@@ -187,6 +187,49 @@ export default [
     ],
   },
   {
+    name: 'review',
+    icon: 'smile',
+    path: '/review',
+    routes: [
+      {
+        name: 'review-group',
+        icon: 'smile',
+        path: '/review/review-group',
+        component: './Review/ReviewGroup',
+      },
+      {
+        name: 'review-admin',
+        icon: 'smile',
+        path: '/review/review-admin',
+        component: './Review/ReviewAdmin',
+      },
+      {
+        name: 'review-borrow',
+        icon: 'smile',
+        path: '/review/review-borrow',
+        component: './Review/ReviewBorrow',
+      },
+      {
+        name: 'review-borrow-accept',
+        icon: 'smile',
+        path: '/review/review-borrow-accept',
+        component: './Review/ReviewBorrowAccept',
+      },
+      {
+        name: 'review-borrow-reject',
+        icon: 'smile',
+        path: '/review/review-borrow-reject',
+        component: './Review/ReviewBorrowReject',
+      },
+      {
+        name: 'review-borrow-flow',
+        icon: 'smile',
+        path: '/review/review-borrow-flow',
+        component: './Review/ReviewBorrowFlow',
+      },
+    ],
+  },
+  {
     name: 'risk',
     icon: 'smile',
     path: '/risk',

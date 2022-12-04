@@ -40,7 +40,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
    */
   const onFinish = async (values: FormValueType) => {
     const hide = message.loading('正在配置');
-    if (moment().diff(currentTableListItemMoment) > 30000) {
+    if (moment().diff(currentTableListItemMoment) > 3000000) {
       console.log(moment().diff(currentTableListItemMoment));
       hide();
       message.error('配置超时！');
@@ -99,6 +99,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           setOldRecord(res.data);
           return res.data;
         } else {
+          setCurrentTableListItemMoment(moment());
           setOldRecord({});
           return {};
         }
@@ -123,7 +124,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
       <ProFormText
         label={FieldLabels.a_title}
         name={FieldIndex.a_title}
-        disabled={oldRecord?.a_title != '' || oldRecord?.a_title != undefined}
+        disabled={oldRecord?.a_title != undefined}
         rules={[
           { required: true, message: `请输入${FieldLabels.a_title}` },
           {
@@ -255,7 +256,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
         rules={[
           {
             validator: (_, value) => {
-              const tmpValue = value.join(',');
+              const tmpValue = value?.join(',');
               let oldValue = '';
               // @ts-ignore
               oldRecord?.r_products?.map((productId: number) => {

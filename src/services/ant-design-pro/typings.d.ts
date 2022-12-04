@@ -310,6 +310,131 @@ declare namespace API {
     a_a_a_a_g_d_risk_item?: GDRiskItem[];
   };
 
+  type AOLoanBank = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
+    b_status?: number;
+    /** 认证有效时间 */
+    c_valid_date?: string;
+    /** 银行名称 */
+    d_bank_name?: string;
+    /** 银行code */
+    e_bank_code?: string;
+    /** 银行卡号 */
+    f_bank_card_no?: string;
+    /** 照片1 */
+    g_bank_card_img?: string;
+    /** 照片2 */
+    h_bank_card_img2?: string;
+    /** 信息1 */
+    i_info1?: string;
+    /** 信息2 */
+    j_info1?: string;
+    /** 信息3 */
+    k_info1?: string;
+    /** 认证id */
+    l_verify_id?: number;
+    /** 认证次数粗豪 */
+    m_index?: number;
+    /** 黑名单id */
+    n_black_id?: number;
+    /** 灰名单id */
+    o_grey_id?: number;
+    /** 重复的卡数量 */
+    r_repeated_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type APReviewGroup = {
+    /** id */
+    id?: number;
+    /** 审核小组名称 */
+    a_name?: string;
+    /** 借款次数 */
+    b_borrow_times?: string;
+    /** 权重 */
+    c_weight?: number;
+    /** 状态 0:禁用 1:启用 */
+    d_status?: string;
+    /** 审核渠道 */
+    e_channels?: string;
+    /** 审核管理员 */
+    f_admins?: string;
+    /** 分配模式 */
+    g_mode?: string;
+    /** 借款产品 */
+    h_products?: string;
+    /** created_at */
+    created_at?: string;
+    /** 待审核案件数 */
+    i_review_wait_count?: number;
+    /** 审核拒绝案件数 */
+    j_review_refuse_count?: number;
+    /** 审核通过案件数 */
+    k_review_accept_count?: number;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type ARReviewAdmin = {
+    /** id */
+    id?: number;
+    /** 审核小组名称 */
+    a_name?: string;
+    /** 管理员id */
+    b_admin_id?: number;
+    /** 审核小组 */
+    c_review_group_id?: string;
+    /** 是否可以审核证件 */
+    d_can_id_number?: string;
+    /** 是否可以审核联系人 */
+    e_can_contact_persion?: string;
+    /** 是否可以审核工作信息 */
+    f_can_job?: string;
+    /** 是否可以审核通讯录 */
+    g_can_contact?: string;
+    /** 是否可以审核短信 */
+    h_can_sms?: string;
+    /** 是否可以查看风控信息 */
+    i_can_risk?: string;
+    /** 状态 0:禁用 1:启用 */
+    j_status?: string;
+    /** 是否可以查看app信息 */
+    k_can_app?: string;
+    /** 是否可以查看历史订单信息 */
+    l_can_history_borrow?: string;
+    /** 借款次数 */
+    m_borrow_times?: string;
+    /** 待审核案件数 */
+    n_review_wait_count?: number;
+    /** 审核拒绝案件数 */
+    o_review_refuse_count?: number;
+    /** 审核通过案件数 */
+    p_review_accept_count?: number;
+    /** 首借待审核案件数 */
+    q_review_wait_count1?: number;
+    /** 复借2-4待审核案件数 */
+    r_review_wait_count2?: number;
+    /** 复借5+待审核案件数 */
+    s_review_wait_count3?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type AUser = {
     /** id */
     id?: number;
@@ -564,6 +689,122 @@ declare namespace API {
     deleted_at?: string;
     /** App\Models\BDRiskRoleBundle */
     a_a_a_a_g_f_risk_role?: GFRiskRole[];
+  };
+
+  type BEImportResult = {
+    /** id */
+    id?: number;
+    /** 用户id* */
+    a_admin_file_id?: number;
+    /** 导入类型 1:白名单 2:黑名单 3:营销名单 4:其他* */
+    b_type?: number;
+    /** 所属渠道id* */
+    c_channel_id?: number;
+    /** 有效期* */
+    d_valid_date?: string;
+    /** 导入数量 */
+    e_import_count?: number;
+    /** 有效数量 */
+    f_valid_count?: number;
+    /** 已注册数量 */
+    g_register_count?: number;
+    /** 重复数量 */
+    h_repeat_count?: number;
+    /** 管理员 */
+    i_admin_id?: number;
+    /** 导入执行时长 */
+    j_during_second?: number;
+    /** 执行状态 1:待执行 2：执行中 3：执行成功 4：执行失败 */
+    k_status?: number;
+    /** 计划执行时间 */
+    l_expect_execute_at?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type BFReviewBorrow = {
+    /** id */
+    id?: number;
+    a_a_a_a_a_d_borrow?: DBorrow;
+    /** 订单id */
+    a_borrow_id?: number;
+    /** 管理员id */
+    b_admin_id?: number;
+    /** 审核结果 0:待审核 1: 通过 2:拒绝 */
+    c_result?: number;
+    /** 证件号标签 */
+    d_id_number_tag_ids?: string;
+    /** 联系人标签 */
+    e_contact_persion_tag_ids?: string;
+    /** 工作信息标签 */
+    f_job_tag_ids?: string;
+    /** 通讯录标签 */
+    g_contact_tag_ids?: string;
+    /** 短信标签 */
+    h_sms_tag_ids?: string;
+    /** 风控标签 */
+    i_risk_tag_ids?: string;
+    /** app标签 */
+    j_app_tag_ids?: string;
+    /** 历史订单标签 */
+    k_history_tag_ids?: string;
+    /** 流转次数 */
+    l_flow_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type BGReviewTag = {
+    /** id */
+    id?: number;
+    /** 标签名称 */
+    a_name?: string;
+    /** 备注 */
+    b_comment?: string;
+    /** 命中数 */
+    c_hit_count?: number;
+    /** d_type */
+    d_type?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type BHReviewBorrowFlow = {
+    /** id */
+    id?: number;
+    a_a_a_a_a_d_borrow?: DBorrow;
+    /** 订单id */
+    a_borrow_id?: number;
+    /** 流转之前审核组 */
+    b_before_admin_id?: number;
+    /** 流转之前管理员 */
+    c_before_review_group_id?: number;
+    /** 流转之后管理员 */
+    d_after_admin_id?: number;
+    /** 流转之后管理员 */
+    e_after_review_group_id?: number;
+    /** 操作管理员 */
+    f_admin_id?: number;
+    /** g_type */
+    g_type?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type BProduct = {
@@ -825,6 +1066,16 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1APReviewGroupsIdParams = {
+    /** id of APReviewGroup */
+    id: number;
+  };
+
+  type deleteAdminV1ARReviewAdminsIdParams = {
+    /** id of ARReviewAdmin */
+    id: number;
+  };
+
   type deleteAdminV1AUsersIdParams = {
     /** id of AUser */
     id: number;
@@ -847,6 +1098,26 @@ declare namespace API {
 
   type deleteAdminV1BDRiskRoleBundlesIdParams = {
     /** id of BDRiskRoleBundle */
+    id: number;
+  };
+
+  type deleteAdminV1BEImportResultsIdParams = {
+    /** id of BEImportResult */
+    id: number;
+  };
+
+  type deleteAdminV1BFReviewBorrowsIdParams = {
+    /** id of BFReviewBorrow */
+    id: number;
+  };
+
+  type deleteAdminV1BGReviewTagsIdParams = {
+    /** id of BGReviewTag */
+    id: number;
+  };
+
+  type deleteAdminV1BHReviewBorrowFlowsIdParams = {
+    /** id of BHReviewBorrowFlow */
     id: number;
   };
 
@@ -905,8 +1176,18 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GJRiskTagsIdParams = {
+    /** id of GJRiskTag */
+    id: number;
+  };
+
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
+    id: number;
+  };
+
+  type deleteAdminV1QVerifyItemsIdParams = {
+    /** id of QVerifyItem */
     id: number;
   };
 
@@ -960,6 +1241,8 @@ declare namespace API {
     l_last_marketing_time?: string;
     /** 最近查看时间* */
     m_last_viewed_time?: string;
+    /** 文件id* */
+    n_admin_file_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1189,6 +1472,36 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1APReviewGroupsConfigParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1APReviewGroupsEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1APReviewGroupsIdParams = {
+    /** id of APReviewGroup */
+    id: number;
+  };
+
+  type getAdminV1APReviewGroupsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1ARReviewAdminsIdParams = {
+    /** id of ARReviewAdmin */
+    id: number;
+  };
+
+  type getAdminV1ARReviewAdminsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1AUsersIdParams = {
     /** id of AUser */
     id: number;
@@ -1245,6 +1558,46 @@ declare namespace API {
   };
 
   type getAdminV1BDRiskRoleBundlesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BEImportResultsIdParams = {
+    /** id of BEImportResult */
+    id: number;
+  };
+
+  type getAdminV1BEImportResultsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BFReviewBorrowsIdParams = {
+    /** id of BFReviewBorrow */
+    id: number;
+  };
+
+  type getAdminV1BFReviewBorrowsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BGReviewTagsIdParams = {
+    /** id of BGReviewTag */
+    id: number;
+  };
+
+  type getAdminV1BGReviewTagsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BHReviewBorrowFlowsIdParams = {
+    /** id of BHReviewBorrowFlow */
+    id: number;
+  };
+
+  type getAdminV1BHReviewBorrowFlowsParams = {
     /** foo */
     foo: number;
   };
@@ -1379,6 +1732,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GJRiskTagsIdParams = {
+    /** id of GJRiskTag */
+    id: number;
+  };
+
+  type getAdminV1GJRiskTagsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -1390,6 +1753,16 @@ declare namespace API {
   };
 
   type getAdminV1ProductsEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1QVerifyItemsIdParams = {
+    /** id of QVerifyItem */
+    id: number;
+  };
+
+  type getAdminV1QVerifyItemsParams = {
     /** foo */
     foo: number;
   };
@@ -1576,6 +1949,23 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type GJRiskTag = {
+    /** id */
+    id?: number;
+    /** 名称* */
+    a_name?: string;
+    /** 取值* */
+    b_values?: string;
+    /** 分组* */
+    c_group?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type GVerify = {
     /** id */
     id?: number;
@@ -1592,12 +1982,12 @@ declare namespace API {
     /** 状态 10：待认证 */
     f_status?: number;
     /** g_ */
-    g_: string;
+    g_?: string;
     /** 最早过期时间 */
     h_next_expired_date?: string;
     /** 身份证认证id */
     i_idnumber_verify_id?: number;
-    /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
+    /** 身份证认证状态 10:待认证，20:认证中 30：复审 40：认证拒绝 50：认证通过：60：认证过期 */
     j_idnumber_verify_status?: number;
     /** k_liveness_verify_id */
     k_liveness_verify_id?: number;
@@ -1613,18 +2003,34 @@ declare namespace API {
     p_job_verify_status?: number;
     /** q_loan_bank_id */
     q_loan_bank_id?: number;
-    /** r_loan_bank_status */
-    r_loan_bank_status?: number;
+    /** r_loan_bank_verify_status */
+    r_loan_bank_verify_status?: number;
     /** s_repay_bank_id */
     s_repay_bank_id?: number;
-    /** t_repay_bank_status */
-    t_repay_bank_status?: number;
+    /** t_repay_bank_verify_status */
+    t_repay_bank_verify_status?: number;
     /** u_h5_verify_id */
     u_h5_verify_id?: number;
     /** v_h5_verify_status */
     v_h5_verify_status?: number;
-    /** w_phone */
+    /** 手机号码 */
     w_phone?: string;
+    /** x_ocr_verify_id */
+    x_ocr_verify_id?: number;
+    /** y_ocr_verify_status */
+    y_ocr_verify_status?: number;
+    /** z_supplement_verify_id */
+    z_supplement_verify_id?: number;
+    /** a_a_supplement_verify_status */
+    a_a_supplement_verify_status?: number;
+    /** ocr认证次数 */
+    a_b_ocr_verify_times?: number;
+    /** 证件号认证次数 */
+    a_c_idnumber_verify_times?: number;
+    /** 放款银行卡认证次数 */
+    a_d_loan_bank_verify_times?: number;
+    /** 活体认证次数 */
+    a_e_liveness_verify_times?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1753,6 +2159,85 @@ declare namespace API {
     status: string;
     /** currentAuthority */
     currentAuthority?: string;
+  };
+
+  type MAJob = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** ocr.id */
+    b_ocr_id?: number;
+    /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
+    c_status?: boolean;
+    /** 认证有效时间 */
+    d_valid_date?: string;
+    /** 贷款用途 */
+    e_personal_loan_purpose?: number;
+    /** 期望贷款周期 */
+    f_expect_loan_days?: number;
+    /** 期望贷款金额 */
+    g_expect_loan_amount?: number;
+    /** 婚姻状态 1：已婚 2：未婚 */
+    h_marital_status?: number;
+    /** 子女数量 */
+    i_children_count?: number;
+    /** 宗教 */
+    j_religion?: number;
+    /** 首选语言 */
+    k_preferred_language?: number;
+    /** 教育水平 */
+    l_education?: number;
+    /** 住宅类型 */
+    m_residential_type?: number;
+    /** 当前住址-州 */
+    n_current_state_id?: number;
+    /** 当前住址-市 */
+    o_current_city_id?: number;
+    /** 当前住址-区 */
+    p_current_district_id?: number;
+    /** 当前住址 */
+    q_current_address?: string;
+    /** 居住时长 */
+    r_living_length?: number;
+    /** whatsapp */
+    s_whatsapp?: string;
+    /** facebook */
+    t_facebook?: string;
+    /** facebook */
+    u_email?: string;
+    /** 工作状态 */
+    v_employment_status?: number;
+    /** 雇佣期 */
+    w_employment_period?: number;
+    /** 月薪 */
+    x_monthly_salary?: number;
+    /** 发薪方式 */
+    y_payroll_period?: number;
+    /** 发薪日 */
+    z_pay_day?: number;
+    /** 公司名称 */
+    a_a_company_name?: string;
+    /** 雇主姓名 */
+    a_b_employer_name?: string;
+    /** 雇主电话 */
+    a_c_employer_phone?: string;
+    /** 公司-州 */
+    a_d_company_state_id?: number;
+    /** 公司-市 */
+    a_e_company_city_id?: number;
+    /** 公司-区 */
+    a_f_company_district_id?: number;
+    /** 公司地址 */
+    a_g_company_address?: string;
+    /** line */
+    a_h_line?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type MIdnumber = {
@@ -1892,6 +2377,78 @@ declare namespace API {
   };
 
   type NUserProfile = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** 白名单id */
+    b_white_id?: number;
+    /** 黑名单id */
+    c_black_phone_id?: number;
+    /** 黑名单idnumber id */
+    d_black_id_number_id?: number;
+    /** 黑名单bankcard id */
+    e_black_bank_card_id?: number;
+    /** 黑名单imei id */
+    f_black_imei_id?: number;
+    /** 黑名单device id */
+    g_black_device_id?: number;
+    /** 灰名单id */
+    h_grey_id?: number;
+    /** 渠道id */
+    i_channel_id?: number;
+    /** 性别 1:男 2:女 */
+    j_gender?: number;
+    /** 年龄 */
+    k_age?: number;
+    /** app版本 */
+    l_app_version?: number;
+    /** 初始短信数量 */
+    m_init_msg_count?: number;
+    /** 最后一次短信上送时间 */
+    n_last_msg_time?: string;
+    /** 短信数量 */
+    o_sms_count?: number;
+    /** 初始相册数量 */
+    p_init_album_count?: number;
+    /** 最后一次相册上送时间 */
+    q_last_album_time?: string;
+    /** 相册数量 */
+    r_album_count?: number;
+    /** app初始数量 */
+    s_init_app_count?: number;
+    /** 最后一次app上送时间 */
+    t_last_app_time?: string;
+    /** app数量 */
+    u_app_count?: number;
+    /** 通讯录初始数量 */
+    v_init_contact_count?: number;
+    /** 最后一次通讯录上送时间 */
+    w_last_contact_time?: string;
+    /** 通讯录数量 */
+    x_contact_count?: number;
+    /** 最后一次设备信息上送时间 */
+    y_last_device_time?: string;
+    /** 最后一次mac */
+    z_mac?: string;
+    /** 最后一次imei */
+    a_a_imei?: string;
+    /** 最后一次device */
+    a_b_device?: string;
+    /** 借款次数 */
+    a_c_borrow_count?: number;
+    /** 逾期次数 */
+    a_d_overdue_count?: number;
+    /** 提前还款次数 */
+    a_e_early_repay_count?: number;
+    /** 地理信息风险等级 */
+    a_f_ip_geography_risk_level?: number;
+    /** 风险地区id */
+    a_g_ip_geography_risk_id?: number;
+    /** 营销id */
+    a_h_marketing_detail_id?: number;
+    /** deleted_at */
+    deleted_at?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1934,7 +2491,7 @@ declare namespace API {
     /** 联系人3关系 */
     p_contact3_relation?: string;
     /** 网关 */
-    q_gateway: number;
+    q_gateway?: number;
     /** 费用 */
     r_fee?: number;
     /** s_info */
@@ -1947,6 +2504,36 @@ declare namespace API {
     v_info4?: string;
     /** w_info5 */
     w_info5?: string;
+    /** 联系人1白名单id */
+    x_contact1_white_id?: number;
+    /** 联系人1黑名单id */
+    y_contact1_black_id?: number;
+    /** 联系人1灰名单id */
+    z_contact1_grey_id?: number;
+    /** 联系人2白名单id */
+    aa_contact2_white_id?: number;
+    /** 联系人2黑名单id */
+    ab_contact2_black_id?: number;
+    /** 联系人2灰名单id */
+    ac_contact2_grey_id?: number;
+    /** 联系人3白名单id */
+    ad_contact3_white_id?: number;
+    /** 联系人3黑名单id */
+    ae_contact3_black_id?: number;
+    /** 联系人3灰名单id */
+    af_contact3_grey_id?: number;
+    /** 认证id */
+    a_g_verify_id?: number;
+    /** 本次认证次数序号 */
+    a_h_index?: number;
+    /** 借款人1的订单id */
+    a_i_contact1_borrow_id?: number;
+    /** 借款人2的订单id */
+    a_j_contact2_borrow_id?: number;
+    /** 借款人3的订单id */
+    a_k_contact3_borrow_id?: number;
+    /** deleted_at */
+    deleted_at?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1998,6 +2585,26 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1APReviewGroupsIdParams = {
+    /** id of APReviewGroup */
+    id: number;
+  };
+
+  type putAdminV1APReviewGroupsReleaseParams = {
+    /** id of APReviewGroup */
+    foo: number;
+  };
+
+  type putAdminV1ARReviewAdminsIdParams = {
+    /** id of ARReviewAdmin */
+    id: number;
+  };
+
+  type putAdminV1ARReviewAdminsReleaseParams = {
+    /** id of ARReviewAdmin */
+    foo: number;
+  };
+
   type putAdminV1AUsersIdParams = {
     /** id of AUser */
     id: number;
@@ -2020,6 +2627,31 @@ declare namespace API {
 
   type putAdminV1BDRiskRoleBundlesIdParams = {
     /** id of BDRiskRoleBundle */
+    id: number;
+  };
+
+  type putAdminV1BEImportResultsIdParams = {
+    /** id of BEImportResult */
+    id: number;
+  };
+
+  type putAdminV1BFReviewBorrowsIdParams = {
+    /** id of BFReviewBorrow */
+    id: number;
+  };
+
+  type putAdminV1BFReviewBorrowsReleaseParams = {
+    /** id of BFReviewBorrow */
+    foo: number;
+  };
+
+  type putAdminV1BGReviewTagsIdParams = {
+    /** id of BGReviewTag */
+    id: number;
+  };
+
+  type putAdminV1BHReviewBorrowFlowsIdParams = {
+    /** id of BHReviewBorrowFlow */
     id: number;
   };
 
@@ -2078,8 +2710,18 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1GJRiskTagsIdParams = {
+    /** id of GJRiskTag */
+    id: number;
+  };
+
   type putAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
+    id: number;
+  };
+
+  type putAdminV1QVerifyItemsIdParams = {
+    /** id of QVerifyItem */
     id: number;
   };
 
@@ -2106,6 +2748,69 @@ declare namespace API {
   type putUsersIdParams = {
     /** id of User */
     id: number;
+  };
+
+  type QAOcr = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** verify id */
+    b_verify_id?: number;
+    /** 本次认证次数序号 */
+    c_index?: number;
+    /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
+    d_status?: boolean;
+    /** 黑名单id */
+    e_black_id?: number;
+    /** 灰名单id */
+    f_grey_id?: number;
+    /** 白名单id */
+    g_white_id?: number;
+    /** 身份证1 */
+    h_idnumber?: string;
+    /** 证件号2（税号） */
+    i_idnumber2?: string;
+    /** 证件号3 */
+    j_idnumber3?: string;
+    /** 证件号4 */
+    k_idnumber3?: string;
+    /** 姓名1 */
+    l_name1?: string;
+    /** 姓名2 */
+    m_name2?: string;
+    /** 姓名3 */
+    n_name3?: string;
+    /** 姓名4 */
+    o_name4?: string;
+    /** 出生年月 */
+    p_birthday?: string;
+    /** 有效日期 */
+    q_valid_date?: string;
+    /** 信息1 */
+    r_info?: string;
+    /** 信息2 */
+    s_info2?: string;
+    /** 信息3 */
+    t_info3?: string;
+    /** 信息4 */
+    u_info4?: string;
+    /** 信息5 */
+    v_info5?: string;
+    /** 信息6 */
+    w_info6?: string;
+    /** 图片1 */
+    x_picture_1?: string;
+    /** 图片2 */
+    y_picture_2?: string;
+    /** 图片3 */
+    z_picture_3?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type QVerifyItem = {
@@ -2155,6 +2860,8 @@ declare namespace API {
     created_at?: string;
     /** updated_at */
     updated_at?: string;
+    /** children */
+    children?: QVerifyItem[];
   };
 
   type RBlack = {

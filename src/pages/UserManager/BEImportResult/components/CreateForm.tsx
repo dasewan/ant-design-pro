@@ -32,7 +32,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
    */
   const onFinish = async (values: FormValueType) => {
     const hide = message.loading('正在配置');
-    if (moment().diff(currentTableListItemMoment) > 30000) {
+    if (moment().diff(currentTableListItemMoment) > 3000000) {
       console.log(moment().diff(currentTableListItemMoment));
       hide();
       message.error('配置超时！');

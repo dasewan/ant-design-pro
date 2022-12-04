@@ -86,4 +86,11 @@ export default {
   'menu.setting': '设置',
   'menu.setting.system-setting': '系统设置',
   'menu.setting.verify-item': '认证项',
+  'menu.review': '审核管理',
+  'menu.review.review-group': '审核组管理',
+  'menu.review.review-admin': '审核成员管理',
+  'menu.review.review-borrow': '待审核的订单',
+  'menu.review.review-borrow-accept': '审核通过的订单',
+  'menu.review.review-borrow-reject': '审核拒绝的订单',
+  'menu.review.review-borrow-flow': '审核订单流转记录',
 };
