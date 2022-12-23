@@ -807,6 +807,35 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type BIPaymentChannel = {
+    /** id */
+    id?: number;
+    /** 名称 */
+    a_name?: string;
+    /** 标识 */
+    b_channel_code?: string;
+    /** logo */
+    c_logo?: string;
+    /** 方法 */
+    d_method?: string;
+    /** 渠道类型 */
+    e_type?: string;
+    /** 排序 */
+    f_sort?: number;
+    /** 状态 */
+    g_status?: string;
+    /** 方法名称 */
+    h_method_name?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+    /** App\Models\BIPaymentChannel */
+    a_a_a_a_h_a_payment_channel_bank?: HAPaymentChannelBank[];
+  };
+
   type BProduct = {
     /** id */
     id?: number;
@@ -1121,6 +1150,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1BIPaymentChannelsIdParams = {
+    /** id of BIPaymentChannel */
+    id: number;
+  };
+
   type deleteAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -1178,6 +1212,16 @@ declare namespace API {
 
   type deleteAdminV1GJRiskTagsIdParams = {
     /** id of GJRiskTag */
+    id: number;
+  };
+
+  type deleteAdminV1GKBanksIdParams = {
+    /** id of GKBank */
+    id: number;
+  };
+
+  type deleteAdminV1HAPaymentChannelBanksIdParams = {
+    /** id of HAPaymentChannelBank */
     id: number;
   };
 
@@ -1602,6 +1646,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1BIPaymentChannelsIdParams = {
+    /** id of BIPaymentChannel */
+    id: number;
+  };
+
+  type getAdminV1BIPaymentChannelsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -1738,6 +1792,26 @@ declare namespace API {
   };
 
   type getAdminV1GJRiskTagsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GKBanksIdParams = {
+    /** id of GKBank */
+    id: number;
+  };
+
+  type getAdminV1GKBanksParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1HAPaymentChannelBanksIdParams = {
+    /** id of HAPaymentChannelBank */
+    id: number;
+  };
+
+  type getAdminV1HAPaymentChannelBanksParams = {
     /** foo */
     foo: number;
   };
@@ -1966,6 +2040,27 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type GKBank = {
+    /** id */
+    id?: number;
+    /** 银行全名 */
+    a_name?: string;
+    /** 简写 */
+    b_ab_name?: string;
+    /** 标识 */
+    c_bank_code?: string;
+    /** 金融标识 */
+    d_finnace_code?: string;
+    /** logo */
+    e_logo?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type GVerify = {
     /** id */
     id?: number;
@@ -2031,6 +2126,29 @@ declare namespace API {
     a_d_loan_bank_verify_times?: number;
     /** 活体认证次数 */
     a_e_liveness_verify_times?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type HAPaymentChannelBank = {
+    /** id */
+    id?: number;
+    /** 支付渠道id */
+    a_payment_channel_id?: number;
+    /** 银行id */
+    b_bank_id?: number;
+    /** 标识 */
+    c_bank_code?: string;
+    /** 金融标识 */
+    d_finance_code?: string;
+    /** 排序 */
+    e_sort?: number;
+    /** 状态 */
+    f_status?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2655,6 +2773,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1BIPaymentChannelsIdParams = {
+    /** id of BIPaymentChannel */
+    id: number;
+  };
+
   type putAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -2712,6 +2835,16 @@ declare namespace API {
 
   type putAdminV1GJRiskTagsIdParams = {
     /** id of GJRiskTag */
+    id: number;
+  };
+
+  type putAdminV1GKBanksIdParams = {
+    /** id of GKBank */
+    id: number;
+  };
+
+  type putAdminV1HAPaymentChannelBanksIdParams = {
+    /** id of HAPaymentChannelBank */
     id: number;
   };
 

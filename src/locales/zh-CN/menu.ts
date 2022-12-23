@@ -93,4 +93,5 @@ export default {
   'menu.review.review-borrow-accept': '审核通过的订单',
   'menu.review.review-borrow-reject': '审核拒绝的订单',
   'menu.review.review-borrow-flow': '审核订单流转记录',
+  'menu.operation.payment-channel': '支付渠道管理',
 };

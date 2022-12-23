@@ -304,6 +304,12 @@ export default [
         path: '/operation/channel',
         component: './Operation/Channel',
       },
+      {
+        name: 'payment-channel',
+        icon: 'smile',
+        path: '/operation/payment-channel',
+        component: './Operation/PaymentChannel',
+      },
     ],
   },
   {

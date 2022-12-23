@@ -19,7 +19,10 @@ const Settings: React.FC = () => {
   const menuMap: Record<string, React.ReactNode> = {
     register: '注册配置',
     verify: '认证配置',
-    borrow: '借贷配置',
+    risk: '风控配置',
+    borrow: '借款配置',
+    loan: '放款配置',
+    repay: '还款配置',
     merchant: '商户配置',
     other: '其他配置',
   };
@@ -72,7 +75,10 @@ const Settings: React.FC = () => {
         const res = await index({ page: 1, limit: 10000 });
         const registerData: API.GHSetting[] = [];
         const verifyData: API.GHSetting[] = [];
+        const riskData: API.GHSetting[] = [];
         const borrowData: API.GHSetting[] = [];
+        const repayData: API.GHSetting[] = [];
+        const loanData: API.GHSetting[] = [];
         const merchantData: API.GHSetting[] = [];
         const otherData: API.GHSetting[] = [];
         const tmpMap: Map<string, API.GHSetting[]> = new Map();
@@ -85,8 +91,17 @@ const Settings: React.FC = () => {
             case 'verify':
               verifyData.push(_item);
               break;
+            case 'risk':
+              riskData.push(_item);
+              break;
             case 'borrow':
               borrowData.push(_item);
+              break;
+            case 'loan':
+              loanData.push(_item);
+              break;
+            case 'repay':
+              repayData.push(_item);
               break;
             case 'merchant':
               merchantData.push(_item);
@@ -98,7 +113,10 @@ const Settings: React.FC = () => {
         });
         tmpMap.set('register', registerData);
         tmpMap.set('verify', verifyData);
+        tmpMap.set('risk', riskData);
         tmpMap.set('borrow', borrowData);
+        tmpMap.set('loan', loanData);
+        tmpMap.set('repay', repayData);
         tmpMap.set('merchant', merchantData);
 
         setDataMap(tmpMap);
