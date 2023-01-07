@@ -2,11 +2,12 @@ import DrawerFC from '@/pages/Review/ReviewBorrow/components/DrawerFC';
 import MoveForm from '@/pages/Review/ReviewBorrow/components/MoveForm';
 import { BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enums';
 import { getUserEnum } from '@/pages/UserManager/AUser/service';
+import { QuestionOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Space, Table } from 'antd';
+import { Space, Table, Tooltip } from 'antd';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { FieldIndex, FieldLabels, getAPReviewGroupsEnum, index } from './service';
@@ -244,7 +245,12 @@ const TableList: React.FC = () => {
             </Space>
           );
         }}
-        headerTitle="批量操作"
+        headerTitle={
+          <Tooltip placement="right" title={<>选择借款类型种类和管理员后可以批量操作</>}>
+            批量操作
+            <QuestionOutlined />
+          </Tooltip>
+        }
       />
 
       <MoveForm

@@ -53,55 +53,74 @@ export const CREDIT_TYPE_ENUM = {
   2: { text: '降额', status: 'Success' },
 };
 //订单状态
-export const BORROE_STATUS_OVERVIEW_ENUM = {
-  11: { text: '认证中', status: 'Processing' },
-  13: { text: '签约', status: 'Processing' },
-  15: { text: '机审', status: 'Processing' },
-  17: { text: '人审', status: 'Processing' },
-  19: { text: '放款', status: 'Processing' },
-  20: { text: '还款期', status: 'Processing' },
-  30: { text: '还款日', status: 'Warning' },
-  40: { text: '逾期', status: 'Error' },
-  50: { text: '严重逾期', status: 'Error' },
-  60: { text: '坏账', status: 'Error' },
-  70: { text: '结清', status: 'Success' },
+export const BORROW_STATUS_ENUM = {
+  10: { text: '认证中', color: '#00e5f7' },
+  20: { text: '签约', color: '#00e5f7' },
+  30: { text: '机审', color: '#00e5f7' },
+  40: { text: '人审', color: '#00e5f7' },
+  50: { text: '放款', color: '#00e5f7' },
+  60: { text: '还款期', color: '#0022f7' },
+  70: { text: '还款日', color: '#f7cb00' },
+  80: { text: '结清', color: '#00e500' },
+  90: { text: '逾期', color: '#f42505' },
+  100: { text: '关闭', color: '#9543a1' },
 };
 
-export const BORROE_STATUS_ENUM = {
+export const BORROW_SUB_STATUS_ENUM = {
   1100: { text: '待认证', status: '' },
+
   1110: { text: '身份证待认证', status: '' },
-  1112: { text: '身份证认证中', status: '' },
-  1114: { text: '身份证认证拒绝', status: 'Error' },
-  1118: { text: '身份证待人审', status: '' },
-  1120: { text: '联系人待认证', status: '' },
-  1122: { text: '联系人认证中', status: '' },
-  1124: { text: '联系人认证拒绝', status: 'Error' },
-  1128: { text: '联系人待人审', status: '' },
-  1130: { text: '放款银行卡待认证', status: '' },
-  1132: { text: '放款银行卡认证中', status: '' },
-  1134: { text: '放款银行卡认证拒绝', status: 'Error' },
-  1138: { text: '放款银行卡待人审', status: '' },
-  1140: { text: '还款银行卡待认证', status: '' },
-  1142: { text: '还款银行卡认证中', status: '' },
-  1144: { text: '还款银行卡认证拒绝', status: 'Error' },
-  1148: { text: '还款银行卡待人审', status: '' },
-  1160: { text: '其他信息待认证', status: '' },
-  1162: { text: '其他信息认证中', status: '' },
-  1164: { text: '其他信息认证拒绝', status: 'Error' },
-  1168: { text: '其他信息待人审', status: '' },
-  1180: { text: '活体待认证', status: '' },
-  1182: { text: '活体认证中', status: '' },
-  1184: { text: '活体认证拒绝', status: 'Error' },
-  1188: { text: '活体待人审', status: '' },
-  1300: { text: '待签约', status: '' },
-  1302: { text: '签约中', status: '' },
-  1304: { text: '放弃签约', status: 'Error' },
-  1500: { text: '待机审', status: '' },
-  1502: { text: '机审中', status: '' },
-  1504: { text: '机审拒绝', status: 'Error' },
-  1700: { text: '待人审', status: '' },
-  1702: { text: '人审中', status: '' },
-  1704: { text: '人审拒绝', status: 'Error' },
+  1120: { text: '身份证认证中', status: '' },
+  1140: { text: '身份证认证拒绝', status: 'Error' },
+  1130: { text: '身份证待人审', status: '' },
+  1150: { text: '身份证认证完成', status: '' },
+
+  1210: { text: '联系人待认证', status: '' },
+  1220: { text: '联系人认证中', status: '' },
+  1240: { text: '联系人认证拒绝', status: 'Error' },
+  1230: { text: '联系人待人审', status: '' },
+  1250: { text: '联系人认证完成', status: 'Success' },
+
+  1310: { text: '放款银行卡待认证', status: '' },
+  1320: { text: '放款银行卡认证中', status: '' },
+  1340: { text: '放款银行卡认证拒绝', status: 'Error' },
+  1330: { text: '放款银行卡待人审', status: '' },
+  1350: { text: '放款银行卡认证完成', status: 'Success' },
+
+  1410: { text: '还款银行卡待认证', status: '' },
+  1420: { text: '还款银行卡认证中', status: '' },
+  1440: { text: '还款银行卡认证拒绝', status: 'Error' },
+  1430: { text: '还款银行卡待人审', status: '' },
+  1450: { text: '还款银行卡认证完成', status: 'Success' },
+
+  1510: { text: '其他信息待认证', status: '' },
+  1520: { text: '其他信息认证中', status: '' },
+  1530: { text: '其他信息待人审', status: '' },
+  1540: { text: '其他信息认证拒绝', status: 'Error' },
+  1550: { text: '其他信息认证完成', status: 'Success' },
+
+  1610: { text: '活体待认证', status: '' },
+  1620: { text: '活体认证中', status: '' },
+  1640: { text: '活体认证拒绝', status: 'Error' },
+  1630: { text: '活体待人审', status: '' },
+  1650: { text: '活体认证完成', status: 'Success' },
+
+  2010: { text: '待签约', status: '' },
+  2020: { text: '签约中', status: '' },
+  2030: { text: '放弃签约', status: 'Error' },
+  2050: { text: '签约完成', status: 'Success' },
+
+  3010: { text: '待机审', status: '' },
+  3020: { text: '机审中', status: '' },
+  3040: { text: '机审拒绝', status: 'Error' },
+  3030: { text: '待人审', status: '' },
+  3050: { text: '机审通过', color: '#057748' },
+
+  4010: { text: '待人审', status: '' },
+  4020: { text: '人审中', status: '' },
+  4040: { text: '人审拒绝', status: 'Error' },
+  4050: { text: '人审通过', color: '#1bd1a5' },
+
   1910: { text: '待放款（人工）', status: '' },
   1912: { text: '放款中（人工）', status: '' },
   1914: { text: '放款失败（人工）', status: 'Error' },
@@ -179,4 +198,23 @@ export const BLACK_TYPE = {
   1: { text: '导入excel', status: '' },
   2: { text: '系统', status: 'Error' },
   3: { text: '管理员手动', status: 'Error' },
+};
+
+//放款日志方式
+export const LOAN_LOG_METHOD = {
+  1: { text: '线上放款', status: '' },
+  2: { text: '线下放款', status: '' },
+};
+//放款日志类型
+export const LOAN_LOG_TYPE = {
+  1: { text: '正常放款', status: '' },
+  2: { text: '强行放款', status: 'Error' },
+};
+//放款日志状态  状态 10:待放款 20： 放款中 30:未知 40：放款失败 50：放款成功
+export const LOAN_LOG_STATUS = {
+  10: { text: '待放款', status: 'Default' },
+  20: { text: '放款中', status: 'Processing' },
+  30: { text: '未知', status: 'Error' },
+  40: { text: '放款失败', status: 'Error' },
+  50: { text: '放款成功', status: 'Success' },
 };

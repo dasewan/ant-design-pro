@@ -78,6 +78,6 @@ export default defineConfig({
     // config.module.rule('media').test(/\.(mp3|4)$/).use('file-loader').loader(require.resolve('file-loader'));
     config.module.rule('mjs-rule').test(/.m?js/).resolve.set('fullySpecified', false);
   },
-  /*    base: '/admin/',
-      publicPath: '/admin/',*/
+  /*      base: '/admin/',
+        publicPath: '/admin/',*/
 });

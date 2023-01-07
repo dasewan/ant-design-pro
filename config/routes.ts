@@ -230,6 +230,70 @@ export default [
     ],
   },
   {
+    name: 'loan',
+    icon: 'smile',
+    path: '/loan',
+    routes: [
+      {
+        name: 'waiting-loan',
+        icon: 'smile',
+        path: '/loan/waiting-loan',
+        component: './Loan/WaitingLoan',
+      },
+      {
+        name: 'queue-loan',
+        icon: 'smile',
+        path: '/loan/queue-loan',
+        component: './Loan/QueueLoan',
+      },
+      {
+        name: 'loan-list',
+        icon: 'smile',
+        path: '/loan/loan-list',
+        component: './Loan/LoanList',
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            name: 'success-loan',
+            icon: 'smile',
+            path: '/loan/loan-list/success-loan',
+            component: './Loan/LoanList/SuccessLoan',
+          },
+          {
+            name: 'fail-loan',
+            icon: 'smile',
+            path: '/loan/loan-list/fail-loan',
+            component: './Loan/LoanList/FailLoan',
+          },
+          {
+            name: 'intercept-loan',
+            icon: 'smile',
+            path: '/loan/loan-list/intercept-loan',
+            component: './Loan/LoanList/InterceptLoan',
+          },
+          {
+            name: 'processing-loan',
+            icon: 'smile',
+            path: '/loan/loan-list/processing-loan',
+            component: './Loan/LoanList/ProcessingLoan',
+          },
+          {
+            name: 'unknown-loan',
+            icon: 'smile',
+            path: '/loan/loan-list/unknown-loan',
+            component: './Loan/LoanList/UnknownLoan',
+          },
+        ],
+      },
+      {
+        name: 'loan-log',
+        icon: 'smile',
+        path: '/loan/loan-log',
+        component: './Loan/LoanLog',
+      },
+    ],
+  },
+  {
     name: 'risk',
     icon: 'smile',
     path: '/risk',

@@ -343,8 +343,24 @@ declare namespace API {
     n_black_id?: number;
     /** 灰名单id */
     o_grey_id?: number;
+    /** 银行id */
+    p_loan_bank_id?: number;
+    /** 金融code */
+    q_finance_code?: string;
     /** 重复的卡数量 */
     r_repeated_count?: number;
+    /** 持有人姓 */
+    s_first_name?: string;
+    /** 持有人名 */
+    t_middle_name?: string;
+    /** 持有人名 */
+    u_last_name?: string;
+    /** 成功放款次数 */
+    v_loan_success_times?: number;
+    /** 成功放款金额 */
+    w_loan_total_amount?: number;
+    /** 是否已经验真 10：待验真 30：验真结果未知 40:验真失败 50：验真成功 */
+    x_authenticity?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1013,35 +1029,35 @@ declare namespace API {
     /** 最近一次展期时间 */
     z_last_extend_time?: string;
     /** 风控分数 */
-    aa_risk_score?: number;
+    a_a_risk_score?: number;
     /** 展期次数 */
-    ab_extend_times?: number;
+    a_b_extend_times?: number;
     /** 部分还款次数 */
-    ac_partial_times?: number;
+    a_c_partial_times?: number;
     /** 减免次数 */
-    ad_reduce_times?: number;
+    a_d_reduce_times?: number;
     /** 优惠券次数 */
-    ae_coupon_times?: number;
+    a_e_coupon_times?: number;
     /** 查看次数(电销,审核,催收人员) */
-    af_operate_times?: number;
+    a_f_operate_times?: number;
     /** 间隔天数（距离上次结清后再创建订单时的天数） */
-    ag_span_days?: number;
+    a_g_span_days?: number;
     /** 累计逾期天数 */
-    ah_total_overdue_days?: number;
+    a_h_total_overdue_days?: number;
     /** 逾期天数 (计划任务更新) */
-    ai_overdue_days?: number;
+    a_i_overdue_days?: number;
     /** 身份证1 */
-    aj_idnumber?: string;
+    a_j_idnumber?: string;
     /** 电话 */
-    ak_phone?: string;
+    a_k_phone?: string;
     /** 姓名1 */
-    al_name1?: string;
+    a_l_name1?: string;
     /** 银行卡 */
-    am_bankcard?: string;
+    a_m_bankcard?: string;
     /** 姓名2 */
-    an_name3?: string;
+    a_n_name3?: string;
     /** 标签 */
-    ao_tags?: string;
+    a_o_tags?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1165,6 +1181,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1DBorrowsIdParams = {
+    /** id of DBorrow */
+    id: number;
+  };
+
   type deleteAdminV1GAMarketingDetailsIdParams = {
     /** id of GAMarketingDetail */
     id: number;
@@ -1227,6 +1248,16 @@ declare namespace API {
 
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
+    id: number;
+  };
+
+  type deleteAdminV1MBLoansIdParams = {
+    /** id of MBLoan */
+    id: number;
+  };
+
+  type deleteAdminV1MCLoanLogsIdParams = {
+    /** id of MCLoanLog */
     id: number;
   };
 
@@ -1556,6 +1587,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1BanksEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1BAWhitesIdParams = {
     /** id of BAWhite */
     id: number;
@@ -1684,6 +1720,26 @@ declare namespace API {
   type getAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
     id: number;
+  };
+
+  type getAdminV1DBorrowsIdParams = {
+    /** id of DBorrow */
+    id: number;
+  };
+
+  type getAdminV1DBorrowsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1DBorrowsQueueLoanParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1DBorrowsWaitingLoanParams = {
+    /** foo */
+    foo: number;
   };
 
   type getAdminV1GAMarketingDetailsIdParams = {
@@ -1822,6 +1878,41 @@ declare namespace API {
   };
 
   type getAdminV1HProductSnapshotsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1MBFailedLoansParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1MBInterceptLoansParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1MBLoansIdParams = {
+    /** id of MBLoan */
+    id: number;
+  };
+
+  type getAdminV1MBLoansParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1MBLoanTabParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1MCLoanLogsIdParams = {
+    /** id of MCLoanLog */
+    id: number;
+  };
+
+  type getAdminV1MCLoanLogsParams = {
     /** foo */
     foo: number;
   };
@@ -2358,6 +2449,110 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type MBLoan = {
+    /** id */
+    id?: number;
+    a_a_a_a_a_d_borrow?: DBorrow;
+    /** borrow_id */
+    a_borrow_id?: number;
+    /** loan bank id */
+    b_loan_bank_id?: number;
+    /** 最终支付渠道 */
+    c_payment_channel?: string;
+    /** 成功时间 */
+    d_loan_time?: string;
+    /** 打款金额 */
+    e_amount?: number;
+    /** 状态 10:待放款 20： 放款中 30:未知 40：放款失败 50：放款成功 60：放款拦截 */
+    f_status?: number;
+    /** 持卡人姓名 */
+    g_receiver_name?: string;
+    /** 收款银行卡号 */
+    h_receiver_bankcard_number?: string;
+    /** 收款银行名称 */
+    i_receiver_bankcard_name?: string;
+    /** 收款银行编码 */
+    j_receiver_bankcard_code?: string;
+    /** 金融系统代码 */
+    k_financial_system_code?: string;
+    /** 放款次数 */
+    l_call_times?: number;
+    /** 放款回调次数 */
+    m_callback_times?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type MCLoanLog = {
+    /** id */
+    id?: number;
+    a_a_a_a_a_d_borrow?: DBorrow;
+    /** borrow_id */
+    a_borrow_id?: number;
+    /** loan id */
+    b_loan_id?: number;
+    /** 管理员 id */
+    c_admin_id?: number;
+    /** loan bank id */
+    d_loan_bank_id?: number;
+    /** 最终支付渠道 */
+    e_payment_channel?: string;
+    /** 放款方式 1：线上放款 2： 线下放款 */
+    f_method?: number;
+    /** 放款类型 1：自动放款 2： 手动放款 */
+    g_type?: number;
+    /** 状态 10:待放款 20： 放款中 30:未知 40：放款失败 50：放款成功 */
+    h_status?: number;
+    /** 持卡人姓名 */
+    i_receiver_name?: string;
+    /** 收款银行卡号 */
+    j_receiver_bankcard_number?: string;
+    /** 收款银行名称 */
+    k_receiver_bankcard_name?: string;
+    /** 收款银行编码 */
+    l_receiver_bankcard_code?: string;
+    /** 金融系统代码 */
+    m_financial_system_code?: string;
+    /** 打款时间 */
+    o_loan_time?: string;
+    /** reference */
+    p_reference?: string;
+    /** outer sn */
+    q_outer_sn?: string;
+    /** amount */
+    r_amount?: number;
+    /** fee */
+    s_fee?: number;
+    /** 同步code */
+    t_sync_code?: string;
+    /** 同步消息 */
+    u_sync_message?: string;
+    /** 同步原始报文 */
+    v_sync_raw?: string;
+    /** 异步code */
+    w_callback_code?: string;
+    /** 异步消息 */
+    x_callback_message?: string;
+    /** 异步原始报文 */
+    y_callback_raw?: string;
+    /** 审核备注 */
+    z_remark?: string;
+    /** 放款凭证 */
+    a_a_certificate?: string;
+    /** a_b_index */
+    a_b_index?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type MIdnumber = {
     /** id */
     id?: number;
@@ -2788,6 +2983,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1DBorrowsIdParams = {
+    /** id of DBorrow */
+    id: number;
+  };
+
   type putAdminV1GAMarketingDetailsIdParams = {
     /** id of GAMarketingDetail */
     id: number;
@@ -2850,6 +3050,16 @@ declare namespace API {
 
   type putAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
+    id: number;
+  };
+
+  type putAdminV1MBLoansIdParams = {
+    /** id of MBLoan */
+    id: number;
+  };
+
+  type putAdminV1MCLoanLogsIdParams = {
+    /** id of MCLoanLog */
     id: number;
   };
 
