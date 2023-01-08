@@ -218,3 +218,15 @@ export const LOAN_LOG_STATUS = {
   40: { text: '放款失败', status: 'Error' },
   50: { text: '放款成功', status: 'Success' },
 };
+export const SYNC_CODE = {
+  300: { text: '请求结果未知', status: 'Processing' },
+  500: { text: '请求失败', status: 'Error' },
+  200: { text: '请求成功', status: 'Success' },
+  500_001: { text: '风控拦截', status: 'Error' },
+  500_002: { text: '系统异常', status: 'Error' },
+};
+export const CALLBACK_CODE = {
+  100: { text: '暂未收到回调', status: 'Default' },
+  500: { text: '回调失败', status: 'Error' },
+  200: { text: '回调成功', status: 'Success' },
+};

@@ -1,4 +1,4 @@
-import { LOAN_LOG_STATUS, LOAN_LOG_TYPE } from '@/pages/enums';
+import { CALLBACK_CODE, LOAN_LOG_STATUS, LOAN_LOG_TYPE, SYNC_CODE } from '@/pages/enums';
 import DetailModel from '@/pages/Loan/LoanLog/components/DetailModel';
 import { getChannelsEnum } from '@/pages/UserManager/AUser/service';
 import { getUsersEnum } from '@/pages/UserManager/RBlack/service';
@@ -6,7 +6,6 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
-import { Button } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
@@ -205,15 +204,7 @@ const TableList: React.FC = () => {
           className: styles.blue,
           width: 90,
         },
-        {
-          title: FieldLabels.h_status,
-          dataIndex: FieldIndex.h_status,
-          initialValue: [],
-          valueType: 'select',
-          valueEnum: LOAN_LOG_STATUS,
-          className: styles.blue,
-          width: 90,
-        },
+
         {
           title: FieldLabels.i_receiver_name,
           dataIndex: FieldIndex.i_receiver_name,
@@ -270,13 +261,28 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.t_sync_code,
       dataIndex: FieldIndex.t_sync_code,
-      width: 80,
+      initialValue: [],
+      valueType: 'select',
+      valueEnum: SYNC_CODE,
+      width: 100,
       fixed: 'right',
     },
     {
       title: FieldLabels.w_callback_code,
       dataIndex: FieldIndex.w_callback_code,
-      width: 80,
+      initialValue: [],
+      valueType: 'select',
+      valueEnum: CALLBACK_CODE,
+      width: 120,
+      fixed: 'right',
+    },
+    {
+      title: FieldLabels.h_status,
+      dataIndex: FieldIndex.h_status,
+      initialValue: [],
+      valueType: 'select',
+      valueEnum: LOAN_LOG_STATUS,
+      width: 90,
       fixed: 'right',
     },
     {
@@ -301,13 +307,8 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '风控字段管理',
+        title: '放款流水',
         ghost: true,
-        extra: [
-          <Button key="3" type="primary" onClick={() => onEditClick(0)}>
-            新建风控字段
-          </Button>,
-        ],
       }}
     >
       <ProTable<TableListItem, TableListPagination>

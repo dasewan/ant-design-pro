@@ -107,7 +107,7 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.updated_at,
       valueType: 'dateRange',
       render: (_, value) => {
-        return moment(value.updated_at).format('YYYY-MM-DD');
+        return moment(value.updated_at).format('YYYY-MM-DD HH:mm:ss');
       },
       search: {
         transform: (value: any) => ({ 'updated_at[0]': value[0], 'updated_at[1]': value[1] }),
