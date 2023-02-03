@@ -104,4 +104,8 @@ export default {
   'menu.loan.loan-list.processing-loan': '放款中订单',
   'menu.loan.loan-list': '放款结果',
   'menu.loan.loan-log': '放款流水',
+  'menu.repay': '还款管理',
+  'menu.repay.repay-list': '还款列表',
+  'menu.repay.repay-log': '还款流水',
+  'menu.repay.extend-list': '展期列表',
 };

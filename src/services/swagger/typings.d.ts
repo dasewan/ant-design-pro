@@ -1256,13 +1256,28 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1MCExtendsIdParams = {
+    /** id of MCExtend */
+    id: number;
+  };
+
   type deleteAdminV1MCLoanLogsIdParams = {
     /** id of MCLoanLog */
     id: number;
   };
 
+  type deleteAdminV1OARepaysIdParams = {
+    /** id of OARepay */
+    id: number;
+  };
+
   type deleteAdminV1QVerifyItemsIdParams = {
     /** id of QVerifyItem */
+    id: number;
+  };
+
+  type deleteAdminV1RARepayLogsIdParams = {
+    /** id of RARepayLog */
     id: number;
   };
 
@@ -1907,12 +1922,32 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1MCExtendsIdParams = {
+    /** id of MCExtend */
+    id: number;
+  };
+
+  type getAdminV1MCExtendsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1MCLoanLogsIdParams = {
     /** id of MCLoanLog */
     id: number;
   };
 
   type getAdminV1MCLoanLogsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1OARepaysIdParams = {
+    /** id of OARepay */
+    id: number;
+  };
+
+  type getAdminV1OARepaysParams = {
     /** foo */
     foo: number;
   };
@@ -1928,6 +1963,16 @@ declare namespace API {
   };
 
   type getAdminV1QVerifyItemsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1RARepayLogsIdParams = {
+    /** id of RARepayLog */
+    id: number;
+  };
+
+  type getAdminV1RARepayLogsParams = {
     /** foo */
     foo: number;
   };
@@ -2248,6 +2293,53 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type HBOfflineRepay = {
+    /** id */
+    id?: number;
+    /** borrow_id */
+    a_borrow_id?: number;
+    /** 还款id */
+    b_repay_id?: number;
+    /** 分期id */
+    c_period_id?: number;
+    /** 用户 */
+    d_user_id?: number;
+    /** 申请管理员 */
+    e_apply_admin_id?: number;
+    /** 审核管理员 */
+    f_review_admin_id?: number;
+    /** 分期期数 */
+    g_period_count?: number;
+    /** 线下序号 */
+    h_index?: number;
+    /** 状态 10:待审核 40：审核拒绝 50：审核通过  */
+    i_status?: number;
+    /** 申请备注 */
+    j_apply_remark?: string;
+    /** 申请备注 */
+    k_apply_remark?: string;
+    /** 审核备注 */
+    l_review_remark?: string;
+    /** 审核备注 */
+    m_review_remark?: string;
+    /** 附件id */
+    n_file_id?: number;
+    /** 附件id */
+    o_file_id?: number;
+    /** 附件id */
+    p_file_id?: number;
+    /** 支付金额 */
+    q_amount?: number;
+    /** 支付时间 */
+    x_repay_time?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type HProductSnapshot = {
     /** id */
     id?: number;
@@ -2479,6 +2571,66 @@ declare namespace API {
     l_call_times?: number;
     /** 放款回调次数 */
     m_callback_times?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type MCExtend = {
+    /** id */
+    id?: number;
+    a_a_a_a_a_q_b_period?: QBPeriod;
+    a_a_a_a_a_o_a_repay?: OARepay;
+    a_a_a_a_a_d_borrow?: DBorrow;
+    /** borrow_id */
+    a_borrow_id?: number;
+    /** 用户 */
+    b_repay_id?: number;
+    /** 分期期数 */
+    c_period_count?: number;
+    /** 展期序号 */
+    d_index?: number;
+    /** 状态 10:待支付 20： 支付中 30:未知 40：支付失败 50：支付成功  */
+    e_status?: number;
+    /** 应还款日 */
+    f_expect_repay_time?: string;
+    /** 结算方式* 1:先扣除手续费和利息 2:先扣除手续费 3:到期扣除所有费用 */
+    g_product_settlement_type?: string;
+    /** 剩余利息 */
+    h_expect_repay_total_amount?: number;
+    /** 展期前已支付违约金 */
+    j_before_paid_violate_fee?: number;
+    /** 展期前已支付罚息 */
+    k_before_paid_overdue_fee?: number;
+    /** 在逾天数 */
+    l_overdue_days?: number;
+    /** 展期天数 */
+    m_days?: number;
+    /** 展前应还款日 */
+    n_before_expect_repay_time?: string;
+    /** 展后应还款日 */
+    o_after_expect_repay_time?: string;
+    /** 展期总额 */
+    p_extend_amount?: number;
+    /** 展期费 */
+    q_extend_fee?: number;
+    /** 展期违约金 */
+    r_extend_violate_fee?: number;
+    /** 展期罚息 */
+    s_extend_overdue_fee?: number;
+    /** 分期订单 */
+    t_period_id?: number;
+    /** 用户 */
+    u_user_id?: number;
+    /** 管理员 */
+    v_admin_id?: number;
+    /** 支付流水id */
+    w_repay_log_id?: number;
+    /** 分期序号 */
+    x_perioid_index?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2766,6 +2918,163 @@ declare namespace API {
     created_at?: string;
     /** updated_at */
     updated_at?: string;
+  };
+
+  type OADeduction = {
+    /** id */
+    id?: number;
+    /** borrow_id */
+    a_borrow_id?: number;
+    /** 还款id */
+    b_repay_id?: number;
+    /** 分期id */
+    c_period_id?: number;
+    /** 用户 */
+    d_user_id?: number;
+    /** 申请管理员 */
+    e_apply_admin_id?: number;
+    /** 审核管理员 */
+    f_review_admin_id?: number;
+    /** 分期期数 */
+    g_period_count?: number;
+    /** 减免序号 */
+    h_index?: number;
+    /** 状态 10:待审核 40：审核拒绝 50：审核通过  */
+    i_status?: number;
+    /** 申请备注 */
+    j_apply_remark?: string;
+    /** 申请备注 */
+    k_apply_remark?: string;
+    /** 审核备注 */
+    l_review_remark?: string;
+    /** 审核备注 */
+    m_review_remark?: string;
+    /** 附件id */
+    n_file_id?: number;
+    /** 附件id */
+    o_file_id?: number;
+    /** 附件id */
+    p_file_id?: number;
+    /** 减免总额 */
+    q_deduction_total_amount?: number;
+    /** 减免总本金 */
+    r_deduction_total_borrow_amount?: number;
+    /** 减免总利息 */
+    s_deduction_total_interest?: number;
+    /** 减免总服务费 */
+    t_deduction_total_service_fee?: number;
+    /** 减免总违约金 */
+    u_deduction_total_violate_fee?: number;
+    /** 减免总罚息 */
+    v_deduction_total_overdue_fee?: number;
+    /** 减免后是否还款 */
+    w_paid?: string;
+    /** 支付流水 */
+    x_repay_log_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type OARepay = {
+    /** id */
+    id?: number;
+    /** App\Models\OARepay */
+    a_a_a_a_a_q_b_periods?: QBPeriod[];
+    a_a_a_a_a_d_borrow?: DBorrow;
+    /** borrow_id */
+    a_borrow_id?: number;
+    /** 用户 */
+    b_user_id?: number;
+    /** 分期期数 */
+    c_period_count?: number;
+    /** 已完结分期期数 */
+    d_completed_period_count?: number;
+    /** 状态 10:待支付 20： 支付中 30:未知 40：支付失败 50：支付成功  */
+    e_status?: number;
+    /** 应还款日 */
+    f_expect_repay_time?: string;
+    /** 应还本金 */
+    g_expect_borrow_amount?: number;
+    /** 应还利息 */
+    h_expect_interest?: number;
+    /** 应还服务费 */
+    i_expect_service_fee?: number;
+    /** 应还违约金 */
+    j_expect_violate_fee?: number;
+    /** 应还罚息 */
+    k_expect_overdue_fee?: number;
+    /** 在逾天数 */
+    l_overdue_days?: number;
+    /** 历史逾期天数 */
+    m_history_overdue_days?: number;
+    /** 已支付金额 */
+    n_paid_amount?: number;
+    /** 已支付本金 */
+    o_paid_borrow_amount?: number;
+    /** 已支付利息 */
+    p_paid_interest?: number;
+    /** 已支付服务费 */
+    q_paid_service_fee?: number;
+    /** 已支付违约金 */
+    r_paid_violate_fee?: number;
+    /** 已支付罚息 */
+    s_paid_overdue_fee?: number;
+    /** 减免次数 */
+    t_deduction_times?: number;
+    /** 减免总额 */
+    u_deduction_total_amount?: number;
+    /** 减免总本金 */
+    v_deduction_total_borrow_amount?: number;
+    /** 减免总利息 */
+    w_deduction_total_interest?: number;
+    /** 减免总服务费 */
+    x_deduction_total_service_fee?: number;
+    /** 减免总违约金 */
+    y_deduction_total_violate_fee?: number;
+    /** 减免总罚息 */
+    z_deduction_total_overdue_fee?: number;
+    /** 平账金额 */
+    a_a_write_off_amount?: number;
+    /** 展期次数 */
+    a_b_extend_times?: number;
+    /** 展期总额 */
+    a_c_extend_total_amount?: number;
+    /** 展期总天数 */
+    a_d_extend_total_days?: number;
+    /** 展期费 */
+    a_e_extend_total_fee?: number;
+    /** 展期违约金 */
+    a_f_extend_total_violate_fee?: number;
+    /** 展期罚息 */
+    a_g_extend_total_overdue_fee?: number;
+    /** 部分还款次数 */
+    a_h_part_times?: number;
+    /** 查看次数 */
+    a_i_view_times?: number;
+    /** 尝试支付次数 */
+    a_j_withhold_times?: number;
+    /** 成功支付次数 */
+    a_k_success_withhold_times?: number;
+    /** 应还款总金额 */
+    a_l_expect_repay_total_amount?: number;
+    /** 结算方式* 1:先扣除手续费和利息 2:先扣除手续费 3:到期扣除所有费用 */
+    a_m_product_settlement_type?: string;
+    /** 核算日期 */
+    a_n_calculate_time?: string;
+    /** 最后一次查看时间 */
+    a_o_view_time?: string;
+    /** 最后一次查看时间 */
+    a_p_overdue_period_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type OContact = {
@@ -3058,13 +3367,28 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1MCExtendsIdParams = {
+    /** id of MCExtend */
+    id: number;
+  };
+
   type putAdminV1MCLoanLogsIdParams = {
     /** id of MCLoanLog */
     id: number;
   };
 
+  type putAdminV1OARepaysIdParams = {
+    /** id of OARepay */
+    id: number;
+  };
+
   type putAdminV1QVerifyItemsIdParams = {
     /** id of QVerifyItem */
+    id: number;
+  };
+
+  type putAdminV1RARepayLogsIdParams = {
+    /** id of RARepayLog */
     id: number;
   };
 
@@ -3156,6 +3480,105 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type QBPeriod = {
+    /** id */
+    id?: number;
+    a_a_a_a_a_o_a_repay?: OARepay;
+    a_a_a_a_a_d_borrow?: DBorrow;
+    /** borrow_id */
+    a_borrow_id?: number;
+    /** 用户 */
+    b_repay_id?: number;
+    /** 分期期数 */
+    c_period_count?: number;
+    /** 分期序号 */
+    d_index?: number;
+    /** 状态 10:待支付 20： 支付中 30:未知 40：支付失败 50：支付成功  */
+    e_status?: number;
+    /** 应还款总金额 */
+    f_expect_repay_total_amount?: number;
+    /** 应还本金 */
+    g_expect_borrow_amount?: number;
+    /** 应还利息 */
+    h_expect_interest?: number;
+    /** 应还服务费 */
+    i_expect_service_fee?: number;
+    /** 应还违约金 */
+    j_expect_violate_fee?: number;
+    /** 应还罚息 */
+    k_expect_overdue_fee?: number;
+    /** 在逾天数 */
+    l_overdue_days?: number;
+    /** 历史逾期天数 */
+    m_history_overdue_days?: number;
+    /** 已支付金额 */
+    n_paid_amount?: number;
+    /** 已支付本金 */
+    o_paid_borrow_amount?: number;
+    /** 已支付利息 */
+    p_paid_interest?: number;
+    /** 已支付服务费 */
+    q_paid_service_fee?: number;
+    /** 已支付违约金 */
+    r_paid_violate_fee?: number;
+    /** 已支付罚息 */
+    s_paid_overdue_fee?: number;
+    /** 减免次数 */
+    t_deduction_times?: number;
+    /** 减免总额 */
+    u_deduction_total_amount?: number;
+    /** 减免总本金 */
+    v_deduction_total_borrow_amount?: number;
+    /** 减免总利息 */
+    w_deduction_total_interest?: number;
+    /** 减免总服务费 */
+    x_deduction_total_service_fee?: number;
+    /** 减免总违约金 */
+    y_deduction_total_violate_fee?: number;
+    /** 减免总罚息 */
+    z_deduction_total_overdue_fee?: number;
+    /** 平账金额 */
+    a_a_write_off_amount?: number;
+    /** 展期次数 */
+    a_b_extend_times?: number;
+    /** 展期总额 */
+    a_c_extend_total_amount?: number;
+    /** 展期总天数 */
+    a_d_extend_total_days?: number;
+    /** 展期费 */
+    a_e_extend_total_fee?: number;
+    /** 展期违约金 */
+    a_f_extend_total_violate_fee?: number;
+    /** 展期罚息 */
+    a_g_extend_total_overdue_fee?: number;
+    /** 部分还款次数 */
+    a_h_part_times?: number;
+    /** 查看次数 */
+    a_i_view_times?: number;
+    /** 尝试支付次数 */
+    a_j_withhold_times?: number;
+    /** 成功支付次数 */
+    a_k_success_withhold_times?: number;
+    /** 用户id */
+    a_n_user_id?: number;
+    /** 结算方式* 1:先扣除手续费和利息 2:先扣除手续费 3:到期扣除所有费用 */
+    a_o_product_settlement_type?: number;
+    /** 应还款日 */
+    a_p_expect_repay_time?: string;
+    /** 核算日期 */
+    a_q_calculate_time?: string;
+    /** 展期通过管理员 */
+    a_r_extend_admin_id?: number;
+    /** 展期天数 */
+    a_s_extend_days?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type QVerifyItem = {
     /** id */
     id?: number;
@@ -3207,6 +3630,124 @@ declare namespace API {
     children?: QVerifyItem[];
   };
 
+  type RARepayLog = {
+    /** id */
+    id?: number;
+    a_a_a_a_a_q_b_period?: QBPeriod;
+    a_a_a_a_a_o_a_repay?: OARepay;
+    a_a_a_a_a_d_borrow?: DBorrow;
+    /** repay_id */
+    a_borrow_id?: number;
+    /** repay_id */
+    b_repay_id?: number;
+    /** period_id */
+    c_period_id?: number;
+    /** admin_id */
+    d_admin_id?: number;
+    /** 催员 */
+    e_urge_id?: number;
+    /** 催收小组 */
+    f_urge_group_id?: number;
+    /** 催收公司 */
+    g_urge_company_id?: number;
+    /** 催收阶段 */
+    h_urge_stage_id?: number;
+    /** type 1:结清 2：展期 3：部分还款 4：减免 5：核销 */
+    i_type?: number;
+    /** 状态 10:回调中 20： 支付中 30:未知 40：支付失败 50：支付成功  */
+    j_status?: number;
+    /** 1还款链接 2：app  */
+    k_way?: number;
+    /** 还款序号 */
+    l_index?: number;
+    /** 最终支付渠道 */
+    m_payment_channel?: string;
+    /** 支付银行 */
+    n_loan_bank_id?: number;
+    /** 付款银行卡号 */
+    o_bankcard_number?: string;
+    /** 付款银行名称 */
+    p_bankcard_name?: string;
+    /** 付款银行编码 */
+    q_bankcard_code?: string;
+    /** 付款金融系统代码 */
+    r_financial_system_code?: string;
+    /** reference */
+    s_reference?: string;
+    /** outer sn */
+    t_outer_sn?: string;
+    /** amount */
+    u_amount?: number;
+    /** fee */
+    v_fee?: number;
+    /** 同步code */
+    w_sync_code?: string;
+    /** 同步消息 */
+    x_sync_message?: string;
+    /** 同步原始报文 */
+    y_sync_raw?: string;
+    /** 异步code */
+    z_callback_code?: string;
+    /** 异步消息 */
+    a_a_callback_message?: string;
+    /** 异步原始报文 */
+    a_b_callback_raw?: string;
+    /** 审核备注 */
+    a_c_remark?: string;
+    /** 还款凭证 */
+    a_d_certificate?: string;
+    /** 应还款总金额 */
+    a_e_expect_repay_total_amount?: number;
+    /** 本次还款利息部分 */
+    a_f_expect_interest_amount?: number;
+    /** 本次还款利息部分 */
+    a_g_interest_amount?: number;
+    /** 本次已完结利息天数 */
+    a_h_interest_finished_days?: number;
+    /** 本次还款利息结余 */
+    a_i_interest_mod_amount?: number;
+    /** 本次还款罚息部分 */
+    a_j_expect_overdue_amount?: number;
+    /** 本次还款罚息部分 */
+    a_k_overdue_amount?: number;
+    /** 本次已完结罚息天数 */
+    a_l_overdue_finished_days?: number;
+    /** 本次还款罚息结余 */
+    a_m_overdue_mod_amount?: number;
+    /** 本次还款服务费部分 */
+    a_n_expect_service_amount?: number;
+    /** 本次还款服务费部分 */
+    a_o_service_amount?: number;
+    /** 本次还款服务费结余 */
+    a_p_service_mod_amount?: number;
+    /** 本次还款违约金部分 */
+    a_q_expect_violate_amount?: number;
+    /** 本次还款违约金部分 */
+    a_r_violate_amount?: number;
+    /** 本次还款后违约金结余 */
+    a_s_violate_mod_amount?: number;
+    /** 本次还款本金部分 */
+    a_t_expect_borrow_amount?: number;
+    /** 本次还款本金部分 */
+    a_u_borrow_amount?: number;
+    /** 本次还款本金结余 */
+    a_v_borrow_mod_amount?: number;
+    /** 逾期天数 */
+    a_w_overdue_days?: number;
+    /** 支付方法 */
+    a_x_payment_method?: string;
+    /** 分期序号 */
+    a_y_period_index?: number;
+    /** 分期期数 */
+    a_z_period_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type RBlack = {
     /** id */
     id?: number;
@@ -3251,6 +3792,67 @@ declare namespace API {
     b_comment?: string;
     /** 批量id（a_l_admin_file.id） */
     c_batch_sn?: number;
+  };
+
+  type SWriteOff = {
+    /** id */
+    id?: number;
+    /** borrow_id */
+    a_borrow_id?: number;
+    /** 还款id */
+    b_repay_id?: number;
+    /** 分期id */
+    c_period_id?: number;
+    /** 用户 */
+    d_user_id?: number;
+    /** 申请管理员 */
+    e_apply_admin_id?: number;
+    /** 审核管理员 */
+    f_review_admin_id?: number;
+    /** 分期期数 */
+    g_period_count?: number;
+    /** 核销序号 */
+    h_index?: number;
+    /** 状态 10:待审核 40：审核拒绝 50：审核通过  */
+    i_status?: number;
+    /** 申请备注 */
+    j_apply_remark?: string;
+    /** 申请备注 */
+    k_apply_remark?: string;
+    /** 审核备注 */
+    l_review_remark?: string;
+    /** 审核备注 */
+    m_review_remark?: string;
+    /** 附件id */
+    n_file_id?: number;
+    /** 附件id */
+    o_file_id?: number;
+    /** 附件id */
+    p_file_id?: number;
+    /** 核销总额 */
+    q_write_off_total_amount?: number;
+    /** 核销总本金 */
+    r_write_off_total_borrow_amount?: number;
+    /** 核销总利息 */
+    s_write_off_total_interest?: number;
+    /** 核销总服务费 */
+    t_write_off_total_service_fee?: number;
+    /** 核销总违约金 */
+    u_write_off_total_violate_fee?: number;
+    /** 核销总罚息 */
+    v_write_off_total_overdue_fee?: number;
+    /** 核销后是否借款 */
+    w_borrow?: string;
+    /** 核销时间 */
+    x_repay_time?: string;
+    /** 支付流水 */
+    y_repay_log_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type User = {

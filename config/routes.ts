@@ -294,6 +294,32 @@ export default [
     ],
   },
   {
+    name: 'repay',
+    icon: 'smile',
+    path: '/repay',
+    routes: [
+      {
+        name: 'repay-list',
+        icon: 'smile',
+        path: '/repay/repay-list',
+        component: './Repay/RepayList',
+      },
+      {
+        name: 'repay-log',
+        icon: 'smile',
+        path: '/repay/repay-log',
+        component: './Repay/RepayLog',
+      },
+      {
+        name: 'extend-list',
+        icon: 'smile',
+        path: '/repay/extend-list',
+        component: './Repay/ExtendList',
+      },
+    ],
+  },
+
+  {
     name: 'risk',
     icon: 'smile',
     path: '/risk',

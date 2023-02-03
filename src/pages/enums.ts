@@ -6,6 +6,14 @@ export const STATUS_ENUM = {
   5: { text: '无效', status: 'Error' },
 };
 
+export const COMMON_STATUS = {
+  10: { text: 'WAITING', status: 'Default' },
+  20: { text: 'PROCESSING', status: 'Processing' },
+  30: { text: 'UNKNOWN', status: 'Default' },
+  40: { text: 'FAIL', status: 'Error' },
+  50: { text: 'SUCCESS', status: 'Success' },
+};
+
 export type NoticeIconItemType = 'notification' | 'message' | 'event';
 //用户动态 1：注册 3：登录 5：认证 7：机审 9：人审 11：放款 13：展期 15：还款 17：部分还款 19：提额 21：降额
 export const NEWS_ENUM = {
@@ -210,6 +218,14 @@ export const LOAN_LOG_TYPE = {
   1: { text: '正常放款', status: '' },
   2: { text: '强行放款', status: 'Error' },
 };
+//放款款日志类型 type 1:结清 2：展期 3：部分还款 4：减免 5：核销
+export const REPAY_LOG_TYPE = {
+  1: { text: '结清', color: '#00e500' },
+  2: { text: '展期', status: '#00e5f7' },
+  3: { text: '部分还款', color: '#f7cb00' },
+  4: { text: '减免', color: '#f42505' },
+  5: { text: '核销', color: '#9543a1' },
+};
 //放款日志状态  状态 10:待放款 20： 放款中 30:未知 40：放款失败 50：放款成功
 export const LOAN_LOG_STATUS = {
   10: { text: '待放款', status: 'Default' },
@@ -217,6 +233,19 @@ export const LOAN_LOG_STATUS = {
   30: { text: '未知', status: 'Error' },
   40: { text: '放款失败', status: 'Error' },
   50: { text: '放款成功', status: 'Success' },
+};
+//放款日志状态  状态 10:回调中 20： 支付中 30:未知 40：支付失败 50：支付成功
+export const REPAY_LOG_STATUS = {
+  10: { text: '回调中', status: 'Default' },
+  20: { text: '支付中', status: 'Processing' },
+  30: { text: '未知', status: 'Error' },
+  40: { text: '支付失败', status: 'Error' },
+  50: { text: '支付成功', status: 'Success' },
+};
+//1还款链接 2：app
+export const REPAY_WAY = {
+  1: { text: '还款链接', status: '' },
+  2: { text: 'app', status: '' },
 };
 export const SYNC_CODE = {
   300: { text: '请求结果未知', status: 'Processing' },
