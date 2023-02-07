@@ -108,4 +108,7 @@ export default {
   'menu.repay.repay-list': '还款列表',
   'menu.repay.repay-log': '还款流水',
   'menu.repay.extend-list': '展期列表',
+  'menu.borrow': '订单管理',
+  'menu.borrow.borrow-list': '全部订单',
+  'menu.borrow.outstanding-list': '未到期订单',
 };

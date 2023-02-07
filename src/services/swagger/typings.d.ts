@@ -976,6 +976,9 @@ declare namespace API {
   type DBorrow = {
     /** id */
     id?: number;
+    /** App\Models\DBorrow */
+    a_a_a_a_a_q_b_periods?: QBPeriod[];
+    a_a_a_a_a_o_a_repay?: OARepay;
     /** 用户id */
     a_user_id?: number;
     /** 渠道 */
@@ -1737,9 +1740,29 @@ declare namespace API {
     id: number;
   };
 
+  type getAdminV1DBorrowsClearedParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1DBorrowsClosedParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1DBorrowsIdParams = {
     /** id of DBorrow */
     id: number;
+  };
+
+  type getAdminV1DBorrowsOutstandingParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1DBorrowsOverdueParams = {
+    /** foo */
+    foo: number;
   };
 
   type getAdminV1DBorrowsParams = {
@@ -1748,6 +1771,11 @@ declare namespace API {
   };
 
   type getAdminV1DBorrowsQueueLoanParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1DBorrowsRejectedParams = {
     /** foo */
     foo: number;
   };
@@ -2630,7 +2658,7 @@ declare namespace API {
     /** 支付流水id */
     w_repay_log_id?: number;
     /** 分期序号 */
-    x_perioid_index?: number;
+    x_period_index?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

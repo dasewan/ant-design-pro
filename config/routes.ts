@@ -230,6 +230,25 @@ export default [
     ],
   },
   {
+    name: 'borrow',
+    icon: 'smile',
+    path: '/borrow',
+    routes: [
+      {
+        name: 'borrow-list',
+        icon: 'smile',
+        path: '/borrow/borrow-list',
+        component: './Borrow/BorrowList',
+      },
+      {
+        name: 'outstanding-list',
+        icon: 'smile',
+        path: '/borrow/outstanding-list',
+        component: './Borrow/OutstandingList',
+      },
+    ],
+  },
+  {
     name: 'loan',
     icon: 'smile',
     path: '/loan',
