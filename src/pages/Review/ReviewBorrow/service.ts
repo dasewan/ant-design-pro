@@ -1,15 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 
-export { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
-export {
-  getAdminV1BFReviewBorrows as index,
-  getAdminV1BFReviewBorrowsId as show,
-  postAdminV1BFReviewBorrows as store,
-  putAdminV1BFReviewBorrowsId as update,
-  putAdminV1BFReviewBorrowsRelease as release,
-} from '@/services/ant-design-pro/BFReviewBorrow';
-export { getAdminV1BHReviewBorrowFlows as index2 } from '@/services/ant-design-pro/BHReviewBorrowFlow';
 export const FieldLabels = {
   a_borrow_id: '订单id',
   b_admin_id: '管理员id',

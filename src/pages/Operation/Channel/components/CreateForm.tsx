@@ -1,4 +1,9 @@
 import { CHANNEL_TYPE, CHANNEL_TYPE_OPTION } from '@/pages/Operation/Channel/enums';
+import {
+  getAdminV1AFChannelsId as show,
+  postAdminV1AFChannels as store,
+  putAdminV1AFChannelsId as update,
+} from '@/services/ant-design-pro/AFChannel';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
   ModalForm,
@@ -12,7 +17,9 @@ import { message } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
-import { FieldIndex, FieldLabels, show, store, update } from '../service';
+import { FieldIndex, FieldLabels } from '../service';
+
+export { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;

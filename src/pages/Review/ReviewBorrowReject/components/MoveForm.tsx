@@ -1,10 +1,10 @@
+import { putAdminV1BFReviewBorrowsId as update } from '@/services/ant-design-pro/BFReviewBorrow';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 import type { ProFieldRequestData } from '@ant-design/pro-utils';
 import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
 import { message } from 'antd';
 import React, { useRef } from 'react';
-import { update } from '../service';
 
 export type FormValueType = Partial<API.GBMarketing>;
 export type FormRecord = API.GBMarketing;

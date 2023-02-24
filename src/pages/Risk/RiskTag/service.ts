@@ -1,12 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 
-export {
-  getAdminV1GJRiskTags as index,
-  getAdminV1GJRiskTagsId as show,
-  postAdminV1GJRiskTags as store,
-  putAdminV1GJRiskTagsId as update,
-} from '@/services/ant-design-pro/GJRiskTag';
 export const FieldLabels = {
   a_name: '名称*',
   b_values: '取值*',

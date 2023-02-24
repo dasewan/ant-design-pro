@@ -1,3 +1,7 @@
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1AKReasons as getReasonsEnum } from '@/services/ant-design-pro/AKReason';
+import { getAdminV1AUsers as index } from '@/services/ant-design-pro/AUser';
+import { getAdminV1UsersEnum as getUserEnum } from '@/services/ant-design-pro/User';
 import { DollarOutlined, LockOutlined, SubnodeOutlined } from '@ant-design/icons';
 import { TableDropdown } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -7,7 +11,7 @@ import { Rate, Tag } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { getChannelsEnum, getReasonsEnum, getUserEnum, index } from './service';
+
 //提降额
 import CreditForm from './components/CreditForm';
 // 加入黑名单

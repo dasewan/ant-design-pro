@@ -1,6 +1,9 @@
-import { update } from '@/pages/Loan/WaitingLoan/service';
 import CreateForm from '@/pages/Risk/RiskItemCat/components/CreateForm';
-import { getChannelsEnum } from '@/pages/UserManager/AUser/service';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import {
+  getAdminV1MBLoans as index,
+  putAdminV1MBLoansId as update,
+} from '@/services/ant-design-pro/MBLoan';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
@@ -8,7 +11,7 @@ import { message, Popconfirm } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

@@ -1,3 +1,8 @@
+import {
+  getAdminV1QVerifyItems as index,
+  putAdminV1QVerifyItemsId as update,
+  putAdminV1QVerifyItemsSort as sort,
+} from '@/services/ant-design-pro/QVerifyItem';
 import { MenuOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -7,7 +12,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { SortableContainerProps, SortEnd } from 'react-sortable-hoc';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import type { TableListItem, TableListPagination } from './data';
-import { fieldLabels, index, sort, update } from './service';
+import { fieldLabels } from './service';
 
 import TimerButton from '@/pages/Setting/SystemSettings/components/TimerButton';
 // 排序相关固定模版start

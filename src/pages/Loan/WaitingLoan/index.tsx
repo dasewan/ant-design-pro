@@ -1,5 +1,7 @@
 import { BORROW_SUB_STATUS_ENUM } from '@/pages/enums';
-import { getChannelsEnum } from '@/pages/UserManager/AUser/service';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1DBorrowsWaitingLoan as index } from '@/services/ant-design-pro/DBorrow';
+import { putAdminV1MBLoansId as update } from '@/services/ant-design-pro/MBLoan';
 import { QuestionOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -9,7 +11,7 @@ import { message, Popconfirm, Space, Table, Tooltip } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels, index, update } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

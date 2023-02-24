@@ -1244,6 +1244,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GVerifiesIdParams = {
+    /** id of GVerify */
+    id: number;
+  };
+
   type deleteAdminV1HAPaymentChannelBanksIdParams = {
     /** id of HAPaymentChannelBank */
     id: number;
@@ -1905,6 +1910,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GVerifiesIdParams = {
+    /** id of GVerify */
+    id: number;
+  };
+
+  type getAdminV1GVerifiesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HAPaymentChannelBanksIdParams = {
     /** id of HAPaymentChannelBank */
     id: number;
@@ -2228,6 +2243,11 @@ declare namespace API {
   type GVerify = {
     /** id */
     id?: number;
+    a_a_a_a_a_q_a_ocr?: QAOcr;
+    a_a_a_a_a_m_idnumber?: MIdnumber;
+    a_a_a_a_a_o_contact?: OContact;
+    a_a_a_a_a_m_a_job?: MAJob;
+    a_a_a_a_a_a_o_loan_bank?: AOLoanBank;
     /** 用户id */
     a_user_id?: number;
     /** 订单id */
@@ -2237,7 +2257,7 @@ declare namespace API {
     /** 风控分数 */
     d_risk_score?: number;
     /** 风控结果 */
-    e_risk_result?: string;
+    e_risk_result?: number;
     /** 状态 10：待认证 */
     f_status?: number;
     /** g_ */
@@ -2248,35 +2268,35 @@ declare namespace API {
     i_idnumber_verify_id?: number;
     /** 身份证认证状态 10:待认证，20:认证中 30：复审 40：认证拒绝 50：认证通过：60：认证过期 */
     j_idnumber_verify_status?: number;
-    /** k_liveness_verify_id */
+    /** 活体 */
     k_liveness_verify_id?: number;
-    /** l_liveness_verify_status */
+    /** 活体状态 */
     l_liveness_verify_status?: number;
-    /** m_contact_verify_id */
+    /** 联系人 */
     m_contact_verify_id?: number;
-    /** n_contact_verify_status */
+    /** 联系人认证状态 */
     n_contact_verify_status?: number;
-    /** o_job_verify_id */
+    /** 工作信息 */
     o_job_verify_id?: number;
-    /** p_job_verify_status */
+    /** 工作信息状态 */
     p_job_verify_status?: number;
-    /** q_loan_bank_id */
+    /** 放款银行卡 */
     q_loan_bank_id?: number;
-    /** r_loan_bank_verify_status */
+    /** 放款银行卡认证状态 */
     r_loan_bank_verify_status?: number;
-    /** s_repay_bank_id */
+    /** 还款银行卡 */
     s_repay_bank_id?: number;
-    /** t_repay_bank_verify_status */
+    /** 还款银行卡认证状态 */
     t_repay_bank_verify_status?: number;
-    /** u_h5_verify_id */
+    /** h5 */
     u_h5_verify_id?: number;
-    /** v_h5_verify_status */
+    /** h5认证状态 */
     v_h5_verify_status?: number;
     /** 手机号码 */
     w_phone?: string;
-    /** x_ocr_verify_id */
+    /** ocr */
     x_ocr_verify_id?: number;
-    /** y_ocr_verify_status */
+    /** ocr认证状态 */
     y_ocr_verify_status?: number;
     /** z_supplement_verify_id */
     z_supplement_verify_id?: number;
@@ -2290,6 +2310,8 @@ declare namespace API {
     a_d_loan_bank_verify_times?: number;
     /** 活体认证次数 */
     a_e_liveness_verify_times?: number;
+    /** ocr次数 */
+    a_f_ocr_verify_times?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2741,7 +2763,7 @@ declare namespace API {
     /** ocr.id */
     b_ocr_id?: number;
     /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
-    c_status?: number;
+    c_status?: boolean;
     /** 黑名单id */
     d_black_id?: number;
     /** 灰名单id */
@@ -2789,49 +2811,61 @@ declare namespace API {
     /** 市 */
     z_idnumber_city_id?: number;
     /** 市 */
-    aa_district_id?: number;
+    a_a_district_id?: number;
     /** 具体地址 */
-    ab_idnumber_address?: string;
+    a_b_idnumber_address?: string;
     /** 州 */
-    ac_idnumber_state2_id?: number;
+    a_c_idnumber_state2_id?: number;
     /** 省 */
-    ad_idnumber_province2_id?: number;
+    a_d_idnumber_province2_id?: number;
     /** 市 */
-    ae_idnumber_city2_id?: number;
+    a_e_idnumber_city2_id?: number;
     /** 市 */
-    af_district2_id?: number;
+    a_f_district2_id?: number;
     /** 具体地址 */
-    ag_idnumber2_address?: string;
+    a_g_idnumber2_address?: string;
     /** 用户手输id_number和ocr是否一致 */
-    ah_id_number_same?: string;
+    a_h_id_number_same?: string;
     /** 用户手输id_number2和ocr是否一致 */
-    ai_id_number2_same?: string;
+    a_i_id_number2_same?: string;
     /** 用户手输id_number2和ocr是否一致 */
-    aj_id_number3_same?: string;
+    a_j_id_number3_same?: string;
     /** 用户手输id_number2和ocr是否一致 */
-    ak_id_number4_same?: string;
+    a_k_id_number4_same?: string;
     /** 用户手输姓名和ocr是否一致 */
-    al_name_same?: string;
+    a_l_name_same?: string;
     /** 用户手输姓名2和ocr是否一致 */
-    am_name2_same?: string;
+    a_m_name2_same?: string;
     /** 用户手输姓名2和ocr是否一致 */
-    an_name3_same?: string;
+    a_n_name3_same?: string;
     /** 用户手输姓名2和ocr是否一致 */
-    ao_name4_same?: string;
+    a_o_name4_same?: string;
     /** 用户手输出生年月和ocr是否一致 */
-    ap_birthday_same?: string;
-    /** 信息1 */
-    aq_info?: string;
+    a_p_birthday_same?: string;
+    /** 重复的证件号数量 */
+    a_q_info?: string;
     /** 信息2 */
-    ar_info2?: string;
+    a_r_info2?: string;
     /** 信息3 */
-    as_info3?: string;
+    a_s_info3?: string;
     /** 信息4 */
-    at_info4?: string;
+    a_t_info4?: string;
     /** 信息5 */
-    au_info5?: string;
+    a_u_info5?: string;
     /** 信息6 */
-    av_info6?: string;
+    a_v_info6?: string;
+    /** verify id */
+    a_w_verify_id?: number;
+    /** 本次认证次数序号 */
+    a_x_index?: number;
+    /** 邮箱 */
+    a_y_email?: string;
+    /** whatApp */
+    a_z_whatapp?: string;
+    /** facebook */
+    b_a_facebook?: string;
+    /** line */
+    b_b_line?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3161,17 +3195,17 @@ declare namespace API {
     /** 联系人1灰名单id */
     z_contact1_grey_id?: number;
     /** 联系人2白名单id */
-    aa_contact2_white_id?: number;
+    a_a_contact2_white_id?: number;
     /** 联系人2黑名单id */
-    ab_contact2_black_id?: number;
+    a_b_contact2_black_id?: number;
     /** 联系人2灰名单id */
-    ac_contact2_grey_id?: number;
+    a_c_contact2_grey_id?: number;
     /** 联系人3白名单id */
-    ad_contact3_white_id?: number;
+    a_d_contact3_white_id?: number;
     /** 联系人3黑名单id */
-    ae_contact3_black_id?: number;
+    a_e_contact3_black_id?: number;
     /** 联系人3灰名单id */
-    af_contact3_grey_id?: number;
+    a_f_contact3_grey_id?: number;
     /** 认证id */
     a_g_verify_id?: number;
     /** 本次认证次数序号 */
@@ -3377,6 +3411,11 @@ declare namespace API {
 
   type putAdminV1GKBanksIdParams = {
     /** id of GKBank */
+    id: number;
+  };
+
+  type putAdminV1GVerifiesIdParams = {
+    /** id of GVerify */
     id: number;
   };
 

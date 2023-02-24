@@ -1,4 +1,4 @@
-import { getReasonsEnum } from '@/pages/UserManager/AUser/service';
+import { getAdminV1AKReasons as getReasonsEnum } from '@/services/ant-design-pro/AKReason';
 import { postAdminV1ImportBlack as post } from '@/services/ant-design-pro/RBlack';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {

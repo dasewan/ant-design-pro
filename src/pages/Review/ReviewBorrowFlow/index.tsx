@@ -1,5 +1,4 @@
 import { FLOW_TYPE } from '@/pages/Review/ReviewBorrowFlow/enums';
-import { getUserEnum } from '@/pages/UserManager/AUser/service';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -7,7 +6,11 @@ import type { RequestOptionsType } from '@ant-design/pro-utils';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels, getAPReviewGroupsEnum, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
+
+import { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
+import { getAdminV1BHReviewBorrowFlows as index } from '@/services/ant-design-pro/BHReviewBorrowFlow';
+import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -19,10 +22,10 @@ const TableList: React.FC = () => {
   /**
    * 查询管理员enum
    */
-  const _getUserEnum = async () => {
+  const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
     if (admins.length == 0) {
-      const res = await getUserEnum({ foo: 1 });
+      const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
           label: item.name,
@@ -74,7 +77,7 @@ const TableList: React.FC = () => {
 
     /*    if(admins.length == 0){
           // @ts-ignore
-          await _getUserEnum();
+          await _getUsersEnum();
         }*/
     if (groups.length == 0) {
       // @ts-ignore
@@ -139,7 +142,7 @@ const TableList: React.FC = () => {
       title: FieldLabels.b_before_admin_id,
       dataIndex: FieldIndex.b_before_admin_id,
       valueType: 'select',
-      request: _getUserEnum,
+      request: _getUsersEnum,
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
@@ -162,7 +165,7 @@ const TableList: React.FC = () => {
       title: FieldLabels.d_after_admin_id,
       dataIndex: FieldIndex.d_after_admin_id,
       valueType: 'select',
-      request: _getUserEnum,
+      request: _getUsersEnum,
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {

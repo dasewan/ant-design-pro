@@ -1,13 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 
-export {
-  getAdminV1GGRiskStrateies as index,
-  getAdminV1GGRiskStrateiesId as show,
-  postAdminV1GGRiskStrateies as store,
-  putAdminV1GGRiskStrateiesId as update,
-} from '@/services/ant-design-pro/GGRiskStratey';
-
 export const FieldLabels = {
   a_name: '策略名称',
   b_related_role_group_count: '关联细则组数',

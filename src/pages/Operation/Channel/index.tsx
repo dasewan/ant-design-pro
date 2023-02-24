@@ -1,5 +1,7 @@
 import CreateForm from '@/pages/Operation/Channel/components/CreateForm';
 import { CHANNEL_TYPE, COMMON_STATUS_QIYONG } from '@/pages/Operation/Channel/enums';
+import { getAdminV1AFChannels as index } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -7,7 +9,7 @@ import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-ut
 import { Button, Tag } from 'antd';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels, getProductsEnum, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

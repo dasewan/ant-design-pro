@@ -1,13 +1,18 @@
 import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormSelect, ProFormText } from '@ant-design/pro-form';
 
+import {
+  getAdminV1GDRiskItemsId as show,
+  postAdminV1GDRiskItems as store,
+  putAdminV1GDRiskItemsId as update,
+} from '@/services/ant-design-pro/GDRiskItem';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
 import { message } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
 import { RISK_ITEM_TYPE_OPTION } from '../enums';
-import { FieldIndex, FieldLabels, show, store, update } from '../service';
+import { FieldIndex, FieldLabels } from '../service';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;

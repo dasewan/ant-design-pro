@@ -6,7 +6,6 @@ import {
   FieldLabels as FieldLabels2,
 } from '@/pages/Loan/WaitingLoan/service';
 
-export { getAdminV1OARepays as index } from '@/services/ant-design-pro/OARepay';
 export const FieldLabels = {
   id: 'id',
   a_borrow_id: 'borrow_id',

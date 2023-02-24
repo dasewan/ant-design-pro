@@ -1,9 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 
-export { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
-export { getAdminV1DBorrows as index } from '@/services/ant-design-pro/DBorrow';
-export { putAdminV1MBLoansId as update } from '@/services/ant-design-pro/MBLoan';
 export const FieldLabels = {
   id: 'id',
   a_user_id: '用户id',

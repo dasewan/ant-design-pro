@@ -5,7 +5,7 @@ import { message } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
-import { FieldIndex, FieldLabels, show, store, update } from '../service';
+import { FieldIndex, FieldLabels } from '../service';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;

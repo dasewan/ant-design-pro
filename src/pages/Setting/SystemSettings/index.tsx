@@ -5,7 +5,7 @@ import SecurityView from './components/security';
 import styles from './style.less';
 
 import TimerButton from '@/pages/Setting/SystemSettings/components/TimerButton';
-import { index } from './service';
+import { getAdminV1GHSettings as index } from '@/services/ant-design-pro/GHSetting';
 
 const { Item } = Menu;
 

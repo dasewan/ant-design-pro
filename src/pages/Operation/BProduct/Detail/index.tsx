@@ -7,6 +7,11 @@ import {
   PRODUCT_SETTLEMENT_OPTION,
   PRODUCT_TYPE_OPTION,
 } from '@/pages/Operation/BProduct/enums';
+import {
+  getAdminV1BProductsId as show,
+  postAdminV1BProducts as store,
+  putAdminV1BProductsId as update,
+} from '@/services/ant-design-pro/BProduct';
 import { history } from '@@/core/history';
 import {
   CloseCircleOutlined,
@@ -31,7 +36,6 @@ import React, { useRef, useState } from 'react';
 import { useParams } from 'umi';
 import { fieldLabels } from '../service';
 import type { TableListItem } from './data';
-import { show, store, update } from './service';
 import styles from './style.less';
 
 interface TableFormDateType {

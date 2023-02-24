@@ -1,13 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 
-export {
-  getAdminV1ANRiskItemCats as index,
-  getAdminV1ANRiskItemCatsId as show,
-  postAdminV1ANRiskItemCats as store,
-  putAdminV1ANRiskItemCatsId as update,
-} from '@/services/ant-design-pro/ANRiskItemCat';
-export { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
 export const FieldLabels = {
   a_code: 'CODE',
   b_name: '字段名称',

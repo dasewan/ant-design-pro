@@ -6,11 +6,6 @@ import {
   FieldLabels as FieldLabels2,
 } from '@/pages/Loan/WaitingLoan/service';
 
-export { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
-export {
-  getAdminV1MCLoanLogs as index,
-  getAdminV1MCLoanLogsId as show,
-} from '@/services/ant-design-pro/MCLoanLog';
 export const FieldLabels = {
   a_borrow_id: 'borrow_id',
   b_loan_id: 'loan',

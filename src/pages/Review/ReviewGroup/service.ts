@@ -1,15 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 
-export {
-  getAdminV1APReviewGroups as index,
-  getAdminV1APReviewGroupsConfig as check,
-  getAdminV1APReviewGroupsId as show,
-  postAdminV1APReviewGroups as store,
-  putAdminV1APReviewGroupsId as update,
-  putAdminV1APReviewGroupsRelease as release,
-} from '@/services/ant-design-pro/APReviewGroup';
-export { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
 export const FieldLabels = {
   a_name: '审核小组名称',
   b_borrow_times: '借款次数',

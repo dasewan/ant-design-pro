@@ -1,12 +1,14 @@
 import { NEWS_ENUM } from '@/pages/enums';
 import type { TableListPagination } from '@/pages/UserManager/AUser/data';
-import { getABCreditHistories, getACUserNews } from '@/pages/UserManager/AUser/service';
 import ProList from '@ant-design/pro-list';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { Badge, Drawer, Space, Tag } from 'antd';
 import moment from 'moment';
 import React, { useRef } from 'react';
+
+import { getAdminV1ABCreditHistories as getABCreditHistories } from '@/services/ant-design-pro/ABCreditHistory';
+import { getAdminV1ACUserNews as getACUserNews } from '@/services/ant-design-pro/ACUserNew';
 
 export type DrawerFCProps = {
   showDetail: boolean;

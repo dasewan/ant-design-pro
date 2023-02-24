@@ -1,6 +1,7 @@
 import CreateForm from '@/pages/Risk/RiskTag/components/CreateForm';
 import type { TableListPagination } from '@/pages/Risk/RiskTag/data';
-import { getChannelsEnum } from '@/pages/UserManager/BAWhite/service';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1GJRiskTags as index } from '@/services/ant-design-pro/GJRiskTag';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -8,7 +9,7 @@ import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-ut
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from './data';
 import styles from './index.less';
-import { FieldIndex, FieldLabels, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

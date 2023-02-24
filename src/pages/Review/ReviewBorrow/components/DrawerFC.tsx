@@ -1,4 +1,3 @@
-import { index2 } from '@/pages/Review/ReviewBorrow/service';
 import { FieldIndex, FieldLabels } from '@/pages/Review/ReviewBorrowFlow/service';
 import type { TableListPagination } from '@/pages/UserManager/AUser/data';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -7,6 +6,8 @@ import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
 import { Drawer } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
+
+export { getAdminV1BHReviewBorrowFlows as index2 } from '@/services/ant-design-pro/BHReviewBorrowFlow';
 
 export type DrawerFCProps = {
   showDetail: boolean;

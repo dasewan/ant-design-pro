@@ -1,7 +1,8 @@
 import { CALLBACK_CODE, LOAN_LOG_STATUS, LOAN_LOG_TYPE, SYNC_CODE } from '@/pages/enums';
 import DetailModel from '@/pages/Loan/LoanLog/components/DetailModel';
-import { getChannelsEnum } from '@/pages/UserManager/AUser/service';
-import { getUsersEnum } from '@/pages/UserManager/RBlack/service';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1MCLoanLogs as index } from '@/services/ant-design-pro/MCLoanLog';
+import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -10,7 +11,7 @@ import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import styles from './index.less';
-import { FieldIndex, FieldLabels, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

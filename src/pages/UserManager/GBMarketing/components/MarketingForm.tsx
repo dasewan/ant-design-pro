@@ -1,4 +1,3 @@
-import { storeGCMarketingHistories } from '@/pages/UserManager/GBMarketing/service';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
   ModalForm,
@@ -12,6 +11,8 @@ import type { ProFieldRequestData } from '@ant-design/pro-utils';
 import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
 import { Col, Image, message, Row } from 'antd';
 import React, { useRef, useState } from 'react';
+
+import { postAdminV1GCMarketingHistories as storeGCMarketingHistories } from '@/services/ant-design-pro/GCMarketingHistory';
 
 export type FormValueType = Partial<API.GBMarketing>;
 export type FormRecord = API.GBMarketing;

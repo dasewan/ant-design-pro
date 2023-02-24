@@ -1,5 +1,6 @@
 import DrawerFC from '@/pages/UserManager/AUser/components/DrawerFC';
-import { getChannelsEnum } from '@/pages/UserManager/AUser/service';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1BAWhitesUsers as index } from '@/services/ant-design-pro/BAWhite';
 import { DollarOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -8,7 +9,6 @@ import { Rate } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { index } from './service';
 
 const TableList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.AUser>();

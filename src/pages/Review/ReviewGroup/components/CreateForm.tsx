@@ -1,5 +1,10 @@
 import { CHANNEL_TYPE } from '@/pages/Operation/Channel/enums';
 import { BORROW_TIMES_OPTION, MODE_OPTION } from '@/pages/Review/ReviewGroup/enums';
+import {
+  getAdminV1APReviewGroupsId as show,
+  postAdminV1APReviewGroups as store,
+  putAdminV1APReviewGroupsId as update,
+} from '@/services/ant-design-pro/APReviewGroup';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
   ModalForm,
@@ -13,7 +18,7 @@ import { message } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
-import { FieldIndex, FieldLabels, show, store, update } from '../service';
+import { FieldIndex, FieldLabels } from '../service';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;

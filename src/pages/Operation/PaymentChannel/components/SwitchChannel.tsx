@@ -2,12 +2,12 @@ import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormRadio } from '@ant-design/pro-form';
 import { map } from 'lodash';
 
+import { putAdminV1BIPaymentChannelsId as updateChannels } from '@/services/ant-design-pro/BIPaymentChannel';
 import { message } from 'antd';
 import type { CheckboxOptionType } from 'antd/lib/checkbox/Group';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
-import { updateChannels } from '../service';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;

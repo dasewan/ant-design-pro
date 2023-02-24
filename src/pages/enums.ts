@@ -1,6 +1,6 @@
 export const STATUS_ENUM = {
   1: { text: '待执行', status: 'Default' },
-  2: { text: '执行中', status: 'Processing' },
+  2: { text: '进行中', status: 'Processing' },
   3: { text: '执行成功', status: 'Success' },
   4: { text: '执行失败', status: 'Error' },
   5: { text: '无效', status: 'Error' },
@@ -12,6 +12,15 @@ export const COMMON_STATUS = {
   30: { text: 'UNKNOWN', status: 'Default' },
   40: { text: 'FAIL', status: 'Error' },
   50: { text: 'SUCCESS', status: 'Success' },
+};
+
+export const VERIFY_STATUS_ENUM = {
+  10: { text: 'WAITING', status: 'Default' },
+  20: { text: 'PROCESSING', status: 'Processing' },
+  30: { text: 'UNKNOWN', status: 'Default' },
+  40: { text: 'FAIL', status: 'Error' },
+  50: { text: 'SUCCESS', status: 'Success' },
+  60: { text: 'EXPIRED', status: 'Error' },
 };
 
 export type NoticeIconItemType = 'notification' | 'message' | 'event';

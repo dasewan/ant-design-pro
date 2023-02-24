@@ -1,13 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 
-export {
-  getAdminV1AFChannels as index,
-  getAdminV1AFChannelsId as show,
-  postAdminV1AFChannels as store,
-  putAdminV1AFChannelsId as update,
-} from '@/services/ant-design-pro/AFChannel';
-export { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
 export const FieldLabels = {
   a_title: '渠道名称',
   b_app_id: '应用ID',

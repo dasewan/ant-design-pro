@@ -1,6 +1,7 @@
 import { BORROW_STATUS_ENUM, COMMON_STATUS } from '@/pages/enums';
 import DetailModel from '@/pages/Repay/RepayList/components/DetailModel';
-import { getChannelsEnum } from '@/pages/UserManager/AUser/service';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1OARepays as index } from '@/services/ant-design-pro/OARepay';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -10,7 +11,7 @@ import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import styles from './index.less';
-import { FieldIndex, FieldLabels, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

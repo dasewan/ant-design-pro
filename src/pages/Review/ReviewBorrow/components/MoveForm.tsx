@@ -1,10 +1,12 @@
+import { putAdminV1BFReviewBorrowsRelease as release } from '@/services/ant-design-pro/BFReviewBorrow';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 import type { ProFieldRequestData } from '@ant-design/pro-utils';
 import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
 import { message } from 'antd';
 import React, { useRef } from 'react';
-import { release } from '../service';
+
+export { getAdminV1BHReviewBorrowFlows as index2 } from '@/services/ant-design-pro/BHReviewBorrowFlow';
 
 export type FormValueType = Partial<API.GBMarketing>;
 export type FormRecord = API.GBMarketing;

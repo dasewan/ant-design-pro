@@ -1,9 +1,9 @@
+import { getAdminV1MBLoanTab as getTab } from '@/services/ant-design-pro/MBLoan';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { TabPaneProps } from 'antd';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { history } from 'umi';
-import { getTab } from './service';
 
 type RBlackProps = {
   match: {

@@ -1,5 +1,12 @@
 import { BLACK_TYPE } from '@/pages/enums';
 import DrawerFC from '@/pages/UserManager/RBlack/components/DrawerFC';
+import { getAdminV1AKReasons as getAKReasons } from '@/services/ant-design-pro/AKReason';
+import { getAdminV1CaptchaType as getCaptchaType } from '@/services/ant-design-pro/Captcha';
+import {
+  deleteAdminV1RBlacksId as destory,
+  getAdminV1RBlacks as index,
+} from '@/services/ant-design-pro/RBlack';
+import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 import { ProForm, ProFormCaptcha } from '@ant-design/pro-components';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -7,7 +14,6 @@ import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
 import { message, Popover } from 'antd';
 import React, { useRef, useState } from 'react';
-import { destory, getAKReasons, getCaptchaType, getUsersEnum, index } from '../service';
 import type { TableListItem, TableListPagination } from './data';
 
 export type FormValueType = Partial<{ code: string }>;

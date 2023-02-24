@@ -2,11 +2,14 @@ import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormSelect, ProFormText } from '@ant-design/pro-form';
 
 import { FieldIndex, FieldLabels } from '@/pages/Loan/LoanList/InterceptLoan/service';
+import {
+  getAdminV1BanksEnum as getBanksEnum,
+  putAdminV1MBLoansId as update,
+} from '@/services/ant-design-pro/MBLoan';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
 import { message } from 'antd';
 import React, { useRef } from 'react';
 import type { TableListItem } from '../data';
-import { getBanksEnum, update } from '../service';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;

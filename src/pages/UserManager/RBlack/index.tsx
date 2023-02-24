@@ -1,5 +1,5 @@
 import ImportForm from '@/pages/UserManager/RBlack/components/ImportForm';
-import { getRBlackTab } from '@/pages/UserManager/RBlack/service';
+import { getAdminV1RBlackTab as getRBlackTab } from '@/services/ant-design-pro/RBlack';
 import { DownloadOutlined, EllipsisOutlined, FileTextOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { TabPaneProps } from 'antd';

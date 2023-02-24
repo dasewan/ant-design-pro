@@ -1,11 +1,12 @@
 import CreateForm from '@/pages/Risk/RiskItemCat/components/CreateForm';
+import { getAdminV1ANRiskItemCats as index } from '@/services/ant-design-pro/ANRiskItemCat';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { Button } from 'antd';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

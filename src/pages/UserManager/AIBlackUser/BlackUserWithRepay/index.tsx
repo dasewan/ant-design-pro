@@ -1,6 +1,6 @@
 import DrawerFC from '@/pages/UserManager/AUser/components/DrawerFC';
 import type { FormValueType } from '@/pages/UserManager/RBlack/Idnumber';
-import { getCaptchaType } from '@/pages/UserManager/RBlack/service';
+import { getAdminV1CaptchaType as getCaptchaType } from '@/services/ant-design-pro/Captcha';
 import { DollarOutlined } from '@ant-design/icons';
 import { ProForm, ProFormCaptcha } from '@ant-design/pro-components';
 import type { ProFormInstance } from '@ant-design/pro-form';
@@ -10,7 +10,11 @@ import { Badge, message, Popover, Rate } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { destory, index } from './service';
+
+import {
+  deleteAdminV1AIBlackUsersId as destory,
+  getAdminV1AIBlackUsers as index,
+} from '@/services/ant-design-pro/AIBlackUser';
 
 const hitEnum = {
   phone: { text: '手机号', status: 'Default' },

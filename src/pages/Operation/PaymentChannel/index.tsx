@@ -1,3 +1,6 @@
+import { getAdminV1BIPaymentChannels as index } from '@/services/ant-design-pro/BIPaymentChannel';
+import { getAdminV1GKBanks as indexBank } from '@/services/ant-design-pro/GKBank';
+import { putAdminV1HAPaymentChannelBanksId as update } from '@/services/ant-design-pro/HAPaymentChannelBank';
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -9,7 +12,6 @@ import type { SelectInfo } from 'rc-menu/es/interface';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import type { TableListItem } from './data';
-import { index, indexBank, update } from './service';
 
 import SwitchChannel from '@/pages/Operation/PaymentChannel/components/SwitchChannel';
 import { SearchOutlined } from '@ant-design/icons';

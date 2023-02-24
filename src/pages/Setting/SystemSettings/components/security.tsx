@@ -1,4 +1,4 @@
-import { update } from '@/pages/Setting/SystemSettings/service';
+import { putAdminV1GHSettingsId as update } from '@/services/ant-design-pro/GHSetting';
 import { Badge, List, message, Popconfirm, Spin, Switch } from 'antd';
 import React, { useEffect, useState } from 'react';
 import CreateForm from './CreateForm';

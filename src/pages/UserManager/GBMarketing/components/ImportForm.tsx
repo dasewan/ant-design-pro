@@ -1,5 +1,5 @@
-import { getChannelsEnum } from '@/pages/UserManager/AUser/service';
-import { store } from '@/pages/UserManager/GBMarketing/service';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { postAdminV1GBMarketings as store } from '@/services/ant-design-pro/GBMarketing';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
   ModalForm,

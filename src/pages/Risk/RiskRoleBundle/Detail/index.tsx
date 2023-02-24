@@ -34,8 +34,14 @@ import React, { useRef, useState } from 'react';
 import { useParams } from 'umi';
 import { FieldIndex, FieldIndex2, FieldLabels, FieldLabels2 } from '../service';
 import type { TableListItem } from './data';
-import { destroy, getRiskItemEnum, show, store } from './service';
 import styles from './style.less';
+
+import {
+  deleteAdminV1BDRiskRoleBundlesId as destroy,
+  getAdminV1BDRiskRoleBundlesId as show,
+  postAdminV1BDRiskRoleBundles as store,
+} from '@/services/ant-design-pro/BDRiskRoleBundle';
+import { getAdminV1GDRiskItemEnum as getRiskItemEnum } from '@/services/ant-design-pro/GDRiskItem';
 
 type InternalNamePath = (string | number)[];
 

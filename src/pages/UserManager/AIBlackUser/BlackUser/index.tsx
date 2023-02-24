@@ -1,4 +1,5 @@
 import DrawerFC from '@/pages/UserManager/AUser/components/DrawerFC';
+import { getAdminV1AIBlackUsers as index } from '@/services/ant-design-pro/AIBlackUser';
 import { DollarOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -6,7 +7,6 @@ import { Badge, Rate } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { index } from './service';
 
 const hitEnum = {
   phone: { text: '手机号', status: 'Default' },

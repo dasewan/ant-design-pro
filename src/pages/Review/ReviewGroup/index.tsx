@@ -3,7 +3,13 @@ import CreateForm from '@/pages/Review/ReviewGroup/components/CreateForm';
 import { COMMON_STATUS_QIYONG } from '@/pages/Operation/Channel/enums';
 import ReleaseForm from '@/pages/Review/ReviewGroup/components/ReleaseForm';
 import { BORROW_TIMES_TYPE, MODE_TYPE } from '@/pages/Review/ReviewGroup/enums';
-import { getChannelsEnum, getUserEnum } from '@/pages/UserManager/AUser/service';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import {
+  getAdminV1APReviewGroups as index,
+  getAdminV1APReviewGroupsConfig as check,
+} from '@/services/ant-design-pro/APReviewGroup';
+import { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
+import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -11,7 +17,7 @@ import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-ut
 import { Button, message, Tag } from 'antd';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { check, FieldIndex, FieldLabels, getProductsEnum, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -52,10 +58,10 @@ const TableList: React.FC = () => {
   /**
    * 查询管理员enum
    */
-  const _getUserEnum = async () => {
+  const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
     if (admins.length == 0) {
-      const res = await getUserEnum({ foo: 1 });
+      const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
           label: item.name,
@@ -109,7 +115,7 @@ const TableList: React.FC = () => {
     }
     if (admins.length == 0) {
       // @ts-ignore
-      await _getUserEnum();
+      await _getUsersEnum();
     }
     if (channels.length == 0) {
       // @ts-ignore

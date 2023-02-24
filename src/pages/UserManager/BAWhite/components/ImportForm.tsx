@@ -1,5 +1,5 @@
-import { getChannelsEnum } from '@/pages/UserManager/AUser/service';
-import { importWhite } from '@/pages/UserManager/BAWhite/service';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { postAdminV1__openAPI__import as importWhite } from '@/services/ant-design-pro/BAWhite';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
   ModalForm,

@@ -1,9 +1,11 @@
+import { getAdminV1HProductSnapshots as index2 } from '@/services/ant-design-pro/HProductSnapshot';
+import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { Button, Modal } from 'antd';
 import React, { useRef, useState } from 'react';
 import type { TableListItem2, TableListPagination } from '../data';
-import { fieldLabels, getUserEnum, index2 } from '../service';
+import { fieldLabels } from '../service';
 
 import {
   AMOUNT_TYPE,
@@ -61,10 +63,10 @@ const Snapshot: React.FC<Props> = (props) => {
   /**
    * 查询管理员enum
    */
-  const _getUserEnum = async () => {
+  const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
     if (admins.length == 0) {
-      const res = await getUserEnum({ foo: 1 });
+      const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
           label: item.name,
@@ -372,7 +374,7 @@ const Snapshot: React.FC<Props> = (props) => {
       title: '管理员',
       dataIndex: 'a_c_admin_id',
       valueType: 'select',
-      request: _getUserEnum,
+      request: _getUsersEnum,
       width: 120,
       params: { timestamp: Math.random() },
       render: (_, record) => {

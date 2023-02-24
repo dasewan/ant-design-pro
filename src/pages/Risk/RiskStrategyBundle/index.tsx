@@ -1,4 +1,3 @@
-import { getUserEnum } from '@/pages/UserManager/AUser/service';
 import { history } from '@@/core/history';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -8,7 +7,10 @@ import { Button } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
+
+import { getAdminV1GGRiskStrateies as index } from '@/services/ant-design-pro/GGRiskStratey';
+import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -43,10 +45,10 @@ const TableList: React.FC = () => {
   /**
    * 查询管理员enum
    */
-  const _getUserEnum = async () => {
+  const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
     if (admins.length == 0) {
-      const res = await getUserEnum({ foo: 1 });
+      const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
           label: item.name,
@@ -89,7 +91,7 @@ const TableList: React.FC = () => {
       title: '电销人员',
       dataIndex: 'k_admin_id',
       valueType: 'select',
-      request: _getUserEnum,
+      request: _getUsersEnum,
       params: { timestamp: Math.random() },
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线

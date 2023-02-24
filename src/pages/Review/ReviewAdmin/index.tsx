@@ -1,6 +1,10 @@
 import ReleaseForm from '@/pages/Review/ReviewAdmin/components/ReleaseForm';
 import { BORROW_TIMES_OPTION, BORROW_TIMES_TYPE } from '@/pages/Review/ReviewAdmin/enums';
-import { getUserEnum } from '@/pages/UserManager/AUser/service';
+import { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
+import {
+  getAdminV1ARReviewAdmins as index,
+  putAdminV1ARReviewAdminsId as update,
+} from '@/services/ant-design-pro/ARReviewAdmin';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -8,7 +12,7 @@ import type { RequestOptionsType } from '@ant-design/pro-utils';
 import { message, Popconfirm, Spin, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels, getAPReviewGroupsEnum, index, update } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

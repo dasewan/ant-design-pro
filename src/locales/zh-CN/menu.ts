@@ -111,4 +111,6 @@ export default {
   'menu.borrow': '订单管理',
   'menu.borrow.borrow-list': '全部订单',
   'menu.borrow.outstanding-list': '未到期订单',
+  'menu.borrow.verify-list': '认证列表',
+  'menu.borrow.verify-detail': '产品详情',
 };

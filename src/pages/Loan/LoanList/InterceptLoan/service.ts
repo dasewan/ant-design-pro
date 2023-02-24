@@ -2,12 +2,6 @@
 /* eslint-disable */
 import { FieldIndex as FieldIndex2, FieldLabels as FieldLabels2 } from '../../WaitingLoan/service';
 
-export {
-  getAdminV1MBLoans as index,
-  getAdminV1MBLoansId as show,
-  postAdminV1MBLoans as store,
-  putAdminV1MBLoansId as update,
-} from '@/services/ant-design-pro/MBLoan';
 export const FieldLabels = {
   id: 'id',
   a_borrow_id: 'borrow_id',

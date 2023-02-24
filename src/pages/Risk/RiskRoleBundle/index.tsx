@@ -1,3 +1,4 @@
+import { getAdminV1BDRiskRoleBundles as index } from '@/services/ant-design-pro/BDRiskRoleBundle';
 import { history } from '@@/core/history';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -7,7 +8,7 @@ import moment from 'moment';
 import React, { useRef } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { EXECUTE_LOGIC, FINNAL_DECISION } from './enums';
-import { FieldIndex, FieldLabels, index } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

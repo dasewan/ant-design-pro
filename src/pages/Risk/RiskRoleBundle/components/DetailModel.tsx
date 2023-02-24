@@ -1,6 +1,6 @@
 import type { FormValueType } from '@/pages/Risk/RiskRoleBundle/components/CreateForm';
-import { getRiskItemEnum } from '@/pages/Risk/RiskRoleBundle/Detail/service';
 import { EXECUTE_LOGIC_OPTION, FINNAL_DECISION_OPTION } from '@/pages/Risk/RiskRoleBundle/enums';
+import { getAdminV1GDRiskItemEnum as getRiskItemEnum } from '@/services/ant-design-pro/GDRiskItem';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProFormInstance } from '@ant-design/pro-components';
 import { ProFormDependency } from '@ant-design/pro-components';

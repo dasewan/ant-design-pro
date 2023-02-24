@@ -1,10 +1,10 @@
+import { getAdminV1BAWhiteTab as getBAWhiteTab } from '@/services/ant-design-pro/BAWhite';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { TabPaneProps } from 'antd';
 import { Tooltip } from 'antd';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { history } from 'umi';
-import { getBAWhiteTab } from './service';
 
 type CommonProps = {
   match: {

@@ -1,4 +1,9 @@
 import CreateForm from '@/pages/Risk/RiskItem/components/CreateForm';
+import { getAdminV1ANRiskItemCatEnums as getCatsEnum } from '@/services/ant-design-pro/ANRiskItemCat';
+import {
+  getAdminV1GDRiskItems as index,
+  putAdminV1GDRiskItemsReletedCount as updateCount,
+} from '@/services/ant-design-pro/GDRiskItem';
 import { EllipsisOutlined, SyncOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -9,7 +14,7 @@ import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { RISK_ITEM_TYPE } from './enums';
-import { FieldIndex, FieldLabels, getCatsEnum, index, updateCount } from './service';
+import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

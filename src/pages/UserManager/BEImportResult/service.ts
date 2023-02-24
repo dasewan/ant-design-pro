@@ -1,13 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 
-export { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
-export {
-  getAdminV1BEImportResults as index,
-  getAdminV1BEImportResultsId as show,
-  postAdminV1BEImportResults as store,
-  putAdminV1BEImportResultsId as update,
-} from '@/services/ant-design-pro/BEImportResult';
 export const FieldLabels = {
   id: 'id',
   a_admin_file_id: '导入序号',

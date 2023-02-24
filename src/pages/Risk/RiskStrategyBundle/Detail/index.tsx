@@ -1,8 +1,8 @@
 import DetailModel from '@/pages/Risk/RiskRoleBundle/components/DetailModel';
 import { EXECUTE_LOGIC, FINNAL_DECISION } from '@/pages/Risk/RiskRoleBundle/enums';
-import { index as riskRoleBundleIndex } from '@/pages/Risk/RiskRoleBundle/service';
 import RiskRoleBundleTableModel from '@/pages/Risk/RiskStrategyBundle/Detail/components/RiskRoleBundleTableModel';
 import { FUSE, FUSE_OPTION } from '@/pages/Risk/RiskStrategyBundle/enums';
+import { getAdminV1BDRiskRoleBundles as riskRoleBundleIndex } from '@/services/ant-design-pro/BDRiskRoleBundle';
 import { history } from '@@/core/history';
 import {
   CloseCircleOutlined,
@@ -33,8 +33,14 @@ import {
 } from '../../RiskRoleBundle/service';
 import { FieldIndex, FieldIndex2, FieldLabels, FieldLabels2 } from '../service';
 import type { TableListItem } from './data';
-import { destroy, getRiskItemEnum, show, store } from './service';
 import styles from './style.less';
+
+import { getAdminV1GDRiskItemEnum as getRiskItemEnum } from '@/services/ant-design-pro/GDRiskItem';
+import {
+  deleteAdminV1GGRiskStrateiesId as destroy,
+  getAdminV1GGRiskStrateiesId as show,
+  postAdminV1GGRiskStrateies as store,
+} from '@/services/ant-design-pro/GGRiskStratey';
 
 type InternalNamePath = (string | number)[];
 

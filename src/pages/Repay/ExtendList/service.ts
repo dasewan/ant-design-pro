@@ -6,10 +6,6 @@ import {
   FieldLabels as FieldLabels2,
 } from '@/pages/Loan/WaitingLoan/service';
 
-export {
-  getAdminV1MCExtends as index,
-  getAdminV1MCExtendsId as show,
-} from '@/services/ant-design-pro/MCExtend';
 export const FieldLabels = {
   id: 'id',
   a_borrow_id: 'borrow_id',

@@ -9,7 +9,7 @@ import type { SortableContainerProps, SortEnd } from 'react-sortable-hoc';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import type { TableListItem, TableListPagination } from './data';
 import styles from './index.less';
-import { fieldLabels, index, sort } from './service';
+import { fieldLabels } from './service';
 
 import OverviewModel from '@/pages/Operation/BProduct/components/OverviewModel';
 import Snapshot from '@/pages/Operation/BProduct/components/Snapshot';
@@ -21,7 +21,15 @@ import {
   PRODUCT_SETTLEMENT_TYPE,
   PRODUCT_TYPE,
 } from '@/pages/Operation/BProduct/enums';
+import {
+  getAdminV1BProducts as index,
+  putAdminV1BProductsSort as sort,
+} from '@/services/ant-design-pro/BProduct';
 import { history } from '@@/core/history';
+
+export { getAdminV1HProductSnapshots as index2 } from '@/services/ant-design-pro/HProductSnapshot';
+export { getAdminV1UsersEnum as getUserEnum } from '@/services/ant-design-pro/User';
+
 // 排序相关固定模版start
 const DragHandle = SortableHandle(() => <MenuOutlined style={{ cursor: 'grab', color: '#999' }} />);
 const SortableItem = SortableElement((props: React.HTMLAttributes<HTMLTableRowElement>) => (

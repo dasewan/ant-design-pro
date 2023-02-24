@@ -1,10 +1,11 @@
 import { CALLBACK_CODE, LOAN_LOG_STATUS, LOAN_LOG_TYPE, SYNC_CODE } from '@/pages/enums';
+import { getAdminV1MCLoanLogsId as show } from '@/services/ant-design-pro/MCLoanLog';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
 import { Button, Descriptions, Modal, Spin } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import type { TableListItem } from '../data';
-import { FieldLabels, show } from '../service';
+import { FieldLabels } from '../service';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;

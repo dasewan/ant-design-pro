@@ -1,10 +1,11 @@
 import { REPAY_LOG_STATUS, REPAY_LOG_TYPE } from '@/pages/enums';
+import { getAdminV1MCExtendsId as show } from '@/services/ant-design-pro/MCExtend';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
 import { Button, Descriptions, Divider, Modal, Spin } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import type { TableListItem } from '../data';
-import { FieldLabels, show } from '../service';
+import { FieldLabels } from '../service';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;

@@ -1,5 +1,5 @@
 import type { TableListPagination } from '@/pages/UserManager/AUser/data';
-import { getAMBlackHitHistories } from '@/pages/UserManager/RBlack/service';
+import { getAdminV1AMBlackHitHistories as getAMBlackHitHistories } from '@/services/ant-design-pro/AMBlackHitHistory';
 import ProList from '@ant-design/pro-list';
 import { Alert, Drawer } from 'antd';
 import moment from 'moment';

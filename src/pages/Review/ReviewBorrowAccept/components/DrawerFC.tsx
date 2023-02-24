@@ -1,5 +1,6 @@
-import { FieldIndex2, FieldLabels2, index2 } from '@/pages/Review/ReviewBorrow/service';
+import { FieldIndex2, FieldLabels2 } from '@/pages/Review/ReviewBorrow/service';
 import type { TableListPagination } from '@/pages/UserManager/AUser/data';
+import { getAdminV1BHReviewBorrowFlows as index2 } from '@/services/ant-design-pro/BHReviewBorrowFlow';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';

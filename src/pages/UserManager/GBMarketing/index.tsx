@@ -10,7 +10,10 @@ import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import ImportForm from './components/ImportForm';
 import type { TableListItem, TableListPagination } from './data';
-import { getChannelsEnum, getUserEnum, index } from './service';
+
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1GBMarketings as index } from '@/services/ant-design-pro/GBMarketing';
+import { getAdminV1UsersEnum as getUserEnum } from '@/services/ant-design-pro/User';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();

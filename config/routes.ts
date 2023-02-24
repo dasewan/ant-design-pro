@@ -246,6 +246,19 @@ export default [
         path: '/borrow/outstanding-list',
         component: './Borrow/OutstandingList',
       },
+      {
+        name: 'verify-list',
+        icon: 'smile',
+        path: '/borrow/verify-list',
+        component: './Borrow/VerifyList',
+      },
+      {
+        name: 'verify-detail',
+        icon: 'smile',
+        path: '/borrow/verify/detail/:id',
+        component: './Borrow/VerifyList/Detail',
+        hideInMenu: true,
+      },
     ],
   },
   {

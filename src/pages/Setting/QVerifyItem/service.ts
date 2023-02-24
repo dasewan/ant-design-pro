@@ -1,13 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
 
-export {
-  getAdminV1QVerifyItems as index,
-  getAdminV1QVerifyItemsId as show,
-  postAdminV1QVerifyItems as store,
-  putAdminV1QVerifyItemsId as update,
-  putAdminV1QVerifyItemsSort as sort,
-} from '@/services/ant-design-pro/QVerifyItem';
 export const fieldLabels = {
   id: 'id',
   a_parent_id: '父id',

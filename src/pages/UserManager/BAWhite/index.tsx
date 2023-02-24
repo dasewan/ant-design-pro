@@ -5,7 +5,13 @@ import { Badge, Button, Dropdown, Menu, message, Popconfirm } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { destroy, getChannelsEnum, getUserEnum, index } from './service';
+
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import {
+  deleteAdminV1BAWhitesId as destroy,
+  getAdminV1BAWhites as index,
+} from '@/services/ant-design-pro/BAWhite';
+import { getAdminV1UsersEnum as getUserEnum } from '@/services/ant-design-pro/User';
 
 import ImportForm from '@/pages/UserManager/BAWhite/components/ImportForm';
 import { DownloadOutlined, EllipsisOutlined, FileTextOutlined } from '@ant-design/icons';

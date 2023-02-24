@@ -1,3 +1,7 @@
+import {
+  getAdminV1ABCreditHistories as getABCreditHistories,
+  postAdminV1ABCreditHistories as postABCreditHistories,
+} from '@/services/ant-design-pro/ABCreditHistory';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormRadio, ProFormText } from '@ant-design/pro-form';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -6,7 +10,6 @@ import { Badge, Col, Divider, message, Row, Typography } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from '../data';
-import { getABCreditHistories, postABCreditHistories } from '../service';
 
 const { Text } = Typography;
 
