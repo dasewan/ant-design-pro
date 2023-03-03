@@ -6,6 +6,7 @@ import type { TabPaneProps } from 'antd';
 import { Button, Dropdown, Menu } from 'antd';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
+import { CacheRoute, CacheSwitch } from 'react-router-cache-route';
 import { history } from 'umi';
 
 type RBlackProps = {
@@ -82,6 +83,9 @@ const RBlack: FC<RBlackProps> = (props) => {
 
   const _handleTabChange = (key: string) => {
     const url = match.url === '/' ? '' : match.url;
+    console.log(url);
+    console.log(key);
+    console.log(`${url}/${key}`);
     history.push(`${url}/${key}`);
   };
 
@@ -138,7 +142,7 @@ const RBlack: FC<RBlackProps> = (props) => {
       tabActiveKey={_getTabKey()}
       onTabChange={_handleTabChange}
     >
-      {props.children}
+      {/*{props.children}*/}
       <ImportForm
         onSubmit={async (success) => {
           if (success) {
@@ -153,6 +157,15 @@ const RBlack: FC<RBlackProps> = (props) => {
         }}
         modalVisible={importModalVisible}
       />
+      <CacheSwitch>
+        <CacheRoute path="/user-manager/black-info-list/phone">{props.children}</CacheRoute>
+        <CacheRoute path="/user-manager/black-info-list/id-number">{props.children}</CacheRoute>
+        <CacheRoute path="/user-manager/black-info-list/id-number2">{props.children}</CacheRoute>
+        <CacheRoute path="/user-manager/black-info-list/bank-card">{props.children}</CacheRoute>
+        <CacheRoute path="/user-manager/black-info-list/imei">{props.children}</CacheRoute>
+        <CacheRoute path="/user-manager/black-info-list/device">{props.children}</CacheRoute>
+      </CacheSwitch>
+      *
     </PageContainer>
   );
 };
