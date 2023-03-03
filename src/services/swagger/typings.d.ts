@@ -355,12 +355,20 @@ declare namespace API {
     t_middle_name?: string;
     /** 持有人名 */
     u_last_name?: string;
-    /** 成功放款次数 */
+    /** 其他人相同卡号人数 */
     v_loan_success_times?: number;
     /** 成功放款金额 */
     w_loan_total_amount?: number;
     /** 是否已经验真 10：待验真 30：验真结果未知 40:验真失败 50：验真成功 */
     x_authenticity?: number;
+    /** 审核原因 */
+    y_reasons?: string;
+    /** 审核管理员 */
+    z_admin_id?: number;
+    /** 验真原始内容 */
+    a_a_authenticity_raw?: string;
+    /** 审核原因详情 */
+    a_b_reasons_detail?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -570,6 +578,8 @@ declare namespace API {
     k_admin_id?: number;
     /** 授信额度 */
     l_credit_amount?: number;
+    /** 命中次数 */
+    m_hit_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2520,7 +2530,7 @@ declare namespace API {
     /** ocr.id */
     b_ocr_id?: number;
     /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
-    c_status?: boolean;
+    c_status?: number;
     /** 认证有效时间 */
     d_valid_date?: string;
     /** 贷款用途 */
@@ -2583,6 +2593,30 @@ declare namespace API {
     a_g_company_address?: string;
     /** line */
     a_h_line?: string;
+    /** 认证id */
+    a_i_verify_id?: number;
+    /** 认证次数序号 */
+    a_j_index?: number;
+    /** 雇主电话关联逾期订单数 */
+    a_k_employer_related_overdue_borrows?: number;
+    /** 雇主电话关联用户 */
+    a_l_employer_related_users?: number;
+    /** 所属公司关联逾期订单 */
+    a_m_company_related_overdue_borrows?: number;
+    /** 所属公司关联用户 */
+    a_n_company_related_users?: number;
+    /** 雇主命中黑名单 */
+    a_o_employer_black_id?: number;
+    /** 雇主命中灰名单 */
+    a_p_employer_grey_id?: number;
+    /** 审核原因 */
+    a_q_reasons?: string;
+    /** 审核原因详情 */
+    a_r_reasons_detail?: string;
+    /** 审核管理员id */
+    a_s_admin_id?: number;
+    /** 审核原因详情 */
+    a_t_reasons_detail?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2763,7 +2797,7 @@ declare namespace API {
     /** ocr.id */
     b_ocr_id?: number;
     /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
-    c_status?: boolean;
+    c_status?: number;
     /** 黑名单id */
     d_black_id?: number;
     /** 灰名单id */
@@ -2866,6 +2900,12 @@ declare namespace API {
     b_a_facebook?: string;
     /** line */
     b_b_line?: string;
+    /** 审核管理员id */
+    b_c_admin_id?: number;
+    /** 复审原因 */
+    b_d_reasons?: string;
+    /** 复审原因详情 */
+    b_e_reasons_detail?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3216,6 +3256,12 @@ declare namespace API {
     a_j_contact2_borrow_id?: number;
     /** 借款人3的订单id */
     a_k_contact3_borrow_id?: number;
+    /** 审核原因 */
+    a_l_reasons?: string;
+    /** 审核管理员 */
+    a_m_admin_id?: number;
+    /** 审核原因详情 */
+    a_n_reasons_detail?: string;
     /** deleted_at */
     deleted_at?: string;
     /** created_at */
