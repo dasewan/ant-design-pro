@@ -515,35 +515,35 @@ declare namespace API {
     /** 电销人员* */
     z_saler_admin_id?: number;
     /** 审核人员* */
-    aa_review_admin_id?: number;
+    a_a_review_admin_id?: number;
     /** 在催管理员* */
-    ab_collection_admin_id?: number;
+    a_b_collection_admin_id?: number;
     /** 提额券数量* */
-    ac_coupon_count?: number;
+    a_c_coupon_count?: number;
     /** 邀请成功次数* */
-    ad_invite_count?: number;
+    a_d_invite_count?: number;
     /** 消息数 */
-    ae_message?: number;
+    a_e_message?: number;
     /** 累计放款笔数* */
-    af_loan_count?: number;
+    a_f_loan_count?: number;
     /** 累计展期笔数* */
-    ag_extend_count?: number;
+    a_g_extend_count?: number;
     /** 逾期次数* */
-    ah_overdue_times?: number;
+    a_h_overdue_times?: number;
     /** 最大逾期天数* */
-    ai_repay_max_overdue_days?: number;
+    a_i_repay_max_overdue_days?: number;
     /** 损益* */
-    aj_loss?: number;
+    a_j_loss?: number;
     /** 费用消耗 */
-    ak_consume?: number;
-    /** al_last_ettled_time */
-    al_last_ettled_time?: string;
-    /** am_access_time */
-    am_access_time?: string;
+    a_k_consume?: number;
+    /** 最后一次结清时间 */
+    a_l_last_ettled_time?: string;
+    /** 最后一次访问时间 */
+    a_m_access_time?: number;
+    /** 累计逾期天数* */
+    a_n_total_overdue_days?: number;
     /** created_at */
     created_at?: string;
-    /** 累计逾期天数* */
-    an_total_overdue_days?: number;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
@@ -862,6 +862,15 @@ declare namespace API {
     a_a_a_a_h_a_payment_channel_bank?: HAPaymentChannelBank[];
   };
 
+  type BorrowDetail = {
+    /** id */
+    id?: number;
+    n_user_profile?: NUserProfile;
+    a_user?: AUser;
+    /** App\Models\Complex\BorrowDetail */
+    extend_data?: PeriodDetail[];
+  };
+
   type BProduct = {
     /** id */
     id?: number;
@@ -1030,7 +1039,7 @@ declare namespace API {
     /** 结清时间 */
     t_settled_time?: string;
     /** 结清期数(分期) */
-    u_settled_period?: string;
+    u_settled_period?: number;
     /** 结清金额 */
     v_amount_due?: number;
     /** 损益（逾期或者结清后计算才展示损益，否则展示为空） */
@@ -1071,6 +1080,12 @@ declare namespace API {
     a_n_name3?: string;
     /** 标签 */
     a_o_tags?: string;
+    /** 分期期数 */
+    a_p_period_count?: number;
+    /** 签约时间 */
+    a_r_sign_time?: string;
+    /** 当前催员 */
+    a_s_urge_admin_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1796,6 +1811,11 @@ declare namespace API {
   };
 
   type getAdminV1DBorrowsWaitingLoanParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1DBorrowTabParams = {
     /** foo */
     foo: number;
   };
@@ -2615,8 +2635,6 @@ declare namespace API {
     a_r_reasons_detail?: string;
     /** 审核管理员id */
     a_s_admin_id?: number;
-    /** 审核原因详情 */
-    a_t_reasons_detail?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3268,6 +3286,23 @@ declare namespace API {
     created_at?: string;
     /** updated_at */
     updated_at?: string;
+  };
+
+  type PeriodDetail = {
+    /** id */
+    title?: string;
+    /** borrow_amount */
+    borrow_amount?: number;
+    /** interest */
+    interest?: number;
+    /** service_fee */
+    service_fee?: number;
+    /** violate_fee */
+    violate_fee?: number;
+    /** overdue_fee */
+    overdue_fee?: number;
+    /** total_amount */
+    total_amount?: number;
   };
 
   type putACUserNewsIdParams = {

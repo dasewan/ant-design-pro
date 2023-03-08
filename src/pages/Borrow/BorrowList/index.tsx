@@ -1,6 +1,7 @@
 import { BORROW_STATUS_ENUM, BORROW_SUB_STATUS_ENUM } from '@/pages/enums';
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { getAdminV1DBorrows as index } from '@/services/ant-design-pro/DBorrow';
+import { history } from '@@/core/history';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -126,6 +127,22 @@ const TableList: React.FC = () => {
       },
       search: {
         transform: (value: any) => ({ 'created_at[0]': value[0], 'created_at[1]': value[1] }),
+      },
+    },
+    {
+      title: '操作',
+      dataIndex: 'id',
+      valueType: 'option',
+      width: 220,
+      fixed: 'right',
+      render: (_, record) => {
+        const edit = (
+          <a key="edit" onClick={() => history.push(`/borrow/detail/${record.id}`)}>
+            编辑
+          </a>
+        );
+
+        return [edit];
       },
     },
   ];

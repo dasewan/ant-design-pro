@@ -259,6 +259,28 @@ export default [
         component: './Borrow/VerifyList/Detail',
         hideInMenu: true,
       },
+      {
+        name: 'borrow-detail',
+        icon: 'smile',
+        path: '/borrow/detail/:id',
+        component: './Borrow/BorrowList/Detail',
+        hideInMenu: true,
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            name: 'urge-detail',
+            icon: 'smile',
+            path: '/borrow/detail/:id/urge/:urgeId',
+            component: './Borrow/BorrowList/components/UrgeDetail',
+          },
+          {
+            name: 'verify-detail',
+            icon: 'smile',
+            path: '/borrow/detail/:id/verify/:verifyId',
+            component: './Borrow/VerifyList/components/VerifyDetail',
+          },
+        ],
+      },
     ],
   },
   {

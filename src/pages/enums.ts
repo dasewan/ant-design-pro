@@ -83,6 +83,18 @@ export const BORROW_STATUS_ENUM = {
   100: { text: '关闭', color: '#9543a1' },
 };
 
+export const BORROW_STATUS_MAP = {
+  VERIFY: 10,
+  SIGN: 20,
+  MACHINE: 30,
+  REVIEW: 40,
+  LOAN: 50,
+  OUTSTANDING: 60,
+  CLEARED: 80,
+  OVERDUE: 90,
+  CLOSED: 110,
+};
+
 export const BORROW_SUB_STATUS_ENUM = {
   1100: { text: '待认证', status: '' },
 

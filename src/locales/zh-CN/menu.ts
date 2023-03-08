@@ -113,4 +113,7 @@ export default {
   'menu.borrow.outstanding-list': '未到期订单',
   'menu.borrow.verify-list': '认证列表',
   'menu.borrow.verify-detail': '认证详情',
+  'menu.borrow.borrow-detail': '认证详情',
+  'menu.borrow.borrow-detail.verify-detail': '认证详情',
+  'menu.borrow.borrow-detail.urge-detail': '催收详情',
 };
