@@ -1,7 +1,7 @@
 import { DownloadOutlined, EllipsisOutlined, FileTextOutlined } from '@ant-design/icons';
 import { PageContainer, RouteContext } from '@ant-design/pro-layout';
 import type { TabPaneProps } from 'antd';
-import { Button, Descriptions, Dropdown, Menu, Statistic } from 'antd';
+import { Button, Descriptions, Dropdown, Menu, Skeleton, Statistic } from 'antd';
 import type { FC } from 'react';
 import React, { Fragment, useEffect, useState } from 'react';
 
@@ -312,7 +312,7 @@ const Advanced: FC<RBlackProps> = (props) => {
     </RouteContext.Consumer>
   );
 
-  const description = (
+  const description = other?.a_user ? (
     <RouteContext.Consumer>
       {({ isMobile }) => (
         <Descriptions
@@ -347,6 +347,8 @@ const Advanced: FC<RBlackProps> = (props) => {
         </Descriptions>
       )}
     </RouteContext.Consumer>
+  ) : (
+    <Skeleton />
   );
   const extra = (
     <div className={styles.moreInfo}>

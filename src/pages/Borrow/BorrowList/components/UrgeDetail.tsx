@@ -2,7 +2,7 @@ import { BORROW_STATUS_MAP } from '@/pages/enums';
 import { getAdminV1DBorrowsId as show } from '@/services/ant-design-pro/DBorrow';
 import { ClockCircleTwoTone, HourglassTwoTone } from '@ant-design/icons';
 import { GridContent } from '@ant-design/pro-layout';
-import { Card, Col, Row, Statistic, Table } from 'antd';
+import { Card, Col, Row, Spin, Statistic, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -45,6 +45,7 @@ const UrgeDetail: React.FC<FormProps> = () => {
   const [other, setOther] = useState<API.BorrowDetail>();
   // const [defaultExpandedRowKey, setDefaultExpandedRowKey] = useState<number>();
   const [loaned, setLoaned] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [tabStatus, seTabStatus] = useState<AdvancedState>({
     operationKey: 'tab1',
     tabActiveKey: 'detail',
@@ -52,6 +53,7 @@ const UrgeDetail: React.FC<FormProps> = () => {
 
   useEffect(() => {
     const _show = async () => {
+      setLoading(true);
       // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
       // 如果需要转化参数可以在这里进行修改
       // @ts-ignore
@@ -72,7 +74,7 @@ const UrgeDetail: React.FC<FormProps> = () => {
         success: res.success,
       };
     };
-    _show().then();
+    _show().then(() => setLoading(false));
     return () => {};
   }, []);
 
@@ -188,12 +190,12 @@ const UrgeDetail: React.FC<FormProps> = () => {
   ];
 
   const expandedRowRender = (_record: API.QBPeriod) => {
-    // @ts-ignore
     return (
       <Table
         size="small"
         rowKey="title"
         columns={expandColumns}
+        // @ts-ignore
         dataSource={other?.extend_data ? other.extend_data[_record!.d_index!] : undefined}
         pagination={false}
       />
@@ -202,87 +204,89 @@ const UrgeDetail: React.FC<FormProps> = () => {
 
   return (
     <div className={styles.main}>
-      <GridContent>
-        <Card title="订单详情" style={{ marginBottom: 24 }}>
-          <Row style={{ marginBottom: 24 }}>
-            <Col span={3}>
-              <Statistic title="借款金额" value={oldRecord?.l_borrow_count} prefix="¥" />
-            </Col>
-            <Col span={3}>
-              <Statistic title="借款期数" value={oldRecord?.a_p_period_count} />
-            </Col>
-            {loaned ? (
+      <Spin spinning={loading} delay={300}>
+        <GridContent>
+          <Card title="订单详情" style={{ marginBottom: 24 }}>
+            <Row style={{ marginBottom: 24 }}>
               <Col span={3}>
-                <Statistic
-                  title="放款时间"
-                  value={moment(oldRecord?.o_loan_time).format('YYYY-MM-DD')}
-                  prefix={<ClockCircleTwoTone style={{ fontSize: '16px' }} />}
-                />
+                <Statistic title="借款金额" value={oldRecord?.l_borrow_count} prefix="¥" />
               </Col>
-            ) : null}
-            {loaned ? (
               <Col span={3}>
-                <Statistic title="放款金额" value={oldRecord?.p_loan_amount} prefix="¥" />
+                <Statistic title="借款期数" value={oldRecord?.a_p_period_count} />
               </Col>
-            ) : null}
-            {loaned ? (
-              <Col span={3}>
-                <Statistic
-                  title="应完结时间"
-                  value={moment(oldRecord?.q_expect_repay_time).format('YYYY-MM-DD')}
-                  prefix={
-                    <HourglassTwoTone
-                      style={{ fontSize: '16px' }}
-                      twoToneColor={
-                        oldRecord?.j_status == BORROW_STATUS_MAP.OVERDUE ? '#eb2f96' : '#52c41a'
-                      }
-                    />
-                  }
-                />
-              </Col>
-            ) : null}
-            {loaned ? (
-              <Col span={3}>
-                <Statistic
-                  title="应还金额"
-                  value={oldRecord?.a_a_a_a_a_o_a_repay?.a_l_expect_repay_total_amount}
-                  prefix="¥"
-                />
-              </Col>
-            ) : null}
-            {loaned ? (
-              <Col span={3}>
-                <Statistic title="已还金额" value={oldRecord?.s_amount_paid} prefix="¥" />
-              </Col>
-            ) : null}
-            {loaned && oldRecord?.t_settled_time ? (
-              <Col span={3}>
-                <Statistic
-                  title="完结日期"
-                  value={moment(oldRecord?.t_settled_time).format('YYYY-MM-DD')}
-                  prefix="¥"
-                />
-              </Col>
-            ) : null}
-          </Row>
-          <Table
-            columns={columns}
-            dataSource={oldRecord?.a_a_a_a_a_q_b_periods}
-            bordered
-            pagination={false}
-            rowKey="id"
-            size="small"
-            expandable={{ expandedRowRender, expandedRowClassName: () => 'red' }}
+              {loaned ? (
+                <Col span={3}>
+                  <Statistic
+                    title="放款时间"
+                    value={moment(oldRecord?.o_loan_time).format('YYYY-MM-DD')}
+                    prefix={<ClockCircleTwoTone style={{ fontSize: '16px' }} />}
+                  />
+                </Col>
+              ) : null}
+              {loaned ? (
+                <Col span={3}>
+                  <Statistic title="放款金额" value={oldRecord?.p_loan_amount} prefix="¥" />
+                </Col>
+              ) : null}
+              {loaned ? (
+                <Col span={3}>
+                  <Statistic
+                    title="应完结时间"
+                    value={moment(oldRecord?.q_expect_repay_time).format('YYYY-MM-DD')}
+                    prefix={
+                      <HourglassTwoTone
+                        style={{ fontSize: '16px' }}
+                        twoToneColor={
+                          oldRecord?.j_status == BORROW_STATUS_MAP.OVERDUE ? '#eb2f96' : '#52c41a'
+                        }
+                      />
+                    }
+                  />
+                </Col>
+              ) : null}
+              {loaned ? (
+                <Col span={3}>
+                  <Statistic
+                    title="应还金额"
+                    value={oldRecord?.a_a_a_a_a_o_a_repay?.a_l_expect_repay_total_amount}
+                    prefix="¥"
+                  />
+                </Col>
+              ) : null}
+              {loaned ? (
+                <Col span={3}>
+                  <Statistic title="已还金额" value={oldRecord?.s_amount_paid} prefix="¥" />
+                </Col>
+              ) : null}
+              {loaned && oldRecord?.t_settled_time ? (
+                <Col span={3}>
+                  <Statistic
+                    title="完结日期"
+                    value={moment(oldRecord?.t_settled_time).format('YYYY-MM-DD')}
+                    prefix="¥"
+                  />
+                </Col>
+              ) : null}
+            </Row>
+            <Table
+              columns={columns}
+              dataSource={oldRecord?.a_a_a_a_a_q_b_periods}
+              bordered
+              pagination={false}
+              rowKey="id"
+              size="small"
+              expandable={{ expandedRowRender, expandedRowClassName: () => 'red' }}
+            />
+          </Card>
+          <Card
+            title="催收详情"
+            className={styles.tabsCard}
+            bordered={false}
+            tabList={urgeTabList}
+            onTabChange={onOperationTabChange}
           />
-        </Card>
-        <Card
-          title="催收详情"
-          className={styles.tabsCard}
-          bordered={false}
-          tabList={urgeTabList}
-          onTabChange={onOperationTabChange}
-        />
-      </GridContent>
+        </GridContent>
+      </Spin>
     </div>
   );
 };
