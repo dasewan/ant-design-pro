@@ -5,7 +5,8 @@ import { Button, Descriptions, Dropdown, Menu, Skeleton, Statistic } from 'antd'
 import type { FC } from 'react';
 import React, { Fragment, useEffect, useState } from 'react';
 
-import { BORROW_STATUS_ENUM, BORROW_STATUS_MAP } from '@/pages/enums';
+import ReviewForm from '@/pages/Borrow/BorrowList/components/ReviewForm';
+import { BORROW_STATUS_ENUM, BORROW_STATUS_MAP, VERIFY_STATUS_MAP } from '@/pages/enums';
 import {
   getAdminV1DBorrowsId as show,
   getAdminV1DBorrowTab as getTab,
@@ -37,6 +38,8 @@ const Advanced: FC<RBlackProps> = (props) => {
   const [userId, setUserId] = useState<number>();
   const [borrowId, setBorrowId] = useState<number>();
   const [verifyId, setVerifyId] = useState<number>();
+  const [showReviewButton, setShowReviewButton] = useState<boolean>(true);
+  const [reviewModalVisible, handleReviewModalVisible] = useState<boolean>(false);
 
   /** tabs */
   const [tabList, setTabList] = useState<
@@ -184,7 +187,19 @@ const Advanced: FC<RBlackProps> = (props) => {
               <ButtonGroup>
                 <Button key="sms">发送短信</Button>
                 <Button key="black">拉黑</Button>
-                <Button key="review">审核</Button>
+                {oldRecord?.a_a_a_a_a_g_verify?.f_status == VERIFY_STATUS_MAP.OVERVIEW &&
+                showReviewButton ? (
+                  <Button key="review" onClick={() => handleReviewModalVisible(true)}>
+                    审核
+                  </Button>
+                ) : null}
+                {oldRecord?.a_a_a_a_a_g_verify?.e_risk_result == VERIFY_STATUS_MAP.OVERVIEW &&
+                (oldRecord?.a_a_a_a_a_g_verify?.f_status != VERIFY_STATUS_MAP.OVERVIEW ||
+                  !showReviewButton) ? (
+                  <Button key="review-record" onClick={() => handleReviewModalVisible(true)}>
+                    审核记录
+                  </Button>
+                ) : null}
                 <Button key="link">还款链接</Button>
                 <Button
                   key="show"
@@ -249,7 +264,19 @@ const Advanced: FC<RBlackProps> = (props) => {
             <ButtonGroup>
               <Button key="sms">发送短信</Button>
               <Button key="black">拉黑</Button>
-              <Button key="review">审核</Button>
+              {oldRecord?.a_a_a_a_a_g_verify?.f_status == VERIFY_STATUS_MAP.OVERVIEW &&
+              showReviewButton ? (
+                <Button key="review" onClick={() => handleReviewModalVisible(true)}>
+                  审核
+                </Button>
+              ) : null}
+              {oldRecord?.a_a_a_a_a_g_verify?.e_risk_result == VERIFY_STATUS_MAP.OVERVIEW &&
+              (oldRecord?.a_a_a_a_a_g_verify?.f_status != VERIFY_STATUS_MAP.OVERVIEW ||
+                !showReviewButton) ? (
+                <Button key="review-record" onClick={() => handleReviewModalVisible(true)}>
+                  审核记录
+                </Button>
+              ) : null}
               <Button key="link">还款链接</Button>
               <Button
                 key="show"
@@ -396,6 +423,21 @@ const Advanced: FC<RBlackProps> = (props) => {
         <CacheRoute path="/user-manager/black-info-list/imei">{props.children}</CacheRoute>
         <CacheRoute path="/user-manager/black-info-list/device">{props.children}</CacheRoute>
       </CacheSwitch>
+      <ReviewForm
+        onSubmit={async (success) => {
+          if (success) {
+            handleReviewModalVisible(false);
+            setShowReviewButton(false);
+          }
+        }}
+        onCancel={() => {
+          handleReviewModalVisible(false);
+        }}
+        borrowId={borrowId}
+        modalVisible={reviewModalVisible}
+        showReviewRecord={!showReviewButton}
+        verifyId={verifyId}
+      />
     </PageContainer>
   );
 };

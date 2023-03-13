@@ -762,24 +762,38 @@ declare namespace API {
     b_admin_id?: number;
     /** 审核结果 0:待审核 1: 通过 2:拒绝 */
     c_result?: number;
-    /** 证件号标签 */
-    d_id_number_tag_ids?: string;
-    /** 联系人标签 */
-    e_contact_persion_tag_ids?: string;
-    /** 工作信息标签 */
-    f_job_tag_ids?: string;
-    /** 通讯录标签 */
-    g_contact_tag_ids?: string;
-    /** 短信标签 */
-    h_sms_tag_ids?: string;
-    /** 风控标签 */
-    i_risk_tag_ids?: string;
-    /** app标签 */
-    j_app_tag_ids?: string;
-    /** 历史订单标签 */
-    k_history_tag_ids?: string;
+    /** 证件号 */
+    d_id_number_result?: number;
+    /** 联系人 */
+    e_contact_persion_result?: number;
+    /** 工作信息 */
+    f_job_result?: number;
+    /** 通讯录 */
+    g_contact_result?: number;
+    /** 短信 */
+    h_sms_result?: number;
+    /** 风控 */
+    i_risk_result?: number;
+    /** app */
+    j_app_result?: number;
+    /** 历史订单 */
+    k_history_result?: number;
     /** 流转次数 */
     l_flow_count?: number;
+    /** 审核组id */
+    m_review_group_id?: number;
+    /** 借款类型种类 */
+    n_borrow_times_type?: number;
+    /** 设备 */
+    o_device_result?: number;
+    /** 银行 */
+    p_bank_result?: number;
+    /** 备注 */
+    q_comment?: string;
+    /** 活体 */
+    r_liveness_resilt?: number;
+    /** ocr */
+    s_ocr_result?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -998,6 +1012,7 @@ declare namespace API {
     /** App\Models\DBorrow */
     a_a_a_a_a_q_b_periods?: QBPeriod[];
     a_a_a_a_a_o_a_repay?: OARepay;
+    a_a_a_a_a_g_verify?: GVerify;
     /** 用户id */
     a_user_id?: number;
     /** 渠道 */

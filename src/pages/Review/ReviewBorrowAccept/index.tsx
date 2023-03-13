@@ -1,5 +1,5 @@
+import { REVIEW_STATUS } from '@/pages/enums';
 import DrawerFC from '@/pages/Review/ReviewBorrow/components/DrawerFC';
-import { REVIEW_TAG_TYPE } from '@/pages/Review/ReviewBorrow/enums';
 import { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
 import { getAdminV1BFReviewBorrows as index } from '@/services/ant-design-pro/BFReviewBorrow';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
@@ -7,7 +7,6 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Col, Row, Tag } from 'antd';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { FieldIndex, FieldLabels } from './service';
@@ -76,7 +75,7 @@ const TableList: React.FC = () => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
-    const res = await index({ page: params.current, ...params, c_result: 1 });
+    const res = await index({ page: params.current, ...params, c_result: 50 });
 
     /*    if(admins.length == 0){
           // @ts-ignore
@@ -157,196 +156,76 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.d_id_number_tag_ids,
-      dataIndex: FieldIndex.d_id_number_tag_ids,
-      hideInSearch: true,
-      valueType: 'option',
-      width: 100,
-      render: (_, record) => {
-        if (record.d_id_number_tag_ids != null && record.d_id_number_tag_ids != '') {
-          const tagIds = record.d_id_number_tag_ids!.split(',');
-          return (
-            <div>
-              {tagIds.map((item) => (
-                <Row key={item}>
-                  <Col>
-                    <Tag color={REVIEW_TAG_TYPE[item].color}>{REVIEW_TAG_TYPE[item].text}</Tag>
-                  </Col>
-                </Row>
-              ))}
-            </div>
-          );
-        }
-        return '-';
-      },
+      title: FieldLabels.s_ocr_result,
+      dataIndex: FieldIndex.s_ocr_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.e_contact_persion_tag_ids,
-      dataIndex: FieldIndex.e_contact_persion_tag_ids,
-      hideInSearch: true,
-      valueType: 'option',
-      width: 100,
-      render: (_, record) => {
-        if (record.e_contact_persion_tag_ids != null && record.e_contact_persion_tag_ids != '') {
-          const tagIds = record.e_contact_persion_tag_ids!.split(',');
-          return (
-            <div>
-              {tagIds.map((item) => (
-                <Row key={item}>
-                  <Col>
-                    <Tag color={REVIEW_TAG_TYPE[item].color}>{REVIEW_TAG_TYPE[item].text}</Tag>
-                  </Col>
-                </Row>
-              ))}
-            </div>
-          );
-        }
-        return '-';
-      },
+      title: FieldLabels.d_id_number_result,
+      dataIndex: FieldIndex.d_id_number_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.f_job_tag_ids,
-      dataIndex: FieldIndex.f_job_tag_ids,
-      hideInSearch: true,
-      valueType: 'option',
-      width: 100,
-      render: (_, record) => {
-        if (record.f_job_tag_ids != null && record.f_job_tag_ids != '') {
-          const tagIds = record.f_job_tag_ids!.split(',');
-          return (
-            <div>
-              {tagIds.map((item) => (
-                <Row key={item}>
-                  <Col>
-                    <Tag color={REVIEW_TAG_TYPE[item].color}>{REVIEW_TAG_TYPE[item].text}</Tag>
-                  </Col>
-                </Row>
-              ))}
-            </div>
-          );
-        }
-        return '-';
-      },
+      title: FieldLabels.e_contact_persion_result,
+      dataIndex: FieldIndex.e_contact_persion_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.g_contact_tag_ids,
-      dataIndex: FieldIndex.g_contact_tag_ids,
-      hideInSearch: true,
-      width: 100,
-      valueType: 'option',
-      render: (_, record) => {
-        if (record.g_contact_tag_ids != null && record.g_contact_tag_ids != '') {
-          const tagIds = record.g_contact_tag_ids!.split(',');
-          return (
-            <div>
-              {tagIds.map((item) => (
-                <Row key={item}>
-                  <Col>
-                    <Tag color={REVIEW_TAG_TYPE[item].color}>{REVIEW_TAG_TYPE[item].text}</Tag>
-                  </Col>
-                </Row>
-              ))}
-            </div>
-          );
-        }
-        return '-';
-      },
+      title: FieldLabels.f_job_result,
+      dataIndex: FieldIndex.f_job_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.h_sms_tag_ids,
-      dataIndex: FieldIndex.h_sms_tag_ids,
-      hideInSearch: true,
-      valueType: 'option',
-      width: 100,
-      render: (_, record) => {
-        if (record.h_sms_tag_ids != null && record.h_sms_tag_ids != '') {
-          const tagIds = record.h_sms_tag_ids!.split(',');
-          return (
-            <div>
-              {tagIds.map((item) => (
-                <Row key={item}>
-                  <Col>
-                    <Tag color={REVIEW_TAG_TYPE[item].color}>{REVIEW_TAG_TYPE[item].text}</Tag>
-                  </Col>
-                </Row>
-              ))}
-            </div>
-          );
-        }
-        return '-';
-      },
+      title: FieldLabels.g_contact_result,
+      dataIndex: FieldIndex.g_contact_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.i_risk_tag_ids,
-      dataIndex: FieldIndex.i_risk_tag_ids,
-      hideInSearch: true,
-      valueType: 'option',
-      width: 100,
-      render: (_, record) => {
-        if (record.i_risk_tag_ids != null && record.i_risk_tag_ids != '') {
-          const tagIds = record.i_risk_tag_ids!.split(',');
-          return (
-            <div>
-              {tagIds.map((item) => (
-                <Row key={item}>
-                  <Col>
-                    <Tag color={REVIEW_TAG_TYPE[item].color}>{REVIEW_TAG_TYPE[item].text}</Tag>
-                  </Col>
-                </Row>
-              ))}
-            </div>
-          );
-        }
-        return '-';
-      },
+      title: FieldLabels.h_sms_result,
+      dataIndex: FieldIndex.h_sms_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.j_app_tag_ids,
-      dataIndex: FieldIndex.j_app_tag_ids,
-      hideInSearch: true,
-      valueType: 'option',
-      width: 10,
-      render: (_, record) => {
-        if (record.j_app_tag_ids != null && record.j_app_tag_ids != '') {
-          const tagIds = record.j_app_tag_ids!.split(',');
-          return (
-            <div>
-              {tagIds.map((item) => (
-                <Row key={item}>
-                  <Col>
-                    <Tag color={REVIEW_TAG_TYPE[item].color}>{REVIEW_TAG_TYPE[item].text}</Tag>
-                  </Col>
-                </Row>
-              ))}
-            </div>
-          );
-        }
-        return '-';
-      },
+      title: FieldLabels.i_risk_result,
+      dataIndex: FieldIndex.i_risk_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.k_history_tag_ids,
-      dataIndex: FieldIndex.k_history_tag_ids,
-      hideInSearch: true,
-      valueType: 'option',
-      width: 100,
-      render: (_, record) => {
-        if (record.k_history_tag_ids != null && record.k_history_tag_ids != '') {
-          const tagIds = record.k_history_tag_ids!.split(',');
-          return (
-            <div>
-              {tagIds.map((item) => (
-                <Row key={item}>
-                  <Col>
-                    <Tag color={REVIEW_TAG_TYPE[item].color}>{REVIEW_TAG_TYPE[item].text}</Tag>
-                  </Col>
-                </Row>
-              ))}
-            </div>
-          );
-        }
-        return '-';
-      },
+      title: FieldLabels.j_app_result,
+      dataIndex: FieldIndex.j_app_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
+    },
+    {
+      title: FieldLabels.k_history_result,
+      dataIndex: FieldIndex.k_history_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
+    },
+    {
+      title: FieldLabels.o_device_result,
+      dataIndex: FieldIndex.o_device_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
+    },
+    {
+      title: FieldLabels.p_bank_result,
+      dataIndex: FieldIndex.p_bank_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
+    },
+    {
+      title: FieldLabels.r_liveness_result,
+      dataIndex: FieldIndex.r_liveness_result,
+      valueType: 'select',
+      valueEnum: REVIEW_STATUS,
     },
     {
       title: FieldLabels.l_flow_count,

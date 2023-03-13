@@ -1,25 +1,20 @@
 import type { ProFormInstance } from '@ant-design/pro-form';
-import { ModalForm } from '@ant-design/pro-form';
+import { ModalForm, ProFormRadio, ProFormText } from '@ant-design/pro-form';
+import { Button, message } from 'antd';
+import React, { useRef } from 'react';
 
-import { REVIEW_REASON } from '@/pages/Borrow/VerifyList/components/enums';
+import { VERIFY_STATUS_MAP } from '@/pages/enums';
 import { putAdminV1GVerifiesId as update } from '@/services/ant-design-pro/GVerify';
-import { Alert, Button, message, Space } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
-import type { TableListItem } from '../data';
 
-export type FormValueType = Partial<TableListItem>;
-export type FormRecord = TableListItem;
+export type FormValueType = Partial<API.GBMarketing>;
+export type FormRecord = API.GBMarketing;
 export type FormProps = {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
-  onSubmit: (status: number, item: string) => Promise<void>;
+  onSubmit: (values: boolean) => Promise<void>;
   modalVisible: boolean;
-  row?: TableListItem;
-  reasonIds: string;
-  reasonsDetail: string;
-  item: string;
-  id?: number;
-  title: string;
-  status: number;
+  showReviewRecord: boolean;
+  verifyId?: number;
+  borrowId?: number;
 };
 
 /**
@@ -29,39 +24,32 @@ export type FormProps = {
  */
 const ReviewForm: React.FC<FormProps> = (props) => {
   const formRef = useRef<ProFormInstance>();
-  const [reasonsDetailArr, handleReasonsDetailArr] = useState<string[]>([]);
-
-  useEffect(() => {
-    handleReasonsDetailArr(props.reasonsDetail?.split(','));
-  }, [props?.id, props.title]);
   /**
-   * 提交表单
-   * @param accept
+   * 开始营销
+   * @param status
    */
-  const onFinish = async (accept: boolean) => {
-    message.loading('正在提交');
-    let formValues;
-
-    if (props.item == 'idNumber') {
-      formValues = { j_idnumber_verify_status: accept ? 50 : 40 };
-    } else if (props.item == 'contact') {
-      formValues = { n_contact_verify_status: accept ? 50 : 40 };
-    } else if (props.item == 'job') {
-      formValues = { p_job_verify_status: accept ? 50 : 40 };
-    } else if (props.item == 'loanBank') {
-      formValues = { r_loan_bank_verify_status: accept ? 50 : 40 };
-    }
-
-    // @ts-ignore
-    const res = await update({ id: props.id!, ...formValues });
-    if (!res.success) {
-      message.error(res.message);
+  const _handle = async (status: number) => {
+    const fields = formRef?.current?.getFieldsValue();
+    console.log(formRef?.current?.getFieldsValue);
+    console.log(props.verifyId);
+    const hide = message.loading('正在配置');
+    // props.values.id
+    try {
+      // @ts-ignore
+      const res = await update({ id: props.verifyId!, f_status: status, ...fields });
+      if (!res.success) {
+        message.error(res.message);
+        return false;
+      }
+      hide();
+      message.success('配置成功');
+      props.onSubmit(true);
+      return true;
+    } catch (error) {
+      hide();
+      message.error('配置失败请重试！');
       return false;
     }
-    try {
-      message.success('提交成功');
-    } catch {}
-    return true;
   };
 
   return (
@@ -74,47 +62,34 @@ const ReviewForm: React.FC<FormProps> = (props) => {
           props.onCancel();
         }
       }}
-      width={400}
-      title={props.title}
+      title="审核"
       formRef={formRef}
       params={{}}
       layout="horizontal"
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 14 }}
-      initialValues={{}}
+      initialValues={{
+        l_type: 1,
+        o_send_email: 1,
+      }}
+      // request={() => getABCreditHistories({ a_user_id: props.values.id! })}
       submitter={{
         render: () => {
-          const refuseButton =
-            props.status == 30 ? (
-              <Button
-                key="refuse"
-                type="primary"
-                danger
-                onClick={async () => {
-                  const success = await onFinish(false);
-                  if (success) {
-                    return props.onSubmit(40, props.item);
-                  }
-                }}
-              >
-                拒绝
-              </Button>
-            ) : null;
-          const passButton =
-            props.status == 30 ? (
-              <Button
-                key="submit"
-                type="primary"
-                onClick={async () => {
-                  const success = await onFinish(true);
-                  if (success) {
-                    return props.onSubmit(50, props.item);
-                  }
-                }}
-              >
-                通过
-              </Button>
-            ) : null;
+          const refuseButton = !props.showReviewRecord ? (
+            <Button
+              key="refuse"
+              type="primary"
+              danger
+              onClick={() => _handle(VERIFY_STATUS_MAP.REFUSE)}
+            >
+              拒绝
+            </Button>
+          ) : null;
+          const passButton = !props.showReviewRecord ? (
+            <Button key="submit" type="primary" onClick={() => _handle(VERIFY_STATUS_MAP.SUCCESS)}>
+              通过
+            </Button>
+          ) : null;
           return [
             <Button
               key="back"
@@ -130,51 +105,179 @@ const ReviewForm: React.FC<FormProps> = (props) => {
         },
       }}
     >
-      <Space direction="vertical" style={{ width: '100%' }}>
-        {props.reasonIds.split(',')?.map((value, index) => {
-          let _detail = <></>;
-          if (reasonsDetailArr[index]) {
-            const reasonDetailOne = reasonsDetailArr[index].split('|');
+      <ProFormRadio.Group
+        name="j_idnumber_verify_status"
+        label="身份认证"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
 
-            if (reasonDetailOne[0] == 'blank') {
-              _detail = <></>;
-            } else if (reasonDetailOne[0] == 'text') {
-              _detail = (
-                <Button size="small" danger type="text">
-                  {reasonDetailOne[1]}:{reasonDetailOne[2]}
-                </Button>
-              );
-            } else if (reasonDetailOne[0] == 'link') {
-              //todo 跳转
-              let linkText = '';
-              if (reasonDetailOne[1] == 'user') {
-                linkText = '关联用户：';
-              } else if (reasonDetailOne[1] == 'borrow') {
-                linkText = '关联订单：';
-              } else if (reasonDetailOne[1] == 'black') {
-                linkText = '关联黑名单：';
-              }
-              _detail = (
-                <Button size="small" danger>
-                  {linkText}:{reasonDetailOne[2]}
-                </Button>
-              );
-            } else {
-              _detail = <></>;
-            }
-          }
+      <ProFormRadio.Group
+        name="n_contact_verify_status"
+        label="联系人"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
+      <ProFormRadio.Group
+        name="p_job_verify_status"
+        label="工作信息"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
+      <ProFormRadio.Group
+        name="r_loan_bank_verify_status"
+        label="银行卡信息"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
+      <ProFormRadio.Group
+        name="l_liveness_verify_status"
+        label="活体"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
+      <ProFormRadio.Group
+        name="sms_status"
+        label="短信"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
+      <ProFormRadio.Group
+        name="contact_status"
+        label="通讯录"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
+      <ProFormRadio.Group
+        name="app_status"
+        label="APP"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
+      <ProFormRadio.Group
+        name="device_status"
+        label="设备"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
+      <ProFormRadio.Group
+        name="borrow_history_status"
+        label="历史贷款"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
+      <ProFormRadio.Group
+        name="e_risk_result"
+        label="风控记录"
+        radioType="button"
+        options={[
+          {
+            label: '正常',
+            value: VERIFY_STATUS_MAP.SUCCESS,
+          },
+          {
+            label: '异常',
+            value: VERIFY_STATUS_MAP.REFUSE,
+          },
+        ]}
+      />
 
-          return (
-            <Alert
-              key={value}
-              message={props.item != '' ? <>{REVIEW_REASON[props.item][value]}</> : ''}
-              type="warning"
-              showIcon
-              action={_detail}
-            />
-          );
-        })}
-      </Space>
+      <ProFormText
+        // width="md"
+        name="g_comment"
+        label="备注"
+        placeholder="请输入备注"
+      />
     </ModalForm>
   );
 };

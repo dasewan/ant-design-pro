@@ -118,6 +118,7 @@ const Settings: React.FC = () => {
         tmpMap.set('loan', loanData);
         tmpMap.set('repay', repayData);
         tmpMap.set('merchant', merchantData);
+        tmpMap.set('other', otherData);
 
         setDataMap(tmpMap);
       }

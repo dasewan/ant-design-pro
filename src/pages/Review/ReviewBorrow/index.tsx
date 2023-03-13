@@ -88,7 +88,7 @@ const TableList: React.FC = () => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
-    const res = await index({ page: params.current, ...params, c_result: 0 });
+    const res = await index({ page: params.current, ...params, c_result: 10 });
     // @ts-ignore
     if (params.n_borrow_times_type != undefined && params.b_admin_id != undefined) {
       setCheckBoxDisable(false);

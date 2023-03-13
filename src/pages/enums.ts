@@ -94,6 +94,14 @@ export const BORROW_STATUS_MAP = {
   OVERDUE: 90,
   CLOSED: 110,
 };
+export const VERIFY_STATUS_MAP = {
+  NOT_YET: 10,
+  WAIT: 20,
+  OVERVIEW: 30,
+  REFUSE: 40,
+  SUCCESS: 50,
+  EXPIRED: 60,
+};
 
 export const BORROW_SUB_STATUS_ENUM = {
   1100: { text: '待认证', status: '' },
@@ -279,4 +287,10 @@ export const CALLBACK_CODE = {
   100: { text: '暂未收到回调', status: 'Default' },
   500: { text: '回调失败', status: 'Error' },
   200: { text: '回调成功', status: 'Success' },
+};
+
+export const REVIEW_STATUS = {
+  10: { text: 'WAITING', status: 'Default' },
+  40: { text: 'REJECT', status: 'Error' },
+  50: { text: 'ACCEPT', status: 'Success' },
 };
