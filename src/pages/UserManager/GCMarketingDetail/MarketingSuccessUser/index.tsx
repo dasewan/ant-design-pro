@@ -134,23 +134,23 @@ const TableList: React.FC = () => {
     },
     {
       title: '注册时间',
-      dataIndex: ['a_a_a_a_user', 'created_at'],
+      dataIndex: ['a_a_a_a_a_a_user', 'created_at'],
       valueType: 'dateRange',
       render: (_, record) => {
         return (
           <a
             onClick={async () => {
-              await _showDrawer(record.a_a_a_a_user!, 'aCUserNews');
+              await _showDrawer(record.a_a_a_a_a_a_user!, 'aCUserNews');
             }}
           >
-            {moment(record.a_a_a_a_user!.created_at).format('YY-MM-DD HH:mm')}
+            {moment(record.a_a_a_a_a_a_user!.created_at).format('YY-MM-DD HH:mm')}
           </a>
         );
       },
       search: {
         transform: (value: any) => ({
-          'a_a_a_a_user-created_at[0]': value[0],
-          'a_a_a_a_user-created_at[1]': value[1],
+          'a_a_a_a_a_a_user-created_at[0]': value[0],
+          'a_a_a_a_a_a_user-created_at[1]': value[1],
         }),
       },
     },
@@ -176,43 +176,43 @@ const TableList: React.FC = () => {
     //todo 跳转到此用户规则匹配记录
     {
       title: '信用分',
-      dataIndex: ['a_a_a_a_user', 'g_credit_fraction'],
+      dataIndex: ['a_a_a_a_a_a_user', 'g_credit_fraction'],
       fieldProps: { placeholder: '支持区间' },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_user-g_credit_fraction': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-g_credit_fraction': value }),
       },
     },
     {
       title: '授信额度',
-      dataIndex: ['a_a_a_a_user', 'f_credit_amount'],
+      dataIndex: ['a_a_a_a_a_a_user', 'f_credit_amount'],
       fieldProps: { placeholder: '支持区间' },
       render: (_, record) => {
         return (
           <a
             onClick={() => {
-              _showDrawer(record.a_a_a_a_user!, 'aBCreditHistory');
+              _showDrawer(record.a_a_a_a_a_a_user!, 'aBCreditHistory');
             }}
           >
-            {record.a_a_a_a_user!.f_credit_amount}
+            {record.a_a_a_a_a_a_user!.f_credit_amount}
           </a>
         );
       },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_user-f_credit_amount': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-f_credit_amount': value }),
       },
     },
     //todo 跳转
     {
       title: '当前订单',
-      dataIndex: ['a_a_a_a_user', 'r_current_borrow_id'],
+      dataIndex: ['a_a_a_a_a_a_user', 'r_current_borrow_id'],
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_user-r_current_borrow_id': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-r_current_borrow_id': value }),
       },
     },
     //todo 跳转到此用户所有订单
     {
       title: '逾期/放款',
-      dataIndex: ['a_a_a_a_user', 'af_loan_count'],
+      dataIndex: ['a_a_a_a_a_a_user', 'af_loan_count'],
       hideInSearch: true,
       tip: '2笔为一个图标',
       colSize: 16,
@@ -224,8 +224,8 @@ const TableList: React.FC = () => {
               disabled
               allowHalf={true}
               style={{ color: 'red', margin: 0 }}
-              count={record.a_a_a_a_user!.af_loan_count}
-              value={record.a_a_a_a_user!.ah_overdue_times! / 2}
+              count={record.a_a_a_a_a_a_user!.af_loan_count}
+              value={record.a_a_a_a_a_a_user!.ah_overdue_times! / 2}
             />
           </div>
         );
@@ -233,74 +233,74 @@ const TableList: React.FC = () => {
     },
     {
       title: '放款笔数',
-      dataIndex: ['a_a_a_a_user', 'af_loan_count'],
+      dataIndex: ['a_a_a_a_a_a_user', 'af_loan_count'],
       hideInTable: true,
       fieldProps: { placeholder: '支持区间' },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_user-af_loan_count': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-af_loan_count': value }),
       },
     },
     {
       title: '逾期次数',
-      dataIndex: ['a_a_a_a_user', 'ah_overdue_times'],
+      dataIndex: ['a_a_a_a_a_a_user', 'ah_overdue_times'],
       hideInTable: true,
       fieldProps: { placeholder: '支持区间' },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_user-ah_overdue_times': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-ah_overdue_times': value }),
       },
     },
     {
       title: '逾期',
-      dataIndex: ['a_a_a_a_user', 'ai_repay_max_overdue_days'],
+      dataIndex: ['a_a_a_a_a_a_user', 'ai_repay_max_overdue_days'],
       tooltip: '历史最大逾期天数/累计逾期天数',
       hideInSearch: true,
       render(_, record) {
-        return record.a_a_a_a_user!.ai_repay_max_overdue_days ||
-          record.a_a_a_a_user!.an_total_overdue_days
-          ? record.a_a_a_a_user!.ai_repay_max_overdue_days +
+        return record.a_a_a_a_a_a_user!.ai_repay_max_overdue_days ||
+          record.a_a_a_a_a_a_user!.an_total_overdue_days
+          ? record.a_a_a_a_a_a_user!.ai_repay_max_overdue_days +
               '/' +
-              record.a_a_a_a_user!.an_total_overdue_days
+              record.a_a_a_a_a_a_user!.an_total_overdue_days
           : '-';
       },
     },
     {
       title: '历史最大逾期天数',
-      dataIndex: ['a_a_a_a_user', 'ai_repay_max_overdue_days'],
+      dataIndex: ['a_a_a_a_a_a_user', 'ai_repay_max_overdue_days'],
       hideInTable: true,
       fieldProps: { placeholder: '支持区间' },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_user-ai_repay_max_overdue_days': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-ai_repay_max_overdue_days': value }),
       },
     },
     {
       title: '累计逾期天数',
-      dataIndex: ['a_a_a_a_user', 'an_total_overdue_days'],
+      dataIndex: ['a_a_a_a_a_a_user', 'an_total_overdue_days'],
       hideInTable: true,
       fieldProps: { placeholder: '支持区间' },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_user-an_total_overdue_days': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-an_total_overdue_days': value }),
       },
     },
     //todo 跳转到此用户所有费用
     {
       title: '损益',
-      dataIndex: ['a_a_a_a_user', 'r_loss'],
+      dataIndex: ['a_a_a_a_a_a_user', 'r_loss'],
       fieldProps: { placeholder: '支持区间' },
       render(_, record) {
         let color = 'success';
-        if (record.a_a_a_a_user!.aj_loss) {
-          if (record.a_a_a_a_user!.aj_loss > 0) {
+        if (record.a_a_a_a_a_a_user!.aj_loss) {
+          if (record.a_a_a_a_a_a_user!.aj_loss > 0) {
             color = 'green';
-          } else if (record.a_a_a_a_user!.aj_loss < 0) {
+          } else if (record.a_a_a_a_a_a_user!.aj_loss < 0) {
             color = 'red';
           } else {
             color = '#303030';
           }
         }
-        return <span style={{ color: color }}>{record.a_a_a_a_user!.aj_loss}</span>;
+        return <span style={{ color: color }}>{record.a_a_a_a_a_a_user!.aj_loss}</span>;
       },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_user-r_loss': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-r_loss': value }),
       },
     },
   ];

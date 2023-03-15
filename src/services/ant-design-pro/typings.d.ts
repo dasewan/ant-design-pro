@@ -553,7 +553,7 @@ declare namespace API {
   type BAWhite = {
     /** id */
     id?: number;
-    a_a_a_a_user?: AUser;
+    a_a_a_a_a_a_user?: AUser;
     /** 信息* */
     a_phone: string;
     /** 用户id* */
@@ -1352,7 +1352,7 @@ declare namespace API {
   type GAMarketingDetail = {
     /** id */
     id?: number;
-    a_a_a_a_user?: AUser;
+    a_a_a_a_a_a_user?: AUser;
     /** 手机号* */
     a_phone: string;
     /** 用户名* */
