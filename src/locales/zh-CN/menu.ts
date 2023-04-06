@@ -117,4 +117,5 @@ export default {
   'menu.borrow.borrow-detail.verify-detail': '认证详情',
   'menu.borrow.borrow-detail.urge-detail': '催收详情',
   'menu.borrow.borrow-detail.sms-detail': '短信详情',
+  'menu.borrow.borrow-detail.app-detail': 'App详情',
 };

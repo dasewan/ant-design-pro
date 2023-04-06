@@ -360,6 +360,7 @@ const SmsDetail: React.FC<FormProps> = () => {
               pagination={{
                 pageSize: 5,
               }}
+              toolBarRender={() => [<span>最近上送时间： 2022-03-02 15:34</span>]}
             />
           </Card>
         </Col>

@@ -1391,6 +1391,16 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1SAAppsIdParams = {
+    /** id of SAApp */
+    id: number;
+  };
+
+  type deleteAdminV1SBAppsIdParams = {
+    /** id of SBApp */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -2163,6 +2173,26 @@ declare namespace API {
   };
 
   type getAdminV1RCSmsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1SAAppsIdParams = {
+    /** id of SAApp */
+    id: number;
+  };
+
+  type getAdminV1SAAppsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1SBAppsIdParams = {
+    /** id of SBApp */
+    id: number;
+  };
+
+  type getAdminV1SBAppsParams = {
     /** foo */
     foo: number;
   };
@@ -3853,6 +3883,16 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1SAAppsIdParams = {
+    /** id of SAApp */
+    id: number;
+  };
+
+  type putAdminV1SBAppsIdParams = {
+    /** id of SBApp */
+    id: number;
+  };
+
   type putAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -4365,6 +4405,12 @@ declare namespace API {
     b_level?: string;
     /** 商户 */
     c_merchant?: string;
+    /** 商户id */
+    d_merchant_id?: number;
+    /** 是否之前安装过（现在卸载了） */
+    f_history_installed?: number;
+    /** 关联短信数量 */
+    g_sms_count?: number;
     /** appName */
     appName?: string;
     /** packageName */
@@ -4375,6 +4421,91 @@ declare namespace API {
     isSystemApp?: number;
     /** data */
     firstInstallTime?: number;
+    /** 登录短信数 */
+    h_login_sms_count?: number;
+    /** 拒绝短信数 */
+    i_refuse_sms_count?: number;
+    /** 通过短信数 */
+    j_accept_sms_count?: number;
+    /** 放款短信数 */
+    k_loan_sms_count?: number;
+    /** 还款短信数 */
+    l_repay_sms_count?: number;
+    /** 展期短信数 */
+    m_extend_sms_count?: number;
+    /** 催收短息数 */
+    n_urge_sms_count?: number;
+    /** 营销短信数 */
+    o_marketing_sms_count?: number;
+    /** 召回短信数 */
+    p_recall_sms_count?: number;
+    /** 其他短信数 */
+    q_other_sms_count?: number;
+    /** 短信总数 */
+    r_total_sms_count?: number;
+    /** 放款总金额 */
+    s_loan_amount?: number;
+    /** 还款总金额 */
+    t_repay_amount?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type SBApp = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 1类金融 2类金融 3其他 */
+    b_level?: string;
+    /** 商户 */
+    c_merchant?: string;
+    /** 商户id */
+    d_merchant_id?: number;
+    /** 是否之前安装过（现在卸载了） */
+    f_history_installed?: number;
+    /** 关联短信数量 */
+    g_sms_count?: number;
+    /** appName */
+    appName?: string;
+    /** packageName */
+    packageName?: string;
+    /** versionName */
+    versionName?: string;
+    /** isSystemApp */
+    isSystemApp?: number;
+    /** data */
+    firstInstallTime?: number;
+    /** 登录短信数 */
+    h_login_sms_count?: number;
+    /** 拒绝短信数 */
+    i_refuse_sms_count?: number;
+    /** 通过短信数 */
+    j_accept_sms_count?: number;
+    /** 放款短信数 */
+    k_loan_sms_count?: number;
+    /** 还款短信数 */
+    l_repay_sms_count?: number;
+    /** 展期短信数 */
+    m_extend_sms_count?: number;
+    /** 催收短息数 */
+    n_urge_sms_count?: number;
+    /** 营销短信数 */
+    o_marketing_sms_count?: number;
+    /** 召回短信数 */
+    p_recall_sms_count?: number;
+    /** 其他短信数 */
+    q_other_sms_count?: number;
+    /** 短信总数 */
+    r_total_sms_count?: number;
+    /** 放款总金额 */
+    s_loan_amount?: number;
+    /** 还款总金额 */
+    t_repay_amount?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

@@ -285,6 +285,12 @@ export default [
             path: '/borrow/detail/:id/sms/:userId',
             component: './Borrow/BorrowList/components/SmsDetail',
           },
+          {
+            name: 'app-detail',
+            icon: 'smile',
+            path: '/borrow/detail/:id/app/:userId',
+            component: './Borrow/BorrowList/components/AppDetail',
+          },
         ],
       },
     ],
