@@ -59,6 +59,25 @@ export const PeriodDetailFieldLabels = {
   overdue_fee: '罚息',
   total_amount: '总计',
 };
+export const SmsFieldLabels = {
+  a_user_id: '用户',
+  b_cat: '短信类型',
+  c_level: '金融类型',
+  d_type: '类型',
+  e_merchant: '商户',
+  f_amount: '涉及金额',
+  date: 'data',
+  date_sent: '日期',
+  thread_id: 'thread_id',
+  read: 'read',
+  seen: 'seen',
+  status: 'status',
+  type: 'type',
+  address: 'Sender',
+  body: '短信内容',
+  created_at: '创建时间',
+  updated_at: '更新时间',
+};
 
 export const PeriodFieldIndex = {
   id: 'id',
@@ -117,4 +136,23 @@ export const PeriodDetailFieldIndex = {
   violate_fee: 'violate_fee',
   overdue_fee: 'overdue_fee',
   total_amount: 'total_amount',
+};
+export const SmsFieldIndex = {
+  a_user_id: 'a_user_id',
+  b_cat: 'b_cat',
+  c_level: 'c_level',
+  d_type: 'd_type',
+  e_merchant: 'e_merchant',
+  f_amount: 'f_amount',
+  date: 'date',
+  date_sent: 'date_sent',
+  thread_id: 'thread_id',
+  read: 'read',
+  seen: 'seen',
+  status: 'status',
+  type: 'type',
+  address: 'address',
+  body: 'body',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
 };

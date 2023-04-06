@@ -279,6 +279,12 @@ export default [
             path: '/borrow/detail/:id/verify/:verifyId',
             component: './Borrow/VerifyList/components/VerifyDetail',
           },
+          {
+            name: 'sms-detail',
+            icon: 'smile',
+            path: '/borrow/detail/:id/sms/:userId',
+            component: './Borrow/BorrowList/components/SmsDetail',
+          },
         ],
       },
     ],

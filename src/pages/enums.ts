@@ -294,3 +294,15 @@ export const REVIEW_STATUS = {
   40: { text: 'REJECT', status: 'Error' },
   50: { text: 'ACCEPT', status: 'Success' },
 };
+export const SMS_TYPE = {
+  101: { text: '登录', color: '#0099FF' },
+  102: { text: '拒绝', color: '#FF9900' },
+  103: { text: '通过', color: '#a0c69d' },
+  104: { text: '放款', color: '#99CC33' },
+  105: { text: '还款', color: '#006633' },
+  106: { text: '展期', color: '#CCFF99' },
+  107: { text: '催收', color: '#FF0033' },
+  108: { text: '召回', color: '#999999' },
+  109: { text: '营销', color: '#CC99CC' },
+  110: { text: '其他', color: '#666666' },
+};

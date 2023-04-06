@@ -791,7 +791,7 @@ declare namespace API {
     /** 备注 */
     q_comment?: string;
     /** 活体 */
-    r_liveness_resilt?: number;
+    r_liveness_result?: number;
     /** ocr */
     s_ocr_result?: number;
     /** created_at */
@@ -874,6 +874,53 @@ declare namespace API {
     deleted_at?: string;
     /** App\Models\BIPaymentChannel */
     a_a_a_a_h_a_payment_channel_bank?: HAPaymentChannelBank[];
+  };
+
+  type BJContact = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 1类金融 2类金融 3其他 */
+    b_relation?: string;
+    /** 商户 */
+    c_close_level?: string;
+    /** identifier */
+    identifier?: string;
+    /** displayName */
+    displayName?: string;
+    /** givenName */
+    givenName?: string;
+    /** middleName */
+    middleName?: string;
+    /** familyName */
+    familyName?: string;
+    /** prefix */
+    prefix?: string;
+    /** suffix */
+    suffix?: string;
+    /** company */
+    company?: string;
+    /** jobTitle */
+    jobTitle?: string;
+    /** androidAccountType */
+    androidAccountType?: string;
+    /** androidAccountName */
+    androidAccountName?: string;
+    /** phones */
+    phoneValue?: string;
+    /** phoneLabel */
+    phoneLabel?: string;
+    /** postalAddresses */
+    postalAddresses?: string;
+    /** birthday */
+    birthday?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type BorrowDetail = {
@@ -1294,6 +1341,16 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1HCDevicesIdParams = {
+    /** id of HCDevice */
+    id: number;
+  };
+
+  type deleteAdminV1HDDynamicDevicesIdParams = {
+    /** id of HDDynamicDevice */
+    id: number;
+  };
+
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -1326,6 +1383,11 @@ declare namespace API {
 
   type deleteAdminV1RARepayLogsIdParams = {
     /** id of RARepayLog */
+    id: number;
+  };
+
+  type deleteAdminV1RCSmsIdParams = {
+    /** id of RCSms */
     id: number;
   };
 
@@ -1975,6 +2037,26 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1HCDevicesIdParams = {
+    /** id of HCDevice */
+    id: number;
+  };
+
+  type getAdminV1HCDevicesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1HDDynamicDevicesIdParams = {
+    /** id of HDDynamicDevice */
+    id: number;
+  };
+
+  type getAdminV1HDDynamicDevicesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -2071,6 +2153,16 @@ declare namespace API {
   };
 
   type getAdminV1RBlackTabParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1RCSmsIdParams = {
+    /** id of RCSms */
+    id: number;
+  };
+
+  type getAdminV1RCSmsParams = {
     /** foo */
     foo: number;
   };
@@ -2285,6 +2377,27 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type GLPhoto = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 一年内新增相册数 */
+    one_year_ago_count?: number;
+    /** 一月内新增相册数 */
+    one_month_ago_count?: number;
+    /** 一周内新增相册数 */
+    one_week_ago_count?: number;
+    /** 一天内新增相册数 */
+    one_day_ago_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type GVerify = {
     /** id */
     id?: number;
@@ -2427,6 +2540,174 @@ declare namespace API {
     q_amount?: number;
     /** 支付时间 */
     x_repay_time?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type HCDevice = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 订单 */
+    b_borrow_id?: number;
+    /** 唯一码 */
+    c_device_id?: number;
+    /** device android ios windows linux */
+    d_device: string;
+    /** md5（进入缓存30天） */
+    e_n_max_md5: string;
+    /** index 针对退出后换号登录（准） */
+    f_o_index: string;
+    /** index 针对md5（可能不准） */
+    g_p_index: string;
+    /** 关联的用户id 针对退出后换号登录（准） */
+    h_q_user_ids: string;
+    /** 关联的用户id 针对md5（可能不准） */
+    i_r_user_ids: string;
+    /** version */
+    version: string;
+    /** board */
+    board: string;
+    /** bootloader */
+    bootloader: string;
+    /** brand */
+    brand: string;
+    /** device */
+    device: string;
+    /** display */
+    display: string;
+    /** fingerprint */
+    fingerprint: string;
+    /** hardware */
+    hardware: string;
+    /** host */
+    host: string;
+    /** id */
+    id2: string;
+    /** manufacturer */
+    manufacturer: string;
+    /** model */
+    model: string;
+    /** product */
+    product: string;
+    /** type */
+    type: string;
+    /** isPhysicalDevice */
+    isPhysicalDevice: string;
+    /** serialNumber */
+    serialNumber: string;
+    /** name */
+    name: string;
+    /** systemName */
+    systemName: string;
+    /** systemVersion */
+    systemVersion: string;
+    /** localizedModel */
+    localizedModel: string;
+    /** identifierForVendor */
+    identifierForVendor: string;
+    /** appCodeName */
+    appCodeName: string;
+    /** appName */
+    appName: string;
+    /** appVersion */
+    appVersion: string;
+    /** deviceMemory */
+    deviceMemory: string;
+    /** language */
+    language: string;
+    /** languages */
+    languages: string;
+    /** platform */
+    platform: string;
+    /** productSub */
+    productSub: string;
+    /** userAgent */
+    userAgent: string;
+    /** vendor */
+    vendor: string;
+    /** vendorSub */
+    vendorSub: string;
+    /** hardwareConcurrency */
+    hardwareConcurrency: string;
+    /** maxTouchPoints */
+    maxTouchPoints: string;
+    /** maxTouchPoints */
+    deviceID: string;
+    /** maxTouchPoints */
+    isRoot: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type HDDynamicDevice = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 订单 */
+    b_borrow_id?: number;
+    /** h_c_devices.id */
+    c_device_id?: number;
+    /** device android ios windows linux */
+    d_device?: string;
+    /** 1:登录 2：认证 3：签约  4：逾前打开 5：逾后打开 6：催收后打开 */
+    e_node?: string;
+    /** h_c_devices.id */
+    f_urge_user_id?: number;
+    /** latitude */
+    latitude?: string;
+    /** longitude */
+    longitude?: string;
+    /** altitude */
+    altitude?: string;
+    /** connectivityType */
+    connectivityType?: string;
+    /** ip */
+    ip?: string;
+    /** macAddress(需要缓存，用于撸贷风控) */
+    macAddress?: string;
+    /** connectionType */
+    connectionType?: string;
+    /** 所属wifi连接的设备数 */
+    hostCount?: number;
+    /** macAddress */
+    ssid?: string;
+    /** gps国家 */
+    geo_location_country?: string;
+    /** gps省 */
+    geo_location_state?: string;
+    /** gps市 */
+    geo_location_city?: string;
+    /** gps地址 */
+    geo_location_address?: string;
+    /** ip国家 */
+    ip_location_country?: string;
+    /** ip省 */
+    ip_location_state?: string;
+    /** ip市 */
+    ip_location_city?: string;
+    /** ip地址 */
+    ip_location_address?: string;
+    /** 电池电量 */
+    battery?: string;
+    /** 运营商名称 */
+    operator_name?: string;
+    /** 运营商国家代码 */
+    operator_country_code?: string;
+    /** 语言 */
+    language_code?: string;
+    /** 国家code */
+    country_code?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3047,6 +3328,8 @@ declare namespace API {
     a_g_ip_geography_risk_id?: number;
     /** 营销id */
     a_h_marketing_detail_id?: number;
+    /** 可疑id */
+    a_i_suspicious_id?: number;
     /** deleted_at */
     deleted_at?: string;
     /** created_at */
@@ -3520,6 +3803,16 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1HCDevicesIdParams = {
+    /** id of HCDevice */
+    id: number;
+  };
+
+  type putAdminV1HDDynamicDevicesIdParams = {
+    /** id of HDDynamicDevice */
+    id: number;
+  };
+
   type putAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -3552,6 +3845,11 @@ declare namespace API {
 
   type putAdminV1RARepayLogsIdParams = {
     /** id of RARepayLog */
+    id: number;
+  };
+
+  type putAdminV1RCSmsIdParams = {
+    /** id of RCSms */
     id: number;
   };
 
@@ -3955,6 +4253,134 @@ declare namespace API {
     b_comment?: string;
     /** 批量id（a_l_admin_file.id） */
     c_batch_sn?: number;
+  };
+
+  type RBSuspicious = {
+    /** id */
+    id?: number;
+    /** 可疑用户 */
+    a_user_id?: number;
+    /** 关联用户 */
+    b_linked_user_ids: string;
+    /** 可疑订单 */
+    c_borrow_id?: number;
+    /** 关联订单 */
+    d_linked_borrow_ids: string;
+    /** 类型 1：一用户多设备 2：一设备多用户 */
+    e_type?: number;
+    /** device android ios windows linux */
+    f_reason: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type RCSms = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 1 验证码类 2 推广类 3 通知类 4 社交类 */
+    b_cat?: string;
+    /** 1类金融 2类金融 3其他 */
+    c_level?: string;
+    /** 登录 注册 通过 拒绝 放款成功 还款成功 展期成功 逾前催收 逾后催收 召回 营销 其他 */
+    d_type?: string;
+    /** 商户 */
+    e_merchant?: string;
+    /** 金额 */
+    f_amount?: number;
+    /** data */
+    date?: number;
+    /** date_sent */
+    date_sent?: number;
+    /** thread_id */
+    thread_id?: number;
+    /** read */
+    read?: number;
+    /** seen */
+    seen?: number;
+    /** status */
+    status?: number;
+    /** type */
+    type?: number;
+    /** address */
+    address?: string;
+    /** body */
+    body?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type RDSms = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 1 验证码类 2 推广类 3 通知类 4 社交类 */
+    b_cat?: string;
+    /** 1类金融 2类金融 3其他 */
+    c_level?: string;
+    /** 登录 注册 通过 拒绝 放款成功 还款成功 展期成功 逾前催收 逾后催收 召回 营销 */
+    d_type?: string;
+    /** 商户 */
+    e_merchant?: string;
+    /** data */
+    date?: number;
+    /** thread_id */
+    thread_id?: number;
+    /** read */
+    read?: number;
+    /** seen */
+    seen?: number;
+    /** status */
+    status?: number;
+    /** type */
+    type?: number;
+    /** address */
+    address?: string;
+    /** body */
+    body?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type SAApp = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 1类金融 2类金融 3其他 */
+    b_level?: string;
+    /** 商户 */
+    c_merchant?: string;
+    /** appName */
+    appName?: string;
+    /** packageName */
+    packageName?: string;
+    /** versionName */
+    versionName?: string;
+    /** isSystemApp */
+    isSystemApp?: number;
+    /** data */
+    firstInstallTime?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type SWriteOff = {
