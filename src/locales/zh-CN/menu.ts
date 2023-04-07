@@ -119,4 +119,5 @@ export default {
   'menu.borrow.borrow-detail.sms-detail': '短信详情',
   'menu.borrow.borrow-detail.app-detail': 'App详情',
   'menu.borrow.borrow-detail.contact-detail': '通讯录详情',
+  'menu.borrow.borrow-detail.device-detail': '设备详情',
 };

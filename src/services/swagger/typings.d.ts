@@ -1348,6 +1348,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GLPhotosIdParams = {
+    /** id of GLPhoto */
+    id: number;
+  };
+
   type deleteAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -2054,6 +2059,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GLPhotosIdParams = {
+    /** id of GLPhoto */
+    id: number;
+  };
+
+  type getAdminV1GLPhotosParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -2615,89 +2630,89 @@ declare namespace API {
     /** 唯一码 */
     c_device_id?: number;
     /** device android ios windows linux */
-    d_device: string;
+    d_device?: string;
     /** md5（进入缓存30天） */
-    e_n_max_md5: string;
+    e_n_max_md5?: string;
     /** index 针对退出后换号登录（准） */
-    f_o_index: string;
+    f_o_index?: string;
     /** index 针对md5（可能不准） */
-    g_p_index: string;
+    g_p_index?: string;
     /** 关联的用户id 针对退出后换号登录（准） */
-    h_q_user_ids: string;
+    h_q_user_ids?: string;
     /** 关联的用户id 针对md5（可能不准） */
-    i_r_user_ids: string;
+    i_r_user_ids?: string;
     /** version */
-    version: string;
+    version?: string;
     /** board */
-    board: string;
+    board?: string;
     /** bootloader */
-    bootloader: string;
+    bootloader?: string;
     /** brand */
-    brand: string;
+    brand?: string;
     /** device */
-    device: string;
+    device?: string;
     /** display */
-    display: string;
+    display?: string;
     /** fingerprint */
-    fingerprint: string;
+    fingerprint?: string;
     /** hardware */
-    hardware: string;
+    hardware?: string;
     /** host */
-    host: string;
+    host?: string;
     /** id */
-    id2: string;
+    id2?: string;
     /** manufacturer */
-    manufacturer: string;
+    manufacturer?: string;
     /** model */
-    model: string;
+    model?: string;
     /** product */
-    product: string;
+    product?: string;
     /** type */
-    type: string;
+    type?: string;
     /** isPhysicalDevice */
-    isPhysicalDevice: string;
+    isPhysicalDevice?: string;
     /** serialNumber */
-    serialNumber: string;
+    serialNumber?: string;
     /** name */
-    name: string;
+    name?: string;
     /** systemName */
-    systemName: string;
+    systemName?: string;
     /** systemVersion */
-    systemVersion: string;
+    systemVersion?: string;
     /** localizedModel */
-    localizedModel: string;
+    localizedModel?: string;
     /** identifierForVendor */
-    identifierForVendor: string;
+    identifierForVendor?: string;
     /** appCodeName */
-    appCodeName: string;
+    appCodeName?: string;
     /** appName */
-    appName: string;
+    appName?: string;
     /** appVersion */
-    appVersion: string;
+    appVersion?: string;
     /** deviceMemory */
-    deviceMemory: string;
+    deviceMemory?: string;
     /** language */
-    language: string;
+    language?: string;
     /** languages */
-    languages: string;
+    languages?: string;
     /** platform */
-    platform: string;
+    platform?: string;
     /** productSub */
-    productSub: string;
+    productSub?: string;
     /** userAgent */
-    userAgent: string;
+    userAgent?: string;
     /** vendor */
-    vendor: string;
+    vendor?: string;
     /** vendorSub */
-    vendorSub: string;
+    vendorSub?: string;
     /** hardwareConcurrency */
-    hardwareConcurrency: string;
+    hardwareConcurrency?: string;
     /** maxTouchPoints */
-    maxTouchPoints: string;
+    maxTouchPoints?: string;
     /** maxTouchPoints */
-    deviceID: string;
+    deviceID?: string;
     /** maxTouchPoints */
-    isRoot: string;
+    isRoot?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3852,6 +3867,11 @@ declare namespace API {
 
   type putAdminV1GKBanksIdParams = {
     /** id of GKBank */
+    id: number;
+  };
+
+  type putAdminV1GLPhotosIdParams = {
+    /** id of GLPhoto */
     id: number;
   };
 
