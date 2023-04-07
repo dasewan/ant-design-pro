@@ -424,6 +424,9 @@ const Advanced: FC<RBlackProps> = (props) => {
         <CacheRoute path={'/borrow/detail/' + params.id + '/app/' + userId}>
           {props.children}
         </CacheRoute>
+        <CacheRoute path={'/borrow/detail/' + params.id + '/contact/' + userId}>
+          {props.children}
+        </CacheRoute>
         <CacheRoute path="/user-manager/black-info-list/id-number2">{props.children}</CacheRoute>
         <CacheRoute path="/user-manager/black-info-list/bank-card">{props.children}</CacheRoute>
         <CacheRoute path="/user-manager/black-info-list/imei">{props.children}</CacheRoute>

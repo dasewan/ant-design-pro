@@ -291,6 +291,12 @@ export default [
             path: '/borrow/detail/:id/app/:userId',
             component: './Borrow/BorrowList/components/AppDetail',
           },
+          {
+            name: 'contact-detail',
+            icon: 'smile',
+            path: '/borrow/detail/:id/contact/:userId',
+            component: './Borrow/BorrowList/components/ContactDetail',
+          },
         ],
       },
     ],

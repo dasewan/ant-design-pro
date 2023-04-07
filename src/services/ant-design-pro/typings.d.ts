@@ -881,10 +881,22 @@ declare namespace API {
     id?: number;
     /** 用户 */
     a_user_id?: number;
-    /** 1类金融 2类金融 3其他 */
+    /** 关系 */
     b_relation?: string;
-    /** 商户 */
+    /** 亲近程度 */
     c_close_level?: string;
+    /** 呼叫次数 */
+    d_call_times?: number;
+    /** 是否注册 */
+    e_registered?: number;
+    /** 放款次数 */
+    f_loan_times?: number;
+    /** 结清次数 */
+    g_repay_times?: number;
+    /** 关联用户 */
+    h_related_user_id?: number;
+    /** 最后一次呼叫时间 */
+    i_last_call_time?: string;
     /** identifier */
     identifier?: string;
     /** displayName */
@@ -1258,6 +1270,11 @@ declare namespace API {
 
   type deleteAdminV1BIPaymentChannelsIdParams = {
     /** id of BIPaymentChannel */
+    id: number;
+  };
+
+  type deleteAdminV1BJContactsIdParams = {
+    /** id of BJContact */
     id: number;
   };
 
@@ -1823,6 +1840,16 @@ declare namespace API {
   };
 
   type getAdminV1BIPaymentChannelsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BJContactsIdParams = {
+    /** id of BJContact */
+    id: number;
+  };
+
+  type getAdminV1BJContactsParams = {
     /** foo */
     foo: number;
   };
@@ -3750,6 +3777,11 @@ declare namespace API {
 
   type putAdminV1BIPaymentChannelsIdParams = {
     /** id of BIPaymentChannel */
+    id: number;
+  };
+
+  type putAdminV1BJContactsIdParams = {
+    /** id of BJContact */
     id: number;
   };
 

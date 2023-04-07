@@ -1,6 +1,9 @@
-import { AppFieldIndex, AppFieldLabels } from '@/pages/Borrow/BorrowList/components/service';
+import {
+  ContactFieldIndex,
+  ContactFieldLabels,
+} from '@/pages/Borrow/BorrowList/components/service';
 import type { TableListPagination } from '@/pages/Borrow/BorrowList/data';
-import { getAdminV1SAApps as index } from '@/services/ant-design-pro/SAApp';
+import { getAdminV1BJContacts as index } from '@/services/ant-design-pro/BJContact';
 import { SearchOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -15,10 +18,10 @@ import Highlighter from 'react-highlight-words';
 import { useParams } from 'umi';
 
 export type FormProps = {};
-export type TableListItem = API.SAApp;
-type DataIndex = keyof API.SAApp;
+export type TableListItem = API.BJContact;
+type DataIndex = keyof API.BJContact;
 
-const AppDetail: React.FC<FormProps> = () => {
+const ContactDetail: React.FC<FormProps> = () => {
   const params2 = useParams<{ id: string; verifyId?: string }>();
   const [dataSource, setDataSource] = useState<TableListItem[]>([]);
   const [allDataSource, setAllDataSource] = useState<TableListItem[]>([]);
@@ -33,20 +36,43 @@ const AppDetail: React.FC<FormProps> = () => {
       // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
       // 如果需要转化参数可以在这里进行修改
       // @ts-ignore
-      const res = await index({ page: 1, limit: 100 });
+      const res = await index({ page: 1, limit: 10000 });
+      console.log(
+        _(res.data!)
+          .orderBy(
+            [
+              ({ c_close_level }) => c_close_level || 0,
+              ({ e_registered }) => e_registered || 0,
+              ({ f_loan_times }) => f_loan_times || 0,
+              'displayName',
+            ],
+            ['desc', 'desc', 'desc', 'asc'],
+          )
+          .value(),
+      );
       setDataSource(
         _(res.data!)
           .orderBy(
-            [({ b_level }) => b_level || 1000, ({ g_sms_count }) => g_sms_count || 0],
-            ['asc', 'desc'],
+            [
+              ({ c_close_level }) => c_close_level || 0,
+              ({ e_registered }) => e_registered || 0,
+              ({ f_loan_times }) => f_loan_times || 0,
+              'displayName',
+            ],
+            ['desc', 'desc', 'desc', 'asc'],
           )
           .value(),
       );
       setAllDataSource(
         _(res.data!)
           .orderBy(
-            [({ b_level }) => b_level || 1000, ({ g_sms_count }) => g_sms_count || 0],
-            ['asc', 'desc'],
+            [
+              ({ c_close_level }) => c_close_level || 0,
+              ({ e_registered }) => e_registered || 0,
+              ({ f_loan_times }) => f_loan_times || 0,
+              'displayName',
+            ],
+            ['desc', 'desc', 'desc', 'asc'],
           )
           .value(),
       );
@@ -78,7 +104,7 @@ const AppDetail: React.FC<FormProps> = () => {
     setDataSource(allDataSource);
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<API.SAApp> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<API.BJContact> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -138,81 +164,73 @@ const AppDetail: React.FC<FormProps> = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: AppFieldLabels.appName,
+      title: ContactFieldLabels.displayName,
       // @ts-ignore
-      dataIndex: AppFieldIndex.appName,
-      ...getColumnSearchProps('appName'),
+      dataIndex: ContactFieldIndex.displayName,
     },
     {
-      title: AppFieldLabels.c_merchant,
+      title: ContactFieldLabels.phoneValue,
       // @ts-ignore
-      dataIndex: AppFieldIndex.c_merchant,
-      ...getColumnSearchProps('c_merchant'),
+      dataIndex: ContactFieldIndex.phoneValue,
+      ...getColumnSearchProps('phoneValue'),
     },
     {
-      title: AppFieldLabels.firstInstallTime,
-      // @ts-ignore
-      dataIndex: AppFieldIndex.firstInstallTime,
+      title: ContactFieldLabels.b_relation,
+      dataIndex: ContactFieldIndex.b_relation,
+    },
+    {
+      title: ContactFieldLabels.c_close_level,
+      dataIndex: ContactFieldIndex.c_close_level,
+    },
+    {
+      title: ContactFieldLabels.e_registered,
+      dataIndex: ContactFieldIndex.e_registered,
+    },
+    {
+      title: ContactFieldLabels.f_loan_times,
+      dataIndex: ContactFieldIndex.f_loan_times,
+    },
+    {
+      title: ContactFieldLabels.g_repay_times,
+      dataIndex: ContactFieldIndex.g_repay_times,
+    },
+    {
+      title: ContactFieldLabels.h_related_user_id,
+      dataIndex: ContactFieldIndex.h_related_user_id,
+      render: (__, value) =>
+        value.h_related_user_id ? (
+          <a href="/borrow/detail/19/contact/115" target="_blank" rel="noreferrer">
+            {value.h_related_user_id}
+          </a>
+        ) : (
+          '-'
+        ),
+    },
+    {
+      title: ContactFieldLabels.d_call_times,
+      dataIndex: ContactFieldIndex.d_call_times,
+    },
+    {
+      title: ContactFieldLabels.i_last_call_time,
+      dataIndex: ContactFieldIndex.i_last_call_time,
       render: (__, value) => {
         // @ts-ignore
-        return moment(new Date(value.firstInstallTime)).format('YYYY-MM-DD HH:mm');
+        return value.d_call_times
+          ? moment(new Date(value.d_call_times)).format('YYYY-MM-DD HH:mm')
+          : '-';
       },
     },
     {
-      title: AppFieldLabels.f_history_installed,
-      dataIndex: AppFieldIndex.f_history_installed,
+      title: ContactFieldLabels.company,
+      dataIndex: ContactFieldIndex.company,
     },
     {
-      title: AppFieldLabels.g_sms_count,
-      dataIndex: AppFieldIndex.g_sms_count,
+      title: ContactFieldLabels.jobTitle,
+      dataIndex: ContactFieldIndex.jobTitle,
     },
     {
-      title: AppFieldLabels.h_login_sms_count,
-      dataIndex: AppFieldIndex.h_login_sms_count,
-    },
-    {
-      title: AppFieldLabels.i_refuse_sms_count,
-      dataIndex: AppFieldIndex.i_refuse_sms_count,
-    },
-    {
-      title: AppFieldLabels.j_accept_sms_count,
-      dataIndex: AppFieldIndex.j_accept_sms_count,
-    },
-    {
-      title: AppFieldLabels.k_loan_sms_count,
-      dataIndex: AppFieldIndex.k_loan_sms_count,
-    },
-    {
-      title: AppFieldLabels.l_repay_sms_count,
-      dataIndex: AppFieldIndex.l_repay_sms_count,
-    },
-    {
-      title: AppFieldLabels.m_extend_sms_count,
-      dataIndex: AppFieldIndex.m_extend_sms_count,
-    },
-    {
-      title: AppFieldLabels.n_urge_sms_count,
-      dataIndex: AppFieldIndex.n_urge_sms_count,
-    },
-    {
-      title: AppFieldLabels.o_marketing_sms_count,
-      dataIndex: AppFieldIndex.o_marketing_sms_count,
-    },
-    {
-      title: AppFieldLabels.p_recall_sms_count,
-      dataIndex: AppFieldIndex.p_recall_sms_count,
-    },
-    {
-      title: AppFieldLabels.q_other_sms_count,
-      dataIndex: AppFieldIndex.q_other_sms_count,
-    },
-    {
-      title: AppFieldLabels.s_loan_amount,
-      dataIndex: AppFieldIndex.s_loan_amount,
-    },
-    {
-      title: AppFieldLabels.t_repay_amount,
-      dataIndex: AppFieldIndex.t_repay_amount,
+      title: ContactFieldLabels.postalAddresses,
+      dataIndex: ContactFieldIndex.postalAddresses,
     },
   ];
   return (
@@ -232,31 +250,16 @@ const AppDetail: React.FC<FormProps> = () => {
         toolBarRender={() => [
           <span key={1}>最近上送时间： 2022-03-02 15:34</span>,
           <span key={2} style={{ color: 'red' }}>
-            一类金融数：30
+            注册联系人：30
           </span>,
           <span key={3} style={{ color: 'red' }}>
-            二类金融数： 20
+            放款联系人： 20
           </span>,
           <span key={4} style={{ color: 'red' }}>
-            一类金融登录次数：10
+            还款联系人：10
           </span>,
           <span key={5} style={{ color: 'red' }}>
-            一类金融拒绝次数：10
-          </span>,
-          <span key={6} style={{ color: 'red' }}>
-            一类金融通过次数：10
-          </span>,
-          <span key={7} style={{ color: 'red' }}>
-            一类金融催收次数：10
-          </span>,
-          <span key={8} style={{ color: 'red' }}>
-            一类金融放款总额：10
-          </span>,
-          <span key={9} style={{ color: 'red' }}>
-            一类金融放款总额：10
-          </span>,
-          <span key={10} style={{ color: 'red' }}>
-            一类金融还款总额：50
+            呼叫次数：50
           </span>,
         ]}
       />
@@ -264,4 +267,4 @@ const AppDetail: React.FC<FormProps> = () => {
   );
 };
 
-export default AppDetail;
+export default ContactDetail;
