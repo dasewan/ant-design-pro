@@ -396,6 +396,31 @@ export default [
       },
     ],
   },
+  {
+    name: 'collection',
+    icon: 'smile',
+    path: '/collection',
+    routes: [
+      {
+        name: 'collection-agency-list',
+        icon: 'smile',
+        path: '/collection/collection-agency-list',
+        component: './Collection/CollectionAgency',
+      },
+      {
+        name: 'collection-group-list',
+        icon: 'smile',
+        path: '/collection/collection-group-list',
+        component: './Collection/CollectionGroup',
+      },
+      {
+        name: 'collection-admin-list',
+        icon: 'smile',
+        path: '/collection/collection-admin-list',
+        component: './Collection/CollectionAdmin',
+      },
+    ],
+  },
 
   {
     name: 'risk',

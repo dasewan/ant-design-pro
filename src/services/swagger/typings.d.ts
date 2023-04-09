@@ -935,6 +935,27 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type BKCollectionRole = {
+    /** id */
+    id?: number;
+    /** 催收阶段 */
+    a_collection_stage_id?: number;
+    /** 催收机构 */
+    b_collection_agency_id?: number;
+    /** 催收机构占比 */
+    c_collection_agency_proportion?: number;
+    /** 催收小组 */
+    d_collection_group_id?: number;
+    /** 催收小组占比 */
+    e_collection_group_proportion?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type BorrowDetail = {
     /** id */
     id?: number;
@@ -1278,6 +1299,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1BKCollectionRolesIdParams = {
+    /** id of BKCollectionRole */
+    id: number;
+  };
+
   type deleteAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -1353,6 +1379,16 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GMCollectionAdminsIdParams = {
+    /** id of GMCollectionAdmin */
+    id: number;
+  };
+
+  type deleteAdminV1GNCollectionStagesIdParams = {
+    /** id of GNCollectionStage */
+    id: number;
+  };
+
   type deleteAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -1370,6 +1406,11 @@ declare namespace API {
 
   type deleteAdminV1HDDynamicDevicesIdParams = {
     /** id of HDDynamicDevice */
+    id: number;
+  };
+
+  type deleteAdminV1HECollectionGroupsIdParams = {
+    /** id of HECollectionGroup */
     id: number;
   };
 
@@ -1420,6 +1461,11 @@ declare namespace API {
 
   type deleteAdminV1SBAppsIdParams = {
     /** id of SBApp */
+    id: number;
+  };
+
+  type deleteAdminV1TCollectionAgenciesIdParams = {
+    /** id of TCollectionAgency */
     id: number;
   };
 
@@ -1859,6 +1905,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1BKCollectionRolesIdParams = {
+    /** id of BKCollectionRole */
+    id: number;
+  };
+
+  type getAdminV1BKCollectionRolesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -2069,6 +2125,36 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GMCollectionAdminsEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GMCollectionAdminsIdParams = {
+    /** id of GMCollectionAdmin */
+    id: number;
+  };
+
+  type getAdminV1GMCollectionAdminsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GNCollectionStagesEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GNCollectionStagesIdParams = {
+    /** id of GNCollectionStage */
+    id: number;
+  };
+
+  type getAdminV1GNCollectionStagesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -2105,6 +2191,21 @@ declare namespace API {
   };
 
   type getAdminV1HDDynamicDevicesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1HECollectionGroupsEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1HECollectionGroupsIdParams = {
+    /** id of HECollectionGroup */
+    id: number;
+  };
+
+  type getAdminV1HECollectionGroupsParams = {
     /** foo */
     foo: number;
   };
@@ -2235,6 +2336,21 @@ declare namespace API {
   };
 
   type getAdminV1SBAppsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1TCollectionAgenciesEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1TCollectionAgenciesIdParams = {
+    /** id of TCollectionAgency */
+    id: number;
+  };
+
+  type getAdminV1TCollectionAgenciesParams = {
     /** foo */
     foo: number;
   };
@@ -2462,6 +2578,56 @@ declare namespace API {
     one_week_ago_count?: number;
     /** 一天内新增相册数 */
     one_day_ago_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type GMCollectionAdmin = {
+    /** id */
+    id?: number;
+    /** 名称 */
+    a_name?: string;
+    /** 管理员 */
+    b_admin_id?: number;
+    /** 所属机构 */
+    c_collection_agency_id?: number;
+    /** 所属组 */
+    d_collection_group_id?: number;
+    /** 负责的催收阶段 */
+    e_collection_stages?: string;
+    /** 状态 */
+    f_status?: number;
+    /** 备注 */
+    g_comment?: string;
+    /** 在催订单数 */
+    h_collection_ing_order_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type GNCollectionStage = {
+    /** id */
+    id?: number;
+    /** 名称 */
+    a_name?: string;
+    /** 流转类型 1：随机 2：排除 3：保留 */
+    b_type?: number;
+    /** 起始天数 */
+    c_start_day?: number;
+    /** 结束天数 */
+    d_end_day?: number;
+    /** 状态 */
+    e_status?: number;
+    /** 备注 */
+    f_comment?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2780,6 +2946,33 @@ declare namespace API {
     language_code?: string;
     /** 国家code */
     country_code?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type HECollectionGroup = {
+    /** id */
+    id?: number;
+    /** 名称 */
+    a_name?: string;
+    /** 管理员 */
+    b_admin_id?: number;
+    /** 所属机构 */
+    c_collection_agency_id?: number;
+    /** 负责的催收阶段 */
+    d_collection_stages?: string;
+    /** 催员数 */
+    e_collection_admin_count?: number;
+    /** 状态 */
+    f_status?: number;
+    /** 备注 */
+    g_comment?: string;
+    /** 在催订单数 */
+    h_collection_ing_order_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3800,6 +3993,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1BKCollectionRolesIdParams = {
+    /** id of BKCollectionRole */
+    id: number;
+  };
+
   type putAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -3875,6 +4073,16 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1GMCollectionAdminsIdParams = {
+    /** id of GMCollectionAdmin */
+    id: number;
+  };
+
+  type putAdminV1GNCollectionStagesIdParams = {
+    /** id of GNCollectionStage */
+    id: number;
+  };
+
   type putAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -3892,6 +4100,11 @@ declare namespace API {
 
   type putAdminV1HDDynamicDevicesIdParams = {
     /** id of HDDynamicDevice */
+    id: number;
+  };
+
+  type putAdminV1HECollectionGroupsIdParams = {
+    /** id of HECollectionGroup */
     id: number;
   };
 
@@ -3942,6 +4155,11 @@ declare namespace API {
 
   type putAdminV1SBAppsIdParams = {
     /** id of SBApp */
+    id: number;
+  };
+
+  type putAdminV1TCollectionAgenciesIdParams = {
+    /** id of TCollectionAgency */
     id: number;
   };
 
@@ -4619,6 +4837,33 @@ declare namespace API {
     x_repay_time?: string;
     /** 支付流水 */
     y_repay_log_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type TCollectionAgency = {
+    /** id */
+    id?: number;
+    /** 机构名称 */
+    a_name?: string;
+    /** 管理员 */
+    b_admin_id?: number;
+    /** 起始阶段 */
+    c_begin_collection_stage?: number;
+    /** 小组数 */
+    d_collection_group_count?: number;
+    /** 催员数 */
+    e_collection_admin_count?: number;
+    /** 状态 */
+    f_status?: number;
+    /** 备注 */
+    g_comment?: string;
+    /** 在催订单数 */
+    h_collection_ing_order_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
