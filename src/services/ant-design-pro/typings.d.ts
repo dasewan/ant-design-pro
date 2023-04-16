@@ -1414,6 +1414,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1HFCollectionAgencyRolesIdParams = {
+    /** id of HFCollectionAgencyRole */
+    id: number;
+  };
+
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -1431,6 +1436,11 @@ declare namespace API {
 
   type deleteAdminV1MCLoanLogsIdParams = {
     /** id of MCLoanLog */
+    id: number;
+  };
+
+  type deleteAdminV1NBCollectionGroupRolesIdParams = {
+    /** id of NBCollectionGroupRole */
     id: number;
   };
 
@@ -2210,6 +2220,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1HFCollectionAgencyRolesIdParams = {
+    /** id of HFCollectionAgencyRole */
+    id: number;
+  };
+
+  type getAdminV1HFCollectionAgencyRolesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -2261,6 +2281,16 @@ declare namespace API {
   };
 
   type getAdminV1MCLoanLogsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1NBCollectionGroupRolesIdParams = {
+    /** id of NBCollectionGroupRole */
+    id: number;
+  };
+
+  type getAdminV1NBCollectionGroupRolesParams = {
     /** foo */
     foo: number;
   };
@@ -2616,10 +2646,12 @@ declare namespace API {
   type GNCollectionStage = {
     /** id */
     id?: number;
+    /** App\Models\GNCollectionStage */
+    a_a_a_a_a_h_f_collection_agency_roles?: HFCollectionAgencyRole[];
     /** 名称 */
     a_name?: string;
     /** 流转类型 1：随机 2：排除 3：保留 */
-    b_type?: number;
+    b_flow_type?: number;
     /** 起始天数 */
     c_start_day?: number;
     /** 结束天数 */
@@ -2628,6 +2660,8 @@ declare namespace API {
     e_status?: number;
     /** 备注 */
     f_comment?: string;
+    /** 分配模式 1：按比补齐 2：按比分配 */
+    g_assign_type?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2973,6 +3007,27 @@ declare namespace API {
     g_comment?: string;
     /** 在催订单数 */
     h_collection_ing_order_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type HFCollectionAgencyRole = {
+    /** id */
+    id?: number;
+    /** App\Models\HFCollectionAgencyRole */
+    a_a_a_a_a_n_b_collection_group_roles?: NBCollectionGroupRole[];
+    /** 催收阶段 */
+    a_collection_stage_id?: number;
+    /** 催收机构 */
+    b_collection_agency_id?: number;
+    /** 催收机构占比 */
+    c_collection_agency_proportion?: number;
+    /** 分配模式 1：按比补齐 2：按比分配 */
+    d_assign_type?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3485,6 +3540,29 @@ declare namespace API {
     b_d_reasons?: string;
     /** 复审原因详情 */
     b_e_reasons_detail?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type NBCollectionGroupRole = {
+    /** id */
+    id?: number;
+    /** 机构催收规则id */
+    a_collection_agency_role_id?: number;
+    /** 催收阶段 */
+    b_collection_stage_id?: number;
+    /** 催收机构 */
+    c_collection_agency_id?: number;
+    /** 催收小组 */
+    d_collection_group_id?: number;
+    /** 催收小组占比 */
+    e_collection_group_proportion?: number;
+    /** 分配模式 1：按比补齐 2：按比分配 */
+    f_assign_type?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4108,6 +4186,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1HFCollectionAgencyRolesIdParams = {
+    /** id of HFCollectionAgencyRole */
+    id: number;
+  };
+
   type putAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -4125,6 +4208,11 @@ declare namespace API {
 
   type putAdminV1MCLoanLogsIdParams = {
     /** id of MCLoanLog */
+    id: number;
+  };
+
+  type putAdminV1NBCollectionGroupRolesIdParams = {
+    /** id of NBCollectionGroupRole */
     id: number;
   };
 

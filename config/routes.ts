@@ -419,6 +419,12 @@ export default [
         path: '/collection/collection-admin-list',
         component: './Collection/CollectionAdmin',
       },
+      {
+        name: 'collection-role',
+        icon: 'smile',
+        path: '/collection/collection-role',
+        component: './Collection/CollectionRole',
+      },
     ],
   },
 

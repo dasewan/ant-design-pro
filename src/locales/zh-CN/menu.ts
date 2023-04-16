@@ -121,7 +121,8 @@ export default {
   'menu.borrow.borrow-detail.contact-detail': '通讯录详情',
   'menu.borrow.borrow-detail.device-detail': '设备详情',
   'menu.collection': '催收管理',
-  'menu.collection.collection-agency-list': '催收机构',
-  'menu.collection.collection-group-list': '催收小组',
-  'menu.collection.collection-admin-list': '催收小组',
+  'menu.collection.collection-agency-list': '催收机构管理',
+  'menu.collection.collection-group-list': '催收组管理',
+  'menu.collection.collection-admin-list': '催员管理',
+  'menu.collection.collection-role': '催收规则',
 };

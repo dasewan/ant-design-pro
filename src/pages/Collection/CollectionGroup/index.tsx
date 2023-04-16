@@ -73,7 +73,7 @@ const TableList: React.FC = () => {
     }
   };
   /**
-   * 查询产品enum
+   * 查询催收小组enum
    */
   const _getCollectionGroupsEnum = async () => {
     const data: RequestOptionsType[] = [];
@@ -94,7 +94,7 @@ const TableList: React.FC = () => {
     }
   };
   /**
-   * 查询产品enum
+   * 查询催收机构enum
    */
   const _getCollectionAgenciesEnum = async () => {
     const data: RequestOptionsType[] = [];

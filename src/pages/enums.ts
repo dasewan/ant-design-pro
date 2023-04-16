@@ -222,6 +222,21 @@ export const COMMON_STATUS_QIYONG_ARRAY = [
     value: 'n',
   },
 ];
+//状态：启用/禁用
+export const COMMON_STATUS_INT = {
+  1: { text: '启用', status: 'Success' },
+  2: { text: '禁用', status: 'Error' },
+};
+export const COMMON_STATUS_INT_ARRAY = [
+  {
+    label: '启用',
+    value: 1,
+  },
+  {
+    label: '禁用',
+    value: 2,
+  },
+];
 //状态：允许/不允许
 export const COMMON_STATUS_YUNXU = {
   y: { text: '允许', status: 'Success' },
@@ -306,3 +321,40 @@ export const SMS_TYPE = {
   109: { text: '营销', color: '#CC99CC' },
   110: { text: '其他', color: '#666666' },
 };
+
+//产品结算方式
+export const FLOW_TYPE = {
+  1: { text: '随机', status: 'Default' },
+  2: { text: '排除', status: 'Warning' },
+  3: { text: '保留', status: 'success' },
+};
+export const FLOW_TYPE_ARRAY = [
+  {
+    label: '随机',
+    value: 1,
+  },
+  {
+    label: '排除',
+    value: 2,
+  },
+  {
+    label: '保留',
+    value: 3,
+  },
+];
+
+//产品结算方式
+export const ASSIGN_TYPE = {
+  1: { text: '按比补齐', status: 'Default' },
+  2: { text: '按比分配', status: 'Processing' },
+};
+export const ASSIGN_TYPE_ARRAY = [
+  {
+    label: '按比补齐',
+    value: 1,
+  },
+  {
+    label: '按比分配',
+    value: 2,
+  },
+];
