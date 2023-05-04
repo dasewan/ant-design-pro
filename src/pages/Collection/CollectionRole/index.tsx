@@ -35,7 +35,7 @@ const TableList: React.FC = () => {
    */
   const _getCollectionGroupsEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (collectionGroups.length == 0) {
+    if (collectionGroups.length === 0) {
       const res = await getCollectionGroupsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -56,7 +56,7 @@ const TableList: React.FC = () => {
    */
   const _getCollectionAgenciesEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (collectionAgencies.length == 0) {
+    if (collectionAgencies.length === 0) {
       const res = await getCollectionAgenciesEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -87,7 +87,7 @@ const TableList: React.FC = () => {
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
     const data: RequestOptionsType[] = [];
-    if (collectionStages.length == 0) {
+    if (collectionStages.length === 0) {
       for (const item of res.data!) {
         data.push({
           label: item.a_name,
@@ -96,10 +96,10 @@ const TableList: React.FC = () => {
       }
       setCollectionStages(data);
     }
-    if (collectionAgencies.length == 0) {
+    if (collectionAgencies.length === 0) {
       await _getCollectionAgenciesEnum();
     }
-    if (collectionGroups.length == 0) {
+    if (collectionGroups.length === 0) {
       await _getCollectionGroupsEnum();
     }
     return {

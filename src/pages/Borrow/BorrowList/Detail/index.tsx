@@ -1,36 +1,26 @@
 import { DownloadOutlined, EllipsisOutlined, FileTextOutlined } from '@ant-design/icons';
 import { PageContainer, RouteContext } from '@ant-design/pro-layout';
 import type { TabPaneProps } from 'antd';
-import { Button, Descriptions, Dropdown, Menu, Skeleton, Statistic } from 'antd';
+import { Button, Descriptions, Dropdown, MenuProps, Skeleton, Statistic } from 'antd';
 import type { FC } from 'react';
 import React, { Fragment, useEffect, useState } from 'react';
 
 import ReviewForm from '@/pages/Borrow/BorrowList/components/ReviewForm';
-import { BORROW_STATUS_ENUM, BORROW_STATUS_MAP, VERIFY_STATUS_MAP } from '@/pages/enums';
+import { BORROW_STATUS_ENUM } from '@/pages/enums';
 import {
   getAdminV1DBorrowsId as show,
   getAdminV1DBorrowTab as getTab,
 } from '@/services/ant-design-pro/DBorrow';
+import { Outlet } from '@@/exports';
 import moment from 'moment';
-import { CacheRoute, CacheSwitch } from 'react-router-cache-route';
+import { AliveScope, KeepAlive } from 'react-activation';
 import { history, useParams } from 'umi';
 import styles from '../style.less';
 import type { TableListItem } from './data.d';
 
 const ButtonGroup = Button.Group;
 
-type RBlackProps = {
-  match: {
-    url: string;
-    path: string;
-  };
-  location: {
-    pathname: string;
-  };
-};
-
-const Advanced: FC<RBlackProps> = (props) => {
-  const { match } = props;
+const Advanced: FC = () => {
   const params = useParams<{ id: string }>();
   const [display, setDisplay] = useState<string>('table-cell');
   const [oldRecord, setOldRecord] = useState<TableListItem>();
@@ -106,9 +96,9 @@ const Advanced: FC<RBlackProps> = (props) => {
     // @ts-ignore
     const res = await getTab({ foo: null });
     tabList.forEach((value) => {
-      const tabCount = res.data?.find((item: API.CommonTab) => item.key == value.key)?.tab_count;
+      const tabCount = res.data?.find((item: API.CommonTab) => item.key === value.key)?.tab_count;
 
-      if (tabCount != undefined && tabCount > 0) {
+      if (tabCount !== undefined && tabCount > 0) {
         value.tab = (
           <div>
             {value.tab}
@@ -147,19 +137,17 @@ const Advanced: FC<RBlackProps> = (props) => {
   }, []);
 
   const _handleTabChange = (key: string) => {
-    let url = match.url === '/' ? '' : match.url;
-    console.log(url);
-    console.log(key);
-    if (['urge', 'risk', 'borrow-log', 'send-log', 'repay-log'].find((item) => item == key)) {
-      url = url + '/' + key + '/' + borrowId;
+    let url = '';
+    if (['urge', 'risk', 'borrow-log', 'send-log', 'repay-log'].find((item) => item === key)) {
+      url = `/borrow/detail/${borrowId}/${key}/${borrowId}`;
     } else if (
       ['profile', 'sms', 'contact', 'app', 'device', 'borrow', 'relation'].find(
-        (item) => item == key,
+        (item) => item === key,
       )
     ) {
-      url = url + '/' + key + '/' + userId;
-    } else if (['verify'].find((item) => item == key)) {
-      url = url + '/' + key + '/' + verifyId;
+      url = `/borrow/detail/${borrowId}/${key}/${userId}`;
+    } else if (['verify'].find((item) => item === key)) {
+      url = `/borrow/detail/${borrowId}/${key}/${verifyId}`;
     }
     console.log(`${url}`);
 
@@ -167,17 +155,74 @@ const Advanced: FC<RBlackProps> = (props) => {
   };
 
   const _getTabKey = () => {
-    const { location } = props;
-    location.pathname.split('/').pop();
-    const tabKey = location.pathname.split('/').splice(-2, 1)[0];
-    console.log(tabKey);
+    /*    const { location } = props;
+        location.pathname.split('/').pop();
+        const tabKey = location.pathname.split('/').splice(-2, 1)[0];
+        console.log(tabKey);
 
-    if (tabKey && tabKey !== '/') {
-      return tabKey;
-    }
+        if (tabKey && tabKey !== '/') {
+          return tabKey;
+        }*/
     return 'urge';
   };
-
+  const items: MenuProps['items'] = [
+    { label: '展期', key: 'item-1', icon: <FileTextOutlined /> },
+    {
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
+        >
+          减免
+        </a>
+      ),
+      key: 'item-2',
+      icon: <DownloadOutlined />,
+    },
+    {
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
+        >
+          平账
+        </a>
+      ),
+      key: 'item-2',
+      icon: <DownloadOutlined />,
+    },
+  ];
+  const items2: MenuProps['items'] = [
+    { label: '展期', key: 'item-1', icon: <FileTextOutlined /> },
+    {
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
+        >
+          减免
+        </a>
+      ),
+      key: 'item-2',
+      icon: <DownloadOutlined />,
+    },
+    {
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
+        >
+          平账
+        </a>
+      ),
+      key: 'item-2',
+      icon: <DownloadOutlined />,
+    },
+  ];
   const action = (
     <RouteContext.Consumer>
       {({ isMobile }) => {
@@ -187,14 +232,14 @@ const Advanced: FC<RBlackProps> = (props) => {
               <ButtonGroup>
                 <Button key="sms">发送短信</Button>
                 <Button key="black">拉黑</Button>
-                {oldRecord?.a_a_a_a_a_g_verify?.f_status == VERIFY_STATUS_MAP.OVERVIEW &&
+                {oldRecord?.a_a_a_a_a_g_verify?.f_status === VERIFY_STATUS_MAP.OVERVIEW &&
                 showReviewButton ? (
                   <Button key="review" onClick={() => handleReviewModalVisible(true)}>
                     审核
                   </Button>
                 ) : null}
-                {oldRecord?.a_a_a_a_a_g_verify?.e_risk_result == VERIFY_STATUS_MAP.OVERVIEW &&
-                (oldRecord?.a_a_a_a_a_g_verify?.f_status != VERIFY_STATUS_MAP.OVERVIEW ||
+                {oldRecord?.a_a_a_a_a_g_verify?.e_risk_result === VERIFY_STATUS_MAP.OVERVIEW &&
+                (oldRecord?.a_a_a_a_a_g_verify?.f_status !== VERIFY_STATUS_MAP.OVERVIEW ||
                   !showReviewButton) ? (
                   <Button key="review-record" onClick={() => handleReviewModalVisible(true)}>
                     审核记录
@@ -204,52 +249,16 @@ const Advanced: FC<RBlackProps> = (props) => {
                 <Button
                   key="show"
                   onClick={() => {
-                    if (display == 'table-cell') {
+                    if (display === 'table-cell') {
                       setDisplay('none');
                     } else {
                       setDisplay('table-cell');
                     }
                   }}
                 >
-                  {display == 'table-cell' ? '隐藏' : '展示'}
+                  {display === 'table-cell' ? '隐藏' : '展示'}
                 </Button>
-                <Dropdown
-                  key="dropdown"
-                  trigger={['click']}
-                  overlay={
-                    <Menu
-                      items={[
-                        { label: '展期', key: 'item-1', icon: <FileTextOutlined /> },
-                        {
-                          label: (
-                            <a
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
-                            >
-                              减免
-                            </a>
-                          ),
-                          key: 'item-2',
-                          icon: <DownloadOutlined />,
-                        },
-                        {
-                          label: (
-                            <a
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
-                            >
-                              平账
-                            </a>
-                          ),
-                          key: 'item-2',
-                          icon: <DownloadOutlined />,
-                        },
-                      ]}
-                    />
-                  }
-                >
+                <Dropdown key="dropdown" trigger={['click']} menu={{ items }}>
                   <Button key="4" style={{ padding: '0 8px' }}>
                     <EllipsisOutlined />
                   </Button>
@@ -264,14 +273,14 @@ const Advanced: FC<RBlackProps> = (props) => {
             <ButtonGroup>
               <Button key="sms">发送短信</Button>
               <Button key="black">拉黑</Button>
-              {oldRecord?.a_a_a_a_a_g_verify?.f_status == VERIFY_STATUS_MAP.OVERVIEW &&
+              {oldRecord?.a_a_a_a_a_g_verify?.f_status === VERIFY_STATUS_MAP.OVERVIEW &&
               showReviewButton ? (
                 <Button key="review" onClick={() => handleReviewModalVisible(true)}>
                   审核
                 </Button>
               ) : null}
-              {oldRecord?.a_a_a_a_a_g_verify?.e_risk_result == VERIFY_STATUS_MAP.OVERVIEW &&
-              (oldRecord?.a_a_a_a_a_g_verify?.f_status != VERIFY_STATUS_MAP.OVERVIEW ||
+              {oldRecord?.a_a_a_a_a_g_verify?.e_risk_result === VERIFY_STATUS_MAP.OVERVIEW &&
+              (oldRecord?.a_a_a_a_a_g_verify?.f_status !== VERIFY_STATUS_MAP.OVERVIEW ||
                 !showReviewButton) ? (
                 <Button key="review-record" onClick={() => handleReviewModalVisible(true)}>
                   审核记录
@@ -281,52 +290,16 @@ const Advanced: FC<RBlackProps> = (props) => {
               <Button
                 key="show"
                 onClick={() => {
-                  if (display == 'table-cell') {
+                  if (display === 'table-cell') {
                     setDisplay('none');
                   } else {
                     setDisplay('table-cell');
                   }
                 }}
               >
-                {display == 'table-cell' ? '隐藏' : '展示'}
+                {display === 'table-cell' ? '隐藏' : '展示'}
               </Button>
-              <Dropdown
-                key="dropdown"
-                trigger={['click']}
-                overlay={
-                  <Menu
-                    items={[
-                      { label: '展期', key: 'item-1', icon: <FileTextOutlined /> },
-                      {
-                        label: (
-                          <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
-                          >
-                            减免
-                          </a>
-                        ),
-                        key: 'item-2',
-                        icon: <DownloadOutlined />,
-                      },
-                      {
-                        label: (
-                          <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
-                          >
-                            平账
-                          </a>
-                        ),
-                        key: 'item-2',
-                        icon: <DownloadOutlined />,
-                      },
-                    ]}
-                  />
-                }
-              >
+              <Dropdown key="dropdown" trigger={['click']} menu={{ items: items2 }}>
                 <Button key="4" style={{ padding: '0 8px' }}>
                   <EllipsisOutlined />
                 </Button>
@@ -383,10 +356,10 @@ const Advanced: FC<RBlackProps> = (props) => {
         title="状态"
         value={oldRecord ? BORROW_STATUS_ENUM[oldRecord!.j_status!].text : ''}
         valueStyle={
-          oldRecord && oldRecord!.j_status == BORROW_STATUS_MAP.OVERDUE ? { color: '#cf1322' } : {}
+          oldRecord && oldRecord!.j_status === BORROW_STATUS_MAP.OVERDUE ? { color: '#cf1322' } : {}
         }
         suffix={
-          oldRecord && oldRecord!.j_status == BORROW_STATUS_MAP.OVERDUE
+          oldRecord && oldRecord!.j_status === BORROW_STATUS_MAP.OVERDUE
             ? oldRecord.a_i_overdue_days + 'Days'
             : ''
         }
@@ -396,57 +369,47 @@ const Advanced: FC<RBlackProps> = (props) => {
   );
 
   return (
-    <PageContainer
-      title={
-        oldRecord
-          ? ['单号：', oldRecord?.h_sn, '(', oldRecord?.l_borrow_count, ')'].join('')
-          : '单号：'
-      }
-      extra={action}
-      className={styles.pageHeader}
-      content={description}
-      extraContent={extra}
-      tabActiveKey={_getTabKey()}
-      onTabChange={_handleTabChange}
-      tabList={tabList}
-    >
-      {/*{props.children}*/}
-      <CacheSwitch>
-        <CacheRoute path={'/borrow/detail/' + params.id + '/urge/' + borrowId}>
-          {props.children}
-        </CacheRoute>
-        <CacheRoute path={'/borrow/detail/' + params.id + '/verify/' + verifyId}>
-          {props.children}
-        </CacheRoute>
-        <CacheRoute path={'/borrow/detail/' + params.id + '/sms/' + userId}>
-          {props.children}
-        </CacheRoute>
-        <CacheRoute path={'/borrow/detail/' + params.id + '/app/' + userId}>
-          {props.children}
-        </CacheRoute>
-        <CacheRoute path={'/borrow/detail/' + params.id + '/contact/' + userId}>
-          {props.children}
-        </CacheRoute>
-        <CacheRoute path={'/borrow/detail/' + params.id + '/device/' + userId}>
-          {props.children}
-        </CacheRoute>
-      </CacheSwitch>
-      <ReviewForm
-        onSubmit={async (success) => {
-          if (success) {
+    <AliveScope>
+      <PageContainer
+        title={
+          oldRecord
+            ? ['单号：', oldRecord?.h_sn, '(', oldRecord?.l_borrow_count, ')'].join('')
+            : '单号：'
+        }
+        extra={action}
+        className={styles.pageHeader}
+        content={description}
+        extraContent={extra}
+        tabActiveKey={_getTabKey()}
+        onTabChange={_handleTabChange}
+        tabList={tabList}
+      >
+        {/*{props.children}*/}
+        <KeepAlive
+          when={true}
+          name={location.pathname}
+          id={location.pathname}
+          saveScrollPosition="screen"
+        >
+          <Outlet />
+        </KeepAlive>
+        <ReviewForm
+          onSubmit={async (success) => {
+            if (success) {
+              handleReviewModalVisible(false);
+              setShowReviewButton(false);
+            }
+          }}
+          onCancel={() => {
             handleReviewModalVisible(false);
-            setShowReviewButton(false);
-          }
-        }}
-        onCancel={() => {
-          handleReviewModalVisible(false);
-        }}
-        borrowId={borrowId}
-        modalVisible={reviewModalVisible}
-        showReviewRecord={!showReviewButton}
-        verifyId={verifyId}
-      />
-    </PageContainer>
+          }}
+          borrowId={borrowId}
+          modalVisible={reviewModalVisible}
+          showReviewRecord={!showReviewButton}
+          verifyId={verifyId}
+        />
+      </PageContainer>
+    </AliveScope>
   );
 };
 

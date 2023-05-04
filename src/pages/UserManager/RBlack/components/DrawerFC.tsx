@@ -47,7 +47,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
   return (
     <Drawer
       width={600}
-      visible={props.showDetail}
+      open={props.showDetail}
       onClose={() => {
         props.onClose();
       }}
@@ -72,7 +72,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
           subTitle: {
             dataIndex: 'user_phone',
             render: (_, record) => {
-              return record.d_loan_count == 0 ? (
+              return record.d_loan_count === 0 ? (
                 record.c_user_phone
               ) : (
                 <Alert

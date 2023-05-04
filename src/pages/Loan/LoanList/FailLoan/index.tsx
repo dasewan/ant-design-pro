@@ -78,7 +78,7 @@ const TableList: React.FC = () => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({

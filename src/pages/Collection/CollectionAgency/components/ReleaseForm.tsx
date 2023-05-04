@@ -68,9 +68,9 @@ const ReleaseForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -163,8 +163,8 @@ const ReleaseForm: React.FC<FormProps> = (props) => {
         // @ts-ignore
         options={props.collectionAgencies.filter(
           (item) =>
-            // item.b_borrow_times == props.record?.b_borrow_times &&
-            item.value != props.record?.id,
+            // item.b_borrow_times === props.record?.b_borrow_times &&
+            item.value !== props.record?.id,
         )}
         fieldProps={{ mode: 'multiple' }}
       />

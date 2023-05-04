@@ -72,9 +72,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -113,7 +113,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.a_name}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.a_name || !oldRecord?.a_name
+              return value === oldRecord?.a_name || !oldRecord?.a_name
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.a_name}`));
             },
@@ -130,7 +130,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.b_local_name}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.b_local_name || !oldRecord?.b_local_name
+              return value === oldRecord?.b_local_name || !oldRecord?.b_local_name
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.b_local_name}`));
             },
@@ -147,9 +147,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.d_cat_id}` },
           {
             validator: (_, value) => {
-              const oldValue = props.cats.find((item) => item.value == oldRecord?.d_cat_id)?.label;
+              const oldValue = props.cats.find((item) => item.value === oldRecord?.d_cat_id)?.label;
               // @ts-ignore
-              return value == oldRecord?.d_cat_id || !oldRecord?.d_cat_id
+              return value === oldRecord?.d_cat_id || !oldRecord?.d_cat_id
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -168,10 +168,10 @@ const CreateForm: React.FC<FormProps> = (props) => {
           {
             validator: (_, value) => {
               const oldValue = RISK_ITEM_TYPE_OPTION.find(
-                (item) => item.value == oldRecord?.e_type,
+                (item) => item.value === oldRecord?.e_type,
               )?.label;
               // @ts-ignore
-              return value == oldRecord?.e_type || !oldRecord?.e_type
+              return value === oldRecord?.e_type || !oldRecord?.e_type
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -189,7 +189,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.g_description}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.g_description || !oldRecord?.g_description
+              return value === oldRecord?.g_description || !oldRecord?.g_description
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.g_description}`));
             },
@@ -206,7 +206,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.h_local_description}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.h_local_description || !oldRecord?.h_local_description
+              return value === oldRecord?.h_local_description || !oldRecord?.h_local_description
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.h_local_description}`));
             },

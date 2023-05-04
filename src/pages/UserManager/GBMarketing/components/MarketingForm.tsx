@@ -64,7 +64,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
    * 查询短信enum
    */
   const _getSMSsEnum: ProFieldRequestData = async () => {
-    if (smss.length == 0) {
+    if (smss.length === 0) {
       // const res = await getChannelsEnum({ foo: 1 });
       const data = [
         { label: '营销短信1', value: 1 },
@@ -88,9 +88,9 @@ const MarketingForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           setSmsSelectedView('');
@@ -121,7 +121,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
             // @ts-ignore
             setSmsSelectedView(
               smsViews!.find((item) => {
-                return item.value == value;
+                return item.value === value;
               })?.label,
             );
           },
@@ -129,7 +129,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
         placeholder="Please select a channel"
         rules={[{ required: true, message: 'Please select your reason!' }]}
       />
-      {smsSelectedView != '' ? (
+      {smsSelectedView !== '' ? (
         <div>
           <Row>
             <Col span={4} style={{ textAlign: 'right' }}>
@@ -239,7 +239,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
         radioType="button"
         fieldProps={{
           onChange: (event) => {
-            if (event.target.value == 3) {
+            if (event.target.value === 3) {
               setUseViewCountShow(true);
             } else {
               setUseViewCountShow(false);

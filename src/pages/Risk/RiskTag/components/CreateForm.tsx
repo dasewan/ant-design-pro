@@ -68,9 +68,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -104,7 +104,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
       initialValues={{}}
     >
       <ProFormText label={FieldLabels.a_name} name={FieldIndex.a_name} disabled={true} />
-      {oldRecord?.c_group == 'channel' ? (
+      {oldRecord?.c_group === 'channel' ? (
         <ProFormSelect
           label={FieldLabels.b_values}
           name={FieldIndex.b_values}
@@ -118,12 +118,14 @@ const CreateForm: React.FC<FormProps> = (props) => {
                 let oldValue = '';
                 // @ts-ignore
                 oldRecord?.b_values?.map((productId: number) => {
-                  if (props.channels.find((item) => item.value == productId)) {
-                    oldValue += props.channels.find((item) => item.value == productId)!.label + '-';
+                  if (props.channels.find((item) => item.value === productId)) {
+                    oldValue +=
+                      props.channels.find((item) => item.value === productId)!.label + '-';
                   }
+                  return '';
                 });
                 // @ts-ignore
-                return tmpValue == oldRecord?.b_values?.join('-') || !oldRecord?.b_values
+                return tmpValue === oldRecord?.b_values?.join('-') || !oldRecord?.b_values
                   ? Promise.resolve()
                   : Promise.reject(new Error(`旧值：  ${oldValue} `));
               },
@@ -141,7 +143,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
             {
               validator: (_, value) => {
                 // @ts-ignore
-                return value.join('-') == oldRecord?.b_values.join('-') || !oldRecord?.b_values
+                return value.join('-') === oldRecord?.b_values.join('-') || !oldRecord?.b_values
                   ? Promise.resolve()
                   : Promise.reject(new Error(`旧值：   ${oldRecord?.b_values}`));
               },

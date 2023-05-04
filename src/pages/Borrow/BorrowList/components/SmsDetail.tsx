@@ -16,7 +16,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useParams } from 'umi';
 
-export type FormProps = {};
 type DataIndex = keyof API.RCSms;
 
 const colorMap = {
@@ -44,7 +43,7 @@ const typeTitleMap = {
   110: '其他',
 };
 
-const SmsDetail: React.FC<FormProps> = () => {
+const SmsDetail: React.FC = () => {
   const params2 = useParams<{ id: string; verifyId?: string }>();
   const [dataSource, setDataSource] = useState<TableListItem[]>([]);
   const [allDataSource, setAllDataSource] = useState<TableListItem[]>([]);
@@ -104,7 +103,7 @@ const SmsDetail: React.FC<FormProps> = () => {
 
         },*/
     color: ({ type }: { type: string }) => {
-      if (colorMap[type] != undefined) {
+      if (colorMap[type] !== undefined) {
         return colorMap[type];
       }
       return '#F0FFFF';
@@ -143,7 +142,7 @@ const SmsDetail: React.FC<FormProps> = () => {
       ],
     },
     color: ({ type }: { type: string }) => {
-      if (colorMap[type] != undefined) {
+      if (colorMap[type] !== undefined) {
         return colorMap[type];
       }
       return 'red';
@@ -166,11 +165,11 @@ const SmsDetail: React.FC<FormProps> = () => {
     setDataSource(allDataSource);
   };
   const pieElementClick = (_type: string) => {
-    setDataSource(allDataSource.filter((item) => item.d_type == _type));
+    setDataSource(allDataSource.filter((item) => item.d_type === _type));
   };
   const barElementClick = (_type: string, _merchant: string) => {
     setDataSource(
-      allDataSource.filter((item) => item.d_type == _type && item.e_merchant == _merchant),
+      allDataSource.filter((item) => item.d_type === _type && item.e_merchant === _merchant),
     );
   };
 
@@ -277,7 +276,7 @@ const SmsDetail: React.FC<FormProps> = () => {
                   <Pie
                     ref={chartRef}
                     onEvent={(chart, event) => {
-                      if (event.type == 'element:click') {
+                      if (event.type === 'element:click') {
                         pieElementClick(event.data!.data.d_type);
                       }
                     }}
@@ -303,7 +302,7 @@ const SmsDetail: React.FC<FormProps> = () => {
                 {allDataSource.length > 0 ? (
                   <Bar
                     onEvent={(chart, event) => {
-                      if (event.type == 'element:click') {
+                      if (event.type === 'element:click') {
                         barElementClick(event.data!.data.d_type, event.data!.data.e_merchant);
                       }
                     }}
@@ -360,7 +359,7 @@ const SmsDetail: React.FC<FormProps> = () => {
               pagination={{
                 pageSize: 5,
               }}
-              toolBarRender={() => [<span>最近上送时间： 2022-03-02 15:34</span>]}
+              toolBarRender={() => [<span key="sms">最近上送时间： 2022-03-02 15:34</span>]}
             />
           </Card>
         </Col>

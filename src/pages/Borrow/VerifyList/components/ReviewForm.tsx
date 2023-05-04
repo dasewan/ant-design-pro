@@ -42,13 +42,13 @@ const ReviewForm: React.FC<FormProps> = (props) => {
     message.loading('正在提交');
     let formValues;
 
-    if (props.item == 'idNumber') {
+    if (props.item === 'idNumber') {
       formValues = { j_idnumber_verify_status: accept ? 50 : 40 };
-    } else if (props.item == 'contact') {
+    } else if (props.item === 'contact') {
       formValues = { n_contact_verify_status: accept ? 50 : 40 };
-    } else if (props.item == 'job') {
+    } else if (props.item === 'job') {
       formValues = { p_job_verify_status: accept ? 50 : 40 };
-    } else if (props.item == 'loanBank') {
+    } else if (props.item === 'loanBank') {
       formValues = { r_loan_bank_verify_status: accept ? 50 : 40 };
     }
 
@@ -66,9 +66,9 @@ const ReviewForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -85,7 +85,7 @@ const ReviewForm: React.FC<FormProps> = (props) => {
       submitter={{
         render: () => {
           const refuseButton =
-            props.status == 30 ? (
+            props.status === 30 ? (
               <Button
                 key="refuse"
                 type="primary"
@@ -101,7 +101,7 @@ const ReviewForm: React.FC<FormProps> = (props) => {
               </Button>
             ) : null;
           const passButton =
-            props.status == 30 ? (
+            props.status === 30 ? (
               <Button
                 key="submit"
                 type="primary"
@@ -136,22 +136,22 @@ const ReviewForm: React.FC<FormProps> = (props) => {
           if (reasonsDetailArr[index]) {
             const reasonDetailOne = reasonsDetailArr[index].split('|');
 
-            if (reasonDetailOne[0] == 'blank') {
+            if (reasonDetailOne[0] === 'blank') {
               _detail = <></>;
-            } else if (reasonDetailOne[0] == 'text') {
+            } else if (reasonDetailOne[0] === 'text') {
               _detail = (
                 <Button size="small" danger type="text">
                   {reasonDetailOne[1]}:{reasonDetailOne[2]}
                 </Button>
               );
-            } else if (reasonDetailOne[0] == 'link') {
+            } else if (reasonDetailOne[0] === 'link') {
               //todo 跳转
               let linkText = '';
-              if (reasonDetailOne[1] == 'user') {
+              if (reasonDetailOne[1] === 'user') {
                 linkText = '关联用户：';
-              } else if (reasonDetailOne[1] == 'borrow') {
+              } else if (reasonDetailOne[1] === 'borrow') {
                 linkText = '关联订单：';
-              } else if (reasonDetailOne[1] == 'black') {
+              } else if (reasonDetailOne[1] === 'black') {
                 linkText = '关联黑名单：';
               }
               _detail = (
@@ -167,7 +167,7 @@ const ReviewForm: React.FC<FormProps> = (props) => {
           return (
             <Alert
               key={value}
-              message={props.item != '' ? <>{REVIEW_REASON[props.item][value]}</> : ''}
+              message={props.item !== '' ? <>{REVIEW_REASON[props.item][value]}</> : ''}
               type="warning"
               showIcon
               action={_detail}

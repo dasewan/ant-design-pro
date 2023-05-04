@@ -41,7 +41,7 @@ const TableList: React.FC = () => {
    */
   const _getProductsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (products.length == 0) {
+    if (products.length === 0) {
       const res = await getProductsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -60,7 +60,7 @@ const TableList: React.FC = () => {
    */
   const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -79,7 +79,7 @@ const TableList: React.FC = () => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -109,19 +109,19 @@ const TableList: React.FC = () => {
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
-    if (products.length == 0) {
+    if (products.length === 0) {
       // @ts-ignore
       await _getProductsEnum();
     }
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       // @ts-ignore
       await _getUsersEnum();
     }
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       // @ts-ignore
       await _getChannelsEnum();
     }
-    if (groups.length == 0) {
+    if (groups.length === 0) {
       const dataGroup: RequestOptionsType[] = [];
       // @ts-ignore
       for (const item of res.data!) {
@@ -223,10 +223,10 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.e_channels,
       render: (_, record) => {
         let r = '';
-        if (record.e_channels != null && record.e_channels.length > 0) {
+        if (record.e_channels !== null && record.e_channels.length > 0) {
           const channelsIdArr = record.e_channels!.split(',');
           const channelsArr = channels.filter((value) =>
-            channelsIdArr.find((_id) => _id == value.value),
+            channelsIdArr.find((_id) => _id === value.value),
           );
 
           for (const c of channelsArr) {
@@ -242,10 +242,10 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.h_products,
       render: (_, record) => {
         let r = '';
-        if (record.h_products != '' && record.h_products != null) {
+        if (record.h_products !== '' && record.h_products !== null) {
           const productIdArr = record.h_products!.split(',');
           const productArr = products.filter((value) =>
-            productIdArr.find((_id) => _id == value.value),
+            productIdArr.find((_id) => _id === value.value),
           );
 
           for (const c of productArr) {
@@ -261,9 +261,9 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.f_admins,
       render: (_, record) => {
         let r = '';
-        if (record.f_admins != null && record.f_admins != '') {
+        if (record.f_admins !== null && record.f_admins !== '') {
           const adminIdArr = record.f_admins!.split(',');
-          const adminsArr = admins.filter((value) => adminIdArr.find((_id) => _id == value.value));
+          const adminsArr = admins.filter((value) => adminIdArr.find((_id) => _id === value.value));
 
           for (const c of adminsArr) {
             r += '[' + c.label + '] ';

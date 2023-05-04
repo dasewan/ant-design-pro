@@ -70,7 +70,7 @@ const TableList: React.FC = () => {
    */
   const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -90,7 +90,7 @@ const TableList: React.FC = () => {
    */
   const _getAKReasons = async () => {
     const data: RequestOptionsType[] = [];
-    if (reasons.length == 0) {
+    if (reasons.length === 0) {
       const res = await getAKReasons({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -182,7 +182,7 @@ const TableList: React.FC = () => {
         onGetCaptcha={async () => {
           // @ts-ignore
           const res = await getCaptchaType({ type: 'black' });
-          if (res.success == true) {
+          if (res.success === true) {
             message.success(`验证码发送成功!`);
             setConfirmDisabled(false);
           } else {
@@ -233,7 +233,7 @@ const TableList: React.FC = () => {
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
-          return item.role_id == 1 && item.id == record.e_admin_id;
+          return item.role_id === 1 && item.id === record.e_admin_id;
         }) ? (
           <del>{_}</del>
         ) : (
@@ -281,7 +281,7 @@ const TableList: React.FC = () => {
             trigger="click"
             key={record.a_info! + 1000}
             id={record.a_info! + 1000}
-            onVisibleChange={(_visible) => {
+            onOpenChange={(_visible) => {
               setId(record.id!);
               if (!_visible) {
                 setConfirmDisabled(true);

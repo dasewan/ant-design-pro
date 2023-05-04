@@ -62,15 +62,15 @@ const MoveForm: React.FC<FormProps> = (props) => {
   const _getAdminsEnum: ProFieldRequestData = async () => {
     // @ts-ignore
     return props.admins.filter(
-      (item) => props.canMoveAdmins.find((id) => id == item.value * 1) != undefined,
+      (item) => props.canMoveAdmins.find((id) => id === item.value * 1) !== undefined,
     );
   };
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();

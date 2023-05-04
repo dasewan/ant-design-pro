@@ -9,7 +9,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, Dropdown, Menu, message, Tag } from 'antd';
+import { Button, Dropdown, MenuProps, message, Tag } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
@@ -29,7 +29,7 @@ const TableList: React.FC = () => {
    */
   const _getCatsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (cats.length == 0) {
+    if (cats.length === 0) {
       const res = await getCatsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -184,7 +184,13 @@ const TableList: React.FC = () => {
       },
     },
   ];
-
+  const items: MenuProps['items'] = [
+    {
+      label: <a onClick={() => _updateCount()}>更新关联数</a>,
+      key: 'item-2',
+      icon: <SyncOutlined />,
+    },
+  ];
   // @ts-ignore
   return (
     <PageContainer
@@ -195,21 +201,7 @@ const TableList: React.FC = () => {
           <Button key="3" type="primary" onClick={() => onEditClick(0)}>
             新建风控字段
           </Button>,
-          <Dropdown
-            key="dropdown"
-            trigger={['click']}
-            overlay={
-              <Menu
-                items={[
-                  {
-                    label: <a onClick={() => _updateCount()}>更新关联数</a>,
-                    key: 'item-2',
-                    icon: <SyncOutlined />,
-                  },
-                ]}
-              />
-            }
-          >
+          <Dropdown key="dropdown" trigger={['click']} menu={{ items }}>
             <Button key="4" style={{ padding: '0 8px' }}>
               <EllipsisOutlined />
             </Button>

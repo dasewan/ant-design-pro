@@ -24,7 +24,7 @@ const TableList: React.FC = () => {
    */
   const _getProductsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (products.length == 0) {
+    if (products.length === 0) {
       const res = await getProductsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -144,6 +144,7 @@ const TableList: React.FC = () => {
         );
         const download = (
           <a
+            key="download"
             target="_blank"
             rel="noopener noreferrer"
             href={`/admin/v1/channels-download/${record.id}`}

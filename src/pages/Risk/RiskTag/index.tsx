@@ -51,7 +51,7 @@ const TableList: React.FC = () => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -84,10 +84,10 @@ const TableList: React.FC = () => {
       title: FieldLabels.b_values,
       dataIndex: FieldIndex.b_values,
       render: (_, record) => {
-        if (record.c_group == 'channel') {
+        if (record.c_group === 'channel') {
           const channelsIdArr = record.b_values!.split('-');
           const channelsArr = channels.filter((value) =>
-            channelsIdArr.find((_id) => _id == value.value),
+            channelsIdArr.find((_id) => _id === value.value),
           );
           let r = '';
           for (const c of channelsArr) {
@@ -95,7 +95,7 @@ const TableList: React.FC = () => {
           }
           return r;
         }
-        return record.c_group == 'channel' ? '' : record.b_values;
+        return record.c_group === 'channel' ? '' : record.b_values;
       },
     },
     {

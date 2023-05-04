@@ -121,14 +121,14 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
   return (
     <Drawer
       width={600}
-      visible={props.showDetail}
+      open={props.showDetail}
       onClose={() => {
         props.onClose();
       }}
       closable={false}
       destroyOnClose={true}
     >
-      {props.type == 'aCUserNews' && (
+      {props.type === 'aCUserNews' && (
         <ProList<API.ACUserNew>
           onRow={() => {
             return {
@@ -171,7 +171,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
           }}
         />
       )}
-      {props.type == 'aBCreditHistory' && (
+      {props.type === 'aBCreditHistory' && (
         <ProTable<API.ABCreditHistory, TableListPagination>
           headerTitle="授信历史"
           actionRef={actionRef}

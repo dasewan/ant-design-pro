@@ -43,7 +43,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
   return (
     <Modal
       title="流水明细"
-      visible={props.modalVisible}
+      open={props.modalVisible}
       onOk={props.onOk}
       onCancel={props.onOk}
       width="90%"
@@ -53,7 +53,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
         <Button
           key="refresh"
           type="primary"
-          disabled={oldRecord?.j_status == 40 || oldRecord?.j_status == 50}
+          disabled={oldRecord?.j_status === 40 || oldRecord?.j_status === 50}
           onClick={_show}
         >
           刷新
@@ -72,7 +72,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
           <Descriptions.Item label={FieldLabels.a_a_a_a_a_d_borrow.b_channel_id}>
             {
               props.channels.find(
-                (item) => item.value == oldRecord?.a_a_a_a_a_d_borrow?.b_channel_id,
+                (item) => item.value === oldRecord?.a_a_a_a_a_d_borrow?.b_channel_id,
               )?.label
             }
           </Descriptions.Item>

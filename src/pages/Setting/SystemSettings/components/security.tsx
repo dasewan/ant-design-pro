@@ -23,30 +23,31 @@ const SecurityView: React.FC<Props> = (props) => {
   const confirm = async (_item: API.GHSetting) => {
     const tmpData: API.GHSetting[] = [];
     let _success = true;
-    if (_item.h_field_type == 'ProFormSwitch') {
-      _item.e_value = _item.e_value == '1' ? '0' : '1';
+    if (_item.h_field_type === 'ProFormSwitch') {
+      _item.e_value = _item.e_value === '1' ? '0' : '1';
       setLoading(true);
       try {
         // @ts-ignore
         const res = await update({ ..._item });
         if (!res.success) {
           //恢复原值
-          _item.e_value = _item.e_value == '1' ? '0' : '1';
+          _item.e_value = _item.e_value === '1' ? '0' : '1';
           _success = false;
         }
       } catch (error) {
         message.error('配置失败请重试！');
         //恢复原值
-        _item.e_value = _item.e_value == '1' ? '0' : '1';
+        _item.e_value = _item.e_value === '1' ? '0' : '1';
         _success = false;
       }
     }
     data.map((_: API.GHSetting) => {
-      if (_.id == _item.id) {
+      if (_.id === _item.id) {
         tmpData.push(_item);
       } else {
         tmpData.push(_);
       }
+      return tmpData;
     });
     setData(tmpData);
     setLoading(false);
@@ -72,7 +73,7 @@ const SecurityView: React.FC<Props> = (props) => {
         renderItem={(item) => (
           <List.Item
             actions={[
-              item.h_field_type == 'ProFormSwitch' ? (
+              item.h_field_type === 'ProFormSwitch' ? (
                 <Popconfirm
                   title="Are you sure to delete this task?"
                   onConfirm={confirm.bind(this, item)}
@@ -83,12 +84,12 @@ const SecurityView: React.FC<Props> = (props) => {
                   <Switch
                     checkedChildren="开"
                     unCheckedChildren="关"
-                    checked={item.e_value == '1'}
+                    checked={item.e_value === '1'}
                   />
                 </Popconfirm>
               ) : (
                 <a key="Modify" onClick={() => showModel(item)}>
-                  {item.e_value != '' ? '修改' : '设置'}
+                  {item.e_value !== '' ? '修改' : '设置'}
                 </a>
               ),
             ]}
@@ -97,13 +98,13 @@ const SecurityView: React.FC<Props> = (props) => {
               title={
                 <>
                   <span>
-                    {item.k_badge != '' ? <Badge color={item.k_badge} /> : ''}
+                    {item.k_badge !== '' ? <Badge color={item.k_badge} /> : ''}
                     {item.a_title}:
                   </span>
                   &nbsp;&nbsp;
                   <span>
-                    {item.h_field_type == 'ProFormSwitch' ? (
-                      item.e_value == '1' ? (
+                    {item.h_field_type === 'ProFormSwitch' ? (
+                      item.e_value === '1' ? (
                         <span style={{ color: 'green', fontWeight: 'bold' }}>已启用</span>
                       ) : (
                         <span style={{ color: 'red', fontWeight: 'bold' }}>已关闭</span>

@@ -16,7 +16,6 @@ import {
   PeriodFieldLabels,
 } from './service';
 
-export type FormProps = {};
 type AdvancedState = {
   operationKey: string;
   tabActiveKey: string;
@@ -39,7 +38,7 @@ const urgeTabList = [
     tab: 'S3',
   },
 ];
-const UrgeDetail: React.FC<FormProps> = () => {
+const UrgeDetail: React.FC = () => {
   const params = useParams<{ id: string }>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
   const [other, setOther] = useState<API.BorrowDetail>();
@@ -237,7 +236,7 @@ const UrgeDetail: React.FC<FormProps> = () => {
                       <HourglassTwoTone
                         style={{ fontSize: '16px' }}
                         twoToneColor={
-                          oldRecord?.j_status == BORROW_STATUS_MAP.OVERDUE ? '#eb2f96' : '#52c41a'
+                          oldRecord?.j_status === BORROW_STATUS_MAP.OVERDUE ? '#eb2f96' : '#52c41a'
                         }
                       />
                     }

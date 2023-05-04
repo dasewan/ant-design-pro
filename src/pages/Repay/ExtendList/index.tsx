@@ -8,7 +8,6 @@ import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-ut
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import styles from './index.less';
 import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
@@ -52,7 +51,7 @@ const TableList: React.FC = () => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({

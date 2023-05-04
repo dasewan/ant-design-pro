@@ -56,7 +56,7 @@ const TableList: React.FC = () => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -150,7 +150,7 @@ const TableList: React.FC = () => {
           className: styles.blue,
           width: 60,
           render: (_, record) => {
-            if (record.d_completed_period_count == record.c_period_count) {
+            if (record.d_completed_period_count === record.c_period_count) {
               return (
                 <b style={{ color: 'green' }}>
                   {record.d_completed_period_count + '/' + record.c_period_count}

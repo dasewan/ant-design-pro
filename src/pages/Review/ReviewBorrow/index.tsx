@@ -40,7 +40,7 @@ const TableList: React.FC = () => {
    */
   const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -59,7 +59,7 @@ const TableList: React.FC = () => {
    */
   const _getAPReviewGroupsEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (groups.length == 0) {
+    if (groups.length === 0) {
       const res = await getAPReviewGroupsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -90,7 +90,7 @@ const TableList: React.FC = () => {
     // @ts-ignore
     const res = await index({ page: params.current, ...params, c_result: 10 });
     // @ts-ignore
-    if (params.n_borrow_times_type != undefined && params.b_admin_id != undefined) {
+    if (params.n_borrow_times_type !== undefined && params.b_admin_id !== undefined) {
       setCheckBoxDisable(false);
       // @ts-ignore
       setBorrowTimesType(params.n_borrow_times_type);
@@ -101,11 +101,11 @@ const TableList: React.FC = () => {
       actionRef.current?.clearSelected();
     }
 
-    /*    if(admins.length == 0){
+    /*    if(admins.length === 0){
           // @ts-ignore
           await _getUsersEnum();
         }*/
-    if (groups.length == 0) {
+    if (groups.length === 0) {
       // @ts-ignore
       await _getAPReviewGroupsEnum();
     }
@@ -184,7 +184,7 @@ const TableList: React.FC = () => {
         console.log(_);
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
-          return item.role_id == 1 && item.id == record.b_admin_id;
+          return item.role_id === 1 && item.id === record.b_admin_id;
         }) ? (
           <del>{_}</del>
         ) : (

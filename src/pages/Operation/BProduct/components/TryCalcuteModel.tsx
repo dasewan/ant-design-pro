@@ -74,7 +74,7 @@ const TryCalcuteModel: React.FC<FormProps> = (props) => {
   return (
     <Modal
       title="试算"
-      visible={props.modalVisible}
+      open={props.modalVisible}
       onOk={props.onOk}
       onCancel={props.onOk}
       width="90%"
@@ -95,7 +95,7 @@ const TryCalcuteModel: React.FC<FormProps> = (props) => {
         <Col span={4}>
           <Statistic
             title={
-              <>服务费 {tryCalcuteData.settlementType != 3 ? <Tag color="red">头收</Tag> : ''}</>
+              <>服务费 {tryCalcuteData.settlementType !== 3 ? <Tag color="red">头收</Tag> : ''}</>
             }
             value={tryCalcuteData.serviceFee}
           />
@@ -103,7 +103,7 @@ const TryCalcuteModel: React.FC<FormProps> = (props) => {
         <Col span={4}>
           <Statistic
             title={
-              <>利息 {tryCalcuteData.settlementType == 1 ? <Tag color="red">头收</Tag> : ''}</>
+              <>利息 {tryCalcuteData.settlementType === 1 ? <Tag color="red">头收</Tag> : ''}</>
             }
             value={tryCalcuteData.intersetFee}
             suffix=""

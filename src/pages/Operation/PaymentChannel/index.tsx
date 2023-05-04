@@ -81,7 +81,7 @@ const BAWhite: FC<CommonProps> = () => {
        */
       const _getBankEnum = async () => {
         const data: RequestOptionsType[] = [];
-        if (banks.length == 0) {
+        if (banks.length === 0) {
           const res2 = await indexBank({ foo: 1 });
           for (const item of res2.data!) {
             data.push({
@@ -120,7 +120,7 @@ const BAWhite: FC<CommonProps> = () => {
       setLoanMenuItemType(tmpItemType);
       setMenuItemType(tmpItemType);
       for (const repayDictionaryKey in repayDictionary) {
-        if (repayDictionary[repayDictionaryKey].length == 1) {
+        if (repayDictionary[repayDictionaryKey].length === 1) {
           tmpItemType2.push({
             label: repayDictionaryKey,
             key: repayDictionary[repayDictionaryKey][0].id,
@@ -172,7 +172,7 @@ const BAWhite: FC<CommonProps> = () => {
   const _handleTabChange = (_key: string) => {
     SetTabActive(_key);
     setDataSource([]);
-    if (_key == 'transfer') {
+    if (_key === 'transfer') {
       setMenuItemType(loanMenuItemType);
       setDefaultSelectedKeys('6');
     } else {
@@ -184,7 +184,7 @@ const BAWhite: FC<CommonProps> = () => {
     console.log(123123);
     console.log(menuId);
     const _dataSource = resultData?.find(
-      (item) => item?.id?.toString() == menuId,
+      (item) => item?.id?.toString() === menuId,
     )?.a_a_a_a_h_a_payment_channel_bank;
     setDataSource(_dataSource!);
     setKey(e.key as string);
@@ -194,20 +194,20 @@ const BAWhite: FC<CommonProps> = () => {
   };
   const confirmSwitch = async (_item: API.HAPaymentChannelBank) => {
     let _success = true;
-    _item.f_status = _item.f_status == 'y' ? 'n' : 'y';
+    _item.f_status = _item.f_status === 'y' ? 'n' : 'y';
     setLoading(true);
     try {
       // @ts-ignore
       const res = await update({ ..._item });
       if (!res.success) {
         //恢复原值
-        _item.f_status = _item.f_status == 'y' ? 'n' : 'y';
+        _item.f_status = _item.f_status === 'y' ? 'n' : 'y';
         _success = false;
       }
     } catch (error) {
       message.error('配置失败请重试！');
       //恢复原值
-      _item.f_status = _item.f_status == 'y' ? 'n' : 'y';
+      _item.f_status = _item.f_status === 'y' ? 'n' : 'y';
       _success = false;
     }
     setLoading(false);
@@ -251,6 +251,7 @@ const BAWhite: FC<CommonProps> = () => {
             icon={<SearchOutlined />}
             size="small"
             style={{ width: 90 }}
+            key="search"
           >
             Search
           </Button>
@@ -258,6 +259,7 @@ const BAWhite: FC<CommonProps> = () => {
             onClick={() => clearFilters && handleReset(clearFilters)}
             size="small"
             style={{ width: 90 }}
+            key="clear"
           >
             Reset
           </Button>
@@ -268,7 +270,7 @@ const BAWhite: FC<CommonProps> = () => {
       <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
     ),
     onFilter: (value, record) => {
-      if (dataIndex == 'b_bank_id') {
+      if (dataIndex === 'b_bank_id') {
         const tmpBanks = banks.filter((item) => {
           return item.text
             ?.toString()
@@ -292,9 +294,9 @@ const BAWhite: FC<CommonProps> = () => {
         },*/
     render: (text) => {
       let _text = text;
-      if (dataIndex == 'b_bank_id') {
+      if (dataIndex === 'b_bank_id') {
         _text = banks.find((item) => {
-          return item.value == text.props.record.b_bank_id;
+          return item.value === text.props.record.b_bank_id;
         })?.label;
       }
       return searchedColumn === dataIndex ? (
@@ -334,13 +336,14 @@ const BAWhite: FC<CommonProps> = () => {
       render: (_, record) => {
         const edit = (
           <Popconfirm
+            key={record.id}
             title="Are you sure to delete this task?"
             onConfirm={confirmSwitch.bind(this, record)}
             // onCancel={cancel}
             okText="Yes"
             cancelText="No"
           >
-            <Switch checkedChildren="开" unCheckedChildren="关" checked={record.f_status == 'y'} />
+            <Switch checkedChildren="开" unCheckedChildren="关" checked={record.f_status === 'y'} />
           </Popconfirm>
         );
 
@@ -372,7 +375,7 @@ const BAWhite: FC<CommonProps> = () => {
       tabActiveKey={tabActive}
       onTabChange={_handleTabChange}
     >
-      {/*{tabActive == 'transfer' ?*/}
+      {/*{tabActive === 'transfer' ?*/}
       <Spin spinning={loading}>
         <div>
           <ProTable<API.HAPaymentChannelBank>

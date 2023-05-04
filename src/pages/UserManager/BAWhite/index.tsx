@@ -1,7 +1,7 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Badge, Button, Dropdown, Menu, message, Popconfirm } from 'antd';
+import { Badge, Button, Dropdown, MenuProps, message, Popconfirm } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
@@ -56,7 +56,7 @@ const TableList: React.FC = () => {
    */
   const _getUserEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUserEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -95,7 +95,7 @@ const TableList: React.FC = () => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -172,7 +172,22 @@ const TableList: React.FC = () => {
       },
     },
   ];
-
+  const items: MenuProps['items'] = [
+    { label: '操作说明', key: 'item-1', icon: <FileTextOutlined /> },
+    {
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={'/admin/v1/aLAdminFiles_templete/white_info_list.xlsx'}
+        >
+          模版下载
+        </a>
+      ),
+      key: 'item-2',
+      icon: <DownloadOutlined />,
+    },
+  ];
   return (
     <PageContainer
       header={{
@@ -182,30 +197,7 @@ const TableList: React.FC = () => {
           <Button key="3" type="primary" onClick={() => handleImportModalVisible(true)}>
             导入白名单
           </Button>,
-          <Dropdown
-            key="dropdown"
-            trigger={['click']}
-            overlay={
-              <Menu
-                items={[
-                  { label: '操作说明', key: 'item-1', icon: <FileTextOutlined /> },
-                  {
-                    label: (
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={'/admin/v1/aLAdminFiles_templete/white_info_list.xlsx'}
-                      >
-                        模版下载
-                      </a>
-                    ),
-                    key: 'item-2',
-                    icon: <DownloadOutlined />,
-                  },
-                ]}
-              />
-            }
-          >
+          <Dropdown key="dropdown" trigger={['click']} menu={{ items }}>
             <Button key="4" style={{ padding: '0 8px' }}>
               <EllipsisOutlined />
             </Button>

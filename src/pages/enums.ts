@@ -1,4 +1,35 @@
-export const STATUS_ENUM = {
+export interface StatusItem {
+  text: string;
+  status: string;
+}
+
+export interface StatusColorItem {
+  text: string;
+  color: string;
+}
+
+export interface StatusEnum {
+  [key: number]: StatusItem;
+}
+
+export interface StatusEnum2 {
+  [key: string]: StatusItem;
+}
+
+export interface StatusColorEnum {
+  [key: number]: StatusColorItem;
+}
+
+export interface StatusColorEnum2 {
+  [key: string]: StatusColorItem;
+}
+
+type StatusOption = {
+  label: string;
+  value: string | number;
+};
+
+export const STATUS_ENUM: StatusEnum = {
   1: { text: '待执行', status: 'Default' },
   2: { text: '进行中', status: 'Processing' },
   3: { text: '执行成功', status: 'Success' },
@@ -6,7 +37,7 @@ export const STATUS_ENUM = {
   5: { text: '无效', status: 'Error' },
 };
 
-export const COMMON_STATUS = {
+export const COMMON_STATUS: StatusEnum = {
   10: { text: 'WAITING', status: 'Default' },
   20: { text: 'PROCESSING', status: 'Processing' },
   30: { text: 'UNKNOWN', status: 'Default' },
@@ -14,7 +45,7 @@ export const COMMON_STATUS = {
   50: { text: 'SUCCESS', status: 'Success' },
 };
 
-export const VERIFY_STATUS_ENUM = {
+export const VERIFY_STATUS_ENUM: StatusEnum = {
   10: { text: 'WAITING', status: 'Default' },
   20: { text: 'PROCESSING', status: 'Processing' },
   30: { text: 'UNKNOWN', status: 'Default' },
@@ -25,7 +56,7 @@ export const VERIFY_STATUS_ENUM = {
 
 export type NoticeIconItemType = 'notification' | 'message' | 'event';
 //用户动态 1：注册 3：登录 5：认证 7：机审 9：人审 11：放款 13：展期 15：还款 17：部分还款 19：提额 21：降额
-export const NEWS_ENUM = {
+export const NEWS_ENUM: StatusColorEnum = {
   1: { text: '注册', color: 'green' },
   3: { text: '登录', color: 'green' },
   5: { text: '认证', color: 'blue' },
@@ -45,7 +76,7 @@ export const NEWS_ENUM = {
   33: { text: '从白名单中移除', color: 'red' },
 };
 // 客户当前页面
-export const INDEX_ACTION_ENUM = {
+export const INDEX_ACTION_ENUM: StatusEnum = {
   11: { text: '创建订单', status: 'Processing' },
   12: { text: '认证列表', status: 'Processing' },
   13: { text: '活体', status: 'Processing' },
@@ -65,12 +96,12 @@ export const INDEX_ACTION_ENUM = {
   54: { text: '签约', status: 'Processing' },
 };
 //授信
-export const CREDIT_TYPE_ENUM = {
+export const CREDIT_TYPE_ENUM: StatusEnum = {
   1: { text: '提额', status: 'Error' },
   2: { text: '降额', status: 'Success' },
 };
 //订单状态
-export const BORROW_STATUS_ENUM = {
+export const BORROW_STATUS_ENUM: StatusColorEnum = {
   10: { text: '认证中', color: '#00e5f7' },
   20: { text: '签约', color: '#00e5f7' },
   30: { text: '机审', color: '#00e5f7' },
@@ -103,7 +134,7 @@ export const VERIFY_STATUS_MAP = {
   EXPIRED: 60,
 };
 
-export const BORROW_SUB_STATUS_ENUM = {
+export const BORROW_SUB_STATUS_ENUM: StatusEnum = {
   1100: { text: '待认证', status: '' },
 
   1110: { text: '身份证待认证', status: '' },
@@ -151,12 +182,12 @@ export const BORROW_SUB_STATUS_ENUM = {
   3020: { text: '机审中', status: '' },
   3040: { text: '机审拒绝', status: 'Error' },
   3030: { text: '待人审', status: '' },
-  3050: { text: '机审通过', color: '#057748' },
+  3050: { text: '机审通过', status: 'Success' },
 
   4010: { text: '待人审', status: '' },
   4020: { text: '人审中', status: '' },
   4040: { text: '人审拒绝', status: 'Error' },
-  4050: { text: '人审通过', color: '#1bd1a5' },
+  4050: { text: '人审通过', status: 'Success' },
 
   1910: { text: '待放款（人工）', status: '' },
   1912: { text: '放款中（人工）', status: '' },
@@ -184,7 +215,7 @@ export const BORROW_SUB_STATUS_ENUM = {
   7008: { text: '优惠券结清（有过展期）', status: 'Success' },
 };
 //管理员操作
-export const OPERATE_ENUM = {
+export const OPERATE_ENUM: StatusColorEnum = {
   1: { text: '人审', color: 'green' },
   3: { text: '催记', color: 'green' },
   5: { text: '发送短信', color: 'yellow' },
@@ -196,23 +227,23 @@ export const OPERATE_ENUM = {
   17: { text: '发送优惠券', color: 'yellow' },
 };
 //产品结算方式
-export const PRODUCT_SETTLEMENT_TYPE = {
+export const PRODUCT_SETTLEMENT_TYPE: StatusColorEnum = {
   1: { text: '头收', color: '#87d068' },
   2: { text: '只头收服务费', color: '#2db7f5' },
   3: { text: '后收', color: '#f50' },
 };
 //产品结算方式
-export const PRODUCT_TYPE = {
+export const PRODUCT_TYPE: StatusColorEnum = {
   1: { text: '真实产品', color: 'success' },
   2: { text: '虚拟产品', color: 'default' },
   3: { text: '贷超产品', color: 'processing' },
 };
 //状态：启用/禁用
-export const COMMON_STATUS_QIYONG = {
+export const COMMON_STATUS_QIYONG: StatusEnum2 = {
   y: { text: '启用', status: 'Success' },
   n: { text: '禁用', status: 'Error' },
 };
-export const COMMON_STATUS_QIYONG_ARRAY = [
+export const COMMON_STATUS_QIYONG_ARRAY: StatusOption[] = [
   {
     label: '启用',
     value: 'y',
@@ -223,11 +254,11 @@ export const COMMON_STATUS_QIYONG_ARRAY = [
   },
 ];
 //状态：启用/禁用
-export const COMMON_STATUS_INT = {
+export const COMMON_STATUS_INT: StatusEnum = {
   1: { text: '启用', status: 'Success' },
   2: { text: '禁用', status: 'Error' },
 };
-export const COMMON_STATUS_INT_ARRAY = [
+export const COMMON_STATUS_INT_ARRAY: StatusOption[] = [
   {
     label: '启用',
     value: 1,
@@ -238,40 +269,40 @@ export const COMMON_STATUS_INT_ARRAY = [
   },
 ];
 //状态：允许/不允许
-export const COMMON_STATUS_YUNXU = {
+export const COMMON_STATUS_YUNXU: StatusEnum2 = {
   y: { text: '允许', status: 'Success' },
   n: { text: '不允许', status: 'Error' },
 };
-export const COMMON_STATUS_YUNXU_ARRAY = [
+export const COMMON_STATUS_YUNXU_ARRAY: StatusOption[] = [
   { label: '允许', value: 'y' },
   { label: '不允许', value: 'n' },
 ];
-export const BLACK_TYPE = {
+export const BLACK_TYPE: StatusEnum = {
   1: { text: '导入excel', status: '' },
   2: { text: '系统', status: 'Error' },
   3: { text: '管理员手动', status: 'Error' },
 };
 
 //放款日志方式
-export const LOAN_LOG_METHOD = {
+export const LOAN_LOG_METHOD: StatusEnum = {
   1: { text: '线上放款', status: '' },
   2: { text: '线下放款', status: '' },
 };
 //放款日志类型
-export const LOAN_LOG_TYPE = {
+export const LOAN_LOG_TYPE: StatusEnum = {
   1: { text: '正常放款', status: '' },
   2: { text: '强行放款', status: 'Error' },
 };
 //放款款日志类型 type 1:结清 2：展期 3：部分还款 4：减免 5：核销
-export const REPAY_LOG_TYPE = {
+export const REPAY_LOG_TYPE: StatusColorEnum = {
   1: { text: '结清', color: '#00e500' },
-  2: { text: '展期', status: '#00e5f7' },
+  2: { text: '展期', color: '#00e5f7' },
   3: { text: '部分还款', color: '#f7cb00' },
   4: { text: '减免', color: '#f42505' },
   5: { text: '核销', color: '#9543a1' },
 };
 //放款日志状态  状态 10:待放款 20： 放款中 30:未知 40：放款失败 50：放款成功
-export const LOAN_LOG_STATUS = {
+export const LOAN_LOG_STATUS: StatusEnum = {
   10: { text: '待放款', status: 'Default' },
   20: { text: '放款中', status: 'Processing' },
   30: { text: '未知', status: 'Error' },
@@ -279,7 +310,7 @@ export const LOAN_LOG_STATUS = {
   50: { text: '放款成功', status: 'Success' },
 };
 //放款日志状态  状态 10:回调中 20： 支付中 30:未知 40：支付失败 50：支付成功
-export const REPAY_LOG_STATUS = {
+export const REPAY_LOG_STATUS: StatusEnum = {
   10: { text: '回调中', status: 'Default' },
   20: { text: '支付中', status: 'Processing' },
   30: { text: '未知', status: 'Error' },
@@ -287,29 +318,29 @@ export const REPAY_LOG_STATUS = {
   50: { text: '支付成功', status: 'Success' },
 };
 //1还款链接 2：app
-export const REPAY_WAY = {
+export const REPAY_WAY: StatusEnum = {
   1: { text: '还款链接', status: '' },
   2: { text: 'app', status: '' },
 };
-export const SYNC_CODE = {
+export const SYNC_CODE: StatusEnum = {
   300: { text: '请求结果未知', status: 'Processing' },
   500: { text: '请求失败', status: 'Error' },
   200: { text: '请求成功', status: 'Success' },
   500_001: { text: '风控拦截', status: 'Error' },
   500_002: { text: '系统异常', status: 'Error' },
 };
-export const CALLBACK_CODE = {
+export const CALLBACK_CODE: StatusEnum = {
   100: { text: '暂未收到回调', status: 'Default' },
   500: { text: '回调失败', status: 'Error' },
   200: { text: '回调成功', status: 'Success' },
 };
 
-export const REVIEW_STATUS = {
+export const REVIEW_STATUS: StatusEnum = {
   10: { text: 'WAITING', status: 'Default' },
   40: { text: 'REJECT', status: 'Error' },
   50: { text: 'ACCEPT', status: 'Success' },
 };
-export const SMS_TYPE = {
+export const SMS_TYPE: StatusColorEnum = {
   101: { text: '登录', color: '#0099FF' },
   102: { text: '拒绝', color: '#FF9900' },
   103: { text: '通过', color: '#a0c69d' },
@@ -323,12 +354,12 @@ export const SMS_TYPE = {
 };
 
 //产品结算方式
-export const FLOW_TYPE = {
+export const FLOW_TYPE: StatusEnum = {
   1: { text: '随机', status: 'Default' },
   2: { text: '排除', status: 'Warning' },
   3: { text: '保留', status: 'success' },
 };
-export const FLOW_TYPE_ARRAY = [
+export const FLOW_TYPE_ARRAY: StatusOption[] = [
   {
     label: '随机',
     value: 1,
@@ -344,11 +375,11 @@ export const FLOW_TYPE_ARRAY = [
 ];
 
 //产品结算方式
-export const ASSIGN_TYPE = {
+export const ASSIGN_TYPE: StatusEnum = {
   1: { text: '按比补齐', status: 'Default' },
   2: { text: '按比分配', status: 'Processing' },
 };
-export const ASSIGN_TYPE_ARRAY = [
+export const ASSIGN_TYPE_ARRAY: StatusOption[] = [
   {
     label: '按比补齐',
     value: 1,

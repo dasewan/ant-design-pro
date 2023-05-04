@@ -10,7 +10,7 @@ import {
 } from '@ant-design/pro-form';
 import type { ProFieldRequestData } from '@ant-design/pro-utils';
 import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
-import { message, Modal } from 'antd';
+import { message } from 'antd';
 import type { RcFile, UploadChangeParam } from 'antd/lib/upload/interface';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
 import React, { useRef, useState } from 'react';
@@ -65,7 +65,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -100,27 +100,29 @@ const ImportForm: React.FC<FormProps> = (props) => {
     }
   };
   const _handleBeforeUpload = (file: RcFile) => {
-    if (file.size <= 800 * 1024) return Promise.resolve();
-    return new Promise<void>((resolve, reject) =>
-      Modal.confirm({
-        title: '文件大小错误',
-        content: `文件大于800k,无法上传`,
-        onOk() {
-          resolve();
-        },
-        onCancel() {
-          reject();
-        },
-      }),
-    );
+    if (file.size <= 800 * 1024) return true;
+    message.error('Image must smaller than 2MB!');
+    return false;
+    /*    return new Promise<void>(() =>
+          Modal.confirm({
+            title: '文件大小错误',
+            content: `文件大于800k,无法上传`,
+            onOk() {
+              // resolve();
+            },
+            onCancel() {
+              // reject();
+            },
+          }),
+        );*/
   };
   const _handleUploadChange = (info: UploadChangeParam) => info;
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           setConfirmLoading(true);

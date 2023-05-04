@@ -206,7 +206,7 @@ const NestedEditableTable: React.FC<NestedEditableTableProps> = ({
           )}
         />
       </ProForm.Item>
-      <Modal visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <Alert
           message="权限警告"
           description="您当前登录帐号不是催收机构管理员机构，原则上小组规则应该由催收机构管理员编辑，建议您撤销刚才的修改，或者您可以忽视此警告继续编辑，"
@@ -325,7 +325,7 @@ const EditForm: React.FC<FormProps> = (props) => {
   const expandedRowRender2 = (record: API.HFCollectionAgencyRole, index: number) => {
     const nestedDataSource = record.a_a_a_a_a_n_b_collection_group_roles;
     const collectionGroups2 = props.collectionGroups.filter(
-      (item) => item.c_collection_agency_id == record.b_collection_agency_id!,
+      (item) => item.c_collection_agency_id === record.b_collection_agency_id!,
     );
     return (
       <NestedEditableTable
@@ -345,9 +345,9 @@ const EditForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();

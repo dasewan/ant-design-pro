@@ -4,20 +4,9 @@ import type { TabPaneProps } from 'antd';
 import { Tooltip } from 'antd';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
-import { history } from 'umi';
+import { history, Outlet } from 'umi';
 
-type CommonProps = {
-  match: {
-    url: string;
-    path: string;
-  };
-  location: {
-    pathname: string;
-  };
-};
-
-const BAWhite: FC<CommonProps> = (props) => {
-  const { match } = props;
+const BAWhite: FC = () => {
   /** tabs */
   const [tabList, setTabList] = useState<
     (TabPaneProps & {
@@ -38,15 +27,15 @@ const BAWhite: FC<CommonProps> = (props) => {
     // @ts-ignore
     const res = await getBAWhiteTab({ foo: null });
     tabList.forEach((value) => {
-      const tabCount = res.data?.find((item: API.CommonTab) => item.key == value.key)?.tab_count;
+      const tabCount = res.data?.find((item: API.CommonTab) => item.key === value.key)?.tab_count;
       const todayCount = res.data?.find(
-        (item: API.CommonTab) => item.key == value.key,
+        (item: API.CommonTab) => item.key === value.key,
       )?.today_count;
-      const title = res.data?.find((item: API.CommonTab) => item.key == value.key)?.tooltip;
+      const title = res.data?.find((item: API.CommonTab) => item.key === value.key)?.tooltip;
       value.tab = (
         <div>
-          {tabCount != undefined && tabCount > 0 ? value.tab + ' ' + tabCount : value.tab}
-          {todayCount != undefined && todayCount > 0 ? (
+          {tabCount !== undefined && tabCount > 0 ? value.tab + ' ' + tabCount : value.tab}
+          {todayCount !== undefined && todayCount > 0 ? (
             <Tooltip title={title}>
               <span className={'statistic-today-increase'}>{'+' + todayCount}</span>
             </Tooltip>
@@ -64,17 +53,16 @@ const BAWhite: FC<CommonProps> = (props) => {
   }, []);
 
   const _handleTabChange = (key: string) => {
-    const url = match.url === '/' ? '' : match.url;
-    history.push(`${url}/${key}`);
+    history.push(`/user-manager/white-user-list/${key}`);
   };
 
   const _getTabKey = () => {
-    const { location } = props;
-    const url = match.path === '/' ? '' : match.path;
-    const tabKey = location.pathname.replace(`${url}/`, '');
-    if (tabKey && tabKey !== '/') {
-      return tabKey;
-    }
+    /*    const { location } = props;
+        const url = match.path === '/' ? '' : match.path;
+        const tabKey = location.pathname.replace(`${url}/`, '');
+        if (tabKey && tabKey !== '/') {
+          return tabKey;
+        }*/
     return 'articles';
   };
 
@@ -88,7 +76,7 @@ const BAWhite: FC<CommonProps> = (props) => {
       tabActiveKey={_getTabKey()}
       onTabChange={_handleTabChange}
     >
-      {props.children}
+      <Outlet />
     </PageContainer>
   );
 };

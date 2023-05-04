@@ -85,7 +85,7 @@ const TableList: React.FC = () => {
    */
   const _getUserEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUserEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -105,7 +105,7 @@ const TableList: React.FC = () => {
    */
   const _getReasonEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (reasons.length == 0) {
+    if (reasons.length === 0) {
       const res = await getReasonsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -125,7 +125,7 @@ const TableList: React.FC = () => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -145,9 +145,9 @@ const TableList: React.FC = () => {
    * @param e
    */
   const _onActionClick = (e: string) => {
-    if (e == 'black') {
+    if (e === 'black') {
       handleBlackModalVisible(true);
-    } else if (e == 'credit') {
+    } else if (e === 'credit') {
       handleCreditModalVisible(true);
     }
   };
@@ -201,7 +201,7 @@ const TableList: React.FC = () => {
       request: _getChannelsEnum,
       params: { timestamp: Math.random() },
       render: (_, record) => {
-        return record.m_channel_hide == 'n' ? <del>{_}</del> : _;
+        return record.m_channel_hide === 'n' ? <del>{_}</del> : _;
       },
     },
     //todo 跳转到此用户规则匹配记录
@@ -210,11 +210,11 @@ const TableList: React.FC = () => {
       dataIndex: 'g_credit_fraction',
       fieldProps: { placeholder: '支持区间' },
       render: (_, record) => {
-        if (record.q_block_type == 'black') {
+        if (record.q_block_type === 'black') {
           return <Tag color="FF0000">{_}</Tag>;
-        } else if (record.q_block_type == 'gray') {
+        } else if (record.q_block_type === 'gray') {
           return <Tag color="#FFCC00">{_}</Tag>;
-        } else if (record.q_block_type == 'white') {
+        } else if (record.q_block_type === 'white') {
           return <Tag color="#87d068">{_}</Tag>;
         } else {
           return _;
@@ -334,7 +334,7 @@ const TableList: React.FC = () => {
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
-          return item.role_id == 1 && item.id == record.z_saler_admin_id;
+          return item.role_id === 1 && item.id === record.z_saler_admin_id;
         }) ? (
           <del>{_}</del>
         ) : (
@@ -368,7 +368,7 @@ const TableList: React.FC = () => {
       valueType: 'option',
       render: (_, record) => {
         const menuItems = [];
-        if (record.q_block_type != 'black') {
+        if (record.q_block_type !== 'black') {
           menuItems.push({ key: 'black', name: '拉黑', icon: <LockOutlined /> });
           menuItems.push({ key: 'credit', name: '授信', icon: <SubnodeOutlined /> });
         }

@@ -205,7 +205,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         'f_settlement_type',
       ])
       .then((values) => {
-        if (values.a_a_amount_type == 1) {
+        if (values.a_a_amount_type === 1) {
           // formRef?.current?.setFieldsValue({c_amount:1000});
           values.c_amount = 1000;
         }
@@ -376,7 +376,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.b_name}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.b_name || !oldRecord?.b_name
+                      return value === oldRecord?.b_name || !oldRecord?.b_name
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.b_name}`));
                     },
@@ -386,7 +386,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 placeholder={`请输入${fieldLabels.b_name}`}
                 // fieldRef={inputRef}
                 // validateStatus={"warning"}
-                // fieldProps={{status: formRef?.current?.getFieldsValue().b_name != oldRecord?.b_name ? "warning": undefined}}
+                // fieldProps={{status: formRef?.current?.getFieldsValue().b_name !== oldRecord?.b_name ? "warning": undefined}}
               />
             </Col>
             <Col xl={{ span: 4, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
@@ -397,14 +397,14 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请选择${fieldLabels.o_type}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.o_type || !oldRecord?.o_type
+                      return value === oldRecord?.o_type || !oldRecord?.o_type
                         ? Promise.resolve()
                         : Promise.reject(
                             new Error(
                               `旧值：   ${
-                                oldRecord?.o_type == 1
+                                oldRecord?.o_type === 1
                                   ? '真实产品'
-                                  : oldRecord?.o_type == 3
+                                  : oldRecord?.o_type === 3
                                   ? '贷超产品'
                                   : '虚拟产品'
                               }`,
@@ -427,12 +427,12 @@ const AdvancedForm: FC<Record<string, any>> = () => {
               <ProFormText
                 label={<>{fieldLabels.p_url}</>}
                 name="p_url"
-                disabled={oType != 3}
+                disabled={oType !== 3}
                 rules={[
-                  { required: oType == 3, message: `请输入${fieldLabels.p_url}` },
+                  { required: oType === 3, message: `请输入${fieldLabels.p_url}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.p_url || !oldRecord?.p_url
+                      return value === oldRecord?.p_url || !oldRecord?.p_url
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.p_url}`));
                     },
@@ -457,12 +457,12 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请选择${fieldLabels.a_a_amount_type}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.a_a_amount_type || !oldRecord?.a_a_amount_type
+                      return value === oldRecord?.a_a_amount_type || !oldRecord?.a_a_amount_type
                         ? Promise.resolve()
                         : Promise.reject(
                             new Error(
                               `旧值：   ${
-                                oldRecord?.a_a_amount_type == 1 ? '灵活额度' : '固定额度'
+                                oldRecord?.a_a_amount_type === 1 ? '灵活额度' : '固定额度'
                               }`,
                             ),
                           );
@@ -497,7 +497,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.a_b_day_valid_count}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.a_b_day_valid_count ||
+                      return value === oldRecord?.a_b_day_valid_count ||
                         !oldRecord?.a_b_day_valid_count
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.a_b_day_valid_count}`));
@@ -517,11 +517,11 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请选择${fieldLabels.m_can_part_pay}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.m_can_part_pay || !oldRecord?.m_can_part_pay
+                      return value === oldRecord?.m_can_part_pay || !oldRecord?.m_can_part_pay
                         ? Promise.resolve()
                         : Promise.reject(
                             new Error(
-                              `旧值：   ${oldRecord?.m_can_part_pay == 'y' ? '允许' : '不允许'}`,
+                              `旧值：   ${oldRecord?.m_can_part_pay === 'y' ? '允许' : '不允许'}`,
                             ),
                           );
                     },
@@ -545,11 +545,11 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请选择${fieldLabels.n_can_extend}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.n_can_extend || !oldRecord?.n_can_extend
+                      return value === oldRecord?.n_can_extend || !oldRecord?.n_can_extend
                         ? Promise.resolve()
                         : Promise.reject(
                             new Error(
-                              `旧值：   ${oldRecord?.n_can_extend == 'y' ? '允许' : '不允许'}`,
+                              `旧值：   ${oldRecord?.n_can_extend === 'y' ? '允许' : '不允许'}`,
                             ),
                           );
                     },
@@ -573,10 +573,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请选择${fieldLabels.u_status}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.u_status || !oldRecord?.u_status
+                      return value === oldRecord?.u_status || !oldRecord?.u_status
                         ? Promise.resolve()
                         : Promise.reject(
-                            new Error(`旧值：   ${oldRecord?.u_status == 'y' ? '显示' : '隐藏'}`),
+                            new Error(`旧值：   ${oldRecord?.u_status === 'y' ? '显示' : '隐藏'}`),
                           );
                     },
                     warningOnly: true,
@@ -606,14 +606,14 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请选择${fieldLabels.f_settlement_type}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.f_settlement_type || !oldRecord?.f_settlement_type
+                      return value === oldRecord?.f_settlement_type || !oldRecord?.f_settlement_type
                         ? Promise.resolve()
                         : Promise.reject(
                             new Error(
                               `旧值：   ${
-                                oldRecord?.f_settlement_type == 1
+                                oldRecord?.f_settlement_type === 1
                                   ? '头收'
-                                  : oldRecord?.f_settlement_type == 2
+                                  : oldRecord?.f_settlement_type === 2
                                   ? '只头收服务费'
                                   : '后收'
                               }`,
@@ -644,12 +644,12 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   </>
                 }
                 name="c_amount"
-                disabled={aAAmountType != 2}
+                disabled={aAAmountType !== 2}
                 rules={[
-                  { required: aAAmountType == 2, message: `请输入${fieldLabels.c_amount}` },
+                  { required: aAAmountType === 2, message: `请输入${fieldLabels.c_amount}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.c_amount || !oldRecord?.c_amount
+                      return value === oldRecord?.c_amount || !oldRecord?.c_amount
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.c_amount}`));
                     },
@@ -676,7 +676,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.z_period}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.z_period || !oldRecord?.z_period
+                      return value === oldRecord?.z_period || !oldRecord?.z_period
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.z_period}`));
                     },
@@ -700,7 +700,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.e_life}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.e_life || !oldRecord?.e_life
+                      return value === oldRecord?.e_life || !oldRecord?.e_life
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.e_life}`));
                     },
@@ -726,7 +726,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.g_interest}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.g_interest || !oldRecord?.g_interest
+                      return value === oldRecord?.g_interest || !oldRecord?.g_interest
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.g_interest}`));
                     },
@@ -750,7 +750,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.h_service_fee_rate}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.h_service_fee_rate ||
+                      return value === oldRecord?.h_service_fee_rate ||
                         !oldRecord?.h_service_fee_rate
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.h_service_fee_rate}`));
@@ -775,7 +775,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.i_overdue_rate}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.i_overdue_rate || !oldRecord?.i_overdue_rate
+                      return value === oldRecord?.i_overdue_rate || !oldRecord?.i_overdue_rate
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.i_overdue_rate}`));
                     },
@@ -799,7 +799,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.j_violate_fee_rate}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.j_violate_fee_rate ||
+                      return value === oldRecord?.j_violate_fee_rate ||
                         !oldRecord?.j_violate_fee_rate
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.j_violate_fee_rate}`));
@@ -823,10 +823,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 }
                 name="k_extend_rate"
                 rules={[
-                  { required: nCanExtend == 'y', message: `请输入${fieldLabels.k_extend_rate}` },
+                  { required: nCanExtend === 'y', message: `请输入${fieldLabels.k_extend_rate}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.k_extend_rate || !oldRecord?.k_extend_rate
+                      return value === oldRecord?.k_extend_rate || !oldRecord?.k_extend_rate
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.k_extend_rate}`));
                     },
@@ -835,7 +835,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 ]}
                 fieldProps={{ precision: 0, addonAfter: '%' }}
                 placeholder={`请输入${fieldLabels.k_extend_rate}`}
-                disabled={nCanExtend != 'y'}
+                disabled={nCanExtend !== 'y'}
               />
             </Col>
             <Col xl={{ span: 4, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
@@ -848,10 +848,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 }
                 name="l_min_pay"
                 rules={[
-                  { required: mCanPartPay == 'y', message: `请输入${fieldLabels.l_min_pay}` },
+                  { required: mCanPartPay === 'y', message: `请输入${fieldLabels.l_min_pay}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.l_min_pay || !oldRecord?.l_min_pay
+                      return value === oldRecord?.l_min_pay || !oldRecord?.l_min_pay
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.l_min_pay}`));
                     },
@@ -860,7 +860,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 ]}
                 fieldProps={{ precision: 0, addonAfter: '$' }}
                 placeholder={`请输入${fieldLabels.l_min_pay}`}
-                disabled={mCanPartPay != 'y'}
+                disabled={mCanPartPay !== 'y'}
               />
             </Col>
           </Row>
@@ -875,7 +875,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.q_unlock_credit_fraction}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.q_unlock_credit_fraction ||
+                      return value === oldRecord?.q_unlock_credit_fraction ||
                         !oldRecord?.q_unlock_credit_fraction
                         ? Promise.resolve()
                         : Promise.reject(
@@ -897,7 +897,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.r_settled_times}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.r_settled_times || !oldRecord?.r_settled_times
+                      return value === oldRecord?.r_settled_times || !oldRecord?.r_settled_times
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.r_settled_times}`));
                     },
@@ -916,7 +916,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.s_max_overdue_days}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.s_max_overdue_days ||
+                      return value === oldRecord?.s_max_overdue_days ||
                         !oldRecord?.s_max_overdue_days
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.s_max_overdue_days}`));
@@ -936,7 +936,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.t_max_overdue_times}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.t_max_overdue_times ||
+                      return value === oldRecord?.t_max_overdue_times ||
                         !oldRecord?.t_max_overdue_times
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.t_max_overdue_times}`));
@@ -1018,7 +1018,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.x_introduction}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.x_introduction || !oldRecord?.x_introduction
+                      return value === oldRecord?.x_introduction || !oldRecord?.x_introduction
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.x_introduction}`));
                     },
@@ -1036,7 +1036,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   { required: true, message: `请输入${fieldLabels.y_comment}` },
                   {
                     validator: (_, value) => {
-                      return value == oldRecord?.y_comment || !oldRecord?.y_comment
+                      return value === oldRecord?.y_comment || !oldRecord?.y_comment
                         ? Promise.resolve()
                         : Promise.reject(new Error(`旧值：   ${oldRecord?.y_comment}`));
                     },

@@ -179,7 +179,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
   return (
     <Modal
       title="还款明细"
-      visible={props.modalVisible}
+      open={props.modalVisible}
       onOk={props.onOk}
       onCancel={props.onOk}
       width="90%"
@@ -202,7 +202,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
         <Descriptions.Item label={FieldLabels.a_a_a_a_a_d_borrow.b_channel_id}>
           {
             props.channels.find(
-              (item) => item.value == props.record?.a_a_a_a_a_d_borrow?.b_channel_id,
+              (item) => item.value === props.record?.a_a_a_a_a_d_borrow?.b_channel_id,
             )?.label
           }
         </Descriptions.Item>
@@ -284,7 +284,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
             <b
               style={{
                 color:
-                  props.record!.g_expect_borrow_amount - props.record!.o_paid_borrow_amount == 0
+                  props.record!.g_expect_borrow_amount - props.record!.o_paid_borrow_amount === 0
                     ? 'green'
                     : 'red',
               }}
@@ -303,7 +303,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
             <b
               style={{
                 color:
-                  props.record!.h_expect_interest - props.record!.p_paid_interest == 0
+                  props.record!.h_expect_interest - props.record!.p_paid_interest === 0
                     ? 'green'
                     : 'red',
               }}
@@ -322,7 +322,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
             <b
               style={{
                 color:
-                  props.record!.i_expect_service_fee - props.record!.q_paid_service_fee == 0
+                  props.record!.i_expect_service_fee - props.record!.q_paid_service_fee === 0
                     ? 'green'
                     : 'red',
               }}
@@ -341,7 +341,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
             <b
               style={{
                 color:
-                  props.record!.j_expect_violate_fee - props.record!.r_paid_violate_fee == 0
+                  props.record!.j_expect_violate_fee - props.record!.r_paid_violate_fee === 0
                     ? 'green'
                     : 'red',
               }}
@@ -360,7 +360,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
             <b
               style={{
                 color:
-                  props.record!.k_expect_overdue_fee - props.record!.s_paid_overdue_fee == 0
+                  props.record!.k_expect_overdue_fee - props.record!.s_paid_overdue_fee === 0
                     ? 'green'
                     : 'red',
               }}

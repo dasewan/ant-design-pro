@@ -67,9 +67,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -108,7 +108,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.b_name}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.b_name || !oldRecord?.b_name
+              return value === oldRecord?.b_name || !oldRecord?.b_name
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.b_name}`));
             },
@@ -125,7 +125,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.c_local_name}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.c_local_name || !oldRecord?.c_local_name
+              return value === oldRecord?.c_local_name || !oldRecord?.c_local_name
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.c_local_name}`));
             },
@@ -142,7 +142,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.e_description}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.e_description || !oldRecord?.e_description
+              return value === oldRecord?.e_description || !oldRecord?.e_description
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.e_description}`));
             },
@@ -159,7 +159,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.f_local_description}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.f_local_description || !oldRecord?.f_local_description
+              return value === oldRecord?.f_local_description || !oldRecord?.f_local_description
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.f_local_description}`));
             },

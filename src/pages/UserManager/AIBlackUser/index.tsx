@@ -1,17 +1,8 @@
+import { Outlet } from '@@/exports';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { history } from 'umi';
-
-type CommonProps = {
-  match: {
-    url: string;
-    path: string;
-  };
-  location: {
-    pathname: string;
-  };
-};
 
 const tabList = [
   {
@@ -24,25 +15,24 @@ const tabList = [
   },
 ];
 
-const RBlack: FC<CommonProps> = (props) => {
-  const { match } = props;
+const RBlack: FC = () => {
   useEffect(() => {
     history.push(`/user-manager/black-user-list/black-user`);
     return () => {};
   }, []);
 
   const _handleTabChange = (key: string) => {
-    const url = match.url === '/' ? '' : match.url;
-    history.push(`${url}/${key}`);
+    // const url = match.url === '/' ? '' : match.url;
+    history.push(`/user-manager/black-user-list/${key}`);
   };
 
   const _getTabKey = () => {
-    const { location } = props;
-    const url = match.path === '/' ? '' : match.path;
-    const tabKey = location.pathname.replace(`${url}/`, '');
-    if (tabKey && tabKey !== '/') {
-      return tabKey;
-    }
+    /*    const { location } = props;
+        const url = match.path === '/' ? '' : match.path;
+        const tabKey = location.pathname.replace(`${url}/`, '');
+        if (tabKey && tabKey !== '/') {
+          return tabKey;
+        }*/
     return 'articles';
   };
 
@@ -56,7 +46,7 @@ const RBlack: FC<CommonProps> = (props) => {
       tabActiveKey={_getTabKey()}
       onTabChange={_handleTabChange}
     >
-      {props.children}
+      <Outlet />
     </PageContainer>
   );
 };

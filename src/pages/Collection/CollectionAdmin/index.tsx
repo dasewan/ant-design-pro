@@ -41,7 +41,7 @@ const TableList: React.FC = () => {
    */
   const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -60,7 +60,7 @@ const TableList: React.FC = () => {
    */
   const _getCollectionStagesEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (collectionStages.length == 0) {
+    if (collectionStages.length === 0) {
       const res = await getCollectionStagesEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -79,7 +79,7 @@ const TableList: React.FC = () => {
    */
   const _getCollectionGroupsEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (collectionGroups.length == 0) {
+    if (collectionGroups.length === 0) {
       const res = await getCollectionGroupsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -100,7 +100,7 @@ const TableList: React.FC = () => {
    */
   const _getCollectionAgenciesEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (collectionAgencies.length == 0) {
+    if (collectionAgencies.length === 0) {
       const res = await getCollectionAgenciesEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -119,7 +119,7 @@ const TableList: React.FC = () => {
    */
   const _getCollectionAdminsEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (collectionAdmins.length == 0) {
+    if (collectionAdmins.length === 0) {
       const res = await getCollectionAdminsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -151,17 +151,17 @@ const TableList: React.FC = () => {
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       // @ts-ignore
       await _getUsersEnum();
     }
-    if (collectionAgencies.length == 0) {
+    if (collectionAgencies.length === 0) {
       await _getCollectionAgenciesEnum();
     }
-    if (collectionGroups.length == 0) {
+    if (collectionGroups.length === 0) {
       await _getCollectionGroupsEnum();
     }
-    if (collectionAdmins.length == 0) {
+    if (collectionAdmins.length === 0) {
       await _getCollectionAdminsEnum();
     }
 
@@ -230,10 +230,10 @@ const TableList: React.FC = () => {
       params: { timestamp: Math.random() },
       render: (_, record) => {
         let r = '';
-        if (record.e_collection_stages != null && record.e_collection_stages != '') {
+        if (record.e_collection_stages !== null && record.e_collection_stages !== '') {
           const collectionStageIdsArr = record.e_collection_stages!.split(',');
           const collectionStagesArr = collectionStages.filter((value) =>
-            collectionStageIdsArr.find((_id) => _id == value.value),
+            collectionStageIdsArr.find((_id) => _id === value.value),
           );
 
           for (const c of collectionStagesArr) {

@@ -65,7 +65,7 @@ const Snapshot: React.FC<Props> = (props) => {
    */
   const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -87,7 +87,7 @@ const Snapshot: React.FC<Props> = (props) => {
       fixed: 'left',
       width: 160,
       render: (_, record) => {
-        return record.a_a_a_a_b_b_product_snapshot_copy?.b_name == 1 ? (
+        return record.a_a_a_a_b_b_product_snapshot_copy?.b_name === 1 ? (
           <span style={{ color: 'red' }}>{record.b_name}</span>
         ) : (
           record.b_name
@@ -105,7 +105,7 @@ const Snapshot: React.FC<Props> = (props) => {
           initialValue: [],
           valueType: 'select',
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.o_type == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.o_type === 1 ? (
               <span style={{ color: 'red' }}>{PRODUCT_TYPE[record.o_type!].text}</span>
             ) : (
               PRODUCT_TYPE[record.o_type!].text
@@ -119,7 +119,7 @@ const Snapshot: React.FC<Props> = (props) => {
           width: 120,
           valueType: 'select',
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.a_a_amount_type == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.a_a_amount_type === 1 ? (
               <span style={{ color: 'red' }}>{AMOUNT_TYPE[record.a_a_amount_type!].text}</span>
             ) : (
               AMOUNT_TYPE[record.a_a_amount_type!].text
@@ -131,7 +131,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'a_b_day_valid_count',
           width: 120,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.a_b_day_valid_count == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.a_b_day_valid_count === 1 ? (
               <span style={{ color: 'red' }}>{record.a_b_day_valid_count}</span>
             ) : (
               record.a_b_day_valid_count
@@ -144,7 +144,7 @@ const Snapshot: React.FC<Props> = (props) => {
           initialValue: [],
           valueType: 'select',
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.m_can_part_pay == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.m_can_part_pay === 1 ? (
               <span style={{ color: 'red' }}>
                 {COMMON_STATUS_ALLOW[record.m_can_part_pay!].text}
               </span>
@@ -161,7 +161,7 @@ const Snapshot: React.FC<Props> = (props) => {
           valueType: 'select',
           valueEnum: COMMON_STATUS_ALLOW,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.n_can_extend == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.n_can_extend === 1 ? (
               <span style={{ color: 'red' }}>{COMMON_STATUS_ALLOW[record.n_can_extend!].text}</span>
             ) : (
               COMMON_STATUS_ALLOW[record.n_can_extend!].text
@@ -176,7 +176,7 @@ const Snapshot: React.FC<Props> = (props) => {
           valueType: 'select',
           valueEnum: COMMON_STATUS_DISPLAY,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.n_can_extend == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.n_can_extend === 1 ? (
               <span style={{ color: 'red' }}>{COMMON_STATUS_DISPLAY[record.u_status!].text}</span>
             ) : (
               COMMON_STATUS_DISPLAY[record.u_status!].text
@@ -196,7 +196,7 @@ const Snapshot: React.FC<Props> = (props) => {
           initialValue: [],
           valueType: 'select',
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.f_settlement_type == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.f_settlement_type === 1 ? (
               <span style={{ color: 'red' }}>
                 {PRODUCT_SETTLEMENT_TYPE[record.f_settlement_type!].text}
               </span>
@@ -211,7 +211,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'c_amount',
           width: 100,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.c_amount == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.c_amount === 1 ? (
               <span style={{ color: 'red' }}>{record.c_amount}</span>
             ) : (
               record.c_amount
@@ -223,7 +223,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'z_period',
           width: 100,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.z_period == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.z_period === 1 ? (
               <span style={{ color: 'red' }}>{record.z_period}</span>
             ) : (
               record.z_period
@@ -235,7 +235,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'e_life',
           width: 100,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.e_life == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.e_life === 1 ? (
               <span style={{ color: 'red' }}>{record.e_life}</span>
             ) : (
               record.e_life
@@ -247,7 +247,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'g_interest',
           width: 100,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.g_interest == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.g_interest === 1 ? (
               <span style={{ color: 'red' }}>{record.g_interest}</span>
             ) : (
               record.g_interest
@@ -259,7 +259,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'h_service_fee_rate',
           width: 100,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.h_service_fee_rate == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.h_service_fee_rate === 1 ? (
               <span style={{ color: 'red' }}>{record.h_service_fee_rate}</span>
             ) : (
               record.h_service_fee_rate
@@ -271,7 +271,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'i_overdue_rate',
           width: 100,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.i_overdue_rate == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.i_overdue_rate === 1 ? (
               <span style={{ color: 'red' }}>{record.i_overdue_rate}</span>
             ) : (
               record.i_overdue_rate
@@ -283,7 +283,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'i_overdue_rate',
           width: 100,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.i_overdue_rate == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.i_overdue_rate === 1 ? (
               <span style={{ color: 'red' }}>{record.i_overdue_rate}</span>
             ) : (
               record.i_overdue_rate
@@ -295,7 +295,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'k_extend_rate',
           width: 100,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.k_extend_rate == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.k_extend_rate === 1 ? (
               <span style={{ color: 'red' }}>{record.k_extend_rate}</span>
             ) : (
               record.k_extend_rate
@@ -307,7 +307,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'l_min_pay',
           width: 120,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.l_min_pay == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.l_min_pay === 1 ? (
               <span style={{ color: 'red' }}>{record.l_min_pay}</span>
             ) : (
               record.l_min_pay
@@ -325,7 +325,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'q_unlock_credit_fraction',
           width: 100,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.q_unlock_credit_fraction == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.q_unlock_credit_fraction === 1 ? (
               <span style={{ color: 'red' }}>{record.q_unlock_credit_fraction}</span>
             ) : (
               record.q_unlock_credit_fraction
@@ -337,7 +337,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 'r_settled_times',
           width: 120,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.r_settled_times == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.r_settled_times === 1 ? (
               <span style={{ color: 'red' }}>{record.r_settled_times}</span>
             ) : (
               record.r_settled_times
@@ -349,7 +349,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 's_max_overdue_days',
           width: 120,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.s_max_overdue_days == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.s_max_overdue_days === 1 ? (
               <span style={{ color: 'red' }}>{record.s_max_overdue_days}</span>
             ) : (
               record.s_max_overdue_days
@@ -361,7 +361,7 @@ const Snapshot: React.FC<Props> = (props) => {
           dataIndex: 't_max_overdue_times',
           width: 120,
           render: (_, record) => {
-            return record.a_a_a_a_b_b_product_snapshot_copy?.t_max_overdue_times == 1 ? (
+            return record.a_a_a_a_b_b_product_snapshot_copy?.t_max_overdue_times === 1 ? (
               <span style={{ color: 'red' }}>{record.t_max_overdue_times}</span>
             ) : (
               record.t_max_overdue_times
@@ -380,7 +380,7 @@ const Snapshot: React.FC<Props> = (props) => {
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
-          return item.role_id == 1 && item.id == record.a_c_admin_id;
+          return item.role_id === 1 && item.id === record.a_c_admin_id;
         }) ? (
           <del>{_}</del>
         ) : (
@@ -402,7 +402,7 @@ const Snapshot: React.FC<Props> = (props) => {
   return (
     <Modal
       title="快照"
-      visible={props.modalVisible}
+      open={props.modalVisible}
       onOk={props.onOk}
       onCancel={props.onOk}
       width="90%"

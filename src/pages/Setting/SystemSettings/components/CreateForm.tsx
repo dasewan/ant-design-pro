@@ -56,9 +56,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -80,7 +80,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
       wrapperCol={{ offset: 0, span: 24 }}
       initialValues={{}}
     >
-      {props.data?.h_field_type == 'ProFormText' ? (
+      {props.data?.h_field_type === 'ProFormText' ? (
         <ProFormText
           label={props.data.a_title}
           name="e_value"
@@ -88,7 +88,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
             { required: true, message: `请输入${props.data.a_title}` },
             {
               validator: (_, value) => {
-                return value == oldRecord?.e_value || !oldRecord?.e_value
+                return value === oldRecord?.e_value || !oldRecord?.e_value
                   ? Promise.resolve()
                   : Promise.reject(new Error(`旧值：   ${oldRecord?.e_value}`));
               },
@@ -100,7 +100,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
       ) : (
         ''
       )}
-      {props.data?.h_field_type == 'ProFormDigit' ? (
+      {props.data?.h_field_type === 'ProFormDigit' ? (
         <ProFormDigit
           label={props.data.a_title}
           name="e_value"
@@ -108,7 +108,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
             { required: true, message: `请输入${props.data.a_title}` },
             {
               validator: (_, value) => {
-                return value == oldRecord?.e_value || !oldRecord?.e_value
+                return value === oldRecord?.e_value || !oldRecord?.e_value
                   ? Promise.resolve()
                   : Promise.reject(new Error(`旧值：   ${oldRecord?.e_value}`));
               },

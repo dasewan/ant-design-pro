@@ -35,7 +35,7 @@ const TableList: React.FC = () => {
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
     // @ts-ignore
-    if (params['created_at[0]'] != undefined) {
+    if (params['created_at[0]'] !== undefined) {
       setCheckBoxDisable(false);
     } else {
       setCheckBoxDisable(true);
@@ -56,7 +56,7 @@ const TableList: React.FC = () => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({

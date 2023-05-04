@@ -37,7 +37,7 @@ const TableList: React.FC = () => {
    */
   const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -56,7 +56,7 @@ const TableList: React.FC = () => {
    */
   const _getCollectionStagesEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (collectionStages.length == 0) {
+    if (collectionStages.length === 0) {
       const res = await getCollectionStagesEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -75,7 +75,7 @@ const TableList: React.FC = () => {
    */
   const _getCollectionAgenciesEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (collectionAgencies.length == 0) {
+    if (collectionAgencies.length === 0) {
       const res = await getCollectionAgenciesEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -105,11 +105,11 @@ const TableList: React.FC = () => {
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       // @ts-ignore
       await _getUsersEnum();
     }
-    if (collectionAgencies.length == 0) {
+    if (collectionAgencies.length === 0) {
       await _getCollectionAgenciesEnum();
     }
 

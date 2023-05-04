@@ -75,9 +75,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -116,12 +116,12 @@ const CreateForm: React.FC<FormProps> = (props) => {
       <ProFormText
         label={FieldLabels.a_name}
         name={FieldIndex.a_name}
-        disabled={oldRecord?.a_name != undefined}
+        disabled={oldRecord?.a_name !== undefined}
         rules={[
           { required: true, message: `请输入${FieldLabels.a_name}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.a_name || !oldRecord?.a_name
+              return value === oldRecord?.a_name || !oldRecord?.a_name
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.a_name}`));
             },
@@ -141,10 +141,10 @@ const CreateForm: React.FC<FormProps> = (props) => {
           {
             validator: (_, value) => {
               const oldValue = props.admins.find(
-                (item) => item.value == oldRecord?.b_admin_id,
+                (item) => item.value === oldRecord?.b_admin_id,
               )?.label;
               // @ts-ignore
-              return value == oldRecord?.b_admin_id || !oldRecord?.b_admin_id
+              return value === oldRecord?.b_admin_id || !oldRecord?.b_admin_id
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -164,10 +164,10 @@ const CreateForm: React.FC<FormProps> = (props) => {
           {
             validator: (_, value) => {
               const oldValue = props.collectionAgencies.find(
-                (item) => item.value == oldRecord?.c_collection_agency_id,
+                (item) => item.value === oldRecord?.c_collection_agency_id,
               )?.label;
               // @ts-ignore
-              return value == oldRecord?.c_collection_agency_id ||
+              return value === oldRecord?.c_collection_agency_id ||
                 !oldRecord?.c_collection_agency_id
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
@@ -194,10 +194,10 @@ const CreateForm: React.FC<FormProps> = (props) => {
           {
             validator: (_, value) => {
               const oldValue = props.collectionGroups.find(
-                (item) => item.value == oldRecord?.d_collection_group_id,
+                (item) => item.value === oldRecord?.d_collection_group_id,
               )?.label;
               // @ts-ignore
-              return value == oldRecord?.d_collection_group_id || !oldRecord?.d_collection_group_id
+              return value === oldRecord?.d_collection_group_id || !oldRecord?.d_collection_group_id
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -208,7 +208,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
         options={props.collectionGroups.filter(
           (item) =>
             //todo 阶段有交集
-            item.c_collection_agency_id == collectionAgencyId && item.f_status == 1,
+            item.c_collection_agency_id === collectionAgencyId && item.f_status === 1,
         )}
       />
 
@@ -226,7 +226,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.g_comment}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.g_comment || !oldRecord?.g_comment
+              return value === oldRecord?.g_comment || !oldRecord?.g_comment
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.g_comment}`));
             },

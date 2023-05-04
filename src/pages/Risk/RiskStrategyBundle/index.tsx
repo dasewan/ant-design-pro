@@ -47,7 +47,7 @@ const TableList: React.FC = () => {
    */
   const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -96,7 +96,7 @@ const TableList: React.FC = () => {
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
-          return item.role_id == 1 && item.id == record.k_admin_id;
+          return item.role_id === 1 && item.id === record.k_admin_id;
         }) ? (
           <del>{_}</del>
         ) : (

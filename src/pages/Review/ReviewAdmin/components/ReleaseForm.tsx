@@ -74,9 +74,9 @@ const ReleaseForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -111,13 +111,13 @@ const ReleaseForm: React.FC<FormProps> = (props) => {
         name={FieldIndex.n_review_wait_count}
         disabled={true}
         extra={
-          (props.record?.q_review_wait_count1 != undefined && props.record.q_review_wait_count1 > 0
+          (props.record?.q_review_wait_count1 !== undefined && props.record.q_review_wait_count1 > 0
             ? `首借待审核订单:${props.record.q_review_wait_count1}`
             : '') +
-          (props.record?.r_review_wait_count2 != undefined && props.record.r_review_wait_count2 > 0
+          (props.record?.r_review_wait_count2 !== undefined && props.record.r_review_wait_count2 > 0
             ? `复借2-4待审核案件数:${props.record.r_review_wait_count2}`
             : '') +
-          (props.record?.s_review_wait_count3 != undefined && props.record.s_review_wait_count3 > 0
+          (props.record?.s_review_wait_count3 !== undefined && props.record.s_review_wait_count3 > 0
             ? `复借5+待审核案件数:${props.record.s_review_wait_count3}`
             : '')
         }
@@ -130,7 +130,7 @@ const ReleaseForm: React.FC<FormProps> = (props) => {
         rules={[{ required: true, message: `请选择${FieldLabels.m_borrow_times}` }]}
         options={BORROW_TIMES_OPTION.filter(
           (item) =>
-            props.record?.m_borrow_times?.split(',').find((item2) => item2 == item.value) !=
+            props.record?.m_borrow_times?.split(',').find((item2) => item2 === item.value) !==
             undefined,
         )}
         fieldProps={{
@@ -151,13 +151,13 @@ const ReleaseForm: React.FC<FormProps> = (props) => {
           {
             validator: (_, value) => {
               let compareValue = props.record?.n_review_wait_count;
-              if (borrowTimes == 1) {
+              if (borrowTimes === 1) {
                 compareValue = props.record?.q_review_wait_count1;
               }
-              if (borrowTimes == 2) {
+              if (borrowTimes === 2) {
                 compareValue = props.record?.r_review_wait_count2;
               }
-              if (borrowTimes == 3) {
+              if (borrowTimes === 3) {
                 compareValue = props.record?.s_review_wait_count3;
               }
               // @ts-ignore
@@ -197,11 +197,11 @@ const ReleaseForm: React.FC<FormProps> = (props) => {
         options={props.admins.filter((item) => {
           return (
             props?.canMoveAdmins
-              .get(borrowTimes * 1)
+              .get(borrowTimes)
               ?.find(
                 (item2) =>
-                  item2 == item.value && item.value != props.record?.b_admin_id?.toString(),
-              ) != undefined
+                  item2 === item.value && item.value !== props.record?.b_admin_id?.toString(),
+              ) !== undefined
           );
         })}
         fieldProps={{ mode: 'multiple' }}

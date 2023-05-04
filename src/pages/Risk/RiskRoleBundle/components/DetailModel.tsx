@@ -49,7 +49,7 @@ const DetailModel: FC<FormProps> = (props) => {
    */
   const _getRoleItemEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (roleItems.length == 0) {
+    if (roleItems.length === 0) {
       const res = await getRiskItemEnum({ foo: 1 });
       for (const cat of res.data!) {
         const children = [];
@@ -80,9 +80,9 @@ const DetailModel: FC<FormProps> = (props) => {
   const _index = async (version = 0) => {
     // @ts-ignore
     if (params.id > 0) {
-      if (version == 0) {
+      if (version === 0) {
         await _getRoleItemEnum();
-        const targetVersionData = props.data!.find((item) => item.j_version == props.version)!;
+        const targetVersionData = props.data!.find((item) => item.j_version === props.version)!;
         // @ts-ignore
         setDataSource(targetVersionData.a_a_a_a_g_f_risk_role!);
         const tmpVersion: versionOptionType[] = [];
@@ -99,24 +99,26 @@ const DetailModel: FC<FormProps> = (props) => {
             ),
             value: item.j_version,
           });
+          return tmpVersion;
         });
         setVersions(tmpVersion);
         setCurrentId(targetVersionData.id!);
-        setButtonDisabled(targetVersionData.id == props.id);
+        setButtonDisabled(targetVersionData.id === props.id);
         console.log(targetVersionData.id, props.id);
         return {
           ...targetVersionData,
         };
       } else {
         await _getRoleItemEnum();
-        const targetVersionData = props.data!.find((item) => item.j_version == version)!;
+        const targetVersionData = props.data!.find((item) => item.j_version === version)!;
         setDataSource(targetVersionData.a_a_a_a_g_f_risk_role!);
         const n_execute_logic_tmp = {};
         targetVersionData.a_a_a_a_g_f_risk_role!.map((item) => {
           n_execute_logic_tmp['n_execute_logic' + item.b_risk_role_group_id] = item.n_execute_logic;
+          return n_execute_logic_tmp;
         });
         setCurrentId(targetVersionData!.id!);
-        setButtonDisabled(targetVersionData.id == props.id);
+        setButtonDisabled(targetVersionData.id === props.id);
         console.log(targetVersionData.id, props.id);
         return {
           ...targetVersionData,
@@ -138,7 +140,7 @@ const DetailModel: FC<FormProps> = (props) => {
       width: 60,
       onCell: (row) => {
         if (row.l_group_count! > 1) {
-          if (row.m_group_index == 1) {
+          if (row.m_group_index === 1) {
             return { rowSpan: row.l_group_count! };
           } else {
             return { rowSpan: 0 };
@@ -148,7 +150,7 @@ const DetailModel: FC<FormProps> = (props) => {
       },
       render: (_, row) => {
         if (row.l_group_count! > 1) {
-          if (row.m_group_index == 1) {
+          if (row.m_group_index === 1) {
             return row.n_execute_logic;
           } else {
             return null;
@@ -239,7 +241,7 @@ const DetailModel: FC<FormProps> = (props) => {
   return (
     <ModalForm
       layout="vertical"
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true }}
       width={1900}
       formRef={formRef}
@@ -278,7 +280,7 @@ const DetailModel: FC<FormProps> = (props) => {
           ];
         },
       }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();

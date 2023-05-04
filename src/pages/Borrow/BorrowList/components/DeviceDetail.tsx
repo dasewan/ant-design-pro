@@ -15,12 +15,11 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'umi';
 
-export type FormProps = {};
 export type TableListItem = API.HDDynamicDevice;
 export type DescriptionItem = API.HCDevice;
 export type Description2Item = API.GLPhoto;
 
-const DeviceDetail: React.FC<FormProps> = () => {
+const DeviceDetail: React.FC = () => {
   const params2 = useParams<{ id: string; userId: string }>();
   const [dataSource, setDataSource] = useState<TableListItem[]>([]);
   const [descriptionDataSource, setDescriptionDataSource] = useState<DescriptionItem>();

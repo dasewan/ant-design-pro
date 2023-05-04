@@ -166,7 +166,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    */
   const _getRoleItemEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (roleItems.length == 0) {
+    if (roleItems.length === 0) {
       const res = await getRiskItemEnum({ foo: 1 });
       for (const cat of res.data!) {
         const children = [];
@@ -203,7 +203,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       const res = await riskRoleBundleIndex({ foo: 1, limit: 10000 });
       if (res.data!.length > 0) {
         setRiskRoleBundleUniqueData(
-          res.data!.filter((item: API.BDRiskRoleBundle) => item.k_is_current == 1),
+          res.data!.filter((item: API.BDRiskRoleBundle) => item.k_is_current === 1),
         );
         res.data!.map((item: API.BDRiskRoleBundle) => {
           item.a_a_a_a_g_f_risk_role!.forEach((_gFRiskRoles: API.GFRiskRole) => {
@@ -218,6 +218,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
               _gFRiskRoles.h_compare_risk_item_id,
             ];
           });
+          return item;
         });
       }
       setRiskRoleBundleData(res.data);
@@ -232,7 +233,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const _index = async (version = 0) => {
     // @ts-ignore
     if (params.id > 0) {
-      if (version == 0) {
+      if (version === 0) {
         await _getRoleItemEnum();
         const riskRoleBundleDataTmp = await _RiskRoleBundleIndex();
         // @ts-ignore
@@ -241,12 +242,13 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         const tmpRiskRoleBundleCodeTableData: string[] = [];
         res.data![0].a_a_a_a_g_i_risk_strategy_bundles?.map((item: API.GIRiskStrategyBundle) => {
           const tmpFind = riskRoleBundleDataTmp?.find((item2: API.BDRiskRoleBundle) => {
-            return item2.id == item.b_risk_role_bundle_id;
+            return item2.id === item.b_risk_role_bundle_id;
           });
           if (tmpFind) {
             tmpRiskRoleBundleTableData.push(tmpFind);
             tmpRiskRoleBundleCodeTableData.push(tmpFind.i_code!);
           }
+          return tmpRiskRoleBundleTableData;
         });
 
         const tmpVersion: versionOptionType[] = [];
@@ -263,6 +265,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             ),
             value: item.f_version,
           });
+          return tmpVersion;
         });
         setVersions(tmpVersion);
         setRawResultData(res.data);
@@ -273,18 +276,19 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         return res.data![0];
       } else {
         await _getRoleItemEnum();
-        const targetVersionData = rawResultData!.find((item) => item.f_version == version)!;
+        const targetVersionData = rawResultData!.find((item) => item.f_version === version)!;
         const tmpRiskRoleBundleTableData: API.BDRiskRoleBundle[] = [];
         const tmpRiskRoleBundleCodeTableData: string[] = [];
         targetVersionData.a_a_a_a_g_i_risk_strategy_bundles?.map(
           (item: API.GIRiskStrategyBundle) => {
             const tmpFind = riskRoleBundleData?.find((item2: API.BDRiskRoleBundle) => {
-              return item2.id == item.b_risk_role_bundle_id;
+              return item2.id === item.b_risk_role_bundle_id;
             });
             if (tmpFind) {
               tmpRiskRoleBundleTableData.push(tmpFind);
               tmpRiskRoleBundleCodeTableData.push(tmpFind.i_code!);
             }
+            return tmpFind;
           },
         );
         setOldRecord(targetVersionData);
@@ -310,7 +314,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const _onSwitchRiskRoleBundleVersion = (code: string, currentVersion: number, _id: number) => {
     setRiskRoleBundleModelData(
       riskRoleBundleData?.filter((item) => {
-        return item.i_code == code;
+        return item.i_code === code;
       }),
     );
     setModelVersion(currentVersion);
@@ -324,15 +328,16 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const _switchRiskRoleBundleVersion = (switchNewRiskRoleBundleId: number) => {
     const tmp: API.BDRiskRoleBundle[] = [];
     riskRoleBundleTableData?.map((item: API.BDRiskRoleBundle) => {
-      if (item.id == oldRiskRoleBundleId) {
+      if (item.id === oldRiskRoleBundleId) {
         tmp.push(
           riskRoleBundleData!.find(
-            (item2: API.BDRiskRoleBundle) => item2.id == switchNewRiskRoleBundleId,
+            (item2: API.BDRiskRoleBundle) => item2.id === switchNewRiskRoleBundleId,
           )!,
         );
       } else {
         tmp.push(item);
       }
+      return tmp;
     });
     setRiskRoleBundleTableData(tmp);
     handleCreateModalVisible(false);
@@ -344,9 +349,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const _deleteRiskRoleBundle = (_deleteRiskRoleBundleId: number) => {
     const tmp: API.BDRiskRoleBundle[] = [];
     riskRoleBundleTableData?.map((item: API.BDRiskRoleBundle) => {
-      if (item.id != _deleteRiskRoleBundleId) {
+      if (item.id !== _deleteRiskRoleBundleId) {
         tmp.push(item);
       }
+      return tmp;
     });
     setRiskRoleBundleTableData(tmp);
   };
@@ -360,6 +366,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       if (_addIds.includes(item.id!)) {
         tmp.push(item);
       }
+      return tmp;
     });
     setRiskRoleBundleTableData(tmp);
     handleTableModalVisible(false);
@@ -376,6 +383,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       const _tmpExpandedRowKeys: string[] = [];
       riskRoleBundleTableData?.map((_item) => {
         _tmpExpandedRowKeys.push(_item.id!.toString());
+        return _tmpExpandedRowKeys;
       });
       setExpandedRowKeys(_tmpExpandedRowKeys);
     }
@@ -468,7 +476,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       width: 60,
       onCell: (row) => {
         if (row.l_group_count! > 1) {
-          if (row.m_group_index == 1) {
+          if (row.m_group_index === 1) {
             return { rowSpan: row.l_group_count! };
           } else {
             return { rowSpan: 0 };
@@ -478,7 +486,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       },
       render: (_, row) => {
         if (row.l_group_count! > 1) {
-          if (row.m_group_index == 1) {
+          if (row.m_group_index === 1) {
             return row.n_execute_logic;
           } else {
             return null;
@@ -629,6 +637,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       riskRoleBundleTableData?.map((item) => {
         tmp.push(item.id!);
         riskRoleCount = riskRoleCount + item.c_related_role_count!;
+        return tmp;
       });
       // @ts-ignore
       if (params.id > 0) {
@@ -757,11 +766,13 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 formRef.current?.setFieldsValue(versionData);
               }}
             >
-              {versions?.map((value) => (
-                <Option value={value.value} key={value.value}>
-                  {value.label}
-                </Option>
-              ))}
+              {versions?.map((value) => {
+                return (
+                  <Option value={value.value} key={value.value}>
+                    {value.label}
+                  </Option>
+                );
+              })}
             </Select>
           </>
         }
@@ -781,7 +792,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                           { required: true, message: `请输入${FieldLabels.a_name}` },
                           {
                             validator: (_, value) => {
-                              return value == oldRecord?.a_name || !oldRecord?.a_name
+                              return value === oldRecord?.a_name || !oldRecord?.a_name
                                 ? Promise.resolve()
                                 : Promise.reject(new Error(`旧值：   ${oldRecord?.a_name}`));
                             },
@@ -799,7 +810,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                           { required: true, message: `请选择${FieldLabels.j_fuse}` },
                           {
                             validator: (_, value) => {
-                              return value == oldRecord?.j_fuse || !oldRecord?.j_fuse
+                              return value === oldRecord?.j_fuse || !oldRecord?.j_fuse
                                 ? Promise.resolve()
                                 : Promise.reject(
                                     new Error(`旧值：   ${FUSE[oldRecord.j_fuse].text}`),
@@ -820,7 +831,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                           { required: true, message: `请输入${FieldLabels.d}` },
                           {
                             validator: (_, value) => {
-                              return value == oldRecord?.d || !oldRecord?.d
+                              return value === oldRecord?.d || !oldRecord?.d
                                 ? Promise.resolve()
                                 : Promise.reject(new Error(`旧值：   ${oldRecord?.d}`));
                             },

@@ -146,7 +146,7 @@ const TableList: React.FC = () => {
         onGetCaptcha={async () => {
           // @ts-ignore
           const res = await getCaptchaType({ type: 'blackUser' });
-          if (res.success == true) {
+          if (res.success === true) {
             message.success(`验证码发送成功!`);
             setConfirmDisabled(false);
           } else {
@@ -437,7 +437,7 @@ const TableList: React.FC = () => {
             title={`从黑名单中移除${record.a_user?.a_phone}`}
             trigger="click"
             key={record.a_user?.a_phone}
-            onVisibleChange={(_visible) => {
+            onOpenChange={(_visible) => {
               setId(record.id!);
               if (!_visible) {
                 setConfirmDisabled(true);

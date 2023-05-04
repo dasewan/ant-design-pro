@@ -74,11 +74,11 @@ const TableList: React.FC = () => {
    */
   const confirm = (newData: TableListItem[], cat = 'idNumber') => {
     const ids = newData
-      .filter((item) => item.d_status == 'y')
+      .filter((item) => item.d_status === 'y')
       .map((item: TableListItem) => item.id)
       .join('##');
     const names = newData
-      .filter((item) => item.d_status == 'y')
+      .filter((item) => item.d_status === 'y')
       .map((item: TableListItem) => item.b_name)
       .join(',');
     const content = '新的认证项顺序为:' + names;
@@ -94,16 +94,16 @@ const TableList: React.FC = () => {
           tmpMap = dataMap;
           tmpMap.set(cat, newData);
           setDataMap(tmpMap);
-          if (cat == 'idNumber') {
+          if (cat === 'idNumber') {
             setIdNumberData(newData);
           }
-          if (cat == 'contact') {
+          if (cat === 'contact') {
             setContactData(newData);
           }
-          if (cat == 'job') {
+          if (cat === 'job') {
             setJobData(newData);
           }
-          if (cat == 'loanBank') {
+          if (cat === 'loanBank') {
             setLoanBankData(newData);
           }
           message.success('排序成功');
@@ -141,6 +141,7 @@ const TableList: React.FC = () => {
 
   const DraggableBodyRow: React.FC<any> = ({ className, style, ...restProps }) => {
     // function findIndex base on Table rowKey props and should always be a right array index
+    console.log(className, style);
     const indexKey = dataMap.get('idNumber')?.findIndex((x) => x.id === restProps['data-row-key']);
     return <SortableItem index={indexKey} {...restProps} />;
   };
@@ -173,6 +174,7 @@ const TableList: React.FC = () => {
   );
 
   const DraggableBodyRow2: React.FC<any> = ({ className, style, ...restProps }) => {
+    console.log(className, style);
     // function findIndex base on Table rowKey props and should always be a right array index
     const indexKey = dataMap.get('contact')?.findIndex((x) => x.id === restProps['data-row-key']);
     return <SortableItem index={indexKey} {...restProps} />;
@@ -204,6 +206,7 @@ const TableList: React.FC = () => {
   );
 
   const DraggableBodyRow3: React.FC<any> = ({ className, style, ...restProps }) => {
+    console.log(className, style);
     // function findIndex base on Table rowKey props and should always be a right array index
     const indexKey = dataMap.get('job')?.findIndex((x) => x.id === restProps['data-row-key']);
     return <SortableItem index={indexKey} {...restProps} />;
@@ -237,6 +240,7 @@ const TableList: React.FC = () => {
   );
 
   const DraggableBodyRow4: React.FC<any> = ({ className, style, ...restProps }) => {
+    console.log(className, style);
     // function findIndex base on Table rowKey props and should always be a right array index
     const indexKey = dataMap.get('loanBank')?.findIndex((x) => x.id === restProps['data-row-key']);
     return <SortableItem index={indexKey} {...restProps} />;
@@ -245,20 +249,20 @@ const TableList: React.FC = () => {
 
   const confirmSwitch = async (_item: TableListItem) => {
     let _success = true;
-    _item.d_status = _item.d_status == 'y' ? 'n' : 'y';
+    _item.d_status = _item.d_status === 'y' ? 'n' : 'y';
     setLoading(true);
     try {
       // @ts-ignore
       const res = await update({ ..._item });
       if (!res.success) {
         //恢复原值
-        _item.d_status = _item.d_status == 'y' ? 'n' : 'y';
+        _item.d_status = _item.d_status === 'y' ? 'n' : 'y';
         _success = false;
       }
     } catch (error) {
       message.error('配置失败请重试！');
       //恢复原值
-      _item.d_status = _item.d_status == 'y' ? 'n' : 'y';
+      _item.d_status = _item.d_status === 'y' ? 'n' : 'y';
       _success = false;
     }
     setLoading(false);
@@ -291,7 +295,7 @@ const TableList: React.FC = () => {
       render: (_, record) => {
         return record.r_multi_validator?.split(',').map((item) => {
           return (
-            <span>
+            <span key={record.id}>
               {item}
               <br />
             </span>
@@ -318,7 +322,7 @@ const TableList: React.FC = () => {
       fixed: 'right',
       render: (_, record) => {
         const edit =
-          record.g_edit == 'y' ? (
+          record.g_edit === 'y' ? (
             <Popconfirm
               title="Are you sure to delete this task?"
               onConfirm={confirmSwitch.bind(this, record)}
@@ -329,14 +333,14 @@ const TableList: React.FC = () => {
               <Switch
                 checkedChildren="开"
                 unCheckedChildren="关"
-                checked={record.d_status == 'y'}
+                checked={record.d_status === 'y'}
               />
             </Popconfirm>
           ) : null;
         const drag =
           record.a_parent_id! > 0 &&
-          [4, 8, 9, 10].find((n) => n == record.a_parent_id!) &&
-          record.d_status == 'y' ? (
+          [4, 8, 9, 10].find((n) => n === record.a_parent_id!) &&
+          record.d_status === 'y' ? (
             <DragHandle key="drag" />
           ) : null;
 

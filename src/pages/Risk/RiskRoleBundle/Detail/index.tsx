@@ -99,7 +99,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    */
   const _getRoleItemEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (roleItems.length == 0) {
+    if (roleItems.length === 0) {
       const res = await getRiskItemEnum({ foo: 1 });
       for (const cat of res.data!) {
         const children = [];
@@ -160,6 +160,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       if (idTmp >= roleNextIdTmp) {
         roleNextIdTmp = idTmp;
       }
+      return roleNextIdTmp;
     });
     setGroupCount(groupCountTmp);
     setGroupMaxIndex(groupMaxIndexTmp);
@@ -176,7 +177,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const _index = async (version = 0) => {
     // @ts-ignore
     if (params.id > 0) {
-      if (version == 0) {
+      if (version === 0) {
         await _getRoleItemEnum();
         // @ts-ignore
         const res = await show(params);
@@ -187,6 +188,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         const n_execute_logic_tmp = {};
         res.data![0]!.a_a_a_a_g_f_risk_role!.map((item: API.GFRiskRole) => {
           n_execute_logic_tmp['n_execute_logic' + item.b_risk_role_group_id] = item.n_execute_logic;
+          return n_execute_logic_tmp;
         });
         const tmpVersion: versionOptionType[] = [];
         res.data!.map((item: API.BDRiskRoleBundle) => {
@@ -214,6 +216,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
               _gFRiskRoles.h_compare_risk_item_id,
             ];
           });
+          return item;
         });
         setRawResultData(res.data);
         setOldRecord(res.data![0]);
@@ -227,12 +230,13 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         };
       } else {
         await _getRoleItemEnum();
-        const targetVersionData = rawResultData!.find((item) => item.j_version == version)!;
+        const targetVersionData = rawResultData!.find((item) => item.j_version === version)!;
         setOldRecord(targetVersionData);
         initEditTable(targetVersionData.a_a_a_a_g_f_risk_role!);
         const n_execute_logic_tmp = {};
         targetVersionData.a_a_a_a_g_f_risk_role!.map((item) => {
           n_execute_logic_tmp['n_execute_logic' + item.b_risk_role_group_id] = item.n_execute_logic;
+          return n_execute_logic_tmp;
         });
         setCurrentVersion(targetVersionData!.j_version!);
         setCurrentId(targetVersionData!.id!);
@@ -291,17 +295,17 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     console.log(originRow);
     const tableDataSource = formRef.current?.getFieldValue('table') as API.GFRiskRole[];
     const _groupCount = tableDataSource.filter(
-      (item) => item.b_risk_role_group_id == row.b_risk_role_group_id!,
+      (item) => item.b_risk_role_group_id === row.b_risk_role_group_id!,
     )?.length;
     groupCont?.set(row.b_risk_role_group_id!, _groupCount);
     setGroupCount(groupCont);
     const maxIndex = tableDataSource
-      .filter((item) => item.b_risk_role_group_id == row.b_risk_role_group_id!)
+      .filter((item) => item.b_risk_role_group_id === row.b_risk_role_group_id!)
       ?.sort((a, b) => b.m_group_index! - a.m_group_index!)![0].m_group_index;
     groupMaxIndex?.set(row.b_risk_role_group_id!, maxIndex!);
     setGroupMaxIndex(groupMaxIndex);
     const minIndex = tableDataSource
-      .filter((item) => item.b_risk_role_group_id == row.b_risk_role_group_id!)
+      .filter((item) => item.b_risk_role_group_id === row.b_risk_role_group_id!)
       ?.sort((a, b) => a.m_group_index! - b.m_group_index!)[0].m_group_index;
     groupMinIndex?.set(row.b_risk_role_group_id!, minIndex!);
     setGroupMinIndex(groupMinIndex);
@@ -369,10 +373,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const onDeleteGroupRole = (row: API.GFRiskRole) => {
     const tableDataSource = formRef.current?.getFieldValue('table') as API.GFRiskRole[];
 
-    if (groupMinIndex.get(row.b_risk_role_group_id!) == row.m_group_index!) {
+    if (groupMinIndex.get(row.b_risk_role_group_id!) === row.m_group_index!) {
       const minIndex = tableDataSource
         .filter(
-          (item) => item.b_risk_role_group_id == row.b_risk_role_group_id! && item.id !== row.id,
+          (item) => item.b_risk_role_group_id === row.b_risk_role_group_id! && item.id !== row.id,
         )
         ?.sort((a, b) => a.m_group_index! - b.m_group_index!)[0].m_group_index;
       if (minIndex) {
@@ -380,10 +384,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         setGroupMinIndex(groupMinIndex);
       }
     }
-    if (groupMaxIndex.get(row.b_risk_role_group_id!) == row.m_group_index!) {
+    if (groupMaxIndex.get(row.b_risk_role_group_id!) === row.m_group_index!) {
       const maxIndex = tableDataSource
         .filter(
-          (item) => item.b_risk_role_group_id == row.b_risk_role_group_id! && item.id !== row.id,
+          (item) => item.b_risk_role_group_id === row.b_risk_role_group_id! && item.id !== row.id,
         )
         ?.sort((a, b) => b.m_group_index! - a.m_group_index!)[0].m_group_index;
       if (maxIndex) {
@@ -428,7 +432,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           groupCont.get(row.b_risk_role_group_id!)! > 1 &&
           groupMinIndex.has(row.b_risk_role_group_id!)
         ) {
-          if (row.m_group_index == groupMinIndex!.get(row.b_risk_role_group_id!)) {
+          if (row.m_group_index === groupMinIndex!.get(row.b_risk_role_group_id!)) {
             return { rowSpan: groupCont.get(row.b_risk_role_group_id!)! };
           } else {
             return { rowSpan: 0 };
@@ -521,7 +525,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       // @ts-ignore
       /*      editable: (value, row, index) =>
               // @ts-ignore
-              editableFormRef.current?.getRowData(index)?.d_value_type == 'operator',*/
+              editableFormRef.current?.getRowData(index)?.d_value_type === 'operator',*/
       formItemProps: {
         // rules: [{ required: true, message: `请输入${FieldLabels2.e_value_operator}` }],
       },
@@ -589,7 +593,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       // @ts-ignore
       editable: (value, row, index) =>
         // @ts-ignore
-        editableFormRef.current?.getRowData(index)?.g_compare_type == 'operator',
+        editableFormRef.current?.getRowData(index)?.g_compare_type === 'operator',
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.h_compare_risk_item_id}` }],
         // style: {width: 120},
@@ -615,7 +619,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       dataIndex: FieldIndex2.i_compare_value_type,
       editable: (value, row, index) =>
         // @ts-ignore
-      editableFormRef.current?.getRowData(index)?.g_compare_type == 'operator',
+      editableFormRef.current?.getRowData(index)?.g_compare_type === 'operator',
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.i_compare_value_type}` }],
       },
@@ -703,7 +707,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           groupCont.get(row.b_risk_role_group_id!)! > 1 &&
           groupMinIndex.has(row.b_risk_role_group_id!)
         ) {
-          if (row.m_group_index == groupMinIndex!.get(row.b_risk_role_group_id!)) {
+          if (row.m_group_index === groupMinIndex!.get(row.b_risk_role_group_id!)) {
             return { rowSpan: groupCont.get(row.b_risk_role_group_id!)! };
           } else {
             return { rowSpan: 0 };
@@ -718,7 +722,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           groupCont.has(row.b_risk_role_group_id!) &&
           groupMinIndex.has(row.b_risk_role_group_id!)
         ) {
-          if (row.m_group_index == groupMinIndex!.get(row.b_risk_role_group_id!)) {
+          if (row.m_group_index === groupMinIndex!.get(row.b_risk_role_group_id!)) {
             newGroupRoleAction = (
               <a key="add" onClick={() => onNewGroupRole(row.b_risk_role_group_id!)}>
                 <AppstoreAddOutlined />
@@ -734,7 +738,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           groupCont.get(row.b_risk_role_group_id!)! > 0 &&
           groupMinIndex.has(row.b_risk_role_group_id!)
         ) {
-          if (row.m_group_index == groupMinIndex!.get(row.b_risk_role_group_id!)) {
+          if (row.m_group_index === groupMinIndex!.get(row.b_risk_role_group_id!)) {
             removeGroupRoleAction = (
               <a key="remove" onClick={() => onDeleteGroup(row.b_risk_role_group_id!)}>
                 <DeleteOutlined />
@@ -807,7 +811,11 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const onFinish = async (values: Record<string, any>) => {
     setError([]);
     message.loading('正在提交');
-    values.table = values.table?.map((item: API.GFRiskRole) => JSON.stringify(item)).join('##');
+    values.table = values.table
+      ?.map((item: API.GFRiskRole) => {
+        return JSON.stringify(item);
+      })
+      .join('##');
     try {
       // @ts-ignore
       if (params.id > 0) {
@@ -927,11 +935,13 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                 formRef.current?.setFieldsValue(versionData);
               }}
             >
-              {versions?.map((value) => (
-                <Option value={value.value} key={value.value}>
-                  {value.label}
-                </Option>
-              ))}
+              {versions?.map((value) => {
+                return (
+                  <Option value={value.value} key={value.value}>
+                    {value.label}
+                  </Option>
+                );
+              })}
             </Select>
           </>
         }
@@ -951,7 +961,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                           { required: true, message: `请输入${FieldLabels.a_name}` },
                           {
                             validator: (_, value) => {
-                              return value == oldRecord?.d_score_upper_limit || !oldRecord?.a_name
+                              return value === oldRecord?.d_score_upper_limit || !oldRecord?.a_name
                                 ? Promise.resolve()
                                 : Promise.reject(new Error(`旧值：   ${oldRecord?.a_name}`));
                             },
@@ -970,7 +980,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                           { required: true, message: `请输入${FieldLabels.d_score_upper_limit}` },
                           {
                             validator: (_, value) => {
-                              return value == oldRecord?.a_name || !oldRecord?.d_score_upper_limit
+                              return value === oldRecord?.a_name || !oldRecord?.d_score_upper_limit
                                 ? Promise.resolve()
                                 : Promise.reject(
                                     new Error(`旧值：   ${oldRecord?.d_score_upper_limit}`),
@@ -990,7 +1000,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                           { required: true, message: `请选择${FieldLabels.e_execute_logic}` },
                           {
                             validator: (_, value) => {
-                              return value == oldRecord?.e_execute_logic ||
+                              return value === oldRecord?.e_execute_logic ||
                                 !oldRecord?.e_execute_logic
                                 ? Promise.resolve()
                                 : Promise.reject(
@@ -1013,7 +1023,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                           { required: true, message: `请选择${FieldLabels.f_finnal_decision}` },
                           {
                             validator: (_, value) => {
-                              return value == oldRecord?.f_finnal_decision ||
+                              return value === oldRecord?.f_finnal_decision ||
                                 !oldRecord?.f_finnal_decision
                                 ? Promise.resolve()
                                 : Promise.reject(
@@ -1041,7 +1051,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                           { required: true, message: `请输入${FieldLabels.g_description}` },
                           {
                             validator: (_, value) => {
-                              return value == oldRecord?.g_description || !oldRecord?.g_description
+                              return value === oldRecord?.g_description || !oldRecord?.g_description
                                 ? Promise.resolve()
                                 : Promise.reject(new Error(`旧值：   ${oldRecord?.g_description}`));
                             },
@@ -1077,7 +1087,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
               rules: [
                 {
                   validator: async (_, value) => {
-                    if (value == undefined || value.length < 1) {
+                    if (value === undefined || value.length < 1) {
                       throw new Error('请至少添加一个细则');
                     }
                     if (value.length > 10) {

@@ -26,7 +26,7 @@ const TableList: React.FC = () => {
    */
   const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUsersEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -46,7 +46,7 @@ const TableList: React.FC = () => {
   const _getAPReviewGroupsEnum = async () => {
     const data: RequestOptionsType[] = [];
     console.log(123);
-    if (groups.length == 0) {
+    if (groups.length === 0) {
       const res = await getAPReviewGroupsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -77,11 +77,11 @@ const TableList: React.FC = () => {
     // @ts-ignore
     const res = await index({ page: params.current, ...params, c_result: 50 });
 
-    /*    if(admins.length == 0){
+    /*    if(admins.length === 0){
           // @ts-ignore
           await _getUsersEnum();
         }*/
-    if (groups.length == 0) {
+    if (groups.length === 0) {
       // @ts-ignore
       await _getAPReviewGroupsEnum();
     }
@@ -147,7 +147,7 @@ const TableList: React.FC = () => {
         console.log(_);
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
-          return item.role_id == 1 && item.id == record.b_admin_id;
+          return item.role_id === 1 && item.id === record.b_admin_id;
         }) ? (
           <del>{_}</del>
         ) : (

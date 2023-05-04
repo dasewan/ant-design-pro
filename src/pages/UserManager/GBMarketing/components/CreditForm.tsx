@@ -94,9 +94,9 @@ const CreditForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<API.ABCreditHistory>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           setDAmount(0);
@@ -162,7 +162,7 @@ const CreditForm: React.FC<FormProps> = (props) => {
         width="sm"
         rules={[{ required: true, message: '这是必填项' }]}
         fieldProps={{
-          addonBefore: bType == 1 ? '+' : '-',
+          addonBefore: bType === 1 ? '+' : '-',
           onChange: (e) => setDAmount(parseInt(e.target.value)),
         }}
       />
@@ -183,9 +183,9 @@ const CreditForm: React.FC<FormProps> = (props) => {
             修改后的额度为
             <Text type="success">
               {props.values.f_credit_amount}
-              {bType == 1 ? '+' : '-'}
+              {bType === 1 ? '+' : '-'}
               {dAmount}=
-              {bType == 1
+              {bType === 1
                 ? props.values.f_credit_amount! + dAmount
                 : props.values.f_credit_amount! - dAmount}
             </Text>

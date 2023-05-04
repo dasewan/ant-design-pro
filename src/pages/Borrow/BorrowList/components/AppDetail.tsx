@@ -14,11 +14,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useParams } from 'umi';
 
-export type FormProps = {};
 export type TableListItem = API.SAApp;
 type DataIndex = keyof API.SAApp;
 
-const AppDetail: React.FC<FormProps> = () => {
+const AppDetail: React.FC = () => {
   const params2 = useParams<{ id: string; verifyId?: string }>();
   const [dataSource, setDataSource] = useState<TableListItem[]>([]);
   const [allDataSource, setAllDataSource] = useState<TableListItem[]>([]);

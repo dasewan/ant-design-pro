@@ -31,7 +31,7 @@ const TableList: React.FC = () => {
    */
   const _getUserEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUserEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -50,7 +50,7 @@ const TableList: React.FC = () => {
    */
   const _getAPReviewGroupsEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (groups.length == 0) {
+    if (groups.length === 0) {
       const res = await getAPReviewGroupsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -67,20 +67,20 @@ const TableList: React.FC = () => {
 
   const confirmSwitch = async (_item: TableListItem, field: string) => {
     let _success = true;
-    _item[field] = _item[field] == 'y' ? 'n' : 'y';
+    _item[field] = _item[field] === 'y' ? 'n' : 'y';
     setLoading(true);
     try {
       // @ts-ignore
       const res = await update({ ..._item });
       if (!res.success) {
         //恢复原值
-        _item[field] = _item[field] == 'y' ? 'n' : 'y';
+        _item[field] = _item[field] === 'y' ? 'n' : 'y';
         _success = false;
       }
     } catch (error) {
       message.error('配置失败请重试！');
       //恢复原值
-      _item[field] = _item[field] == 'y' ? 'n' : 'y';
+      _item[field] = _item[field] === 'y' ? 'n' : 'y';
       _success = false;
     }
     setLoading(false);
@@ -109,17 +109,17 @@ const TableList: React.FC = () => {
 
     const canMoveAdminsTmp: Map<number, number[]> = new Map();
     // @ts-ignore
-    if (res.other[1] != undefined) {
+    if (res.other[1] !== undefined) {
       // @ts-ignore
       canMoveAdminsTmp.set(1, res.other[1]);
     }
     // @ts-ignore
-    if (res.other[2] != undefined) {
+    if (res.other[2] !== undefined) {
       // @ts-ignore
       canMoveAdminsTmp.set(2, res.other[2]);
     }
     // @ts-ignore
-    if (res.other[3] != undefined) {
+    if (res.other[3] !== undefined) {
       // @ts-ignore
       canMoveAdminsTmp.set(3, res.other[3]);
     }
@@ -132,11 +132,11 @@ const TableList: React.FC = () => {
           }
         })*/
 
-    /*    if(admins.length == 0){
+    /*    if(admins.length === 0){
           // @ts-ignore
           await _getUserEnum();
         }*/
-    if (groups.length == 0) {
+    if (groups.length === 0) {
       // @ts-ignore
       await _getAPReviewGroupsEnum();
     }
@@ -169,7 +169,7 @@ const TableList: React.FC = () => {
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
-          return item.role_id == 1 && item.id == record.b_admin_id;
+          return item.role_id === 1 && item.id === record.b_admin_id;
         }) ? (
           <del>{_}</del>
         ) : (
@@ -185,9 +185,9 @@ const TableList: React.FC = () => {
       params: { timestamp: Math.random() },
       render: (_, record) => {
         let r = '';
-        if (record.c_review_group_id != null && record.c_review_group_id != '') {
+        if (record.c_review_group_id !== null && record.c_review_group_id !== '') {
           const groupIdArr = record.c_review_group_id!.split(',');
-          const groupsArr = groups.filter((value) => groupIdArr.find((_id) => _id == value.value));
+          const groupsArr = groups.filter((value) => groupIdArr.find((_id) => _id === value.value));
 
           for (const c of groupsArr) {
             r += '[' + c.label + '] ';
@@ -205,10 +205,10 @@ const TableList: React.FC = () => {
       valueEnum: BORROW_TIMES_TYPE,
       render: (_, record) => {
         let r = '';
-        if (record.m_borrow_times != null && record.m_borrow_times != '') {
+        if (record.m_borrow_times !== null && record.m_borrow_times !== '') {
           const groupIdArr = record.m_borrow_times!.split(',');
           const groupsArr = BORROW_TIMES_OPTION.filter((value) =>
-            groupIdArr.find((_id) => _id == value.value),
+            groupIdArr.find((_id) => _id === value.value),
           );
 
           for (const c of groupsArr) {
@@ -246,7 +246,7 @@ const TableList: React.FC = () => {
             <Switch
               checkedChildren="开"
               unCheckedChildren="关"
-              checked={record.d_can_id_number == 'y'}
+              checked={record.d_can_id_number === 'y'}
             />
           </Popconfirm>
         );
@@ -267,7 +267,7 @@ const TableList: React.FC = () => {
             <Switch
               checkedChildren="开"
               unCheckedChildren="关"
-              checked={record.e_can_contact_persion == 'y'}
+              checked={record.e_can_contact_persion === 'y'}
             />
           </Popconfirm>
         );
@@ -285,7 +285,11 @@ const TableList: React.FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Switch checkedChildren="开" unCheckedChildren="关" checked={record.f_can_job == 'y'} />
+            <Switch
+              checkedChildren="开"
+              unCheckedChildren="关"
+              checked={record.f_can_job === 'y'}
+            />
           </Popconfirm>
         );
       },
@@ -302,7 +306,11 @@ const TableList: React.FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Switch checkedChildren="开" unCheckedChildren="关" checked={record.k_can_app == 'y'} />
+            <Switch
+              checkedChildren="开"
+              unCheckedChildren="关"
+              checked={record.k_can_app === 'y'}
+            />
           </Popconfirm>
         );
       },
@@ -322,7 +330,7 @@ const TableList: React.FC = () => {
             <Switch
               checkedChildren="开"
               unCheckedChildren="关"
-              checked={record.g_can_contact == 'y'}
+              checked={record.g_can_contact === 'y'}
             />
           </Popconfirm>
         );
@@ -340,7 +348,11 @@ const TableList: React.FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Switch checkedChildren="开" unCheckedChildren="关" checked={record.h_can_sms == 'y'} />
+            <Switch
+              checkedChildren="开"
+              unCheckedChildren="关"
+              checked={record.h_can_sms === 'y'}
+            />
           </Popconfirm>
         );
       },
@@ -360,7 +372,7 @@ const TableList: React.FC = () => {
             <Switch
               checkedChildren="开"
               unCheckedChildren="关"
-              checked={record.i_can_risk == 'y'}
+              checked={record.i_can_risk === 'y'}
             />
           </Popconfirm>
         );
@@ -381,7 +393,7 @@ const TableList: React.FC = () => {
             <Switch
               checkedChildren="开"
               unCheckedChildren="关"
-              checked={record.l_can_history_borrow == 'y'}
+              checked={record.l_can_history_borrow === 'y'}
             />
           </Popconfirm>
         );
@@ -399,7 +411,7 @@ const TableList: React.FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Switch checkedChildren="开" unCheckedChildren="关" checked={record.j_status == 'y'} />
+            <Switch checkedChildren="开" unCheckedChildren="关" checked={record.j_status === 'y'} />
           </Popconfirm>
         );
       },

@@ -65,7 +65,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
   return (
     <Drawer
       width={1200}
-      visible={props.visable}
+      open={props.visable}
       onClose={() => {
         props.onClose();
       }}

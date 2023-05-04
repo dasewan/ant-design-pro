@@ -1,18 +1,23 @@
-import { Settings as LayoutSettings } from '@ant-design/pro-components';
+import { ProLayoutProps } from '@ant-design/pro-components';
 
-const Settings: LayoutSettings & {
+/**
+ * @name
+ */
+const Settings: ProLayoutProps & {
   pwa?: boolean;
   logo?: string;
 } = {
   navTheme: 'light',
-  primaryColor: '#1890ff',
+  colorPrimary: '#1890ff',
   layout: 'top',
   contentWidth: 'Fluid',
   fixedHeader: false,
   fixSiderbar: true,
-  pwa: false,
+  colorWeak: false,
+  pwa: true,
+  title: 'Ant Design Pro',
   logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
-  headerHeight: 48,
+  token: {},
   splitMenus: false,
 };
 

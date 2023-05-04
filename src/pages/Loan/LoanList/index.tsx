@@ -1,21 +1,12 @@
 import { getAdminV1MBLoanTab as getTab } from '@/services/ant-design-pro/MBLoan';
+import { Outlet } from '@@/exports';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { TabPaneProps } from 'antd';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { history } from 'umi';
 
-type RBlackProps = {
-  match: {
-    url: string;
-    path: string;
-  };
-  location: {
-    pathname: string;
-  };
-};
-
-const RBlack: FC<RBlackProps> = (props) => {
+const RBlack: FC = () => {
   /** tabs */
   const [tabList, setTabList] = useState<
     (TabPaneProps & {
@@ -43,25 +34,24 @@ const RBlack: FC<RBlackProps> = (props) => {
       tab: '放款拦截订单',
     },
   ]);
-  const { match } = props;
   /** 获取tab */
   const _getRBlackTab = async () => {
     // @ts-ignore
     const res = await getTab({ foo: null });
     tabList.forEach((value) => {
-      const tabCount = res.data?.find((item: API.CommonTab) => item.key == value.key)?.tab_count;
+      const tabCount = res.data?.find((item: API.CommonTab) => item.key === value.key)?.tab_count;
       const todayCount = res.data?.find(
-        (item: API.CommonTab) => item.key == value.key,
+        (item: API.CommonTab) => item.key === value.key,
       )?.today_count;
-      if (tabCount != undefined && tabCount > 0) {
+      if (tabCount !== undefined && tabCount > 0) {
         value.tab = (
           <div>
             {value.tab + ' '}
             <span className={'statistic-total-increase'}>
-              {todayCount != undefined && todayCount > 0 ? '+' + todayCount : ''}
+              {todayCount !== undefined && todayCount > 0 ? '+' + todayCount : ''}
             </span>
             <span className={'statistic-today-increase'}>
-              {todayCount != undefined && todayCount > 0 ? '+' + todayCount : ''}
+              {todayCount !== undefined && todayCount > 0 ? '+' + todayCount : ''}
             </span>
           </div>
         );
@@ -75,17 +65,16 @@ const RBlack: FC<RBlackProps> = (props) => {
   }, []);
 
   const _handleTabChange = (key: string) => {
-    const url = match.url === '/' ? '' : match.url;
-    history.push(`${url}/${key}`);
+    history.push(`/loan/loan-list/${key}`);
   };
 
   const _getTabKey = () => {
-    const { location } = props;
-    const url = match.path === '/' ? '' : match.path;
-    const tabKey = location.pathname.replace(`${url}/`, '');
-    if (tabKey && tabKey !== '/') {
-      return tabKey;
-    }
+    /*    const { location } = props;
+        const url = match.path === '/' ? '' : match.path;
+        const tabKey = location.pathname.replace(`${url}/`, '');
+        if (tabKey && tabKey !== '/') {
+          return tabKey;
+        }*/
     return 'articles';
   };
 
@@ -99,7 +88,7 @@ const RBlack: FC<RBlackProps> = (props) => {
       tabActiveKey={_getTabKey()}
       onTabChange={_handleTabChange}
     >
-      {props.children}
+      <Outlet />
     </PageContainer>
   );
 };

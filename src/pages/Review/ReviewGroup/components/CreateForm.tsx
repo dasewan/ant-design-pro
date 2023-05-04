@@ -91,9 +91,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -110,7 +110,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           // @ts-ignore
           res.data.f_admins = res.data.f_admins?.split(',');
           // @ts-ignore
-          res.data.d_status = res.data.d_status == 'y';
+          res.data.d_status = res.data.d_status === 'y';
           setCurrentTableListItemMoment(moment());
           setOldRecord(res.data);
           return res.data;
@@ -140,12 +140,12 @@ const CreateForm: React.FC<FormProps> = (props) => {
       <ProFormText
         label={FieldLabels.a_name}
         name={FieldIndex.a_name}
-        disabled={oldRecord?.a_name != undefined}
+        disabled={oldRecord?.a_name !== undefined}
         rules={[
           { required: true, message: `请输入${FieldLabels.a_name}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.a_name || !oldRecord?.a_name
+              return value === oldRecord?.a_name || !oldRecord?.a_name
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.a_name}`));
             },
@@ -163,7 +163,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请选择${FieldLabels.b_borrow_times}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.b_borrow_times || !oldRecord?.b_borrow_times
+              return value === oldRecord?.b_borrow_times || !oldRecord?.b_borrow_times
                 ? Promise.resolve()
                 : Promise.reject(
                     new Error(`旧值：   ${CHANNEL_TYPE[oldRecord?.b_borrow_times].text}`),
@@ -182,7 +182,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.c_weight}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.c_weight || !oldRecord?.c_weight
+              return value === oldRecord?.c_weight || !oldRecord?.c_weight
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.c_weight}`));
             },
@@ -201,7 +201,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请选择${FieldLabels.g_mode}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.g_mode || !oldRecord?.g_mode
+              return value === oldRecord?.g_mode || !oldRecord?.g_mode
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${CHANNEL_TYPE[oldRecord?.g_mode].text}`));
             },
@@ -223,12 +223,13 @@ const CreateForm: React.FC<FormProps> = (props) => {
               let oldValue = '';
               // @ts-ignore
               oldRecord?.f_admins?.map((adminId: number) => {
-                if (props.products.find((item) => item.value == adminId)) {
-                  oldValue += props.admins.find((item) => item.value == adminId)!.label + ',';
+                if (props.products.find((item) => item.value === adminId)) {
+                  oldValue += props.admins.find((item) => item.value === adminId)!.label + ',';
                 }
+                return oldValue;
               });
               // @ts-ignore
-              return tmpValue == oldRecord?.f_admins?.join(',') || !oldRecord?.f_admins
+              return tmpValue === oldRecord?.f_admins?.join(',') || !oldRecord?.f_admins
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -252,12 +253,13 @@ const CreateForm: React.FC<FormProps> = (props) => {
               let oldValue = '';
               // @ts-ignore
               oldRecord?.h_products?.map((productId: number) => {
-                if (props.products.find((item) => item.value == productId)) {
-                  oldValue += props.products.find((item) => item.value == productId)!.label + ',';
+                if (props.products.find((item) => item.value === productId)) {
+                  oldValue += props.products.find((item) => item.value === productId)!.label + ',';
                 }
+                return oldValue;
               });
               // @ts-ignore
-              return tmpValue == oldRecord?.h_products?.join(',') || !oldRecord?.h_products
+              return tmpValue === oldRecord?.h_products?.join(',') || !oldRecord?.h_products
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -280,12 +282,13 @@ const CreateForm: React.FC<FormProps> = (props) => {
               let oldValue = '';
               // @ts-ignore
               oldRecord?.e_channels?.map((channelId: number) => {
-                if (props.channels.find((item) => item.value == channelId)) {
-                  oldValue += props.channels.find((item) => item.value == channelId)!.label + ',';
+                if (props.channels.find((item) => item.value === channelId)) {
+                  oldValue += props.channels.find((item) => item.value === channelId)!.label + ',';
                 }
+                return oldValue;
               });
               // @ts-ignore
-              return tmpValue == oldRecord?.e_channels?.join(',') || !oldRecord?.e_channels
+              return tmpValue === oldRecord?.e_channels?.join(',') || !oldRecord?.e_channels
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },

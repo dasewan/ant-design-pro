@@ -5,7 +5,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, Dropdown, Menu, Progress, Space, Table, Tag } from 'antd';
+import { Button, Dropdown, MenuProps, Progress, Space, Table, Tag } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import ImportForm from './components/ImportForm';
@@ -60,7 +60,7 @@ const TableList: React.FC = () => {
    */
   const _getUserEnum = async () => {
     const data: RequestOptionsType[] = [];
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       const res = await getUserEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -80,7 +80,7 @@ const TableList: React.FC = () => {
    * 查询短信enum
    */
   const _getSMSsEnum: ProFieldRequestData = async () => {
-    if (smss.length == 0) {
+    if (smss.length === 0) {
       // const res = await getChannelsEnum({ foo: 1 });
       const data = [
         { label: '营销短信1', value: 1 },
@@ -109,7 +109,7 @@ const TableList: React.FC = () => {
    */
   const _getChannelsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length == 0) {
+    if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
@@ -124,6 +124,8 @@ const TableList: React.FC = () => {
     }
   };
 
+  // @ts-ignore
+  // @ts-ignore
   const expendColumns: ProColumns<API.GCMarketingHistory>[] = [
     {
       title: '批号',
@@ -176,9 +178,9 @@ const TableList: React.FC = () => {
       title: '目标用户',
       dataIndex: 'l_type',
       render: (_, record) => {
-        if (record.l_type == 1) {
+        if (record.l_type === 1) {
           return <Tag color="cyan">未注册</Tag>;
-        } else if (record.l_type == 2) {
+        } else if (record.l_type === 2) {
           return <Tag color="blue">未查看</Tag>;
         } else {
           return <Tag color="purple">已查看</Tag>;
@@ -326,10 +328,10 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
-        return record.m_status == 3 &&
+        return record.m_status === 3 &&
           // @ts-ignore
           !record.g_c_marketing_histories.some(
-            (item: API.GCMarketingHistory) => item.m_status == 1 || item.m_status == 2,
+            (item: API.GCMarketingHistory) => item.m_status === 1 || item.m_status === 2,
           ) &&
           (isNaN(moment().diff(moment(record.p_last_marketing_time), 'days')) ||
             moment().diff(moment(record.p_last_marketing_time), 'days') > 2)
@@ -358,7 +360,22 @@ const TableList: React.FC = () => {
       />
     );
   };
-
+  const items: MenuProps['items'] = [
+    { label: '操作说明', key: 'item-1', icon: <FileTextOutlined /> },
+    {
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={'/admin/v1/aLAdminFiles_templete/white_info_list.xlsx'}
+        >
+          模版下载
+        </a>
+      ),
+      key: 'item-2',
+      icon: <DownloadOutlined />,
+    },
+  ];
   // @ts-ignore
   return (
     <PageContainer
@@ -369,30 +386,7 @@ const TableList: React.FC = () => {
           <Button key="3" type="primary" onClick={() => handleImportModalVisible(true)}>
             导入营销名单
           </Button>,
-          <Dropdown
-            key="dropdown"
-            trigger={['click']}
-            overlay={
-              <Menu
-                items={[
-                  { label: '操作说明', key: 'item-1', icon: <FileTextOutlined /> },
-                  {
-                    label: (
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={'/admin/v1/aLAdminFiles_templete/white_info_list.xlsx'}
-                      >
-                        模版下载
-                      </a>
-                    ),
-                    key: 'item-2',
-                    icon: <DownloadOutlined />,
-                  },
-                ]}
-              />
-            }
-          >
+          <Dropdown key="dropdown" trigger={['click']} menu={{ items }}>
             <Button key="4" style={{ padding: '0 8px' }}>
               <EllipsisOutlined />
             </Button>
@@ -423,10 +417,10 @@ const TableList: React.FC = () => {
           getCheckboxProps: (record: TableListItem) => ({
             // @ts-ignore
             disabled: !(
-              record.m_status == 3 &&
+              record.m_status === 3 &&
               // @ts-ignore
               !record.g_c_marketing_histories.some(
-                (item: API.GCMarketingHistory) => item.m_status == 1 || item.m_status == 2,
+                (item: API.GCMarketingHistory) => item.m_status === 1 || item.m_status === 2,
               ) &&
               (isNaN(moment().diff(moment(record.p_last_marketing_time), 'days')) ||
                 moment().diff(moment(record.p_last_marketing_time), 'days') > 2)

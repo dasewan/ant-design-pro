@@ -54,9 +54,9 @@ const BlackForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -84,13 +84,13 @@ const BlackForm: React.FC<FormProps> = (props) => {
         columns={
           props.columns.slice(0, -1).filter((item) => {
             return !(
-              item.dataIndex == 'a_phone' ||
-              item.dataIndex == 'f_credit_amount' ||
-              item.dataIndex == 'af_loan_count' ||
-              item.dataIndex == 'created_at' ||
-              item.dataIndex == 'l_channel_id' ||
-              item.dataIndex == 'z_saler_admin_id' ||
-              item.dataIndex == 'ab_collection_admin_id'
+              item.dataIndex === 'a_phone' ||
+              item.dataIndex === 'f_credit_amount' ||
+              item.dataIndex === 'af_loan_count' ||
+              item.dataIndex === 'created_at' ||
+              item.dataIndex === 'l_channel_id' ||
+              item.dataIndex === 'z_saler_admin_id' ||
+              item.dataIndex === 'ab_collection_admin_id'
             );
           }) as ProDescriptionsItemProps<TableListItem>[]
         }

@@ -24,8 +24,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'umi';
 
-export type FormProps = {};
-const VerifyDetail: React.FC<FormProps> = () => {
+const VerifyDetail: React.FC = () => {
   const params = useParams<{ id: string; verifyId?: string }>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
 
@@ -116,22 +115,22 @@ const VerifyDetail: React.FC<FormProps> = () => {
   );
   const nameIsSame =
     (oldRecord?.a_a_a_a_a_m_idnumber?.a_l_name_same &&
-      oldRecord?.a_a_a_a_a_m_idnumber?.a_l_name_same == 'n') ||
+      oldRecord?.a_a_a_a_a_m_idnumber?.a_l_name_same === 'n') ||
     (oldRecord?.a_a_a_a_a_m_idnumber?.a_m_name2_same &&
-      oldRecord?.a_a_a_a_a_m_idnumber?.a_m_name2_same == 'n') ||
+      oldRecord?.a_a_a_a_a_m_idnumber?.a_m_name2_same === 'n') ||
     (oldRecord?.a_a_a_a_a_m_idnumber?.a_n_name3_same &&
-      oldRecord?.a_a_a_a_a_m_idnumber?.a_n_name3_same == 'n') ||
+      oldRecord?.a_a_a_a_a_m_idnumber?.a_n_name3_same === 'n') ||
     (oldRecord?.a_a_a_a_a_m_idnumber?.a_o_name4_same &&
-      oldRecord?.a_a_a_a_a_m_idnumber?.a_o_name4_same == 'n');
+      oldRecord?.a_a_a_a_a_m_idnumber?.a_o_name4_same === 'n');
   const idNumberIsSame =
     (oldRecord?.a_a_a_a_a_m_idnumber?.a_h_id_number_same &&
-      oldRecord?.a_a_a_a_a_m_idnumber?.a_h_id_number_same == 'n') ||
+      oldRecord?.a_a_a_a_a_m_idnumber?.a_h_id_number_same === 'n') ||
     (oldRecord?.a_a_a_a_a_m_idnumber?.a_i_id_number2_same &&
-      oldRecord?.a_a_a_a_a_m_idnumber?.a_i_id_number2_same == 'n') ||
+      oldRecord?.a_a_a_a_a_m_idnumber?.a_i_id_number2_same === 'n') ||
     (oldRecord?.a_a_a_a_a_m_idnumber?.a_j_id_number3_same &&
-      oldRecord?.a_a_a_a_a_m_idnumber?.a_j_id_number3_same == 'n') ||
+      oldRecord?.a_a_a_a_a_m_idnumber?.a_j_id_number3_same === 'n') ||
     (oldRecord?.a_a_a_a_a_m_idnumber?.a_k_id_number4_same &&
-      oldRecord?.a_a_a_a_a_m_idnumber?.a_k_id_number4_same == 'n');
+      oldRecord?.a_a_a_a_a_m_idnumber?.a_k_id_number4_same === 'n');
   const isBlack =
     oldRecord?.a_a_a_a_a_m_idnumber?.d_black_id && oldRecord?.a_a_a_a_a_m_idnumber?.d_black_id > 0;
   const isGrey =
@@ -183,7 +182,7 @@ const VerifyDetail: React.FC<FormProps> = () => {
             title="身份信息"
             bodyStyle={{ padding: 0 }}
             extra={
-              idNumberRawStatus == 30 ? (
+              idNumberRawStatus === 30 ? (
                 <Button
                   type="primary"
                   onClick={() =>
@@ -196,7 +195,7 @@ const VerifyDetail: React.FC<FormProps> = () => {
                     )
                   }
                 >
-                  {idNumberStatus == 30 ? '审核' : '复审原因'}
+                  {idNumberStatus === 30 ? '审核' : '复审原因'}
                 </Button>
               ) : (
                 ''
@@ -303,7 +302,7 @@ const VerifyDetail: React.FC<FormProps> = () => {
             title="联系人信息"
             bodyStyle={{ padding: 0 }}
             extra={
-              contactRawStatus == 30 ? (
+              contactRawStatus === 30 ? (
                 <Button
                   type="primary"
                   onClick={() =>
@@ -316,7 +315,7 @@ const VerifyDetail: React.FC<FormProps> = () => {
                     )
                   }
                 >
-                  {contactStatus == 30 ? '审核' : '复审原因'}
+                  {contactStatus === 30 ? '审核' : '复审原因'}
                 </Button>
               ) : (
                 ''
@@ -431,7 +430,7 @@ const VerifyDetail: React.FC<FormProps> = () => {
               </Descriptions.Item>
 
               {/*联系人3*/}
-              {oldRecord?.a_a_a_a_a_o_contact?.contact3_name != undefined ? (
+              {oldRecord?.a_a_a_a_a_o_contact?.contact3_name !== undefined ? (
                 <>
                   {contact3IsBlack ? (
                     <Descriptions.Item
@@ -494,7 +493,7 @@ const VerifyDetail: React.FC<FormProps> = () => {
             title="银行卡信息"
             bodyStyle={{ padding: 0 }}
             extra={
-              loanBankRawStatus == 30 ? (
+              loanBankRawStatus === 30 ? (
                 <Button
                   type="primary"
                   onClick={() =>
@@ -507,7 +506,7 @@ const VerifyDetail: React.FC<FormProps> = () => {
                     )
                   }
                 >
-                  {loanBankStatus == 30 ? '审核' : '复审原因'}
+                  {loanBankStatus === 30 ? '审核' : '复审原因'}
                 </Button>
               ) : (
                 ''
@@ -571,12 +570,12 @@ const VerifyDetail: React.FC<FormProps> = () => {
                 labelStyle={{
                   color:
                     oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity &&
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity != 50
+                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity !== 50
                       ? 'red'
                       : '',
                   fontWeight:
                     oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity &&
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity != 50
+                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity !== 50
                       ? 'bold'
                       : 'normal',
                 }}
@@ -611,7 +610,7 @@ const VerifyDetail: React.FC<FormProps> = () => {
             title="工作及其他信息"
             bodyStyle={{ padding: 0 }}
             extra={
-              jobRawStatus == 30 ? (
+              jobRawStatus === 30 ? (
                 <Button
                   type="primary"
                   onClick={() =>
@@ -624,7 +623,7 @@ const VerifyDetail: React.FC<FormProps> = () => {
                     )
                   }
                 >
-                  {jobStatus == 30 ? '审核' : '复审原因'}
+                  {jobStatus === 30 ? '审核' : '复审原因'}
                 </Button>
               ) : (
                 ''
@@ -732,16 +731,16 @@ const VerifyDetail: React.FC<FormProps> = () => {
       <ReviewForm
         onSubmit={async (afterStatus, item) => {
           handleReviewModalVisible(false);
-          if (item == 'idNumber') {
+          if (item === 'idNumber') {
             handleIdNumberStatus(afterStatus);
           }
-          if (item == 'contact') {
+          if (item === 'contact') {
             handleContactStatus(afterStatus);
           }
-          if (item == 'job') {
+          if (item === 'job') {
             handleJobStatus(afterStatus);
           }
-          if (item == 'loanBank') {
+          if (item === 'loanBank') {
             handleLoanBankStatus(afterStatus);
           }
         }}

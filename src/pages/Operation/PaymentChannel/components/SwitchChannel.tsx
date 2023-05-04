@@ -58,10 +58,10 @@ const SwitchChannel: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      title={props.type == 'transaction' ? '还款渠道' : '放款渠道'}
-      visible={props.modalVisible}
+      title={props.type === 'transaction' ? '还款渠道' : '放款渠道'}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -72,12 +72,13 @@ const SwitchChannel: React.FC<FormProps> = (props) => {
         setCurrentTableListItemMoment(moment());
         const data = {};
         map(
-          props.type == 'transaction' ? props.transactionDictionary : props.transferDictionary,
+          props.type === 'transaction' ? props.transactionDictionary : props.transferDictionary,
           function (value) {
             value.map((item) => {
-              if (item.g_status == 'y') {
+              if (item.g_status === 'y') {
                 data[item.d_method!] = item.id;
               }
+              return '';
             });
           },
         );
@@ -97,7 +98,7 @@ const SwitchChannel: React.FC<FormProps> = (props) => {
       initialValues={{}}
     >
       {map(
-        props.type == 'transaction' ? props.transactionDictionary : props.transferDictionary,
+        props.type === 'transaction' ? props.transactionDictionary : props.transferDictionary,
         function (value) {
           const optionsWithDisabled: CheckboxOptionType[] = [];
           value.map((item) => optionsWithDisabled.push({ label: item.a_name, value: item.id! }));

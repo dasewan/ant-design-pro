@@ -55,7 +55,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
    * 查询管理员enum
    */
   const _getUserEnum = async () => {
-    if (admins.length == 0) {
+    if (admins.length === 0) {
       setAdmins(props.admins);
       return props.admins;
     } else {
@@ -71,7 +71,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
-          return item.role_id == 1 && item.id == record.b_before_admin_id;
+          return item.role_id === 1 && item.id === record.b_before_admin_id;
         }) ? (
           <del>{_}</del>
         ) : (
@@ -87,7 +87,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
-          return item.role_id == 1 && item.id == record.d_after_admin_id;
+          return item.role_id === 1 && item.id === record.d_after_admin_id;
         }) ? (
           <del>{_}</del>
         ) : (
@@ -108,7 +108,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
   return (
     <Drawer
       width={600}
-      visible={props.showDetail}
+      open={props.showDetail}
       onClose={() => {
         props.onClose();
       }}

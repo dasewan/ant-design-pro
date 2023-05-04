@@ -43,7 +43,7 @@ const RiskRoleBundleTableModel: React.FC<Props> = (props) => {
         // @ts-ignore
         if (params?.a_name) {
           // @ts-ignore
-          if (item.a_name == params.a_name!) {
+          if (item.a_name === params.a_name!) {
             nameMatch = 1;
           } else {
             nameMatch = 0;
@@ -52,7 +52,7 @@ const RiskRoleBundleTableModel: React.FC<Props> = (props) => {
         // @ts-ignore
         if (params?.e_execute_logic) {
           // @ts-ignore
-          if (item.e_execute_logic == params!.e_execute_logic!) {
+          if (item.e_execute_logic === params!.e_execute_logic!) {
             logicMatch = 1;
           } else {
             logicMatch = 0;
@@ -61,13 +61,13 @@ const RiskRoleBundleTableModel: React.FC<Props> = (props) => {
         // @ts-ignore
         if (params?.f_finnal_decision) {
           // @ts-ignore
-          if (item.f_finnal_decision == params!.f_finnal_decision!) {
+          if (item.f_finnal_decision === params!.f_finnal_decision!) {
             decisionMatch = 1;
           } else {
             decisionMatch = 0;
           }
         }
-        return !(nameMatch == 0 || logicMatch == 0 || decisionMatch == 0);
+        return !(nameMatch === 0 || logicMatch === 0 || decisionMatch === 0);
       });
     }
     return {
@@ -158,7 +158,7 @@ const RiskRoleBundleTableModel: React.FC<Props> = (props) => {
   return (
     <Modal
       title="规则列表"
-      visible={props.modalVisible}
+      open={props.modalVisible}
       destroyOnClose={true}
       onCancel={() => props.onCancel()}
       width={1900}

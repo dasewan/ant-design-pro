@@ -86,9 +86,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();
@@ -101,7 +101,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           // @ts-ignore
           res.data.r_products = res.data.r_products?.split(',');
           // @ts-ignore
-          res.data.d_status = res.data.d_status == 'y';
+          res.data.d_status = res.data.d_status === 'y';
           setCurrentTableListItemMoment(moment());
           setOldRecord(res.data);
           return res.data;
@@ -131,12 +131,12 @@ const CreateForm: React.FC<FormProps> = (props) => {
       <ProFormText
         label={FieldLabels.a_title}
         name={FieldIndex.a_title}
-        disabled={oldRecord?.a_title != undefined}
+        disabled={oldRecord?.a_title !== undefined}
         rules={[
           { required: true, message: `请输入${FieldLabels.a_title}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.a_title || !oldRecord?.a_title
+              return value === oldRecord?.a_title || !oldRecord?.a_title
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.a_title}`));
             },
@@ -154,7 +154,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请选择${FieldLabels.f_divide_into_type}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.f_divide_into_type || !oldRecord?.f_divide_into_type
+              return value === oldRecord?.f_divide_into_type || !oldRecord?.f_divide_into_type
                 ? Promise.resolve()
                 : Promise.reject(
                     new Error(`旧值：   ${CHANNEL_TYPE[oldRecord?.f_divide_into_type].text}`),
@@ -173,7 +173,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.g_divide_one_money}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.g_divide_one_money || !oldRecord?.g_divide_one_money
+              return value === oldRecord?.g_divide_one_money || !oldRecord?.g_divide_one_money
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.g_divide_one_money}`));
             },
@@ -191,7 +191,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.h_reg_hide_basic}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.h_reg_hide_basic || !oldRecord?.h_reg_hide_basic
+              return value === oldRecord?.h_reg_hide_basic || !oldRecord?.h_reg_hide_basic
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.h_reg_hide_basic}`));
             },
@@ -209,7 +209,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.i_reg_hide_rate}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.i_reg_hide_rate || !oldRecord?.i_reg_hide_rate
+              return value === oldRecord?.i_reg_hide_rate || !oldRecord?.i_reg_hide_rate
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.i_reg_hide_rate}`));
             },
@@ -227,7 +227,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.j_max_register}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.j_max_register || !oldRecord?.j_max_register
+              return value === oldRecord?.j_max_register || !oldRecord?.j_max_register
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.j_max_register}`));
             },
@@ -245,7 +245,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.u_max_loan}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.u_max_loan || !oldRecord?.u_max_loan
+              return value === oldRecord?.u_max_loan || !oldRecord?.u_max_loan
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.u_max_loan}`));
             },
@@ -265,14 +265,14 @@ const CreateForm: React.FC<FormProps> = (props) => {
             validator: (_, value) => {
               const tmpValue = value?.join(',');
               let oldValue = '';
-              // @ts-ignore
               oldRecord?.r_products?.map((productId: number) => {
-                if (props.products.find((item) => item.value == productId)) {
-                  oldValue += props.products.find((item) => item.value == productId)!.label + ',';
+                if (props.products.find((item) => item.value === productId)) {
+                  oldValue += props.products.find((item) => item.value === productId)!.label + ',';
                 }
+                return oldValue;
               });
               // @ts-ignore
-              return tmpValue == oldRecord?.r_products?.join(',') || !oldRecord?.r_products
+              return tmpValue === oldRecord?.r_products?.join(',') || !oldRecord?.r_products
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -298,7 +298,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.m_self_user}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.m_self_user || !oldRecord?.m_self_user
+              return value === oldRecord?.m_self_user || !oldRecord?.m_self_user
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.m_self_user}`));
             },
@@ -315,7 +315,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           { required: true, message: `请输入${FieldLabels.n_contact_user}` },
           {
             validator: (_, value) => {
-              return value == oldRecord?.n_contact_user || !oldRecord?.n_contact_user
+              return value === oldRecord?.n_contact_user || !oldRecord?.n_contact_user
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：   ${oldRecord?.n_contact_user}`));
             },
