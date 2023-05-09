@@ -1,3 +1,5 @@
+import { ProSchemaValueEnumObj } from '@ant-design/pro-utils/es/typing';
+
 export interface StatusItem {
   text: string;
   status: string;
@@ -8,7 +10,7 @@ export interface StatusColorItem {
   color: string;
 }
 
-export interface StatusEnum {
+export interface StatusEnum extends ProSchemaValueEnumObj {
   [key: number]: StatusItem;
 }
 
@@ -16,11 +18,11 @@ export interface StatusEnum2 {
   [key: string]: StatusItem;
 }
 
-export interface StatusColorEnum {
+export interface StatusColorEnum extends ProSchemaValueEnumObj {
   [key: number]: StatusColorItem;
 }
 
-export interface StatusColorEnum2 {
+export interface StatusColorEnum2 extends ProSchemaValueEnumObj {
   [key: string]: StatusColorItem;
 }
 
@@ -389,3 +391,18 @@ export const ASSIGN_TYPE_ARRAY: StatusOption[] = [
     value: 2,
   },
 ];
+
+export const COLLECTION_FLOW_TYPE: StatusEnum = {
+  1: { text: '系统', status: 'Default' },
+  2: { text: '管理员', status: 'Error' },
+};
+export const COLLECTION_ASSIGN_LOG_TYPE: StatusColorEnum = {
+  1: { text: '机构', color: '#0099FF' },
+  2: { text: '小组', color: '#a0c69d' },
+  3: { text: '催员', color: '#CC99CC' },
+};
+export const COLLECTION_ASSIGN_LOG_CAT_TYPE: StatusEnum = {
+  1: { text: '计划任务', status: 'Default' },
+  2: { text: '管理员释放', status: 'Error' },
+  3: { text: '管理员转移', status: 'Warning' },
+};

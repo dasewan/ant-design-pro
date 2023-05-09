@@ -125,4 +125,7 @@ export default {
   'menu.collection.collection-group-list': '催收组管理',
   'menu.collection.collection-admin-list': '催员管理',
   'menu.collection.collection-role': '催收规则',
+  'menu.collection.my-collection': '催收工作台',
+  'menu.collection.collection-order-flow-history': '案件流转记录',
+  'menu.collection.collection-assign-log': '分案记录',
 };

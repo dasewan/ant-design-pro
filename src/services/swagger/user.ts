@@ -2,99 +2,95 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** Create user This can only be done by the logged in user. POST /user */
-export async function createUser(body: API.User, options?: { [key: string]: any }) {
-  return request<any>('/user', {
+/** Get a listing of the Users. Get all Users GET /admin/v1/users_enum */
+export async function getAdminV1UsersEnum(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getAdminV1UsersEnumParams,
+  options?: { [key: string]: any },
+) {
+  const { foo: param0, ...queryParams } = params;
+  return request<{ success?: boolean; data?: API.User[]; total?: number; message?: string }>(
+    '/admin/v1/users_enum',
+    {
+      method: 'GET',
+      params: { ...queryParams },
+      ...(options || {}),
+    },
+  );
+}
+
+/** Get a listing of the Users. Get all Users GET /users */
+export async function getUsers(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getUsersParams,
+  options?: { [key: string]: any },
+) {
+  const { current: param0, pageSize: param1, ...queryParams } = params;
+  return request<{ success?: boolean; data?: API.User[]; total?: number; message?: string }>(
+    '/users',
+    {
+      method: 'GET',
+      params: { ...queryParams },
+      ...(options || {}),
+    },
+  );
+}
+
+/** Store a newly created User in storage Store User POST /users */
+export async function postUsers(body: API.User, options?: { [key: string]: any }) {
+  return request<{ success?: boolean; data?: API.User; message?: string }>('/users', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     data: body,
     ...(options || {}),
   });
 }
 
-/** Get user by user name GET /user/${param0} */
-export async function getUserByName(
+/** Display the specified User Get User GET /users/${param0} */
+export async function getUsersId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getUserByNameParams,
+  params: API.getUsersIdParams,
   options?: { [key: string]: any },
 ) {
-  const { username: param0, ...queryParams } = params;
-  return request<API.User>(`/user/${param0}`, {
+  const { id: param0, ...queryParams } = params;
+  return request<{ success?: boolean; data?: API.User; message?: string }>(`/users/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** Updated user This can only be done by the logged in user. PUT /user/${param0} */
-export async function updateUser(
+/** Update the specified User in storage Update User PUT /users/${param0} */
+export async function putUsersId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.updateUserParams,
+  params: API.putUsersIdParams,
   body: API.User,
   options?: { [key: string]: any },
 ) {
-  const { username: param0, ...queryParams } = params;
-  return request<any>(`/user/${param0}`, {
+  const { id: param0, ...queryParams } = params;
+  return request<{ success?: boolean; data?: API.User; message?: string }>(`/users/${param0}`, {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
   });
 }
 
-/** Delete user This can only be done by the logged in user. DELETE /user/${param0} */
-export async function deleteUser(
+/** Remove the specified User from storage Delete User DELETE /users/${param0} */
+export async function deleteUsersId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.deleteUserParams,
+  params: API.deleteUsersIdParams,
   options?: { [key: string]: any },
 ) {
-  const { username: param0, ...queryParams } = params;
-  return request<any>(`/user/${param0}`, {
+  const { id: param0, ...queryParams } = params;
+  return request<{ success?: boolean; data?: string; message?: string }>(`/users/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
-    ...(options || {}),
-  });
-}
-
-/** Creates list of users with given input array POST /user/createWithArray */
-export async function createUsersWithArrayInput(
-  body: API.User[],
-  options?: { [key: string]: any },
-) {
-  return request<any>('/user/createWithArray', {
-    method: 'POST',
-    data: body,
-    ...(options || {}),
-  });
-}
-
-/** Creates list of users with given input array POST /user/createWithList */
-export async function createUsersWithListInput(body: API.User[], options?: { [key: string]: any }) {
-  return request<any>('/user/createWithList', {
-    method: 'POST',
-    data: body,
-    ...(options || {}),
-  });
-}
-
-/** Logs user into the system GET /user/login */
-export async function loginUser(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.loginUserParams,
-  options?: { [key: string]: any },
-) {
-  return request<string>('/user/login', {
-    method: 'GET',
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  });
-}
-
-/** Logs out current logged in user session GET /user/logout */
-export async function logoutUser(options?: { [key: string]: any }) {
-  return request<any>('/user/logout', {
-    method: 'GET',
     ...(options || {}),
   });
 }

@@ -58,3 +58,26 @@ export const GroupRoleFieldIndex = {
   created_at: 'created_at',
   updated_at: 'updated_at',
 };
+
+export const KpiFieldLabels = {
+  a_collection_stage_id: '催收阶段',
+  b_collection_agency_id: '催收机构',
+  c_type: 'kpi类型',
+  d_level: '催回level',
+  e_collection_amount_begin_rate: '催回率',
+  f_collection_amount_end_rate: '催回率',
+  g_commission_rate: '佣金',
+  created_at: '创建时间',
+  updated_at: '更新时间',
+};
+export const KpiFieldIndex = {
+  a_collection_stage_id: 'a_collection_stage_id',
+  b_collection_agency_id: 'b_collection_agency_id',
+  c_type: 'c_type',
+  d_level: 'd_level',
+  e_collection_amount_begin_rate: 'e_collection_amount_begin_rate',
+  f_collection_amount_end_rate: 'f_collection_amount_end_rate',
+  g_commission_rate: 'g_commission_rate',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+};

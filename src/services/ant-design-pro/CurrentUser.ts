@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from 'umi';
+import { request } from '@umijs/max';
 
 /** Get a listing of the CurrentUsers. Get all CurrentUsers GET /admin/v1/currentUsers */
 export async function getAdminV1CurrentUsers(options?: { [key: string]: any }) {

@@ -6,6 +6,7 @@ import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 
 import EditForm from '@/pages/Collection/CollectionRole/components/EditForm';
+import KpiForm from '@/pages/Collection/CollectionRole/components/KpiForm';
 import styles from '@/pages/Collection/CollectionRole/index.less';
 import {
   AgencyRoleFieldIndex,
@@ -24,11 +25,14 @@ import type { RequestOptionsType } from '@ant-design/pro-utils';
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [createModalVisible, handleCreateModalVisible] = useState<boolean>(false);
+  const [createKpiModalVisible, handleCreateKpiModalVisible] = useState<boolean>(false);
   const [collectionStages, setCollectionStages] = useState<RequestOptionsType[]>([]);
   const [collectionAgencies, setCollectionAgencies] = useState<RequestOptionsType[]>([]);
   const [collectionGroups, setCollectionGroups] = useState<RequestOptionsType[]>([]);
   /** 当前编辑数据 */
   const [id, setId] = useState<number>(0);
+  const [collectionStageId, setCollectionStageId] = useState<number>(0);
+  const [collectionAgencyId, setCollectionAgencyId] = useState<number>(0);
 
   /**
    * 查询催收小组enum
@@ -119,6 +123,15 @@ const TableList: React.FC = () => {
     setId(_id);
     handleCreateModalVisible(true);
   };
+  /**
+   * KPI model
+   * @param _id
+   */
+  const onKpiEditClick = async (_collectionStageId: number, _collectionAgencyId: number) => {
+    setCollectionStageId(_collectionStageId);
+    setCollectionAgencyId(_collectionAgencyId);
+    handleCreateKpiModalVisible(true);
+  };
 
   const expendColumns: ProColumns<API.HFCollectionAgencyRole>[] = [
     {
@@ -138,6 +151,25 @@ const TableList: React.FC = () => {
       title: AgencyRoleFieldLabels.d_assign_type,
       dataIndex: AgencyRoleFieldIndex.d_assign_type,
       valueEnum: ASSIGN_TYPE,
+    },
+    {
+      title: '操作',
+      dataIndex: 'option',
+      valueType: 'option',
+      render: (_, record) => {
+        const edit = (
+          <a
+            key="edit"
+            onClick={() =>
+              onKpiEditClick(record.a_collection_stage_id!, record.b_collection_agency_id!)
+            }
+          >
+            设置KPI
+          </a>
+        );
+
+        return [edit];
+      },
     },
   ];
   const expendColumns2: ProColumns<API.HFCollectionAgencyRole>[] = [
@@ -300,6 +332,31 @@ const TableList: React.FC = () => {
         modalVisible={createModalVisible}
         collectionAgencies={collectionAgencies}
         collectionGroups={collectionGroups}
+        // admins={admins}
+      />
+
+      {/*表单model*/}
+      <KpiForm
+        onSubmit={async (success) => {
+          if (success) {
+            handleCreateKpiModalVisible(false);
+            setCollectionStageId(0);
+            setCollectionAgencyId(0);
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+          }
+        }}
+        onCancel={() => {
+          handleCreateKpiModalVisible(false);
+          setCollectionStageId(0);
+          setCollectionAgencyId(0);
+        }}
+        collectionStageId={collectionStageId}
+        collectionAgencyId={collectionAgencyId}
+        modalVisible={createKpiModalVisible}
+        collectionAgencies={collectionAgencies}
+        collectionStages={collectionStages}
         // admins={admins}
       />
     </PageContainer>

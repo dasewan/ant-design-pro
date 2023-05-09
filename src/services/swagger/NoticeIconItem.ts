@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from 'umi';
+import { request } from '@umijs/max';
 
 /** Get a listing of the NoticeIconItems. Get all NoticeIconItems GET /noticeIconItems */
 export async function getNoticeIconItems(options?: { [key: string]: any }) {

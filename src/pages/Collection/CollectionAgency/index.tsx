@@ -52,7 +52,7 @@ const TableList: React.FC = () => {
     }
   };
   /**
-   * 查询产品enum
+   * 查询阶段enum
    */
   const _getCollectionStagesEnum = async () => {
     const data: RequestOptionsType[] = [];
@@ -71,7 +71,7 @@ const TableList: React.FC = () => {
     }
   };
   /**
-   * 查询产品enum
+   * 查询机构enum
    */
   const _getCollectionAgenciesEnum = async () => {
     const data: RequestOptionsType[] = [];

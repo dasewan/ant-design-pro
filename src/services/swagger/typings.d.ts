@@ -956,6 +956,79 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type BLCollectionOrder = {
+    /** id */
+    id?: number;
+    /** 父id */
+    a_borrow_id?: number;
+    /** 阶段id */
+    b_collection_stage_id?: number;
+    /** 机构id */
+    c_collection_agency_id?: number;
+    /** 小组id */
+    d_collection_group_id?: number;
+    /** 催员id */
+    e_collection_admin_id?: number;
+    /** 入催日志id（作为q_c_collection_news.parent_id） */
+    f_collection_news_id?: number;
+    /** 流转次数 */
+    g_collection_order_flow_history_count?: number;
+    /** 催员催记数 */
+    h_collection_admin_log_count?: number;
+    /** 催员拨打电话数 */
+    i_collection_admin_call_count?: number;
+    /** 系统催收短信数 */
+    j_system_sms_count?: number;
+    /** 最新状态（只针对催员记录状态和承诺未还） */
+    k_status?: number;
+    /** 累计催回金额 */
+    l_collection_amount?: number;
+    /** 分期id */
+    m_period_id?: number;
+    /** 入催金额 */
+    n_borrow_amount?: number;
+    /** 分期期数 */
+    o_period_index?: number;
+    /** 预计还款时间 */
+    p_expect_repay_time?: string;
+    /** 结束锁定的阶段 */
+    q_lock_end_stage_id?: number;
+    /** 流入时间 */
+    r_flow_in_time?: string;
+    /** 流出时间（倒计时，方便催员把握催收进度） */
+    s_flow_out_time?: string;
+    /** 订单sn(冗余) */
+    t_borrow_sn?: string;
+    /** 用户手机(冗余) */
+    u_phone?: string;
+    /** 用户姓名(冗余) */
+    v_name?: string;
+    /** 查看次数 */
+    w_view_times?: number;
+    /** 当前催员查看次数 */
+    x_current_view_times?: number;
+    /** 当前催员记录日志次数 */
+    y_current_log_count?: number;
+    /** 当前催员电催次数 */
+    z_current_call_count?: number;
+    /** 累计佣金 */
+    a_a_commission?: number;
+    /** 当前佣金 */
+    a_b_current_commission?: number;
+    /** 当前催回可得佣金 */
+    a_c_expect_current_commission?: number;
+    /** 最近日志时间 */
+    a_d_last_log_time?: string;
+    /** 借款次数 */
+    a_e_borrow_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type BorrowDetail = {
     /** id */
     id?: number;
@@ -1078,6 +1151,31 @@ declare namespace API {
     address: string;
     /** phone */
     phone: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type DACollectionKpi = {
+    /** id */
+    id?: number;
+    /** 催收阶段 */
+    a_collection_stage_id?: number;
+    /** 催收机构 */
+    b_collection_agency_id?: number;
+    /** kpi类型 1：新案件 2：就案件和部分催回 */
+    c_type?: number;
+    /** 催回level */
+    d_level?: number;
+    /** 催回率 */
+    e_collection_amount_begin_rate?: number;
+    /** 催回率 */
+    f_collection_amount_end_rate?: number;
+    /** 佣金 */
+    g_commission_rate?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1304,6 +1402,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1BLCollectionOrdersIdParams = {
+    /** id of BLCollectionOrder */
+    id: number;
+  };
+
   type deleteAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -1311,6 +1414,11 @@ declare namespace API {
 
   type deleteAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
+    id: number;
+  };
+
+  type deleteAdminV1DACollectionKpisIdParams = {
+    /** id of DACollectionKpi */
     id: number;
   };
 
@@ -1444,8 +1552,18 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1NCCollectionOrderFlowsIdParams = {
+    /** id of NCCollectionOrderFlowHistory */
+    id: number;
+  };
+
   type deleteAdminV1OARepaysIdParams = {
     /** id of OARepay */
+    id: number;
+  };
+
+  type deleteAdminV1QCCollectionNewsIdParams = {
+    /** id of QCCollectionNews */
     id: number;
   };
 
@@ -1476,6 +1594,11 @@ declare namespace API {
 
   type deleteAdminV1TCollectionAgenciesIdParams = {
     /** id of TCollectionAgency */
+    id: number;
+  };
+
+  type deleteAdminV1VCollectionAssignLogsIdParams = {
+    /** id of VCollectionAssignLog */
     id: number;
   };
 
@@ -1925,6 +2048,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1BLCollectionOrdersIdParams = {
+    /** id of BLCollectionOrder */
+    id: number;
+  };
+
+  type getAdminV1BLCollectionOrdersParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -1953,6 +2086,16 @@ declare namespace API {
   type getAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
     id: number;
+  };
+
+  type getAdminV1DACollectionKpisIdParams = {
+    /** id of DACollectionKpi */
+    id: number;
+  };
+
+  type getAdminV1DACollectionKpisParams = {
+    /** foo */
+    foo: number;
   };
 
   type getAdminV1DBorrowsClearedParams = {
@@ -2295,6 +2438,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1NCCollectionOrderFlowsIdParams = {
+    /** id of NCCollectionOrderFlowHistory */
+    id: number;
+  };
+
+  type getAdminV1NCCollectionOrderFlowsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -2306,6 +2459,16 @@ declare namespace API {
   };
 
   type getAdminV1ProductsEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1QCCollectionNewsIdParams = {
+    /** id of QCCollectionNews */
+    id: number;
+  };
+
+  type getAdminV1QCCollectionNewsParams = {
     /** foo */
     foo: number;
   };
@@ -2386,6 +2549,16 @@ declare namespace API {
   };
 
   type getAdminV1UsersEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1VCollectionAssignLogsIdParams = {
+    /** id of VCollectionAssignLog */
+    id: number;
+  };
+
+  type getAdminV1VCollectionAssignLogsParams = {
     /** foo */
     foo: number;
   };
@@ -3571,6 +3744,75 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type NCCollectionOrderFlowHistory = {
+    /** id */
+    id?: number;
+    /** 订单id */
+    a_borrow_id?: number;
+    /** 催收id */
+    b_collection_order_id?: number;
+    /** 1:计划任务 2： 管理员转移 */
+    c_type?: number;
+    /** 父id */
+    d_before_collection_order_id?: number;
+    /** 阶段id */
+    e_before_collection_stage_id?: number;
+    /** 机构id */
+    f_before_collection_agency_id?: number;
+    /** 小组id */
+    g_before_collection_group_id?: number;
+    /** 催员id */
+    h_before_collection_admin_id?: number;
+    /** 阶段id */
+    i_after_collection_stage_id?: number;
+    /** 机构id */
+    j_after_collection_agency_id?: number;
+    /** 小组id */
+    k_after_collection_group_id?: number;
+    /** 催员id */
+    l_after_collection_admin_id?: number;
+    /** 催员催记数 */
+    m_collection_admin_log_count?: number;
+    /** 催员拨打电话数 */
+    n_collection_admin_call_count?: number;
+    /** 系统催收短信数 */
+    o_system_sms_count?: number;
+    /** 累计催回金额 */
+    p_collection_amount?: number;
+    /** 催回类型 */
+    q_type?: number;
+    /** 支付流水日志（多笔流水用逗号） */
+    r_repay_log_ids?: string;
+    /** 分期id */
+    s_period_id?: number;
+    /** 入催金额（实际应还金额 例如在S0入催1000，然后催回900，那么S1的入催金额就是100） */
+    t_borrow_amount?: number;
+    /** 查看次数 */
+    u_view_times?: number;
+    /** 订单sn(冗余) */
+    v_borrow_sn?: string;
+    /** 用户手机(冗余) */
+    w_phone?: string;
+    /** 用户姓名(冗余) */
+    x_name?: string;
+    /** 累计佣金 */
+    y_commission?: number;
+    /** 最近日志时间 */
+    z_last_log_time?: string;
+    /** 流出时间 */
+    a_a_flow_out_time?: string;
+    /** 借款次数 */
+    a_b_borrow_count?: number;
+    /** 入催日志id（作为q_c_collection_news.parent_id） */
+    a_c_collection_news_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type NoticeIconItem = {
     /** id */
     id?: number;
@@ -4076,6 +4318,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1BLCollectionOrdersIdParams = {
+    /** id of BLCollectionOrder */
+    id: number;
+  };
+
   type putAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -4083,6 +4330,11 @@ declare namespace API {
 
   type putAdminV1CurrentUsersIdParams = {
     /** id of CurrentUser */
+    id: number;
+  };
+
+  type putAdminV1DACollectionKpisIdParams = {
+    /** id of DACollectionKpi */
     id: number;
   };
 
@@ -4216,8 +4468,18 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1NCCollectionOrderFlowsIdParams = {
+    /** id of NCCollectionOrderFlowHistory */
+    id: number;
+  };
+
   type putAdminV1OARepaysIdParams = {
     /** id of OARepay */
+    id: number;
+  };
+
+  type putAdminV1QCCollectionNewsIdParams = {
+    /** id of QCCollectionNews */
     id: number;
   };
 
@@ -4248,6 +4510,11 @@ declare namespace API {
 
   type putAdminV1TCollectionAgenciesIdParams = {
     /** id of TCollectionAgency */
+    id: number;
+  };
+
+  type putAdminV1VCollectionAssignLogsIdParams = {
+    /** id of VCollectionAssignLog */
     id: number;
   };
 
@@ -4430,6 +4697,49 @@ declare namespace API {
     a_r_extend_admin_id?: number;
     /** 展期天数 */
     a_s_extend_days?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type QCCollectionNews = {
+    /** id */
+    id?: number;
+    /** 订单id */
+    n_borrow_id?: number;
+    /** 分期id */
+    o_period_id?: number;
+    /** 父id */
+    a_parent_id?: number;
+    /** 催收id */
+    p_collection_order_id?: number;
+    /** 阶段id */
+    b_collection_stage_id?: number;
+    /** 机构id */
+    c_collection_agency_id?: number;
+    /** 小组id */
+    d_collection_group_id?: number;
+    /** 催员id */
+    e_collection_admin_id?: number;
+    /** 1:催员日志 2：催员拨打电话 3：入催  4：系统记录日志 5：还款日志 */
+    f_cat?: number;
+    /** 11:承诺还款 12：支付确认 13：还款协商  14：电话未接通 15：接通非本人 16：疑似欺诈用户 41：承诺未还 42：无日志 43：催收短信 51：部分还款 52： 展期 53：结清 */
+    g_type?: number;
+    /** 拨打的电话 */
+    h_phone?: string;
+    /** 1:本人 2：紧急联系人 3：通讯录  4：其他 */
+    i_target?: number;
+    /** 日志内容 */
+    j_content?: string;
+    /** 承诺还款时间 */
+    k_promise_time?: string;
+    /** 所在阶段第几天（只针对f_cat=5还款的情况） */
+    l_stage_day_index?: number;
+    /** 逾期天数（只针对f_cat=5还款的情况） */
+    m_overdue_days?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4952,6 +5262,10 @@ declare namespace API {
     g_comment?: string;
     /** 在催订单数 */
     h_collection_ing_order_count?: number;
+    /** 结束阶段 */
+    i_end_collection_stage?: number;
+    /** 是否锁定案件 1：锁定 2：不锁定 */
+    j_lock?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4979,5 +5293,42 @@ declare namespace API {
     created_at?: string;
     /** updated_at */
     updated_at?: string;
+  };
+
+  type VCollectionAssignLog = {
+    /** id */
+    id?: number;
+    /** 分配批次 */
+    a_batch_sn?: string;
+    /** 操作管理员 0为系统 */
+    b_admin_id?: number;
+    /** 目标id */
+    c_target_id?: number;
+    /** 目标类型 1机构 2小组 3催员 */
+    d_target_type?: number;
+    /** 分类 1计划任务 2管理员释放 3管理员转移 */
+    e_cat?: number;
+    /** 应分配数 */
+    f_should_assign_count?: number;
+    /** 原有案件数 */
+    g_old_assign_count?: number;
+    /** 分配占比 */
+    h_rate?: number;
+    /** 分配模式 1：按比补齐 2：按比分配 */
+    i_assign_type?: number;
+    /** 流转类型 1：随机 2：尽量排除 3：尽量保留 */
+    j_flow_type?: number;
+    /** 原有案件详情 */
+    k_old_detail?: string;
+    /** 新案件详情 */
+    l_new_detail?: string;
+    /** 差集或交集 */
+    m_diff_or_intersect_detail?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 }

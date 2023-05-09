@@ -440,6 +440,24 @@ export default [
         path: '/collection/collection-role',
         component: './Collection/CollectionRole',
       },
+      {
+        name: 'my-collection',
+        icon: 'smile',
+        path: '/collection/my-collection',
+        component: './Collection/MyCollection',
+      },
+      {
+        name: 'collection-order-flow-history',
+        icon: 'smile',
+        path: '/collection/collection-order-flow-history',
+        component: './Collection/CollectionOrderFlowHistory',
+      },
+      {
+        name: 'collection-assign-log',
+        icon: 'smile',
+        path: '/collection/collection-assign-log',
+        component: './Collection/CollectionAssignLog',
+      },
     ],
   },
 
