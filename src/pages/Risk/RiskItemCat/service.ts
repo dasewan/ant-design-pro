@@ -9,6 +9,7 @@ export const FieldLabels = {
   e_description: '描述',
   f_local_description: '描述本地化',
   g_comment: '备注',
+  h_parent_id: '父类',
 };
 export const FieldIndex = {
   a_code: 'a_code',
@@ -18,4 +19,5 @@ export const FieldIndex = {
   e_description: 'e_description',
   f_local_description: 'f_local_description',
   g_comment: 'g_comment',
+  h_parent_id: 'h_parent_id',
 };

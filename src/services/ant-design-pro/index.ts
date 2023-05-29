@@ -33,6 +33,7 @@ import * as Captcha from './Captcha';
 import * as CurrentUser from './CurrentUser';
 import * as DACollectionKpi from './DACollectionKpi';
 import * as DBorrow from './DBorrow';
+import * as DBSmsOrder from './DBSmsOrder';
 import * as GAMarketingDetail from './GAMarketingDetail';
 import * as GBMarketing from './GBMarketing';
 import * as GCMarketingHistory from './GCMarketingHistory';
@@ -103,6 +104,7 @@ export default {
   Captcha,
   CurrentUser,
   DACollectionKpi,
+  DBSmsOrder,
   DBorrow,
   GAMarketingDetail,
   GBMarketing,

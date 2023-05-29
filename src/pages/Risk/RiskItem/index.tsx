@@ -1,5 +1,5 @@
 import CreateForm from '@/pages/Risk/RiskItem/components/CreateForm';
-import { getAdminV1ANRiskItemCatEnums as getCatsEnum } from '@/services/ant-design-pro/ANRiskItemCat';
+import { getAdminV1ANRiskItemCats as indexCat } from '@/services/ant-design-pro/ANRiskItemCat';
 import {
   getAdminV1GDRiskItems as index,
   putAdminV1GDRiskItemsReletedCount as updateCount,
@@ -30,13 +30,23 @@ const TableList: React.FC = () => {
   const _getCatsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
     if (cats.length === 0) {
-      const res = await getCatsEnum({ foo: 1 });
+      const res = await indexCat({ foo: 1, h_parent_id: 0 });
+      console.log(res.data);
       for (const item of res.data!) {
+        const children = [];
+        for (const _children of item.children!) {
+          children.push({
+            label: _children.b_name,
+            value: _children.id,
+          });
+        }
         data.push({
           label: item.b_name,
           value: item.id,
+          children,
         });
       }
+      console.log(data);
       setCats(data);
       return data;
     } else {
@@ -59,6 +69,17 @@ const TableList: React.FC = () => {
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
+
+    res.data!.forEach((_item: API.GDRiskItem) => {
+      if (_item.k_parent_cat_id === undefined || _item.k_parent_cat_id === 0) {
+        // @ts-ignore
+        _item.d_cat_id = [_item.d_cat_id];
+      } else {
+        // @ts-ignore
+        _item.d_cat_id = [_item.k_parent_cat_id, _item.d_cat_id];
+      }
+    });
+
     // @ts-ignore
     await _getCatsEnum();
 
@@ -107,7 +128,7 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.d_cat_id,
       dataIndex: FieldIndex.d_cat_id,
-      valueType: 'select',
+      valueType: 'cascader',
       request: _getCatsEnum,
     },
     {

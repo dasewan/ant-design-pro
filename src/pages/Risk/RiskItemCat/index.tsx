@@ -1,8 +1,12 @@
 import CreateForm from '@/pages/Risk/RiskItemCat/components/CreateForm';
-import { getAdminV1ANRiskItemCats as index } from '@/services/ant-design-pro/ANRiskItemCat';
+import {
+  getAdminV1ANRiskItemCatEnums as getCatsEnum,
+  getAdminV1ANRiskItemCats as index,
+} from '@/services/ant-design-pro/ANRiskItemCat';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
+import { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
 import { Button } from 'antd';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
@@ -14,7 +18,26 @@ const TableList: React.FC = () => {
   const [createModalVisible, handleCreateModalVisible] = useState<boolean>(false);
   /** 当前编辑数据 */
   const [id, setId] = useState<number>(0);
-
+  const [cats, setCats] = useState<RequestOptionsType[]>([]);
+  /**
+   * 查询分类enum
+   */
+  const _getCatsEnum: ProFieldRequestData = async () => {
+    const data: RequestOptionsType[] = [];
+    const res = await getCatsEnum({ foo: 1, h_parent_id: 0 });
+    data.push({
+      label: '-',
+      value: 0,
+    });
+    for (const item of res.data!) {
+      data.push({
+        label: item.b_name,
+        value: item.id,
+      });
+    }
+    setCats(data);
+    return data;
+  };
   /** table */
   const _index = async (
     // 第一个参数 params 查询表单和 params 参数的结合
@@ -29,8 +52,9 @@ const TableList: React.FC = () => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
-    const res = await index({ page: params.current, ...params });
+    const res = await index({ page: params.current, h_parent_id: 0, ...params });
     // @ts-ignore
+    await _getCatsEnum();
 
     return {
       data: res.data,
@@ -61,6 +85,12 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.b_name,
     },
     {
+      title: FieldLabels.h_parent_id,
+      dataIndex: FieldIndex.h_parent_id,
+      valueType: 'select',
+      request: _getCatsEnum,
+    },
+    {
       title: FieldLabels.e_description,
       dataIndex: FieldIndex.e_description,
       ellipsis: true,
@@ -86,6 +116,21 @@ const TableList: React.FC = () => {
     },
   ];
 
+  const expandedRowRender = (record: TableListItem) => {
+    const dataSourse: TableListItem[] = record.children!;
+    return (
+      <ProTable<TableListItem, TableListPagination>
+        columns={columns}
+        headerTitle={false}
+        search={false}
+        options={false}
+        dataSource={dataSourse}
+        pagination={false}
+        rowKey="id"
+      />
+    );
+  };
+
   // @ts-ignore
   return (
     <PageContainer
@@ -103,9 +148,7 @@ const TableList: React.FC = () => {
         revalidateOnFocus={false}
         actionRef={actionRef}
         rowKey="id"
-        search={{
-          labelWidth: 120,
-        }}
+        search={false}
         request={_index}
         columns={columns}
         postData={(data: any[]) => {
@@ -113,6 +156,13 @@ const TableList: React.FC = () => {
         }}
         pagination={{
           pageSize: 50,
+        }}
+        // @ts-ignore
+        expandable={{
+          expandedRowRender,
+          defaultExpandAllRows: true,
+          // @ts-ignore
+          rowExpandable: (record) => record.children.length! > 0,
         }}
       />
       {/*表单model*/}
@@ -132,6 +182,7 @@ const TableList: React.FC = () => {
         }}
         id={id}
         modalVisible={createModalVisible}
+        cats={cats}
       />
     </PageContainer>
   );

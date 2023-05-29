@@ -1,11 +1,12 @@
 import type { ProFormInstance } from '@ant-design/pro-form';
-import { ModalForm, ProFormText } from '@ant-design/pro-form';
+import { ModalForm, ProFormSelect, ProFormText } from '@ant-design/pro-form';
 
 import {
   getAdminV1ANRiskItemCatsId as show,
   postAdminV1ANRiskItemCats as store,
   putAdminV1ANRiskItemCatsId as update,
 } from '@/services/ant-design-pro/ANRiskItemCat';
+import { RequestOptionsType } from '@ant-design/pro-utils';
 import { message } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
@@ -19,6 +20,7 @@ export type FormProps = {
   onSubmit: (values: boolean) => Promise<void>;
   modalVisible: boolean;
   id: number;
+  cats: RequestOptionsType[];
 };
 
 /**
@@ -137,6 +139,28 @@ const CreateForm: React.FC<FormProps> = (props) => {
           },
         ]}
         placeholder={`请输入${FieldLabels.c_local_name}`}
+      />
+      {/*分类id*/}
+      <ProFormSelect
+        label={FieldLabels.h_parent_id}
+        name={FieldIndex.h_parent_id}
+        rules={[
+          { required: true, message: `请输入${FieldLabels.h_parent_id}` },
+          {
+            validator: (_, value) => {
+              const oldValue = props.cats.find(
+                (item) => item.value === oldRecord?.h_parent_id,
+              )?.label;
+              // @ts-ignore
+              return value === oldRecord?.h_parent_id || !oldRecord?.h_parent_id
+                ? Promise.resolve()
+                : Promise.reject(new Error(`旧值：  ${oldValue} `));
+            },
+            warningOnly: true,
+          },
+        ]}
+        // @ts-ignore
+        options={props.cats}
       />
       {/*描述*/}
       <ProFormText

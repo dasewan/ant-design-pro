@@ -300,6 +300,8 @@ declare namespace API {
     f_local_description?: string;
     /** 备注 */
     g_comment?: string;
+    /** 父id */
+    h_parent_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -308,6 +310,8 @@ declare namespace API {
     deleted_at?: string;
     /** App\Models\ANRiskItemCat */
     a_a_a_a_g_d_risk_item?: GDRiskItem[];
+    /** children */
+    children?: ANRiskItemCat[];
   };
 
   type AOLoanBank = {
@@ -1287,6 +1291,79 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type DBSmsOrder = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** 商户id */
+    b_merchant_id?: number;
+    /** sender id */
+    c_sender_id?: string;
+    /** 商户名称 */
+    d_merchant_name?: string;
+    /** 借款状态 */
+    f_status?: number;
+    /** 拒绝时间 */
+    g_refuse_time?: string;
+    /** 放款时间 */
+    h_loan_time?: string;
+    /** 放款金额 */
+    i_amount?: number;
+    /** 借款天数 */
+    a_d_loan_days?: number;
+    /** 应还款时间 */
+    j_expect_repay_time?: string;
+    /** 应还款金额 */
+    k_expect_repay_amount?: number;
+    /** 已还款金额 */
+    l_paid_amount?: number;
+    /** 结清时间 */
+    a_e_repay_time?: string;
+    /** 逾期天数 */
+    t_overdue_days?: number;
+    /** 逾期最大金额 */
+    u_max_overdue_amount?: number;
+    /** 短信总数 */
+    m_sms_count?: number;
+    /** 关联的sms.id */
+    a_h_sms_ids?: string;
+    /** 拒绝短信总数 */
+    n_refuse_sms_count?: number;
+    /** 放款短信总数 */
+    o_loan_sms_count?: number;
+    /** 还款短信总数 */
+    p_repay_sms_count?: number;
+    /** 逾期短信总数 */
+    q_overdue_sms_count?: number;
+    /** 第一条短信时间 */
+    r_first_sms_time?: string;
+    /** 最后一条短信时间 */
+    s_last_sms_time?: string;
+    /** 最后逾期短信时间 */
+    w_last_overdue_sms_time?: string;
+    /** 最后营销时间 */
+    x_last_marketing_sms_time?: string;
+    /** 最后召回时间 */
+    z_last_recall_sms_time?: string;
+    /** 营销短信数量 */
+    a_a_marketing_sms_count?: number;
+    /** 召回短信数量 */
+    a_b_recall_sms_count?: number;
+    /** 严重逾期短信数量 */
+    a_c_serious_overdue_sms_count?: number;
+    /** 展期时间 */
+    a_f_extend_time?: string;
+    /** 展期总额 */
+    a_g_extend_amount?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type deleteACUserNewsIdParams = {
     /** id of ACUserNew */
     id: number;
@@ -1424,6 +1501,11 @@ declare namespace API {
 
   type deleteAdminV1DBorrowsIdParams = {
     /** id of DBorrow */
+    id: number;
+  };
+
+  type deleteAdminV1DBSmsOrdersIdParams = {
+    /** id of DBSmsOrder */
     id: number;
   };
 
@@ -1758,6 +1840,10 @@ declare namespace API {
     h_local_description?: string;
     /** 备注 */
     i_comment?: string;
+    /** 去重数量 */
+    j_related_deduplicated_count?: number;
+    /** 分类父id */
+    k_parent_cat_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2144,6 +2230,16 @@ declare namespace API {
   };
 
   type getAdminV1DBorrowTabParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1DBSmsOrdersIdParams = {
+    /** id of DBSmsOrder */
+    id: number;
+  };
+
+  type getAdminV1DBSmsOrdersParams = {
     /** foo */
     foo: number;
   };
@@ -2633,10 +2729,14 @@ declare namespace API {
     m_group_index?: number;
     /** 执行逻辑 */
     n_execute_logic?: string;
-    /** 分类id */
+    /** 字段组id */
     o_risk_item_cat_id?: number;
-    /** 对比分类id */
+    /** 风控分类id */
     p_compare_risk_item_cat_id?: number;
+    /** 风控分类父id */
+    q_risk_item_cat_parent_id?: number;
+    /** 风控父类id */
+    r_compare_risk_item_cat_parent_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4343,6 +4443,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1DBSmsOrdersIdParams = {
+    /** id of DBSmsOrder */
+    id: number;
+  };
+
   type putAdminV1GAMarketingDetailsIdParams = {
     /** id of GAMarketingDetail */
     id: number;
@@ -4995,12 +5100,30 @@ declare namespace API {
     b_cat?: string;
     /** 1类金融 2类金融 3其他 */
     c_level?: string;
-    /** 登录 注册 通过 拒绝 放款成功 还款成功 展期成功 逾前催收 逾后催收 召回 营销 其他 */
+    /** 101: '登录',102: '拒绝',103: '通过',104: '放款',105: '还款',106: '展期',107: '催收',108: '召回',109: '营销',110:'其他',111: '严重催收',112逾前提醒 ，113预计还款，114提前还款，115复贷 */
     d_type?: string;
     /** 商户 */
     e_merchant?: string;
     /** 金额 */
     f_amount?: number;
+    /** 商户 (备用) */
+    g_merchant2?: string;
+    /** 商户（备用） */
+    h_merchant3?: string;
+    /** 金额（备用） */
+    i_amount2?: number;
+    /** 金额（备用） */
+    j_amount3?: number;
+    /** 第二类型(备用) */
+    k_type2?: number;
+    /** 链接 */
+    l_url?: string;
+    /** 联系手机 */
+    m_phone?: string;
+    /** 天数 */
+    n_days?: number;
+    /** 预计还款时间 */
+    o_expect_repay_time?: string;
     /** data */
     date?: number;
     /** date_sent */

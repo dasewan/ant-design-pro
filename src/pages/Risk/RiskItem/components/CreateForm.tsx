@@ -1,5 +1,5 @@
 import type { ProFormInstance } from '@ant-design/pro-form';
-import { ModalForm, ProFormSelect, ProFormText } from '@ant-design/pro-form';
+import { ModalForm, ProFormCascader, ProFormSelect, ProFormText } from '@ant-design/pro-form';
 
 import {
   getAdminV1GDRiskItemsId as show,
@@ -86,6 +86,11 @@ const CreateForm: React.FC<FormProps> = (props) => {
           const res = await show({ id: props.id });
           setCurrentTableListItemMoment(moment());
           setOldRecord(res.data);
+          if (res.data.k_parent_cat_id === undefined || res.data.k_parent_cat_id === 0) {
+            res.data.d_cat_id = [res.data.d_cat_id];
+          } else {
+            res.data.d_cat_id = [res.data.k_parent_cat_id, res.data.d_cat_id];
+          }
           return res.data;
         } else {
           setOldRecord({});
@@ -94,6 +99,14 @@ const CreateForm: React.FC<FormProps> = (props) => {
       }}
       formRef={formRef}
       onFinish={async (formData) => {
+        if (formData.d_cat_id.length > 1) {
+          formData.k_parent_cat_id = formData.d_cat_id[0];
+          formData.d_cat_id = formData.d_cat_id[1];
+        } else {
+          formData.d_cat_id = formData.d_cat_id[0];
+          formData.k_parent_cat_id = 0;
+        }
+        console.log(formData);
         const success = await onFinish(formData);
         if (success) {
           return props.onSubmit(success);
@@ -140,7 +153,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
         placeholder={`请输入${FieldLabels.b_local_name}`}
       />
       {/*分类id*/}
-      <ProFormSelect
+      {/*<ProFormSelect
         label={FieldLabels.d_cat_id}
         name={FieldIndex.d_cat_id}
         rules={[
@@ -158,6 +171,13 @@ const CreateForm: React.FC<FormProps> = (props) => {
         ]}
         // @ts-ignore
         options={props.cats}
+      />*/}
+      <ProFormCascader
+        label={FieldLabels.d_cat_id}
+        name={FieldIndex.d_cat_id}
+        fieldProps={{
+          options: props.cats,
+        }}
       />
       {/*字段类型*/}
       <ProFormSelect

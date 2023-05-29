@@ -100,22 +100,48 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const _getRoleItemEnum = async () => {
     const data: RequestOptionsType[] = [];
     if (roleItems.length === 0) {
-      const res = await getRiskItemEnum({ foo: 1 });
+      const res = await getRiskItemEnum({ foo: 1, h_parent_id: 0, load_items: 1 });
       for (const cat of res.data!) {
-        const children = [];
-        for (const item of cat.a_a_a_a_g_d_risk_item!) {
-          children.push({
-            label: item.a_name,
-            value: item.id,
-            description: item.g_description,
+        if (cat.children.length > 0) {
+          const dataChild = [];
+          for (const catChild of cat.children!) {
+            const children = [];
+            for (const item of catChild.a_a_a_a_g_d_risk_item!) {
+              children.push({
+                label: item.a_name,
+                value: item.id,
+                description: item.g_description,
+              });
+            }
+            dataChild.push({
+              label: catChild.b_name,
+              value: catChild.id,
+              children,
+            });
+          }
+          console.log(dataChild);
+          data.push({
+            label: cat.b_name,
+            value: cat.id,
+            children: dataChild,
+          });
+        } else {
+          const children = [];
+          for (const item of cat.a_a_a_a_g_d_risk_item!) {
+            children.push({
+              label: item.a_name,
+              value: item.id,
+              description: item.g_description,
+            });
+          }
+          data.push({
+            label: cat.b_name,
+            value: cat.id,
+            children,
           });
         }
-        data.push({
-          label: cat.b_name,
-          value: cat.id,
-          children,
-        });
       }
+      console.log(data);
       setRoleItems(data);
       return data;
     } else {
@@ -205,16 +231,40 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             value: item.j_version,
           });
           item.a_a_a_a_g_f_risk_role!.forEach((_gFRiskRoles: API.GFRiskRole) => {
-            // @ts-ignore
-            _gFRiskRoles.c_risk_item_id = [
-              _gFRiskRoles.o_risk_item_cat_id,
-              _gFRiskRoles.c_risk_item_id,
-            ];
-            // @ts-ignore
-            _gFRiskRoles.h_compare_risk_item_id = [
-              _gFRiskRoles.p_compare_risk_item_cat_id,
-              _gFRiskRoles.h_compare_risk_item_id,
-            ];
+            if (
+              _gFRiskRoles.q_risk_item_cat_parent_id === undefined ||
+              _gFRiskRoles.q_risk_item_cat_parent_id === 0
+            ) {
+              // @ts-ignore
+              _gFRiskRoles.c_risk_item_id = [
+                _gFRiskRoles.o_risk_item_cat_id,
+                _gFRiskRoles.c_risk_item_id,
+              ];
+            } else {
+              // @ts-ignore
+              _gFRiskRoles.c_risk_item_id = [
+                _gFRiskRoles.q_risk_item_cat_parent_id,
+                _gFRiskRoles.o_risk_item_cat_id,
+                _gFRiskRoles.c_risk_item_id,
+              ];
+            }
+            if (
+              _gFRiskRoles.r_compare_risk_item_cat_parent_id === undefined ||
+              _gFRiskRoles.r_compare_risk_item_cat_parent_id === 0
+            ) {
+              // @ts-ignore
+              _gFRiskRoles.h_compare_risk_item_id = [
+                _gFRiskRoles.p_compare_risk_item_cat_id,
+                _gFRiskRoles.h_compare_risk_item_id,
+              ];
+            } else {
+              // @ts-ignore
+              _gFRiskRoles.h_compare_risk_item_id = [
+                _gFRiskRoles.r_compare_risk_item_cat_parent_id,
+                _gFRiskRoles.p_compare_risk_item_cat_id,
+                _gFRiskRoles.h_compare_risk_item_id,
+              ];
+            }
           });
           return item;
         });
@@ -404,6 +454,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     });
     formatGroup();
   };
+  const filter = (inputValue: string, path: DefaultOptionType[]) =>
+    path.some(
+      (option) => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+    );
   const displayRender = (labels: string[], selectedOptions: DefaultOptionType[]) =>
     labels.map((label, i) => {
       const option = selectedOptions[i];
@@ -482,13 +536,14 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       dataIndex: FieldIndex2.c_risk_item_id,
       valueType: 'cascader',
       ellipsis: true,
-      width: '11%',
+      width: '25%',
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.c_risk_item_id}` }],
       },
       fieldProps: {
         // onFocus: (event) => console.log(111),
         displayRender: displayRender,
+        showSearch: { filter },
         width: 100,
         // listHeight: 1,
         /*        dropdownRender : menu => {
@@ -605,7 +660,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       valueType: 'cascader',
       request: async () => _getRoleItemEnum(),
 
-      width: 120,
+      width: '25%',
       /*      render: (_, record) => {
               console.log(_);
               return <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' ,width:120}}>
