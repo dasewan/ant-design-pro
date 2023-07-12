@@ -115,12 +115,52 @@ const TableList: React.FC = () => {
       },
     },
   ];
+  const columns2: ProColumns<TableListItem>[] = [
+    {
+      title: FieldLabels.b_name,
+      dataIndex: FieldIndex.b_name,
+    },
+    {
+      title: FieldLabels.b_name,
+      dataIndex: FieldIndex.b_name,
+    },
+    {
+      title: FieldLabels.h_parent_id,
+      dataIndex: FieldIndex.h_parent_id,
+      valueType: 'select',
+      request: _getCatsEnum,
+    },
+    {
+      title: FieldLabels.e_description,
+      dataIndex: FieldIndex.e_description,
+      ellipsis: true,
+    },
+    {
+      title: FieldLabels.g_comment,
+      dataIndex: FieldIndex.g_comment,
+      ellipsis: true,
+    },
+    {
+      title: '操作',
+      dataIndex: 'option',
+      valueType: 'option',
+      render: (_, record) => {
+        const edit = (
+          <a key="edit" onClick={() => onEditClick(record.id!)}>
+            编辑
+          </a>
+        );
+
+        return [edit];
+      },
+    },
+  ];
 
   const expandedRowRender = (record: TableListItem) => {
-    const dataSourse: TableListItem[] = record.children!;
+    const dataSourse: TableListItem[] = record.cChildren!;
     return (
       <ProTable<TableListItem, TableListPagination>
-        columns={columns}
+        columns={columns2}
         headerTitle={false}
         search={false}
         options={false}
@@ -160,9 +200,8 @@ const TableList: React.FC = () => {
         // @ts-ignore
         expandable={{
           expandedRowRender,
-          defaultExpandAllRows: true,
           // @ts-ignore
-          rowExpandable: (record) => record.children.length! > 0,
+          rowExpandable: (record) => record.cChildren.length! > 0,
         }}
       />
       {/*表单model*/}

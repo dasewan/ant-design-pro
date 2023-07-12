@@ -10,7 +10,6 @@ import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
 import { Button, Dropdown, MenuProps, message, Tag } from 'antd';
-import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { RISK_ITEM_TYPE } from './enums';
@@ -34,7 +33,7 @@ const TableList: React.FC = () => {
       console.log(res.data);
       for (const item of res.data!) {
         const children = [];
-        for (const _children of item.children!) {
+        for (const _children of item.cChildren!) {
           children.push({
             label: _children.b_name,
             value: _children.id,
@@ -118,7 +117,7 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.a_name,
       dataIndex: FieldIndex.a_name,
-      width: 410,
+      // width: 410,
     },
     /*    {
           title: FieldLabels.b_local_name,
@@ -130,12 +129,14 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.d_cat_id,
       valueType: 'cascader',
       request: _getCatsEnum,
+      // width:'20%'
     },
     {
       title: FieldLabels.e_type,
       dataIndex: FieldIndex.e_type,
       valueType: 'select',
       initialValue: [],
+      width: '5%',
       valueEnum: RISK_ITEM_TYPE,
       render: (_, record) => (
         <Tag color={RISK_ITEM_TYPE[record.e_type!].color}>
@@ -146,11 +147,13 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.f_related_count,
       dataIndex: FieldIndex.f_related_count,
+      width: '5%',
     },
     {
       title: FieldLabels.g_description,
       dataIndex: FieldIndex.g_description,
       ellipsis: true,
+      width: '5%',
     },
     /*    {
           title: FieldLabels.h_local_description,
@@ -161,8 +164,9 @@ const TableList: React.FC = () => {
       title: FieldLabels.i_comment,
       dataIndex: FieldIndex.i_comment,
       ellipsis: true,
+      width: '5%',
     },
-    {
+    /*{
       title: FieldLabels.created_at,
       dataIndex: FieldIndex.created_at,
       valueType: 'dateRange',
@@ -189,11 +193,12 @@ const TableList: React.FC = () => {
           'updated_at[1]': value[1],
         }),
       },
-    },
+    },*/
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
+      width: '5%',
       render: (_, record) => {
         const edit = (
           <a key="edit" onClick={() => onEditClick(record.id!)}>

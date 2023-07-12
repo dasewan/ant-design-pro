@@ -102,9 +102,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     if (roleItems.length === 0) {
       const res = await getRiskItemEnum({ foo: 1, h_parent_id: 0, load_items: 1 });
       for (const cat of res.data!) {
-        if (cat.children.length > 0) {
+        if (cat.cChildren.length > 0) {
           const dataChild = [];
-          for (const catChild of cat.children!) {
+          for (const catChild of cat.cChildren!) {
             const children = [];
             for (const item of catChild.a_a_a_a_g_d_risk_item!) {
               children.push({
