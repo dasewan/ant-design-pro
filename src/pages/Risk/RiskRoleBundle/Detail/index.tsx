@@ -26,7 +26,18 @@ import ProForm, { ProFormDigit, ProFormSelect, ProFormText } from '@ant-design/p
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { EditableProTable } from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, Card, Col, message, Popconfirm, Popover, Row, Select, Tooltip } from 'antd';
+import {
+  Button,
+  Card,
+  Cascader,
+  Col,
+  message,
+  Popconfirm,
+  Popover,
+  Row,
+  Select,
+  Tooltip,
+} from 'antd';
 import type { DefaultOptionType } from 'antd/es/cascader';
 import moment from 'moment';
 import type { FC } from 'react';
@@ -53,6 +64,7 @@ interface ErrorField {
 // type API.GFRiskRole = API.GFRiskRole;
 type versionOptionType = { label?: React.ReactNode; value?: number };
 const { Option } = Select;
+const { SHOW_CHILD } = Cascader;
 
 const AdvancedForm: FC<Record<string, any>> = () => {
   const [error, setError] = useState<ErrorField[]>([]);
@@ -100,26 +112,56 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const _getRoleItemEnum = async () => {
     const data: RequestOptionsType[] = [];
     if (roleItems.length === 0) {
+      // @ts-ignore
       const res = await getRiskItemEnum({ foo: 1, h_parent_id: 0, load_items: 1 });
       for (const cat of res.data!) {
+        // @ts-ignore
         if (cat.cChildren.length > 0) {
           const dataChild = [];
+          // @ts-ignore
           for (const catChild of cat.cChildren!) {
             const children = [];
-            for (const item of catChild.a_a_a_a_g_d_risk_item!) {
-              children.push({
-                label: item.a_name,
-                value: item.id,
-                description: item.g_description,
+            if (catChild.a_a_a_a_g_d_risk_item.length > 0) {
+              for (const item of catChild.a_a_a_a_g_d_risk_item!) {
+                children.push({
+                  label: item.a_name,
+                  value: item.id,
+                  description: item.g_description,
+                });
+              }
+              dataChild.push({
+                label: catChild.b_name,
+                value: catChild.id,
+                children,
+              });
+            } else if (catChild.cChildren.length > 0) {
+              const children2 = [];
+              for (const _children2 of catChild.cChildren!) {
+                const children3 = [];
+                if (_children2.a_a_a_a_g_d_risk_item.length > 0) {
+                  for (const item of _children2.a_a_a_a_g_d_risk_item!) {
+                    children3.push({
+                      label: item.a_name,
+                      value: item.id,
+                      description: item.g_description,
+                    });
+                  }
+                  children2.push({
+                    label: _children2.b_name,
+                    value: _children2.id,
+                    children: children3,
+                  });
+                }
+                // console.log(catChild.b_name)
+              }
+              dataChild.push({
+                label: catChild.b_name,
+                value: catChild.id,
+                children: children2,
               });
             }
-            dataChild.push({
-              label: catChild.b_name,
-              value: catChild.id,
-              children,
-            });
           }
-          console.log(dataChild);
+          // console.log(dataChild);
           data.push({
             label: cat.b_name,
             value: cat.id,
@@ -213,6 +255,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         initEditTable(res.data![0]!.a_a_a_a_g_f_risk_role!);
         const n_execute_logic_tmp = {};
         res.data![0]!.a_a_a_a_g_f_risk_role!.map((item: API.GFRiskRole) => {
+          // @ts-ignore
           n_execute_logic_tmp['n_execute_logic' + item.b_risk_role_group_id] = item.n_execute_logic;
           return n_execute_logic_tmp;
         });
@@ -285,6 +328,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         initEditTable(targetVersionData.a_a_a_a_g_f_risk_role!);
         const n_execute_logic_tmp = {};
         targetVersionData.a_a_a_a_g_f_risk_role!.map((item) => {
+          // @ts-ignore
           n_execute_logic_tmp['n_execute_logic' + item.b_risk_role_group_id] = item.n_execute_logic;
           return n_execute_logic_tmp;
         });
@@ -458,6 +502,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     path.some(
       (option) => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
     );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const displayRender = (labels: string[], selectedOptions: DefaultOptionType[]) =>
     labels.map((label, i) => {
       const option = selectedOptions[i];
@@ -542,8 +587,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       },
       fieldProps: {
         // onFocus: (event) => console.log(111),
-        displayRender: displayRender,
+        // displayRender: displayRender,
         showSearch: { filter },
+        showCheckedStrategy: { SHOW_CHILD },
         width: 100,
         // listHeight: 1,
         /*        dropdownRender : menu => {
@@ -653,10 +699,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         rules: [{ required: true, message: `请输入${FieldLabels2.h_compare_risk_item_id}` }],
         // style: {width: 120},
       },
-      fieldProps: {
-        displayRender: displayRender,
-        // style: {width: 120},
-      },
+      /*      fieldProps: {
+              displayRender: displayRender,
+              style: {width: 120},
+            },*/
       valueType: 'cascader',
       request: async () => _getRoleItemEnum(),
 
@@ -702,7 +748,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       width: 180,
       ellipsis: true,
       fieldProps: {
-        textWrap: 'word-break',
+        textwrap: 'word-break',
       },
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.j_compare_value_operator}` }],
@@ -945,7 +991,6 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   删除当前版本
                 </Button>
               </Popconfirm>
-              ,
               <Popconfirm
                 title="确定更新当前版本到所有策略中吗？"
                 onConfirm={onDeleteRiskRoleBundle}
@@ -1136,6 +1181,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             editableFormRef={editableFormRef}
             controlled={false}
             actionRef={actionRef}
+            // @ts-ignore
             onChange={onChange}
             bordered={true}
             formItemProps={{

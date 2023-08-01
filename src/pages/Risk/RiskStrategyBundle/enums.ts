@@ -1,4 +1,6 @@
-export const FUSE = {
+import { StatusColorEnum2 } from '@/pages/enums';
+
+export const FUSE: StatusColorEnum2 = {
   accept: { text: '不熔断', color: '#87d068' },
   reject: { text: '熔断', color: '#f50' },
 };

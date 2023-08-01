@@ -88,7 +88,7 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.i_version_count,
     },
     {
-      title: '电销人员',
+      title: '管理员',
       dataIndex: 'k_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
@@ -160,7 +160,7 @@ const TableList: React.FC = () => {
           <Button
             key="3"
             type="primary"
-            onClick={() => history.push(`/risk/risk-role-bundle/detail/0`)}
+            onClick={() => history.push(`/risk/risk-strategy-bundle/detail/0`)}
           >
             新建策略
           </Button>,

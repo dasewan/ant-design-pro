@@ -1,7 +1,7 @@
 // @ts-ignore
 /* eslint-disable */
 
-export const FieldLabels = {
+export const FieldLabels: { [key: string]: string } = {
   a_name: '策略名称',
   b_related_role_group_count: '关联细则组数',
   c_related_role_count: '关联细则数',

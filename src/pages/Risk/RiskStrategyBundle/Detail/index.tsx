@@ -41,6 +41,7 @@ import {
   getAdminV1GGRiskStrateiesId as show,
   postAdminV1GGRiskStrateies as store,
 } from '@/services/ant-design-pro/GGRiskStratey';
+import GGRiskStratey = API.GGRiskStratey;
 
 type InternalNamePath = (string | number)[];
 
@@ -123,7 +124,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   /** 所有的规则 */
   const [riskRoleBundleData, setRiskRoleBundleData] = useState<BDRiskRoleBundle[]>();
   /** 列表中的规则 */
-  const [riskRoleBundleTableData, setRiskRoleBundleTableData] = useState<BDRiskRoleBundle[]>();
+  const [riskRoleBundleTableData, setRiskRoleBundleTableData] = useState<BDRiskRoleBundle[]>([]);
   /** 列表中的规则code */
   const [riskRoleBundleCodeTableData, setRiskRoleBundleCodeTableData] = useState<string[]>();
   /** 新增规则model */
@@ -164,7 +165,8 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   /**
    * 查询风控字段enum
    */
-  const _getRoleItemEnum = async () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _getRoleItemEnum2 = async () => {
     const data: RequestOptionsType[] = [];
     if (roleItems.length === 0) {
       const res = await getRiskItemEnum({ foo: 1 });
@@ -183,6 +185,87 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           children,
         });
       }
+      setRoleItems(data);
+      return data;
+    } else {
+      return roleItems;
+    }
+  };
+  const _getRoleItemEnum = async () => {
+    const data: RequestOptionsType[] = [];
+    if (roleItems.length === 0) {
+      // @ts-ignore
+      const res = await getRiskItemEnum({ foo: 1, h_parent_id: 0, load_items: 1 });
+      for (const cat of res.data!) {
+        // @ts-ignore
+        if (cat.cChildren.length > 0) {
+          const dataChild = [];
+          // @ts-ignore
+          for (const catChild of cat.cChildren!) {
+            const children = [];
+            if (catChild.a_a_a_a_g_d_risk_item.length > 0) {
+              for (const item of catChild.a_a_a_a_g_d_risk_item!) {
+                children.push({
+                  label: item.a_name,
+                  value: item.id,
+                  description: item.g_description,
+                });
+              }
+              dataChild.push({
+                label: catChild.b_name,
+                value: catChild.id,
+                children,
+              });
+            } else if (catChild.cChildren.length > 0) {
+              const children2 = [];
+              for (const _children2 of catChild.cChildren!) {
+                const children3 = [];
+                if (_children2.a_a_a_a_g_d_risk_item.length > 0) {
+                  for (const item of _children2.a_a_a_a_g_d_risk_item!) {
+                    children3.push({
+                      label: item.a_name,
+                      value: item.id,
+                      description: item.g_description,
+                    });
+                  }
+                  children2.push({
+                    label: _children2.b_name,
+                    value: _children2.id,
+                    children: children3,
+                  });
+                }
+                // console.log(catChild.b_name)
+              }
+              dataChild.push({
+                label: catChild.b_name,
+                value: catChild.id,
+                children: children2,
+              });
+            }
+          }
+          // console.log(dataChild);
+          data.push({
+            label: cat.b_name,
+            value: cat.id,
+            children: dataChild,
+          });
+        } else {
+          const children = [];
+          for (const item of cat.a_a_a_a_g_d_risk_item!) {
+            children.push({
+              label: item.a_name,
+              value: item.id,
+              description: item.g_description,
+            });
+          }
+          data.push({
+            label: cat.b_name,
+            value: cat.id,
+            children,
+          });
+        }
+      }
+      console.log(data);
       setRoleItems(data);
       return data;
     } else {
@@ -389,6 +472,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     }
     setExpanded(!_expanded);
   };
+  // @ts-ignore
   const columns: ProColumns<BDRiskRoleBundle>[] = [
     {
       title: RiskRoleBundleFieldLabels.a_name,
@@ -433,11 +517,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       valueType: 'select',
       initialValue: [],
       valueEnum: FINNAL_DECISION,
-      render: (_, record) => (
-        <Tag color={FINNAL_DECISION[record.f_finnal_decision!].color}>
-          {FINNAL_DECISION[record.f_finnal_decision!].text}
-        </Tag>
-      ),
+      render: (_, record) => {
+        const text = FINNAL_DECISION[record.f_finnal_decision!].text;
+        return <Tag color={FINNAL_DECISION[record.f_finnal_decision!].color}>{text}</Tag>;
+      },
     },
     {
       title: '操作',
@@ -508,6 +591,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     {
       title: FieldLabels2.e_value_operator,
       key: FieldIndex2.e_value_operator,
+      width: 180,
     },
     // 关系运算符
     {
@@ -550,14 +634,17 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       ellipsis: true,
       valueType: 'cascader',
       request: async () => _getRoleItemEnum(),
-      width: 120,
+      width: '25%',
     },
     // 算术运算公式
     {
       title: FieldLabels2.j_compare_value_operator,
       dataIndex: FieldIndex2.j_compare_value_operator,
-      width: '20%',
+      width: 180,
       ellipsis: true,
+      fieldProps: {
+        textwrap: 'word-break',
+      },
     },
   ];
 
@@ -641,15 +728,13 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       });
       // @ts-ignore
       if (params.id > 0) {
-        // @ts-ignore
         await store({
-          // @ts-ignore
           risk_role_bundle_ids: tmp.join('#'),
           e_code: oldRecord!.e_code,
           f_version: oldRecord!.f_version,
           c_related_role_count: riskRoleCount,
           ...values,
-        });
+        } as GGRiskStratey);
       } else {
         // @ts-ignore
         await store({ risk_role_bundle_ids: tmp.join('#'), ...values });
@@ -726,13 +811,12 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   删除当前版本
                 </Button>
               </Popconfirm>
-              ,
               <Button
                 type="primary"
                 onClick={() => handleTableModalVisible(true)}
                 icon={<PlusOutlined />}
               >
-                新增规则
+                绑定规则
               </Button>
               {dom}
             </FooterToolbar>

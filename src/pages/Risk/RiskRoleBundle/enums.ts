@@ -1,4 +1,6 @@
-export const EXECUTE_LOGIC = {
+import { StatusColorEnum2 } from '@/pages/enums';
+
+export const EXECUTE_LOGIC: StatusColorEnum2 = {
   allagree: { text: '所有都满足', color: 'green' },
   anyagree: { text: '满足任意一条', color: 'purple' },
   anynotagree: { text: '至少一条不满足', color: 'orange' },
@@ -23,7 +25,7 @@ export const EXECUTE_LOGIC_OPTION = [
   },
 ];
 
-export const FINNAL_DECISION = {
+export const FINNAL_DECISION: StatusColorEnum2 = {
   accept: { text: '通过', color: '#87d068' },
   reject: { text: '拒绝', color: '#f50' },
   review: { text: '复审', color: '#108ee9' },

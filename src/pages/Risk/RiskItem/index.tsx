@@ -29,14 +29,25 @@ const TableList: React.FC = () => {
   const _getCatsEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
     if (cats.length === 0) {
+      // @ts-ignore
       const res = await indexCat({ foo: 1, h_parent_id: 0 });
-      console.log(res.data);
+      // console.log(res.data);
       for (const item of res.data!) {
         const children = [];
+        // @ts-ignore
         for (const _children of item.cChildren!) {
+          const children2 = [];
+          for (const _children2 of _children.cChildren!) {
+            children2.push({
+              label: _children2.b_name,
+              value: _children2.id,
+            });
+          }
+
           children.push({
             label: _children.b_name,
             value: _children.id,
+            children: children2,
           });
         }
         data.push({
@@ -137,6 +148,7 @@ const TableList: React.FC = () => {
       valueType: 'select',
       initialValue: [],
       width: '5%',
+      // @ts-ignore
       valueEnum: RISK_ITEM_TYPE,
       render: (_, record) => (
         <Tag color={RISK_ITEM_TYPE[record.e_type!].color}>
