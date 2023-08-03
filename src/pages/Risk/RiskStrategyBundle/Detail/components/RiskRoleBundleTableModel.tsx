@@ -1,10 +1,9 @@
 import type { FormValueType } from '@/pages/Risk/RiskRoleBundle/components/CreateForm';
 import type { TableListItem, TableListPagination } from '@/pages/Risk/RiskRoleBundle/data';
-import { EXECUTE_LOGIC, FINNAL_DECISION } from '@/pages/Risk/RiskRoleBundle/enums';
 import { FieldIndex, FieldLabels } from '@/pages/Risk/RiskRoleBundle/service';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Button, Modal, Table, Tag } from 'antd';
+import { Button, Modal, Table } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 
@@ -106,7 +105,7 @@ const RiskRoleBundleTableModel: React.FC<Props> = (props) => {
       search: false,
     },
 
-    {
+    /*{
       title: FieldLabels.e_execute_logic,
       dataIndex: FieldIndex.e_execute_logic,
       valueType: 'select',
@@ -127,7 +126,7 @@ const RiskRoleBundleTableModel: React.FC<Props> = (props) => {
           {FINNAL_DECISION[record.f_finnal_decision!].text}
         </Tag>
       ),
-    },
+    },*/
     {
       title: FieldLabels.g_description,
       dataIndex: FieldIndex.g_description,

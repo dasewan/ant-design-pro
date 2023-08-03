@@ -3,11 +3,10 @@ import { history } from '@@/core/history';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Button, Tag } from 'antd';
+import { Button } from 'antd';
 import moment from 'moment';
 import React, { useRef } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { EXECUTE_LOGIC, FINNAL_DECISION } from './enums';
 import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
@@ -61,7 +60,7 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.d_score_upper_limit,
     },
 
-    {
+    /*{
       title: FieldLabels.e_execute_logic,
       dataIndex: FieldIndex.e_execute_logic,
       valueType: 'select',
@@ -84,7 +83,7 @@ const TableList: React.FC = () => {
           {FINNAL_DECISION[record.f_finnal_decision!].text}
         </Tag>
       ),
-    },
+    },*/
     {
       title: FieldLabels.g_description,
       dataIndex: FieldIndex.g_description,

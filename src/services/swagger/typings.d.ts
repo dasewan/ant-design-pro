@@ -463,6 +463,47 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type ASRiskValueSmsSuspicious = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 用户 */
+    b_borrow_id?: number;
+    /** 手机号码 */
+    c_phone?: string;
+    /** 风控字段 */
+    d_risk_item_id?: number;
+    /** 风控字段分类 */
+    e_risk_item_cat_id?: number;
+    /** 字段名标识 */
+    f_risk_item_name_flag?: string;
+    /** 3天内 */
+    g_value_3?: number;
+    /** 7天内 */
+    h_value_7?: number;
+    /** 15天内 */
+    i_value_15?: number;
+    /** 30天内 */
+    j_value_30?: number;
+    /** 60天内 */
+    k_value_60?: number;
+    /** 90天内 */
+    l_value_90?: number;
+    /** 180天内 */
+    m_value_180?: number;
+    /** 360天内 */
+    n_value_360?: number;
+    /** 所有天内 */
+    o_value_0?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type AUser = {
     /** id */
     id?: number;
@@ -1419,6 +1460,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1ASRiskValueSmsSuspiciousesIdParams = {
+    /** id of ASRiskValueSmsSuspicious */
+    id: number;
+  };
+
   type deleteAdminV1AUsersIdParams = {
     /** id of AUser */
     id: number;
@@ -1579,6 +1625,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GORiskValueSmsSlopesIdParams = {
+    /** id of GORiskValueSmsSlope */
+    id: number;
+  };
+
   type deleteAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -1639,6 +1690,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1NDRiskValueSmsIncomesIdParams = {
+    /** id of NDRiskValueSmsIncome */
+    id: number;
+  };
+
   type deleteAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -1664,6 +1720,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1RERiskValueSmsBasicsIdParams = {
+    /** id of RERiskValueSmsBasic */
+    id: number;
+  };
+
   type deleteAdminV1SAAppsIdParams = {
     /** id of SAApp */
     id: number;
@@ -1671,6 +1732,16 @@ declare namespace API {
 
   type deleteAdminV1SBAppsIdParams = {
     /** id of SBApp */
+    id: number;
+  };
+
+  type deleteAdminV1SCRiskValueSmsIdParams = {
+    /** id of SCRiskValueSms */
+    id: number;
+  };
+
+  type deleteAdminV1TARiskValueSmsOrdersIdParams = {
+    /** id of TARiskValueSmsOrder */
     id: number;
   };
 
@@ -1861,6 +1932,10 @@ declare namespace API {
     b_related_role_count?: number;
     /** 执行逻辑 */
     c_execute_logic?: string;
+    /** 分数 */
+    d_score?: number;
+    /** 决策 */
+    e_decision?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1995,6 +2070,16 @@ declare namespace API {
   };
 
   type getAdminV1ARReviewAdminsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1ASRiskValueSmsSuspiciousesIdParams = {
+    /** id of ASRiskValueSmsSuspicious */
+    id: number;
+  };
+
+  type getAdminV1ASRiskValueSmsSuspiciousesParams = {
     /** foo */
     foo: number;
   };
@@ -2404,6 +2489,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GORiskValueSmsSlopesIdParams = {
+    /** id of GORiskValueSmsSlope */
+    id: number;
+  };
+
+  type getAdminV1GORiskValueSmsSlopesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -2544,6 +2639,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1NDRiskValueSmsIncomesIdParams = {
+    /** id of NDRiskValueSmsIncome */
+    id: number;
+  };
+
+  type getAdminV1NDRiskValueSmsIncomesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -2609,6 +2714,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1RERiskValueSmsBasicsIdParams = {
+    /** id of RERiskValueSmsBasic */
+    id: number;
+  };
+
+  type getAdminV1RERiskValueSmsBasicsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1SAAppsIdParams = {
     /** id of SAApp */
     id: number;
@@ -2625,6 +2740,26 @@ declare namespace API {
   };
 
   type getAdminV1SBAppsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1SCRiskValueSmsIdParams = {
+    /** id of SCRiskValueSms */
+    id: number;
+  };
+
+  type getAdminV1SCRiskValueSmsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1TARiskValueSmsOrdersIdParams = {
+    /** id of TARiskValueSmsOrder */
+    id: number;
+  };
+
+  type getAdminV1TARiskValueSmsOrdersParams = {
     /** foo */
     foo: number;
   };
@@ -2727,7 +2862,7 @@ declare namespace API {
     l_group_count?: number;
     /** 组内细则index */
     m_group_index?: number;
-    /** 执行逻辑 */
+    /** n_execute_logic */
     n_execute_logic?: string;
     /** 字段组id */
     o_risk_item_cat_id?: number;
@@ -2737,6 +2872,10 @@ declare namespace API {
     q_risk_item_cat_parent_id?: number;
     /** 风控父类id */
     r_compare_risk_item_cat_parent_id?: number;
+    /** 分值 */
+    s_score?: number;
+    /** 决策 */
+    t_decision?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2935,6 +3074,43 @@ declare namespace API {
     f_comment?: string;
     /** 分配模式 1：按比补齐 2：按比分配 */
     g_assign_type?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type GORiskValueSmsSlope = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 用户 */
+    b_borrow_id?: number;
+    /** 手机号码 */
+    c_phone?: string;
+    /** 风控字段 */
+    d_risk_item_id?: number;
+    /** 风控字段分类 */
+    e_risk_item_cat_id?: number;
+    /** 字段名标识 */
+    f_risk_item_name_flag?: string;
+    /** 存在短信的周数 */
+    g_week_count?: number;
+    /** 收到短信的总数 */
+    h_sum?: number;
+    /** 收到短信的平均数 */
+    i_avg?: number;
+    /** 收到短信数的方差 */
+    j_variance?: number;
+    /** 收到短信数的标准差 */
+    k_standard_deviation?: number;
+    /** 短信趋势 */
+    l_slope?: number;
+    /** 短信相关性系数 */
+    m_relevant?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3913,6 +4089,47 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type NDRiskValueSmsIncome = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 用户 */
+    b_borrow_id?: number;
+    /** 手机号码 */
+    c_phone?: string;
+    /** 风控字段 */
+    d_risk_item_id?: number;
+    /** 风控字段分类 */
+    e_risk_item_cat_id?: number;
+    /** 字段名标识 */
+    f_risk_item_name_flag?: string;
+    /** 3天内 */
+    g_value_3?: number;
+    /** 7天内 */
+    h_value_7?: number;
+    /** 15天内 */
+    i_value_15?: number;
+    /** 30天内 */
+    j_value_30?: number;
+    /** 60天内 */
+    k_value_60?: number;
+    /** 90天内 */
+    l_value_90?: number;
+    /** 180天内 */
+    m_value_180?: number;
+    /** 360天内 */
+    n_value_360?: number;
+    /** 所有天内 */
+    o_value_0?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type NoticeIconItem = {
     /** id */
     id?: number;
@@ -4353,6 +4570,11 @@ declare namespace API {
     foo: number;
   };
 
+  type putAdminV1ASRiskValueSmsSuspiciousesIdParams = {
+    /** id of ASRiskValueSmsSuspicious */
+    id: number;
+  };
+
   type putAdminV1AUsersIdParams = {
     /** id of AUser */
     id: number;
@@ -4518,6 +4740,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1GORiskValueSmsSlopesIdParams = {
+    /** id of GORiskValueSmsSlope */
+    id: number;
+  };
+
   type putAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -4578,6 +4805,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1NDRiskValueSmsIncomesIdParams = {
+    /** id of NDRiskValueSmsIncome */
+    id: number;
+  };
+
   type putAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -4603,6 +4835,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1RERiskValueSmsBasicsIdParams = {
+    /** id of RERiskValueSmsBasic */
+    id: number;
+  };
+
   type putAdminV1SAAppsIdParams = {
     /** id of SAApp */
     id: number;
@@ -4610,6 +4847,16 @@ declare namespace API {
 
   type putAdminV1SBAppsIdParams = {
     /** id of SBApp */
+    id: number;
+  };
+
+  type putAdminV1SCRiskValueSmsIdParams = {
+    /** id of SCRiskValueSms */
+    id: number;
+  };
+
+  type putAdminV1TARiskValueSmsOrdersIdParams = {
+    /** id of TARiskValueSmsOrder */
     id: number;
   };
 
@@ -5122,8 +5369,14 @@ declare namespace API {
     m_phone?: string;
     /** 天数 */
     n_days?: number;
-    /** 预计还款时间 */
-    o_expect_repay_time?: string;
+    /** 时间 */
+    o_type_time?: string;
+    /** 0:非收支 1:收入 2:支出 */
+    p_type3?: number;
+    /** 是否删除 1:已删除 2:未删除 */
+    q_is_deleted?: number;
+    /** 是否通讯录 1:是 2:否 */
+    r_is_contact?: number;
     /** data */
     date?: number;
     /** date_sent */
@@ -5179,6 +5432,63 @@ declare namespace API {
     address?: string;
     /** body */
     body?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type RERiskValueSmsBasic = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 用户 */
+    b_borrow_id?: number;
+    /** 手机号码 */
+    c_phone?: string;
+    /** 风控字段 */
+    d_risk_item_id?: number;
+    /** 风控字段分类 */
+    e_risk_item_cat_id?: number;
+    /** 字段名标识 */
+    f_risk_item_name_flag?: string;
+    /** 接收短信数 */
+    receive_sms_count?: number;
+    /** 发送短信数 */
+    send_sms_count?: number;
+    /** 短信总数 */
+    sms_count?: number;
+    /** 接收的一类金融短信数 */
+    all_receive_finance1_sms_count?: number;
+    /** 一类金融发送短信数 */
+    send_finance1_sms_count?: number;
+    /** 一类金融短信总数 */
+    finance1_sms_count?: number;
+    /** 二类金融机构接受短信数 */
+    receive_finance2_sms_count?: number;
+    /** 二类金融发送短信数 */
+    send_finance2_sms_count?: number;
+    /** 二类金融短信总数 */
+    finance2_sms_count?: number;
+    /** 最远一条短信距当前的天数 */
+    oldest_sms_days?: number;
+    /** 最近一条短信距当前的天数 */
+    newest_sms_days?: number;
+    /** 最远一条放款短信距当前的天数 */
+    oldest_loan_sms_days?: number;
+    /** 最近一条放款短信距当前的天数 */
+    newest_loan_sms_days?: number;
+    /** 有短信记录的月份数 */
+    exist_sms_month_count?: number;
+    /** 有短信记录的月份数占比 */
+    exist_sms_month_rate?: number;
+    /** 每月平均接受短信数 */
+    exist_sms_month_avg_sms_count?: number;
+    /** 联系人数量 */
+    contact_sms_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -5305,6 +5615,47 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type SCRiskValueSms = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 用户 */
+    b_borrow_id?: number;
+    /** 手机号码 */
+    c_phone?: string;
+    /** 风控字段 */
+    d_risk_item_id?: number;
+    /** 风控字段分类 */
+    e_risk_item_cat_id?: number;
+    /** 字段名标识 */
+    f_risk_item_name_flag?: string;
+    /** 3天内 */
+    g_value_3?: number;
+    /** 7天内 */
+    h_value_7?: number;
+    /** 15天内 */
+    i_value_15?: number;
+    /** 30天内 */
+    j_value_30?: number;
+    /** 60天内 */
+    k_value_60?: number;
+    /** 90天内 */
+    l_value_90?: number;
+    /** 180天内 */
+    m_value_180?: number;
+    /** 360天内 */
+    n_value_360?: number;
+    /** 所有天内 */
+    o_value_0?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type SWriteOff = {
     /** id */
     id?: number;
@@ -5358,6 +5709,47 @@ declare namespace API {
     x_repay_time?: string;
     /** 支付流水 */
     y_repay_log_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type TARiskValueSmsOrder = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 用户 */
+    b_borrow_id?: number;
+    /** 手机号码 */
+    c_phone?: string;
+    /** 风控字段 */
+    d_risk_item_id?: number;
+    /** 风控字段分类 */
+    e_risk_item_cat_id?: number;
+    /** 字段名标识 */
+    f_risk_item_name_flag?: string;
+    /** 3天内 */
+    g_value_3?: number;
+    /** 7天内 */
+    h_value_7?: number;
+    /** 15天内 */
+    i_value_15?: number;
+    /** 30天内 */
+    j_value_30?: number;
+    /** 60天内 */
+    k_value_60?: number;
+    /** 90天内 */
+    l_value_90?: number;
+    /** 180天内 */
+    m_value_180?: number;
+    /** 360天内 */
+    n_value_360?: number;
+    /** 所有天内 */
+    o_value_0?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

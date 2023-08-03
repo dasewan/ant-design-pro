@@ -15,6 +15,7 @@ import * as AMBlackHitHistory from './AMBlackHitHistory';
 import * as ANRiskItemCat from './ANRiskItemCat';
 import * as APReviewGroup from './APReviewGroup';
 import * as ARReviewAdmin from './ARReviewAdmin';
+import * as ASRiskValueSmsSuspicious from './ASRiskValueSmsSuspicious';
 import * as AUser from './AUser';
 import * as BAWhite from './BAWhite';
 import * as BBProductSnapshotCopy from './BBProductSnapshotCopy';
@@ -48,6 +49,7 @@ import * as GKBank from './GKBank';
 import * as GLPhoto from './GLPhoto';
 import * as GMCollectionAdmin from './GMCollectionAdmin';
 import * as GNCollectionStage from './GNCollectionStage';
+import * as GORiskValueSmsSlope from './GORiskValueSmsSlope';
 import * as GVerify from './GVerify';
 import * as HAPaymentChannelBank from './HAPaymentChannelBank';
 import * as HCDevice from './HCDevice';
@@ -60,6 +62,7 @@ import * as MCExtend from './MCExtend';
 import * as MCLoanLog from './MCLoanLog';
 import * as NBCollectionGroupRole from './NBCollectionGroupRole';
 import * as NCCollectionOrderFlowHistory from './NCCollectionOrderFlowHistory';
+import * as NDRiskValueSmsIncome from './NDRiskValueSmsIncome';
 import * as NoticeIconItem from './NoticeIconItem';
 import * as OARepay from './OARepay';
 import * as QCCollectionNews from './QCCollectionNews';
@@ -67,8 +70,11 @@ import * as QVerifyItem from './QVerifyItem';
 import * as RARepayLog from './RARepayLog';
 import * as RBlack from './RBlack';
 import * as RCSms from './RCSms';
+import * as RERiskValueSmsBasic from './RERiskValueSmsBasic';
 import * as SAApp from './SAApp';
 import * as SBApp from './SBApp';
+import * as SCRiskValueSms from './SCRiskValueSms';
+import * as TARiskValueSmsOrder from './TARiskValueSmsOrder';
 import * as TCollectionAgency from './TCollectionAgency';
 import * as User from './User';
 import * as VCollectionAssignLog from './VCollectionAssignLog';
@@ -87,6 +93,7 @@ export default {
   ANRiskItemCat,
   APReviewGroup,
   ARReviewAdmin,
+  ASRiskValueSmsSuspicious,
   AUser,
   BAWhite,
   BBProductSnapshotCopy,
@@ -120,6 +127,7 @@ export default {
   GLPhoto,
   GMCollectionAdmin,
   GNCollectionStage,
+  GORiskValueSmsSlope,
   GVerify,
   HAPaymentChannelBank,
   HCDevice,
@@ -132,6 +140,7 @@ export default {
   MCLoanLog,
   NBCollectionGroupRole,
   NCCollectionOrderFlowHistory,
+  NDRiskValueSmsIncome,
   NoticeIconItem,
   OARepay,
   QCCollectionNews,
@@ -139,8 +148,11 @@ export default {
   RARepayLog,
   RBlack,
   RCSms,
+  RERiskValueSmsBasic,
   SAApp,
   SBApp,
+  SCRiskValueSms,
+  TARiskValueSmsOrder,
   TCollectionAgency,
   User,
   VCollectionAssignLog,

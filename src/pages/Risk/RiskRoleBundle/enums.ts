@@ -1,27 +1,27 @@
 import { StatusColorEnum2 } from '@/pages/enums';
 
 export const EXECUTE_LOGIC: StatusColorEnum2 = {
-  allagree: { text: '所有都满足', color: 'green' },
-  anyagree: { text: '满足任意一条', color: 'purple' },
-  anynotagree: { text: '至少一条不满足', color: 'orange' },
-  noneagree: { text: '所有均不满足', color: 'magenta' },
+  allsatisfied: { text: '所有都满足', color: 'green' },
+  anysatisfied: { text: '满足任意一条', color: 'purple' },
+  anyunsatisfied: { text: '至少一条不满足', color: 'orange' },
+  nonesatisfied: { text: '所有均不满足', color: 'magenta' },
 };
 export const EXECUTE_LOGIC_OPTION = [
   {
     label: '所有都满足',
-    value: 'allagree',
+    value: 'allsatisfied',
   },
   {
     label: '满足任意一条',
-    value: 'anyagree',
+    value: 'anysatisfied',
   },
   {
     label: '所有均不满足',
-    value: 'noneagree',
+    value: 'anyunsatisfied',
   },
   {
     label: '至少一条不满足',
-    value: 'anynotagree',
+    value: 'nonesatisfied',
   },
 ];
 

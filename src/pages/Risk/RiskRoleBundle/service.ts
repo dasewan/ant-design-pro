@@ -42,7 +42,7 @@ export const FieldLabels2 = {
   c_risk_item_id: '字段id',
   d_value_type: '取值类型',
   e_value_operator: '算术运算公式',
-  f_relational_operator: '关系运算符',
+  f_relational_operator: '运算符',
   g_compare_type: '对比类型',
   h_compare_risk_item_id: '对比字段',
   i_compare_value_type: '取值类型',
@@ -51,6 +51,8 @@ export const FieldLabels2 = {
   l_group_count: '组内细则数量',
   m_group_index: '组内细则index',
   n_execute_logic: '组内关系',
+  s_score: '分值',
+  t_decision: '决策',
   created_at: '创建时间',
   updated_at: '更新时间',
 };
@@ -69,6 +71,26 @@ export const FieldIndex2 = {
   l_group_count: 'l_group_count',
   m_group_index: 'm_group_index',
   n_execute_logic: 'n_execute_logic',
+  s_score: 's_score',
+  t_decision: 't_decision',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+};
+export const FieldLabels3 = {
+  a_risk_role_bundle_id: '规则id',
+  b_related_role_count: '关联细则数',
+  c_execute_logic: '执行逻辑',
+  d_score: '分数',
+  e_decision: '决策',
+  created_at: '创建时间',
+  updated_at: '更新时间',
+};
+export const FieldIndex3 = {
+  a_risk_role_bundle_id: 'a_risk_role_bundle_id',
+  b_related_role_count: 'b_related_role_count',
+  c_execute_logic: 'c_execute_logic',
+  d_score: 'd_score',
+  e_decision: 'e_decision',
   created_at: 'created_at',
   updated_at: 'updated_at',
 };

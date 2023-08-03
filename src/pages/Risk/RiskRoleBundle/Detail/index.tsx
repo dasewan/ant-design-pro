@@ -1,10 +1,5 @@
 import DrawerFC from '@/pages/Risk/RiskRoleBundle/Detail/components/DrawerFC';
-import {
-  EXECUTE_LOGIC,
-  EXECUTE_LOGIC_OPTION,
-  FINNAL_DECISION,
-  FINNAL_DECISION_OPTION,
-} from '@/pages/Risk/RiskRoleBundle/enums';
+import { EXECUTE_LOGIC_OPTION, FINNAL_DECISION_OPTION } from '@/pages/Risk/RiskRoleBundle/enums';
 import { history } from '@@/core/history';
 import {
   AppstoreAddOutlined,
@@ -253,10 +248,20 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         // moment(value.created_at).format('YYYY-MM-DD HH:mm:ss')
         // @ts-ignore
         initEditTable(res.data![0]!.a_a_a_a_g_f_risk_role!);
-        const n_execute_logic_tmp = {};
+        const n_execute_logic_tmp: { [key: string]: string } = {};
+        const s_score_tmp: { [key: string]: number } = {};
+        const t_decision_tmp: { [key: string]: string } = {};
         res.data![0]!.a_a_a_a_g_f_risk_role!.map((item: API.GFRiskRole) => {
-          // @ts-ignore
-          n_execute_logic_tmp['n_execute_logic' + item.b_risk_role_group_id] = item.n_execute_logic;
+          if (item.n_execute_logic !== null) {
+            n_execute_logic_tmp['n_execute_logic' + item.b_risk_role_group_id!] =
+              item.n_execute_logic;
+          }
+          if (item.s_score !== null) {
+            s_score_tmp['s_score' + item.b_risk_role_group_id] = item.s_score;
+          }
+          if (item.t_decision !== null) {
+            t_decision_tmp['t_decision' + item.b_risk_role_group_id] = item.t_decision;
+          }
           return n_execute_logic_tmp;
         });
         const tmpVersion: versionOptionType[] = [];
@@ -320,24 +325,40 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           table: res.data![0]!.a_a_a_a_g_f_risk_role!,
           ...res.data![0],
           ...n_execute_logic_tmp,
+          ...s_score_tmp,
+          ...t_decision_tmp,
         };
       } else {
         await _getRoleItemEnum();
         const targetVersionData = rawResultData!.find((item) => item.j_version === version)!;
         setOldRecord(targetVersionData);
         initEditTable(targetVersionData.a_a_a_a_g_f_risk_role!);
-        const n_execute_logic_tmp = {};
-        targetVersionData.a_a_a_a_g_f_risk_role!.map((item) => {
-          // @ts-ignore
-          n_execute_logic_tmp['n_execute_logic' + item.b_risk_role_group_id] = item.n_execute_logic;
+
+        const n_execute_logic_tmp: { [key: string]: string } = {};
+        const s_score_tmp: { [key: string]: number } = {};
+        const t_decision_tmp: { [key: string]: string } = {};
+        targetVersionData.a_a_a_a_g_f_risk_role!.map((item: API.GFRiskRole) => {
+          if (item.n_execute_logic !== null) {
+            n_execute_logic_tmp['n_execute_logic' + item.b_risk_role_group_id!] =
+              item.n_execute_logic;
+          }
+          if (item.s_score !== null) {
+            s_score_tmp['s_score' + item.b_risk_role_group_id] = item.s_score;
+          }
+          if (item.t_decision !== null) {
+            t_decision_tmp['t_decision' + item.b_risk_role_group_id] = item.t_decision;
+          }
           return n_execute_logic_tmp;
         });
+
         setCurrentVersion(targetVersionData!.j_version!);
         setCurrentId(targetVersionData!.id!);
         return {
           table: targetVersionData.a_a_a_a_g_f_risk_role!,
           ...targetVersionData,
           ...n_execute_logic_tmp,
+          ...s_score_tmp,
+          ...t_decision_tmp,
         };
       }
     } else {
@@ -523,7 +544,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       dataIndex: FieldIndex2.a_risk_role_bundle_id,
       ellipsis: true,
       editable: false,
-      width: 60,
+      width: 130,
       onCell: (row) => {
         if (
           groupCont &&
@@ -540,41 +561,121 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         return {};
       },
       render: (_, row) => {
-        if (
-          groupCont &&
-          groupCont.has(row.b_risk_role_group_id!) &&
-          groupCont.get(row.b_risk_role_group_id!)! > 1
-        ) {
-          return (
-            <ProFormSelect
-              name={FieldIndex2.n_execute_logic + row.b_risk_role_group_id}
-              key={row.b_risk_role_group_id!}
-              fieldProps={{ defaultValue: row.n_execute_logic }}
-              rules={[{ required: true, message: `请输入${FieldLabels2.n_execute_logic}` }]}
-              label=" "
-              valueEnum={{
-                and: 'AND',
-                or: 'OR',
-              }}
-              placeholder="Please select "
-            />
-          );
-        } else {
-          return null;
-        }
+        return (
+          <ProFormSelect
+            name={FieldIndex2.n_execute_logic + row.b_risk_role_group_id}
+            key={row.b_risk_role_group_id!}
+            fieldProps={{ defaultValue: row.n_execute_logic, style: { width: 130 } }}
+            rules={[{ required: true, message: `请输入${FieldLabels2.n_execute_logic}` }]}
+            /*              valueEnum={{
+                          and: 'AND',
+                          or: 'OR',
+                        }}*/
+            options={EXECUTE_LOGIC_OPTION}
+            placeholder="Please select "
+          />
+        );
       },
       renderFormItem: () => (
         <ProFormSelect
           name={FieldIndex2.n_execute_logic}
-          label=" "
-          valueEnum={{
-            and: 'AND',
-            or: 'OR',
-          }}
+          fieldProps={{ style: { width: 130 } }}
+          options={EXECUTE_LOGIC_OPTION}
           placeholder="Please select"
         />
       ),
     },
+
+    {
+      title: FieldLabels2.t_decision,
+      dataIndex: FieldIndex2.t_decision,
+      ellipsis: true,
+      editable: false,
+      width: 70,
+      onCell: (row) => {
+        if (
+          groupCont &&
+          groupCont.has(row.b_risk_role_group_id!) &&
+          groupCont.get(row.b_risk_role_group_id!)! > 1 &&
+          groupMinIndex.has(row.b_risk_role_group_id!)
+        ) {
+          if (row.m_group_index === groupMinIndex!.get(row.b_risk_role_group_id!)) {
+            return { rowSpan: groupCont.get(row.b_risk_role_group_id!)! };
+          } else {
+            return { rowSpan: 0 };
+          }
+        }
+        return {};
+      },
+      render: (_, row) => {
+        return (
+          <ProFormSelect
+            name={FieldIndex2.t_decision + row.b_risk_role_group_id}
+            key={row.b_risk_role_group_id!}
+            // style={{ width: 50 }}
+            fieldProps={{ defaultValue: row.t_decision, style: { width: 70 } }}
+            rules={[{ required: true, message: `请输入${FieldLabels2.t_decision}` }]}
+            // label=" "
+            options={FINNAL_DECISION_OPTION}
+            placeholder="Please select "
+          />
+        );
+      },
+      renderFormItem: () => (
+        <ProFormSelect
+          name={FieldIndex2.t_decision}
+          // style={{ width: 50 }}
+          // label=" "
+          fieldProps={{ style: { width: 70 } }}
+          options={FINNAL_DECISION_OPTION}
+          placeholder="Please select"
+        />
+      ),
+    },
+
+    {
+      title: FieldLabels2.s_score,
+      dataIndex: FieldIndex2.s_score,
+      ellipsis: true,
+      editable: false,
+      width: 70,
+      onCell: (row) => {
+        if (
+          groupCont &&
+          groupCont.has(row.b_risk_role_group_id!) &&
+          groupCont.get(row.b_risk_role_group_id!)! > 1 &&
+          groupMinIndex.has(row.b_risk_role_group_id!)
+        ) {
+          if (row.m_group_index === groupMinIndex!.get(row.b_risk_role_group_id!)) {
+            return { rowSpan: groupCont.get(row.b_risk_role_group_id!)! };
+          } else {
+            return { rowSpan: 0 };
+          }
+        }
+        return {};
+      },
+      render: (_, row) => {
+        return (
+          <ProFormDigit
+            // label={FieldLabels2.s_score}
+            name={FieldIndex2.s_score + row.b_risk_role_group_id}
+            fieldProps={{ defaultValue: row.s_score, style: { width: 70 } }}
+            rules={[{ required: true, message: `请输入${FieldLabels2.s_score}` }]}
+            placeholder={`请输入${FieldLabels2.s_score}`}
+          />
+        );
+      },
+      renderFormItem: () => (
+        <ProFormDigit
+          label={FieldLabels2.s_score}
+          name={FieldIndex2.s_score}
+          fieldProps={{ style: { width: 70 } }}
+          rules={[{ required: true, message: `请输入${FieldLabels2.s_score}` }]}
+          placeholder={`请输入${FieldLabels2.s_score}`}
+        />
+      ),
+    },
+
     // 字段id
     {
       title: FieldLabels2.c_risk_item_id,
@@ -604,25 +705,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       },
       request: async () => _getRoleItemEnum(),
     },
-    /*{
-      title: FieldLabels2.d_value_type,
-      dataIndex: FieldIndex2.d_value_type,
-      valueType: 'select',
-      formItemProps: { rules: [{ required: true, message: `请输入${FieldLabels2.d_value_type}` }] },
-      request: async () => [
-        {
-          value: 'const',
-          label: '常量',
-        },
-        {
-          value: 'operator',
-          label: '变量',
-        },
-      ],
-    },*/
     // 算术运算公式
     {
       title: FieldLabels2.e_value_operator,
+      width: 160,
       // @ts-ignore
       /*      editable: (value, row, index) =>
               // @ts-ignore
@@ -640,7 +726,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       title: FieldLabels2.f_relational_operator,
       dataIndex: FieldIndex2.f_relational_operator,
       valueType: 'select',
-      width: 100,
+      width: 110,
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.f_relational_operator}` }],
       },
@@ -660,7 +746,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       title: FieldLabels2.g_compare_type,
       dataIndex: FieldIndex2.g_compare_type,
       valueType: 'select',
-      width: 80,
+      width: 100,
       formItemProps: {
         rules: [{ required: true, message: `请输入${FieldLabels2.g_compare_type}` }],
       },
@@ -676,7 +762,8 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       ],
       fieldProps: (_, { rowIndex }) => {
         return {
-          onSelect: () => {
+          onSelect: (value) => {
+            console.log(value);
             return editableFormRef.current?.setRowData?.(rowIndex, {
               h_compare_risk_item_id: null,
               i_compare_value_type: null,
@@ -714,38 +801,11 @@ const AdvancedForm: FC<Record<string, any>> = () => {
               </div>;
             },*/
     },
-    /*{
-      title: FieldLabels2.i_compare_value_type,
-      width: '80',
-      dataIndex: FieldIndex2.i_compare_value_type,
-      editable: (value, row, index) =>
-        // @ts-ignore
-      editableFormRef.current?.getRowData(index)?.g_compare_type === 'operator',
-      formItemProps: {
-        rules: [{ required: true, message: `请输入${FieldLabels2.i_compare_value_type}` }],
-      },
-      valueType: 'select',
-      request: async () => [
-        {
-          value: 'const',
-          label: '常量',
-        },
-        {
-          value: 'operator',
-          label: '变量',
-        },
-      ],
-      render: (_, record) => {
-        return <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' ,width:80}}>
-          {_}
-        </div>;
-      },
-    },*/
     // 算术运算公式
     {
       title: FieldLabels2.j_compare_value_operator,
       dataIndex: FieldIndex2.j_compare_value_operator,
-      width: 180,
+      width: 160,
       ellipsis: true,
       fieldProps: {
         textwrap: 'word-break',
@@ -763,7 +823,6 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     },
     {
       title: '操作',
-      width: 80,
       valueType: 'option',
       render: (_, row) => {
         let removeGroupRoleAction = null;
@@ -799,7 +858,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       },
       tooltip: '操作包括《新增组内细则》和《删除组》',
       editable: false,
-      width: 80,
+      width: 90,
       fixed: 'right',
       onCell: (row) => {
         if (
@@ -1092,7 +1151,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                         placeholder={`请输入${FieldLabels.d_score_upper_limit}`}
                       />
                     </Col>
-                    <Col xl={{ span: 4, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+                    {/*<Col xl={{ span: 4, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
                       <ProFormSelect
                         label={FieldLabels.e_execute_logic}
                         name={FieldIndex.e_execute_logic}
@@ -1139,7 +1198,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                         ]}
                         options={FINNAL_DECISION_OPTION}
                       />
-                    </Col>
+                    </Col>*/}
                   </Row>
                   <Row gutter={16}>
                     <Col xl={{ span: 22 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>

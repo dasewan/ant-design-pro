@@ -1,5 +1,5 @@
 import DetailModel from '@/pages/Risk/RiskRoleBundle/components/DetailModel';
-import { EXECUTE_LOGIC, FINNAL_DECISION } from '@/pages/Risk/RiskRoleBundle/enums';
+import { EXECUTE_LOGIC_OPTION, FINNAL_DECISION_OPTION } from '@/pages/Risk/RiskRoleBundle/enums';
 import RiskRoleBundleTableModel from '@/pages/Risk/RiskStrategyBundle/Detail/components/RiskRoleBundleTableModel';
 import { FUSE, FUSE_OPTION } from '@/pages/Risk/RiskStrategyBundle/enums';
 import { getAdminV1BDRiskRoleBundles as riskRoleBundleIndex } from '@/services/ant-design-pro/BDRiskRoleBundle';
@@ -19,7 +19,7 @@ import ProForm, { ProFormSelect, ProFormText } from '@ant-design/pro-form';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { ProTable } from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, Card, Col, message, Popconfirm, Popover, Row, Select, Tag, Tooltip } from 'antd';
+import { Button, Card, Col, message, Popconfirm, Popover, Row, Select, Tooltip } from 'antd';
 import update from 'immutability-helper';
 import moment from 'moment';
 import type { FC } from 'react';
@@ -41,7 +41,7 @@ import {
   getAdminV1GGRiskStrateiesId as show,
   postAdminV1GGRiskStrateies as store,
 } from '@/services/ant-design-pro/GGRiskStratey';
-import GGRiskStratey = API.GGRiskStratey;
+// import GGRiskStratey = API.GGRiskStratey;
 
 type InternalNamePath = (string | number)[];
 
@@ -498,7 +498,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       dataIndex: RiskRoleBundleFieldIndex.d_score_upper_limit,
       ellipsis: true,
     },
-    {
+    /*{
       title: RiskRoleBundleFieldLabels.e_execute_logic,
       dataIndex: RiskRoleBundleFieldIndex.e_execute_logic,
       ellipsis: true,
@@ -521,7 +521,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         const text = FINNAL_DECISION[record.f_finnal_decision!].text;
         return <Tag color={FINNAL_DECISION[record.f_finnal_decision!].color}>{text}</Tag>;
       },
-    },
+    },*/
     {
       title: '操作',
       width: 190,
@@ -556,7 +556,8 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       title: FieldLabels2.n_execute_logic,
       dataIndex: FieldIndex2.a_risk_role_bundle_id,
       ellipsis: true,
-      width: 60,
+      editable: false,
+      width: 130,
       onCell: (row) => {
         if (row.l_group_count! > 1) {
           if (row.m_group_index === 1) {
@@ -568,14 +569,58 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         return {};
       },
       render: (_, row) => {
+        return (
+          <ProFormSelect
+            fieldProps={{ defaultValue: row.n_execute_logic, style: { width: 126 } }}
+            disabled={true}
+            options={EXECUTE_LOGIC_OPTION}
+            placeholder="Please select "
+          />
+        );
+      },
+    },
+    {
+      title: FieldLabels2.t_decision,
+      dataIndex: FieldIndex2.t_decision,
+      ellipsis: true,
+      editable: false,
+      width: 76,
+      onCell: (row) => {
         if (row.l_group_count! > 1) {
           if (row.m_group_index === 1) {
-            return row.n_execute_logic;
+            return { rowSpan: row.l_group_count! };
           } else {
-            return null;
+            return { rowSpan: 0 };
           }
         }
-        return null;
+        return {};
+      },
+      render: (_, row) => {
+        return (
+          <ProFormSelect
+            fieldProps={{ defaultValue: row.t_decision, style: { width: 70 } }}
+            disabled={true}
+            options={FINNAL_DECISION_OPTION}
+            placeholder="Please select "
+          />
+        );
+      },
+    },
+    {
+      title: FieldLabels2.s_score,
+      dataIndex: FieldIndex2.s_score,
+      ellipsis: true,
+      editable: false,
+      width: 70,
+      onCell: (row) => {
+        if (row.l_group_count! > 1) {
+          if (row.m_group_index === 1) {
+            return { rowSpan: row.l_group_count! };
+          } else {
+            return { rowSpan: 0 };
+          }
+        }
+        return {};
       },
     },
     // 字段id
@@ -591,14 +636,14 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     {
       title: FieldLabels2.e_value_operator,
       key: FieldIndex2.e_value_operator,
-      width: 180,
+      width: 160,
     },
     // 关系运算符
     {
       title: FieldLabels2.f_relational_operator,
       dataIndex: FieldIndex2.f_relational_operator,
       valueType: 'select',
-      width: 100,
+      width: 110,
       request: async () => [
         {
           value: 'gt',
@@ -615,7 +660,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       title: FieldLabels2.g_compare_type,
       dataIndex: FieldIndex2.g_compare_type,
       valueType: 'select',
-      width: 80,
+      width: 100,
       request: async () => [
         {
           value: 'const',
@@ -640,7 +685,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     {
       title: FieldLabels2.j_compare_value_operator,
       dataIndex: FieldIndex2.j_compare_value_operator,
-      width: 180,
+      width: 160,
       ellipsis: true,
       fieldProps: {
         textwrap: 'word-break',
@@ -734,7 +779,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           f_version: oldRecord!.f_version,
           c_related_role_count: riskRoleCount,
           ...values,
-        } as GGRiskStratey);
+        } as API.GGRiskStratey);
       } else {
         // @ts-ignore
         await store({ risk_role_bundle_ids: tmp.join('#'), ...values });

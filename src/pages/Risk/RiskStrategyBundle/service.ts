@@ -47,6 +47,8 @@ export const FieldLabels2 = {
   l_group_count: '组内细则数量',
   m_group_index: '组内细则index',
   n_execute_logic: '组内关系',
+  s_score: '分值',
+  t_decision: '决策',
   created_at: '创建时间',
   updated_at: '更新时间',
 };
@@ -65,6 +67,8 @@ export const FieldIndex2 = {
   l_group_count: 'l_group_count',
   m_group_index: 'm_group_index',
   n_execute_logic: 'n_execute_logic',
+  s_score: 's_score',
+  t_decision: 't_decision',
   created_at: 'created_at',
   updated_at: 'updated_at',
 };
