@@ -406,3 +406,132 @@ export const COLLECTION_ASSIGN_LOG_CAT_TYPE: StatusEnum = {
   2: { text: '管理员释放', status: 'Error' },
   3: { text: '管理员转移', status: 'Warning' },
 };
+export const RISK_TAGS_ENUM: StatusEnum = {
+  100: { text: '新客', status: '' },
+  101: { text: '少量复贷', status: '' },
+  102: { text: '中量复贷', status: '' },
+  103: { text: '大量复贷', status: '' },
+  104: { text: 'A(优)', status: '' },
+  105: { text: 'B(良)', status: '' },
+  106: { text: 'C(差)', status: '' },
+  107: { text: '无短信', status: '' },
+  108: { text: '少量短信', status: '' },
+  109: { text: '中量短信', status: '' },
+  110: { text: '大量短信', status: '' },
+  111: { text: '无通讯录', status: '' },
+  112: { text: '少量通讯录', status: '' },
+  113: { text: '中量通讯录', status: '' },
+  114: { text: '大量通讯录', status: '' },
+  115: { text: '无一类金融', status: '' },
+  116: { text: '少量一类金融', status: '' },
+  117: { text: '中量一类金融', status: '' },
+  118: { text: '大量一类金融', status: '' },
+  119: { text: '低风险地区', status: '' },
+  120: { text: '中风险地区', status: '' },
+  121: { text: '高风险地区', status: '' },
+  122: { text: '青年', status: '' },
+  123: { text: '中年', status: '' },
+  124: { text: '老年', status: '' },
+};
+export const RISK_TAGS_ARRAY: StatusOption[] = [
+  {
+    label: '新客',
+    value: '100',
+  },
+  {
+    label: '少量复贷',
+    value: '101',
+  },
+  {
+    label: '中量复贷',
+    value: '102',
+  },
+  {
+    label: '大量复贷',
+    value: '103',
+  },
+  {
+    label: 'A(优)',
+    value: '104',
+  },
+  {
+    label: 'B(良)',
+    value: '105',
+  },
+  {
+    label: 'C(差)',
+    value: '106',
+  },
+  {
+    label: '无短信',
+    value: '107',
+  },
+  {
+    label: '少量短信',
+    value: '108',
+  },
+  {
+    label: '中量短信',
+    value: '109',
+  },
+  {
+    label: '大量短信',
+    value: '110',
+  },
+  {
+    label: '无通讯录',
+    value: '111',
+  },
+  {
+    label: '少量通讯录',
+    value: '112',
+  },
+  {
+    label: '中量通讯录',
+    value: '113',
+  },
+  {
+    label: '大量通讯录',
+    value: '114',
+  },
+  {
+    label: '无一类金融',
+    value: '115',
+  },
+  {
+    label: '少量一类金融',
+    value: '116',
+  },
+  {
+    label: '中量一类金融',
+    value: '117',
+  },
+  {
+    label: '大量一类金融',
+    value: '118',
+  },
+  {
+    label: '低风险地区',
+    value: '119',
+  },
+  {
+    label: '中风险地区',
+    value: '120',
+  },
+  {
+    label: '高风险地区',
+    value: '121',
+  },
+  {
+    label: '青年',
+    value: '122',
+  },
+  {
+    label: '中年',
+    value: '123',
+  },
+  {
+    label: '老年',
+    value: '124',
+  },
+];

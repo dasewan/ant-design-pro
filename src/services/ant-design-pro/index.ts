@@ -63,6 +63,7 @@ import * as MCLoanLog from './MCLoanLog';
 import * as NBCollectionGroupRole from './NBCollectionGroupRole';
 import * as NCCollectionOrderFlowHistory from './NCCollectionOrderFlowHistory';
 import * as NDRiskValueSmsIncome from './NDRiskValueSmsIncome';
+import * as NERiskStrategyRoute from './NERiskStrategyRoute';
 import * as NoticeIconItem from './NoticeIconItem';
 import * as OARepay from './OARepay';
 import * as QCCollectionNews from './QCCollectionNews';
@@ -141,6 +142,7 @@ export default {
   NBCollectionGroupRole,
   NCCollectionOrderFlowHistory,
   NDRiskValueSmsIncome,
+  NERiskStrategyRoute,
   NoticeIconItem,
   OARepay,
   QCCollectionNews,

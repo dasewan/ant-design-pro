@@ -1695,6 +1695,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1NERiskStrategyRoutesIdParams = {
+    /** id of NERiskStrategyRoute */
+    id: number;
+  };
+
   type deleteAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -2399,6 +2404,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GGRiskStrateiesEnumsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GGRiskStrateiesIdParams = {
     /** id of GGRiskStratey */
     id: number;
@@ -2425,6 +2435,11 @@ declare namespace API {
   };
 
   type getAdminV1GIRiskStrategyBundlesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GJRiskTagsEnumsParams = {
     /** foo */
     foo: number;
   };
@@ -2645,6 +2660,16 @@ declare namespace API {
   };
 
   type getAdminV1NDRiskValueSmsIncomesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1NERiskStrategyRoutesIdParams = {
+    /** id of NERiskStrategyRoute */
+    id: number;
+  };
+
+  type getAdminV1NERiskStrategyRoutesParams = {
     /** foo */
     foo: number;
   };
@@ -4130,6 +4155,51 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type NERiskStrategyRoute = {
+    /** id */
+    id?: number;
+    /** 名称 */
+    a_name?: string;
+    /** 排序 */
+    b_sort?: number;
+    /** 借款画像 */
+    c_borrow?: string;
+    /** 渠道画像 */
+    d_channel?: string;
+    /** 短信画像 */
+    e_sms?: string;
+    /** 通讯录画像 */
+    f_contact?: string;
+    /** app画像 */
+    g_app?: string;
+    /** 地区画像 */
+    h_region?: string;
+    /** 年龄画像 */
+    i_age?: string;
+    /** 策略1 */
+    j_strategy_1?: number;
+    /** 策略1占比 */
+    k_strategy_1_rate?: number;
+    /** 策略2 */
+    l_strategy_2?: number;
+    /** 策略2占比 */
+    m_strategy_2_rate?: number;
+    /** 策略3 */
+    n_strategy_3?: number;
+    /** 策略3占比 */
+    o_strategy_3_rate?: number;
+    /** 路由描述 */
+    p_description?: string;
+    /** 状态 */
+    q_status?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type NoticeIconItem = {
     /** id */
     id?: number;
@@ -4807,6 +4877,11 @@ declare namespace API {
 
   type putAdminV1NDRiskValueSmsIncomesIdParams = {
     /** id of NDRiskValueSmsIncome */
+    id: number;
+  };
+
+  type putAdminV1NERiskStrategyRoutesIdParams = {
+    /** id of NERiskStrategyRoute */
     id: number;
   };
 

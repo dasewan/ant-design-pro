@@ -510,6 +510,12 @@ export default [
         component: './Risk/RiskStrategyBundle/Detail',
         hideInMenu: true,
       },
+      {
+        name: 'risk-strategy-route',
+        icon: 'smile',
+        path: '/risk/risk-strategy-route',
+        component: './Risk/RiskStrategyRoute',
+      },
     ],
   },
   {
