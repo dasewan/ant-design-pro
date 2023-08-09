@@ -188,7 +188,6 @@ const TableList: React.FC = () => {
       title: FieldLabels.a_name,
       dataIndex: 'a_name',
       fixed: 'left',
-      width: 160,
     },
     {
       title: '画像',
@@ -197,7 +196,6 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.c_borrow,
           dataIndex: 'c_borrow',
-          width: 100,
           valueType: 'select',
           valueEnum: RISK_TAGS_ENUM,
           hideInSearch: true,
@@ -205,7 +203,6 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.d_channel,
           dataIndex: 'd_channel',
-          width: 100,
           valueType: 'select',
           valueEnum: RISK_TAGS_ENUM,
           hideInSearch: true,
@@ -213,7 +210,6 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.e_sms,
           dataIndex: 'e_sms',
-          width: 100,
           valueType: 'select',
           valueEnum: RISK_TAGS_ENUM,
           hideInSearch: true,
@@ -221,7 +217,6 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.f_contact,
           dataIndex: 'f_contact',
-          width: 100,
           valueType: 'select',
           valueEnum: RISK_TAGS_ENUM,
           hideInSearch: true,
@@ -229,7 +224,6 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.g_app,
           dataIndex: 'g_app',
-          width: 100,
           valueType: 'select',
           valueEnum: RISK_TAGS_ENUM,
           hideInSearch: true,
@@ -237,7 +231,6 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.h_region,
           dataIndex: 'h_region',
-          width: 100,
           valueType: 'select',
           valueEnum: RISK_TAGS_ENUM,
           hideInSearch: true,
@@ -245,7 +238,6 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.i_age,
           dataIndex: 'i_age',
-          width: 100,
           valueType: 'select',
           valueEnum: RISK_TAGS_ENUM,
           hideInSearch: true,
@@ -258,39 +250,42 @@ const TableList: React.FC = () => {
       className: styles.blue,
       children: [
         {
-          title: FieldLabels.j_strategy_1,
-          dataIndex: 'j_strategy_1',
-          width: 120,
+          title: FieldLabels.j_risk_strategy_id_1,
+          dataIndex: 'j_risk_strategy_id_1',
           render: (_, record) => {
-            if (record.j_strategy_1 !== undefined && record.j_strategy_1 !== null) {
-              const label = strateies.find((value) => value.value === record.j_strategy_1)!.label;
-              return label + '[' + record.k_strategy_1_rate + '%]';
+            if (record.j_risk_strategy_id_1 !== undefined && record.j_risk_strategy_id_1 !== null) {
+              const label = strateies.find(
+                (value) => value.value === record.j_risk_strategy_id_1,
+              )!.label;
+              return label + '[' + record.k_risk_strategy_1_rate + '%]';
             } else {
               return undefined;
             }
           },
         },
         {
-          title: FieldLabels.l_strategy_2,
-          dataIndex: 'l_strategy_2',
-          width: 120,
+          title: FieldLabels.l_risk_strategy_id_2,
+          dataIndex: 'l_risk_strategy_id_2',
           render: (_, record) => {
-            if (record.l_strategy_2 !== undefined && record.l_strategy_2 !== null) {
-              const label = strateies.find((value) => value.value === record.l_strategy_2)!.label;
-              return label + '[' + record.m_strategy_2_rate + '%]';
+            if (record.l_risk_strategy_id_2 !== undefined && record.l_risk_strategy_id_2 !== null) {
+              const label = strateies.find(
+                (value) => value.value === record.l_risk_strategy_id_2,
+              )!.label;
+              return label + '[' + record.m_risk_strategy_2_rate + '%]';
             } else {
               return undefined;
             }
           },
         },
         {
-          title: FieldLabels.n_strategy_3,
-          dataIndex: 'n_strategy_3',
-          width: 120,
+          title: FieldLabels.n_risk_strategy_id_3,
+          dataIndex: 'n_risk_strategy_id_3',
           render: (_, record) => {
-            if (record.n_strategy_3 !== undefined && record.n_strategy_3 !== null) {
-              const label = strateies.find((value) => value.value === record.n_strategy_3)!.label;
-              return label + '[' + record.o_strategy_3_rate + '%]';
+            if (record.n_risk_strategy_id_3 !== undefined && record.n_risk_strategy_id_3 !== null) {
+              const label = strateies.find(
+                (value) => value.value === record.n_risk_strategy_id_3,
+              )!.label;
+              return label + '[' + record.o_risk_strategy_3_rate + '%]';
             } else {
               return undefined;
             }
@@ -303,6 +298,7 @@ const TableList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'option',
       fixed: 'right',
+      width: 100,
       render: (_, record) => {
         const edit = (
           <a key="edit" onClick={() => onEditClick(record.id!)}>

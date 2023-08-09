@@ -4177,17 +4177,17 @@ declare namespace API {
     /** 年龄画像 */
     i_age?: string;
     /** 策略1 */
-    j_strategy_1?: number;
+    j_risk_strategy_id_1?: number;
     /** 策略1占比 */
-    k_strategy_1_rate?: number;
+    k_risk_risk_strategy_1_rate?: number;
     /** 策略2 */
-    l_strategy_2?: number;
+    l_risk_strategy_id_2?: number;
     /** 策略2占比 */
-    m_strategy_2_rate?: number;
+    m_risk_strategy_2_rate?: number;
     /** 策略3 */
-    n_strategy_3?: number;
+    n_risk_strategy_id_3?: number;
     /** 策略3占比 */
-    o_strategy_3_rate?: number;
+    o_risk_strategy_3_rate?: number;
     /** 路由描述 */
     p_description?: string;
     /** 状态 */

@@ -81,21 +81,26 @@ const CreateForm: React.FC<FormProps> = (props) => {
           // @ts-ignore
           values.i_age = values.i_age.join(',');
         }
-        if (values.m_strategy_2_rate !== undefined && values.o_strategy_3_rate !== undefined) {
+        if (
+          values.m_risk_strategy_2_rate !== undefined &&
+          values.o_risk_strategy_3_rate !== undefined
+        ) {
           if (
-            values.k_strategy_1_rate! + values.m_strategy_2_rate + values.o_strategy_3_rate !==
+            values.k_risk_strategy_1_rate! +
+              values.m_risk_strategy_2_rate +
+              values.o_risk_strategy_3_rate !==
             100
           ) {
             message.error('占比总和不等于100%');
             return false;
           }
-        } else if (values.m_strategy_2_rate !== undefined) {
-          if (values.k_strategy_1_rate! + values.m_strategy_2_rate !== 100) {
+        } else if (values.m_risk_strategy_2_rate !== undefined) {
+          if (values.k_risk_strategy_1_rate! + values.m_risk_strategy_2_rate !== 100) {
             message.error('占比总和不等于100%');
             return false;
           }
-        } else if (values.o_strategy_3_rate !== undefined) {
-          if (values.k_strategy_1_rate! + values.o_strategy_3_rate !== 100) {
+        } else if (values.o_risk_strategy_3_rate !== undefined) {
+          if (values.k_risk_strategy_1_rate! + values.o_risk_strategy_3_rate !== 100) {
             message.error('占比总和不等于100%');
             return false;
           }
@@ -272,6 +277,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
               const oldValue = props.strategies.find(
                 (item) => item.value === oldRecord?.c_borrow,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
               return value === oldRecord?.c_borrow ||
                 !oldRecord?.c_borrow ||
@@ -295,6 +303,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
               const oldValue = props.strategies.find(
                 (item) => item.value === oldRecord?.d_channel,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
               return value === oldRecord?.d_channel ||
                 !oldRecord?.d_channel ||
@@ -318,6 +329,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
               const oldValue = props.strategies.find(
                 (item) => item.value === oldRecord?.e_sms,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
               return value === oldRecord?.e_sms ||
                 !oldRecord?.e_sms ||
@@ -341,6 +355,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
               const oldValue = props.strategies.find(
                 (item) => item.value === oldRecord?.f_contact,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
               return value === oldRecord?.f_contact ||
                 !oldRecord?.f_contact ||
@@ -364,6 +381,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
               const oldValue = props.strategies.find(
                 (item) => item.value === oldRecord?.g_app,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
               return value === oldRecord?.g_app ||
                 !oldRecord?.g_app ||
@@ -387,6 +407,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
               const oldValue = props.strategies.find(
                 (item) => item.value === oldRecord?.h_region,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
               return value === oldRecord?.h_region ||
                 !oldRecord?.h_region ||
@@ -410,6 +433,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
               const oldValue = props.strategies.find(
                 (item) => item.value === oldRecord?.i_age,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
               return value === oldRecord?.i_age ||
                 !oldRecord?.i_age ||
@@ -424,20 +450,23 @@ const CreateForm: React.FC<FormProps> = (props) => {
       />
       <Divider>策略</Divider>
       <ProFormSelect
-        label={FieldLabels.j_strategy_1}
-        name={FieldIndex.j_strategy_1}
+        label={FieldLabels.j_risk_strategy_id_1}
+        name={FieldIndex.j_risk_strategy_id_1}
         colProps={{ md: 12, xl: 12 }}
         rules={[
-          { required: true, message: `请输入${FieldLabels.j_strategy_1}` },
+          { required: true, message: `请输入${FieldLabels.j_risk_strategy_id_1}` },
           {
             validator: (_, value) => {
               const oldValue = props.strategies.find(
-                (item) => item.value === oldRecord?.j_strategy_1,
+                (item) => item.value === oldRecord?.j_risk_strategy_id_1,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
-              return value === oldRecord?.j_strategy_1 ||
-                !oldRecord?.j_strategy_1 ||
-                oldRecord!.j_strategy_1 === undefined
+              return value === oldRecord?.j_risk_strategy_id_1 ||
+                !oldRecord?.j_risk_strategy_id_1 ||
+                oldRecord!.j_risk_strategy_id_1 === undefined
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -447,23 +476,26 @@ const CreateForm: React.FC<FormProps> = (props) => {
         options={props.strategies}
       />
       <ProFormDigit
-        label={FieldLabels.k_strategy_1_rate}
-        name={FieldIndex.k_strategy_1_rate}
+        label={FieldLabels.k_risk_strategy_1_rate}
+        name={FieldIndex.k_risk_strategy_1_rate}
         colProps={{ md: 12, xl: 12 }}
         min={1}
-        max={10}
+        max={100}
         fieldProps={{ precision: 0, addonAfter: '%' }}
         rules={[
-          { required: true, message: `请输入${FieldLabels.k_strategy_1_rate}` },
+          { required: true, message: `请输入${FieldLabels.k_risk_strategy_1_rate}` },
           {
             validator: (_, value) => {
               const oldValue = props.strategies.find(
-                (item) => item.value === oldRecord?.k_strategy_1_rate,
+                (item) => item.value === oldRecord?.k_risk_strategy_1_rate,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
-              return value === oldRecord?.k_strategy_1_rate ||
-                !oldRecord?.k_strategy_1_rate ||
-                oldRecord!.k_strategy_1_rate === undefined
+              return value === oldRecord?.k_risk_strategy_1_rate ||
+                !oldRecord?.k_risk_strategy_1_rate ||
+                oldRecord!.k_risk_strategy_1_rate === undefined
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -473,19 +505,22 @@ const CreateForm: React.FC<FormProps> = (props) => {
       />
 
       <ProFormSelect
-        label={FieldLabels.l_strategy_2}
-        name={FieldIndex.l_strategy_2}
+        label={FieldLabels.l_risk_strategy_id_2}
+        name={FieldIndex.l_risk_strategy_id_2}
         colProps={{ md: 12, xl: 12 }}
         rules={[
           {
             validator: (_, value) => {
               const oldValue = props.strategies.find(
-                (item) => item.value === oldRecord?.l_strategy_2,
+                (item) => item.value === oldRecord?.l_risk_strategy_id_2,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
-              return value === oldRecord?.l_strategy_2 ||
-                !oldRecord?.l_strategy_2 ||
-                oldRecord!.l_strategy_2 === undefined
+              return value === oldRecord?.l_risk_strategy_id_2 ||
+                !oldRecord?.l_risk_strategy_id_2 ||
+                oldRecord!.l_risk_strategy_id_2 === undefined
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -495,22 +530,25 @@ const CreateForm: React.FC<FormProps> = (props) => {
         options={props.strategies}
       />
       <ProFormDigit
-        label={FieldLabels.m_strategy_2_rate}
-        name={FieldIndex.m_strategy_2_rate}
+        label={FieldLabels.m_risk_strategy_2_rate}
+        name={FieldIndex.m_risk_strategy_2_rate}
         colProps={{ md: 12, xl: 12 }}
         min={1}
-        max={10}
+        max={100}
         fieldProps={{ precision: 0, addonAfter: '%' }}
         rules={[
           {
             validator: (_, value) => {
               const oldValue = props.strategies.find(
-                (item) => item.value === oldRecord?.m_strategy_2_rate,
+                (item) => item.value === oldRecord?.m_risk_strategy_2_rate,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
-              return value === oldRecord?.m_strategy_2_rate ||
-                !oldRecord?.m_strategy_2_rate ||
-                oldRecord!.m_strategy_2_rate === undefined
+              return value === oldRecord?.m_risk_strategy_2_rate ||
+                !oldRecord?.m_risk_strategy_2_rate ||
+                oldRecord!.m_risk_strategy_2_rate === undefined
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -520,19 +558,22 @@ const CreateForm: React.FC<FormProps> = (props) => {
       />
 
       <ProFormSelect
-        label={FieldLabels.n_strategy_3}
-        name={FieldIndex.n_strategy_3}
+        label={FieldLabels.n_risk_strategy_id_3}
+        name={FieldIndex.n_risk_strategy_id_3}
         colProps={{ md: 12, xl: 12 }}
         rules={[
           {
             validator: (_, value) => {
               const oldValue = props.strategies.find(
-                (item) => item.value === oldRecord?.n_strategy_3,
+                (item) => item.value === oldRecord?.n_risk_strategy_id_3,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
-              return value === oldRecord?.n_strategy_3 ||
-                !oldRecord?.n_strategy_3 ||
-                oldRecord!.n_strategy_3 === undefined
+              return value === oldRecord?.n_risk_strategy_id_3 ||
+                !oldRecord?.n_risk_strategy_id_3 ||
+                oldRecord!.n_risk_strategy_id_3 === undefined
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
@@ -542,22 +583,25 @@ const CreateForm: React.FC<FormProps> = (props) => {
         options={props.strategies}
       />
       <ProFormDigit
-        label={FieldLabels.o_strategy_3_rate}
-        name={FieldIndex.o_strategy_3_rate}
+        label={FieldLabels.o_risk_strategy_3_rate}
+        name={FieldIndex.o_risk_strategy_3_rate}
         colProps={{ md: 12, xl: 12 }}
         min={1}
-        max={10}
+        max={100}
         fieldProps={{ precision: 0, addonAfter: '%' }}
         rules={[
           {
             validator: (_, value) => {
               const oldValue = props.strategies.find(
-                (item) => item.value === oldRecord?.o_strategy_3_rate,
+                (item) => item.value === oldRecord?.o_risk_strategy_3_rate,
               )?.label;
+              if (oldValue === undefined) {
+                return Promise.resolve();
+              }
               // @ts-ignore
-              return value === oldRecord?.o_strategy_3_rate ||
-                !oldRecord?.o_strategy_3_rate ||
-                oldRecord!.o_strategy_3_rate === undefined
+              return value === oldRecord?.o_risk_strategy_3_rate ||
+                !oldRecord?.o_risk_strategy_3_rate ||
+                oldRecord!.o_risk_strategy_3_rate === undefined
                 ? Promise.resolve()
                 : Promise.reject(new Error(`旧值：  ${oldValue} `));
             },
