@@ -8,13 +8,17 @@ export const FieldLabels: { [key: string]: string } = {
   d: 'd',
   e_code: '同一strategy不同版本的标识',
   f_version: '版本号',
-  g_is_current: '是否是最新版本',
+  g_is_current: '是否是当前版本',
   h_verdion_index: '版本序号',
   i_version_count: '当前版本数量',
   j_fuse: '是否熔断',
   k_admin_id: '管理员id',
   created_at: '创建时间',
   updated_at: '更新时间',
+  /*  a_a_a_a_g_i_risk_strategy_bundles:{
+      id: '规则id',
+      e_version: '规则版本',
+    }*/
 };
 export const FieldIndex = {
   a_name: 'a_name',
@@ -30,6 +34,10 @@ export const FieldIndex = {
   k_admin_id: 'k_admin_id',
   created_at: 'created_at',
   updated_at: 'updated_at',
+  a_a_a_a_g_i_risk_strategy_bundles: {
+    id: 'id',
+    f_version: 'f_version',
+  },
 };
 
 export const FieldLabels2 = {

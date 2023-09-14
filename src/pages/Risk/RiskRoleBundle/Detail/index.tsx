@@ -31,6 +31,7 @@ import {
   Popover,
   Row,
   Select,
+  Spin,
   Tooltip,
 } from 'antd';
 import type { DefaultOptionType } from 'antd/es/cascader';
@@ -42,6 +43,7 @@ import { FieldIndex, FieldIndex2, FieldLabels, FieldLabels2 } from '../service';
 import type { TableListItem } from './data';
 import styles from './style.less';
 
+import RiskStrategiesTableModel from '@/pages/Risk/RiskRoleBundle/components/RiskStrategiesTableModel';
 import {
   deleteAdminV1BDRiskRoleBundlesId as destroy,
   getAdminV1BDRiskRoleBundlesId as show,
@@ -100,6 +102,12 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const [roleItems, setRoleItems] = useState<RequestOptionsType[]>([]);
   /** drawer是否显示 */
   const [functionVisable, setFunctionVisable] = useState<boolean>(false);
+  /** 服务端原始返回 (更新到策略中使用)**/
+  const [riskStrategyData, setRiskStrategyData] = useState<API.GGRiskStratey[]>();
+  /** 切换规则版本model */
+  const [tableModalVisible, handleTableModalVisible] = useState<boolean>(false);
+  const [riskStrategyIds, setRiskStrategyIds] = useState<number[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   /**
    * 查询风控字段enum
@@ -321,6 +329,8 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         setVersions(tmpVersion);
         setCurrentVersion(res.data![0]!.j_version!);
         setCurrentId(res.data![0]!.id!);
+        // @ts-ignore
+        setRiskStrategyData(res.other.risk_strategies);
         return {
           table: res.data![0]!.a_a_a_a_g_f_risk_role!,
           ...res.data![0],
@@ -353,6 +363,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
 
         setCurrentVersion(targetVersionData!.j_version!);
         setCurrentId(targetVersionData!.id!);
+        console.log(targetVersionData!.id!);
         return {
           table: targetVersionData.a_a_a_a_g_f_risk_role!,
           ...targetVersionData,
@@ -1004,6 +1015,27 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   };
 
   /**
+   * 删除
+   */
+  const onUpdateRiskStratey = async () => {
+    try {
+      handleTableModalVisible(true);
+      // riskStrategyData
+      let riskStrategyIdsTmp: number[] = [];
+      riskStrategyData?.map((value) => {
+        // @ts-ignore
+        if (value.a_a_a_a_g_i_risk_strategy_bundles[0].e_version === currentVersion.toString()) {
+          if (value.id !== null) {
+            riskStrategyIdsTmp.push(value.id);
+          }
+        }
+        setRiskStrategyIds(riskStrategyIdsTmp);
+        return value;
+      });
+    } catch {}
+  };
+
+  /**
    * 表单校验失败
    * @param errorInfo
    */
@@ -1050,15 +1082,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                   删除当前版本
                 </Button>
               </Popconfirm>
-              <Popconfirm
-                title="确定更新当前版本到所有策略中吗？"
-                onConfirm={onDeleteRiskRoleBundle}
-                disabled={versions.length < 2}
-              >
-                <Button type="primary" danger icon={<SyncOutlined />}>
-                  更新当前版本到所有策略中
-                </Button>
-              </Popconfirm>
+              <Button type="primary" danger onClick={onUpdateRiskStratey} icon={<SyncOutlined />}>
+                更新当前版本到所有策略中
+              </Button>
               <Button type="primary" onClick={onNewGroup} icon={<PlusOutlined />}>
                 新建规则组
               </Button>
@@ -1077,81 +1103,86 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       // @ts-ignore
       request={_index}
     >
-      <PageContainer
-        content="您的每次有效修改，系统都会增加一次本规则的版本号。"
-        extra={
-          <>
-            <Tooltip title="版本号 (细则数量) 创建时间">
-              版本数: {versions?.length} <QuestionCircleOutlined />
-            </Tooltip>
-            <Select
-              defaultValue={[...versions].shift()?.value}
-              placeholder={'查看历史版本'}
-              style={{ width: 200 }}
-              onChange={async (value) => {
-                const versionData = await _index(value);
-                message.loading('正在切换', 1);
-                formRef.current?.setFieldsValue(versionData);
-              }}
-            >
-              {versions?.map((value) => {
+      <Spin spinning={loading} delay={300}>
+        <PageContainer
+          content="您的每次有效修改，系统都会增加一次本规则的版本号。"
+          extra={
+            <>
+              <Tooltip title="版本号 (细则数量) 创建时间">
+                版本数: {versions?.length} <QuestionCircleOutlined />
+              </Tooltip>
+              <Select
+                defaultValue={[...versions].shift()?.value}
+                placeholder={'查看历史版本'}
+                style={{ width: 200 }}
+                onChange={async (value) => {
+                  setLoading(true);
+                  const versionData = await _index(value);
+                  message.loading('正在切换', 1);
+                  formRef.current?.setFieldsValue(versionData);
+                  setLoading(false);
+                }}
+              >
+                {versions?.map((value) => {
+                  return (
+                    <Option value={value.value} key={value.value}>
+                      {value.label}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </>
+          }
+        >
+          <Card title="基础内容" className={styles.card} bordered={false}>
+            <ProFormDependency name={['table']}>
+              {() => {
                 return (
-                  <Option value={value.value} key={value.value}>
-                    {value.label}
-                  </Option>
-                );
-              })}
-            </Select>
-          </>
-        }
-      >
-        <Card title="基础内容" className={styles.card} bordered={false}>
-          <ProFormDependency name={['table']}>
-            {() => {
-              return (
-                <>
-                  <Row gutter={16}>
-                    <Col xl={{ span: 4 }} lg={6} md={12} sm={24}>
-                      <ProFormText
-                        label={FieldLabels.a_name}
-                        tooltip={<>CPA:balabala</>}
-                        name={FieldIndex.a_name}
-                        rules={[
-                          { required: true, message: `请输入${FieldLabels.a_name}` },
-                          {
-                            validator: (_, value) => {
-                              return value === oldRecord?.d_score_upper_limit || !oldRecord?.a_name
-                                ? Promise.resolve()
-                                : Promise.reject(new Error(`旧值：   ${oldRecord?.a_name}`));
+                  <>
+                    <Row gutter={16}>
+                      <Col xl={{ span: 4 }} lg={6} md={12} sm={24}>
+                        <ProFormText
+                          label={FieldLabels.a_name}
+                          tooltip={<>CPA:balabala</>}
+                          name={FieldIndex.a_name}
+                          rules={[
+                            { required: true, message: `请输入${FieldLabels.a_name}` },
+                            {
+                              validator: (_, value) => {
+                                return value === oldRecord?.d_score_upper_limit ||
+                                  !oldRecord?.a_name
+                                  ? Promise.resolve()
+                                  : Promise.reject(new Error(`旧值：   ${oldRecord?.a_name}`));
+                              },
+                              warningOnly: true,
                             },
-                            warningOnly: true,
-                          },
-                        ]}
-                        placeholder={`请输入${FieldLabels.a_name}`}
-                      />
-                    </Col>
-                    <Col xl={{ span: 4, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
-                      <ProFormDigit
-                        label={FieldLabels.d_score_upper_limit}
-                        tooltip={<>CPA:balabala</>}
-                        name={FieldIndex.d_score_upper_limit}
-                        rules={[
-                          { required: true, message: `请输入${FieldLabels.d_score_upper_limit}` },
-                          {
-                            validator: (_, value) => {
-                              return value === oldRecord?.a_name || !oldRecord?.d_score_upper_limit
-                                ? Promise.resolve()
-                                : Promise.reject(
-                                    new Error(`旧值：   ${oldRecord?.d_score_upper_limit}`),
-                                  );
+                          ]}
+                          placeholder={`请输入${FieldLabels.a_name}`}
+                        />
+                      </Col>
+                      <Col xl={{ span: 4, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+                        <ProFormDigit
+                          label={FieldLabels.d_score_upper_limit}
+                          tooltip={<>CPA:balabala</>}
+                          name={FieldIndex.d_score_upper_limit}
+                          rules={[
+                            { required: true, message: `请输入${FieldLabels.d_score_upper_limit}` },
+                            {
+                              validator: (_, value) => {
+                                return value === oldRecord?.a_name ||
+                                  !oldRecord?.d_score_upper_limit
+                                  ? Promise.resolve()
+                                  : Promise.reject(
+                                      new Error(`旧值：   ${oldRecord?.d_score_upper_limit}`),
+                                    );
+                              },
+                              warningOnly: true,
                             },
-                            warningOnly: true,
-                          },
-                        ]}
-                        placeholder={`请输入${FieldLabels.d_score_upper_limit}`}
-                      />
-                    </Col>
-                    {/*<Col xl={{ span: 4, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+                          ]}
+                          placeholder={`请输入${FieldLabels.d_score_upper_limit}`}
+                        />
+                      </Col>
+                      {/*<Col xl={{ span: 4, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
                       <ProFormSelect
                         label={FieldLabels.e_execute_logic}
                         name={FieldIndex.e_execute_logic}
@@ -1199,84 +1230,103 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                         options={FINNAL_DECISION_OPTION}
                       />
                     </Col>*/}
-                  </Row>
-                  <Row gutter={16}>
-                    <Col xl={{ span: 22 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
-                      <ProFormText
-                        label={FieldLabels.g_description}
-                        tooltip={<>CPA:balabala</>}
-                        name={FieldIndex.g_description}
-                        rules={[
-                          { required: true, message: `请输入${FieldLabels.g_description}` },
-                          {
-                            validator: (_, value) => {
-                              return value === oldRecord?.g_description || !oldRecord?.g_description
-                                ? Promise.resolve()
-                                : Promise.reject(new Error(`旧值：   ${oldRecord?.g_description}`));
+                    </Row>
+                    <Row gutter={16}>
+                      <Col xl={{ span: 22 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+                        <ProFormText
+                          label={FieldLabels.g_description}
+                          tooltip={<>CPA:balabala</>}
+                          name={FieldIndex.g_description}
+                          rules={[
+                            { required: true, message: `请输入${FieldLabels.g_description}` },
+                            {
+                              validator: (_, value) => {
+                                return value === oldRecord?.g_description ||
+                                  !oldRecord?.g_description
+                                  ? Promise.resolve()
+                                  : Promise.reject(
+                                      new Error(`旧值：   ${oldRecord?.g_description}`),
+                                    );
+                              },
+                              warningOnly: true,
                             },
-                            warningOnly: true,
-                          },
-                        ]}
-                        placeholder={`请输入${FieldLabels.g_description}`}
-                      />
-                    </Col>
-                  </Row>
-                </>
-              );
-            }}
-          </ProFormDependency>
-        </Card>
-        <Card
-          title="细则配置"
-          className={styles.card}
-          bordered={false}
-          extra={<a onClick={() => setFunctionVisable(true)}>支持的数学函数</a>}
-        >
-          <EditableProTable<API.GFRiskRole>
-            rowKey="id"
-            scroll={{
-              x: true,
-            }}
-            editableFormRef={editableFormRef}
-            controlled={false}
-            actionRef={actionRef}
-            // @ts-ignore
-            onChange={onChange}
-            bordered={true}
-            formItemProps={{
-              rules: [
-                {
-                  validator: async (_, value) => {
-                    if (value === undefined || value.length < 1) {
-                      throw new Error('请至少添加一个细则');
-                    }
-                    if (value.length > 10) {
-                      throw new Error('最多可以设置十个细则');
-                    }
+                          ]}
+                          placeholder={`请输入${FieldLabels.g_description}`}
+                        />
+                      </Col>
+                    </Row>
+                  </>
+                );
+              }}
+            </ProFormDependency>
+          </Card>
+          <Card
+            title="细则配置"
+            className={styles.card}
+            bordered={false}
+            extra={<a onClick={() => setFunctionVisable(true)}>支持的数学函数</a>}
+          >
+            <EditableProTable<API.GFRiskRole>
+              rowKey="id"
+              scroll={{
+                x: true,
+              }}
+              editableFormRef={editableFormRef}
+              controlled={false}
+              actionRef={actionRef}
+              // @ts-ignore
+              onChange={onChange}
+              bordered={true}
+              formItemProps={{
+                rules: [
+                  {
+                    validator: async (_, value) => {
+                      if (value === undefined || value.length < 1) {
+                        throw new Error('请至少添加一个细则');
+                      }
+                      if (value.length > 10) {
+                        throw new Error('最多可以设置十个细则');
+                      }
+                    },
                   },
+                ],
+              }}
+              maxLength={10}
+              name="table"
+              columns={columns}
+              recordCreatorProps={false}
+              editable={{
+                type: 'single',
+                editableKeys,
+                onlyAddOneLineAlertMessage: '111',
+                // @ts-ignore
+                onChange: onEditChange,
+                // @ts-ignore
+                onSave: onEditSave,
+                actionRender: (row, config, defaultDom) => {
+                  return [defaultDom.save, defaultDom.delete || defaultDom.cancel];
                 },
-              ],
+              }}
+            />
+          </Card>
+          <DrawerFC visable={functionVisable} onClose={() => setFunctionVisable(false)} />
+
+          <RiskStrategiesTableModel
+            data={riskStrategyData!}
+            currentVersion={currentVersion}
+            riskStrategyIds={riskStrategyIds}
+            currentId={currentId}
+            modalVisible={tableModalVisible}
+            onCancel={() => {
+              handleTableModalVisible(false);
             }}
-            maxLength={10}
-            name="table"
-            columns={columns}
-            recordCreatorProps={false}
-            editable={{
-              type: 'single',
-              editableKeys,
-              onlyAddOneLineAlertMessage: '111',
-              // @ts-ignore
-              onChange: onEditChange,
-              // @ts-ignore
-              onSave: onEditSave,
-              actionRender: (row, config, defaultDom) => {
-                return [defaultDom.save, defaultDom.delete || defaultDom.cancel];
-              },
+            onSubmit={async (success) => {
+              handleTableModalVisible(!success);
+              window.location.reload();
             }}
           />
-        </Card>
-        <DrawerFC visable={functionVisable} onClose={() => setFunctionVisable(false)} />
-      </PageContainer>
+        </PageContainer>
+      </Spin>
     </ProForm>
   );
 };

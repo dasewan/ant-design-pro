@@ -764,10 +764,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     setError([]);
     message.loading('正在提交');
     try {
-      const tmp: number[] = [];
+      const tmp: string[] = [];
       let riskRoleCount: number = 0;
       riskRoleBundleTableData?.map((item) => {
-        tmp.push(item.id!);
+        tmp.push(item.id! + '-' + item.j_version! + '-' + item.i_code!);
         riskRoleCount = riskRoleCount + item.c_related_role_count!;
         return tmp;
       });
