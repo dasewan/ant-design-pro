@@ -1,6 +1,7 @@
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
   ModalForm,
+  ProFormCascader,
   ProFormDigit,
   ProFormRadio,
   ProFormSelect,
@@ -216,6 +217,34 @@ const CreateForm: React.FC<FormProps> = (props) => {
             res.data!.i_age = res.data!.i_age.split(',');
           } else {
             res.data!.i_age = undefined;
+          }
+
+          if (
+            res.data!.j_risk_strategy_id_1 !== undefined &&
+            res.data!.j_risk_strategy_id_1 !== null
+          ) {
+            res.data!.j_risk_strategy_id_1 = [
+              res.data!.r_risk_strategy_1_code,
+              res.data!.j_risk_strategy_id_1,
+            ];
+          }
+          if (
+            res.data!.l_risk_strategy_id_2 !== undefined &&
+            res.data!.l_risk_strategy_id_2 !== null
+          ) {
+            res.data!.l_risk_strategy_id_2 = [
+              res.data!.t_risk_strategy_2_code,
+              res.data!.l_risk_strategy_id_2,
+            ];
+          }
+          if (
+            res.data!.n_risk_strategy_id_3 !== undefined &&
+            res.data!.n_risk_strategy_id_3 !== null
+          ) {
+            res.data!.n_risk_strategy_id_3 = [
+              res.data!.v_risk_strategy_3_code,
+              res.data!.n_risk_strategy_id_3,
+            ];
           }
           setOldRecord(res.data!);
           return res.data!;
@@ -449,7 +478,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
         options={RISK_TAGS_ARRAY.slice(22, 25)}
       />
       <Divider>策略</Divider>
-      <ProFormSelect
+      {/*<ProFormSelect
         label={FieldLabels.j_risk_strategy_id_1}
         name={FieldIndex.j_risk_strategy_id_1}
         colProps={{ md: 12, xl: 12 }}
@@ -474,6 +503,15 @@ const CreateForm: React.FC<FormProps> = (props) => {
           },
         ]}
         options={props.strategies}
+      />*/}
+      <ProFormCascader
+        label={FieldLabels.j_risk_strategy_id_1}
+        name={FieldIndex.j_risk_strategy_id_1}
+        colProps={{ md: 12, xl: 12 }}
+        rules={[{ required: true, message: `请输入${FieldLabels.j_risk_strategy_id_1}` }]}
+        fieldProps={{
+          options: props.strategies,
+        }}
       />
       <ProFormDigit
         label={FieldLabels.k_risk_strategy_1_rate}
@@ -504,30 +542,13 @@ const CreateForm: React.FC<FormProps> = (props) => {
         ]}
       />
 
-      <ProFormSelect
+      <ProFormCascader
         label={FieldLabels.l_risk_strategy_id_2}
         name={FieldIndex.l_risk_strategy_id_2}
         colProps={{ md: 12, xl: 12 }}
-        rules={[
-          {
-            validator: (_, value) => {
-              const oldValue = props.strategies.find(
-                (item) => item.value === oldRecord?.l_risk_strategy_id_2,
-              )?.label;
-              if (oldValue === undefined) {
-                return Promise.resolve();
-              }
-              // @ts-ignore
-              return value === oldRecord?.l_risk_strategy_id_2 ||
-                !oldRecord?.l_risk_strategy_id_2 ||
-                oldRecord!.l_risk_strategy_id_2 === undefined
-                ? Promise.resolve()
-                : Promise.reject(new Error(`旧值：  ${oldValue} `));
-            },
-            warningOnly: true,
-          },
-        ]}
-        options={props.strategies}
+        fieldProps={{
+          options: props.strategies,
+        }}
       />
       <ProFormDigit
         label={FieldLabels.m_risk_strategy_2_rate}
@@ -556,32 +577,15 @@ const CreateForm: React.FC<FormProps> = (props) => {
           },
         ]}
       />
-
-      <ProFormSelect
+      <ProFormCascader
         label={FieldLabels.n_risk_strategy_id_3}
         name={FieldIndex.n_risk_strategy_id_3}
         colProps={{ md: 12, xl: 12 }}
-        rules={[
-          {
-            validator: (_, value) => {
-              const oldValue = props.strategies.find(
-                (item) => item.value === oldRecord?.n_risk_strategy_id_3,
-              )?.label;
-              if (oldValue === undefined) {
-                return Promise.resolve();
-              }
-              // @ts-ignore
-              return value === oldRecord?.n_risk_strategy_id_3 ||
-                !oldRecord?.n_risk_strategy_id_3 ||
-                oldRecord!.n_risk_strategy_id_3 === undefined
-                ? Promise.resolve()
-                : Promise.reject(new Error(`旧值：  ${oldValue} `));
-            },
-            warningOnly: true,
-          },
-        ]}
-        options={props.strategies}
+        fieldProps={{
+          options: props.strategies,
+        }}
       />
+
       <ProFormDigit
         label={FieldLabels.o_risk_strategy_3_rate}
         name={FieldIndex.o_risk_strategy_3_rate}

@@ -34,6 +34,7 @@ const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   /** 管理员enum */
   const [strateies, setStrateies] = useState<RequestOptionsType[]>([]);
+  const [strateies2, setStrateies2] = useState<RequestOptionsType[]>([]);
   /** 风控字段展示 */
   const [createModalVisible, handleCreateModalVisible] = useState<boolean>(false);
   /** 当前编辑数据 */
@@ -54,8 +55,54 @@ const TableList: React.FC = () => {
           value: item.id,
         });
       }
-      setStrateies(data);
+      setStrateies2(data);
       return data;
+    } else {
+      return strateies;
+    }
+  };
+
+  /**
+   * 查询管理员enum
+   */
+  const _getStrateiesEnums2 = async () => {
+    const data: RequestOptionsType[] = [];
+    if (strateies.length === 0) {
+      const res = await getStrateiesEnums({ foo: 1 });
+
+      for (const item of res.data!) {
+        data.push({
+          label: item.a_name,
+          value: item.id,
+        });
+      }
+      setStrateies2(data);
+
+      let result = [];
+
+      for (const item of res.data!) {
+        const foundParent = result.find((parent) => parent.value === item.e_code);
+        if (foundParent) {
+          foundParent.children.push({
+            label: item.f_version,
+            value: item.id,
+          });
+        } else {
+          result.push({
+            label: item.a_name,
+            value: item.e_code,
+            children: [
+              {
+                label: item.f_version,
+                value: item.id,
+              },
+            ],
+          });
+        }
+      }
+      console.log(result);
+      setStrateies(result);
+      return result;
     } else {
       return strateies;
     }
@@ -111,6 +158,7 @@ const TableList: React.FC = () => {
       setDataSource(res.data);
     }
     await _getStrateiesEnums();
+    await _getStrateiesEnums2();
     return {
       data: res.data,
       // success 请返回 true，
@@ -254,10 +302,18 @@ const TableList: React.FC = () => {
           dataIndex: 'j_risk_strategy_id_1',
           render: (_, record) => {
             if (record.j_risk_strategy_id_1 !== undefined && record.j_risk_strategy_id_1 !== null) {
-              const label = strateies.find(
+              const label = strateies2.find(
                 (value) => value.value === record.j_risk_strategy_id_1,
               )!.label;
-              return label + '[' + record.k_risk_strategy_1_rate + '%]';
+              return (
+                label +
+                '(' +
+                record.s_risk_strategy_1_version +
+                ')' +
+                '[' +
+                record.k_risk_strategy_1_rate +
+                '%]'
+              );
             } else {
               return undefined;
             }
@@ -268,10 +324,18 @@ const TableList: React.FC = () => {
           dataIndex: 'l_risk_strategy_id_2',
           render: (_, record) => {
             if (record.l_risk_strategy_id_2 !== undefined && record.l_risk_strategy_id_2 !== null) {
-              const label = strateies.find(
+              const label = strateies2.find(
                 (value) => value.value === record.l_risk_strategy_id_2,
               )!.label;
-              return label + '[' + record.m_risk_strategy_2_rate + '%]';
+              return (
+                label +
+                '(' +
+                record.u_risk_strategy_2_version +
+                ')' +
+                '[' +
+                record.m_risk_strategy_2_rate +
+                '%]'
+              );
             } else {
               return undefined;
             }
@@ -282,10 +346,18 @@ const TableList: React.FC = () => {
           dataIndex: 'n_risk_strategy_id_3',
           render: (_, record) => {
             if (record.n_risk_strategy_id_3 !== undefined && record.n_risk_strategy_id_3 !== null) {
-              const label = strateies.find(
+              const label = strateies2.find(
                 (value) => value.value === record.n_risk_strategy_id_3,
               )!.label;
-              return label + '[' + record.o_risk_strategy_3_rate + '%]';
+              return (
+                label +
+                '(' +
+                record.w_risk_strategy_3_version +
+                ')' +
+                '[' +
+                record.o_risk_strategy_3_rate +
+                '%]'
+              );
             } else {
               return undefined;
             }
