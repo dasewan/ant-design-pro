@@ -1074,6 +1074,51 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type BMBorrowRiskResult = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** 订单id */
+    b_borrow_id?: number;
+    /** 认证id */
+    c_verify_id?: number;
+    /** 决策路由 */
+    d_risk_strategy_route_id?: number;
+    /** 决策 */
+    e_risk_strategy_id?: number;
+    /** 人审管理员 */
+    f_admin_id?: number;
+    /** 手机号码 */
+    g_phone?: string;
+    /** 订单号 */
+    h_borrow_sn?: string;
+    /** 订单金额 */
+    i_amount?: number;
+    /** 借款次数 */
+    j_borrow_count?: number;
+    /** 机审结果 */
+    k_machine_result?: string;
+    /** 人审结果 */
+    l_review_result?: string;
+    /** 信用分 */
+    m_score?: number;
+    /** 拒绝数 */
+    n_reject_risk_role_count?: number;
+    /** 通过数 */
+    o_accept_risk_role_count?: number;
+    /** 人审数 */
+    p_review_risk_role_count?: number;
+    /** 拒绝占比 */
+    q_refuse_risk_role_rate?: number;
+    /** deleted_at */
+    deleted_at?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+  };
+
   type BorrowDetail = {
     /** id */
     id?: number;
@@ -1405,6 +1450,41 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type DCBorrowRiskDetail = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** 订单id */
+    b_borrow_id?: number;
+    /** 认证id */
+    c_verify_id?: number;
+    /** 决策路由 */
+    d_risk_strategy_route_id?: number;
+    /** 决策 */
+    e_risk_strategy_id?: number;
+    /** 规则id */
+    f_risk_role_bundle_id?: number;
+    /** 细则组id */
+    g_risk_role_group_id?: number;
+    /** 细则id */
+    h_risk_role_id?: number;
+    /** 组机审结果 */
+    i_risk_role_group_result?: string;
+    /** 细则机审结果 */
+    j_risk_role_result?: string;
+    /** 值 */
+    k_value?: string;
+    /** 分值 */
+    l_score?: number;
+    /** deleted_at */
+    deleted_at?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+  };
+
   type deleteACUserNewsIdParams = {
     /** id of ACUserNew */
     id: number;
@@ -1530,6 +1610,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1BMBorrowRiskResultsIdParams = {
+    /** id of BMBorrowRiskResult */
+    id: number;
+  };
+
   type deleteAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -1552,6 +1637,11 @@ declare namespace API {
 
   type deleteAdminV1DBSmsOrdersIdParams = {
     /** id of DBSmsOrder */
+    id: number;
+  };
+
+  type deleteAdminV1DCBorrowRiskDetailsIdParams = {
+    /** id of DCBorrowRiskDetail */
     id: number;
   };
 
@@ -2234,6 +2324,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1BMBorrowRiskResultsIdParams = {
+    /** id of BMBorrowRiskResult */
+    id: number;
+  };
+
+  type getAdminV1BMBorrowRiskResultsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -2330,6 +2430,16 @@ declare namespace API {
   };
 
   type getAdminV1DBSmsOrdersParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1DCBorrowRiskDetailsIdParams = {
+    /** id of DCBorrowRiskDetail */
+    id: number;
+  };
+
+  type getAdminV1DCBorrowRiskDetailsParams = {
     /** foo */
     foo: number;
   };
@@ -2980,12 +3090,16 @@ declare namespace API {
   type GIRiskStrategyBundle = {
     /** id */
     id?: number;
-    /** 关联细则数 */
+    /** 策略id */
     a_risk_strategy_id?: number;
-    /** 关联细则数 */
+    /** 细则组id */
     b_risk_role_bundle_id?: number;
     /** 执行顺序 */
     c_sort?: number;
+    /** 关联细则组code */
+    d_code?: string;
+    /** 版本 */
+    e_version?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4179,7 +4293,7 @@ declare namespace API {
     /** 策略1 */
     j_risk_strategy_id_1?: number;
     /** 策略1占比 */
-    k_risk_risk_strategy_1_rate?: number;
+    k_risk_strategy_1_rate?: number;
     /** 策略2 */
     l_risk_strategy_id_2?: number;
     /** 策略2占比 */
@@ -4192,6 +4306,18 @@ declare namespace API {
     p_description?: string;
     /** 状态 */
     q_status?: number;
+    /** 策略1code */
+    r_risk_strategy_1_code?: string;
+    /** 策略1版本 */
+    s_risk_strategy_1_version?: string;
+    /** 策略2code */
+    t_risk_strategy_2_code?: string;
+    /** 策略2版本 */
+    u_risk_strategy_2_version?: string;
+    /** 策略3code */
+    v_risk_strategy_3_code?: string;
+    /** 策略3版本 */
+    w_risk_strategy_3_version?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4715,6 +4841,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1BMBorrowRiskResultsIdParams = {
+    /** id of BMBorrowRiskResult */
+    id: number;
+  };
+
   type putAdminV1BProductsIdParams = {
     /** id of BProduct */
     id: number;
@@ -4737,6 +4868,11 @@ declare namespace API {
 
   type putAdminV1DBSmsOrdersIdParams = {
     /** id of DBSmsOrder */
+    id: number;
+  };
+
+  type putAdminV1DCBorrowRiskDetailsIdParams = {
+    /** id of DCBorrowRiskDetail */
     id: number;
   };
 

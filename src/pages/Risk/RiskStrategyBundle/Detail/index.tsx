@@ -6,12 +6,12 @@ import { getAdminV1BDRiskRoleBundles as riskRoleBundleIndex } from '@/services/a
 import { history } from '@@/core/history';
 import {
   CloseCircleOutlined,
-  DeleteOutlined,
   MenuOutlined,
   MinusSquareOutlined,
   PlusOutlined,
   PlusSquareOutlined,
   QuestionCircleOutlined,
+  SyncOutlined,
 } from '@ant-design/icons';
 import type { ProColumns, ProFormInstance } from '@ant-design/pro-components';
 import { ProFormDependency } from '@ant-design/pro-components';
@@ -19,7 +19,7 @@ import ProForm, { ProFormSelect, ProFormText } from '@ant-design/pro-form';
 import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
 import { ProTable } from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, Card, Col, message, Popconfirm, Popover, Row, Select, Tooltip } from 'antd';
+import { Button, Card, Col, message, Popover, Row, Select, Tooltip } from 'antd';
 import update from 'immutability-helper';
 import moment from 'moment';
 import type { FC } from 'react';
@@ -35,9 +35,9 @@ import { FieldIndex, FieldIndex2, FieldLabels, FieldLabels2 } from '../service';
 import type { TableListItem } from './data';
 import styles from './style.less';
 
+import RiskStrategyRouteTableModel from '@/pages/Risk/RiskStrategyBundle/Detail/components/RiskStrategyRouteTableModel';
 import { getAdminV1GDRiskItemEnum as getRiskItemEnum } from '@/services/ant-design-pro/GDRiskItem';
 import {
-  deleteAdminV1GGRiskStrateiesId as destroy,
   getAdminV1GGRiskStrateiesId as show,
   postAdminV1GGRiskStrateies as store,
 } from '@/services/ant-design-pro/GGRiskStratey';
@@ -141,6 +141,13 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   const [riskRoleBundleModelData, setRiskRoleBundleModelData] = useState<BDRiskRoleBundle[]>();
   const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
   const [expanded, setExpanded] = useState<boolean>(false);
+  const [riskStrategyRoutesData, setRiskStrategyRoutesData] = useState<API.NERiskStrategyRoute[]>();
+  const [riskStrategyRouteIds, setRiskStrategyRouteIds] = useState<number[]>([]);
+  /** 所有版本 (切换版本使用)**/
+  const [currentVersion, setCurrentVersion] = useState<number>(0);
+  const [table2ModalVisible, handleTable2ModalVisible] = useState<boolean>(false);
+  const [code, setCode] = useState<string>('');
+
   // 拖拽排序模版start
   const components = {
     body: {
@@ -308,12 +315,26 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       return res.data;
     }
   };
+  /**
+   * 初始请求或者切换版本
+   * @param version
+   * @param getRoleItem
+   */
+  const _refresh = async () => {
+    const res = await show({ id: currentId });
+    setCurrentVersion(res.data![0]!.f_version!);
+    // @ts-ignore
+    setRiskStrategyRoutesData(res.other.risk_strategy_routes);
+    setCode(res.data![0]!.e_code!);
+  };
 
   /**
    * 初始请求或者切换版本
    * @param version
+   * @param getRoleItem
    */
-  const _index = async (version = 0) => {
+  const _index = async (version = 0, getRoleItem = true) => {
+    console.log(version, params.id, getRoleItem);
     // @ts-ignore
     if (params.id > 0) {
       if (version === 0) {
@@ -356,6 +377,10 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         setRiskRoleBundleTableData(tmpRiskRoleBundleTableData);
         setRiskRoleBundleCodeTableData(tmpRiskRoleBundleCodeTableData!);
         setCurrentId(res.data![0]!.id!);
+        setCurrentVersion(res.data![0]!.f_version!);
+        // @ts-ignore
+        setRiskStrategyRoutesData(res.other.risk_strategy_routes);
+        setCode(res.data![0]!.e_code!);
         return res.data![0];
       } else {
         await _getRoleItemEnum();
@@ -378,6 +403,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         setRiskRoleBundleTableData(tmpRiskRoleBundleTableData);
         setRiskRoleBundleCodeTableData(tmpRiskRoleBundleCodeTableData!);
         setCurrentId(targetVersionData!.id!);
+        setCurrentVersion(targetVersionData!.f_version!);
         return {
           ...targetVersionData,
         };
@@ -471,6 +497,34 @@ const AdvancedForm: FC<Record<string, any>> = () => {
       setExpandedRowKeys(_tmpExpandedRowKeys);
     }
     setExpanded(!_expanded);
+  };
+
+  /**
+   * 更新到策略路由中
+   */
+  const onUpdateRiskStrateyRoute = async () => {
+    try {
+      handleTable2ModalVisible(true);
+      // riskStrategyData
+      let riskStrategyRouteIdsTmp: number[] = [];
+      riskStrategyRoutesData?.map((value) => {
+        // @ts-ignore
+        if (
+          (value.s_risk_strategy_1_version === currentVersion.toString() &&
+            value.r_risk_strategy_1_code === code) ||
+          (value.u_risk_strategy_2_version === currentVersion.toString() &&
+            value.t_risk_strategy_2_code === code) ||
+          (value.w_risk_strategy_3_version === currentVersion.toString() &&
+            value.v_risk_strategy_3_code === code)
+        ) {
+          if (value.id !== null) {
+            riskStrategyRouteIdsTmp.push(value.id);
+          }
+        }
+        setRiskStrategyRouteIds(riskStrategyRouteIdsTmp);
+        return value;
+      });
+    } catch {}
   };
   // @ts-ignore
   const columns: ProColumns<BDRiskRoleBundle>[] = [
@@ -792,15 +846,15 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   /**
    * 删除策略版本
    */
-  const onDeleteRiskRoleBundle = async () => {
-    try {
-      message.loading('正在删除');
-      // @ts-ignore
-      await destroy({ id: currentId });
-      message.success('删除成功');
-      history.push(`/risk/risk-strategy-bundle`);
-    } catch {}
-  };
+  // const onDeleteRiskRoleBundle = async () => {
+  //   try {
+  //     message.loading('正在删除');
+  //     // @ts-ignore
+  //     await destroy({ id: currentId });
+  //     message.success('删除成功');
+  //     history.push(`/risk/risk-strategy-bundle`);
+  //   } catch {}
+  // };
 
   /**
    * 表单校验失败
@@ -837,25 +891,19 @@ const AdvancedForm: FC<Record<string, any>> = () => {
               >
                 {expanded ? '折叠所有' : '展开所有'}
               </Button>
-              <Popconfirm
-                title={
-                  <>
-                    <span>确定删除此版本吗？</span>
-                    <br />
-                  </>
-                }
-                onConfirm={onDeleteRiskRoleBundle}
-                disabled={versions.length < 2}
-              >
+              {params.id! > 0 ? (
                 <Button
                   type="primary"
                   danger
-                  icon={<DeleteOutlined />}
-                  disabled={versions.length < 2}
+                  onClick={onUpdateRiskStrateyRoute}
+                  icon={<SyncOutlined />}
                 >
-                  删除当前版本
+                  更新当前版本到所有路由中
                 </Button>
-              </Popconfirm>
+              ) : (
+                <></>
+              )}
+
               <Button
                 type="primary"
                 onClick={() => handleTableModalVisible(true)}
@@ -1037,6 +1085,23 @@ const AdvancedForm: FC<Record<string, any>> = () => {
           }}
           onSubmit={async (addIds) => {
             _addRiskRoleBundles(addIds);
+          }}
+        />
+        {/*应用到路由中*/}
+        <RiskStrategyRouteTableModel
+          data={riskStrategyRoutesData!}
+          currentVersion={currentVersion}
+          code={code}
+          riskStrategyRouteIds={riskStrategyRouteIds}
+          currentId={currentId}
+          modalVisible={table2ModalVisible}
+          onCancel={() => {
+            handleTable2ModalVisible(false);
+          }}
+          onSubmit={async (success) => {
+            handleTable2ModalVisible(!success);
+            _refresh();
+            // window.location.reload();
           }}
         />
       </PageContainer>

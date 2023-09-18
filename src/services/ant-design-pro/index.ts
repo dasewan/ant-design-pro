@@ -29,12 +29,14 @@ import * as BIPaymentChannel from './BIPaymentChannel';
 import * as BJContact from './BJContact';
 import * as BKCollectionRole from './BKCollectionRole';
 import * as BLCollectionOrder from './BLCollectionOrder';
+import * as BMBorrowRiskResult from './BMBorrowRiskResult';
 import * as BProduct from './BProduct';
 import * as Captcha from './Captcha';
 import * as CurrentUser from './CurrentUser';
 import * as DACollectionKpi from './DACollectionKpi';
 import * as DBorrow from './DBorrow';
 import * as DBSmsOrder from './DBSmsOrder';
+import * as DCBorrowRiskDetail from './DCBorrowRiskDetail';
 import * as GAMarketingDetail from './GAMarketingDetail';
 import * as GBMarketing from './GBMarketing';
 import * as GCMarketingHistory from './GCMarketingHistory';
@@ -108,12 +110,14 @@ export default {
   BJContact,
   BKCollectionRole,
   BLCollectionOrder,
+  BMBorrowRiskResult,
   BProduct,
   Captcha,
   CurrentUser,
   DACollectionKpi,
   DBSmsOrder,
   DBorrow,
+  DCBorrowRiskDetail,
   GAMarketingDetail,
   GBMarketing,
   GCMarketingHistory,

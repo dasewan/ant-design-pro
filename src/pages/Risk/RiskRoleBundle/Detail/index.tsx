@@ -379,6 +379,16 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   };
 
   /**
+   * 初始请求或者切换版本
+   * @param version
+   * @param getRoleItem
+   */
+  const _refresh = async () => {
+    const res = await show({ id: currentId });
+    // @ts-ignore
+    setRiskStrategyData(res.other.risk_strategies);
+  };
+  /**
    * 格式化editTable ，防止editTable 错乱
    */
   const formatGroup = () => {
@@ -1015,7 +1025,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   };
 
   /**
-   * 删除
+   * 更新到策略中
    */
   const onUpdateRiskStratey = async () => {
     try {
@@ -1322,7 +1332,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
             }}
             onSubmit={async (success) => {
               handleTableModalVisible(!success);
-              window.location.reload();
+              _refresh();
             }}
           />
         </PageContainer>
