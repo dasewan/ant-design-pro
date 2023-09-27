@@ -26,8 +26,8 @@ export const EXECUTE_LOGIC_OPTION = [
 ];
 
 export const FINNAL_DECISION: StatusColorEnum2 = {
-  accept: { text: '通过', color: '#87d068' },
-  reject: { text: '拒绝', color: '#f50' },
+  accept: { text: '通过', color: 'green' },
+  reject: { text: '拒绝', color: 'red' },
   review: { text: '复审', color: '#108ee9' },
 };
 export const FINNAL_DECISION_OPTION = [
@@ -44,3 +44,17 @@ export const FINNAL_DECISION_OPTION = [
     value: 'review',
   },
 ];
+export const OPERATOR_OPTION = [
+  {
+    value: 'gt',
+    label: '大于',
+  },
+  {
+    value: 'lt',
+    label: '小于',
+  },
+];
+export const OPERATOR = {
+  gt: { text: '大于', color: '#87d068' },
+  lt: { text: '小于', color: '#f50' },
+};

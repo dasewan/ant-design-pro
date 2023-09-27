@@ -43,7 +43,7 @@ const TableList: React.FC = () => {
   const [dataSource, setDataSource] = useState<TableListItem[]>([]);
 
   /**
-   * 查询管理员enum
+   * 查询策略enum
    */
   const _getStrateiesEnums = async () => {
     const data: RequestOptionsType[] = [];
@@ -55,7 +55,7 @@ const TableList: React.FC = () => {
           value: item.id,
         });
       }
-      setStrateies2(data);
+      setStrateies(data);
       return data;
     } else {
       return strateies;
@@ -63,11 +63,11 @@ const TableList: React.FC = () => {
   };
 
   /**
-   * 查询管理员enum
+   * 查询策略enum
    */
   const _getStrateiesEnums2 = async () => {
     const data: RequestOptionsType[] = [];
-    if (strateies.length === 0) {
+    if (strateies2.length === 0) {
       const res = await getStrateiesEnums({ foo: 1 });
 
       for (const item of res.data!) {
@@ -100,11 +100,10 @@ const TableList: React.FC = () => {
           });
         }
       }
-      console.log(result);
-      setStrateies(result);
+      setStrateies2(result);
       return result;
     } else {
-      return strateies;
+      return strateies2;
     }
   };
   /** table */
@@ -302,7 +301,7 @@ const TableList: React.FC = () => {
           dataIndex: 'j_risk_strategy_id_1',
           render: (_, record) => {
             if (record.j_risk_strategy_id_1 !== undefined && record.j_risk_strategy_id_1 !== null) {
-              const label = strateies2.find(
+              const label = strateies.find(
                 (value) => value.value === record.j_risk_strategy_id_1,
               )!.label;
               return (
@@ -324,7 +323,7 @@ const TableList: React.FC = () => {
           dataIndex: 'l_risk_strategy_id_2',
           render: (_, record) => {
             if (record.l_risk_strategy_id_2 !== undefined && record.l_risk_strategy_id_2 !== null) {
-              const label = strateies2.find(
+              const label = strateies.find(
                 (value) => value.value === record.l_risk_strategy_id_2,
               )!.label;
               return (
@@ -346,7 +345,7 @@ const TableList: React.FC = () => {
           dataIndex: 'n_risk_strategy_id_3',
           render: (_, record) => {
             if (record.n_risk_strategy_id_3 !== undefined && record.n_risk_strategy_id_3 !== null) {
-              const label = strateies2.find(
+              const label = strateies.find(
                 (value) => value.value === record.n_risk_strategy_id_3,
               )!.label;
               return (
@@ -433,7 +432,7 @@ const TableList: React.FC = () => {
         }}
         id={id}
         modalVisible={createModalVisible}
-        strategies={strateies}
+        strategies={strateies2}
       />
     </PageContainer>
   );

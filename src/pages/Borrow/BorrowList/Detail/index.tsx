@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import React, { Fragment, useEffect, useState } from 'react';
 
 import ReviewForm from '@/pages/Borrow/BorrowList/components/ReviewForm';
-import { BORROW_STATUS_ENUM } from '@/pages/enums';
+import { BORROW_STATUS_ENUM, BORROW_STATUS_MAP, VERIFY_STATUS_MAP } from '@/pages/enums';
 import {
   getAdminV1DBorrowsId as show,
   getAdminV1DBorrowTab as getTab,

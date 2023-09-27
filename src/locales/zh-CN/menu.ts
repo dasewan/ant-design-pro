@@ -84,6 +84,7 @@ export default {
   'menu.risk.risk-strategy-bundle': '策略',
   'menu.risk.risk-strategy-bundle-detail': '策略详情',
   'menu.risk.risk-strategy-route': '策略路由',
+  'menu.risk.risk-result': '风控记录',
   'menu.setting': '设置',
   'menu.setting.system-setting': '系统设置',
   'menu.setting.verify-item': '认证项',

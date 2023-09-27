@@ -1111,6 +1111,18 @@ declare namespace API {
     p_review_risk_role_count?: number;
     /** 拒绝占比 */
     q_refuse_risk_role_rate?: number;
+    /** 渠道画像 */
+    r_channel?: string;
+    /** 短信画像 */
+    s_sms?: string;
+    /** 联系人画像 */
+    t_contact?: string;
+    /** app画像 */
+    u_app?: string;
+    /** 地区画像 */
+    v_region?: string;
+    /** 年龄画像 */
+    w_age?: string;
     /** deleted_at */
     deleted_at?: string;
     /** created_at */
@@ -1453,6 +1465,8 @@ declare namespace API {
   type DCBorrowRiskDetail = {
     /** id */
     id?: number;
+    /** App\Models\DCBorrowRiskDetail */
+    a_a_a_a_a_g_f_risk_role?: GFRiskRole[];
     /** 用户id */
     a_user_id?: number;
     /** 订单id */
@@ -1477,6 +1491,14 @@ declare namespace API {
     k_value?: string;
     /** 分值 */
     l_score?: number;
+    /** 右侧值 */
+    m_right_value?: string;
+    /** 字段 */
+    n_risk_item_id?: number;
+    /** 右侧字段 */
+    o_right_risk_item_id?: number;
+    /** 风控结果 */
+    p_borrow_risk_result_id?: number;
     /** deleted_at */
     deleted_at?: string;
     /** created_at */
@@ -2479,6 +2501,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GDRiskItemEnum2Params = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GDRiskItemEnumParams = {
     /** foo */
     foo: number;
@@ -2774,6 +2801,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1NERiskStrategyRoutesEnumsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1NERiskStrategyRoutesIdParams = {
     /** id of NERiskStrategyRoute */
     id: number;
@@ -3011,6 +3043,8 @@ declare namespace API {
     s_score?: number;
     /** 决策 */
     t_decision?: string;
+    /** 规则index */
+    u_bundle_index?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

@@ -516,6 +516,12 @@ export default [
         path: '/risk/risk-strategy-route',
         component: './Risk/RiskStrategyRoute',
       },
+      {
+        name: 'risk-result',
+        icon: 'smile',
+        path: '/risk/risk-result',
+        component: './Risk/RiskResult',
+      },
     ],
   },
   {
