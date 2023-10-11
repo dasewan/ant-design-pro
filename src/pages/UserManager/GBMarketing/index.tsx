@@ -211,6 +211,7 @@ const TableList: React.FC = () => {
       dataIndex: 'q_title',
       ellipsis: true,
       search: false,
+      fixed: 'left',
     },
     {
       title: '渠道',
@@ -218,6 +219,7 @@ const TableList: React.FC = () => {
       valueType: 'select',
       request: _getChannelsEnum,
       params: { timestamp: Math.random() },
+      fixed: 'left',
     },
     {
       title: '管理员',
@@ -233,6 +235,10 @@ const TableList: React.FC = () => {
     {
       title: '有效数',
       dataIndex: 'e_valid_count',
+    },
+    {
+      title: '黑名单数量',
+      dataIndex: 't_black_count',
     },
     {
       title: '已注册数',
@@ -283,6 +289,23 @@ const TableList: React.FC = () => {
       },
     },
     {
+      title: '首次营销时间',
+      dataIndex: 'u_first_marketing_time',
+      valueType: 'dateRange',
+      width: 140,
+      render: (_, record) => {
+        return record.u_first_marketing_time
+          ? moment(record.u_first_marketing_time).format('YY-MM-DD HH:mm')
+          : '-';
+      },
+      search: {
+        transform: (value: any) => ({
+          'u_first_marketing_time[0]': value[0],
+          'u_first_marketing_time[1]': value[1],
+        }),
+      },
+    },
+    {
       title: '最近营销时间',
       dataIndex: 'p_last_marketing_time',
       valueType: 'dateRange',
@@ -315,6 +338,7 @@ const TableList: React.FC = () => {
         const percent = Math.floor((record.f_register_count! * 100) / record.e_valid_count!);
         return <Progress percent={percent} size="small" />;
       },
+      fixed: 'right',
     },
     {
       title: 'excel状态',
@@ -322,16 +346,19 @@ const TableList: React.FC = () => {
       valueType: 'select',
       valueEnum: STATUS_ENUM,
       hideInSearch: true,
+      fixed: 'right',
     },
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
+      width: 60,
+      fixed: 'right',
       render: (_, record) => {
-        return record.m_status === 3 &&
+        return record.m_status === 50 &&
           // @ts-ignore
           !record.g_c_marketing_histories.some(
-            (item: API.GCMarketingHistory) => item.m_status === 1 || item.m_status === 2,
+            (item: API.GCMarketingHistory) => item.m_status === 10 || item.m_status === 20,
           ) &&
           (isNaN(moment().diff(moment(record.p_last_marketing_time), 'days')) ||
             moment().diff(moment(record.p_last_marketing_time), 'days') > 2)
@@ -406,6 +433,7 @@ const TableList: React.FC = () => {
         postData={(data: any[]) => {
           return data;
         }}
+        scroll={{ x: '130%' }}
         pagination={{
           pageSize: 50,
         }}
@@ -417,10 +445,11 @@ const TableList: React.FC = () => {
           getCheckboxProps: (record: TableListItem) => ({
             // @ts-ignore
             disabled: !(
-              record.m_status === 3 &&
+              record.m_status === 50 &&
+              record.g_marketing_times !== 0 &&
               // @ts-ignore
               !record.g_c_marketing_histories.some(
-                (item: API.GCMarketingHistory) => item.m_status === 1 || item.m_status === 2,
+                (item: API.GCMarketingHistory) => item.m_status === 10 || item.m_status === 20,
               ) &&
               (isNaN(moment().diff(moment(record.p_last_marketing_time), 'days')) ||
                 moment().diff(moment(record.p_last_marketing_time), 'days') > 2)

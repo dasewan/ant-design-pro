@@ -83,12 +83,19 @@ const ImportForm: React.FC<FormProps> = (props) => {
   const uploadFile = async (options: UploadRequestOption) => {
     const formData = new FormData();
     formData.append('file', options.file);
+    // console.log(options)
     formData.append('b_type', '3');
+    // console.log(122343333)
+    // console.log(formData)
+    // 打印 FormData 的内容
+    for (const entry of formData.entries()) {
+      console.log(entry[0], entry[1]);
+    }
     const result = await request<{ success?: boolean; data?: number; message?: string }>(
       '/admin/v1/aLAdminFiles',
       {
         method: 'POST',
-        body: formData,
+        data: formData,
       },
     );
     if (result.success && result.data! > 0) {

@@ -32,11 +32,11 @@ type StatusOption = {
 };
 
 export const STATUS_ENUM: StatusEnum = {
-  1: { text: '待执行', status: 'Default' },
-  2: { text: '进行中', status: 'Processing' },
-  3: { text: '执行成功', status: 'Success' },
-  4: { text: '执行失败', status: 'Error' },
-  5: { text: '无效', status: 'Error' },
+  10: { text: '待执行', status: 'Default' },
+  20: { text: '进行中', status: 'Processing' },
+  30: { text: '未知', status: 'Error' },
+  40: { text: '执行失败', status: 'Error' },
+  50: { text: '执行成功', status: 'Success' },
 };
 
 export const COMMON_STATUS: StatusEnum = {

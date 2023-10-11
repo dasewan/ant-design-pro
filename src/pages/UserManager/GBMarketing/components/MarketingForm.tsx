@@ -10,6 +10,7 @@ import {
 import type { ProFieldRequestData } from '@ant-design/pro-utils';
 import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
 import { Col, Image, message, Row } from 'antd';
+import moment from 'moment';
 import React, { useRef, useState } from 'react';
 
 import { postAdminV1GCMarketingHistories as storeGCMarketingHistories } from '@/services/ant-design-pro/GCMarketingHistory';
@@ -44,6 +45,8 @@ const MarketingForm: React.FC<FormProps> = (props) => {
   const _handle = async (fields: FormValueType) => {
     const hide = message.loading('正在配置');
     // props.values.id
+    // @ts-ignore
+    fields.h_begin_at = moment(fields.h_begin_at).format('YYYY-MM-DD HH:mm:ss');
     try {
       await storeGCMarketingHistories({
         // @ts-ignore
@@ -55,7 +58,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
       return true;
     } catch (error) {
       hide();
-      message.error('配置失败请重试！');
+      message.error(error.response.data.message);
       return false;
     }
   };
