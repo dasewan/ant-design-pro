@@ -130,4 +130,7 @@ export default {
   'menu.collection.my-collection': '催收工作台',
   'menu.collection.collection-order-flow-history': '案件流转记录',
   'menu.collection.collection-assign-log': '分案记录',
+  'menu.statistics': '数据报表',
+  'menu.statistics.register': '注册报表',
+  'menu.statistics.register.marketing': '营销报表',
 };

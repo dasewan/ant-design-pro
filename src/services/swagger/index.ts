@@ -81,6 +81,7 @@ import * as TARiskValueSmsOrder from './TARiskValueSmsOrder';
 import * as TCollectionAgency from './TCollectionAgency';
 import * as User from './User';
 import * as VCollectionAssignLog from './VCollectionAssignLog';
+import * as WAMarketing from './WAMarketing';
 
 export default {
   ABCreditHistory,
@@ -162,4 +163,5 @@ export default {
   TCollectionAgency,
   User,
   VCollectionAssignLog,
+  WAMarketing,
 };

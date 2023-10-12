@@ -557,6 +557,27 @@ export default [
     ],
   },
   {
+    name: 'statistics',
+    icon: 'smile',
+    path: '/statistics',
+    routes: [
+      {
+        name: 'register',
+        icon: 'smile',
+        path: '/statistics/register',
+        // component: './Statistics/Register',
+        routes: [
+          {
+            name: 'marketing',
+            icon: 'smile',
+            path: '/statistics/register/marketing',
+            component: './Statistics/Register/Marketing',
+          },
+        ],
+      },
+    ],
+  },
+  {
     name: 'setting',
     icon: 'smile',
     path: '/setting',

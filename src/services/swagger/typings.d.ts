@@ -1872,6 +1872,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WAMarketingsIdParams = {
+    /** id of WAMarketing */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -1953,16 +1958,30 @@ declare namespace API {
     h_sms_times?: number;
     /** 发送邮件总数* */
     i_email_times?: number;
-    /** 备注 */
+    /** 备注* */
     j_comment?: string;
     /** 文件id* */
     k_admin_file_id?: number;
     /** 执行类型 */
     l_type?: string;
-    /** 状态：1待执行 2：执行中 3：执行成功 4：执行失败** */
+    /** 状态：1待执行 2：执行中 3：执行成功 4：执行失败* 5： 无效 */
     m_status?: number;
-    /** p_last_marketing_time */
+    /** 注册数量* */
+    n_viewed_count?: number;
+    /** 查看数量（用户去重，隔天统计）* */
+    o_viewed_deduplication_count?: number;
+    /** 上次成功时间 */
     p_last_marketing_time?: string;
+    /** 营销名称* */
+    q_title: string;
+    /** 已注册数量 */
+    r_register_count?: number;
+    /** 重复数量 */
+    s_repeat_count?: number;
+    /** 黑名单数量 */
+    t_black_count?: number;
+    /** 首次营销时间 */
+    u_first_marketing_time?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2957,6 +2976,16 @@ declare namespace API {
   };
 
   type getAdminV1VCollectionAssignLogsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WAMarketingsIdParams = {
+    /** id of WAMarketing */
+    id: number;
+  };
+
+  type getAdminV1WAMarketingsParams = {
     /** foo */
     foo: number;
   };
@@ -4460,8 +4489,12 @@ declare namespace API {
     a_g_ip_geography_risk_id?: number;
     /** 营销id */
     a_h_marketing_detail_id?: number;
-    /** 可疑id */
+    /** 可疑详情id */
     a_i_suspicious_id?: number;
+    /** 营销id */
+    a_j_marketing_id?: number;
+    /** 机审次数 */
+    a_k_risk_count?: number;
     /** deleted_at */
     deleted_at?: string;
     /** created_at */
@@ -5115,6 +5148,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1WAMarketingsIdParams = {
+    /** id of WAMarketing */
+    id: number;
+  };
+
   type putAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -5657,12 +5695,28 @@ declare namespace API {
     b_cat?: string;
     /** 1类金融 2类金融 3其他 */
     c_level?: string;
-    /** 登录 注册 通过 拒绝 放款成功 还款成功 展期成功 逾前催收 逾后催收 召回 营销 */
+    /** 101: '登录',102: '拒绝',103: '通过',104: '放款',105: '还款',106: '展期',107: '催收',108: '召回',109: '营销',110:'其他' */
     d_type?: string;
     /** 商户 */
     e_merchant?: string;
+    /** 金额 */
+    f_amount?: number;
+    /** 商户 (备用) */
+    g_merchant2?: string;
+    /** 商户（备用） */
+    h_merchant3?: string;
+    /** 金额（备用） */
+    i_amount2?: number;
+    /** 金额（备用） */
+    j_amount3?: number;
+    /** 第二类型(备用) */
+    k_type2?: number;
+    /** 链接 */
+    l_url?: string;
     /** data */
     date?: number;
+    /** date_sent */
+    date_sent?: number;
     /** thread_id */
     thread_id?: number;
     /** read */
@@ -6084,6 +6138,83 @@ declare namespace API {
     l_new_detail?: string;
     /** 差集或交集 */
     m_diff_or_intersect_detail?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WAMarketing = {
+    /** id */
+    id?: number;
+    /** 首次营销日期 */
+    a_first_date?: string;
+    /** 最后一次营销日期 */
+    b_last_date?: string;
+    /** 营销名称 */
+    c_title: string;
+    /** 渠道 */
+    b_channel_id?: number;
+    /** 营销 */
+    d_marketing_id?: number;
+    /** 营销次数 */
+    e_marketing_times?: number;
+    /** 发送短信总数 */
+    f_sms_times?: number;
+    /** 发送邮件总数 */
+    g_email_times?: number;
+    /** 导入数量 */
+    h_import_count?: number;
+    /** 有效数量 */
+    i_valid_count?: number;
+    /** 注册总数 */
+    j_register_count?: number;
+    /** 总转化率 */
+    k_register_rate?: number;
+    /** 未转化率 */
+    l_unregister_rate?: number;
+    /** 7天注册数 */
+    m_0_7_day_count?: number;
+    /** 7天转化率 */
+    n_0_7_day_rate?: number;
+    /** 第6天转化率 */
+    o_6_day_rate?: number;
+    /** 第7天转化率 */
+    p_7_day_rate?: number;
+    /** 8-30天注册数 */
+    q_8_30_day_count?: number;
+    /** 8-30天转化率 */
+    r_8_30_day_rate?: number;
+    /** 第8天转化率 */
+    s_8_day_rate?: number;
+    /** 第9天转化率 */
+    t_9_day_rate?: number;
+    /** 第29天转化率 */
+    u_29_day_rate?: number;
+    /** 第30天转化率 */
+    v_30_day_rate?: number;
+    /** 30天后注册数 */
+    w_31_more_day_count?: number;
+    /** 30天后转化率 */
+    x_31_more_day_rate?: number;
+    /** 第31天转化率 */
+    y_31_day_rate?: number;
+    /** 第32天转化率 */
+    z_32_day_rate?: number;
+    /** 首贷机审拒绝数 */
+    a_a_refuse_count?: number;
+    /** 首贷机审拒绝率 */
+    a_b_refuse_rate?: number;
+    /** 放款订单数 */
+    a_c_loan_count?: number;
+    /** 逾期订单数 */
+    a_d_overdue_count?: number;
+    /** 逾期订单率 */
+    a_e_overdue_rate?: number;
+    /** 黑名单数 */
+    a_f_black_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
