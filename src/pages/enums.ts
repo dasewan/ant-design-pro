@@ -535,3 +535,67 @@ export const RISK_TAGS_ARRAY: StatusOption[] = [
     value: '124',
   },
 ];
+export const DPDS: StatusOption[] = [
+  {
+    label: 'DPD0',
+    value: '0',
+  },
+  {
+    label: 'DPD1',
+    value: '1',
+  },
+  {
+    label: 'DPD2',
+    value: '2',
+  },
+  {
+    label: 'DPD3',
+    value: '3',
+  },
+  /*  {
+      label: 'DPD4',
+      value: '4',
+    },
+    {
+      label: 'DPD5',
+      value: '5',
+    },*/
+  {
+    label: 'DPD7',
+    value: '7',
+  },
+  {
+    label: 'DPD15',
+    value: '15',
+  },
+  {
+    label: 'DPD30',
+    value: '30',
+  },
+  {
+    label: 'DPD60',
+    value: '60',
+  },
+  {
+    label: 'DPD60+',
+    value: '60+',
+  },
+];
+export const DIMENSIONS: StatusOption[] = [
+  {
+    label: '逾期率',
+    value: 'rate',
+  },
+  {
+    label: '逾期数',
+    value: 'count',
+  },
+  {
+    label: '金额逾期率',
+    value: 'amount_rate',
+  },
+  {
+    label: '逾期金额',
+    value: 'amount',
+  },
+];

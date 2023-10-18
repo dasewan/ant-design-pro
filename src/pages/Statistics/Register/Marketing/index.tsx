@@ -15,19 +15,14 @@ import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
-  /** 当前编辑数据 */
-  /** 当前编辑数据 */
   const [channels, setChannels] = useState<RequestOptionsType[]>([]);
   const [records, setRecords] = useState<TableListItem[]>([]);
-
-  /** 导入营销名单excel */
-  const [chartVisible, handleChartVisible] = useState<string>('none');
-  /** 导入营销名单excel */
-  const [chartButtonEnable, setChartButtonEnable] = useState<boolean>(false);
-  /** 导入营销名单excel */
-  const [chartChartType, setChartChartType] = useState<string>('time');
-  /** 导入营销名单excel */
-  const [columnMode, setColumnMode] = useState<string>('all');
+  /** 图表显隐 */
+  const [chartVisible, handleChartVisible] = useState<boolean>(false);
+  /** 图表类型 time channel */
+  const [chartChartType, setChartChartType] = useState<string>('');
+  const [showRate, setShowRate] = useState<boolean>(true);
+  const [showCount, setShowCount] = useState<boolean>(true);
 
   /** table */
   const _index = async (
@@ -36,37 +31,32 @@ const TableList: React.FC = () => {
     params: TableListPagination & {
       pageSize: number;
       current: number;
+      [propName: string]: any;
     },
     // sort,
     // filter,
   ) => {
-    // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
-    // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
-    // @ts-ignore
-    setRecords(res.data);
-    // @ts-ignore
+    setRecords(res.data!);
     if (
       params.b_channel_id !== undefined &&
-      params.a_first_date === undefined &&
-      res.data.length > 0
+      params['a_first_date[0]'] !== undefined &&
+      params['a_first_date[0]'] !== params['a_first_date[1]'] &&
+      res.data!.length > 0
     ) {
-      setChartButtonEnable(true);
       setChartChartType('time');
     } else {
-      // @ts-ignore
       if (
-        params.b_channel_id === undefined &&
+        (params.b_channel_id === undefined || params.b_channel_id === '') &&
         params['a_first_date[0]'] !== undefined &&
         params['a_first_date[0]'] === params['a_first_date[1]'] &&
-        res.data.length > 0
+        res.data!.length > 0
       ) {
-        setChartButtonEnable(true);
         setChartChartType('channel');
       } else {
-        setChartButtonEnable(false);
-        handleChartVisible('none');
+        handleChartVisible(false);
+        setChartChartType('');
       }
     }
 
@@ -107,16 +97,22 @@ const TableList: React.FC = () => {
       width: 110,
       fixed: 'left',
       valueType: 'dateRange',
+      render: (_, value) => {
+        return moment(value.a_first_date).format('YYYY-MM-DD');
+      },
       search: {
         transform: (value: any) => {
           return {
-            'a_first_date[0]': moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss'),
-            'a_first_date[1]': moment(value[1].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+            'a_first_date[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'a_first_date[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
           };
         },
-      },
-      render: (_, value) => {
-        return moment(value.a_first_date).format('YYYY-MM-DD');
       },
     },
     {
@@ -157,7 +153,7 @@ const TableList: React.FC = () => {
       title: FieldLabels.k_register_rate,
       dataIndex: FieldIndex.k_register_rate,
       search: false,
-      hideInTable: columnMode === 'count',
+      hideInTable: !showRate,
       width: 80,
       render: (_, value) => {
         return `${value.k_register_rate!.toFixed(0)}%`;
@@ -166,7 +162,7 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.n_0_7_day_rate,
       dataIndex: FieldIndex.n_0_7_day_rate,
-      hideInTable: columnMode === 'count',
+      hideInTable: !showRate,
       search: false,
       width: 90,
       render: (_, value) => {
@@ -176,7 +172,7 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.r_8_30_day_rate,
       dataIndex: FieldIndex.r_8_30_day_rate,
-      hideInTable: columnMode === 'count',
+      hideInTable: !showRate,
       search: false,
       width: 104,
       render: (_, value) => {
@@ -186,7 +182,7 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.x_31_more_day_rate,
       dataIndex: FieldIndex.x_31_more_day_rate,
-      hideInTable: columnMode === 'count',
+      hideInTable: !showRate,
       search: false,
       width: 104,
       render: (_, value) => {
@@ -196,42 +192,42 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.j_register_count,
       dataIndex: FieldIndex.j_register_count,
-      hideInTable: columnMode === 'rate',
+      hideInTable: !showCount,
       search: false,
       width: 80,
     },
     {
       title: FieldLabels.m_0_7_day_count,
       dataIndex: FieldIndex.m_0_7_day_count,
-      hideInTable: columnMode === 'rate',
+      hideInTable: !showCount,
       search: false,
       width: 90,
     },
     {
       title: FieldLabels.q_8_30_day_count,
       dataIndex: FieldIndex.q_8_30_day_count,
-      hideInTable: columnMode === 'rate',
+      hideInTable: !showCount,
       search: false,
       width: 104,
     },
     {
       title: FieldLabels.w_31_more_day_count,
       dataIndex: FieldIndex.w_31_more_day_count,
-      hideInTable: columnMode === 'rate',
+      hideInTable: !showCount,
       search: false,
       width: 104,
     },
     {
       title: FieldLabels.a_a_refuse_count,
       dataIndex: FieldIndex.a_a_refuse_count,
-      hideInTable: columnMode === 'rate',
+      hideInTable: !showCount,
       search: false,
       width: 90,
     },
     {
       title: FieldLabels.a_b_refuse_rate,
       dataIndex: FieldIndex.a_b_refuse_rate,
-      hideInTable: columnMode === 'count',
+      hideInTable: !showRate,
       search: false,
       width: 90,
       render: (_, value) => {
@@ -241,21 +237,21 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.a_c_loan_count,
       dataIndex: FieldIndex.a_c_loan_count,
-      hideInTable: columnMode === 'rate',
+      hideInTable: !showCount,
       search: false,
       width: 80,
     },
     {
       title: FieldLabels.a_d_overdue_count,
       dataIndex: FieldIndex.a_d_overdue_count,
-      hideInTable: columnMode === 'rate',
+      hideInTable: !showCount,
       search: false,
       width: 80,
     },
     {
       title: FieldLabels.a_e_overdue_rate,
       dataIndex: FieldIndex.a_e_overdue_rate,
-      hideInTable: columnMode === 'count',
+      hideInTable: !showRate,
       search: false,
       width: 80,
       render: (_, value) => {
@@ -266,7 +262,6 @@ const TableList: React.FC = () => {
       title: '营销效果',
       search: false,
       className: styles.blue,
-      hideInTable: columnMode !== 'all',
       children: [
         {
           title: FieldLabels.o_6_day_rate,
@@ -336,7 +331,6 @@ const TableList: React.FC = () => {
     },
   ];
   const items: MenuProps['items'] = [
-    // { label: '操作说明', key: 'item-1', icon: <FileTextOutlined /> },
     {
       label: (
         <a
@@ -355,27 +349,42 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '营销统计',
+        // title: '营销统计',
         ghost: true,
         extra: [
-          <Tooltip key="1" title="单独搜索一天或者单独搜索渠道" color="#2db7f5">
+          <Tooltip key="1" title="首次营销日期(区间) + 渠道" color="#2db7f5">
             <Button
               key="3"
               type="primary"
-              disabled={!chartButtonEnable}
-              onClick={() => handleChartVisible(chartVisible === 'none' ? 'block' : 'none')}
+              disabled={chartChartType !== 'time'}
+              onClick={() => handleChartVisible(!chartVisible)}
             >
-              {chartVisible === 'none' ? '显示图表' : '隐藏图表'}
+              {chartChartType !== 'time'
+                ? '显示渠道对比柱状图'
+                : !chartVisible && chartChartType === 'time'
+                ? '显示渠道对比柱状图'
+                : '隐藏渠道对比柱状图'}
             </Button>
           </Tooltip>,
-          <Button key="4" type="primary" onClick={() => setColumnMode('rate')}>
-            占比
+          <Tooltip key="111" title="首次营销日期(指定一天)" color="#2db7f5">
+            <Button
+              key="3"
+              type="primary"
+              disabled={chartChartType !== 'channel'}
+              onClick={() => handleChartVisible(!chartVisible)}
+            >
+              {chartChartType !== 'channel'
+                ? '显示渠道变化柱状图'
+                : !chartVisible && chartChartType === 'channel'
+                ? '显示渠道变化柱状图'
+                : '隐藏渠道变化柱状图'}
+            </Button>
+          </Tooltip>,
+          <Button key="4" onClick={() => setShowRate(!showRate)}>
+            {showRate ? '隐藏占比%' : '显示占比%'}
           </Button>,
-          <Button key="5" type="primary" onClick={() => setColumnMode('count')}>
-            数量
-          </Button>,
-          <Button key="6" type="primary" onClick={() => setColumnMode('all')}>
-            全部
+          <Button key="5" onClick={() => setShowCount(!showCount)}>
+            {showCount ? '隐藏数量' : '显示数量'}
           </Button>,
           <Dropdown key="dropdown" trigger={['click']} menu={{ items }}>
             <Button key="7" style={{ padding: '0 8px' }}>
@@ -404,7 +413,10 @@ const TableList: React.FC = () => {
         }}
         options={false}
         toolBarRender={() => [
-          <div key="1" style={{ height: 600, width: 1780, display: chartVisible }}>
+          <div
+            key="1"
+            style={{ height: 600, width: 1780, display: chartVisible ? 'block' : 'none' }}
+          >
             <Chart rawData={records} type={chartChartType} channels={channels}></Chart>
           </div>,
         ]}

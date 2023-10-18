@@ -565,13 +565,25 @@ export default [
         name: 'register',
         icon: 'smile',
         path: '/statistics/register',
-        // component: './Statistics/Register',
         routes: [
           {
             name: 'marketing',
             icon: 'smile',
             path: '/statistics/register/marketing',
             component: './Statistics/Register/Marketing',
+          },
+        ],
+      },
+      {
+        name: 'overdue',
+        icon: 'smile',
+        path: '/statistics/overdue',
+        routes: [
+          {
+            name: 'product',
+            icon: 'smile',
+            path: '/statistics/overdue/product',
+            component: './Statistics/Overdue/Product',
           },
         ],
       },
