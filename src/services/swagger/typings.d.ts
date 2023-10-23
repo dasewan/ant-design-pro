@@ -1882,6 +1882,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WCProductLoanOverduesIdParams = {
+    /** id of WCProductLoanOverdue */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -3001,6 +3006,16 @@ declare namespace API {
   };
 
   type getAdminV1WBProductOverduesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WCProductLoanOverduesIdParams = {
+    /** id of WCProductLoanOverdue */
+    id: number;
+  };
+
+  type getAdminV1WCProductLoanOverduesParams = {
     /** foo */
     foo: number;
   };
@@ -5173,6 +5188,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1WCProductLoanOverduesIdParams = {
+    /** id of WCProductLoanOverdue */
+    id: number;
+  };
+
   type putAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -6250,6 +6270,129 @@ declare namespace API {
     a_expected_date?: string;
     /** 产品 */
     b_product_id?: number;
+    /** 期数 */
+    c_a_period_index?: number;
+    /** 应还数量 */
+    c_expected_count?: number;
+    /** 应还金额 */
+    d_expected_amount?: number;
+    /** 结清数量 */
+    e_settled_count?: number;
+    /** 结清金额 */
+    f_settled_amount?: number;
+    /** 部分还款数量 */
+    g_partial_count?: number;
+    /** 部分还款金额 */
+    h_partial_amount?: number;
+    /** 展期数量 */
+    i_extend_count?: number;
+    /** 展期金额 */
+    j_extend_amount?: number;
+    /** DPD0 */
+    k_DPD0_count?: number;
+    /** DPD0 */
+    l_DPD0_amount?: number;
+    /** DPD0 */
+    m_DPD0_count_rate?: number;
+    /** DPD0 */
+    n_DPD0_amount_rate?: number;
+    /** DPD1 */
+    o_DPD1_count?: number;
+    /** DPD1 */
+    p_DPD1_amount?: number;
+    /** DPD1 */
+    q_DPD1_count_rate?: number;
+    /** DPD1 */
+    r_DPD1_amount_rate?: number;
+    /** DPD2 */
+    s_DPD2_count?: number;
+    /** DPD2 */
+    t_DPD2_amount?: number;
+    /** DPD2 */
+    u_DPD2_count_rate?: number;
+    /** DPD2 */
+    v_DPD2_amount_rate?: number;
+    /** DPD3 */
+    w_DPD3_count?: number;
+    /** DPD3 */
+    x_DPD3_amount?: number;
+    /** DPD3 */
+    y_DPD3_count_rate?: number;
+    /** DPD3 */
+    z_DPD3_amount_rate?: number;
+    /** DPD4 */
+    a_a_DPD4_count?: number;
+    /** DPD4 */
+    a_b_DPD4_amount?: number;
+    /** DPD4 */
+    a_c_DPD4_count_rate?: number;
+    /** DPD4 */
+    a_d_DPD4_amount_rate?: number;
+    /** DPD5 */
+    a_e_DPD5_count?: number;
+    /** DPD5 */
+    a_f_DPD5_amount?: number;
+    /** DPD5 */
+    a_g_DPD5_count_rate?: number;
+    /** DPD5 */
+    a_h_DPD5_amount_rate?: number;
+    /** DPD6 */
+    a_i_DPD7_count?: number;
+    /** DPD6 */
+    a_j_DPD7_amount?: number;
+    /** DPD6 */
+    a_k_DPD7_count_rate?: number;
+    /** DPD6 */
+    a_l_DPD7_amount_rate?: number;
+    /** DPD15 */
+    a_m_DPD15_count?: number;
+    /** DPD15 */
+    a_n_DPD15_amount?: number;
+    /** DPD15 */
+    a_o_DPD15_count_rate?: number;
+    /** DPD15 */
+    a_p_DPD15_amount_rate?: number;
+    /** DPD30 */
+    a_q_DPD30_count?: number;
+    /** DPD30 */
+    a_r_DPD30_amount?: number;
+    /** DPD30 */
+    a_s_DPD30_count_rate?: number;
+    /** DPD30 */
+    a_t_DPD30_amount_rate?: number;
+    /** DPD60 */
+    a_u_DPD60_count?: number;
+    /** DPD60 */
+    a_v_DPD60_amount?: number;
+    /** DPD60 */
+    a_w_DPD60_count_rate?: number;
+    /** DPD60 */
+    a_x_DPD60_amount_rate?: number;
+    /** DPD60+ */
+    'a_y_DPD60+_count'?: number;
+    /** DPD60+ */
+    'a_z_DPD60+_amount'?: number;
+    /** DPD60+ */
+    'b_a_DPD60+_count_rate'?: number;
+    /** DPD60+ */
+    'b_b_DPD60+_amount_rate'?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WCProductLoanOverdue = {
+    /** id */
+    id?: number;
+    /** 应还日期 */
+    a_loan_date?: string;
+    /** 产品 */
+    b_product_id?: number;
+    /** 期数 */
+    c_a_period_index?: number;
     /** 应还数量 */
     c_expected_count?: number;
     /** 应还金额 */

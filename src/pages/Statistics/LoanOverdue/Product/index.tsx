@@ -1,6 +1,6 @@
 import { DIMENSIONS, DPDS, PERIODS } from '@/pages/enums';
 import { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
-import { getAdminV1WBProductOverdues as index } from '@/services/ant-design-pro/WBProductOverdue';
+import { getAdminV1WCProductLoanOverdues as index } from '@/services/ant-design-pro/WCProductLoanOverdue';
 import { DownloadOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { ProFormSelect } from '@ant-design/pro-form';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -26,7 +26,7 @@ const TableList: React.FC = () => {
 
   /** 图表显隐 */
   const [chartVisible, handleChartVisible] = useState<boolean>(false);
-  /** 图表类型 line area */
+  /** 图表类型 area column */
   const [chartChartType, setChartChartType] = useState<string>('');
   /** 维度 */
   const [dimension, setDimension] = useState<string>('rate');
@@ -36,7 +36,7 @@ const TableList: React.FC = () => {
   const [showAmountRate, setShowAmountRate] = useState<boolean>(true);
   const [preParams, setPreParams] = useState<any>();
   const [productIds, setProductIds] = useState<string[]>();
-  const [dnds, setDnds] = useState<string[]>();
+  const [dnds, setDnds] = useState<string>();
 
   /** table */
   const _index = async (
@@ -83,24 +83,27 @@ const TableList: React.FC = () => {
     if (
       params.dpd !== undefined &&
       params.dpd.length === 1 &&
-      params.b_product_id !== undefined &&
-      params.b_product_id.length >= 1
+      params.dpd.length === 1 &&
+      params['a_loan_date[0]'] !== undefined
     ) {
-      setChartChartType('line');
-      setProductIds(params.b_product_id);
+      setChartChartType('column');
       setDnds(params.dpd);
       flag++;
-    } else if (
-      (params.dpd === undefined || params.dpd.length === 0) &&
+    }
+    if (
+      params.dpd !== undefined &&
+      params.dpd.length === 1 &&
       params.b_product_id !== undefined &&
-      params.b_product_id.length === 1
+      params.b_product_id.length === 1 &&
+      params.c_a_period_index !== undefined &&
+      params.c_a_period_index.length > 0
     ) {
       setChartChartType('area');
       setProductIds(params.b_product_id);
       setDnds(params.dpd);
       flag++;
     }
-    if (flag !== 3) {
+    if (flag < 3) {
       handleChartVisible(false);
       setChartChartType('');
     }
@@ -137,19 +140,19 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.a_expected_date,
-      dataIndex: FieldIndex.a_expected_date,
+      title: FieldLabels.a_loan_date,
+      dataIndex: FieldIndex.a_loan_date,
       width: 100,
       fixed: 'left',
       valueType: 'dateRange',
       search: {
         transform: (value: any) => {
           return {
-            'a_expected_date[0]':
+            'a_loan_date[0]':
               value[0].$d !== undefined
                 ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
                 : value[0] + ' 00:00:00',
-            'a_expected_date[1]':
+            'a_loan_date[1]':
               value[1].$d !== undefined
                 ? moment(value[1].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
                 : value[1] + ' 00:00:00',
@@ -157,7 +160,7 @@ const TableList: React.FC = () => {
         },
       },
       render: (_, value) => {
-        return moment(value.a_expected_date).format('YYYY-MM-DD');
+        return moment(value.a_loan_date).format('YYYY-MM-DD');
       },
     },
 
@@ -185,9 +188,12 @@ const TableList: React.FC = () => {
     {
       title: FieldLabels.c_a_period_index,
       dataIndex: FieldIndex.c_a_period_index,
+      width: 50,
+      fixed: 'left',
       renderFormItem: () => {
         return (
           <ProFormSelect
+            mode="multiple"
             name={FieldIndex.c_a_period_index}
             fieldProps={{ style: { width: 130 } }}
             options={PERIODS}
@@ -202,7 +208,6 @@ const TableList: React.FC = () => {
       renderFormItem: () => {
         return (
           <ProFormSelect
-            mode="multiple"
             name="dpd"
             fieldProps={{ style: { width: 130 } }}
             options={DPDS}
@@ -618,7 +623,11 @@ const TableList: React.FC = () => {
         // title: '营销统计',
         ghost: true,
         extra: [
-          <Tooltip key="11" title="应还日期(区间) + 产品(单选) + 维度" color="#2db7f5">
+          <Tooltip
+            key="11"
+            title="单产品期数对比面积图：应还日期(区间) + 产品(单选) + 期数（多选）+ DPD(单选) + 维度"
+            color="#2db7f5"
+          >
             <Button
               key="3"
               type="primary"
@@ -632,18 +641,18 @@ const TableList: React.FC = () => {
                 : '隐藏面积图'}
             </Button>
           </Tooltip>,
-          <Tooltip key="1" title="应还日期(区间) + 产品(多选) + DPD(单选) + 维度" color="#2db7f5">
+          <Tooltip key="1" title="多产品对比柱状图：应还日期(区间) + DPD + 维度" color="#2db7f5">
             <Button
               key="3"
               type="primary"
-              disabled={chartChartType !== 'line'}
+              disabled={chartChartType !== 'column'}
               onClick={() => handleChartVisible(!chartVisible)}
             >
-              {chartChartType !== 'line'
-                ? '显示折线图'
-                : !chartVisible && chartChartType === 'line'
-                ? '显示折线图'
-                : '隐藏折线图'}
+              {chartChartType !== 'column'
+                ? '显示柱状图'
+                : !chartVisible && chartChartType === 'column'
+                ? '显示柱状图'
+                : '隐藏柱状图'}
             </Button>
           </Tooltip>,
           <Button key="2" onClick={() => setShowCountRate(!showCountRate)}>

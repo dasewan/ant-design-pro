@@ -135,4 +135,6 @@ export default {
   'menu.statistics.register.marketing': '营销转化',
   'menu.statistics.overdue': '逾期报表',
   'menu.statistics.overdue.product': '产品逾期',
+  'menu.statistics.loan-overdue': '逾期报表(放款日)',
+  'menu.statistics.loan-overdue.product': '产品逾期',
 };

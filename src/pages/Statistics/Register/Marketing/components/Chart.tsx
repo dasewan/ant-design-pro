@@ -133,6 +133,17 @@ const Chart: React.FC<FormProps> = (props) => {
             };
           },
         },
+        annotations: [
+          {
+            type: 'line',
+            start: ['min', 'mean'],
+            end: ['max', 'mean'],
+            style: {
+              stroke: '#F4664A',
+              lineDash: [2, 2],
+            },
+          },
+        ],
       },
     ],
   };

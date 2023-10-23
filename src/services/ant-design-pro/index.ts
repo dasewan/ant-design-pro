@@ -83,6 +83,7 @@ import * as User from './User';
 import * as VCollectionAssignLog from './VCollectionAssignLog';
 import * as WAMarketing from './WAMarketing';
 import * as WBProductOverdue from './WBProductOverdue';
+import * as WCProductLoanOverdue from './WCProductLoanOverdue';
 
 export default {
   ABCreditHistory,
@@ -166,4 +167,5 @@ export default {
   VCollectionAssignLog,
   WAMarketing,
   WBProductOverdue,
+  WCProductLoanOverdue,
 };

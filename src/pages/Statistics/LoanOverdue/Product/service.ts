@@ -3,7 +3,7 @@
 
 export const FieldLabels = {
   id: 'id',
-  a_expected_date: '应还日期',
+  a_loan_date: '放款日期',
   b_product_id: '产品',
   c_expected_count: '应还数量',
   c_a_period_index: '期数',
@@ -63,7 +63,7 @@ export const FieldLabels = {
 };
 export const FieldIndex = {
   id: 'id',
-  a_expected_date: 'a_expected_date',
+  a_loan_date: 'a_loan_date',
   b_product_id: 'b_product_id',
   c_a_period_index: 'c_a_period_index',
   c_expected_count: 'c_expected_count',

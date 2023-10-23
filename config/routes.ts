@@ -587,6 +587,19 @@ export default [
           },
         ],
       },
+      {
+        name: 'loan-overdue',
+        icon: 'smile',
+        path: '/statistics/loan-overdue',
+        routes: [
+          {
+            name: 'product',
+            icon: 'smile',
+            path: '/statistics/loan-overdue/product',
+            component: './Statistics/LoanOverdue/Product',
+          },
+        ],
+      },
     ],
   },
   {
