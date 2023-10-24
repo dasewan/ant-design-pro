@@ -585,6 +585,12 @@ export default [
             path: '/statistics/overdue/product',
             component: './Statistics/Overdue/Product',
           },
+          {
+            name: 'multi-dimension',
+            icon: 'smile',
+            path: '/statistics/overdue/multi-dimension',
+            component: './Statistics/Overdue/MultiDimension',
+          },
         ],
       },
       {

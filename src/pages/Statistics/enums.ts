@@ -1,3 +1,10 @@
+import { SelectProps } from 'antd';
+
+type StatusOption = {
+  label: string;
+  value: string | number;
+};
+
 export const OVERDUE_COUNT_RATE: { [propName: string]: string } = {
   '0': 'm_DPD0_count_rate',
   '1': 'q_DPD1_count_rate',
@@ -50,3 +57,200 @@ export const OVERDUE_AMOUNT: { [propName: string]: string } = {
   '60': 'a_v_DPD60_amount',
   '60+': 'a_z_DPD60+_amount',
 };
+
+export const X_AXIS: StatusOption[] = [
+  {
+    label: '产品',
+    value: 'b_product_id',
+  },
+  {
+    label: '期数',
+    value: 'c_a_period_index',
+  },
+  {
+    label: '渠道',
+    value: 'c_b_channel_id',
+  },
+  {
+    label: '借款次数',
+    value: 'c_c_borrow_count',
+  },
+  {
+    label: '风控',
+    value: 'c_d_risk_strategy_id',
+  },
+  {
+    label: '借款金额',
+    value: 'c_e_borrow_amount',
+  },
+];
+export const Y_AXIS: SelectProps<any>['options'] | string[] = [
+  {
+    label: '逾期率',
+    value: 'rate',
+    children: [
+      {
+        label: 'DPD0',
+        value: 'm_DPD0_count_rate',
+      },
+      {
+        label: 'DPD1',
+        value: 'q_DPD1_count_rate',
+      },
+      {
+        label: 'DPD2',
+        value: 'u_DPD2_count_rate',
+      },
+      {
+        label: 'DPD3',
+        value: 'y_DPD3_count_rate',
+      },
+      {
+        label: 'DPD7',
+        value: 'a_k_DPD7_count_rate',
+      },
+      {
+        label: 'DPD15',
+        value: 'a_o_DPD15_count_rate',
+      },
+      {
+        label: 'DPD30',
+        value: 'a_s_DPD30_count_rate',
+      },
+      {
+        label: 'DPD60',
+        value: 'a_w_DPD60_count_rate',
+      },
+      {
+        label: 'DPD60+',
+        value: 'b_a_DPD60+_count_rate',
+      },
+    ],
+  },
+  {
+    label: '逾期数',
+    value: 'count',
+    children: [
+      {
+        label: 'DPD0',
+        value: 'k_DPD0_count',
+      },
+      {
+        label: 'DPD1',
+        value: 'o_DPD1_count',
+      },
+      {
+        label: 'DPD2',
+        value: 's_DPD2_count',
+      },
+      {
+        label: 'DPD3',
+        value: 'w_DPD3_count',
+      },
+      {
+        label: 'DPD7',
+        value: 'a_i_DPD7_count',
+      },
+      {
+        label: 'DPD15',
+        value: 'a_m_DPD15_count',
+      },
+      {
+        label: 'DPD30',
+        value: 'a_q_DPD30_count',
+      },
+      {
+        label: 'DPD60',
+        value: 'a_u_DPD60_count',
+      },
+      {
+        label: 'DPD60+',
+        value: 'a_y_DPD60+_count',
+      },
+    ],
+  },
+  {
+    label: '金额逾期率',
+    value: 'amount_rate',
+    children: [
+      {
+        label: 'DPD0',
+        value: 'n_DPD0_amount_rate',
+      },
+      {
+        label: 'DPD1',
+        value: 'r_DPD1_amount_rate',
+      },
+      {
+        label: 'DPD2',
+        value: 'v_DPD2_amount_rate',
+      },
+      {
+        label: 'DPD3',
+        value: 'z_DPD3_amount_rate',
+      },
+      {
+        label: 'DPD7',
+        value: 'a_l_DPD7_amount_rate',
+      },
+      {
+        label: 'DPD15',
+        value: 'a_p_DPD15_amount_rate',
+      },
+      {
+        label: 'DPD30',
+        value: 'a_t_DPD30_amount_rate',
+      },
+      {
+        label: 'DPD60',
+        value: 'a_x_DPD60_amount_rate',
+      },
+      {
+        label: 'DPD60+',
+        value: 'b_b_DPD60+_amount_rate',
+      },
+    ],
+  },
+  {
+    label: '逾期金额',
+    value: 'amount',
+    children: [
+      {
+        label: 'DPD0',
+        value: 'l_DPD0_amount',
+      },
+      {
+        label: 'DPD1',
+        value: 'p_DPD1_amount',
+      },
+      {
+        label: 'DPD2',
+        value: 't_DPD2_amount',
+      },
+      {
+        label: 'DPD3',
+        value: 'x_DPD3_amount',
+      },
+      {
+        label: 'DPD7',
+        value: 'a_j_DPD7_amount',
+      },
+      {
+        label: 'DPD15',
+        value: 'a_n_DPD15_amount',
+      },
+      {
+        label: 'DPD30',
+        value: 'a_r_DPD30_amount',
+      },
+      {
+        label: 'DPD60',
+        value: 'a_v_DPD60_amount',
+      },
+      {
+        label: 'DPD60+',
+        value: 'a_z_DPD60+_amount',
+      },
+    ],
+  },
+];

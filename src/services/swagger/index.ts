@@ -84,6 +84,7 @@ import * as VCollectionAssignLog from './VCollectionAssignLog';
 import * as WAMarketing from './WAMarketing';
 import * as WBProductOverdue from './WBProductOverdue';
 import * as WCProductLoanOverdue from './WCProductLoanOverdue';
+import * as WDMultiDimensionOverdue from './WDMultiDimensionOverdue';
 
 export default {
   ABCreditHistory,
@@ -168,4 +169,5 @@ export default {
   WAMarketing,
   WBProductOverdue,
   WCProductLoanOverdue,
+  WDMultiDimensionOverdue,
 };

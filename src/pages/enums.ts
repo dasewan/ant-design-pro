@@ -601,27 +601,67 @@ export const DIMENSIONS: StatusOption[] = [
 ];
 export const PERIODS: StatusOption[] = [
   {
-    label: '1',
+    label: '1 P',
     value: '1',
   },
   {
-    label: '2',
+    label: '2 P',
     value: '2',
   },
   {
-    label: '3',
+    label: '3 P',
     value: '3',
   },
   {
-    label: '4',
+    label: '4 P',
     value: '4',
   },
   {
-    label: '5',
+    label: '5 P',
     value: '5',
   },
   {
-    label: '6',
+    label: '6 P',
     value: '6',
+  },
+];
+export const BORROW_COUNT_GROUP: StatusOption[] = [
+  {
+    label: '1 T',
+    value: '1',
+  },
+  {
+    label: '2 T',
+    value: '2',
+  },
+  {
+    label: '3 T',
+    value: '3',
+  },
+  {
+    label: '4-7 T',
+    value: '4',
+  },
+  {
+    label: '8-~ T',
+    value: '5',
+  },
+];
+export const BORROW_AMOUNT_GROUP: StatusOption[] = [
+  {
+    label: '1000',
+    value: '1',
+  },
+  {
+    label: '1001-3000',
+    value: '2',
+  },
+  {
+    label: '3001-5000',
+    value: '3',
+  },
+  {
+    label: '5001-~',
+    value: '4',
   },
 ];
