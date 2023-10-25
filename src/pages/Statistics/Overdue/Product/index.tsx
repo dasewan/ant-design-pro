@@ -279,7 +279,6 @@ const TableList: React.FC = () => {
     {
       title: '逾期率',
       search: false,
-      className: styles.blue,
       hideInTable: !showCountRate,
       children: [
         {
@@ -293,6 +292,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.q_DPD1_count_rate,
           dataIndex: FieldIndex.q_DPD1_count_rate,
+          className: styles.blue,
           width: 80,
           render: (_, value) => {
             return `${value.q_DPD1_count_rate!.toFixed(0)}%`;
@@ -333,6 +333,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.a_k_DPD7_count_rate,
           dataIndex: FieldIndex.a_k_DPD7_count_rate,
+          className: styles.blue,
           width: 80,
           render: (_, value) => {
             return `${value.a_k_DPD7_count_rate!.toFixed(0)}%`;
@@ -375,7 +376,6 @@ const TableList: React.FC = () => {
     {
       title: '逾期数',
       search: false,
-      className: styles.blue,
       hideInTable: !showCount,
       children: [
         {
@@ -386,6 +386,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.o_DPD1_count,
           dataIndex: FieldIndex.o_DPD1_count,
+          className: styles.blue,
           width: 80,
         },
         {
@@ -416,6 +417,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.a_m_DPD15_count,
           dataIndex: FieldIndex.a_m_DPD15_count,
+          className: styles.blue,
           width: 80,
         },
         {
@@ -452,6 +454,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.r_DPD1_amount_rate,
           dataIndex: FieldIndex.r_DPD1_amount_rate,
+          className: styles.blue,
           width: 80,
           render: (_, value) => {
             return `${value.r_DPD1_amount_rate!.toFixed(0)}%`;
@@ -500,6 +503,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.a_p_DPD15_amount_rate,
           dataIndex: FieldIndex.a_p_DPD15_amount_rate,
+          className: styles.blue,
           width: 80,
           render: (_, value) => {
             return `${value.a_p_DPD15_amount_rate!.toFixed(0)}%`;
@@ -546,6 +550,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.p_DPD1_amount,
           dataIndex: FieldIndex.p_DPD1_amount,
+          className: styles.blue,
           width: 80,
         },
         {
@@ -581,6 +586,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.a_r_DPD30_amount,
           dataIndex: FieldIndex.a_r_DPD30_amount,
+          className: styles.blue,
           width: 80,
         },
         {

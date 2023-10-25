@@ -298,6 +298,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.q_DPD1_count_rate,
           dataIndex: FieldIndex.q_DPD1_count_rate,
+          className: styles.blue,
           width: 80,
           render: (_, value) => {
             return `${value.q_DPD1_count_rate!.toFixed(0)}%`;
@@ -338,6 +339,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.a_k_DPD7_count_rate,
           dataIndex: FieldIndex.a_k_DPD7_count_rate,
+          className: styles.blue,
           width: 80,
           render: (_, value) => {
             return `${value.a_k_DPD7_count_rate!.toFixed(0)}%`;
@@ -391,6 +393,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.o_DPD1_count,
           dataIndex: FieldIndex.o_DPD1_count,
+          className: styles.blue,
           width: 80,
         },
         {
@@ -416,6 +419,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.a_i_DPD7_count,
           dataIndex: FieldIndex.a_i_DPD7_count,
+          className: styles.blue,
           width: 80,
         },
         {
@@ -457,6 +461,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.r_DPD1_amount_rate,
           dataIndex: FieldIndex.r_DPD1_amount_rate,
+          className: styles.blue,
           width: 80,
           render: (_, value) => {
             return `${value.r_DPD1_amount_rate!.toFixed(0)}%`;
@@ -497,6 +502,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.a_l_DPD7_amount_rate,
           dataIndex: FieldIndex.a_l_DPD7_amount_rate,
+          className: styles.blue,
           width: 80,
           render: (_, value) => {
             return `${value.a_l_DPD7_amount_rate!.toFixed(0)}%`;
@@ -551,6 +557,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.p_DPD1_amount,
           dataIndex: FieldIndex.p_DPD1_amount,
+          className: styles.blue,
           width: 80,
         },
         {
@@ -576,6 +583,7 @@ const TableList: React.FC = () => {
         {
           title: FieldLabels.a_j_DPD7_amount,
           dataIndex: FieldIndex.a_j_DPD7_amount,
+          className: styles.blue,
           width: 80,
         },
         {
