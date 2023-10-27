@@ -1892,6 +1892,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WEProductProfitsIdParams = {
+    /** id of WEProductProfit */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -3031,6 +3036,16 @@ declare namespace API {
   };
 
   type getAdminV1WDMultiDimensionOverduesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WEProductProfitsIdParams = {
+    /** id of WEProductProfit */
+    id: number;
+  };
+
+  type getAdminV1WEProductProfitsParams = {
     /** foo */
     foo: number;
   };
@@ -5224,6 +5239,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1WEProductProfitsIdParams = {
+    /** id of WEProductProfit */
+    id: number;
+  };
+
   type putAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -6657,6 +6677,73 @@ declare namespace API {
     'b_a_DPD60+_count_rate'?: number;
     /** DPD60+ */
     'b_b_DPD60+_amount_rate'?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WEProductProfit = {
+    /** id */
+    id?: number;
+    /** 应还日期 */
+    a_loan_date?: string;
+    /** 产品 */
+    b_product_id?: number;
+    /** 放款单数 */
+    c_loan_count?: number;
+    /** 放款期数 */
+    d_loan_period_count?: number;
+    /** 结清数量 */
+    e_settled_count?: number;
+    /** 结清期数 */
+    f_settled_period_count?: number;
+    /** 放款金额 */
+    g_loan_amount?: number;
+    /** 还款金额 */
+    h_repay_amount?: number;
+    /** 展期数量 */
+    i_extend_count?: number;
+    /** 展期金额 */
+    j_extend_amount?: number;
+    /** 每期放款金额 */
+    k_per_period_loan_amount?: number;
+    /** 还款率 */
+    l_repay_amount_rate?: number;
+    /** 损益率 */
+    m_profit_amount_rate?: number;
+    /** 损益 */
+    n_profit?: number;
+    /** P1 损益 */
+    o_period1_profit?: number;
+    /** P2 损益 */
+    p_period2_profit?: number;
+    /** P3 损益 */
+    q_period3_profit?: number;
+    /** P4 损益 */
+    r_period4_profit?: number;
+    /** P5 损益 */
+    s_period5_profit?: number;
+    /** P6 损益 */
+    t_period6_profit?: number;
+    /** P1还款数 */
+    u_period1_repay_count?: number;
+    /** P2还款数 */
+    v_period2_repay_count?: number;
+    /** P3还款数 */
+    w_period3_repay_count?: number;
+    /** P4还款数 */
+    x_period4_repay_count?: number;
+    /** P5还款数 */
+    y_period5_repay_count?: number;
+    /** P6还款数 */
+    z_period6_repay_count?: number;
+    /** 每期应还款数 */
+    a_a_per_period_expected_count?: number;
+    /** 期数 */
+    a_b_period?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

@@ -606,6 +606,19 @@ export default [
           },
         ],
       },
+      {
+        name: 'profit',
+        icon: 'smile',
+        path: '/statistics/profit',
+        routes: [
+          {
+            name: 'product',
+            icon: 'smile',
+            path: '/statistics/profit/product',
+            component: './Statistics/Profit/Product',
+          },
+        ],
+      },
     ],
   },
   {

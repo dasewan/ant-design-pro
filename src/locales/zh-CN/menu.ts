@@ -138,4 +138,6 @@ export default {
   'menu.statistics.overdue.multi-dimension': '逾期多维分析',
   'menu.statistics.loan-overdue': '逾期报表(放款日)',
   'menu.statistics.loan-overdue.product': '产品逾期',
+  'menu.statistics.profit': '损益报表',
+  'menu.statistics.profit.product': '产品损益',
 };
