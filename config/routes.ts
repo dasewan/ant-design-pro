@@ -572,6 +572,12 @@ export default [
             path: '/statistics/register/marketing',
             component: './Statistics/Register/Marketing',
           },
+          {
+            name: 'daily-report',
+            icon: 'smile',
+            path: '/statistics/register/daily-report',
+            component: './Statistics/Register/DailyReport',
+          },
         ],
       },
       {

@@ -1897,6 +1897,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WFDailyReportsIdParams = {
+    /** id of WFDailyReport */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -3046,6 +3051,16 @@ declare namespace API {
   };
 
   type getAdminV1WEProductProfitsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WFDailyReportsIdParams = {
+    /** id of WFDailyReport */
+    id: number;
+  };
+
+  type getAdminV1WFDailyReportsParams = {
     /** foo */
     foo: number;
   };
@@ -5244,6 +5259,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1WFDailyReportsIdParams = {
+    /** id of WFDailyReport */
+    id: number;
+  };
+
   type putAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -6744,6 +6764,87 @@ declare namespace API {
     a_a_per_period_expected_count?: number;
     /** 期数 */
     a_b_period?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WFDailyReport = {
+    /** id */
+    id?: number;
+    /** 应还日期 */
+    a_date?: string;
+    /** 注册数 */
+    b_register_count?: number;
+    /** 黑名单数 */
+    c_black_count?: number;
+    /** 白名单数 */
+    d_white_count?: number;
+    /** 灰名单数 */
+    e_grey_count?: number;
+    /** 认证数 */
+    f_certification_count?: number;
+    /** 通过数 */
+    g_machine_accept_count?: number;
+    /** 拒绝数 */
+    h_machine_refuse_count?: number;
+    /** 复审数 */
+    i_review_count?: number;
+    /** 复审通过 */
+    j_review_accept_count?: number;
+    /** 复审拒绝 */
+    k_review_refuse_count?: number;
+    /** 放款数 */
+    l_loan_count?: number;
+    /** 放款期数 */
+    m_loan_period_count?: number;
+    /** 放款金额 */
+    n_loan_amount?: number;
+    /** 复贷放款 */
+    o_re_loan_count?: number;
+    /** 复贷放款金额 */
+    p_re_loan_amount?: number;
+    /** 放款失败 */
+    q_loan_fail_count?: number;
+    /** 放款拦截 */
+    r_loan_intercept_count?: number;
+    /** 结清数 */
+    s_settled_count?: number;
+    /** 还款期数 */
+    t_settled_period_count?: number;
+    /** 还款金额 */
+    u_repay_amount?: number;
+    /** 复贷还款数 */
+    v_re_repay_count?: number;
+    /** 复贷还款金额 */
+    w_re_repay_amount?: number;
+    /** 还款失败 */
+    x_repay_fail_count?: number;
+    /** 展期数 */
+    y_extend_count?: number;
+    /** 展期金额 */
+    z_extend_amount?: number;
+    /** 减免数 */
+    a_a_reduce_count?: number;
+    /** 减免金额 */
+    a_b_reduce_amount?: number;
+    /** 入催数 */
+    a_c_collection_count?: number;
+    /** 催记数 */
+    a_d_collection_log_count?: number;
+    /** 催回数 */
+    a_e_collection_success_count?: number;
+    /** 催回金额 */
+    a_f_collection_success_amount?: number;
+    /** otp数 */
+    a_g_otp_sms_count?: number;
+    /** 通知数 */
+    a_h_notification_sms_count?: number;
+    /** 营销数 */
+    a_i_marketing_sms_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

@@ -86,6 +86,7 @@ import * as WBProductOverdue from './WBProductOverdue';
 import * as WCProductLoanOverdue from './WCProductLoanOverdue';
 import * as WDMultiDimensionOverdue from './WDMultiDimensionOverdue';
 import * as WEProductProfit from './WEProductProfit';
+import * as WFDailyReport from './WFDailyReport';
 
 export default {
   ABCreditHistory,
@@ -172,4 +173,5 @@ export default {
   WCProductLoanOverdue,
   WDMultiDimensionOverdue,
   WEProductProfit,
+  WFDailyReport,
 };
