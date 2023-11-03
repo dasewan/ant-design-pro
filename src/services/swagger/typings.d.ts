@@ -1902,6 +1902,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WHOverdueRiskItemRangesIdParams = {
+    /** id of WHOverdueRiskItemRange */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -3061,6 +3066,16 @@ declare namespace API {
   };
 
   type getAdminV1WFDailyReportsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WHOverdueRiskItemRangesIdParams = {
+    /** id of WHOverdueRiskItemRange */
+    id: number;
+  };
+
+  type getAdminV1WHOverdueRiskItemRangesParams = {
     /** foo */
     foo: number;
   };
@@ -5264,6 +5279,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1WHOverdueRiskItemRangesIdParams = {
+    /** id of WHOverdueRiskItemRange */
+    id: number;
+  };
+
   type putAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -6845,6 +6865,1015 @@ declare namespace API {
     a_h_notification_sms_count?: number;
     /** 营销数 */
     a_i_marketing_sms_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WHOverdueRiskItemRange = {
+    /** id */
+    id?: number;
+    /** 风控日期 */
+    a_a_a_risk_week?: number;
+    /** 字段 */
+    a_a_b_risk_item_id?: number;
+    /** 总数 */
+    a_a_c_total_count?: number;
+    /** 最后应还款日 */
+    a_a_d_last_expected_repay_time?: string;
+    /** 区间详情 */
+    a_a_e_range_detail?: number;
+    /** 区间1数 */
+    a_a_range1_count?: number;
+    /** 区间1分期1放应还数 */
+    a_b_range1_expected_period1_count?: number;
+    /** 区间1分期1首逾数 */
+    a_c_range1_overdue_period1_count?: number;
+    /** 区间1分期1结清数 */
+    a_d_range1_settled_period1_count?: number;
+    /** 区间1分期2放应还数 */
+    a_e_range1_expected_period2_count?: number;
+    /** 区间1分期2首逾数 */
+    a_f_range1_overdue_period2_count?: number;
+    /** 区间1分期2结清数 */
+    a_g_range1_settled_period2_count?: number;
+    /** 区间1分期3放应还数 */
+    a_h_range1_expected_period3_count?: number;
+    /** 区间1分期3首逾数 */
+    a_i_range1_overdue_period3_count?: number;
+    /** 区间1分期3结清数 */
+    a_j_range1_settled_period3_count?: number;
+    /** 区间1分期4放应还数 */
+    a_k_range1_expected_period4_count?: number;
+    /** 区间1分期4首逾数 */
+    a_l_range1_overdue_period4_count?: number;
+    /** 区间1分期4结清数 */
+    a_m_range1_settled_period4_count?: number;
+    /** 区间1分期5放应还数 */
+    a_n_range1_expected_period5_count?: number;
+    /** 区间1分期5首逾数 */
+    a_o_range1_overdue_period5_count?: number;
+    /** 区间1分期5结清数 */
+    a_p_range1_settled_period5_count?: number;
+    /** 区间1分期6放应还数 */
+    a_q_range1_expected_period6_count?: number;
+    /** 区间1分期6首逾数 */
+    a_r_range1_overdue_period6_count?: number;
+    /** 区间1分期6结清数 */
+    a_s_range1_settled_period6_count?: number;
+    /** 区间2数 */
+    b_a_range1_count?: number;
+    /** 区间2分期1放应还数 */
+    b_b_range1_expected_period1_count?: number;
+    /** 区间2分期1首逾数 */
+    b_c_range1_overdue_period1_count?: number;
+    /** 区间2分期1结清数 */
+    b_d_range1_settled_period1_count?: number;
+    /** 区间2分期2放应还数 */
+    b_e_range1_expected_period2_count?: number;
+    /** 区间2分期2首逾数 */
+    b_f_range1_overdue_period2_count?: number;
+    /** 区间2分期2结清数 */
+    b_g_range1_settled_period2_count?: number;
+    /** 区间2分期3放应还数 */
+    b_h_range1_expected_period3_count?: number;
+    /** 区间2分期3首逾数 */
+    b_i_range1_overdue_period3_count?: number;
+    /** 区间2分期3结清数 */
+    b_j_range1_settled_period3_count?: number;
+    /** 区间2分期4放应还数 */
+    b_k_range1_expected_period4_count?: number;
+    /** 区间2分期4首逾数 */
+    b_l_range1_overdue_period4_count?: number;
+    /** 区间2分期4结清数 */
+    b_m_range1_settled_period4_count?: number;
+    /** 区间2分期5放应还数 */
+    b_n_range1_expected_period5_count?: number;
+    /** 区间2分期5首逾数 */
+    b_o_range1_overdue_period5_count?: number;
+    /** 区间2分期5结清数 */
+    b_p_range1_settled_period5_count?: number;
+    /** 区间2分期6放应还数 */
+    b_q_range1_expected_period6_count?: number;
+    /** 区间2分期6首逾数 */
+    b_r_range1_overdue_period6_count?: number;
+    /** 区间2分期6结清数 */
+    b_s_range1_settled_period6_count?: number;
+    /** 区间3数 */
+    c_a_range1_count?: number;
+    /** 区间3分期1放应还数 */
+    c_b_range1_expected_period1_count?: number;
+    /** 区间3分期1首逾数 */
+    c_c_range1_overdue_period1_count?: number;
+    /** 区间3分期1结清数 */
+    c_d_range1_settled_period1_count?: number;
+    /** 区间3分期2放应还数 */
+    c_e_range1_expected_period2_count?: number;
+    /** 区间3分期2首逾数 */
+    c_f_range1_overdue_period2_count?: number;
+    /** 区间3分期2结清数 */
+    c_g_range1_settled_period2_count?: number;
+    /** 区间3分期3放应还数 */
+    c_h_range1_expected_period3_count?: number;
+    /** 区间3分期3首逾数 */
+    c_i_range1_overdue_period3_count?: number;
+    /** 区间3分期3结清数 */
+    c_j_range1_settled_period3_count?: number;
+    /** 区间3分期4放应还数 */
+    c_k_range1_expected_period4_count?: number;
+    /** 区间3分期4首逾数 */
+    c_l_range1_overdue_period4_count?: number;
+    /** 区间3分期4结清数 */
+    c_m_range1_settled_period4_count?: number;
+    /** 区间3分期5放应还数 */
+    c_n_range1_expected_period5_count?: number;
+    /** 区间3分期5首逾数 */
+    c_o_range1_overdue_period5_count?: number;
+    /** 区间3分期5结清数 */
+    c_p_range1_settled_period5_count?: number;
+    /** 区间3分期6放应还数 */
+    c_q_range1_expected_period6_count?: number;
+    /** 区间3分期6首逾数 */
+    c_r_range1_overdue_period6_count?: number;
+    /** 区间3分期6结清数 */
+    c_s_range1_settled_period6_count?: number;
+    /** 区间4数 */
+    d_a_range1_count?: number;
+    /** 区间4分期1放应还数 */
+    d_b_range1_expected_period1_count?: number;
+    /** 区间4分期1首逾数 */
+    d_c_range1_overdue_period1_count?: number;
+    /** 区间4分期1结清数 */
+    d_d_range1_settled_period1_count?: number;
+    /** 区间4分期2放应还数 */
+    d_e_range1_expected_period2_count?: number;
+    /** 区间4分期2首逾数 */
+    d_f_range1_overdue_period2_count?: number;
+    /** 区间4分期2结清数 */
+    d_g_range1_settled_period2_count?: number;
+    /** 区间4分期3放应还数 */
+    d_h_range1_expected_period3_count?: number;
+    /** 区间4分期3首逾数 */
+    d_i_range1_overdue_period3_count?: number;
+    /** 区间4分期3结清数 */
+    d_j_range1_settled_period3_count?: number;
+    /** 区间4分期4放应还数 */
+    d_k_range1_expected_period4_count?: number;
+    /** 区间4分期4首逾数 */
+    d_l_range1_overdue_period4_count?: number;
+    /** 区间4分期4结清数 */
+    d_m_range1_settled_period4_count?: number;
+    /** 区间4分期5放应还数 */
+    d_n_range1_expected_period5_count?: number;
+    /** 区间4分期5首逾数 */
+    d_o_range1_overdue_period5_count?: number;
+    /** 区间4分期5结清数 */
+    d_p_range1_settled_period5_count?: number;
+    /** 区间4分期6放应还数 */
+    d_q_range1_expected_period6_count?: number;
+    /** 区间4分期6首逾数 */
+    d_r_range1_overdue_period6_count?: number;
+    /** 区间4分期6结清数 */
+    d_s_range1_settled_period6_count?: number;
+    /** 区间5数 */
+    e_a_range1_count?: number;
+    /** 区间5分期1放应还数 */
+    e_b_range1_expected_period1_count?: number;
+    /** 区间5分期1首逾数 */
+    e_c_range1_overdue_period1_count?: number;
+    /** 区间5分期1结清数 */
+    e_d_range1_settled_period1_count?: number;
+    /** 区间5分期2放应还数 */
+    e_e_range1_expected_period2_count?: number;
+    /** 区间5分期2首逾数 */
+    e_f_range1_overdue_period2_count?: number;
+    /** 区间5分期2结清数 */
+    e_g_range1_settled_period2_count?: number;
+    /** 区间5分期3放应还数 */
+    e_h_range1_expected_period3_count?: number;
+    /** 区间5分期3首逾数 */
+    e_i_range1_overdue_period3_count?: number;
+    /** 区间5分期3结清数 */
+    e_j_range1_settled_period3_count?: number;
+    /** 区间5分期4放应还数 */
+    e_k_range1_expected_period4_count?: number;
+    /** 区间5分期4首逾数 */
+    e_l_range1_overdue_period4_count?: number;
+    /** 区间5分期4结清数 */
+    e_m_range1_settled_period4_count?: number;
+    /** 区间5分期5放应还数 */
+    e_n_range1_expected_period5_count?: number;
+    /** 区间5分期5首逾数 */
+    e_o_range1_overdue_period5_count?: number;
+    /** 区间5分期5结清数 */
+    e_p_range1_settled_period5_count?: number;
+    /** 区间5分期6放应还数 */
+    e_q_range1_expected_period6_count?: number;
+    /** 区间5分期6首逾数 */
+    e_r_range1_overdue_period6_count?: number;
+    /** 区间5分期6结清数 */
+    e_s_range1_settled_period6_count?: number;
+    /** 区间6数 */
+    f_a_range1_count?: number;
+    /** 区间6分期1放应还数 */
+    f_b_range1_expected_period1_count?: number;
+    /** 区间6分期1首逾数 */
+    f_c_range1_overdue_period1_count?: number;
+    /** 区间6分期1结清数 */
+    f_d_range1_settled_period1_count?: number;
+    /** 区间6分期2放应还数 */
+    f_e_range1_expected_period2_count?: number;
+    /** 区间6分期2首逾数 */
+    f_f_range1_overdue_period2_count?: number;
+    /** 区间6分期2结清数 */
+    f_g_range1_settled_period2_count?: number;
+    /** 区间6分期3放应还数 */
+    f_h_range1_expected_period3_count?: number;
+    /** 区间6分期3首逾数 */
+    f_i_range1_overdue_period3_count?: number;
+    /** 区间6分期3结清数 */
+    f_j_range1_settled_period3_count?: number;
+    /** 区间6分期4放应还数 */
+    f_k_range1_expected_period4_count?: number;
+    /** 区间6分期4首逾数 */
+    f_l_range1_overdue_period4_count?: number;
+    /** 区间6分期4结清数 */
+    f_m_range1_settled_period4_count?: number;
+    /** 区间6分期5放应还数 */
+    f_n_range1_expected_period5_count?: number;
+    /** 区间6分期5首逾数 */
+    f_o_range1_overdue_period5_count?: number;
+    /** 区间6分期5结清数 */
+    f_p_range1_settled_period5_count?: number;
+    /** 区间6分期6放应还数 */
+    f_q_range1_expected_period6_count?: number;
+    /** 区间6分期6首逾数 */
+    f_r_range1_overdue_period6_count?: number;
+    /** 区间6分期6结清数 */
+    f_s_range1_settled_period6_count?: number;
+    /** 区间7数 */
+    g_a_range1_count?: number;
+    /** 区间7分期1放应还数 */
+    g_b_range1_expected_period1_count?: number;
+    /** 区间7分期1首逾数 */
+    g_c_range1_overdue_period1_count?: number;
+    /** 区间7分期1结清数 */
+    g_d_range1_settled_period1_count?: number;
+    /** 区间7分期2放应还数 */
+    g_e_range1_expected_period2_count?: number;
+    /** 区间7分期2首逾数 */
+    g_f_range1_overdue_period2_count?: number;
+    /** 区间7分期2结清数 */
+    g_g_range1_settled_period2_count?: number;
+    /** 区间7分期3放应还数 */
+    g_h_range1_expected_period3_count?: number;
+    /** 区间7分期3首逾数 */
+    g_i_range1_overdue_period3_count?: number;
+    /** 区间7分期3结清数 */
+    g_j_range1_settled_period3_count?: number;
+    /** 区间7分期4放应还数 */
+    g_k_range1_expected_period4_count?: number;
+    /** 区间7分期4首逾数 */
+    g_l_range1_overdue_period4_count?: number;
+    /** 区间7分期4结清数 */
+    g_m_range1_settled_period4_count?: number;
+    /** 区间7分期5放应还数 */
+    g_n_range1_expected_period5_count?: number;
+    /** 区间7分期5首逾数 */
+    g_o_range1_overdue_period5_count?: number;
+    /** 区间7分期5结清数 */
+    g_p_range1_settled_period5_count?: number;
+    /** 区间7分期6放应还数 */
+    g_q_range1_expected_period6_count?: number;
+    /** 区间7分期6首逾数 */
+    g_r_range1_overdue_period6_count?: number;
+    /** 区间7分期6结清数 */
+    g_s_range1_settled_period6_count?: number;
+    /** 区间8数 */
+    h_a_range1_count?: number;
+    /** 区间8分期1放应还数 */
+    h_b_range1_expected_period1_count?: number;
+    /** 区间8分期1首逾数 */
+    h_c_range1_overdue_period1_count?: number;
+    /** 区间8分期1结清数 */
+    h_d_range1_settled_period1_count?: number;
+    /** 区间8分期2放应还数 */
+    h_e_range1_expected_period2_count?: number;
+    /** 区间8分期2首逾数 */
+    h_f_range1_overdue_period2_count?: number;
+    /** 区间8分期2结清数 */
+    h_g_range1_settled_period2_count?: number;
+    /** 区间8分期3放应还数 */
+    h_h_range1_expected_period3_count?: number;
+    /** 区间8分期3首逾数 */
+    h_i_range1_overdue_period3_count?: number;
+    /** 区间8分期3结清数 */
+    h_j_range1_settled_period3_count?: number;
+    /** 区间8分期4放应还数 */
+    h_k_range1_expected_period4_count?: number;
+    /** 区间8分期4首逾数 */
+    h_l_range1_overdue_period4_count?: number;
+    /** 区间8分期4结清数 */
+    h_m_range1_settled_period4_count?: number;
+    /** 区间8分期5放应还数 */
+    h_n_range1_expected_period5_count?: number;
+    /** 区间8分期5首逾数 */
+    h_o_range1_overdue_period5_count?: number;
+    /** 区间8分期5结清数 */
+    h_p_range1_settled_period5_count?: number;
+    /** 区间8分期6放应还数 */
+    h_q_range1_expected_period6_count?: number;
+    /** 区间8分期6首逾数 */
+    h_r_range1_overdue_period6_count?: number;
+    /** 区间8分期6结清数 */
+    h_s_range1_settled_period6_count?: number;
+    /** 区间9数 */
+    i_a_range1_count?: number;
+    /** 区间9分期1放应还数 */
+    i_b_range1_expected_period1_count?: number;
+    /** 区间9分期1首逾数 */
+    i_c_range1_overdue_period1_count?: number;
+    /** 区间9分期1结清数 */
+    i_d_range1_settled_period1_count?: number;
+    /** 区间9分期2放应还数 */
+    i_e_range1_expected_period2_count?: number;
+    /** 区间9分期2首逾数 */
+    i_f_range1_overdue_period2_count?: number;
+    /** 区间9分期2结清数 */
+    i_g_range1_settled_period2_count?: number;
+    /** 区间9分期3放应还数 */
+    i_h_range1_expected_period3_count?: number;
+    /** 区间9分期3首逾数 */
+    i_i_range1_overdue_period3_count?: number;
+    /** 区间9分期3结清数 */
+    i_j_range1_settled_period3_count?: number;
+    /** 区间9分期4放应还数 */
+    i_k_range1_expected_period4_count?: number;
+    /** 区间9分期4首逾数 */
+    i_l_range1_overdue_period4_count?: number;
+    /** 区间9分期4结清数 */
+    i_m_range1_settled_period4_count?: number;
+    /** 区间9分期5放应还数 */
+    i_n_range1_expected_period5_count?: number;
+    /** 区间9分期5首逾数 */
+    i_o_range1_overdue_period5_count?: number;
+    /** 区间9分期5结清数 */
+    i_p_range1_settled_period5_count?: number;
+    /** 区间9分期6放应还数 */
+    i_q_range1_expected_period6_count?: number;
+    /** 区间9分期6首逾数 */
+    i_r_range1_overdue_period6_count?: number;
+    /** 区间9分期6结清数 */
+    i_s_range1_settled_period6_count?: number;
+    /** 区间10数 */
+    j_a_range1_count?: number;
+    /** 区间10分期1放应还数 */
+    j_b_range1_expected_period1_count?: number;
+    /** 区间10分期1首逾数 */
+    j_c_range1_overdue_period1_count?: number;
+    /** 区间10分期1结清数 */
+    j_d_range1_settled_period1_count?: number;
+    /** 区间10分期2放应还数 */
+    j_e_range1_expected_period2_count?: number;
+    /** 区间10分期2首逾数 */
+    j_f_range1_overdue_period2_count?: number;
+    /** 区间10分期2结清数 */
+    j_g_range1_settled_period2_count?: number;
+    /** 区间10分期3放应还数 */
+    j_h_range1_expected_period3_count?: number;
+    /** 区间10分期3首逾数 */
+    j_i_range1_overdue_period3_count?: number;
+    /** 区间10分期3结清数 */
+    j_j_range1_settled_period3_count?: number;
+    /** 区间10分期4放应还数 */
+    j_k_range1_expected_period4_count?: number;
+    /** 区间10分期4首逾数 */
+    j_l_range1_overdue_period4_count?: number;
+    /** 区间10分期4结清数 */
+    j_m_range1_settled_period4_count?: number;
+    /** 区间10分期5放应还数 */
+    j_n_range1_expected_period5_count?: number;
+    /** 区间10分期5首逾数 */
+    j_o_range1_overdue_period5_count?: number;
+    /** 区间10分期5结清数 */
+    j_p_range1_settled_period5_count?: number;
+    /** 区间10分期6放应还数 */
+    j_q_range1_expected_period6_count?: number;
+    /** 区间10分期6首逾数 */
+    j_r_range1_overdue_period6_count?: number;
+    /** 区间10分期6结清数 */
+    j_s_range1_settled_period6_count?: number;
+    /** 区间11数 */
+    k_a_range1_count?: number;
+    /** 区间11分期1放应还数 */
+    k_b_range1_expected_period1_count?: number;
+    /** 区间11分期1首逾数 */
+    k_c_range1_overdue_period1_count?: number;
+    /** 区间11分期1结清数 */
+    k_d_range1_settled_period1_count?: number;
+    /** 区间11分期2放应还数 */
+    k_e_range1_expected_period2_count?: number;
+    /** 区间11分期2首逾数 */
+    k_f_range1_overdue_period2_count?: number;
+    /** 区间11分期2结清数 */
+    k_g_range1_settled_period2_count?: number;
+    /** 区间11分期3放应还数 */
+    k_h_range1_expected_period3_count?: number;
+    /** 区间11分期3首逾数 */
+    k_i_range1_overdue_period3_count?: number;
+    /** 区间11分期3结清数 */
+    k_j_range1_settled_period3_count?: number;
+    /** 区间11分期4放应还数 */
+    k_k_range1_expected_period4_count?: number;
+    /** 区间11分期4首逾数 */
+    k_l_range1_overdue_period4_count?: number;
+    /** 区间11分期4结清数 */
+    k_m_range1_settled_period4_count?: number;
+    /** 区间11分期5放应还数 */
+    k_n_range1_expected_period5_count?: number;
+    /** 区间11分期5首逾数 */
+    k_o_range1_overdue_period5_count?: number;
+    /** 区间11分期5结清数 */
+    k_p_range1_settled_period5_count?: number;
+    /** 区间11分期6放应还数 */
+    k_q_range1_expected_period6_count?: number;
+    /** 区间11分期6首逾数 */
+    k_r_range1_overdue_period6_count?: number;
+    /** 区间11分期6结清数 */
+    k_s_range1_settled_period6_count?: number;
+    /** 区间12数 */
+    l_a_range1_count?: number;
+    /** 区间12分期1放应还数 */
+    l_b_range1_expected_period1_count?: number;
+    /** 区间12分期1首逾数 */
+    l_c_range1_overdue_period1_count?: number;
+    /** 区间12分期1结清数 */
+    l_d_range1_settled_period1_count?: number;
+    /** 区间12分期2放应还数 */
+    l_e_range1_expected_period2_count?: number;
+    /** 区间12分期2首逾数 */
+    l_f_range1_overdue_period2_count?: number;
+    /** 区间12分期2结清数 */
+    l_g_range1_settled_period2_count?: number;
+    /** 区间12分期3放应还数 */
+    l_h_range1_expected_period3_count?: number;
+    /** 区间12分期3首逾数 */
+    l_i_range1_overdue_period3_count?: number;
+    /** 区间12分期3结清数 */
+    l_j_range1_settled_period3_count?: number;
+    /** 区间12分期4放应还数 */
+    l_k_range1_expected_period4_count?: number;
+    /** 区间12分期4首逾数 */
+    l_l_range1_overdue_period4_count?: number;
+    /** 区间12分期4结清数 */
+    l_m_range1_settled_period4_count?: number;
+    /** 区间12分期5放应还数 */
+    l_n_range1_expected_period5_count?: number;
+    /** 区间12分期5首逾数 */
+    l_o_range1_overdue_period5_count?: number;
+    /** 区间12分期5结清数 */
+    l_p_range1_settled_period5_count?: number;
+    /** 区间12分期6放应还数 */
+    l_q_range1_expected_period6_count?: number;
+    /** 区间12分期6首逾数 */
+    l_r_range1_overdue_period6_count?: number;
+    /** 区间12分期6结清数 */
+    l_s_range1_settled_period6_count?: number;
+    /** 区间13数 */
+    m_a_range1_count?: number;
+    /** 区间13分期1放应还数 */
+    m_b_range1_expected_period1_count?: number;
+    /** 区间13分期1首逾数 */
+    m_c_range1_overdue_period1_count?: number;
+    /** 区间13分期1结清数 */
+    m_d_range1_settled_period1_count?: number;
+    /** 区间13分期2放应还数 */
+    m_e_range1_expected_period2_count?: number;
+    /** 区间13分期2首逾数 */
+    m_f_range1_overdue_period2_count?: number;
+    /** 区间13分期2结清数 */
+    m_g_range1_settled_period2_count?: number;
+    /** 区间13分期3放应还数 */
+    m_h_range1_expected_period3_count?: number;
+    /** 区间13分期3首逾数 */
+    m_i_range1_overdue_period3_count?: number;
+    /** 区间13分期3结清数 */
+    m_j_range1_settled_period3_count?: number;
+    /** 区间13分期4放应还数 */
+    m_k_range1_expected_period4_count?: number;
+    /** 区间13分期4首逾数 */
+    m_l_range1_overdue_period4_count?: number;
+    /** 区间13分期4结清数 */
+    m_m_range1_settled_period4_count?: number;
+    /** 区间13分期5放应还数 */
+    m_n_range1_expected_period5_count?: number;
+    /** 区间13分期5首逾数 */
+    m_o_range1_overdue_period5_count?: number;
+    /** 区间13分期5结清数 */
+    m_p_range1_settled_period5_count?: number;
+    /** 区间13分期6放应还数 */
+    m_q_range1_expected_period6_count?: number;
+    /** 区间13分期6首逾数 */
+    m_r_range1_overdue_period6_count?: number;
+    /** 区间13分期6结清数 */
+    m_s_range1_settled_period6_count?: number;
+    /** 区间14数 */
+    n_a_range1_count?: number;
+    /** 区间14分期1放应还数 */
+    n_b_range1_expected_period1_count?: number;
+    /** 区间14分期1首逾数 */
+    n_c_range1_overdue_period1_count?: number;
+    /** 区间14分期1结清数 */
+    n_d_range1_settled_period1_count?: number;
+    /** 区间14分期2放应还数 */
+    n_e_range1_expected_period2_count?: number;
+    /** 区间14分期2首逾数 */
+    n_f_range1_overdue_period2_count?: number;
+    /** 区间14分期2结清数 */
+    n_g_range1_settled_period2_count?: number;
+    /** 区间14分期3放应还数 */
+    n_h_range1_expected_period3_count?: number;
+    /** 区间14分期3首逾数 */
+    n_i_range1_overdue_period3_count?: number;
+    /** 区间14分期3结清数 */
+    n_j_range1_settled_period3_count?: number;
+    /** 区间14分期4放应还数 */
+    n_k_range1_expected_period4_count?: number;
+    /** 区间14分期4首逾数 */
+    n_l_range1_overdue_period4_count?: number;
+    /** 区间14分期4结清数 */
+    n_m_range1_settled_period4_count?: number;
+    /** 区间14分期5放应还数 */
+    n_n_range1_expected_period5_count?: number;
+    /** 区间14分期5首逾数 */
+    n_o_range1_overdue_period5_count?: number;
+    /** 区间14分期5结清数 */
+    n_p_range1_settled_period5_count?: number;
+    /** 区间14分期6放应还数 */
+    n_q_range1_expected_period6_count?: number;
+    /** 区间14分期6首逾数 */
+    n_r_range1_overdue_period6_count?: number;
+    /** 区间14分期6结清数 */
+    n_s_range1_settled_period6_count?: number;
+    /** 区间15数 */
+    o_a_range1_count?: number;
+    /** 区间15分期1放应还数 */
+    o_b_range1_expected_period1_count?: number;
+    /** 区间15分期1首逾数 */
+    o_c_range1_overdue_period1_count?: number;
+    /** 区间15分期1结清数 */
+    o_d_range1_settled_period1_count?: number;
+    /** 区间15分期2放应还数 */
+    o_e_range1_expected_period2_count?: number;
+    /** 区间15分期2首逾数 */
+    o_f_range1_overdue_period2_count?: number;
+    /** 区间15分期2结清数 */
+    o_g_range1_settled_period2_count?: number;
+    /** 区间15分期3放应还数 */
+    o_h_range1_expected_period3_count?: number;
+    /** 区间15分期3首逾数 */
+    o_i_range1_overdue_period3_count?: number;
+    /** 区间15分期3结清数 */
+    o_j_range1_settled_period3_count?: number;
+    /** 区间15分期4放应还数 */
+    o_k_range1_expected_period4_count?: number;
+    /** 区间15分期4首逾数 */
+    o_l_range1_overdue_period4_count?: number;
+    /** 区间15分期4结清数 */
+    o_m_range1_settled_period4_count?: number;
+    /** 区间15分期5放应还数 */
+    o_n_range1_expected_period5_count?: number;
+    /** 区间15分期5首逾数 */
+    o_o_range1_overdue_period5_count?: number;
+    /** 区间15分期5结清数 */
+    o_p_range1_settled_period5_count?: number;
+    /** 区间15分期6放应还数 */
+    o_q_range1_expected_period6_count?: number;
+    /** 区间15分期6首逾数 */
+    o_r_range1_overdue_period6_count?: number;
+    /** 区间15分期6结清数 */
+    o_s_range1_settled_period6_count?: number;
+    /** 区间16数 */
+    p_a_range1_count?: number;
+    /** 区间16分期1放应还数 */
+    p_b_range1_expected_period1_count?: number;
+    /** 区间16分期1首逾数 */
+    p_c_range1_overdue_period1_count?: number;
+    /** 区间16分期1结清数 */
+    p_d_range1_settled_period1_count?: number;
+    /** 区间16分期2放应还数 */
+    p_e_range1_expected_period2_count?: number;
+    /** 区间16分期2首逾数 */
+    p_f_range1_overdue_period2_count?: number;
+    /** 区间16分期2结清数 */
+    p_g_range1_settled_period2_count?: number;
+    /** 区间16分期3放应还数 */
+    p_h_range1_expected_period3_count?: number;
+    /** 区间16分期3首逾数 */
+    p_i_range1_overdue_period3_count?: number;
+    /** 区间16分期3结清数 */
+    p_j_range1_settled_period3_count?: number;
+    /** 区间16分期4放应还数 */
+    p_k_range1_expected_period4_count?: number;
+    /** 区间16分期4首逾数 */
+    p_l_range1_overdue_period4_count?: number;
+    /** 区间16分期4结清数 */
+    p_m_range1_settled_period4_count?: number;
+    /** 区间16分期5放应还数 */
+    p_n_range1_expected_period5_count?: number;
+    /** 区间16分期5首逾数 */
+    p_o_range1_overdue_period5_count?: number;
+    /** 区间16分期5结清数 */
+    p_p_range1_settled_period5_count?: number;
+    /** 区间16分期6放应还数 */
+    p_q_range1_expected_period6_count?: number;
+    /** 区间16分期6首逾数 */
+    p_r_range1_overdue_period6_count?: number;
+    /** 区间16分期6结清数 */
+    p_s_range1_settled_period6_count?: number;
+    /** 区间17数 */
+    q_a_range1_count?: number;
+    /** 区间17分期1放应还数 */
+    q_b_range1_expected_period1_count?: number;
+    /** 区间17分期1首逾数 */
+    q_c_range1_overdue_period1_count?: number;
+    /** 区间17分期1结清数 */
+    q_d_range1_settled_period1_count?: number;
+    /** 区间17分期2放应还数 */
+    q_e_range1_expected_period2_count?: number;
+    /** 区间17分期2首逾数 */
+    q_f_range1_overdue_period2_count?: number;
+    /** 区间17分期2结清数 */
+    q_g_range1_settled_period2_count?: number;
+    /** 区间17分期3放应还数 */
+    q_h_range1_expected_period3_count?: number;
+    /** 区间17分期3首逾数 */
+    q_i_range1_overdue_period3_count?: number;
+    /** 区间17分期3结清数 */
+    q_j_range1_settled_period3_count?: number;
+    /** 区间17分期4放应还数 */
+    q_k_range1_expected_period4_count?: number;
+    /** 区间17分期4首逾数 */
+    q_l_range1_overdue_period4_count?: number;
+    /** 区间17分期4结清数 */
+    q_m_range1_settled_period4_count?: number;
+    /** 区间17分期5放应还数 */
+    q_n_range1_expected_period5_count?: number;
+    /** 区间17分期5首逾数 */
+    q_o_range1_overdue_period5_count?: number;
+    /** 区间17分期5结清数 */
+    q_p_range1_settled_period5_count?: number;
+    /** 区间17分期6放应还数 */
+    q_q_range1_expected_period6_count?: number;
+    /** 区间17分期6首逾数 */
+    q_r_range1_overdue_period6_count?: number;
+    /** 区间17分期6结清数 */
+    q_s_range1_settled_period6_count?: number;
+    /** 区间18数 */
+    r_a_range1_count?: number;
+    /** 区间18分期1放应还数 */
+    r_b_range1_expected_period1_count?: number;
+    /** 区间18分期1首逾数 */
+    r_c_range1_overdue_period1_count?: number;
+    /** 区间18分期1结清数 */
+    r_d_range1_settled_period1_count?: number;
+    /** 区间18分期2放应还数 */
+    r_e_range1_expected_period2_count?: number;
+    /** 区间18分期2首逾数 */
+    r_f_range1_overdue_period2_count?: number;
+    /** 区间18分期2结清数 */
+    r_g_range1_settled_period2_count?: number;
+    /** 区间18分期3放应还数 */
+    r_h_range1_expected_period3_count?: number;
+    /** 区间18分期3首逾数 */
+    r_i_range1_overdue_period3_count?: number;
+    /** 区间18分期3结清数 */
+    r_j_range1_settled_period3_count?: number;
+    /** 区间18分期4放应还数 */
+    r_k_range1_expected_period4_count?: number;
+    /** 区间18分期4首逾数 */
+    r_l_range1_overdue_period4_count?: number;
+    /** 区间18分期4结清数 */
+    r_m_range1_settled_period4_count?: number;
+    /** 区间18分期5放应还数 */
+    r_n_range1_expected_period5_count?: number;
+    /** 区间18分期5首逾数 */
+    r_o_range1_overdue_period5_count?: number;
+    /** 区间18分期5结清数 */
+    r_p_range1_settled_period5_count?: number;
+    /** 区间18分期6放应还数 */
+    r_q_range1_expected_period6_count?: number;
+    /** 区间18分期6首逾数 */
+    r_r_range1_overdue_period6_count?: number;
+    /** 区间18分期6结清数 */
+    r_s_range1_settled_period6_count?: number;
+    /** 区间19数 */
+    s_a_range1_count?: number;
+    /** 区间19分期1放应还数 */
+    s_b_range1_expected_period1_count?: number;
+    /** 区间19分期1首逾数 */
+    s_c_range1_overdue_period1_count?: number;
+    /** 区间19分期1结清数 */
+    s_d_range1_settled_period1_count?: number;
+    /** 区间19分期2放应还数 */
+    s_e_range1_expected_period2_count?: number;
+    /** 区间19分期2首逾数 */
+    s_f_range1_overdue_period2_count?: number;
+    /** 区间19分期2结清数 */
+    s_g_range1_settled_period2_count?: number;
+    /** 区间19分期3放应还数 */
+    s_h_range1_expected_period3_count?: number;
+    /** 区间19分期3首逾数 */
+    s_i_range1_overdue_period3_count?: number;
+    /** 区间19分期3结清数 */
+    s_j_range1_settled_period3_count?: number;
+    /** 区间19分期4放应还数 */
+    s_k_range1_expected_period4_count?: number;
+    /** 区间19分期4首逾数 */
+    s_l_range1_overdue_period4_count?: number;
+    /** 区间19分期4结清数 */
+    s_m_range1_settled_period4_count?: number;
+    /** 区间19分期5放应还数 */
+    s_n_range1_expected_period5_count?: number;
+    /** 区间19分期5首逾数 */
+    s_o_range1_overdue_period5_count?: number;
+    /** 区间19分期5结清数 */
+    s_p_range1_settled_period5_count?: number;
+    /** 区间19分期6放应还数 */
+    s_q_range1_expected_period6_count?: number;
+    /** 区间19分期6首逾数 */
+    s_r_range1_overdue_period6_count?: number;
+    /** 区间19分期6结清数 */
+    s_s_range1_settled_period6_count?: number;
+    /** 区间20数 */
+    t_a_range1_count?: number;
+    /** 区间20分期1放应还数 */
+    t_b_range1_expected_period1_count?: number;
+    /** 区间20分期1首逾数 */
+    t_c_range1_overdue_period1_count?: number;
+    /** 区间20分期1结清数 */
+    t_d_range1_settled_period1_count?: number;
+    /** 区间20分期2放应还数 */
+    t_e_range1_expected_period2_count?: number;
+    /** 区间20分期2首逾数 */
+    t_f_range1_overdue_period2_count?: number;
+    /** 区间20分期2结清数 */
+    t_g_range1_settled_period2_count?: number;
+    /** 区间20分期3放应还数 */
+    t_h_range1_expected_period3_count?: number;
+    /** 区间20分期3首逾数 */
+    t_i_range1_overdue_period3_count?: number;
+    /** 区间20分期3结清数 */
+    t_j_range1_settled_period3_count?: number;
+    /** 区间20分期4放应还数 */
+    t_k_range1_expected_period4_count?: number;
+    /** 区间20分期4首逾数 */
+    t_l_range1_overdue_period4_count?: number;
+    /** 区间20分期4结清数 */
+    t_m_range1_settled_period4_count?: number;
+    /** 区间20分期5放应还数 */
+    t_n_range1_expected_period5_count?: number;
+    /** 区间20分期5首逾数 */
+    t_o_range1_overdue_period5_count?: number;
+    /** 区间20分期5结清数 */
+    t_p_range1_settled_period5_count?: number;
+    /** 区间20分期6放应还数 */
+    t_q_range1_expected_period6_count?: number;
+    /** 区间20分期6首逾数 */
+    t_r_range1_overdue_period6_count?: number;
+    /** 区间20分期6结清数 */
+    t_s_range1_settled_period6_count?: number;
+    /** 区间21数 */
+    u_a_range1_count?: number;
+    /** 区间21分期1放应还数 */
+    u_b_range1_expected_period1_count?: number;
+    /** 区间21分期1首逾数 */
+    u_c_range1_overdue_period1_count?: number;
+    /** 区间21分期1结清数 */
+    u_d_range1_settled_period1_count?: number;
+    /** 区间21分期2放应还数 */
+    u_e_range1_expected_period2_count?: number;
+    /** 区间21分期2首逾数 */
+    u_f_range1_overdue_period2_count?: number;
+    /** 区间21分期2结清数 */
+    u_g_range1_settled_period2_count?: number;
+    /** 区间21分期3放应还数 */
+    u_h_range1_expected_period3_count?: number;
+    /** 区间21分期3首逾数 */
+    u_i_range1_overdue_period3_count?: number;
+    /** 区间21分期3结清数 */
+    u_j_range1_settled_period3_count?: number;
+    /** 区间21分期4放应还数 */
+    u_k_range1_expected_period4_count?: number;
+    /** 区间21分期4首逾数 */
+    u_l_range1_overdue_period4_count?: number;
+    /** 区间21分期4结清数 */
+    u_m_range1_settled_period4_count?: number;
+    /** 区间21分期5放应还数 */
+    u_n_range1_expected_period5_count?: number;
+    /** 区间21分期5首逾数 */
+    u_o_range1_overdue_period5_count?: number;
+    /** 区间21分期5结清数 */
+    u_p_range1_settled_period5_count?: number;
+    /** 区间21分期6放应还数 */
+    u_q_range1_expected_period6_count?: number;
+    /** 区间21分期6首逾数 */
+    u_r_range1_overdue_period6_count?: number;
+    /** 区间21分期6结清数 */
+    u_s_range1_settled_period6_count?: number;
+    /** 区间22数 */
+    v_a_range1_count?: number;
+    /** 区间22分期1放应还数 */
+    v_b_range1_expected_period1_count?: number;
+    /** 区间22分期1首逾数 */
+    v_c_range1_overdue_period1_count?: number;
+    /** 区间22分期1结清数 */
+    v_d_range1_settled_period1_count?: number;
+    /** 区间22分期2放应还数 */
+    v_e_range1_expected_period2_count?: number;
+    /** 区间22分期2首逾数 */
+    v_f_range1_overdue_period2_count?: number;
+    /** 区间22分期2结清数 */
+    v_g_range1_settled_period2_count?: number;
+    /** 区间22分期3放应还数 */
+    v_h_range1_expected_period3_count?: number;
+    /** 区间22分期3首逾数 */
+    v_i_range1_overdue_period3_count?: number;
+    /** 区间22分期3结清数 */
+    v_j_range1_settled_period3_count?: number;
+    /** 区间22分期4放应还数 */
+    v_k_range1_expected_period4_count?: number;
+    /** 区间22分期4首逾数 */
+    v_l_range1_overdue_period4_count?: number;
+    /** 区间22分期4结清数 */
+    v_m_range1_settled_period4_count?: number;
+    /** 区间22分期5放应还数 */
+    v_n_range1_expected_period5_count?: number;
+    /** 区间22分期5首逾数 */
+    v_o_range1_overdue_period5_count?: number;
+    /** 区间22分期5结清数 */
+    v_p_range1_settled_period5_count?: number;
+    /** 区间22分期6放应还数 */
+    v_q_range1_expected_period6_count?: number;
+    /** 区间22分期6首逾数 */
+    v_r_range1_overdue_period6_count?: number;
+    /** 区间22分期6结清数 */
+    v_s_range1_settled_period6_count?: number;
+    /** 区间23数 */
+    w_a_range1_count?: number;
+    /** 区间23分期1放应还数 */
+    w_b_range1_expected_period1_count?: number;
+    /** 区间23分期1首逾数 */
+    w_c_range1_overdue_period1_count?: number;
+    /** 区间23分期1结清数 */
+    w_d_range1_settled_period1_count?: number;
+    /** 区间23分期2放应还数 */
+    w_e_range1_expected_period2_count?: number;
+    /** 区间23分期2首逾数 */
+    w_f_range1_overdue_period2_count?: number;
+    /** 区间23分期2结清数 */
+    w_g_range1_settled_period2_count?: number;
+    /** 区间23分期3放应还数 */
+    w_h_range1_expected_period3_count?: number;
+    /** 区间23分期3首逾数 */
+    w_i_range1_overdue_period3_count?: number;
+    /** 区间23分期3结清数 */
+    w_j_range1_settled_period3_count?: number;
+    /** 区间23分期4放应还数 */
+    w_k_range1_expected_period4_count?: number;
+    /** 区间23分期4首逾数 */
+    w_l_range1_overdue_period4_count?: number;
+    /** 区间23分期4结清数 */
+    w_m_range1_settled_period4_count?: number;
+    /** 区间23分期5放应还数 */
+    w_n_range1_expected_period5_count?: number;
+    /** 区间23分期5首逾数 */
+    w_o_range1_overdue_period5_count?: number;
+    /** 区间23分期5结清数 */
+    w_p_range1_settled_period5_count?: number;
+    /** 区间23分期6放应还数 */
+    w_q_range1_expected_period6_count?: number;
+    /** 区间23分期6首逾数 */
+    w_r_range1_overdue_period6_count?: number;
+    /** 区间23分期6结清数 */
+    w_s_range1_settled_period6_count?: number;
+    /** 区间24数 */
+    x_a_range1_count?: number;
+    /** 区间24分期1放应还数 */
+    x_b_range1_expected_period1_count?: number;
+    /** 区间24分期1首逾数 */
+    x_c_range1_overdue_period1_count?: number;
+    /** 区间24分期1结清数 */
+    x_d_range1_settled_period1_count?: number;
+    /** 区间24分期2放应还数 */
+    x_e_range1_expected_period2_count?: number;
+    /** 区间24分期2首逾数 */
+    x_f_range1_overdue_period2_count?: number;
+    /** 区间24分期2结清数 */
+    x_g_range1_settled_period2_count?: number;
+    /** 区间24分期3放应还数 */
+    x_h_range1_expected_period3_count?: number;
+    /** 区间24分期3首逾数 */
+    x_i_range1_overdue_period3_count?: number;
+    /** 区间24分期3结清数 */
+    x_j_range1_settled_period3_count?: number;
+    /** 区间24分期4放应还数 */
+    x_k_range1_expected_period4_count?: number;
+    /** 区间24分期4首逾数 */
+    x_l_range1_overdue_period4_count?: number;
+    /** 区间24分期4结清数 */
+    x_m_range1_settled_period4_count?: number;
+    /** 区间24分期5放应还数 */
+    x_n_range1_expected_period5_count?: number;
+    /** 区间24分期5首逾数 */
+    x_o_range1_overdue_period5_count?: number;
+    /** 区间24分期5结清数 */
+    x_p_range1_settled_period5_count?: number;
+    /** 区间24分期6放应还数 */
+    x_q_range1_expected_period6_count?: number;
+    /** 区间24分期6首逾数 */
+    x_r_range1_overdue_period6_count?: number;
+    /** 区间24分期6结清数 */
+    x_s_range1_settled_period6_count?: number;
+    /** 区间25数 */
+    y_a_range1_count?: number;
+    /** 区间25分期1放应还数 */
+    y_b_range1_expected_period1_count?: number;
+    /** 区间25分期1首逾数 */
+    y_c_range1_overdue_period1_count?: number;
+    /** 区间25分期1结清数 */
+    y_d_range1_settled_period1_count?: number;
+    /** 区间25分期2放应还数 */
+    y_e_range1_expected_period2_count?: number;
+    /** 区间25分期2首逾数 */
+    y_f_range1_overdue_period2_count?: number;
+    /** 区间25分期2结清数 */
+    y_g_range1_settled_period2_count?: number;
+    /** 区间25分期3放应还数 */
+    y_h_range1_expected_period3_count?: number;
+    /** 区间25分期3首逾数 */
+    y_i_range1_overdue_period3_count?: number;
+    /** 区间25分期3结清数 */
+    y_j_range1_settled_period3_count?: number;
+    /** 区间25分期4放应还数 */
+    y_k_range1_expected_period4_count?: number;
+    /** 区间25分期4首逾数 */
+    y_l_range1_overdue_period4_count?: number;
+    /** 区间25分期4结清数 */
+    y_m_range1_settled_period4_count?: number;
+    /** 区间25分期5放应还数 */
+    y_n_range1_expected_period5_count?: number;
+    /** 区间25分期5首逾数 */
+    y_o_range1_overdue_period5_count?: number;
+    /** 区间25分期5结清数 */
+    y_p_range1_settled_period5_count?: number;
+    /** 区间25分期6放应还数 */
+    y_q_range1_expected_period6_count?: number;
+    /** 区间25分期6首逾数 */
+    y_r_range1_overdue_period6_count?: number;
+    /** 区间25分期6结清数 */
+    y_s_range1_settled_period6_count?: number;
+    /** 区间26数 */
+    z_a_range1_count?: number;
+    /** 区间26分期1放应还数 */
+    z_b_range1_expected_period1_count?: number;
+    /** 区间26分期1首逾数 */
+    z_c_range1_overdue_period1_count?: number;
+    /** 区间26分期1结清数 */
+    z_d_range1_settled_period1_count?: number;
+    /** 区间26分期2放应还数 */
+    z_e_range1_expected_period2_count?: number;
+    /** 区间26分期2首逾数 */
+    z_f_range1_overdue_period2_count?: number;
+    /** 区间26分期2结清数 */
+    z_g_range1_settled_period2_count?: number;
+    /** 区间26分期3放应还数 */
+    z_h_range1_expected_period3_count?: number;
+    /** 区间26分期3首逾数 */
+    z_i_range1_overdue_period3_count?: number;
+    /** 区间26分期3结清数 */
+    z_j_range1_settled_period3_count?: number;
+    /** 区间26分期4放应还数 */
+    z_k_range1_expected_period4_count?: number;
+    /** 区间26分期4首逾数 */
+    z_l_range1_overdue_period4_count?: number;
+    /** 区间26分期4结清数 */
+    z_m_range1_settled_period4_count?: number;
+    /** 区间26分期5放应还数 */
+    z_n_range1_expected_period5_count?: number;
+    /** 区间26分期5首逾数 */
+    z_o_range1_overdue_period5_count?: number;
+    /** 区间26分期5结清数 */
+    z_p_range1_settled_period5_count?: number;
+    /** 区间26分期6放应还数 */
+    z_q_range1_expected_period6_count?: number;
+    /** 区间26分期6首逾数 */
+    z_r_range1_overdue_period6_count?: number;
+    /** 区间26分期6结清数 */
+    z_s_range1_settled_period6_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

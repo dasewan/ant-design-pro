@@ -141,4 +141,6 @@ export default {
   'menu.statistics.loan-overdue.product': '产品逾期',
   'menu.statistics.profit': '损益报表',
   'menu.statistics.profit.product': '产品损益',
+  'menu.statistics.risk': '风控报表',
+  'menu.statistics.risk.overdue-risk-item-range': '字段区间逾期分析',
 };

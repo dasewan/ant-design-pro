@@ -625,6 +625,19 @@ export default [
           },
         ],
       },
+      {
+        name: 'risk',
+        icon: 'smile',
+        path: '/statistics/risk',
+        routes: [
+          {
+            name: 'overdue-risk-item-range',
+            icon: 'smile',
+            path: '/statistics/risk/overdue-risk-item-range',
+            component: './Statistics/Risk/OverdueRiskItemRange',
+          },
+        ],
+      },
     ],
   },
   {
