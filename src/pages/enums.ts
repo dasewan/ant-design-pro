@@ -624,6 +624,10 @@ export const PERIODS: StatusOption[] = [
     label: '6 P',
     value: '6',
   },
+  {
+    label: 'all',
+    value: '100',
+  },
 ];
 export const BORROW_COUNT_GROUP: StatusOption[] = [
   {

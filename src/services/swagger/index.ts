@@ -88,6 +88,7 @@ import * as WDMultiDimensionOverdue from './WDMultiDimensionOverdue';
 import * as WEProductProfit from './WEProductProfit';
 import * as WFDailyReport from './WFDailyReport';
 import * as WHOverdueRiskItemRange from './WHOverdueRiskItemRange';
+import * as WIRiskBundle from './WIRiskBundle';
 
 export default {
   ABCreditHistory,
@@ -176,4 +177,5 @@ export default {
   WEProductProfit,
   WFDailyReport,
   WHOverdueRiskItemRange,
+  WIRiskBundle,
 };

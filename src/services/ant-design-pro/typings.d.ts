@@ -1907,6 +1907,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WIRiskBundlesIdParams = {
+    /** id of WIRiskBundle */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -2301,6 +2306,11 @@ declare namespace API {
   };
 
   type getAdminV1BCProductFeaturesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1BDRiskRoleBundlesEnumParams = {
     /** foo */
     foo: number;
   };
@@ -3076,6 +3086,16 @@ declare namespace API {
   };
 
   type getAdminV1WHOverdueRiskItemRangesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WIRiskBundlesIdParams = {
+    /** id of WIRiskBundle */
+    id: number;
+  };
+
+  type getAdminV1WIRiskBundlesParams = {
     /** foo */
     foo: number;
   };
@@ -5284,6 +5304,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1WIRiskBundlesIdParams = {
+    /** id of WIRiskBundle */
+    id: number;
+  };
+
   type putAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -6885,7 +6910,7 @@ declare namespace API {
     /** 最后应还款日 */
     a_a_d_last_expected_repay_time?: string;
     /** 区间详情 */
-    a_a_e_range_detail?: string;
+    a_a_e_range_detail?: number;
     /** 区间1数 */
     a_a_range1_count?: number;
     /** 区间1分期1放应还数 */
@@ -7874,6 +7899,77 @@ declare namespace API {
     z_r_range1_overdue_period6_count?: number;
     /** 区间26分期6结清数 */
     z_s_range1_settled_period6_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WIRiskBundle = {
+    /** id */
+    id?: number;
+    /** 风控日期 */
+    a_risk_date?: string;
+    /** 规则 */
+    b_risk_role_bundle_id?: number;
+    /** 父规则 */
+    c_risk_role_bundle_parent_id?: number;
+    /** 策略 */
+    d_risk_strategy_id?: number;
+    /** 版本 */
+    e_version?: number;
+    /** 总数 */
+    f_count?: number;
+    /** 通过数 */
+    g_accept_count?: number;
+    /** 拒绝数 */
+    h_reject_count?: number;
+    /** 人审数 */
+    i_review_count?: number;
+    /** 通过率 */
+    j_accept_rate?: number;
+    /** 拒绝率 */
+    k_reject_rate?: number;
+    /** 人审率 */
+    l_review_rate?: number;
+    /** P1应还款数 */
+    m_period1_expected_repay_count?: number;
+    /** P1逾期数 */
+    n_period1_overdue_count?: number;
+    /** P1已结清数 */
+    o_period1_settled_count?: number;
+    /** P2应还款数 */
+    p_period2_expected_repay_count?: number;
+    /** P2逾期数 */
+    q_period2_overdue_count?: number;
+    /** P2已结清数 */
+    r_period2_settled_count?: number;
+    /** P3应还款数 */
+    s_period3_expected_repay_count?: number;
+    /** P3逾期数 */
+    t_period3_overdue_count?: number;
+    /** P3已结清数 */
+    u_period3_settled_count?: number;
+    /** P4应还款数 */
+    v_period4_expected_repay_count?: number;
+    /** P4逾期数 */
+    w_period4_overdue_count?: number;
+    /** P4已结清数 */
+    x_period4_settled_count?: number;
+    /** P5应还款数 */
+    y_period5_expected_repay_count?: number;
+    /** P5逾期数 */
+    z_period5_overdue_count?: number;
+    /** P5已结清数 */
+    a_a_period5_settled_count?: number;
+    /** P6应还款数 */
+    a_b_period6_expected_repay_count?: number;
+    /** P6逾期数 */
+    a_c_period6_overdue_count?: number;
+    /** P6已结清数 */
+    a_d_period6_settled_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

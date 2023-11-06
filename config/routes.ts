@@ -636,6 +636,12 @@ export default [
             path: '/statistics/risk/overdue-risk-item-range',
             component: './Statistics/Risk/OverdueRiskItemRange',
           },
+          {
+            name: 'risk-bundle',
+            icon: 'smile',
+            path: '/statistics/risk/risk-bundle',
+            component: './Statistics/Risk/RiskBundle',
+          },
         ],
       },
     ],

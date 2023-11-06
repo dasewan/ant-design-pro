@@ -143,4 +143,5 @@ export default {
   'menu.statistics.profit.product': '产品损益',
   'menu.statistics.risk': '风控报表',
   'menu.statistics.risk.overdue-risk-item-range': '字段区间逾期分析',
+  'menu.statistics.risk.risk-bundle': '规则分析',
 };
