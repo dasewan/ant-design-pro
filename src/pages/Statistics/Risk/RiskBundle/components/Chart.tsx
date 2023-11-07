@@ -576,7 +576,7 @@ const Chart: React.FC<FormProps> = (props) => {
     }
   }
   pieData = _.chain(pieData).orderBy(['version'], 'asc').value();
-  lineData = _.chain(lineData).orderBy(['time', 'version'], 'asc').value();
+  lineData = _.chain(lineData).orderBy(['version', 'time'], 'asc').value();
   columnData.sort((x, y) => x.value - y.value);
   columnData = [...columnData, ...columnData2];
   G2.registerInteraction('custom-association-filter', {

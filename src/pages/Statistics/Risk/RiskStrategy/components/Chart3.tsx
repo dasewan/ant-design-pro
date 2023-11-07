@@ -580,7 +580,7 @@ const Chart3: React.FC<FormProps> = (props) => {
     }
   }
   pieData = _.chain(pieData).orderBy(['name'], 'asc').value();
-  lineData = _.chain(lineData).orderBy(['time', 'name'], 'asc').value();
+  lineData = _.chain(lineData).orderBy(['name', 'time'], 'asc').value();
   columnData.sort((x, y) => x.value - y.value);
   columnData = [...columnData, ...columnData2];
   G2.registerInteraction('custom-association-filter', {
