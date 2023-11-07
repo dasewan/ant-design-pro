@@ -20,7 +20,7 @@ export type FormProps = {
  * @constructor
  */
 const Chart3: React.FC<FormProps> = (props) => {
-  const lineData = Object.values(
+  let lineData = Object.values(
     props.rawData!.reduce((acc: { [key: string]: any }, curr: { [key: string]: any }) => {
       let riskStratey = props.riskStrateies!.find(
         (item2) => item2.value === curr.c_risk_strategy_parent_id,
@@ -44,6 +44,7 @@ const Chart3: React.FC<FormProps> = (props) => {
   );
 
   let columnData: { name: string; value: number; type: string }[] = [];
+  let columnData2: { name: string; value: number; type: string }[] = [];
   let pieData: { name: string; value: number }[] = [];
   if (props.dpd === 'dpd1') {
     if (props.period === '1') {
@@ -68,7 +69,7 @@ const Chart3: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -103,7 +104,7 @@ const Chart3: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -137,7 +138,7 @@ const Chart3: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -172,7 +173,7 @@ const Chart3: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -207,7 +208,7 @@ const Chart3: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -242,7 +243,7 @@ const Chart3: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -295,7 +296,7 @@ const Chart3: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -331,9 +332,9 @@ const Chart3: React.FC<FormProps> = (props) => {
                 _.sumBy(item, 'm_period1_expected_repay_count')
               ).toFixed(1),
             ),
-            type: 'DPD1',
+            type: 'DPD0',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -367,9 +368,9 @@ const Chart3: React.FC<FormProps> = (props) => {
                 _.sumBy(item, 'p_period2_expected_repay_count')
               ).toFixed(1),
             ),
-            type: 'DPD1',
+            type: 'DPD0',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -403,9 +404,9 @@ const Chart3: React.FC<FormProps> = (props) => {
                 _.sumBy(item, 's_period3_expected_repay_count')
               ).toFixed(1),
             ),
-            type: 'DPD1',
+            type: 'DPD0',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -439,9 +440,9 @@ const Chart3: React.FC<FormProps> = (props) => {
                 _.sumBy(item, 'v_period4_expected_repay_count')
               ).toFixed(1),
             ),
-            type: 'DPD1',
+            type: 'DPD0',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -475,9 +476,9 @@ const Chart3: React.FC<FormProps> = (props) => {
                 _.sumBy(item, 'y_period5_expected_repay_count')
               ).toFixed(1),
             ),
-            type: 'DPD1',
+            type: 'DPD0',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -511,9 +512,9 @@ const Chart3: React.FC<FormProps> = (props) => {
                 _.sumBy(item, 'a_b_period6_expected_repay_count')
               ).toFixed(1),
             ),
-            type: 'DPD1',
+            type: 'DPD0',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -562,9 +563,9 @@ const Chart3: React.FC<FormProps> = (props) => {
                   _.sumBy(item, 'a_b_period6_expected_repay_count'))
               ).toFixed(1),
             ),
-            type: 'DPD1',
+            type: 'DPD0',
           });
-          columnData.push({
+          columnData2.push({
             name: props.riskStrateies!.find(
               (item2) => item2.value === item[0]!.c_risk_strategy_parent_id,
             )!.label as string,
@@ -578,6 +579,10 @@ const Chart3: React.FC<FormProps> = (props) => {
         .value();
     }
   }
+  pieData = _.chain(pieData).orderBy(['name'], 'asc').value();
+  lineData = _.chain(lineData).orderBy(['time', 'name'], 'asc').value();
+  columnData.sort((x, y) => x.value - y.value);
+  columnData = [...columnData, ...columnData2];
   G2.registerInteraction('custom-association-filter', {
     showEnable: [
       {
@@ -643,6 +648,7 @@ const Chart3: React.FC<FormProps> = (props) => {
           seriesField: 'type',
           isGroup: true,
           isStack: true,
+          color: ['#CC0029', '#368800'],
           tooltip: {
             shared: true,
             showCrosshairs: false,

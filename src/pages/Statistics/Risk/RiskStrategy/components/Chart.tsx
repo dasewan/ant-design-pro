@@ -19,6 +19,7 @@ export type FormProps = {
  */
 const Chart: React.FC<FormProps> = (props) => {
   let columnData: { version: string; value: number; type: string }[] = [];
+  let columnData2: { version: string; value: number; type: string }[] = [];
   let lineData: { time: string; value: number; version: string }[] = [];
   let pieData: { version: string; value: number }[] = [];
   if (props.dpd === 'dpd1') {
@@ -40,7 +41,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -77,7 +78,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -113,7 +114,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -150,7 +151,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -187,7 +188,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -224,7 +225,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -271,7 +272,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -311,7 +312,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -349,7 +350,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -387,7 +388,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -425,7 +426,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -463,7 +464,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -501,7 +502,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -554,7 +555,7 @@ const Chart: React.FC<FormProps> = (props) => {
             ),
             type: 'DPD1',
           });
-          columnData.push({
+          columnData2.push({
             version: item[0]!.e_version!.toString(),
             value: Number(
               ((_.sumBy(item, 'g_accept_count') * 100) / _.sumBy(item, 'f_count')).toFixed(1),
@@ -574,6 +575,10 @@ const Chart: React.FC<FormProps> = (props) => {
       });
     }
   }
+  pieData = _.chain(pieData).orderBy(['version'], 'asc').value();
+  lineData = _.chain(lineData).orderBy(['time', 'version'], 'asc').value();
+  columnData.sort((x, y) => x.value - y.value);
+  columnData = [...columnData, ...columnData2];
   G2.registerInteraction('custom-association-filter', {
     showEnable: [
       {
@@ -639,6 +644,7 @@ const Chart: React.FC<FormProps> = (props) => {
           seriesField: 'type',
           isGroup: true,
           isStack: true,
+          color: ['#CC0029', '#368800'],
           tooltip: {
             shared: true,
             showCrosshairs: false,

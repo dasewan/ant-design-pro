@@ -24,7 +24,7 @@ import type { TableListItem, TableListPagination } from './data';
 const TableList: React.FC = () => {
   /** 当前编辑数据 */
   /** 当前编辑数据 */
-  const [records, setRecords] = useState<TableListItem[] | undefined>([]);
+  const [records, setRecords] = useState<TableListItem[]>([]);
   const [dpd, setDpd] = useState<string>('');
   const [period, setPeriod] = useState<string>('');
   const [preParams, setPreParams] = useState<any>();
@@ -196,11 +196,12 @@ const TableList: React.FC = () => {
       </>
       <Spin spinning={loading}>
         <div key="1">
+          <Chart3 rawData={records} period={period} dpd={dpd} riskBundles={riskBundles}></Chart3>
           {_.chain(records)
             .groupBy('c_risk_role_bundle_parent_id')
             .map((item, index) => {
               return (
-                <>
+                <div key={index}>
                   <div>
                     {
                       riskBundles!.find(
@@ -209,15 +210,11 @@ const TableList: React.FC = () => {
                     }
                   </div>
                   <Row key={index} gutter={[16, 16]}>
-                    {' '}
-                    <Col key={1} span={18}>
+                    <Col key={1} span={24}>
                       <Chart key={index} rawData={item} period={period} dpd={dpd}></Chart>
                     </Col>
-                    <Col key={2} span={6}>
-                      <Chart3 key={index} rawData={item} period={period} dpd={dpd}></Chart3>
-                    </Col>
                   </Row>
-                </>
+                </div>
               );
             })
             .value()}
