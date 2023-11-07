@@ -1111,18 +1111,42 @@ declare namespace API {
     p_review_risk_role_count?: number;
     /** 拒绝占比 */
     q_refuse_risk_role_rate?: number;
-    /** 渠道画像 */
+    /** 渠道 */
     r_channel?: string;
-    /** 短信画像 */
+    /** 短信数 */
     s_sms?: string;
-    /** 联系人画像 */
+    /** 联系人数 */
     t_contact?: string;
-    /** app画像 */
+    /** app数 */
     u_app?: string;
-    /** 地区画像 */
+    /** 地区 */
     v_region?: string;
-    /** 年龄画像 */
+    /** 年龄 */
     w_age?: string;
+    /** 类型 1：风控 2：回滚 */
+    x_type?: number;
+    /** 年龄画像 */
+    y_age_risk_tag_id?: number;
+    /** 地区画像 */
+    z_region_risk_tag_id?: number;
+    /** app画像 */
+    a_a_app_risk_tag_id?: number;
+    /** 联系人画像 */
+    a_b_contact_tag_id?: number;
+    /** 短信画像 */
+    a_c_sms_tag_id?: number;
+    /** 渠道画像 */
+    a_d_channel_tag_id?: number;
+    /** 借款次数画像 */
+    a_e_borrow_count_tag_id?: number;
+    /** 是否放款 0:未放款 1:已放款 */
+    a_f_is_loan?: number;
+    /** 应还款期数 */
+    a_g_expected_period_count?: number;
+    /** 首逾次数 */
+    a_h_dpd1_count?: number;
+    /** 结清次数 */
+    a_i_settled_count?: number;
     /** deleted_at */
     deleted_at?: string;
     /** created_at */
@@ -1912,6 +1936,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WJRiskStrategiesIdParams = {
+    /** id of WJRiskStrategy */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -2600,6 +2629,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GGRiskStrateiesEnums2Params = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GGRiskStrateiesEnumsParams = {
     /** foo */
     foo: number;
@@ -3096,6 +3130,16 @@ declare namespace API {
   };
 
   type getAdminV1WIRiskBundlesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WJRiskStrategiesIdParams = {
+    /** id of WJRiskStrategy */
+    id: number;
+  };
+
+  type getAdminV1WJRiskStrategiesParams = {
     /** foo */
     foo: number;
   };
@@ -5306,6 +5350,11 @@ declare namespace API {
 
   type putAdminV1WIRiskBundlesIdParams = {
     /** id of WIRiskBundle */
+    id: number;
+  };
+
+  type putAdminV1WJRiskStrategiesIdParams = {
+    /** id of WJRiskStrategy */
     id: number;
   };
 
@@ -7918,6 +7967,77 @@ declare namespace API {
     c_risk_role_bundle_parent_id?: number;
     /** 策略 */
     d_risk_strategy_id?: number;
+    /** 版本 */
+    e_version?: number;
+    /** 总数 */
+    f_count?: number;
+    /** 通过数 */
+    g_accept_count?: number;
+    /** 拒绝数 */
+    h_reject_count?: number;
+    /** 人审数 */
+    i_review_count?: number;
+    /** 通过率 */
+    j_accept_rate?: number;
+    /** 拒绝率 */
+    k_reject_rate?: number;
+    /** 人审率 */
+    l_review_rate?: number;
+    /** P1应还款数 */
+    m_period1_expected_repay_count?: number;
+    /** P1逾期数 */
+    n_period1_overdue_count?: number;
+    /** P1已结清数 */
+    o_period1_settled_count?: number;
+    /** P2应还款数 */
+    p_period2_expected_repay_count?: number;
+    /** P2逾期数 */
+    q_period2_overdue_count?: number;
+    /** P2已结清数 */
+    r_period2_settled_count?: number;
+    /** P3应还款数 */
+    s_period3_expected_repay_count?: number;
+    /** P3逾期数 */
+    t_period3_overdue_count?: number;
+    /** P3已结清数 */
+    u_period3_settled_count?: number;
+    /** P4应还款数 */
+    v_period4_expected_repay_count?: number;
+    /** P4逾期数 */
+    w_period4_overdue_count?: number;
+    /** P4已结清数 */
+    x_period4_settled_count?: number;
+    /** P5应还款数 */
+    y_period5_expected_repay_count?: number;
+    /** P5逾期数 */
+    z_period5_overdue_count?: number;
+    /** P5已结清数 */
+    a_a_period5_settled_count?: number;
+    /** P6应还款数 */
+    a_b_period6_expected_repay_count?: number;
+    /** P6逾期数 */
+    a_c_period6_overdue_count?: number;
+    /** P6已结清数 */
+    a_d_period6_settled_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WJRiskStrategy = {
+    /** id */
+    id?: number;
+    /** 风控日期 */
+    a_risk_date?: string;
+    /** 规则 */
+    b_risk_strategy_id?: number;
+    /** 父规则 */
+    c_risk_strategy_parent_id?: number;
+    /** 策略 */
+    d_risk_strategy_route_id?: number;
     /** 版本 */
     e_version?: number;
     /** 总数 */

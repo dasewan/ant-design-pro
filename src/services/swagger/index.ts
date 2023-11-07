@@ -89,6 +89,7 @@ import * as WEProductProfit from './WEProductProfit';
 import * as WFDailyReport from './WFDailyReport';
 import * as WHOverdueRiskItemRange from './WHOverdueRiskItemRange';
 import * as WIRiskBundle from './WIRiskBundle';
+import * as WJRiskStrategy from './WJRiskStrategy';
 
 export default {
   ABCreditHistory,
@@ -178,4 +179,5 @@ export default {
   WFDailyReport,
   WHOverdueRiskItemRange,
   WIRiskBundle,
+  WJRiskStrategy,
 };

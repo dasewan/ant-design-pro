@@ -642,6 +642,12 @@ export default [
             path: '/statistics/risk/risk-bundle',
             component: './Statistics/Risk/RiskBundle',
           },
+          {
+            name: 'risk-strategy',
+            icon: 'smile',
+            path: '/statistics/risk/risk-strategy',
+            component: './Statistics/Risk/RiskStrategy',
+          },
         ],
       },
     ],
