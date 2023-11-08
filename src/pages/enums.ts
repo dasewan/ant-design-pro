@@ -535,6 +535,36 @@ export const RISK_TAGS_ARRAY: StatusOption[] = [
     value: '124',
   },
 ];
+export const RISK_TAGS_GROUP_ARRAY: StatusOption[] = [
+  {
+    label: '借款次数',
+    value: 'borrow',
+  },
+  {
+    label: '渠道',
+    value: 'channel',
+  },
+  {
+    label: '短信',
+    value: 'sms',
+  },
+  {
+    label: '通讯录',
+    value: 'contact',
+  },
+  {
+    label: 'APP',
+    value: 'app',
+  },
+  {
+    label: '地区',
+    value: 'region',
+  },
+  {
+    label: '年龄',
+    value: 'age',
+  },
+];
 export const DPDS: StatusOption[] = [
   {
     label: 'DPD0',

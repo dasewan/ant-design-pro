@@ -648,6 +648,12 @@ export default [
             path: '/statistics/risk/risk-strategy',
             component: './Statistics/Risk/RiskStrategy',
           },
+          {
+            name: 'risk-tag',
+            icon: 'smile',
+            path: '/statistics/risk/risk-tag',
+            component: './Statistics/Risk/RiskTag',
+          },
         ],
       },
     ],

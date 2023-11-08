@@ -90,6 +90,7 @@ import * as WFDailyReport from './WFDailyReport';
 import * as WHOverdueRiskItemRange from './WHOverdueRiskItemRange';
 import * as WIRiskBundle from './WIRiskBundle';
 import * as WJRiskStrategy from './WJRiskStrategy';
+import * as WKRiskTag from './WKRiskTag';
 
 export default {
   ABCreditHistory,
@@ -180,4 +181,5 @@ export default {
   WHOverdueRiskItemRange,
   WIRiskBundle,
   WJRiskStrategy,
+  WKRiskTag,
 };

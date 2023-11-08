@@ -1941,6 +1941,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WKRiskTagsIdParams = {
+    /** id of WKRiskTag */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -3140,6 +3145,16 @@ declare namespace API {
   };
 
   type getAdminV1WJRiskStrategiesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WKRiskTagsIdParams = {
+    /** id of WKRiskTag */
+    id: number;
+  };
+
+  type getAdminV1WKRiskTagsParams = {
     /** foo */
     foo: number;
   };
@@ -5355,6 +5370,11 @@ declare namespace API {
 
   type putAdminV1WJRiskStrategiesIdParams = {
     /** id of WJRiskStrategy */
+    id: number;
+  };
+
+  type putAdminV1WKRiskTagsIdParams = {
+    /** id of WKRiskTag */
     id: number;
   };
 
@@ -8040,6 +8060,77 @@ declare namespace API {
     d_risk_strategy_route_id?: number;
     /** 版本 */
     e_version?: number;
+    /** 总数 */
+    f_count?: number;
+    /** 通过数 */
+    g_accept_count?: number;
+    /** 拒绝数 */
+    h_reject_count?: number;
+    /** 人审数 */
+    i_review_count?: number;
+    /** 通过率 */
+    j_accept_rate?: number;
+    /** 拒绝率 */
+    k_reject_rate?: number;
+    /** 人审率 */
+    l_review_rate?: number;
+    /** P1应还款数 */
+    m_period1_expected_repay_count?: number;
+    /** P1逾期数 */
+    n_period1_overdue_count?: number;
+    /** P1已结清数 */
+    o_period1_settled_count?: number;
+    /** P2应还款数 */
+    p_period2_expected_repay_count?: number;
+    /** P2逾期数 */
+    q_period2_overdue_count?: number;
+    /** P2已结清数 */
+    r_period2_settled_count?: number;
+    /** P3应还款数 */
+    s_period3_expected_repay_count?: number;
+    /** P3逾期数 */
+    t_period3_overdue_count?: number;
+    /** P3已结清数 */
+    u_period3_settled_count?: number;
+    /** P4应还款数 */
+    v_period4_expected_repay_count?: number;
+    /** P4逾期数 */
+    w_period4_overdue_count?: number;
+    /** P4已结清数 */
+    x_period4_settled_count?: number;
+    /** P5应还款数 */
+    y_period5_expected_repay_count?: number;
+    /** P5逾期数 */
+    z_period5_overdue_count?: number;
+    /** P5已结清数 */
+    a_a_period5_settled_count?: number;
+    /** P6应还款数 */
+    a_b_period6_expected_repay_count?: number;
+    /** P6逾期数 */
+    a_c_period6_overdue_count?: number;
+    /** P6已结清数 */
+    a_d_period6_settled_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WKRiskTag = {
+    /** id */
+    id?: number;
+    /** 风控日期 */
+    a_risk_date?: string;
+    /** foo */
+    b_foo?: string;
+    /** 标签 */
+    c_risk_tag_id?: number;
+    /** 标签组 */
+    d_risk_tag_group?: string;
+    /** 策略 */
+    e_risk_strategy_parent_id?: number;
     /** 总数 */
     f_count?: number;
     /** 通过数 */
