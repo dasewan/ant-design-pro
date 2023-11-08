@@ -654,6 +654,12 @@ export default [
             path: '/statistics/risk/risk-tag',
             component: './Statistics/Risk/RiskTag',
           },
+          {
+            name: 'risk-region',
+            icon: 'smile',
+            path: '/statistics/risk/risk-region',
+            component: './Statistics/Risk/RiskRegion',
+          },
         ],
       },
     ],

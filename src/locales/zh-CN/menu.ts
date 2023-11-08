@@ -146,4 +146,5 @@ export default {
   'menu.statistics.risk.risk-bundle': '规则分析',
   'menu.statistics.risk.risk-strategy': '策略分析',
   'menu.statistics.risk.risk-tag': '画像分析',
+  'menu.statistics.risk.risk-region': '风险地区',
 };
