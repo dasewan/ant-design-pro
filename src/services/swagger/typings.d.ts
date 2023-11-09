@@ -3144,6 +3144,11 @@ declare namespace API {
     id: number;
   };
 
+  type getAdminV1WJRiskStrategiesIndex2Params = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1WJRiskStrategiesParams = {
     /** foo */
     foo: number;
