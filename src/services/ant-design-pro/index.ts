@@ -91,6 +91,7 @@ import * as WHOverdueRiskItemRange from './WHOverdueRiskItemRange';
 import * as WIRiskBundle from './WIRiskBundle';
 import * as WJRiskStrategy from './WJRiskStrategy';
 import * as WKRiskTag from './WKRiskTag';
+import * as WLCollectionAdmin from './WLCollectionAdmin';
 
 export default {
   ABCreditHistory,
@@ -182,4 +183,5 @@ export default {
   WIRiskBundle,
   WJRiskStrategy,
   WKRiskTag,
+  WLCollectionAdmin,
 };

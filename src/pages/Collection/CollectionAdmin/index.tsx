@@ -75,7 +75,7 @@ const TableList: React.FC = () => {
     }
   };
   /**
-   * 查询产品enum
+   * 查询组enum
    */
   const _getCollectionGroupsEnum = async () => {
     const data: RequestOptionsType[] = [];

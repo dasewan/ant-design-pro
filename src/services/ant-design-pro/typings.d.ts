@@ -1946,6 +1946,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WLCollectionAdminsIdParams = {
+    /** id of WLCollectionAdmin */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -3160,6 +3165,16 @@ declare namespace API {
   };
 
   type getAdminV1WKRiskTagsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WLCollectionAdminsIdParams = {
+    /** id of WLCollectionAdmin */
+    id: number;
+  };
+
+  type getAdminV1WLCollectionAdminsParams = {
     /** foo */
     foo: number;
   };
@@ -5380,6 +5395,11 @@ declare namespace API {
 
   type putAdminV1WKRiskTagsIdParams = {
     /** id of WKRiskTag */
+    id: number;
+  };
+
+  type putAdminV1WLCollectionAdminsIdParams = {
+    /** id of WLCollectionAdmin */
     id: number;
   };
 
@@ -8186,6 +8206,371 @@ declare namespace API {
     a_c_period6_overdue_count?: number;
     /** P6已结清数 */
     a_d_period6_settled_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WLCollectionAdmin = {
+    /** id */
+    id?: number;
+    /** 日期 */
+    a_date?: string;
+    /** 催员 */
+    b_collection_admin_id?: number;
+    /** 新入催数 */
+    d_collection_new_count?: number;
+    /** 管理员分配数 */
+    f_collection_admin_in_count?: number;
+    /** 管理员释放数 */
+    g_collection_admin_out_count?: number;
+    /** 机构 */
+    h_collection_agency_id?: number;
+    /** 小组 */
+    i_collection_group_id?: number;
+    /** foo */
+    j_foo?: number;
+    /** foo */
+    k_foo?: number;
+    /** 持有案件总数 */
+    l_a_collection_total_count?: number;
+    /** 持有案件总额 */
+    l_b_collection_total_amount?: number;
+    /** 未催数 */
+    l_c_no_track_count?: number;
+    /** 日志数 */
+    l_d_log_new_count?: number;
+    /** 短信数 */
+    l_e_sms_new_count?: number;
+    /** 呼叫数 */
+    l_f_call_new_count?: number;
+    /** 结清数 */
+    l_g_settled_count?: number;
+    /** 结清金额 */
+    l_h_settled_amount?: number;
+    /** 部分还款数 */
+    l_i_part_count?: number;
+    /** 部分还款金额 */
+    l_j_part_amount?: number;
+    /** 展期数 */
+    l_k_extend_count?: number;
+    /** 展期金额 */
+    l_l_extend_amount?: number;
+    /** level1佣金 */
+    l_m_level1_commission?: number;
+    /** level2佣金 */
+    l_n_level2_commission?: number;
+    /** level3佣金 */
+    l_o_level3_commission?: number;
+    /** 首日催回数 */
+    l_r_day1_paid_count?: number;
+    /** 首日催回金额 */
+    l_s_day1_paid_amount?: number;
+    /** 首日催回数 */
+    l_t_day1_action_count?: number;
+    /** 2-3催回数 */
+    l_u_day2_3_paid_count?: number;
+    /** 2-3催回金额 */
+    l_v_day2_3_paid_amount?: number;
+    /** 2-3催回数 */
+    l_w_day2_3_action_count?: number;
+    /** 4+催回数 */
+    l_x_day4_paid_count?: number;
+    /** 4+催回金额 */
+    l_y_day4_paid_amount?: number;
+    /** 4+操作数 */
+    l_z_day4_action_count?: number;
+    /** P1持有案件总数 */
+    m_a_collection_total_count?: number;
+    /** P1持有案件总额 */
+    m_b_collection_total_amount?: number;
+    /** P1未催数 */
+    m_c_no_track_count?: number;
+    /** P1日志数 */
+    m_d_log_new_count?: number;
+    /** P1短信数 */
+    m_e_sms_new_count?: number;
+    /** P1呼叫数 */
+    m_f_call_new_count?: number;
+    /** P1结清数 */
+    m_g_settled_count?: number;
+    /** P1结清金额 */
+    m_h_settled_amount?: number;
+    /** P1部分还款数 */
+    m_i_part_count?: number;
+    /** P1部分还款金额 */
+    m_j_part_amount?: number;
+    /** P1展期数 */
+    m_k_extend_count?: number;
+    /** P1展期金额 */
+    m_l_extend_amount?: number;
+    /** P1 level1佣金 */
+    m_m_level1_commission?: number;
+    /** P1 level2佣金 */
+    m_n_level2_commission?: number;
+    /** P1 level3佣金 */
+    m_o_level3_commission?: number;
+    /** P1首日催回数 */
+    m_r_day1_paid_count?: number;
+    /** P1首日催回金额 */
+    m_s_day1_paid_amount?: number;
+    /** P1首日催回数 */
+    m_t_day1_action_count?: number;
+    /** P1 2-3催回数 */
+    m_u_day2_3_paid_count?: number;
+    /** P1 2-3催回金额 */
+    m_v_day2_3_paid_amount?: number;
+    /** P1 2-3催回数 */
+    m_w_day2_3_action_count?: number;
+    /** P1 4+催回数 */
+    m_x_day4_paid_count?: number;
+    /** P1 4+催回金额 */
+    m_y_day4_paid_amount?: number;
+    /** P1 4+操作数 */
+    m_z_day4_action_count?: number;
+    /** P2持有案件总数 */
+    n_a_collection_total_count?: number;
+    /** P2持有案件总额 */
+    n_b_collection_total_amount?: number;
+    /** P2未催数 */
+    n_c_no_track_count?: number;
+    /** P2日志数 */
+    n_d_log_new_count?: number;
+    /** P2短信数 */
+    n_e_sms_new_count?: number;
+    /** P2呼叫数 */
+    n_f_call_new_count?: number;
+    /** P2结清数 */
+    n_g_settled_count?: number;
+    /** P2结清金额 */
+    n_h_settled_amount?: number;
+    /** P2部分还款数 */
+    n_i_part_count?: number;
+    /** P2部分还款金额 */
+    n_j_part_amount?: number;
+    /** P2展期数 */
+    n_k_extend_count?: number;
+    /** P2展期金额 */
+    n_l_extend_amount?: number;
+    /** P2 level1佣金 */
+    n_m_level1_commission?: number;
+    /** P2 level2佣金 */
+    n_n_level2_commission?: number;
+    /** P2 level3佣金 */
+    n_o_level3_commission?: number;
+    /** P2首日催回数 */
+    n_r_day1_paid_count?: number;
+    /** P2首日催回金额 */
+    n_s_day1_paid_amount?: number;
+    /** P2首日催回数 */
+    n_t_day1_action_count?: number;
+    /** P2 2-3催回数 */
+    n_u_day2_3_paid_count?: number;
+    /** P2 2-3催回金额 */
+    n_v_day2_3_paid_amount?: number;
+    /** P2 2-3催回数 */
+    n_w_day2_3_action_count?: number;
+    /** P2 4+催回数 */
+    n_x_day4_paid_count?: number;
+    /** P2 4+催回金额 */
+    n_y_day4_paid_amount?: number;
+    /** P2 4+操作数 */
+    n_z_day4_action_count?: number;
+    /** P3持有案件总数 */
+    o_a_collection_total_count?: number;
+    /** P3持有案件总额 */
+    o_b_collection_total_amount?: number;
+    /** P3未催数 */
+    o_c_no_track_count?: number;
+    /** P3日志数 */
+    o_d_log_new_count?: number;
+    /** P3短信数 */
+    o_e_sms_new_count?: number;
+    /** P3呼叫数 */
+    o_f_call_new_count?: number;
+    /** P3结清数 */
+    o_g_settled_count?: number;
+    /** P3结清金额 */
+    o_h_settled_amount?: number;
+    /** P3部分还款数 */
+    o_i_part_count?: number;
+    /** P3部分还款金额 */
+    o_j_part_amount?: number;
+    /** P3展期数 */
+    o_k_extend_count?: number;
+    /** P3展期金额 */
+    o_l_extend_amount?: number;
+    /** P3 level1佣金 */
+    o_m_level1_commission?: number;
+    /** P3 level2佣金 */
+    o_n_level2_commission?: number;
+    /** P3 level3佣金 */
+    o_o_level3_commission?: number;
+    /** P3首日催回数 */
+    o_r_day1_paid_count?: number;
+    /** P3首日催回金额 */
+    o_s_day1_paid_amount?: number;
+    /** P3首日催回数 */
+    o_t_day1_action_count?: number;
+    /** P3 2-3催回数 */
+    o_u_day2_3_paid_count?: number;
+    /** P3 2-3催回金额 */
+    o_v_day2_3_paid_amount?: number;
+    /** P3 2-3催回数 */
+    o_w_day2_3_action_count?: number;
+    /** P3 4+催回数 */
+    o_x_day4_paid_count?: number;
+    /** P3 4+催回金额 */
+    o_y_day4_paid_amount?: number;
+    /** P3 4+操作数 */
+    o_z_day4_action_count?: number;
+    /** P4持有案件总数 */
+    p_a_collection_total_count?: number;
+    /** P4持有案件总额 */
+    p_b_collection_total_amount?: number;
+    /** P4未催数 */
+    p_c_no_track_count?: number;
+    /** P4日志数 */
+    p_d_log_new_count?: number;
+    /** P4短信数 */
+    p_e_sms_new_count?: number;
+    /** P4呼叫数 */
+    p_f_call_new_count?: number;
+    /** P4结清数 */
+    p_g_settled_count?: number;
+    /** P4结清金额 */
+    p_h_settled_amount?: number;
+    /** P4部分还款数 */
+    p_i_part_count?: number;
+    /** P4部分还款金额 */
+    p_j_part_amount?: number;
+    /** P4展期数 */
+    p_k_extend_count?: number;
+    /** P4展期金额 */
+    p_l_extend_amount?: number;
+    /** P4 level1佣金 */
+    p_m_level1_commission?: number;
+    /** P4 level2佣金 */
+    p_n_level2_commission?: number;
+    /** P4 level3佣金 */
+    p_o_level3_commission?: number;
+    /** P4首日催回数 */
+    p_r_day1_paid_count?: number;
+    /** P4首日催回金额 */
+    p_s_day1_paid_amount?: number;
+    /** P4首日催回数 */
+    p_t_day1_action_count?: number;
+    /** P4 2-3催回数 */
+    p_u_day2_3_paid_count?: number;
+    /** P4 2-3催回金额 */
+    p_v_day2_3_paid_amount?: number;
+    /** P4 2-3催回数 */
+    p_w_day2_3_action_count?: number;
+    /** P4 4+催回数 */
+    p_x_day4_paid_count?: number;
+    /** P4 4+催回金额 */
+    p_y_day4_paid_amount?: number;
+    /** P4 4+操作数 */
+    p_z_day4_action_count?: number;
+    /** P5持有案件总数 */
+    q_a_collection_total_count?: number;
+    /** P5持有案件总额 */
+    q_b_collection_total_amount?: number;
+    /** P5未催数 */
+    q_c_no_track_count?: number;
+    /** P5日志数 */
+    q_d_log_new_count?: number;
+    /** P5短信数 */
+    q_e_sms_new_count?: number;
+    /** P5呼叫数 */
+    q_f_call_new_count?: number;
+    /** P5结清数 */
+    q_g_settled_count?: number;
+    /** P5结清金额 */
+    q_h_settled_amount?: number;
+    /** P5部分还款数 */
+    q_i_part_count?: number;
+    /** P5部分还款金额 */
+    q_j_part_amount?: number;
+    /** P5展期数 */
+    q_k_extend_count?: number;
+    /** P5展期金额 */
+    q_l_extend_amount?: number;
+    /** P5 level1佣金 */
+    q_m_level1_commission?: number;
+    /** P5 level2佣金 */
+    q_n_level2_commission?: number;
+    /** P5 level3佣金 */
+    q_o_level3_commission?: number;
+    /** P5首日催回数 */
+    q_r_day1_paid_count?: number;
+    /** P5首日催回金额 */
+    q_s_day1_paid_amount?: number;
+    /** P5首日催回数 */
+    q_t_day1_action_count?: number;
+    /** P5 2-3催回数 */
+    q_u_day2_3_paid_count?: number;
+    /** P5 2-3催回金额 */
+    q_v_day2_3_paid_amount?: number;
+    /** P5 2-3催回数 */
+    q_w_day2_3_action_count?: number;
+    /** P5 4+催回数 */
+    q_x_day4_paid_count?: number;
+    /** P5 4+催回金额 */
+    q_y_day4_paid_amount?: number;
+    /** P5 4+操作数 */
+    q_z_day4_action_count?: number;
+    /** P6持有案件总数 */
+    r_a_collection_total_count?: number;
+    /** P6持有案件总额 */
+    r_b_collection_total_amount?: number;
+    /** P6未催数 */
+    r_c_no_track_count?: number;
+    /** P6日志数 */
+    r_d_log_new_count?: number;
+    /** P6短信数 */
+    r_e_sms_new_count?: number;
+    /** P6呼叫数 */
+    r_f_call_new_count?: number;
+    /** P6结清数 */
+    r_g_settled_count?: number;
+    /** P6结清金额 */
+    r_h_settled_amount?: number;
+    /** P6部分还款数 */
+    r_i_part_count?: number;
+    /** P6部分还款金额 */
+    r_j_part_amount?: number;
+    /** P6展期数 */
+    r_k_extend_count?: number;
+    /** P6展期金额 */
+    r_l_extend_amount?: number;
+    /** P6 level1佣金 */
+    r_m_level1_commission?: number;
+    /** P6 level2佣金 */
+    r_n_level2_commission?: number;
+    /** P6 level3佣金 */
+    r_o_level3_commission?: number;
+    /** P6首日催回数 */
+    r_r_day1_paid_count?: number;
+    /** P6首日催回金额 */
+    r_s_day1_paid_amount?: number;
+    /** P6首日催回数 */
+    r_t_day1_action_count?: number;
+    /** P6 2-3催回数 */
+    r_u_day2_3_paid_count?: number;
+    /** P6 2-3催回金额 */
+    r_v_day2_3_paid_amount?: number;
+    /** P6 2-3催回数 */
+    r_w_day2_3_action_count?: number;
+    /** P6 4+催回数 */
+    r_x_day4_paid_count?: number;
+    /** P6 4+催回金额 */
+    r_y_day4_paid_amount?: number;
+    /** P6 4+操作数 */
+    r_z_day4_action_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

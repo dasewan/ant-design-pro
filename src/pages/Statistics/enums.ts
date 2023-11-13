@@ -1,3 +1,4 @@
+import { FieldLabels } from '@/pages/Statistics/Collection/Admin/service';
 import { SelectProps } from 'antd';
 
 type StatusOption = {
@@ -254,3 +255,22 @@ export const Y_AXIS: SelectProps<any>['options'] | string[] = [
     ],
   },
 ];
+
+export const PERIOD_FLAG: { [propName: string]: string } = {
+  l: '',
+  m: 'P1',
+  n: 'P2',
+  o: 'P3',
+  p: 'P4',
+  q: 'P5',
+  r: 'P6',
+};
+export const FieldOptions = Object.fromEntries(
+  Object.entries(FieldLabels).map(([key, text]) => {
+    return [key, { text, status: 'Default' }];
+  }),
+);
+export const FieldOptions2 = Object.entries(FieldLabels).map(([value, label]) => ({
+  label,
+  value,
+}));

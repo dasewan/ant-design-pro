@@ -668,6 +668,19 @@ export default [
           },
         ],
       },
+      {
+        name: 'collection',
+        icon: 'smile',
+        path: '/statistics/collection',
+        routes: [
+          {
+            name: 'admin',
+            icon: 'smile',
+            path: '/statistics/collection/admin',
+            component: './Statistics/Collection/Admin',
+          },
+        ],
+      },
     ],
   },
   {

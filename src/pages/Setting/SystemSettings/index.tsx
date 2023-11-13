@@ -24,6 +24,7 @@ const Settings: React.FC = () => {
     loan: '放款配置',
     repay: '还款配置',
     merchant: '商户配置',
+    admin: '后台设置',
     other: '其他配置',
   };
   const menuInfoMap: Record<string, React.ReactNode> = {
@@ -80,6 +81,7 @@ const Settings: React.FC = () => {
         const repayData: API.GHSetting[] = [];
         const loanData: API.GHSetting[] = [];
         const merchantData: API.GHSetting[] = [];
+        const adminData: API.GHSetting[] = [];
         const otherData: API.GHSetting[] = [];
         const tmpMap: Map<string, API.GHSetting[]> = new Map();
 
@@ -106,10 +108,14 @@ const Settings: React.FC = () => {
             case 'merchant':
               merchantData.push(_item);
               break;
+            case 'admin':
+              adminData.push(_item);
+              break;
             case 'other':
               otherData.push(_item);
               break;
           }
+          return _item;
         });
         tmpMap.set('register', registerData);
         tmpMap.set('verify', verifyData);
@@ -118,6 +124,7 @@ const Settings: React.FC = () => {
         tmpMap.set('loan', loanData);
         tmpMap.set('repay', repayData);
         tmpMap.set('merchant', merchantData);
+        tmpMap.set('admin', adminData);
         tmpMap.set('other', otherData);
 
         setDataMap(tmpMap);

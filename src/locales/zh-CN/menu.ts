@@ -148,4 +148,6 @@ export default {
   'menu.statistics.risk.risk-tag': '画像分析',
   'menu.statistics.risk.risk-region': '风险地区',
   'menu.statistics.risk.risk-tree': '风控矩形分析',
+  'menu.statistics.collection': '催收报表',
+  'menu.statistics.collection.admin': '催员报表',
 };
