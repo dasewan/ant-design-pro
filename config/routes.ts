@@ -679,6 +679,12 @@ export default [
             path: '/statistics/collection/admin',
             component: './Statistics/Collection/Admin',
           },
+          {
+            name: 'report',
+            icon: 'smile',
+            path: '/statistics/collection/report',
+            component: './Statistics/Collection/Report',
+          },
         ],
       },
     ],

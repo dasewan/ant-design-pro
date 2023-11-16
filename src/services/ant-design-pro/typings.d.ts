@@ -1951,6 +1951,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WMCollectionReportsIdParams = {
+    /** id of WMCollectionReport */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -3175,6 +3180,16 @@ declare namespace API {
   };
 
   type getAdminV1WLCollectionAdminsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WMCollectionReportsIdParams = {
+    /** id of WMCollectionReport */
+    id: number;
+  };
+
+  type getAdminV1WMCollectionReportsParams = {
     /** foo */
     foo: number;
   };
@@ -5400,6 +5415,11 @@ declare namespace API {
 
   type putAdminV1WLCollectionAdminsIdParams = {
     /** id of WLCollectionAdmin */
+    id: number;
+  };
+
+  type putAdminV1WMCollectionReportsIdParams = {
+    /** id of WMCollectionReport */
     id: number;
   };
 
@@ -8577,5 +8597,268 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+  };
+
+  type WMCollectionReport = {
+    /** id */
+    id?: number;
+    /** 首次入催日期 */
+    a_date?: string;
+    /** 期数 */
+    b_period_index?: number;
+    /** c_parent_id */
+    c_parent_id?: number;
+    /** 入催总数 */
+    d_count?: number;
+    /** 入催总额 */
+    e_amount?: number;
+    /** 结清数 */
+    settled_count?: number;
+    /** 结清金额 */
+    settled_amount?: number;
+    /** 部分还款数 */
+    part_count?: number;
+    /** 部分还款金额 */
+    part_amount?: number;
+    /** 展期数 */
+    extend_count?: number;
+    /** 展期金额 */
+    extend_amount?: number;
+    /** 催回总额 */
+    collection_success_amount?: number;
+    /** 催回总数 */
+    collection_success_count?: number;
+    /** DPD-3结清数 */
+    'dpd-3_settled_count'?: number;
+    /** DPD-3结清金额 */
+    'dpd-3_settled_amount'?: number;
+    /** DPD-3部分还款数 */
+    'dpd-3_part_count'?: number;
+    /** DPD-3部分还款金额 */
+    'dpd-3_part_amount'?: number;
+    /** DPD-3展期数 */
+    'dpd-3_extend_count'?: number;
+    /** DPD-3展期金额 */
+    'dpd-3_extend_amount'?: number;
+    /** DPD-3催回总额 */
+    'dpd-3_collection_success_amount'?: number;
+    /** DPD-3催回总数 */
+    'dpd-3_collection_success_count'?: number;
+    /** DPD-2结清数 */
+    'dpd-2_settled_count'?: number;
+    /** DPD-2结清金额 */
+    'dpd-2_settled_amount'?: number;
+    /** DPD-2部分还款数 */
+    'dpd-2_part_count'?: number;
+    /** DPD-2部分还款金额 */
+    'dpd-2_part_amount'?: number;
+    /** DPD-2展期数 */
+    'dpd-2_extend_count'?: number;
+    /** DPD-2展期金额 */
+    'dpd-2_extend_amount'?: number;
+    /** DPD-2催回总额 */
+    'dpd-2_collection_success_amount'?: number;
+    /** DPD-2催回总数 */
+    'dpd-2_collection_success_count'?: number;
+    /** DPD-1结清数 */
+    'dpd-1_settled_count'?: number;
+    /** DPD-1结清金额 */
+    'dpd-1_settled_amount'?: number;
+    /** DPD-1部分还款数 */
+    'dpd-1_part_count'?: number;
+    /** DPD-1部分还款金额 */
+    'dpd-1_part_amount'?: number;
+    /** DPD-1展期数 */
+    'dpd-1_extend_count'?: number;
+    /** DPD-1展期金额 */
+    'dpd-1_extend_amount'?: number;
+    /** DPD-1催回总额 */
+    'dpd-1_collection_success_amount'?: number;
+    /** DPD-1催回总数 */
+    'dpd-1_collection_success_count'?: number;
+    /** DPD-0结清数 */
+    dpd0_settled_count?: number;
+    /** DPD-0结清金额 */
+    dpd0_settled_amount?: number;
+    /** DPD-0部分还款数 */
+    dpd0_part_count?: number;
+    /** DPD-0部分还款金额 */
+    dpd0_part_amount?: number;
+    /** DPD-0展期数 */
+    dpd0_extend_count?: number;
+    /** DPD-0展期金额 */
+    dpd0_extend_amount?: number;
+    /** DPD-0催回总额 */
+    dpd0_collection_success_amount?: number;
+    /** DPD-0催回总数 */
+    dpd0_collection_success_count?: number;
+    /** DPD1结清数 */
+    dpd1_settled_count?: number;
+    /** DPD1结清金额 */
+    dpd1_settled_amount?: number;
+    /** DPD1部分还款数 */
+    dpd1_part_count?: number;
+    /** DPD1部分还款金额 */
+    dpd1_part_amount?: number;
+    /** DPD1展期数 */
+    dpd1_extend_count?: number;
+    /** DPD1展期金额 */
+    dpd1_extend_amount?: number;
+    /** DPD1催回总额 */
+    dpd1_collection_success_amount?: number;
+    /** DPD1催回总数 */
+    dpd1_collection_success_count?: number;
+    /** DPD2结清数 */
+    dpd2_settled_count?: number;
+    /** DPD2结清金额 */
+    dpd2_settled_amount?: number;
+    /** DPD2部分还款数 */
+    dpd2_part_count?: number;
+    /** DPD2部分还款金额 */
+    dpd2_part_amount?: number;
+    /** DPD2展期数 */
+    dpd2_extend_count?: number;
+    /** DPD2展期金额 */
+    dpd2_extend_amount?: number;
+    /** DPD2催回总额 */
+    dpd2_collection_success_amount?: number;
+    /** DPD2催回总数 */
+    dpd2_collection_success_count?: number;
+    /** DPD3结清数 */
+    dpd3_settled_count?: number;
+    /** DPD3结清金额 */
+    dpd3_settled_amount?: number;
+    /** DPD3部分还款数 */
+    dpd3_part_count?: number;
+    /** DPD3部分还款金额 */
+    dpd3_part_amount?: number;
+    /** DPD3展期数 */
+    dpd3_extend_count?: number;
+    /** DPD3展期金额 */
+    dpd3_extend_amount?: number;
+    /** DPD3催回总额 */
+    dpd3_collection_success_amount?: number;
+    /** DPD3催回总数 */
+    dpd3_collection_success_count?: number;
+    /** DPD4结清数 */
+    dpd4_settled_count?: number;
+    /** DPD4结清金额 */
+    dpd4_settled_amount?: number;
+    /** DPD4部分还款数 */
+    dpd4_part_count?: number;
+    /** DPD4部分还款金额 */
+    dpd4_part_amount?: number;
+    /** DPD4展期数 */
+    dpd4_extend_count?: number;
+    /** DPD4展期金额 */
+    dpd4_extend_amount?: number;
+    /** DPD4催回总额 */
+    dpd4_collection_success_amount?: number;
+    /** DPD4催回总数 */
+    dpd4_collection_success_count?: number;
+    /** DPD5结清数 */
+    dpd5_settled_count?: number;
+    /** DPD5结清金额 */
+    dpd5_settled_amount?: number;
+    /** DPD5部分还款数 */
+    dpd5_part_count?: number;
+    /** DPD5部分还款金额 */
+    dpd5_part_amount?: number;
+    /** DPD5展期数 */
+    dpd5_extend_count?: number;
+    /** DPD5展期金额 */
+    dpd5_extend_amount?: number;
+    /** DPD5催回总额 */
+    dpd5_collection_success_amount?: number;
+    /** DPD5催回总数 */
+    dpd5_collection_success_count?: number;
+    /** DPD6结清数 */
+    dpd6_settled_count?: number;
+    /** DPD6结清金额 */
+    dpd6_settled_amount?: number;
+    /** DPD6部分还款数 */
+    dpd6_part_count?: number;
+    /** DPD6部分还款金额 */
+    dpd6_part_amount?: number;
+    /** DPD6展期数 */
+    dpd6_extend_count?: number;
+    /** DPD6展期金额 */
+    dpd6_extend_amount?: number;
+    /** DPD6催回总额 */
+    dpd6_collection_success_amount?: number;
+    /** DPD6催回总数 */
+    dpd6_collection_success_count?: number;
+    /** DPD7结清数 */
+    dpd7_settled_count?: number;
+    /** DPD7结清金额 */
+    dpd7_settled_amount?: number;
+    /** DPD7部分还款数 */
+    dpd7_part_count?: number;
+    /** DPD7部分还款金额 */
+    dpd7_part_amount?: number;
+    /** DPD7展期数 */
+    dpd7_extend_count?: number;
+    /** DPD7展期金额 */
+    dpd7_extend_amount?: number;
+    /** DPD7催回总额 */
+    dpd7_collection_success_amount?: number;
+    /** DPD7催回总数 */
+    dpd7_collection_success_count?: number;
+    /** DPD8-15结清数 */
+    'dpd8-15_settled_count'?: number;
+    /** DPD8-15结清金额 */
+    'dpd8-15_settled_amount'?: number;
+    /** DPD8-15部分还款数 */
+    'dpd8-15_part_count'?: number;
+    /** DPD8-15部分还款金额 */
+    'dpd8-15_part_amount'?: number;
+    /** DPD8-15展期数 */
+    'dpd8-15_extend_count'?: number;
+    /** DPD8-15展期金额 */
+    'dpd8-15_extend_amount'?: number;
+    /** DPD8-15催回总额 */
+    'dpd8-15_collection_success_amount'?: number;
+    /** DPD8-15催回总数 */
+    'dpd8-15_collection_success_count'?: number;
+    /** DPD16-30结清数 */
+    'dpd16-30_settled_count'?: number;
+    /** DPD16-30结清金额 */
+    'dpd16-30_settled_amount'?: number;
+    /** DPD16-30部分还款数 */
+    'dpd16-30_part_count'?: number;
+    /** DPD16-30部分还款金额 */
+    'dpd16-30_part_amount'?: number;
+    /** DPD16-30展期数 */
+    'dpd16-30_extend_count'?: number;
+    /** DPD16-30展期金额 */
+    'dpd16-30_extend_amount'?: number;
+    /** DPD16-30催回总额 */
+    'dpd16-30_collection_success_amount'?: number;
+    /** DPD16-30催回总数 */
+    'dpd16-30_collection_success_count'?: number;
+    /** DPD31+结清数 */
+    dpd31_settled_count?: number;
+    /** DPD31+结清金额 */
+    dpd31_settled_amount?: number;
+    /** DPD31+部分还款数 */
+    dpd31_part_count?: number;
+    /** DPD31+部分还款金额 */
+    dpd31_part_amount?: number;
+    /** DPD31+展期数 */
+    dpd31_extend_count?: number;
+    /** DPD31+展期金额 */
+    dpd31_extend_amount?: number;
+    /** DPD31+催回总额 */
+    dpd31_collection_success_amount?: number;
+    /** DPD31+催回总数 */
+    dpd31_collection_success_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+    /** children */
+    children?: WMCollectionReport[];
   };
 }

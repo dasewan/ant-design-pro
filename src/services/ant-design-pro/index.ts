@@ -92,6 +92,7 @@ import * as WIRiskBundle from './WIRiskBundle';
 import * as WJRiskStrategy from './WJRiskStrategy';
 import * as WKRiskTag from './WKRiskTag';
 import * as WLCollectionAdmin from './WLCollectionAdmin';
+import * as WMCollectionReport from './WMCollectionReport';
 
 export default {
   ABCreditHistory,
@@ -184,4 +185,5 @@ export default {
   WJRiskStrategy,
   WKRiskTag,
   WLCollectionAdmin,
+  WMCollectionReport,
 };
