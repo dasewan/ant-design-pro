@@ -93,6 +93,7 @@ import * as WJRiskStrategy from './WJRiskStrategy';
 import * as WKRiskTag from './WKRiskTag';
 import * as WLCollectionAdmin from './WLCollectionAdmin';
 import * as WMCollectionReport from './WMCollectionReport';
+import * as WNCollectionFlow from './WNCollectionFlow';
 
 export default {
   ABCreditHistory,
@@ -186,4 +187,5 @@ export default {
   WKRiskTag,
   WLCollectionAdmin,
   WMCollectionReport,
+  WNCollectionFlow,
 };

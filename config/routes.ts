@@ -685,6 +685,12 @@ export default [
             path: '/statistics/collection/report',
             component: './Statistics/Collection/Report',
           },
+          {
+            name: 'flow',
+            icon: 'smile',
+            path: '/statistics/collection/flow',
+            component: './Statistics/Collection/Flow',
+          },
         ],
       },
     ],

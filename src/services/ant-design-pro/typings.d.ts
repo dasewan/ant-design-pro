@@ -1956,6 +1956,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WNCollectionFlowsIdParams = {
+    /** id of WNCollectionFlow */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -3190,6 +3195,16 @@ declare namespace API {
   };
 
   type getAdminV1WMCollectionReportsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WNCollectionFlowsIdParams = {
+    /** id of WNCollectionFlow */
+    id: number;
+  };
+
+  type getAdminV1WNCollectionFlowsParams = {
     /** foo */
     foo: number;
   };
@@ -5420,6 +5435,11 @@ declare namespace API {
 
   type putAdminV1WMCollectionReportsIdParams = {
     /** id of WMCollectionReport */
+    id: number;
+  };
+
+  type putAdminV1WNCollectionFlowsIdParams = {
+    /** id of WNCollectionFlow */
     id: number;
   };
 
@@ -8860,5 +8880,30 @@ declare namespace API {
     deleted_at?: string;
     /** children */
     children?: WMCollectionReport[];
+  };
+
+  type WNCollectionFlow = {
+    /** id */
+    id?: number;
+    /** 日期 */
+    a_date?: string;
+    /** source */
+    source: string;
+    /** target */
+    target: string;
+    /** 数量 */
+    value?: number;
+    /** 金额 */
+    value2?: number;
+    /** 类型 1:结构 2:小组 3:催员 */
+    type?: number;
+    /** code */
+    code: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 }
