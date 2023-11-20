@@ -693,6 +693,46 @@ export default [
           },
         ],
       },
+
+      {
+        name: 'sms',
+        icon: 'smile',
+        path: '/statistics/sms',
+        routes: [
+          {
+            name: 'back-fill',
+            icon: 'smile',
+            path: '/statistics/sms/back-fill',
+            component: './Statistics/Sms/BackFill',
+          },
+          {
+            name: 'report',
+            icon: 'smile',
+            path: '/statistics/sms/report',
+            component: './Statistics/Sms/Report',
+          },
+          {
+            name: 'template',
+            icon: 'smile',
+            path: '/statistics/sms/template',
+            component: './Statistics/Sms/Template',
+          },
+        ],
+      },
+      {
+        name: 'finance',
+        icon: 'smile',
+        path: '/statistics/finance',
+        routes: [
+          {
+            name: 'fee',
+            icon: 'smile',
+            path: '/statistics/finance/fee',
+            component: './Statistics/Finance/Fee',
+          },
+        ],
+      },
+
     ],
   },
   {

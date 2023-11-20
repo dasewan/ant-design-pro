@@ -1,11 +1,11 @@
-import { FieldLabels } from '@/pages/Statistics/Collection/Admin/service';
-import { PERIOD_FLAG } from '@/pages/Statistics/enums';
-import { G2, Mix } from '@ant-design/plots';
-import type { RequestOptionsType } from '@ant-design/pro-utils';
+import {FieldLabels} from '@/pages/Statistics/Collection/Admin/service';
+import {PERIOD_FLAG} from '@/pages/Statistics/enums';
+import {G2, Mix} from '@ant-design/plots';
+import type {RequestOptionsType} from '@ant-design/pro-utils';
 import * as _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import type { TableListItem } from '../data';
+import type {TableListItem} from '../data';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;
@@ -222,36 +222,6 @@ const Chart2: React.FC<FormProps> = (props) => {
             {
               type: 'custom-association-filter',
             },
-            // 后续开放
-            // {
-            //   type: 'association-tooltip',
-            //   cfg: {
-            //     start: [
-            //       {
-            //         trigger: 'element:mousemove',
-            //         action: 'association:showTooltip',
-            //         arg: {
-            //           dim: 'x',
-            //           linkField: 'area',
-            //         },
-            //       },
-            //     ],
-            //   },
-            // },
-            // {
-            //   type: 'association-highlight',
-            //   cfg: {
-            //     start: [
-            //       {
-            //         trigger: 'element:mousemove',
-            //         action: 'association:highlight',
-            //         arg: {
-            //           linkField: 'area',
-            //         },
-            //       },
-            //     ],
-            //   },
-            // },
           ],
         },
       },

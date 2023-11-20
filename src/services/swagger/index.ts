@@ -94,6 +94,10 @@ import * as WKRiskTag from './WKRiskTag';
 import * as WLCollectionAdmin from './WLCollectionAdmin';
 import * as WMCollectionReport from './WMCollectionReport';
 import * as WNCollectionFlow from './WNCollectionFlow';
+import * as WOFee from './WOFee';
+import * as WPBackFill from './WPBackFill';
+import * as WQSmsReport from './WQSmsReport';
+import * as WRSmsTemplate from './WRSmsTemplate';
 
 export default {
   ABCreditHistory,
@@ -188,4 +192,8 @@ export default {
   WLCollectionAdmin,
   WMCollectionReport,
   WNCollectionFlow,
+  WOFee,
+  WPBackFill,
+  WQSmsReport,
+  WRSmsTemplate,
 };

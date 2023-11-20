@@ -152,4 +152,10 @@ export default {
   'menu.statistics.collection.admin': '催员报表',
   'menu.statistics.collection.report': '催收日报',
   'menu.statistics.collection.flow': '流转日报',
+  'menu.statistics.sms': '短信报表',
+  'menu.statistics.sms.back-fill': '回填统计',
+  'menu.statistics.sms.report': '短信日报',
+  'menu.statistics.sms.template': '模版统计',
+  'menu.statistics.finance': '财务报表',
+  'menu.statistics.finance.fee': '财务报表',
 };

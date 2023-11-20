@@ -1,5 +1,6 @@
-import { FieldLabels } from '@/pages/Statistics/Collection/Admin/service';
-import { SelectProps } from 'antd';
+import {FieldLabels} from '@/pages/Statistics/Collection/Admin/service';
+import {SelectProps} from 'antd';
+import {StatusColorEnum} from "@/pages/enums";
 
 type StatusOption = {
   label: string;
@@ -267,10 +268,19 @@ export const PERIOD_FLAG: { [propName: string]: string } = {
 };
 export const FieldOptions = Object.fromEntries(
   Object.entries(FieldLabels).map(([key, text]) => {
-    return [key, { text, status: 'Default' }];
+    return [key, {text, status: 'Default'}];
   }),
 );
 export const FieldOptions2 = Object.entries(FieldLabels).map(([value, label]) => ({
   label,
   value,
 }));
+// 类型 1:放款 2:还款 3:短信 4:风控 5:营销 6:其他
+export const FINANCE_FEE_TYPE: StatusColorEnum = {
+  1: {text: '放款', color: 'blue'},
+  2: {text: '还款', color: 'green'},
+  3: {text: '短信', color: '#00e5f7'},
+  4: {text: '风控', color: 'red'},
+  5: {text: '营销', color: '#9543a1'},
+  6: {text: '其他', color: '#f7cb00'},
+};

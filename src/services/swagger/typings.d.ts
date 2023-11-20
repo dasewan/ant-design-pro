@@ -1961,6 +1961,26 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WOFeesIdParams = {
+    /** id of WOFee */
+    id: number;
+  };
+
+  type deleteAdminV1WPBackFillsIdParams = {
+    /** id of WPBackFill */
+    id: number;
+  };
+
+  type deleteAdminV1WQSmsReportsIdParams = {
+    /** id of WQSmsReport */
+    id: number;
+  };
+
+  type deleteAdminV1WRSmsTemplatesIdParams = {
+    /** id of WRSmsTemplate */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -3205,6 +3225,46 @@ declare namespace API {
   };
 
   type getAdminV1WNCollectionFlowsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WOFeesIdParams = {
+    /** id of WOFee */
+    id: number;
+  };
+
+  type getAdminV1WOFeesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WPBackFillsIdParams = {
+    /** id of WPBackFill */
+    id: number;
+  };
+
+  type getAdminV1WPBackFillsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WQSmsReportsIdParams = {
+    /** id of WQSmsReport */
+    id: number;
+  };
+
+  type getAdminV1WQSmsReportsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WRSmsTemplatesIdParams = {
+    /** id of WRSmsTemplate */
+    id: number;
+  };
+
+  type getAdminV1WRSmsTemplatesParams = {
     /** foo */
     foo: number;
   };
@@ -5440,6 +5500,26 @@ declare namespace API {
 
   type putAdminV1WNCollectionFlowsIdParams = {
     /** id of WNCollectionFlow */
+    id: number;
+  };
+
+  type putAdminV1WOFeesIdParams = {
+    /** id of WOFee */
+    id: number;
+  };
+
+  type putAdminV1WPBackFillsIdParams = {
+    /** id of WPBackFill */
+    id: number;
+  };
+
+  type putAdminV1WQSmsReportsIdParams = {
+    /** id of WQSmsReport */
+    id: number;
+  };
+
+  type putAdminV1WRSmsTemplatesIdParams = {
+    /** id of WRSmsTemplate */
     id: number;
   };
 
@@ -8899,6 +8979,210 @@ declare namespace API {
     type?: number;
     /** code */
     code: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WOFee = {
+    /** id */
+    id?: number;
+    /** 日期 */
+    a_date?: string;
+    /** 类型 1:放款 2:还款 3:短信 4:风控 5:营销 6:其他 */
+    b_type?: number;
+    /** 币种 */
+    c_currency: string;
+    /** 服务商 */
+    d_name: string;
+    /** 成功数量 */
+    e_success_count?: number;
+    /** 成功金额 */
+    f_success_amount?: number;
+    /** 失败数量 */
+    g_fail_count?: number;
+    /** 失败金额 */
+    h_fail_amount?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WPBackFill = {
+    /** id */
+    id?: number;
+    /** 日期 */
+    a_date?: string;
+    /** 服务商 */
+    b_name: string;
+    /** 发送条数 */
+    c_sented_count?: number;
+    /** 送达条数 */
+    d_delivered_count?: number;
+    /** 送达率 */
+    e_delivered_rate?: number;
+    /** 发送人数 */
+    f_sented_person?: number;
+    /** 成功人数 */
+    g_success_person?: number;
+    /** 成功率 */
+    h_success_person_rate?: number;
+    /** 总花费 */
+    i_total_amount?: number;
+    /** 单条费用 */
+    j_unit_amount?: number;
+    /** 单人费用 */
+    k_unit_person_amount?: number;
+    /** 回填率 */
+    l_backfill_rate?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WQSmsReport = {
+    /** id */
+    id?: number;
+    /** 日期 */
+    a_date?: string;
+    /** 服务商 */
+    b_name: string;
+    /** 发送条数 */
+    c_sented_count?: number;
+    /** 送达条数 */
+    d_delivered_count?: number;
+    /** 送达率 */
+    e_delivered_rate?: number;
+    /** 总花费 */
+    f_total_amount?: number;
+    /** 验证码通道 */
+    g_otp_count?: number;
+    /** 营销通道 */
+    h_marketing_count?: number;
+    /** 通知通道 */
+    i_notify_count?: number;
+    /** 验证码通道 */
+    j_otp_success_rate?: number;
+    /** 营销通道 */
+    k_marketing_success_rate?: number;
+    /** 通知通道 */
+    l_notify_success_rate?: number;
+    /** 系统 */
+    m_system_notify_count?: number;
+    /** 计划任务 */
+    n_crontab_notify_count?: number;
+    /** 管理员 */
+    o_admin_sent_count?: number;
+    /** 通讯录 */
+    p_contact_count?: number;
+    /** 本人 */
+    q_user_count?: number;
+    /** 逾前短信数 */
+    r_bdpd_count?: number;
+    /** 还款日短息数 */
+    s_dpd0_count?: number;
+    /** dpd1-3短信数 */
+    t_dpd1_3_count?: number;
+    /** dpd4-7短信数 */
+    u_dpd4_7_count?: number;
+    /** dpd8-15短信数 */
+    v_dpd8_15_count?: number;
+    /** dpd16+短信数 */
+    w_dpd16_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WRSmsTemplate = {
+    /** id */
+    id?: number;
+    /** 日期 */
+    a_date?: string;
+    /** b */
+    b_template_count?: number;
+    /** c */
+    c_template_count?: number;
+    /** d */
+    d_template_count?: number;
+    /** e */
+    e_template_count?: number;
+    /** f */
+    f_template_count?: number;
+    /** g */
+    g_template_count?: number;
+    /** h */
+    h_template_count?: number;
+    /** i */
+    i_template_count?: number;
+    /** j */
+    j_template_count?: number;
+    /** k */
+    k_template_count?: number;
+    /** l */
+    l_template_count?: number;
+    /** m */
+    m_template_count?: number;
+    /** n */
+    n_template_count?: number;
+    /** o */
+    o_template_count?: number;
+    /** p */
+    p_template_count?: number;
+    /** q */
+    q_template_count?: number;
+    /** r */
+    r_template_count?: number;
+    /** s */
+    s_template_count?: number;
+    /** t */
+    t_template_count?: number;
+    /** u */
+    u_template_count?: number;
+    /** v */
+    v_template_count?: number;
+    /** w */
+    w_template_count?: number;
+    /** x */
+    x_template_count?: number;
+    /** y */
+    y_template_count?: number;
+    /** z */
+    z_template_count?: number;
+    /** aa */
+    a_a_template_count?: number;
+    /** ab */
+    a_b_template_count?: number;
+    /** ac */
+    a_c_template_count?: number;
+    /** ad */
+    a_d_template_count?: number;
+    /** ae */
+    a_e_template_count?: number;
+    /** af */
+    a_f_template_count?: number;
+    /** ag */
+    a_g_template_count?: number;
+    /** ah */
+    a_h_template_count?: number;
+    /** ai */
+    a_i_template_count?: number;
+    /** aj */
+    a_j_template_count?: number;
+    /** ak */
+    a_k_template_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
