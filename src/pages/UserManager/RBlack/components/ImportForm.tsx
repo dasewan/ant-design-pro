@@ -85,7 +85,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
       '/admin/v1/aLAdminFiles',
       {
         method: 'POST',
-        body: formData,
+        data: formData,
       },
     );
     if (result.success && result.data! > 0) {
@@ -150,6 +150,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
           customRequest: uploadFile,
           beforeUpload: _handleBeforeUpload,
           onChange: _handleUploadChange,
+          maxCount: 1,
         }}
       />
 

@@ -170,6 +170,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
           customRequest: uploadFile,
           beforeUpload: _handleBeforeUpload,
           onChange: _handleUploadChange,
+          maxCount: 1,
         }}
       />
       <ProFormSelect

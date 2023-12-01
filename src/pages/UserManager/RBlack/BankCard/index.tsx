@@ -13,6 +13,7 @@ import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
 import { message, Popover } from 'antd';
+import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 
@@ -221,6 +222,34 @@ const TableList: React.FC = () => {
       },
     },
     {
+      title: '最近命中时间',
+      // @ts-ignore
+      dataIndex: 'm_last_hit_time',
+      render: (__, value) => {
+        if (value.m_last_hit_time !== null) {
+          // @ts-ignore
+          return moment(new Date(value.m_last_hit_time)).format('YYYY-MM-DD HH:mm');
+        } else {
+          return '-';
+        }
+      },
+      valueType: 'dateRange',
+      search: {
+        transform: (value: any) => {
+          return {
+            'm_last_hit_time[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'm_last_hit_time[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
+    },
+    {
       title: '影响灰名单数量',
       dataIndex: 'k_gray_hit_count',
     },
@@ -257,6 +286,62 @@ const TableList: React.FC = () => {
       initialValue: [],
       valueType: 'select',
       valueEnum: BLACK_TYPE,
+    },
+    {
+      title: '过期时间',
+      // @ts-ignore
+      dataIndex: 'd_overdate',
+      render: (__, value) => {
+        if (value.d_overdate !== null) {
+          // @ts-ignore
+          return moment(new Date(value.d_overdate)).format('YYYY-MM-DD');
+        } else {
+          return '-';
+        }
+      },
+      valueType: 'dateRange',
+      search: {
+        transform: (value: any) => {
+          return {
+            'd_overdate[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'd_overdate[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
+    },
+    {
+      title: '导入时间',
+      // @ts-ignore
+      dataIndex: 'created_at',
+      render: (__, value) => {
+        if (value.created_at !== null) {
+          // @ts-ignore
+          return moment(new Date(value.created_at)).format('YYYY-MM-DD');
+        } else {
+          return '-';
+        }
+      },
+      valueType: 'dateRange',
+      search: {
+        transform: (value: any) => {
+          return {
+            'created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
     },
     {
       title: '备注',

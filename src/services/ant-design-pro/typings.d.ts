@@ -617,14 +617,16 @@ declare namespace API {
     h_admin_file_id?: number;
     /** 有效时间* */
     i_valid_date?: string;
-    /** 白名单状态 1：正常 2：有过逾期 3：有过严重逾期 4：在逾 5：过期 6：禁止 */
+    /** 白名单状态 1：正常 2：有过逾期 3：有过严重逾期 4：在逾 5：过期 6：禁止* */
     j_status?: number;
-    /** 管理员id */
+    /** 管理员id* */
     k_admin_id?: number;
-    /** 授信额度 */
+    /** 初始授信额度* */
     l_credit_amount?: number;
     /** 命中次数 */
     m_hit_count?: number;
+    /** 最近命中时间 */
+    n_last_hit_time?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1531,6 +1533,29 @@ declare namespace API {
     updated_at?: string;
   };
 
+  type DDRecallDetail = {
+    /** id */
+    id?: number;
+    /** 召回 */
+    a_recall_id: number;
+    /** 用户id */
+    b_user_id: number;
+    /** 手机号 */
+    c_phone: string;
+    /** 姓名 */
+    d_name: string;
+    /** 结果 1：已找回 0 未召回 */
+    e_result?: number;
+    /** 回归时间 */
+    f_return_time?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type deleteACUserNewsIdParams = {
     /** id of ACUserNew */
     id: number;
@@ -1691,6 +1716,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1DDRecallDetailsIdParams = {
+    /** id of DDRecallDetail */
+    id: number;
+  };
+
   type deleteAdminV1GAMarketingDetailsIdParams = {
     /** id of GAMarketingDetail */
     id: number;
@@ -1796,6 +1826,16 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1HGGreysIdParams = {
+    /** id of HGGrey */
+    id: number;
+  };
+
+  type deleteAdminV1HHRecallsIdParams = {
+    /** id of HHRecall */
+    id: number;
+  };
+
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -1883,6 +1923,11 @@ declare namespace API {
 
   type deleteAdminV1TARiskValueSmsOrdersIdParams = {
     /** id of TARiskValueSmsOrder */
+    id: number;
+  };
+
+  type deleteAdminV1TBSmsIdParams = {
+    /** id of TBSms */
     id: number;
   };
 
@@ -2594,6 +2639,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1DDRecallDetailsIdParams = {
+    /** id of DDRecallDetail */
+    id: number;
+  };
+
+  type getAdminV1DDRecallDetailsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GAMarketingDetailsIdParams = {
     /** id of GAMarketingDetail */
     id: number;
@@ -2849,6 +2904,26 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1HGGreysIdParams = {
+    /** id of HGGrey */
+    id: number;
+  };
+
+  type getAdminV1HGGreysParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1HHRecallsIdParams = {
+    /** id of HHRecall */
+    id: number;
+  };
+
+  type getAdminV1HHRecallsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -3060,6 +3135,16 @@ declare namespace API {
   };
 
   type getAdminV1TARiskValueSmsOrdersParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1TBSmsIdParams = {
+    /** id of TBSms */
+    id: number;
+  };
+
+  type getAdminV1TBSmsParams = {
     /** foo */
     foo: number;
   };
@@ -3910,6 +3995,12 @@ declare namespace API {
     language_code?: string;
     /** 国家code */
     country_code?: string;
+    /** ip lat */
+    ip_lat?: string;
+    /** ip lon */
+    ip_lon?: string;
+    /** ip和gps的距离(m) */
+    ip_gps_distance?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3958,6 +4049,68 @@ declare namespace API {
     c_collection_agency_proportion?: number;
     /** 分配模式 1：按比补齐 2：按比分配 */
     d_assign_type?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type HGGrey = {
+    /** id */
+    id?: number;
+    /** 信息* */
+    a_info: string;
+    /** 信息命中次数* */
+    b_hit_count?: number;
+    /** 原因 */
+    c_reason_id?: string;
+    /** 类型 1：关联黑名单 2：逾期 */
+    g_type?: number;
+    /** 备注 */
+    h_remark?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type HHRecall = {
+    /** id */
+    id?: number;
+    /** 批次 */
+    a_sn: string;
+    /** 休眠天数 */
+    b_sleep_days: string;
+    /** 借款次数 */
+    c_borrow_count: string;
+    /** 逾期总天数 */
+    d_overdue_total_days?: string;
+    /** 最大逾期天数 */
+    e_max_overdue_days?: number;
+    /** 平均逾期天数 */
+    f_avg_overdue_days?: number;
+    /** 信用分 */
+    g_credit_score?: string;
+    /** 授信额度 */
+    h_credit_amount?: string;
+    /** 减免次数 */
+    i_deduction_count?: string;
+    /** 核销次数 */
+    j_write_off_count?: string;
+    /** 备注 */
+    k_comment?: string;
+    /** 召回短信 */
+    l_sms_text?: string;
+    /** 计划召回数 */
+    m_recall_count: number;
+    /** 管理员 */
+    n_admin_id: number;
+    /** 已召回次数 */
+    o_recalled_times: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4785,6 +4938,8 @@ declare namespace API {
     a_j_marketing_id?: number;
     /** 机审次数 */
     a_k_risk_count?: number;
+    /** 召回次数 */
+    a_l_recall_times?: number;
     /** deleted_at */
     deleted_at?: string;
     /** created_at */
@@ -5233,6 +5388,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1DDRecallDetailsIdParams = {
+    /** id of DDRecallDetail */
+    id: number;
+  };
+
   type putAdminV1GAMarketingDetailsIdParams = {
     /** id of GAMarketingDetail */
     id: number;
@@ -5338,6 +5498,16 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1HGGreysIdParams = {
+    /** id of HGGrey */
+    id: number;
+  };
+
+  type putAdminV1HHRecallsIdParams = {
+    /** id of HHRecall */
+    id: number;
+  };
+
   type putAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -5425,6 +5595,11 @@ declare namespace API {
 
   type putAdminV1TARiskValueSmsOrdersIdParams = {
     /** id of TARiskValueSmsOrder */
+    id: number;
+  };
+
+  type putAdminV1TBSmsIdParams = {
+    /** id of TBSms */
     id: number;
   };
 
@@ -5926,15 +6101,15 @@ declare namespace API {
     /** id */
     id?: number;
     /** 信息* */
-    a_info?: string;
+    a_info: string;
     /** 信息命中次数* */
     b_hit_count?: number;
-    /** 1:手机号 2:身份证号 3:身份证2号 4:银行卡 5:imei 6:mac 7:设备 */
+    /** 1:手机号 2:身份证号 3:身份证2号 4:银行卡 5：设备 */
     c_type?: number;
     /** 结束时间* */
     d_overdate?: string;
     /** 管理员id* */
-    e_admin_id?: number;
+    e_admin_id: number;
     /** 原因 */
     f_black_reason_id?: string;
     /** 类型 1：导入黑名单 2：系统录入 3：管理员录入* */
@@ -5947,6 +6122,10 @@ declare namespace API {
     j_scan_date?: string;
     /** 影响灰名单数量 */
     k_gray_hit_count?: number;
+    /** 文件id* */
+    l_admin_file_id?: number;
+    /** 最近命中时间 */
+    m_last_hit_time?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -6419,6 +6598,51 @@ declare namespace API {
     n_value_360?: number;
     /** 所有天内 */
     o_value_0?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type TBSms = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 订单 */
+    b_borrow_id?: number;
+    /** 管理员 */
+    c_admin_id?: number;
+    /** 网关 */
+    d_gateway?: string;
+    /** SId */
+    e_sender_id?: string;
+    /** 号码 */
+    f_to: string;
+    /** 内容 */
+    g_text: string;
+    /** reference */
+    h_reference: string;
+    /** message_id */
+    i_message_id?: string;
+    /** 20：发送中 30：未知  40：失败 50：成功 */
+    j_status?: number;
+    /** 发送状态 */
+    k_send_status?: string;
+    /** 详细状态 */
+    l_send_sub_status?: string;
+    /** 价格 */
+    m_price?: number;
+    /** 币种 */
+    n_currency?: string;
+    /** 同步通知 */
+    o_sync_description?: string;
+    /** 异步通知 */
+    p_callback_description?: string;
+    /** 发送时间 */
+    q_sent_at?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */

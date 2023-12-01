@@ -37,6 +37,7 @@ import * as DACollectionKpi from './DACollectionKpi';
 import * as DBorrow from './DBorrow';
 import * as DBSmsOrder from './DBSmsOrder';
 import * as DCBorrowRiskDetail from './DCBorrowRiskDetail';
+import * as DDRecallDetail from './DDRecallDetail';
 import * as GAMarketingDetail from './GAMarketingDetail';
 import * as GBMarketing from './GBMarketing';
 import * as GCMarketingHistory from './GCMarketingHistory';
@@ -58,6 +59,8 @@ import * as HCDevice from './HCDevice';
 import * as HDDynamicDevice from './HDDynamicDevice';
 import * as HECollectionGroup from './HECollectionGroup';
 import * as HFCollectionAgencyRole from './HFCollectionAgencyRole';
+import * as HGGrey from './HGGrey';
+import * as HHRecall from './HHRecall';
 import * as HProductSnapshot from './HProductSnapshot';
 import * as MBLoan from './MBLoan';
 import * as MCExtend from './MCExtend';
@@ -78,6 +81,7 @@ import * as SAApp from './SAApp';
 import * as SBApp from './SBApp';
 import * as SCRiskValueSms from './SCRiskValueSms';
 import * as TARiskValueSmsOrder from './TARiskValueSmsOrder';
+import * as TBSms from './TBSms';
 import * as TCollectionAgency from './TCollectionAgency';
 import * as User from './User';
 import * as VCollectionAssignLog from './VCollectionAssignLog';
@@ -135,6 +139,7 @@ export default {
   DBSmsOrder,
   DBorrow,
   DCBorrowRiskDetail,
+  DDRecallDetail,
   GAMarketingDetail,
   GBMarketing,
   GCMarketingHistory,
@@ -156,6 +161,8 @@ export default {
   HDDynamicDevice,
   HECollectionGroup,
   HFCollectionAgencyRole,
+  HGGrey,
+  HHRecall,
   HProductSnapshot,
   MBLoan,
   MCExtend,
@@ -176,6 +183,7 @@ export default {
   SBApp,
   SCRiskValueSms,
   TARiskValueSmsOrder,
+  TBSms,
   TCollectionAgency,
   User,
   VCollectionAssignLog,

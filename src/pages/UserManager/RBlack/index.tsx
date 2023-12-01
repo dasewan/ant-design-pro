@@ -35,10 +35,10 @@ const RBlack: FC = () => {
       key: 'bank-card',
       tab: '银行卡号',
     },
-    {
-      key: 'imei',
-      tab: 'IMEI',
-    },
+    // {
+    //   key: 'imei',
+    //   tab: 'IMEI',
+    // },
     {
       key: 'device',
       tab: '设备',
@@ -48,6 +48,7 @@ const RBlack: FC = () => {
 
   /** 获取tab */
   const _getRBlackTab = async () => {
+    return;
     // @ts-ignore
     const res = await getRBlackTab({ foo: null });
     tabList.forEach((value) => {
@@ -86,7 +87,7 @@ const RBlack: FC = () => {
     if (tabKey && tabKey !== '/') {
       return tabKey;
     }
-    return 'articles';
+    return 'phone';
   };
   const items: MenuProps['items'] = [
     { label: '操作说明', key: 'item-1', icon: <FileTextOutlined /> },
