@@ -1,5 +1,6 @@
 ﻿import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
+import { getLocale } from '@umijs/max';
 import { message, notification } from 'antd';
 
 // 错误处理方案： 错误类型
@@ -90,8 +91,15 @@ export const errorConfig: RequestConfig = {
   requestInterceptors: [
     (config: RequestOptions) => {
       // 拦截请求配置，进行个性化处理。
-      const url = config?.url?.concat('?token = 123');
-      return { ...config, url };
+
+      const configDefault = {
+        headers: {
+          ...config.headers,
+          'Accept-Language': getLocale() ?? 'zh_CN',
+        },
+      };
+      const url = config?.url?.concat('?token = 1234');
+      return { ...config, ...configDefault, url };
     },
   ],
 
