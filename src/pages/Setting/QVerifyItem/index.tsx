@@ -260,7 +260,9 @@ const TableList: React.FC = () => {
         _success = false;
       }
     } catch (error) {
-      message.error('配置失败请重试！');
+      message.error(
+        intl.formatMessage({ id: 'pages.common.editFailed', defaultMessage: '配置失败请重试！' }),
+      );
       //恢复原值
       _item.d_status = _item.d_status === 'y' ? 'n' : 'y';
       _success = false;

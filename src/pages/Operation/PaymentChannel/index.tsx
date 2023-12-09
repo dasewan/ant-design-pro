@@ -205,7 +205,9 @@ const BAWhite: FC<CommonProps> = () => {
         _success = false;
       }
     } catch (error) {
-      message.error('配置失败请重试！');
+      message.error(
+        intl.formatMessage({ id: 'pages.common.editFailed', defaultMessage: '配置失败请重试！' }),
+      );
       //恢复原值
       _item.f_status = _item.f_status === 'y' ? 'n' : 'y';
       _success = false;

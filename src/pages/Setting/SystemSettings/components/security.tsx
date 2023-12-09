@@ -35,7 +35,9 @@ const SecurityView: React.FC<Props> = (props) => {
           _success = false;
         }
       } catch (error) {
-        message.error('配置失败请重试！');
+        message.error(
+          intl.formatMessage({ id: 'pages.common.editFailed', defaultMessage: '配置失败请重试！' }),
+        );
         //恢复原值
         _item.e_value = _item.e_value === '1' ? '0' : '1';
         _success = false;

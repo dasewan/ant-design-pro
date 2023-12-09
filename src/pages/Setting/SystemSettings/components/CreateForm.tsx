@@ -29,7 +29,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
    * @param values
    */
   const onFinish = async (values: FormValueType) => {
-    const hide = message.loading('正在配置');
+    const hide = message.loading(
+      intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }),
+    );
     if (moment().diff(currentTableListItemMoment) > 3000000) {
       hide();
       message.error('配置超时！');
@@ -43,13 +45,17 @@ const CreateForm: React.FC<FormProps> = (props) => {
         return false;
       }
       hide();
-      message.success('配置成功');
+      message.success(
+        intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
+      );
       props.data.e_value = values.e_value!.toString();
       await props.onSubmit({ ...props.data });
       return;
     } catch (error) {
       hide();
-      message.error('配置失败请重试！');
+      message.error(
+        intl.formatMessage({ id: 'pages.common.editFailed', defaultMessage: '配置失败请重试！' }),
+      );
       return false;
     }
   };

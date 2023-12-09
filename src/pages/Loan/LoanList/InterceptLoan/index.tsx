@@ -73,7 +73,9 @@ const TableList: React.FC = () => {
    * @param _id
    */
   const _confirmLoan = async (_id: number) => {
-    const hide = message.loading('正在配置');
+    const hide = message.loading(
+      intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }),
+    );
     try {
       // @ts-ignore
       await update({
@@ -85,11 +87,15 @@ const TableList: React.FC = () => {
         actionRef.current.reload();
       }
       hide();
-      message.success('配置成功');
+      message.success(
+        intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
+      );
       return true;
     } catch (error) {
       hide();
-      message.error('配置失败请重试！');
+      message.error(
+        intl.formatMessage({ id: 'pages.common.editFailed', defaultMessage: '配置失败请重试！' }),
+      );
       return false;
     }
   };

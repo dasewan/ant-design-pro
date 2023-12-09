@@ -32,7 +32,9 @@ const ReviewForm: React.FC<FormProps> = (props) => {
     const fields = formRef?.current?.getFieldsValue();
     console.log(formRef?.current?.getFieldsValue);
     console.log(props.verifyId);
-    const hide = message.loading('正在配置');
+    const hide = message.loading(
+      intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }),
+    );
     // props.values.id
     try {
       // @ts-ignore
@@ -42,12 +44,16 @@ const ReviewForm: React.FC<FormProps> = (props) => {
         return false;
       }
       hide();
-      message.success('配置成功');
+      message.success(
+        intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
+      );
       props.onSubmit(true);
       return true;
     } catch (error) {
       hide();
-      message.error('配置失败请重试！');
+      message.error(
+        intl.formatMessage({ id: 'pages.common.editFailed', defaultMessage: '配置失败请重试！' }),
+      );
       return false;
     }
   };

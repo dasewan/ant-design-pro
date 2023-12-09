@@ -1,5 +1,6 @@
 import Chart from '@/pages/Statistics/Collection/Flow/components/Chart';
 import { getAdminV1WNCollectionFlows as index } from '@/services/ant-design-pro/WNCollectionFlow';
+import { useIntl } from '@@/exports';
 import { DownloadOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -8,9 +9,9 @@ import { Button, Dropdown, MenuProps } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
   const actionRef = useRef<ActionType>();
   /** 当前编辑数据 */
   /** 当前编辑数据 */
@@ -57,8 +58,11 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.a_date,
-      dataIndex: FieldIndex.a_date,
+      title: intl.formatMessage({
+        id: 'pages.statistics.collection.flow.a_date',
+        defaultMessage: '',
+      }),
+      dataIndex: 'a_date',
       width: 100,
       fixed: 'left',
       valueType: 'dateRange',
@@ -82,29 +86,41 @@ const TableList: React.FC = () => {
     },
 
     {
-      title: FieldLabels.source,
-      dataIndex: FieldIndex.source,
+      title: intl.formatMessage({
+        id: 'pages.statistics.collection.flow.source',
+        defaultMessage: '',
+      }),
+      dataIndex: 'source',
       search: false,
       width: 80,
       fixed: 'left',
     },
     {
-      title: FieldLabels.target,
-      dataIndex: FieldIndex.target,
+      title: intl.formatMessage({
+        id: 'pages.statistics.collection.flow.target',
+        defaultMessage: '',
+      }),
+      dataIndex: 'target',
       search: false,
       width: 80,
       fixed: 'left',
     },
     {
-      title: FieldLabels.value,
-      dataIndex: FieldIndex.value,
+      title: intl.formatMessage({
+        id: 'pages.statistics.collection.flow.value',
+        defaultMessage: '',
+      }),
+      dataIndex: 'value',
       search: false,
       width: 80,
       fixed: 'left',
     },
     {
-      title: FieldLabels.value2,
-      dataIndex: FieldIndex.value2,
+      title: intl.formatMessage({
+        id: 'pages.statistics.collection.flow.value2',
+        defaultMessage: '',
+      }),
+      dataIndex: 'value2',
       search: false,
       width: 80,
       fixed: 'left',

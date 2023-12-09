@@ -27,7 +27,9 @@ export type FormProps = {
  * @param id
  */
 const handle = async (fields: FormValueType, id: number | undefined) => {
-  const hide = message.loading('正在配置');
+  const hide = message.loading(
+    intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }),
+  );
   // props.values.id
   try {
     await post({
@@ -35,11 +37,15 @@ const handle = async (fields: FormValueType, id: number | undefined) => {
       user_id: id,
     });
     hide();
-    message.success('配置成功');
+    message.success(
+      intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
+    );
     return true;
   } catch (error) {
     hide();
-    message.error('配置失败请重试！');
+    message.error(
+      intl.formatMessage({ id: 'pages.common.editFailed', defaultMessage: '配置失败请重试！' }),
+    );
     return false;
   }
 };

@@ -43,7 +43,9 @@ const MarketingForm: React.FC<FormProps> = (props) => {
    * @param fields
    */
   const _handle = async (fields: FormValueType) => {
-    const hide = message.loading('正在配置');
+    const hide = message.loading(
+      intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }),
+    );
     // props.values.id
     // @ts-ignore
     fields.h_begin_at = moment(fields.h_begin_at).format('YYYY-MM-DD HH:mm:ss');
@@ -54,7 +56,9 @@ const MarketingForm: React.FC<FormProps> = (props) => {
         ...fields,
       });
       hide();
-      message.success('配置成功');
+      message.success(
+        intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
+      );
       return true;
     } catch (error) {
       hide();
