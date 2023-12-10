@@ -69,6 +69,8 @@ export default {
   'pages.common.editSuccess': 'Edit Success',
   'pages.common.editFailed': 'Edit Failed,Please Retry！',
   'pages.common.option': 'Option',
+  'pages.common.explain': 'Option Explain',
+  'pages.common.download': 'Stencil Download',
 
   'pages.statistics.collection.flow.id': 'id',
   'pages.statistics.collection.flow.a_date': 'Date',
@@ -104,4 +106,7 @@ export default {
   'pages.userManager.bAWhite.confirm2': 'Are you sure to recovery',
   'pages.userManager.bAWhite.action.recovery': 'RECOVERY',
   'pages.userManager.bAWhite.action.delete': 'DELETE',
+  'pages.userManager.bAWhite.download': 'DOWNLOAD',
+  'pages.userManager.bAWhite.import': 'Import WhiteList',
+  'pages.userManager.bAWhite.export': 'Export WhiteList',
 };

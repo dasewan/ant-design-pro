@@ -381,7 +381,14 @@ const TableList: React.FC = () => {
     },
   ];
   const items: MenuProps['items'] = [
-    { label: '操作说明', key: 'item-1', icon: <FileTextOutlined /> },
+    {
+      label: intl.formatMessage({
+        id: 'pages.common.explain',
+        defaultMessage: '操作说明',
+      }),
+      key: 'item-1',
+      icon: <FileTextOutlined />,
+    },
     {
       label: (
         <a
@@ -389,7 +396,10 @@ const TableList: React.FC = () => {
           rel="noopener noreferrer"
           href={'/admin/v1/aLAdminFiles_templete/white_info_list.xlsx'}
         >
-          模版下载
+          {intl.formatMessage({
+            id: 'pages.common.download',
+            defaultMessage: '模版下载',
+          })}
         </a>
       ),
       key: 'item-2',
@@ -399,14 +409,19 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '白名单信息',
         ghost: true,
         extra: [
           <Button key="import" type="primary" onClick={() => handleImportModalVisible(true)}>
-            导入白名单
+            {intl.formatMessage({
+              id: 'pages.userManager.bAWhite.import',
+              defaultMessage: '导入白名单',
+            })}
           </Button>,
           <Button key="export" type="primary" onClick={() => _export()}>
-            导出白名单
+            {intl.formatMessage({
+              id: 'pages.userManager.bAWhite.export',
+              defaultMessage: '导出白名单',
+            })}
           </Button>,
           <Dropdown key="dropdown" trigger={['click']} menu={{ items }}>
             <Button key="4" style={{ padding: '0 8px' }}>
