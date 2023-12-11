@@ -582,7 +582,7 @@ declare namespace API {
     /** 费用消耗 */
     a_k_consume?: number;
     /** 最后一次结清时间 */
-    a_l_last_ettled_time?: string;
+    a_l_last_settled_time?: string;
     /** 最后一次访问时间 */
     a_m_access_time?: number;
     /** 累计逾期天数* */

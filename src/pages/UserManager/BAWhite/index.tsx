@@ -195,7 +195,7 @@ const TableList: React.FC = () => {
       copyable: true,
       render: (_, record) => {
         return record.b_user_id ? (
-          <a target="_blank" rel="noopener noreferrer" href={'/user-manager/user-list'}>
+          <a target="_blank" rel="noopener noreferrer" href={`/user/detail/${record.b_user_id}`}>
             {record.a_phone}
           </a>
         ) : (
@@ -219,6 +219,9 @@ const TableList: React.FC = () => {
         defaultMessage: '',
       }),
       dataIndex: 'l_credit_amount',
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
     },
     {
       title: intl.formatMessage({
@@ -226,6 +229,9 @@ const TableList: React.FC = () => {
         defaultMessage: '',
       }),
       dataIndex: 'd_market_times',
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
     },
     {
       title: intl.formatMessage({ id: 'pages.userManager.bAWhite.b_user_id', defaultMessage: '' }),
@@ -235,7 +241,7 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.userManager.bAWhite.created_at', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' }),
       dataIndex: 'created_at',
       render: (_, record) => {
         return moment(record.created_at).format('YYYY-MM-DD');

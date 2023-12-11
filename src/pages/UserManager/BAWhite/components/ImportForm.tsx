@@ -1,5 +1,6 @@
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { postAdminV1__openAPI__import as importWhite } from '@/services/ant-design-pro/BAWhite';
+import { useIntl } from '@@/exports';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
   ModalForm,
@@ -31,6 +32,7 @@ export type FormProps = {
  * @constructor
  */
 const ImportForm: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   /** 渠道enum */
   const [channels, setChannels] = useState<RequestOptionsType[]>([]);
