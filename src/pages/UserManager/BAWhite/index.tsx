@@ -382,7 +382,7 @@ const TableList: React.FC = () => {
           );
         }
 
-        return [action];
+        return action;
       },
     },
   ];
