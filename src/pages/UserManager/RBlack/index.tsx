@@ -1,5 +1,6 @@
 import ImportForm from '@/pages/UserManager/RBlack/components/ImportForm';
 import { getAdminV1RBlackTab as getRBlackTab } from '@/services/ant-design-pro/RBlack';
+import { useIntl } from '@@/exports';
 import { DownloadOutlined, EllipsisOutlined, FileTextOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { TabPaneProps } from 'antd';
@@ -11,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { history, Outlet } from 'umi';
 
 const RBlack: FC = () => {
+  const intl = useIntl();
   /** 导入黑名单excel */
   const [importModalVisible, handleImportModalVisible] = useState<boolean>(false);
   /** tabs */
@@ -21,19 +23,31 @@ const RBlack: FC = () => {
   >([
     {
       key: 'phone',
-      tab: '手机号码',
+      tab: intl.formatMessage({
+        id: 'pages.userManager.rBlack.tab.phone',
+        defaultMessage: 'phone',
+      }),
     },
     {
       key: 'id-number',
-      tab: '证件号',
+      tab: intl.formatMessage({
+        id: 'pages.userManager.rBlack.tab.idNumber',
+        defaultMessage: 'idNumber',
+      }),
     },
     {
       key: 'id-number2',
-      tab: '证件号2',
+      tab: intl.formatMessage({
+        id: 'pages.userManager.rBlack.tab.idNumber2',
+        defaultMessage: 'idNumber2',
+      }),
     },
     {
       key: 'bank-card',
-      tab: '银行卡号',
+      tab: intl.formatMessage({
+        id: 'pages.userManager.rBlack.tab.bankCard',
+        defaultMessage: 'bankCard',
+      }),
     },
     // {
     //   key: 'imei',
@@ -41,7 +55,10 @@ const RBlack: FC = () => {
     // },
     {
       key: 'device',
-      tab: '设备',
+      tab: intl.formatMessage({
+        id: 'pages.userManager.rBlack.tab.device',
+        defaultMessage: 'device',
+      }),
     },
   ]);
   const location = useLocation();
@@ -74,6 +91,7 @@ const RBlack: FC = () => {
     return () => {};
   }, []);
 
+  const _export = () => {};
   const _handleTabChange = (key: string) => {
     console.log(location.pathname);
     const url = '/user-manager/black-info-list';
@@ -90,7 +108,14 @@ const RBlack: FC = () => {
     return 'phone';
   };
   const items: MenuProps['items'] = [
-    { label: '操作说明', key: 'item-1', icon: <FileTextOutlined /> },
+    {
+      label: intl.formatMessage({
+        id: 'pages.common.explain',
+        defaultMessage: '操作说明',
+      }),
+      key: 'item-1',
+      icon: <FileTextOutlined />,
+    },
     {
       label: (
         <a
@@ -98,7 +123,10 @@ const RBlack: FC = () => {
           rel="noopener noreferrer"
           href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
         >
-          模版下载
+          {intl.formatMessage({
+            id: 'pages.common.download',
+            defaultMessage: '模版下载',
+          })}
         </a>
       ),
       key: 'item-2',
@@ -106,15 +134,24 @@ const RBlack: FC = () => {
     },
   ];
 
+  // @ts-ignore
   return (
     <AliveScope>
       <PageContainer
         header={{
-          title: '黑名单信息',
           ghost: true,
           extra: [
-            <Button key="3" type="primary" onClick={() => handleImportModalVisible(true)}>
-              导入黑名单
+            <Button key="import" type="primary" onClick={() => handleImportModalVisible(true)}>
+              {intl.formatMessage({
+                id: 'pages.userManager.rBlack.import',
+                defaultMessage: '导入黑名单',
+              })}
+            </Button>,
+            <Button key="export" type="primary" onClick={() => _export()}>
+              {intl.formatMessage({
+                id: 'pages.userManager.rBlack.export',
+                defaultMessage: '导出黑名单',
+              })}
             </Button>,
             <Dropdown key="dropdown" trigger={['click']} menu={{ items }}>
               <Button key="4" style={{ padding: '0 8px' }}>
@@ -163,7 +200,7 @@ const RBlack: FC = () => {
           id={location.pathname}
           saveScrollPosition="screen"
         >
-          <Outlet />
+          <Outlet context={{}} />
         </KeepAlive>
         {/*        <KeepAlive  when={true} name={location.pathname} id={location.pathname}>
           <div>123</div>

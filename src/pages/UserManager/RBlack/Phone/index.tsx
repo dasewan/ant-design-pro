@@ -7,6 +7,7 @@ import {
   getAdminV1RBlacks as index,
 } from '@/services/ant-design-pro/RBlack';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
+import { useIntl } from '@@/exports';
 import { ProForm, ProFormCaptcha } from '@ant-design/pro-components';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -26,7 +27,9 @@ export type FormValueType = Partial<{ code: string }>;
 //     }, time);
 //   });
 // };
-const TableList: React.FC = () => {
+const TableList: React.FC = ({}) => {
+  const intl = useIntl();
+
   const actionRef = useRef<ActionType>();
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
@@ -65,6 +68,7 @@ const TableList: React.FC = () => {
       total: res.total,
     };
   };
+
   /**
    * 查询管理员enum
    */
