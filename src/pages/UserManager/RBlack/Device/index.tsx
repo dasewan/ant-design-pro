@@ -1,20 +1,19 @@
 import { BLACK_TYPE } from '@/pages/enums';
+import { US_BLACK_TYPE } from '@/pages/enumsUs';
 import DrawerFC from '@/pages/UserManager/RBlack/components/DrawerFC';
 import { getAdminV1AKReasons as getAKReasons } from '@/services/ant-design-pro/AKReason';
-import { getAdminV1CaptchaType as getCaptchaType } from '@/services/ant-design-pro/Captcha';
 import {
   deleteAdminV1RBlacksId as destory,
   getAdminV1RBlacks as index,
 } from '@/services/ant-design-pro/RBlack';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
-import { ProForm, ProFormCaptcha } from '@ant-design/pro-components';
-import type { ProFormInstance } from '@ant-design/pro-form';
+import { useIntl } from '@@/exports';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { message, Popover } from 'antd';
+import { ConfigProvider, message, Popconfirm } from 'antd';
 import moment from 'moment';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 
 export type FormValueType = Partial<{ code: string }>;
@@ -26,17 +25,20 @@ export type FormValueType = Partial<{ code: string }>;
 //     }, time);
 //   });
 // };
-const TableList: React.FC = () => {
+const TableList: React.FC = ({}) => {
+  const intl = useIntl();
+
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
   /** 拉黑原因enum */
   const [reasons, setReasons] = useState<RequestOptionsType[]>([]);
   /** 确定按钮 */
-  const [confirmDisabled, setConfirmDisabled] = useState(true);
-  const formRef = useRef<ProFormInstance>();
-  const [id, setId] = useState<number>(0);
-
+  // const [confirmDisabled, setConfirmDisabled] = useState(true);
+  // const formRef = useRef<ProFormInstance>();
+  // const [id, setId] = useState<number>(0);
   /** drawer */
   const [showDetail, setShowDetail] = useState<boolean>(false);
   /** 当前黑名单信息 */
@@ -66,6 +68,7 @@ const TableList: React.FC = () => {
       total: res.total,
     };
   };
+
   /**
    * 查询管理员enum
    */
@@ -107,9 +110,8 @@ const TableList: React.FC = () => {
   };
   /**
    * 提交移除黑名单表单
-   * @param fields
    */
-  const _handle = async (fields: FormValueType) => {
+  const _handle = async (id: number) => {
     const hide = message.loading(
       intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }),
     );
@@ -117,7 +119,6 @@ const TableList: React.FC = () => {
       // @ts-ignore
       await destory({
         id: id,
-        ...fields,
       });
       if (actionRef.current) {
         actionRef.current.reload();
@@ -145,74 +146,25 @@ const TableList: React.FC = () => {
     setShowDetail(true);
   };
 
-  /**
-   * 验证码
-   */
-  const _ProFormCaptcha = (
-    <ProForm<{ code: string }>
-      onFinish={async (values) => {
-        // const val1 = await formRef.current?.validateFields();
-        // const val2 = await formRef.current?.validateFieldsReturnFormatValue?.();
-        await _handle(values);
-      }}
-      layout={'inline'}
-      submitter={{
-        searchConfig: {
-          submitText: '移除',
-        },
-        resetButtonProps: {
-          style: {
-            display: 'none',
-          },
-        },
-        submitButtonProps: {
-          disabled: confirmDisabled,
-          style: {
-            float: 'right',
-          },
-        },
-      }}
-      formRef={formRef}
-      params={{ id: '100' }}
-      formKey="base-form-use-demo"
-    >
-      <ProFormCaptcha
-        phoneName="phone"
-        name="code"
-        rules={[
-          {
-            required: true,
-            message: '请输入验证码',
-          },
-        ]}
-        placeholder="请输入验证码"
-        onGetCaptcha={async () => {
-          // @ts-ignore
-          const res = await getCaptchaType({ type: 'black' });
-          if (res.success === true) {
-            message.success(`验证码发送成功!`);
-            setConfirmDisabled(false);
-          } else {
-            message.success(res.message);
-          }
-        }}
-      />
-    </ProForm>
-  );
-
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '设备',
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.a_info', defaultMessage: '' }),
       dataIndex: 'a_info',
       copyable: true,
     },
     {
-      title: '导入序号',
+      title: intl.formatMessage({
+        id: 'pages.userManager.rBlack.l_admin_file_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'l_admin_file_id',
     },
     {
-      title: '命中次数',
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.b_hit_count', defaultMessage: '' }),
       dataIndex: 'b_hit_count',
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
       render: (_, record) => {
         return record.b_hit_count! > 0 ? (
           <a
@@ -228,7 +180,10 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '最近命中时间',
+      title: intl.formatMessage({
+        id: 'pages.userManager.rBlack.m_last_hit_time',
+        defaultMessage: '',
+      }),
       // @ts-ignore
       dataIndex: 'm_last_hit_time',
       render: (__, value) => {
@@ -256,11 +211,17 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '影响灰名单数量',
+      title: intl.formatMessage({
+        id: 'pages.userManager.rBlack.k_gray_hit_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'k_gray_hit_count',
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
     },
     {
-      title: '管理员',
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.e_admin_id', defaultMessage: '' }),
       dataIndex: 'e_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
@@ -277,7 +238,10 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '原因',
+      title: intl.formatMessage({
+        id: 'pages.userManager.rBlack.f_black_reason_id',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_g_black_reason', 'a_reason_id'],
       valueType: 'select',
       request: _getAKReasons,
@@ -287,14 +251,14 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '类型',
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.g_type', defaultMessage: '' }),
       dataIndex: 'g_type',
       initialValue: [],
       valueType: 'select',
-      valueEnum: BLACK_TYPE,
+      valueEnum: currentLanguage === 'zh-cn' ? BLACK_TYPE : US_BLACK_TYPE,
     },
     {
-      title: '过期时间',
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.d_overdate', defaultMessage: '' }),
       // @ts-ignore
       dataIndex: 'd_overdate',
       render: (__, value) => {
@@ -322,7 +286,7 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '导入时间',
+      title: intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' }),
       // @ts-ignore
       dataIndex: 'created_at',
       render: (__, value) => {
@@ -350,7 +314,7 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '备注',
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.h_remark', defaultMessage: '' }),
       dataIndex: ['a_g_black_reason', 'b_comment'],
       search: {
         transform: (value: any) => ({ 'a_g_black_reason-b_comment': value }),
@@ -358,29 +322,23 @@ const TableList: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: '操作',
+      title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
         const remove = (
-          <Popover
-            overlayStyle={{ width: 480 }}
-            // overlayInnerStyle={{width:1000}}
-            // color='red'
-            content={_ProFormCaptcha}
-            title={`从黑名单中移除${record.a_info}`}
-            trigger="click"
-            key={record.a_info! + 1000}
-            id={record.a_info! + 1000}
-            onOpenChange={(_visible) => {
-              setId(record.id!);
-              if (!_visible) {
-                setConfirmDisabled(true);
-              }
-            }}
+          <Popconfirm
+            title={`${intl.formatMessage({
+              id: 'pages.userManager.rBlack.remove_tip',
+              defaultMessage: '',
+            })}${record.a_info}`}
+            key={record.id}
+            onConfirm={() => _handle(record.id!)}
+            okText="Yes"
+            cancelText="No"
           >
-            <a href="@/pages/UserManager/RBlack/Idnumber/index#">移除</a>
-          </Popover>
+            <a>{intl.formatMessage({ id: 'pages.common.option.delete', defaultMessage: '' })}</a>
+          </Popconfirm>
         );
         return [remove];
       },

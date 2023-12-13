@@ -72,6 +72,10 @@ export default {
   'pages.common.created_at': '创建时间',
   'pages.common.updated_at': '更新时间',
   'pages.common.borrow_detail': '订单详情',
+  'pages.common.option.delete': '删除',
+  'pages.common.option.captchaPlaceHolder': '请输入验证码',
+  'pages.common.option.captchaSendSuccess': '验证码发送成功',
+  'pages.common.option.captchaSendFailed': '验证码发送失败',
 
   'pages.statistics.collection.flow.id': 'id',
   'pages.statistics.collection.flow.a_date': '日期',
@@ -188,4 +192,5 @@ export default {
   'pages.userManager.rBlack.k_gray_hit_count': '影响灰名单数量',
   'pages.userManager.rBlack.l_admin_file_id': '文件',
   'pages.userManager.rBlack.m_last_hit_time': '最近命中时间',
+  'pages.userManager.rBlack.remove_tip': '移除黑名单: ',
 };

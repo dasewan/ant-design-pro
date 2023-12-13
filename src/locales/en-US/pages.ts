@@ -75,6 +75,10 @@ export default {
   'pages.common.created_at': 'Created At',
   'pages.common.updated_at': 'Updated At',
   'pages.common.borrow_detail': 'Borrow Detail',
+  'pages.common.option.delete': 'Delete',
+  'pages.common.option.captchaPlaceHolder': 'Please Enter Captcha',
+  'pages.common.option.captchaSendSuccess': 'Captcha Send Success',
+  'pages.common.option.captchaSendFailed': 'Captcha Send Failed',
 
   'pages.statistics.collection.flow.id': 'id',
   'pages.statistics.collection.flow.a_date': 'Date',
@@ -192,4 +196,5 @@ export default {
   'pages.userManager.rBlack.k_gray_hit_count': 'Gray Hit Count',
   'pages.userManager.rBlack.l_admin_file_id': 'Admin File',
   'pages.userManager.rBlack.m_last_hit_time': 'Last Hit Time',
+  'pages.userManager.rBlack.remove_tip': 'Remove Black: ',
 };
