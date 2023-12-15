@@ -1,4 +1,4 @@
-import { BLACK_TYPE } from '@/pages/enums';
+import { BLACK_TYPE, StatusEnum } from '@/pages/enums';
 import { US_BLACK_TYPE } from '@/pages/enumsUs';
 import DrawerFC from '@/pages/UserManager/RBlack/components/DrawerFC';
 import { getAdminV1AKReasons as getAKReasons } from '@/services/ant-design-pro/AKReason';
@@ -27,7 +27,22 @@ export type FormValueType = Partial<{ code: string }>;
 // };
 const TableList: React.FC = ({}) => {
   const intl = useIntl();
-
+  const STATUS_ENUM: StatusEnum = {
+    1: {
+      text: intl.formatMessage({
+        id: 'pages.userManager.rBlack.n_status.normal',
+        defaultMessage: '正常',
+      }),
+      status: 'Success',
+    },
+    2: {
+      text: intl.formatMessage({
+        id: 'pages.userManager.rBlack.n_status.removed',
+        defaultMessage: '已移除',
+      }),
+      status: 'Error',
+    },
+  };
   const { locale } = useContext(ConfigProvider.ConfigContext);
   const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
@@ -321,6 +336,12 @@ const TableList: React.FC = ({}) => {
         transform: (value: any) => ({ 'a_g_black_reason-b_comment': value }),
       },
       ellipsis: true,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.n_status', defaultMessage: '' }),
+      dataIndex: 'n_status',
+      valueType: 'select',
+      valueEnum: STATUS_ENUM,
     },
     {
       title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),

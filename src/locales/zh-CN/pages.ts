@@ -193,6 +193,7 @@ export default {
   'pages.userManager.rBlack.k_gray_hit_count': '影响灰名单数量',
   'pages.userManager.rBlack.l_admin_file_id': '文件',
   'pages.userManager.rBlack.m_last_hit_time': '最近命中时间',
+  'pages.userManager.rBlack.n_status': '状态',
   'pages.userManager.rBlack.remove_tip': '移除黑名单: ',
   'pages.userManager.rBlack.recovery_tip': '恢复黑名单: ',
   'pages.userManager.rBlack.reason': '拉黑原因',
@@ -201,4 +202,6 @@ export default {
   'pages.userManager.rBlack.comment': '备注',
   'pages.userManager.rBlack.comment_tip': '请输入备注',
   'pages.userManager.rBlack.comment_placeholder': '请输入备注',
+  'pages.userManager.rBlack.n_status.normal': '正常',
+  'pages.userManager.rBlack.n_status.removed': '已移除',
 };

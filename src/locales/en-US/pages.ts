@@ -197,6 +197,7 @@ export default {
   'pages.userManager.rBlack.k_gray_hit_count': 'Gray Hit Count',
   'pages.userManager.rBlack.l_admin_file_id': 'Admin File',
   'pages.userManager.rBlack.m_last_hit_time': 'Last Hit Time',
+  'pages.userManager.rBlack.n_status': 'status',
   'pages.userManager.rBlack.remove_tip': 'Remove Black: ',
   'pages.userManager.rBlack.recovery_tip': 'Recovery Black: ',
   'pages.userManager.rBlack.reason': 'Black Reason',
@@ -205,4 +206,6 @@ export default {
   'pages.userManager.rBlack.comment': 'Comment',
   'pages.userManager.rBlack.comment_tip': 'Please Enter Comment',
   'pages.userManager.rBlack.comment_placeholder': 'Please Enter Comment',
+  'pages.userManager.rBlack.n_status.normal': 'Normal',
+  'pages.userManager.rBlack.n_status.removed': 'Removed',
 };
