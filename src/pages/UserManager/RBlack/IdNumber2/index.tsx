@@ -195,47 +195,17 @@ const TableList: React.FC = ({}) => {
         );
       },
     },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.rBlack.m_last_hit_time',
-        defaultMessage: '',
-      }),
-      // @ts-ignore
-      dataIndex: 'm_last_hit_time',
-      render: (__, value) => {
-        if (value.m_last_hit_time !== null) {
-          // @ts-ignore
-          return moment(new Date(value.m_last_hit_time)).format('YYYY-MM-DD HH:mm');
-        } else {
-          return '-';
-        }
-      },
-      valueType: 'dateRange',
-      search: {
-        transform: (value: any) => {
-          return {
-            'm_last_hit_time[0]':
-              value[0].$d !== undefined
-                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[0] + ' 00:00:00',
-            'm_last_hit_time[1]':
-              value[1].$d !== undefined
-                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[1] + ' 00:00:00',
-          };
-        },
-      },
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.rBlack.k_gray_hit_count',
-        defaultMessage: '',
-      }),
-      dataIndex: 'k_gray_hit_count',
-      fieldProps: {
-        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
-      },
-    },
+
+    /*    {
+          title: intl.formatMessage({
+            id: 'pages.userManager.rBlack.k_gray_hit_count',
+            defaultMessage: '',
+          }),
+          dataIndex: 'k_gray_hit_count',
+          fieldProps: {
+            placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+          },
+        },*/
     {
       title: intl.formatMessage({ id: 'pages.userManager.rBlack.e_admin_id', defaultMessage: '' }),
       dataIndex: 'e_admin_id',
@@ -274,32 +244,18 @@ const TableList: React.FC = ({}) => {
       valueEnum: currentLanguage === 'zh-cn' ? BLACK_TYPE : US_BLACK_TYPE,
     },
     {
-      title: intl.formatMessage({ id: 'pages.userManager.rBlack.d_overdate', defaultMessage: '' }),
-      // @ts-ignore
-      dataIndex: 'd_overdate',
-      render: (__, value) => {
-        if (value.d_overdate !== null) {
-          // @ts-ignore
-          return moment(new Date(value.d_overdate)).format('YYYY-MM-DD');
-        } else {
-          return '-';
-        }
-      },
-      valueType: 'dateRange',
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.n_status', defaultMessage: '' }),
+      dataIndex: 'n_status',
+      valueType: 'select',
+      valueEnum: STATUS_ENUM,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.h_remark', defaultMessage: '' }),
+      dataIndex: ['a_g_black_reason', 'b_comment'],
       search: {
-        transform: (value: any) => {
-          return {
-            'd_overdate[0]':
-              value[0].$d !== undefined
-                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[0] + ' 00:00:00',
-            'd_overdate[1]':
-              value[1].$d !== undefined
-                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[1] + ' 00:00:00',
-          };
-        },
+        transform: (value: any) => ({ 'a_g_black_reason-b_comment': value }),
       },
+      ellipsis: true,
     },
     {
       title: intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' }),
@@ -330,18 +286,63 @@ const TableList: React.FC = ({}) => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.userManager.rBlack.h_remark', defaultMessage: '' }),
-      dataIndex: ['a_g_black_reason', 'b_comment'],
-      search: {
-        transform: (value: any) => ({ 'a_g_black_reason-b_comment': value }),
+      title: intl.formatMessage({
+        id: 'pages.userManager.rBlack.m_last_hit_time',
+        defaultMessage: '',
+      }),
+      // @ts-ignore
+      dataIndex: 'm_last_hit_time',
+      render: (__, value) => {
+        if (value.m_last_hit_time !== null) {
+          // @ts-ignore
+          return moment(new Date(value.m_last_hit_time)).format('YYYY-MM-DD HH:mm');
+        } else {
+          return '-';
+        }
       },
-      ellipsis: true,
+      valueType: 'dateRange',
+      search: {
+        transform: (value: any) => {
+          return {
+            'm_last_hit_time[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'm_last_hit_time[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
     },
     {
-      title: intl.formatMessage({ id: 'pages.userManager.rBlack.n_status', defaultMessage: '' }),
-      dataIndex: 'n_status',
-      valueType: 'select',
-      valueEnum: STATUS_ENUM,
+      title: intl.formatMessage({ id: 'pages.userManager.rBlack.d_overdate', defaultMessage: '' }),
+      // @ts-ignore
+      dataIndex: 'd_overdate',
+      render: (__, value) => {
+        if (value.d_overdate !== null) {
+          // @ts-ignore
+          return moment(new Date(value.d_overdate)).format('YYYY-MM-DD');
+        } else {
+          return '-';
+        }
+      },
+      valueType: 'dateRange',
+      search: {
+        transform: (value: any) => {
+          return {
+            'd_overdate[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'd_overdate[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
     },
     {
       title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),

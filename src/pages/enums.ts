@@ -281,8 +281,8 @@ export const COMMON_STATUS_YUNXU_ARRAY: StatusOption[] = [
 ];
 export const BLACK_TYPE: StatusEnum = {
   1: { text: '导入excel', status: '' },
-  2: { text: '系统', status: 'Error' },
-  3: { text: '管理员手动', status: 'Error' },
+  2: { text: '系统', status: '' },
+  3: { text: '管理员手动', status: '' },
 };
 
 //放款日志方式

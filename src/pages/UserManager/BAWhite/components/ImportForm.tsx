@@ -110,7 +110,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
   };
   const _handleBeforeUpload = (file: RcFile) => {
     if (file.size <= 800 * 1024) return true;
-    message.error('Image must smaller than 2MB!');
+    message.error('File must smaller than 2MB!');
     return false;
     /*    return new Promise<void>(() =>
           Modal.confirm({
@@ -170,31 +170,56 @@ const ImportForm: React.FC<FormProps> = (props) => {
       />
       <ProFormSelect
         name="e_channel_id"
-        label="选择渠道"
+        label={intl.formatMessage({
+          id: 'pages.userManager.bAWhite.e_channel_id',
+          defaultMessage: '选择渠道',
+        })}
         request={_getChannelsEnum}
         placeholder="Please select a channel"
         rules={[{ required: true, message: 'Please select your reason!' }]}
       />
-      <ProFormDatePicker name="i_valid_date" label="过期日期" tooltip="默认为永久白名单" />
+      <ProFormDatePicker
+        name="i_valid_date"
+        label={intl.formatMessage({
+          id: 'pages.userManager.bAWhite.i_valid_date',
+          defaultMessage: '',
+        })}
+        tooltip="默认为永久白名单"
+      />
       <ProFormDigit
-        label="授信金额"
+        label={intl.formatMessage({
+          id: 'pages.userManager.bAWhite.l_credit_amount',
+          defaultMessage: '',
+        })}
         name="l_credit_amount"
         min={100}
         max={10000}
         fieldProps={{ precision: 0 }}
-        tooltip="如果excel中的授信金额为空，则使用此值"
+        tooltip={intl.formatMessage({
+          id: 'pages.userManager.bAWhite.l_credit_amount_tip',
+          defaultMessage: '',
+        })}
       />
       <ProFormRadio.Group
         name="update_exist"
-        label="是否更新已注册用户"
+        label={intl.formatMessage({
+          id: 'pages.userManager.bAWhite.update_exist',
+          defaultMessage: '',
+        })}
         radioType="button"
         options={[
           {
-            label: '不更新',
+            label: intl.formatMessage({
+              id: 'pages.userManager.bAWhite.update_exist_no',
+              defaultMessage: '',
+            }),
             value: 0,
           },
           {
-            label: '更新',
+            label: intl.formatMessage({
+              id: 'pages.userManager.bAWhite.update_exist_yes',
+              defaultMessage: '',
+            }),
             value: 1,
           },
         ]}

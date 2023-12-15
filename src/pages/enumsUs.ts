@@ -281,8 +281,8 @@ export const US_COMMON_STATUS_YUNXU_ARRAY: StatusOption[] = [
 ];
 export const US_BLACK_TYPE: StatusEnum = {
   1: { text: 'Improt excel', status: '' },
-  2: { text: 'System', status: 'Error' },
-  3: { text: 'Admin', status: 'Error' },
+  2: { text: 'System', status: '' },
+  3: { text: 'Admin', status: '' },
 };
 
 //放款日志方式

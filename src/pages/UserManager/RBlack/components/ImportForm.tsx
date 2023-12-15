@@ -175,11 +175,11 @@ const ImportForm: React.FC<FormProps> = (props) => {
       <ProFormDatePicker
         name="d_overdate"
         label={intl.formatMessage({
-          id: 'pages.userManager.rBlack.end_date',
+          id: 'pages.userManager.rBlack.d_overdate',
           defaultMessage: '结束日期',
         })}
         tooltip={intl.formatMessage({
-          id: 'pages.userManager.rBlack.end_date_tip',
+          id: 'pages.userManager.rBlack.d_overdate_tip',
           defaultMessage: '默认为系统配置天数',
         })}
       />
