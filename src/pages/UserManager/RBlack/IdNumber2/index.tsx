@@ -3,8 +3,8 @@ import { US_BLACK_TYPE } from '@/pages/enumsUs';
 import DrawerFC from '@/pages/UserManager/RBlack/components/DrawerFC';
 import { getAdminV1AKReasons as getAKReasons } from '@/services/ant-design-pro/AKReason';
 import {
-  deleteAdminV1RBlacksId as destory,
   getAdminV1RBlacks as index,
+  putAdminV1RBlacksId as update,
 } from '@/services/ant-design-pro/RBlack';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 import { useIntl } from '@@/exports';
@@ -109,16 +109,17 @@ const TableList: React.FC = ({}) => {
     }
   };
   /**
-   * 提交移除黑名单表单
+   * 移出、恢复黑名单信息
    */
-  const _handle = async (id: number) => {
+  const _handle = async (id: number, status: number) => {
     const hide = message.loading(
       intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }),
     );
     try {
       // @ts-ignore
-      await destory({
+      await update({
         id: id,
+        n_status: status,
       });
       if (actionRef.current) {
         actionRef.current.reload();
@@ -326,21 +327,33 @@ const TableList: React.FC = ({}) => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
-        const remove = (
+        return record.n_status === 1 ? (
           <Popconfirm
             title={`${intl.formatMessage({
               id: 'pages.userManager.rBlack.remove_tip',
               defaultMessage: '',
             })}${record.a_info}`}
             key={record.id}
-            onConfirm={() => _handle(record.id!)}
+            onConfirm={() => _handle(record.id!, 2)}
             okText="Yes"
             cancelText="No"
           >
             <a>{intl.formatMessage({ id: 'pages.common.option.delete', defaultMessage: '' })}</a>
           </Popconfirm>
+        ) : (
+          <Popconfirm
+            title={`${intl.formatMessage({
+              id: 'pages.userManager.rBlack.recovery_tip',
+              defaultMessage: '',
+            })}${record.a_info}`}
+            key={record.id}
+            onConfirm={() => _handle(record.id!, 1)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <a>{intl.formatMessage({ id: 'pages.common.option.recovery', defaultMessage: '' })}</a>
+          </Popconfirm>
         );
-        return [remove];
       },
     },
   ];

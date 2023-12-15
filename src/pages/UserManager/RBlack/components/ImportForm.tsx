@@ -1,5 +1,6 @@
 import { getAdminV1AKReasons as getReasonsEnum } from '@/services/ant-design-pro/AKReason';
 import { postAdminV1ImportBlack as post } from '@/services/ant-design-pro/RBlack';
+import { useIntl } from '@@/exports';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
   ModalForm,
@@ -29,6 +30,7 @@ export type FormProps = {
  * @constructor
  */
 const ImportForm: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   /** 拉黑原因enum */
   const [reasons, setReasons] = useState<RequestOptionsType[]>([]);
@@ -104,7 +106,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
   };
   const _handleBeforeUpload = (file: RcFile) => {
     if (file.size <= 800 * 1024) return true;
-    message.error('Image must smaller than 2MB!');
+    message.error('File must smaller than 2MB!');
     return false;
     /*    return new Promise<void>((resolve, reject) =>
           Modal.confirm({
@@ -162,21 +164,36 @@ const ImportForm: React.FC<FormProps> = (props) => {
 
       <ProFormSelect
         name="a_reason_id"
-        label="拉黑原因"
+        label={intl.formatMessage({
+          id: 'pages.userManager.rBlack.reason',
+          defaultMessage: '拉黑原因',
+        })}
         request={_getReasonEnum}
         placeholder="Please select a reason"
         rules={[{ required: true, message: 'Please select your reason!' }]}
       />
       <ProFormDatePicker
         name="d_overdate"
-        label="结束日期"
-        tooltip="默认为90天，90天后自动变为灰名单"
+        label={intl.formatMessage({
+          id: 'pages.userManager.rBlack.end_date',
+          defaultMessage: '结束日期',
+        })}
+        tooltip={intl.formatMessage({
+          id: 'pages.userManager.rBlack.end_date_tip',
+          defaultMessage: '默认为系统配置天数',
+        })}
       />
       <ProFormText
         // width="md"
         name="b_comment"
-        label="备注"
-        placeholder="请输入备注"
+        label={intl.formatMessage({
+          id: 'pages.userManager.rBlack.comment',
+          defaultMessage: '备注',
+        })}
+        placeholder={intl.formatMessage({
+          id: 'pages.userManager.rBlack.comment_placeholder',
+          defaultMessage: '请输入备注',
+        })}
       />
     </ModalForm>
   );

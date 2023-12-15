@@ -2,6 +2,7 @@ import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormDigit, ProFormText } from '@ant-design/pro-form';
 
 import { putAdminV1GHSettingsId as update } from '@/services/ant-design-pro/GHSetting';
+import { useIntl } from '@@/exports';
 import { message } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
@@ -21,6 +22,7 @@ export type FormProps = {
  * @constructor
  */
 const CreateForm: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [oldRecord, setOldRecord] = useState<API.GHSetting>();

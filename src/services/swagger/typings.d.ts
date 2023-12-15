@@ -4070,6 +4070,8 @@ declare namespace API {
     g_type?: number;
     /** 备注 */
     h_remark?: string;
+    /** 最近命中时间 */
+    i_last_hit_time?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -5568,6 +5570,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1RBlacksIdParams = {
+    /** id of RBlack */
+    id: number;
+  };
+
   type putAdminV1RCSmsIdParams = {
     /** id of RCSms */
     id: number;
@@ -5710,11 +5717,6 @@ declare namespace API {
 
   type putNoticeIconItemsIdParams = {
     /** id of NoticeIconItem */
-    id: number;
-  };
-
-  type putRBlacksIdParams = {
-    /** id of RBlack */
     id: number;
   };
 
@@ -6126,6 +6128,8 @@ declare namespace API {
     l_admin_file_id?: number;
     /** 最近命中时间 */
     m_last_hit_time?: string;
+    /** 状态 */
+    n_status?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
