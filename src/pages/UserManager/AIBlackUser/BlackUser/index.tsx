@@ -23,28 +23,28 @@ const TableList: React.FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const hitEnum = {
-    phone: {
+    c_phone_hit_id: {
       text: intl.formatMessage({
         id: 'pages.userManager.aUser.a_phone',
         defaultMessage: '',
       }),
       status: 'Default',
     },
-    idnumber: {
+    d_idnumber_hit_id: {
       text: intl.formatMessage({
         id: 'pages.userManager.aUser.d_id_number',
         defaultMessage: '',
       }),
       status: 'Processing',
     },
-    bank: {
+    f_bankcard_no_hit_id: {
       text: intl.formatMessage({
         id: 'pages.userManager.aUser.e_bankcard_no',
         defaultMessage: '',
       }),
       status: 'Error',
     },
-    device: {
+    i_device_hit_id: {
       text: intl.formatMessage({
         id: 'pages.userManager.BlackUser.device',
         defaultMessage: '',
@@ -329,7 +329,7 @@ const TableList: React.FC = () => {
         return <span style={{ color: color }}>{record.a_user!.a_j_loss}</span>;
       },
       search: {
-        transform: (value: any) => ({ 'a_user-r_loss': value }),
+        transform: (value: any) => ({ 'a_user-a_j_loss': value }),
       },
     },
     {
@@ -412,7 +412,7 @@ const TableList: React.FC = () => {
         id: 'pages.userManager.BlackUser.hit',
         defaultMessage: '',
       }),
-      dataIndex: 'h_mac_hit_id[]',
+      dataIndex: 'hits',
       hideInTable: true,
       valueType: 'checkbox',
       valueEnum: hitEnum,
