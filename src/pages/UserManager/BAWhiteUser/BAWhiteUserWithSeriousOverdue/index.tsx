@@ -37,7 +37,7 @@ const TableList: React.FC = () => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
-    const res = await index({ page: params.current, type: 1, ...params });
+    const res = await index({ page: params.current, type: 3, ...params });
     return {
       data: res.data,
       // success 请返回 true，
@@ -444,7 +444,6 @@ const TableList: React.FC = () => {
       },
     },
   ];
-
   return (
     <div>
       <ProTable<TableListItem, TableListPagination>

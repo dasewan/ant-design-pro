@@ -212,4 +212,8 @@ export default {
   'pages.userManager.rBlack.comment_placeholder': 'Please Enter Comment',
   'pages.userManager.rBlack.n_status.normal': 'Normal',
   'pages.userManager.rBlack.n_status.removed': 'Removed',
+  //黑名单用户
+  'pages.userManager.BlackUser.device': 'Device',
+  'pages.userManager.BlackUser.hit': 'Hit',
+  'pages.userManager.BlackUser.source': 'Source',
 };

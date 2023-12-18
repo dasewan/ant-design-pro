@@ -77,6 +77,7 @@ export default {
   'pages.common.option.captchaPlaceHolder': '请输入验证码',
   'pages.common.option.captchaSendSuccess': '验证码发送成功',
   'pages.common.option.captchaSendFailed': '验证码发送失败',
+
   'pages.statistics.collection.flow.id': 'id',
   'pages.statistics.collection.flow.a_date': '日期',
   'pages.statistics.collection.flow.source': 'source',
@@ -205,8 +206,12 @@ export default {
   'pages.userManager.rBlack.end_date': '结束日期',
   'pages.userManager.rBlack.d_overdate_tip': '默认为系统设置的结束日期',
   'pages.userManager.rBlack.comment': '备注',
-  'pages.userManager.rBlack.comment_tip': '请输入备注',
+  'pages.userMana  ger.rBlack.comment_tip': '请输入备注',
   'pages.userManager.rBlack.comment_placeholder': '请输入备注',
   'pages.userManager.rBlack.n_status.normal': '正常',
   'pages.userManager.rBlack.n_status.removed': '已移除',
+  //黑名单用户
+  'pages.userManager.BlackUser.device': '设备',
+  'pages.userManager.BlackUser.hit': '命中项',
+  'pages.userManager.BlackUser.source': '来源',
 };

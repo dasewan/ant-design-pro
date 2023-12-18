@@ -1,30 +1,57 @@
+import { BLACK_USER_TYPE } from '@/pages/enums';
+import { US_BLACK_USER_TYPE } from '@/pages/enumsUs';
 import DrawerFC from '@/pages/UserManager/AUser/components/DrawerFC';
 import { getAdminV1AIBlackUsers as index } from '@/services/ant-design-pro/AIBlackUser';
+import { useIntl } from '@@/exports';
 import { DollarOutlined } from '@ant-design/icons';
+import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Badge, Rate } from 'antd';
+import { Badge, ConfigProvider, Rate } from 'antd';
 import moment from 'moment';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 
-const hitEnum = {
-  phone: { text: '手机号', status: 'Default' },
-  idnumber: { text: '身份证', status: 'Processing' },
-  idnumber2: { text: '证件号', status: 'Success' },
-  bank: { text: '银行卡号', status: 'Error' },
-  imei: { text: 'IMEI', status: 'Error' },
-  mac: { text: 'MAC', status: 'Error' },
-  device: { text: 'DEVICE', status: 'Error' },
-};
-
 const TableList: React.FC = () => {
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const [currentRow, setCurrentRow] = useState<API.AUser>();
   /** DrawerFC 类型 */
   const [type, setType] = useState<string>('');
   /** drawer是否显示 */
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
+  const hitEnum = {
+    phone: {
+      text: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_phone',
+        defaultMessage: '',
+      }),
+      status: 'Default',
+    },
+    idnumber: {
+      text: intl.formatMessage({
+        id: 'pages.userManager.aUser.d_id_number',
+        defaultMessage: '',
+      }),
+      status: 'Processing',
+    },
+    bank: {
+      text: intl.formatMessage({
+        id: 'pages.userManager.aUser.e_bankcard_no',
+        defaultMessage: '',
+      }),
+      status: 'Error',
+    },
+    device: {
+      text: intl.formatMessage({
+        id: 'pages.userManager.BlackUser.device',
+        defaultMessage: '',
+      }),
+      status: 'Error',
+    },
+  };
 
   /** table */
   const _index = async (
@@ -62,18 +89,23 @@ const TableList: React.FC = () => {
   };
 
   const columns: ProColumns<TableListItem>[] = [
-    //todo 动态draw和复制分离
     {
-      title: '电话',
+      title: intl.formatMessage({ id: 'pages.userManager.aUser.a_phone', defaultMessage: '' }),
       dataIndex: ['a_user', 'a_phone'],
-      tooltip: '规则名称是唯一的',
       copyable: true,
       search: {
         transform: (value: any) => ({ 'a_user-a_phone': value }),
       },
+      render: (_, record) => {
+        return (
+          <a target="_blank" rel="noopener noreferrer" href={`/user/detail/${record.a_user_id}`}>
+            {record.a_user!.a_phone}
+          </a>
+        );
+      },
     },
     {
-      title: '注册时间',
+      title: intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' }),
       dataIndex: ['a_user', 'created_at'],
       valueType: 'dateRange',
       render: (_, record) => {
@@ -94,19 +126,36 @@ const TableList: React.FC = () => {
         }),
       },
     },
+    {
+      title: intl.formatMessage({ id: 'pages.userManager.BlackUser.source', defaultMessage: '' }),
+      dataIndex: 'h_status',
+      initialValue: [],
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? BLACK_USER_TYPE : US_BLACK_USER_TYPE,
+    },
     //todo 跳转到此用户规则匹配记录
     {
-      title: '信用分',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.g_credit_fraction',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_user', 'g_credit_fraction'],
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
       search: {
         transform: (value: any) => ({ 'a_user-g_credit_fraction': value }),
       },
     },
     {
-      title: '授信额度',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.f_credit_amount',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_user', 'f_credit_amount'],
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
       render: (_, record) => {
         return (
           <a
@@ -122,20 +171,50 @@ const TableList: React.FC = () => {
         transform: (value: any) => ({ 'a_user-f_credit_amount': value }),
       },
     },
-    //todo 跳转
     {
-      title: '当前订单',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.r_current_borrow_id',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_user', 'r_current_borrow_id'],
       search: {
         transform: (value: any) => ({ 'a_user-r_current_borrow_id': value }),
       },
+      render: (_, record) => {
+        if (
+          record.a_user!.r_current_borrow_id !== undefined &&
+          record.a_user!.r_current_borrow_id > 0
+        ) {
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`/borrow/detail/${record.a_user!.r_current_borrow_id}`}
+            >
+              {intl.formatMessage({
+                id: 'pages.common.borrow_detail',
+                defaultMessage: '',
+              })}
+            </a>
+          );
+        } else {
+          return null;
+        }
+      },
     },
-    //todo 跳转到此用户所有订单
     {
-      title: '逾期/放款',
-      dataIndex: ['a_user', 'af_loan_count'],
+      title:
+        intl.formatMessage({
+          id: 'pages.userManager.aUser.a_h_overdue_times',
+          defaultMessage: '',
+        }) +
+        '/' +
+        intl.formatMessage({
+          id: 'pages.userManager.aUser.a_f_loan_count',
+          defaultMessage: '',
+        }),
+      dataIndex: ['a_user', 'a_f_loan_count'],
       hideInSearch: true,
-      tip: '2笔为一个图标',
       colSize: 16,
       render: (_, record) => {
         return (
@@ -143,86 +222,121 @@ const TableList: React.FC = () => {
             <Rate
               character={<DollarOutlined style={{ fontSize: 12 }} />}
               disabled
-              allowHalf={true}
               style={{ color: 'red', margin: 0 }}
-              count={record.a_user!.af_loan_count}
-              value={record.a_user!.ah_overdue_times! / 2}
+              count={record.a_user!.a_f_loan_count}
+              value={record.a_user!.a_h_overdue_times!}
             />
           </div>
         );
       },
     },
     {
-      title: '放款笔数',
-      dataIndex: ['a_user', 'af_loan_count'],
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_f_loan_count',
+        defaultMessage: '',
+      }),
+      dataIndex: ['a_user', 'a_f_loan_count'],
       hideInTable: true,
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
       search: {
         transform: (value: any) => ({ 'a_user-af_loan_count': value }),
       },
     },
     {
-      title: '逾期次数',
-      dataIndex: ['a_user', 'ah_overdue_times'],
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_h_overdue_times',
+        defaultMessage: '',
+      }),
+      dataIndex: ['a_user', 'a_h_overdue_times'],
       hideInTable: true,
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
       search: {
-        transform: (value: any) => ({ 'a_user-ah_overdue_times': value }),
+        transform: (value: any) => ({ 'a_user-a_h_overdue_times': value }),
       },
     },
     {
-      title: '逾期',
-      dataIndex: ['a_user', 'ai_repay_max_overdue_days'],
-      tooltip: '历史最大逾期天数/累计逾期天数',
+      title:
+        intl.formatMessage({
+          id: 'pages.userManager.aUser.a_i_repay_max_overdue_days',
+          defaultMessage: '',
+        }) +
+        '/' +
+        intl.formatMessage({
+          id: 'pages.userManager.aUser.a_n_total_overdue_days',
+          defaultMessage: '',
+        }),
+      dataIndex: ['a_user', 'a_i_repay_max_overdue_days'],
       hideInSearch: true,
       render(_, record) {
-        return record.a_user!.ai_repay_max_overdue_days || record.a_user!.an_total_overdue_days
-          ? record.a_user!.ai_repay_max_overdue_days + '/' + record.a_user!.an_total_overdue_days
+        return record.a_user!.a_i_repay_max_overdue_days || record.a_user!.a_n_total_overdue_days
+          ? record.a_user!.a_i_repay_max_overdue_days + '/' + record.a_user!.a_n_total_overdue_days
           : '-';
       },
     },
     {
-      title: '历史最大逾期天数',
-      dataIndex: ['a_user', 'ai_repay_max_overdue_days'],
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_i_repay_max_overdue_days',
+        defaultMessage: '',
+      }),
+      dataIndex: ['a_user', 'a_i_repay_max_overdue_days'],
       hideInTable: true,
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
       search: {
-        transform: (value: any) => ({ 'a_user-ai_repay_max_overdue_days': value }),
+        transform: (value: any) => ({ 'a_user-a_i_repay_max_overdue_days': value }),
       },
     },
     {
-      title: '累计逾期天数',
-      dataIndex: ['a_user', 'an_total_overdue_days'],
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_n_total_overdue_days',
+        defaultMessage: '',
+      }),
+      dataIndex: ['a_user', 'a_n_total_overdue_days'],
       hideInTable: true,
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
       search: {
-        transform: (value: any) => ({ 'a_user-an_total_overdue_days': value }),
+        transform: (value: any) => ({ 'a_user-a_n_total_overdue_days': value }),
       },
     },
     //todo 跳转到此用户所有费用
     {
-      title: '损益',
-      dataIndex: ['a_user', 'r_loss'],
-      fieldProps: { placeholder: '支持区间' },
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_j_loss',
+        defaultMessage: '',
+      }),
+      dataIndex: ['a_user', 'a_j_loss'],
+      fieldProps: {
+        placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
+      },
       render(_, record) {
         let color = 'success';
-        if (record.a_user!.aj_loss) {
-          if (record.a_user!.aj_loss > 0) {
+        if (record.a_user!.a_j_loss) {
+          if (record.a_user!.a_j_loss > 0) {
             color = 'green';
-          } else if (record.a_user!.aj_loss < 0) {
+          } else if (record.a_user!.a_j_loss < 0) {
             color = 'red';
           } else {
             color = '#303030';
           }
         }
-        return <span style={{ color: color }}>{record.a_user!.aj_loss}</span>;
+        return <span style={{ color: color }}>{record.a_user!.a_j_loss}</span>;
       },
       search: {
         transform: (value: any) => ({ 'a_user-r_loss': value }),
       },
     },
     {
-      title: '手机号',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_phone',
+        defaultMessage: '',
+      }),
       dataIndex: 'c_phone_hit_id',
       hideInSearch: true,
       width: 80,
@@ -231,7 +345,10 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '身份证号',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.d_id_number',
+        defaultMessage: '',
+      }),
       dataIndex: 'd_idnumber_hit_id',
       hideInSearch: true,
       width: 80,
@@ -239,7 +356,7 @@ const TableList: React.FC = () => {
         return record.d_idnumber_hit_id ? <Badge status="error" /> : <Badge status="default" />;
       },
     },
-    {
+    /*{
       title: '证件号',
       dataIndex: 'e_idnumber2_hit_id',
       hideInSearch: true,
@@ -247,9 +364,12 @@ const TableList: React.FC = () => {
       render(_, record) {
         return record.e_idnumber2_hit_id ? <Badge status="error" /> : <Badge status="default" />;
       },
-    },
+    },*/
     {
-      title: '银行卡号',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.e_bankcard_no',
+        defaultMessage: '',
+      }),
       dataIndex: 'f_bankcard_no_hit_id',
       hideInSearch: true,
       width: 80,
@@ -257,7 +377,7 @@ const TableList: React.FC = () => {
         return record.f_bankcard_no_hit_id ? <Badge status="error" /> : <Badge status="default" />;
       },
     },
-    {
+    /*{
       title: 'IMEI',
       dataIndex: 'g_imei_hit_id',
       hideInSearch: true,
@@ -265,8 +385,8 @@ const TableList: React.FC = () => {
       render(_, record) {
         return record.g_imei_hit_id ? <Badge status="error" /> : <Badge status="default" />;
       },
-    },
-    {
+    },*/
+    /*{
       title: 'MAC',
       dataIndex: 'h_mac_hit_id',
       hideInSearch: true,
@@ -274,9 +394,12 @@ const TableList: React.FC = () => {
       render(_, record) {
         return record.h_mac_hit_id ? <Badge status="error" /> : <Badge status="default" />;
       },
-    },
+    },*/
     {
-      title: 'DEVICE',
+      title: intl.formatMessage({
+        id: 'pages.userManager.BlackUser.device',
+        defaultMessage: '',
+      }),
       dataIndex: 'i_device_hit_id',
       hideInSearch: true,
       width: 80,
@@ -285,7 +408,10 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '命中项',
+      title: intl.formatMessage({
+        id: 'pages.userManager.BlackUser.hit',
+        defaultMessage: '',
+      }),
       dataIndex: 'h_mac_hit_id[]',
       hideInTable: true,
       valueType: 'checkbox',
@@ -294,7 +420,11 @@ const TableList: React.FC = () => {
   ];
 
   return (
-    <div>
+    <PageContainer
+      header={{
+        ghost: true,
+      }}
+    >
       <ProTable<TableListItem, TableListPagination>
         // headerTitle="客户列表"
         revalidateOnFocus={false}
@@ -321,7 +451,7 @@ const TableList: React.FC = () => {
         aUser={currentRow!}
         type={type}
       />
-    </div>
+    </PageContainer>
   );
 };
 

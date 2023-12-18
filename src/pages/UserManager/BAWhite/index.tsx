@@ -1,7 +1,7 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { Badge, Button, Dropdown, MenuProps, message, Popconfirm } from 'antd';
+import { Button, Dropdown, MenuProps, message, Popconfirm } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
@@ -190,7 +190,7 @@ const TableList: React.FC = () => {
   const columns: ProColumns<TableListItem>[] = [
     //todo 动态draw和复制分离
     {
-      title: intl.formatMessage({ id: 'pages.userManager.bAWhite.a_phone', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.userManager.aUser.a_phone', defaultMessage: '' }),
       dataIndex: 'a_phone',
       copyable: true,
       render: (_, record) => {
@@ -233,48 +233,30 @@ const TableList: React.FC = () => {
         placeholder: intl.formatMessage({ id: 'pages.common.range', defaultMessage: '' }),
       },
     },
+    /*    {
+          title: intl.formatMessage({ id: 'pages.userManager.bAWhite.b_user_id', defaultMessage: '' }),
+          dataIndex: 'b_user_id',
+          render: (_, record) => {
+            return record.b_user_id ? <Badge status="success" /> : <Badge status="default" />;
+          },
+        },*/
     {
-      title: intl.formatMessage({ id: 'pages.userManager.bAWhite.b_user_id', defaultMessage: '' }),
-      dataIndex: 'b_user_id',
-      render: (_, record) => {
-        return record.b_user_id ? <Badge status="success" /> : <Badge status="default" />;
-      },
+      title: intl.formatMessage({ id: 'pages.userManager.bAWhite.k_admin_id', defaultMessage: '' }),
+      dataIndex: 'k_admin_id',
+      valueType: 'select',
+      request: _getUserEnum,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.userManager.bAWhite.j_status', defaultMessage: '' }),
+      dataIndex: 'j_status',
+      valueType: 'select',
+      valueEnum: STATUS_ENUM,
     },
     {
       title: intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' }),
       dataIndex: 'created_at',
       render: (_, record) => {
         return moment(record.created_at).format('YYYY-MM-DD');
-      },
-      valueType: 'dateRange',
-      search: {
-        transform: (value: any) => {
-          return {
-            'i_valid_date[0]':
-              value[0].$d !== undefined
-                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[0] + ' 00:00:00',
-            'i_valid_date[1]':
-              value[1].$d !== undefined
-                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[1] + ' 00:00:00',
-          };
-        },
-      },
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.bAWhite.i_valid_date',
-        defaultMessage: '',
-      }),
-      dataIndex: 'i_valid_date',
-      render: (_, record) => {
-        if (record.i_valid_date !== null) {
-          // @ts-ignore
-          return moment(new Date(record.i_valid_date)).format('YYYY-MM-DD');
-        } else {
-          return '-';
-        }
       },
       valueType: 'dateRange',
       search: {
@@ -323,16 +305,34 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.userManager.bAWhite.k_admin_id', defaultMessage: '' }),
-      dataIndex: 'k_admin_id',
-      valueType: 'select',
-      request: _getUserEnum,
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.userManager.bAWhite.j_status', defaultMessage: '' }),
-      dataIndex: 'j_status',
-      valueType: 'select',
-      valueEnum: STATUS_ENUM,
+      title: intl.formatMessage({
+        id: 'pages.userManager.bAWhite.i_valid_date',
+        defaultMessage: '',
+      }),
+      dataIndex: 'i_valid_date',
+      render: (_, record) => {
+        if (record.i_valid_date !== null) {
+          // @ts-ignore
+          return moment(new Date(record.i_valid_date)).format('YYYY-MM-DD');
+        } else {
+          return '-';
+        }
+      },
+      valueType: 'dateRange',
+      search: {
+        transform: (value: any) => {
+          return {
+            'i_valid_date[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'i_valid_date[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
     },
     {
       title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),

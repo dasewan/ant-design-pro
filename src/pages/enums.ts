@@ -284,6 +284,12 @@ export const BLACK_TYPE: StatusEnum = {
   2: { text: '系统', status: '' },
   3: { text: '管理员手动', status: '' },
 };
+export const BLACK_USER_TYPE: StatusEnum = {
+  1: { text: '注册命中黑名单库', status: '' },
+  2: { text: '管理员手动拉黑', status: '' },
+  3: { text: '执行逾期任务时被拉黑', status: '' },
+  4: { text: '导入时命中注册用户', status: '' },
+};
 
 //放款日志方式
 export const LOAN_LOG_METHOD: StatusEnum = {

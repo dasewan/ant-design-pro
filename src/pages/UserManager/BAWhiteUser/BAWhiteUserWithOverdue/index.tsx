@@ -117,64 +117,7 @@ const TableList: React.FC = () => {
       }),
       dataIndex: 'h_admin_file_id',
     },
-    {
-      title: intl.formatMessage({
-        id: 'pages.common.created_at',
-        defaultMessage: '',
-      }),
-      dataIndex: 'created_at',
-      valueType: 'dateRange',
-      render: (_, record) => {
-        return moment(record!.created_at).format('YY-MM-DD');
-      },
-      search: {
-        transform: (value: any) => {
-          return {
-            'created_at[0]':
-              value[0].$d !== undefined
-                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[0] + ' 00:00:00',
-            'created_at[1]':
-              value[1].$d !== undefined
-                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[1] + ' 00:00:00',
-          };
-        },
-      },
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.aUser.created_at',
-        defaultMessage: '',
-      }),
-      dataIndex: ['a_a_a_a_a_a_user', 'created_at'],
-      valueType: 'dateRange',
-      render: (_, record) => {
-        return (
-          <a
-            onClick={async () => {
-              _showDrawer(record.a_a_a_a_a_a_user!, 'aCUserNews');
-            }}
-          >
-            {moment(record.a_a_a_a_a_a_user!.created_at).format('YY-MM-DD HH:mm')}
-          </a>
-        );
-      },
-      search: {
-        transform: (value: any) => {
-          return {
-            'a_a_a_a_a_a_user-created_at[0]':
-              value[0].$d !== undefined
-                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[0] + ' 00:00:00',
-            'a_a_a_a_a_a_user-created_at[1]':
-              value[1].$d !== undefined
-                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[1] + ' 00:00:00',
-          };
-        },
-      },
-    },
+
     {
       title: intl.formatMessage({
         id: 'pages.userManager.bAWhiteUser.c_span_days',
@@ -440,6 +383,64 @@ const TableList: React.FC = () => {
       },
       search: {
         transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_j_loss': value }),
+      },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.common.created_at',
+        defaultMessage: '',
+      }),
+      dataIndex: 'created_at',
+      valueType: 'dateRange',
+      render: (_, record) => {
+        return moment(record!.created_at).format('YY-MM-DD');
+      },
+      search: {
+        transform: (value: any) => {
+          return {
+            'created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.created_at',
+        defaultMessage: '',
+      }),
+      dataIndex: ['a_a_a_a_a_a_user', 'created_at'],
+      valueType: 'dateRange',
+      render: (_, record) => {
+        return (
+          <a
+            onClick={async () => {
+              _showDrawer(record.a_a_a_a_a_a_user!, 'aCUserNews');
+            }}
+          >
+            {moment(record.a_a_a_a_a_a_user!.created_at).format('YY-MM-DD HH:mm')}
+          </a>
+        );
+      },
+      search: {
+        transform: (value: any) => {
+          return {
+            'a_a_a_a_a_a_user-created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'a_a_a_a_a_a_user-created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
   ];

@@ -22,6 +22,13 @@ const BAWhite: FC = () => {
         defaultMessage: '逾期白名单用户',
       }),
     },
+    {
+      key: 'white-user-with-serious-overdue',
+      tab: intl.formatMessage({
+        id: 'pages.userManager.bAWhiteUser.tab.whiteUserWithSeriousOverdueList',
+        defaultMessage: '严重逾期白名单用户',
+      }),
+    },
   ];
   /** 获取tab */
   /*  const _getBAWhiteTab = async () => {

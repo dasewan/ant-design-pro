@@ -64,8 +64,8 @@ export default {
   'menu.user.white-info-list': 'White Info List',
   'menu.user.white-user-list': 'White User List',
   'menu.user.white-user-list.white-user': 'White User',
-
   'menu.user.white-user-list.white-user-with-overdue': 'White User With Overdue',
+  'menu.user.white-user-list.white-user-with-serious-overdue': 'White User With Serious Overdue',
   'menu.user.g-b-marketing': 'G B Marketing',
   'menu.user.import-result-list': 'Import Result List',
   'menu.user.marketing-detail-list': 'Marketing Detail List',

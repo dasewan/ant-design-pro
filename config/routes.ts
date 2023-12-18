@@ -92,6 +92,12 @@ export default [
             path: '/user-manager/white-user-list/white-user-with-overdue',
             component: './UserManager/BAWhiteUser/BAWhiteUserWithOverdue',
           },
+          {
+            name: 'white-user-with-serious-overdue',
+            icon: 'smile',
+            path: '/user-manager/white-user-list/white-user-with-serious-overdue',
+            component: './UserManager/BAWhiteUser/BAWhiteUserWithSeriousOverdue',
+          },
         ],
       },
       {
@@ -139,7 +145,7 @@ export default [
           },
         ],
       },
-      {
+      /*{
         name: 'black-user-list',
         icon: 'smile',
         path: '/user-manager/black-user-list',
@@ -159,6 +165,12 @@ export default [
             component: './UserManager/AIBlackUser/BlackUserWithRepay',
           },
         ],
+      },*/
+      {
+        name: 'black-user-list',
+        icon: 'smile',
+        path: '/user-manager/black-user-list/black-user',
+        component: './UserManager/AIBlackUser/BlackUser',
       },
       {
         name: 'g-b-marketing',
@@ -732,7 +744,6 @@ export default [
           },
         ],
       },
-
     ],
   },
   {

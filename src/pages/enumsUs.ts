@@ -284,6 +284,12 @@ export const US_BLACK_TYPE: StatusEnum = {
   2: { text: 'System', status: '' },
   3: { text: 'Admin', status: '' },
 };
+export const US_BLACK_USER_TYPE: StatusEnum = {
+  1: { text: 'Register Hit', status: '' },
+  2: { text: 'Admin Push', status: '' },
+  3: { text: 'Crontab', status: '' },
+  4: { text: 'Import', status: '' },
+};
 
 //放款日志方式
 export const US_LOAN_LOG_METHOD: StatusEnum = {
