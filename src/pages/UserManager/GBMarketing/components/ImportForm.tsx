@@ -1,5 +1,6 @@
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { postAdminV1GBMarketings as store } from '@/services/ant-design-pro/GBMarketing';
+import { useIntl } from '@@/exports';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
   ModalForm,
@@ -30,6 +31,7 @@ export type FormProps = {
  * @constructor
  */
 const ImportForm: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   /** 渠道enum */
   const [channels, setChannels] = useState<RequestOptionsType[]>([]);
@@ -114,7 +116,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
   };
   const _handleBeforeUpload = (file: RcFile) => {
     if (file.size <= 800 * 1024) return true;
-    message.error('Image must smaller than 2MB!');
+    message.error('File must smaller than 2MB!');
     return false;
     /*    return new Promise<void>(() =>
           Modal.confirm({
@@ -163,8 +165,10 @@ const ImportForm: React.FC<FormProps> = (props) => {
       <ProFormText
         // width="md"
         name="q_title"
-        label="营销名称"
-        placeholder="请输入备注"
+        label={intl.formatMessage({
+          id: 'pages.userManager.gBMarketing.q_title',
+          defaultMessage: '',
+        })}
         rules={[{ required: true, message: 'Please select your reason!' }]}
       />
       <ProFormUploadButton
@@ -181,7 +185,10 @@ const ImportForm: React.FC<FormProps> = (props) => {
       />
       <ProFormSelect
         name="b_channel_id"
-        label="渠道"
+        label={intl.formatMessage({
+          id: 'pages.userManager.gBMarketing.b_channel_id',
+          defaultMessage: '',
+        })}
         request={_getChannelsEnum}
         placeholder="Please select a channel"
         rules={[{ required: true, message: 'Please select your reason!' }]}
@@ -189,20 +196,35 @@ const ImportForm: React.FC<FormProps> = (props) => {
       <ProFormRadio.Group
         tooltip={
           <div>
-            延时执行：明日凌晨空闲时间执行
+            {intl.formatMessage({
+              id: 'pages.userManager.gBMarketing.l_type.delay_tip',
+              defaultMessage: '',
+            })}
             <br />
-            立即执行：执行期间可能会造成系统卡顿
+            {intl.formatMessage({
+              id: 'pages.userManager.gBMarketing.l_type.now_tip',
+              defaultMessage: '',
+            })}
           </div>
         }
         name="l_type"
-        label="执行时间"
+        label={intl.formatMessage({
+          id: 'pages.userManager.gBMarketing.l_type',
+          defaultMessage: '',
+        })}
         options={[
           {
-            label: '延时执行',
+            label: intl.formatMessage({
+              id: 'pages.userManager.gBMarketing.l_type.delay',
+              defaultMessage: '',
+            }),
             value: 'delay',
           },
           {
-            label: '立即执行',
+            label: intl.formatMessage({
+              id: 'pages.userManager.gBMarketing.l_type.now',
+              defaultMessage: '',
+            }),
             value: 'now',
           },
         ]}
@@ -210,8 +232,10 @@ const ImportForm: React.FC<FormProps> = (props) => {
       <ProFormText
         // width="md"
         name="j_comment"
-        label="备注"
-        placeholder="请输入备注"
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.j_comment',
+          defaultMessage: '',
+        })}
       />
     </ModalForm>
   );

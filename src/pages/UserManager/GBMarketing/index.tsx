@@ -1,21 +1,26 @@
 import { STATUS_ENUM } from '@/pages/enums';
 import MarketingForm from '@/pages/UserManager/GBMarketing/components/MarketingForm';
+import { useIntl } from '@@/exports';
 import { DownloadOutlined, EllipsisOutlined, FileTextOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, Dropdown, MenuProps, Progress, Space, Table, Tag } from 'antd';
+import { Button, ConfigProvider, Dropdown, MenuProps, Progress, Space, Table, Tag } from 'antd';
 import moment from 'moment';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import ImportForm from './components/ImportForm';
 import type { TableListItem, TableListPagination } from './data';
 
+import { US_STATUS_ENUM } from '@/pages/enumsUs';
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { getAdminV1GBMarketings as index } from '@/services/ant-design-pro/GBMarketing';
 import { getAdminV1UsersEnum as getUserEnum } from '@/services/ant-design-pro/User';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
@@ -128,12 +133,18 @@ const TableList: React.FC = () => {
   // @ts-ignore
   const expendColumns: ProColumns<API.GCMarketingHistory>[] = [
     {
-      title: '批号',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.e_batch_sn',
+        defaultMessage: '',
+      }),
       dataIndex: 'e_batch_sn',
       ellipsis: true,
     },
     {
-      title: '管理员',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.b_admin_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'b_admin_id',
       valueType: 'select',
       request: _getUserEnum,
@@ -141,61 +152,112 @@ const TableList: React.FC = () => {
     },
     //todo 短信开发完改成request
     {
-      title: '短信模版',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.c_sms_templete_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'c_sms_templete_id',
       valueType: 'select',
       request: _getSMSsEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: '主题',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.d_theme_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'd_theme_id',
     },
     {
-      title: '查看数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.i_viewed_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'i_viewed_count',
       search: false,
     },
     {
-      title: '查看数（去重）',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.j_viewed_deduplication_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'j_viewed_deduplication_count',
       search: false,
     },
     {
-      title: '营销数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.k_marketing_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'k_marketing_count',
       search: false,
     },
     {
-      title: '注册数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.f_register_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'f_register_count',
     },
     {
-      title: '备注',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.g_comment',
+        defaultMessage: '',
+      }),
       dataIndex: 'g_comment',
     },
     {
-      title: '目标用户',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.l_type',
+        defaultMessage: '',
+      }),
       dataIndex: 'l_type',
       render: (_, record) => {
         if (record.l_type === 1) {
-          return <Tag color="cyan">未注册</Tag>;
+          return (
+            <Tag color="cyan">
+              {intl.formatMessage({
+                id: 'pages.userManager.marketingHistory.un_register',
+                defaultMessage: '未注册',
+              })}
+            </Tag>
+          );
         } else if (record.l_type === 2) {
-          return <Tag color="blue">未查看</Tag>;
+          return (
+            <Tag color="blue">
+              {intl.formatMessage({
+                id: 'pages.userManager.marketingHistory.un_view',
+                defaultMessage: '未查看',
+              })}
+            </Tag>
+          );
         } else {
-          return <Tag color="purple">已查看</Tag>;
+          return (
+            <Tag color="purple">
+              {intl.formatMessage({
+                id: 'pages.userManager.marketingHistory.viewed',
+                defaultMessage: '已查看',
+              })}
+            </Tag>
+          );
         }
       },
     },
     {
-      title: '营销状态',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.m_status',
+        defaultMessage: '',
+      }),
       dataIndex: 'm_status',
       valueType: 'select',
-      valueEnum: STATUS_ENUM,
+      valueEnum: currentLanguage === 'zh-cn' ? STATUS_ENUM : US_STATUS_ENUM,
       hideInSearch: true,
     },
     {
-      title: '开始时间',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.h_begin_at',
+        defaultMessage: '',
+      }),
       dataIndex: 'h_begin_at',
       valueType: 'dateRange',
       width: 140,
@@ -207,77 +269,119 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '营销名称',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.q_title',
+        defaultMessage: '',
+      }),
       dataIndex: 'q_title',
       ellipsis: true,
       search: false,
       fixed: 'left',
     },
     {
-      title: '渠道',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.b_channel_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'b_channel_id',
       valueType: 'select',
       request: _getChannelsEnum,
       params: { timestamp: Math.random() },
-      fixed: 'left',
     },
     {
-      title: '管理员',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.c_admin_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'c_admin_id',
       valueType: 'select',
       request: _getUserEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: '导入数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.d_import_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'd_import_count',
     },
     {
-      title: '有效数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.e_valid_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'e_valid_count',
     },
     {
-      title: '黑名单数量',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.t_black_count',
+        defaultMessage: '',
+      }),
       dataIndex: 't_black_count',
     },
     {
-      title: '已注册数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.r_register_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'r_register_count',
-      tooltip: '导入前已经注册的数，注意和《注册数》的区别',
     },
     {
-      title: '重复数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.s_repeat_count',
+        defaultMessage: '',
+      }),
       dataIndex: 's_repeat_count',
-      tooltip: '此前已经通过别的渠道营销过',
     },
     {
-      title: '查看数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.n_viewed_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'n_viewed_count',
       search: false,
     },
     {
-      title: '查看数（去重）',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.o_viewed_deduplication_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'o_viewed_deduplication_count',
       search: false,
     },
     {
-      title: '注册数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.f_register_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'f_register_count',
     },
     {
-      title: '营销次数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.g_marketing_times',
+        defaultMessage: '',
+      }),
       dataIndex: 'g_marketing_times',
     },
     {
-      title: '短信总数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.h_sms_times',
+        defaultMessage: '',
+      }),
       dataIndex: 'h_sms_times',
     },
     {
-      title: '邮件总数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.i_email_times',
+        defaultMessage: '',
+      }),
       dataIndex: 'i_email_times',
     },
     {
-      title: '导入时间',
+      title: intl.formatMessage({
+        id: 'pages.common.created_at',
+        defaultMessage: '',
+      }),
       dataIndex: 'created_at',
       valueType: 'dateRange',
       width: 140,
@@ -289,7 +393,10 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '首次营销时间',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.u_first_marketing_time',
+        defaultMessage: '',
+      }),
       dataIndex: 'u_first_marketing_time',
       valueType: 'dateRange',
       width: 140,
@@ -306,7 +413,10 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '最近营销时间',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.p_last_marketing_time',
+        defaultMessage: '',
+      }),
       dataIndex: 'p_last_marketing_time',
       valueType: 'dateRange',
       width: 140,
@@ -323,13 +433,29 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '备注',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.j_comment',
+        defaultMessage: '',
+      }),
       dataIndex: 'j_comment',
       ellipsis: true,
       search: false,
     },
     {
-      title: '注册进度',
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.m_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 'm_status',
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? STATUS_ENUM : US_STATUS_ENUM,
+      hideInSearch: true,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.process',
+        defaultMessage: '注册进度',
+      }),
       dataIndex: 'created_at',
       valueType: 'dateRange',
       width: 200,
@@ -340,34 +466,39 @@ const TableList: React.FC = () => {
       },
       fixed: 'right',
     },
+
     {
-      title: 'excel状态',
-      dataIndex: 'm_status',
-      valueType: 'select',
-      valueEnum: STATUS_ENUM,
-      hideInSearch: true,
-      fixed: 'right',
-    },
-    {
-      title: '操作',
+      title: intl.formatMessage({
+        id: 'pages.common.option',
+        defaultMessage: '操作',
+      }),
       dataIndex: 'option',
       valueType: 'option',
       width: 60,
       fixed: 'right',
       render: (_, record) => {
-        return record.m_status === 50 &&
-          // @ts-ignore
-          !record.g_c_marketing_histories.some(
-            (item: API.GCMarketingHistory) => item.m_status === 10 || item.m_status === 20,
-          ) &&
-          (isNaN(moment().diff(moment(record.p_last_marketing_time), 'days')) ||
-            moment().diff(moment(record.p_last_marketing_time), 'days') > 2)
-          ? [
-              <a key="credit_amount" onClick={() => handleMarketing(record.id!.toString())}>
-                营销
-              </a>,
-            ]
-          : [];
+        return (
+          <a key="credit_amount" onClick={() => handleMarketing(record.id!.toString())}>
+            {intl.formatMessage({
+              id: 'pages.userManager.gBMarketing.marketing',
+              defaultMessage: '营销',
+            })}
+          </a>
+        );
+        // todo use this
+        /*        return record.m_status === 50 &&
+                  // @ts-ignore
+                  !record.g_c_marketing_histories.some(
+                    (item: API.GCMarketingHistory) => item.m_status === 10 || item.m_status === 20,
+                  ) &&
+                  (isNaN(moment().diff(moment(record.p_last_marketing_time), 'days')) ||
+                    moment().diff(moment(record.p_last_marketing_time), 'days') > 2)
+                  ? [
+                      <a key="credit_amount" onClick={() => handleMarketing(record.id!.toString())}>
+                        营销
+                      </a>,
+                    ]
+                  : [];*/
       },
     },
   ];
@@ -388,15 +519,25 @@ const TableList: React.FC = () => {
     );
   };
   const items: MenuProps['items'] = [
-    { label: '操作说明', key: 'item-1', icon: <FileTextOutlined /> },
+    {
+      label: intl.formatMessage({
+        id: 'pages.common.explain',
+        defaultMessage: '操作说明',
+      }),
+      key: 'item-1',
+      icon: <FileTextOutlined />,
+    },
     {
       label: (
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href={'/admin/v1/aLAdminFiles_templete/white_info_list.xlsx'}
+          href={'/admin/v1/aLAdminFiles_templete/marketing_list.xlsx'}
         >
-          模版下载
+          {intl.formatMessage({
+            id: 'pages.common.download',
+            defaultMessage: '模版下载',
+          })}
         </a>
       ),
       key: 'item-2',
@@ -407,11 +548,13 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '营销管理',
         ghost: true,
         extra: [
           <Button key="3" type="primary" onClick={() => handleImportModalVisible(true)}>
-            导入营销名单
+            {intl.formatMessage({
+              id: 'pages.userManager.gBMarketing.import',
+              defaultMessage: '导入营销名单',
+            })}
           </Button>,
           <Dropdown key="dropdown" trigger={['click']} menu={{ items }}>
             <Button key="4" style={{ padding: '0 8px' }}>
@@ -433,7 +576,7 @@ const TableList: React.FC = () => {
         postData={(data: any[]) => {
           return data;
         }}
-        scroll={{ x: '130%' }}
+        scroll={{ x: '230%' }}
         pagination={{
           pageSize: 50,
         }}
@@ -459,16 +602,33 @@ const TableList: React.FC = () => {
         tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => (
           <Space size={24}>
             <span>
-              已选 {selectedRowKeys.length} 项
+              {intl.formatMessage({
+                id: 'pages.searchTable.chosen',
+                defaultMessage: '',
+              })}{' '}
+              {selectedRowKeys.length}{' '}
+              {intl.formatMessage({
+                id: 'pages.searchTable.item',
+                defaultMessage: '',
+              })}
               <a style={{ marginLeft: 8 }} onClick={onCleanSelected}>
-                取消选择
+                {intl.formatMessage({
+                  id: 'pages.searchTable.cancelSelected',
+                  defaultMessage: '',
+                })}
               </a>
             </span>
 
-            <span>{`营销用户: ${selectedRows.reduce(
+            <span>{`${intl.formatMessage({
+              id: 'pages.userManager.gBMarketing.user',
+              defaultMessage: '',
+            })}: ${selectedRows.reduce(
               (pre, item) => pre + (item.e_valid_count! - item.f_register_count!),
               0,
-            )} 个`}</span>
+            )} ${intl.formatMessage({
+              id: 'pages.searchTable.item',
+              defaultMessage: '',
+            })}`}</span>
           </Space>
         )}
         tableAlertOptionRender={({ selectedRows }) => {
@@ -479,13 +639,24 @@ const TableList: React.FC = () => {
                   handleMarketing(selectedRows.map((item: TableListItem) => item.id).join(','))
                 }
               >
-                批量营销
+                {intl.formatMessage({
+                  id: 'pages.userManager.gBMarketing.batch_marketing',
+                  defaultMessage: '',
+                })}
               </a>
-              <a>导出数据</a>
+              <a>
+                {intl.formatMessage({
+                  id: 'pages.common.export',
+                  defaultMessage: '',
+                })}
+              </a>
             </Space>
           );
         }}
-        headerTitle="批量操作"
+        headerTitle={intl.formatMessage({
+          id: 'pages.userManager.gBMarketing.batch_marketing',
+          defaultMessage: '',
+        })}
         // @ts-ignore
         expandable={{
           expandedRowRender,

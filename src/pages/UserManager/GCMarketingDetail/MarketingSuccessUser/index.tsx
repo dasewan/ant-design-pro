@@ -212,7 +212,7 @@ const TableList: React.FC = () => {
     //todo 跳转到此用户所有订单
     {
       title: '逾期/放款',
-      dataIndex: ['a_a_a_a_a_a_user', 'af_loan_count'],
+      dataIndex: ['a_a_a_a_a_a_user', 'a_f_loan_count'],
       hideInSearch: true,
       tip: '2笔为一个图标',
       colSize: 16,
@@ -224,8 +224,8 @@ const TableList: React.FC = () => {
               disabled
               allowHalf={true}
               style={{ color: 'red', margin: 0 }}
-              count={record.a_a_a_a_a_a_user!.af_loan_count}
-              value={record.a_a_a_a_a_a_user!.ah_overdue_times! / 2}
+              count={record.a_a_a_a_a_a_user!.a_f_loan_count}
+              value={record.a_a_a_a_a_a_user!.a_h_overdue_times! / 2}
             />
           </div>
         );
@@ -233,74 +233,74 @@ const TableList: React.FC = () => {
     },
     {
       title: '放款笔数',
-      dataIndex: ['a_a_a_a_a_a_user', 'af_loan_count'],
+      dataIndex: ['a_a_a_a_a_a_user', 'a_f_loan_count'],
       hideInTable: true,
       fieldProps: { placeholder: '支持区间' },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-af_loan_count': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_f_loan_count': value }),
       },
     },
     {
       title: '逾期次数',
-      dataIndex: ['a_a_a_a_a_a_user', 'ah_overdue_times'],
+      dataIndex: ['a_a_a_a_a_a_user', 'a_h_overdue_times'],
       hideInTable: true,
       fieldProps: { placeholder: '支持区间' },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-ah_overdue_times': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_h_overdue_times': value }),
       },
     },
     {
       title: '逾期',
-      dataIndex: ['a_a_a_a_a_a_user', 'ai_repay_max_overdue_days'],
+      dataIndex: ['a_a_a_a_a_a_user', 'a_i_repay_max_overdue_days'],
       tooltip: '历史最大逾期天数/累计逾期天数',
       hideInSearch: true,
       render(_, record) {
-        return record.a_a_a_a_a_a_user!.ai_repay_max_overdue_days ||
-          record.a_a_a_a_a_a_user!.an_total_overdue_days
-          ? record.a_a_a_a_a_a_user!.ai_repay_max_overdue_days +
+        return record.a_a_a_a_a_a_user!.a_i_repay_max_overdue_days ||
+          record.a_a_a_a_a_a_user!.a_n_total_overdue_days
+          ? record.a_a_a_a_a_a_user!.a_i_repay_max_overdue_days +
               '/' +
-              record.a_a_a_a_a_a_user!.an_total_overdue_days
+              record.a_a_a_a_a_a_user!.a_n_total_overdue_days
           : '-';
       },
     },
     {
       title: '历史最大逾期天数',
-      dataIndex: ['a_a_a_a_a_a_user', 'ai_repay_max_overdue_days'],
+      dataIndex: ['a_a_a_a_a_a_user', 'a_i_repay_max_overdue_days'],
       hideInTable: true,
       fieldProps: { placeholder: '支持区间' },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-ai_repay_max_overdue_days': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_i_repay_max_overdue_days': value }),
       },
     },
     {
       title: '累计逾期天数',
-      dataIndex: ['a_a_a_a_a_a_user', 'an_total_overdue_days'],
+      dataIndex: ['a_a_a_a_a_a_user', 'a_n_total_overdue_days'],
       hideInTable: true,
       fieldProps: { placeholder: '支持区间' },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-an_total_overdue_days': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_n_total_overdue_days': value }),
       },
     },
     //todo 跳转到此用户所有费用
     {
       title: '损益',
-      dataIndex: ['a_a_a_a_a_a_user', 'r_loss'],
+      dataIndex: ['a_a_a_a_a_a_user', 'a_j_loss'],
       fieldProps: { placeholder: '支持区间' },
       render(_, record) {
         let color = 'success';
-        if (record.a_a_a_a_a_a_user!.aj_loss) {
-          if (record.a_a_a_a_a_a_user!.aj_loss > 0) {
+        if (record.a_a_a_a_a_a_user!.a_j_loss) {
+          if (record.a_a_a_a_a_a_user!.a_j_loss > 0) {
             color = 'green';
-          } else if (record.a_a_a_a_a_a_user!.aj_loss < 0) {
+          } else if (record.a_a_a_a_a_a_user!.a_j_loss < 0) {
             color = 'red';
           } else {
             color = '#303030';
           }
         }
-        return <span style={{ color: color }}>{record.a_a_a_a_a_a_user!.aj_loss}</span>;
+        return <span style={{ color: color }}>{record.a_a_a_a_a_a_user!.a_j_loss}</span>;
       },
       search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-r_loss': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_j_loss': value }),
       },
     },
   ];
