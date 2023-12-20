@@ -1,19 +1,15 @@
-import type { ProFormInstance } from '@ant-design/pro-form';
-import {
-  ModalForm,
-  ProFormDateTimePicker,
-  ProFormDigit,
-  ProFormRadio,
-  ProFormSelect,
-  ProFormText,
-} from '@ant-design/pro-form';
-import type { ProFieldRequestData } from '@ant-design/pro-utils';
-import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
-import { Col, Image, message, Row } from 'antd';
+import type {ProFormInstance} from '@ant-design/pro-form';
+import {ModalForm, ProFormDateTimePicker, ProFormRadio, ProFormSelect, ProFormText,} from '@ant-design/pro-form';
+import type {ProFieldRequestData} from '@ant-design/pro-utils';
+import type {RequestOptionsType} from '@ant-design/pro-utils/lib/typing';
+import {Col, Image, message, Row} from 'antd';
 import moment from 'moment';
-import React, { useRef, useState } from 'react';
+import React, {useRef, useState} from 'react';
+import {useIntl} from '@@/exports';
 
-import { postAdminV1GCMarketingHistories as storeGCMarketingHistories } from '@/services/ant-design-pro/GCMarketingHistory';
+import {
+  postAdminV1GCMarketingHistories as storeGCMarketingHistories
+} from '@/services/ant-design-pro/GCMarketingHistory';
 
 export type FormValueType = Partial<API.GBMarketing>;
 export type FormRecord = API.GBMarketing;
@@ -30,6 +26,7 @@ export type FormProps = {
  * @constructor
  */
 const MarketingForm: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   /** 短信模版enum */
   const [smss, setSmss] = useState<RequestOptionsType[]>([]);
@@ -37,7 +34,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
   const [smsViews, setSmsViews] = useState<RequestOptionsType[]>([]);
   /** 已选择的预览内容 */
   const [smsSelectedView, setSmsSelectedView] = useState<string>('');
-  const [useViewCountShow, setUseViewCountShow] = useState<boolean>(false);
+  // const [useViewCountShow, setUseViewCountShow] = useState<boolean>(false);
   /**
    * 开始营销
    * @param fields
@@ -62,6 +59,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
       return true;
     } catch (error) {
       hide();
+      // @ts-ignore
       message.error(error.response.data.message);
       return false;
     }
@@ -101,7 +99,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
         formRef.current?.resetFields();
         if (!visible) {
           setSmsSelectedView('');
-          setUseViewCountShow(false);
+          // setUseViewCountShow(false);
           props.onCancel();
         }
       }}
@@ -121,7 +119,10 @@ const MarketingForm: React.FC<FormProps> = (props) => {
     >
       <ProFormSelect
         name="c_sms_templete_id"
-        label="短信模版"
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.c_sms_templete_id',
+          defaultMessage: '',
+        })}
         request={_getSMSsEnum}
         fieldProps={{
           onChange: (value) => {
@@ -129,36 +130,44 @@ const MarketingForm: React.FC<FormProps> = (props) => {
             setSmsSelectedView(
               smsViews!.find((item) => {
                 return item.value === value;
-              })?.label,
+              })?.label! as string
             );
           },
         }}
-        placeholder="Please select a channel"
-        rules={[{ required: true, message: 'Please select your reason!' }]}
+        rules={[{required: true}]}
       />
       {smsSelectedView !== '' ? (
         <div>
           <Row>
-            <Col span={4} style={{ textAlign: 'right' }}>
-              短信模版预览：
+            <Col span={4} style={{textAlign: 'right'}}>
+              {intl.formatMessage({
+                id: 'pages.userManager.marketingHistory.preview',
+                defaultMessage: '',
+              })}：
             </Col>
             <Col span={14}>{smsSelectedView}</Col>
           </Row>
-          <br />
+          <br/>
         </div>
       ) : (
         ''
       )}
       <ProFormRadio.Group
         name="d_theme_id"
-        label="主题"
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.d_theme_id',
+          defaultMessage: '',
+        })}
         request={async () => [
           {
             label: (
               <Image
                 width={80}
                 src="http://api.dasewan.cn/storage/marketing_theme/theme_1.jpg"
-                alt="主题a"
+                alt={`${intl.formatMessage({
+                  id: 'pages.userManager.marketingHistory.d_theme_id',
+                  defaultMessage: '',
+                })}a`}
               />
             ),
             value: '1',
@@ -168,7 +177,10 @@ const MarketingForm: React.FC<FormProps> = (props) => {
               <Image
                 width={80}
                 src="http://api.dasewan.cn/storage/marketing_theme/theme_2.jpg"
-                alt="主题a"
+                alt={`${intl.formatMessage({
+                  id: 'pages.userManager.marketingHistory.d_theme_id',
+                  defaultMessage: '',
+                })}b`}
               />
             ),
             value: '2',
@@ -178,7 +190,10 @@ const MarketingForm: React.FC<FormProps> = (props) => {
               <Image
                 width={80}
                 src="http://api.dasewan.cn/storage/marketing_theme/theme_3.jpg"
-                alt="主题a"
+                alt={`${intl.formatMessage({
+                  id: 'pages.userManager.marketingHistory.d_theme_id',
+                  defaultMessage: '',
+                })}c`}
               />
             ),
             value: '3',
@@ -188,7 +203,10 @@ const MarketingForm: React.FC<FormProps> = (props) => {
               <Image
                 width={80}
                 src="http://api.dasewan.cn/storage/marketing_theme/theme_4.jpg"
-                alt="主题a"
+                alt={`${intl.formatMessage({
+                  id: 'pages.userManager.marketingHistory.d_theme_id',
+                  defaultMessage: '',
+                })}d`}
               />
             ),
             value: '4',
@@ -198,7 +216,10 @@ const MarketingForm: React.FC<FormProps> = (props) => {
               <Image
                 width={80}
                 src="http://api.dasewan.cn/storage/marketing_theme/theme_5.jpg"
-                alt="主题a"
+                alt={`${intl.formatMessage({
+                  id: 'pages.userManager.marketingHistory.d_theme_id',
+                  defaultMessage: '',
+                })}e`}
               />
             ),
             value: '5',
@@ -208,67 +229,87 @@ const MarketingForm: React.FC<FormProps> = (props) => {
               <Image
                 width={80}
                 src="http://api.dasewan.cn/storage/marketing_theme/theme_6.jpg"
-                alt="主题a"
+                alt={`${intl.formatMessage({
+                  id: 'pages.userManager.marketingHistory.d_theme_id',
+                  defaultMessage: '',
+                })}f`}
               />
             ),
             value: '6',
           },
         ]}
-        placeholder="Please select a channel"
-        rules={[{ required: true, message: 'Please select your reason!' }]}
+        rules={[{required: true}]}
       />
       <ProFormRadio.Group
-        tooltip={<div>邮件模版和主题相似</div>}
+        tooltip={<div>{intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.o_send_email_tip',
+          defaultMessage: '',
+        })}</div>}
         name="o_send_email"
-        label="是否发送邮件"
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.o_send_email',
+          defaultMessage: '',
+        })}
         radioType="button"
         options={[
           {
-            label: '发送邮件',
+            label: intl.formatMessage({
+              id: 'pages.userManager.marketingHistory.o_send_email_yes',
+              defaultMessage: '',
+            }),
             value: 1,
           },
           {
-            label: '不发送邮件',
+            label: intl.formatMessage({
+              id: 'pages.userManager.marketingHistory.o_send_email_no',
+              defaultMessage: '',
+            }),
             value: 2,
           },
         ]}
       />
       <ProFormRadio.Group
-        tooltip={
-          <div>
-            未查看：在收到营销短信后，没有点开过链接查看的用户
-            <br />
-            已查看：点开过链接，但是没有注册
-          </div>
-        }
+
         name="l_type"
-        label="目标用户"
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.l_type',
+          defaultMessage: '',
+        })}
         radioType="button"
-        fieldProps={{
-          onChange: (event) => {
-            if (event.target.value === 3) {
-              setUseViewCountShow(true);
-            } else {
-              setUseViewCountShow(false);
-            }
-          },
-        }}
+        /*        fieldProps={{
+                  onChange: (event) => {
+                                if (event.target.value === 5) {
+                                  setUseViewCountShow(true);
+                                } else {
+                                  setUseViewCountShow(false);
+                                }
+                  },
+                }}*/
         options={[
           {
-            label: '未注册',
+            label: intl.formatMessage({
+              id: 'pages.userManager.marketingHistory.un_register',
+              defaultMessage: '',
+            }),
             value: 3,
           },
           {
-            label: '未查看',
+            label: intl.formatMessage({
+              id: 'pages.userManager.marketingHistory.un_view',
+              defaultMessage: '',
+            }),
             value: 4,
           },
           {
-            label: '已查看',
+            label: intl.formatMessage({
+              id: 'pages.userManager.marketingHistory.viewed',
+              defaultMessage: '',
+            }),
             value: 5,
           },
         ]}
       />
-      {useViewCountShow ? (
+      {/*      {useViewCountShow ? (
         <ProFormDigit
           label="查看次数"
           name="n_user_view_count"
@@ -278,17 +319,22 @@ const MarketingForm: React.FC<FormProps> = (props) => {
         />
       ) : (
         ''
-      )}
+      )}*/}
       <ProFormDateTimePicker
         name="h_begin_at"
-        label="开始时间"
-        rules={[{ required: true, message: 'Please select your reason!' }]}
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.h_begin_at',
+          defaultMessage: '',
+        })}
+        rules={[{required: true, message: 'Please select your reason!'}]}
       />
       <ProFormText
         // width="md"
         name="g_comment"
-        label="备注"
-        placeholder="请输入备注"
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.g_comment',
+          defaultMessage: '',
+        })}
       />
     </ModalForm>
   );
