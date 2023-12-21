@@ -1,25 +1,25 @@
-import { STATUS_ENUM } from '@/pages/enums';
+import {STATUS_ENUM} from '@/pages/enums';
 import MarketingForm from '@/pages/UserManager/GBMarketing/components/MarketingForm';
-import { useIntl } from '@@/exports';
-import { DownloadOutlined, EllipsisOutlined, FileTextOutlined } from '@ant-design/icons';
-import { PageContainer } from '@ant-design/pro-layout';
-import type { ActionType, ProColumns } from '@ant-design/pro-table';
+import {useIntl} from '@@/exports';
+import {DownloadOutlined, EllipsisOutlined, FileTextOutlined} from '@ant-design/icons';
+import {PageContainer} from '@ant-design/pro-layout';
+import type {ActionType, ProColumns} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, ConfigProvider, Dropdown, MenuProps, Progress, Space, Table, Tag } from 'antd';
+import type {ProFieldRequestData, RequestOptionsType} from '@ant-design/pro-utils';
+import {Button, ConfigProvider, Dropdown, MenuProps, Progress, Space, Table, Tag} from 'antd';
 import moment from 'moment';
-import React, { useContext, useRef, useState } from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import ImportForm from './components/ImportForm';
-import type { TableListItem, TableListPagination } from './data';
+import type {TableListItem, TableListPagination} from './data';
 
-import { US_STATUS_ENUM } from '@/pages/enumsUs';
-import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
-import { getAdminV1GBMarketings as index } from '@/services/ant-design-pro/GBMarketing';
-import { getAdminV1UsersEnum as getUserEnum } from '@/services/ant-design-pro/User';
+import {US_STATUS_ENUM} from '@/pages/enumsUs';
+import {getAdminV1ChannelsEnum as getChannelsEnum} from '@/services/ant-design-pro/AFChannel';
+import {getAdminV1GBMarketings as index} from '@/services/ant-design-pro/GBMarketing';
+import {getAdminV1UsersEnum as getUserEnum} from '@/services/ant-design-pro/User';
 
 const TableList: React.FC = () => {
   const intl = useIntl();
-  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const {locale} = useContext(ConfigProvider.ConfigContext);
   const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   /** 管理员enum */
@@ -389,7 +389,18 @@ const TableList: React.FC = () => {
         return moment(record.created_at).format('YY-MM-DD HH:mm');
       },
       search: {
-        transform: (value: any) => ({ 'created_at[0]': value[0], 'created_at[1]': value[1] }),
+        transform: (value: any) => {
+          return {
+            'created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
     {
@@ -406,10 +417,18 @@ const TableList: React.FC = () => {
           : '-';
       },
       search: {
-        transform: (value: any) => ({
-          'u_first_marketing_time[0]': value[0],
-          'u_first_marketing_time[1]': value[1],
-        }),
+        transform: (value: any) => {
+          return {
+            'u_first_marketing_time[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'u_first_marketing_time[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
     {
@@ -426,10 +445,18 @@ const TableList: React.FC = () => {
           : '-';
       },
       search: {
-        transform: (value: any) => ({
-          'p_last_marketing_time[0]': value[0],
-          'p_last_marketing_time[1]': value[1],
-        }),
+        transform: (value: any) => {
+          return {
+            'p_last_marketing_time[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'p_last_marketing_time[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
     {
@@ -449,7 +476,7 @@ const TableList: React.FC = () => {
       dataIndex: 'm_status',
       valueType: 'select',
       valueEnum: currentLanguage === 'zh-cn' ? STATUS_ENUM : US_STATUS_ENUM,
-      hideInSearch: true,
+      // hideInSearch: true,
     },
     {
       title: intl.formatMessage({

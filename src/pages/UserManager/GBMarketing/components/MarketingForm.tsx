@@ -275,6 +275,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
           id: 'pages.userManager.marketingHistory.l_type',
           defaultMessage: '',
         })}
+        rules={[{required: true}]}
         radioType="button"
         /*        fieldProps={{
                   onChange: (event) => {
@@ -291,21 +292,21 @@ const MarketingForm: React.FC<FormProps> = (props) => {
               id: 'pages.userManager.marketingHistory.un_register',
               defaultMessage: '',
             }),
-            value: 3,
+            value: 1,
           },
           {
             label: intl.formatMessage({
               id: 'pages.userManager.marketingHistory.un_view',
               defaultMessage: '',
             }),
-            value: 4,
+            value: 2,
           },
           {
             label: intl.formatMessage({
               id: 'pages.userManager.marketingHistory.viewed',
               defaultMessage: '',
             }),
-            value: 5,
+            value: 3,
           },
         ]}
       />
@@ -326,7 +327,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
           id: 'pages.userManager.marketingHistory.h_begin_at',
           defaultMessage: '',
         })}
-        rules={[{required: true, message: 'Please select your reason!'}]}
+        rules={[{required: true}]}
       />
       <ProFormText
         // width="md"
