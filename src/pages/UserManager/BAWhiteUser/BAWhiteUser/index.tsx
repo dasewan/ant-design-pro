@@ -190,7 +190,7 @@ const TableList: React.FC = () => {
     },
     {
       title: intl.formatMessage({
-        id: 'pages.userManager.aUser.r_current_borrow_id',
+        id: 'pages.userManager.aUser.t_cur_borrow_status',
         defaultMessage: '',
       }),
       hideInSearch: true,

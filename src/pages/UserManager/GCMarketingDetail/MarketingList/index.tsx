@@ -1,6 +1,7 @@
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { getAdminV1GAMarketingDetails as index } from '@/services/ant-design-pro/GAMarketingDetail';
 import { getAdminV1GCMarketingHistories as getGCMarketingHistories } from '@/services/ant-design-pro/GCMarketingHistory';
+import { useIntl } from '@@/exports';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
@@ -9,6 +10,7 @@ import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
   /** 渠道enum */
   const [channels, setChannels] = useState<RequestOptionsType[]>([]);
   /** 批次enum */
@@ -29,7 +31,7 @@ const TableList: React.FC = () => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
-    const res = await index({ type: 3, page: params.current, ...params });
+    const res = await index({ type: 1, page: params.current, ...params });
     return {
       data: res.data,
       // success 请返回 true，
@@ -81,87 +83,81 @@ const TableList: React.FC = () => {
   };
 
   const columns: ProColumns<TableListItem>[] = [
+    //todo 动态draw和复制分离
     {
-      title: '电话',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.a_phone',
+        defaultMessage: '',
+      }),
       dataIndex: 'a_phone',
       tooltip: '规则名称是唯一的',
       copyable: true,
     },
     {
-      title: '渠道',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.i_channel_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'i_channel_id',
       valueType: 'select',
       request: _getChannelsEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: '导入序号',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.n_admin_file_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'n_admin_file_id',
     },
     {
-      title: '录入时间',
+      title: intl.formatMessage({
+        id: 'pages.common.created_at',
+        defaultMessage: '',
+      }),
       dataIndex: 'created_at',
       valueType: 'dateRange',
       render: (_, record) => {
         return moment(record!.created_at).format('YY-MM-DD');
       },
       search: {
-        transform: (value: any) => ({
-          'created_at[0]': value[0],
-          'created_at[1]': value[1],
-        }),
+        transform: (value: any) => {
+          return {
+            'created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
     {
-      title: '上次成功时间',
-      dataIndex: 'l_last_marketing_time',
-      valueType: 'dateRange',
-      render: (_, record) => {
-        return record.l_last_marketing_time
-          ? moment(record.l_last_marketing_time).format('YY-MM-DD HH:mm')
-          : '-';
-      },
-      search: {
-        transform: (value: any) => ({
-          'l_last_marketing_time[0]': value[0],
-          'l_last_marketing_time[1]': value[1],
-        }),
-      },
-    },
-    {
-      title: '最近查看时间',
-      dataIndex: 'm_last_viewed_time',
-      valueType: 'dateRange',
-      render: (_, record) => {
-        return record.m_last_viewed_time
-          ? moment(record.m_last_viewed_time).format('YY-MM-DD HH:mm')
-          : '-';
-      },
-      search: {
-        transform: (value: any) => ({
-          'm_last_viewed_time[0]': value[0],
-          'm_last_viewed_time[1]': value[1],
-        }),
-      },
-    },
-    {
-      title: '批次',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.f_marketing_history_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'f_marketing_history_id',
       valueType: 'select',
       request: _getGCMarketingHistories,
       params: { timestamp: Math.random() },
     },
     {
-      title: '短信次数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.g_sms_times',
+        defaultMessage: '',
+      }),
       dataIndex: 'g_sms_times',
     },
     {
-      title: '邮件次数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.h_email_times',
+        defaultMessage: '',
+      }),
       dataIndex: 'h_email_times',
-    },
-    {
-      title: '查看次数',
-      dataIndex: 'k_view_count',
     },
   ];
 

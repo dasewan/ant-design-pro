@@ -61,8 +61,6 @@ const BAWhite: FC = () => {
   }, []);
 
   const _handleTabChange = (key: string) => {
-    console.log('key');
-    console.log(key);
     history.push(`/user-manager/white-user-list/${key}`);
   };
 

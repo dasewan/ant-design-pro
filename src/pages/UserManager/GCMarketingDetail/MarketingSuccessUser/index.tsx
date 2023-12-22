@@ -2,6 +2,7 @@ import DrawerFC from '@/pages/UserManager/AUser/components/DrawerFC';
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { getAdminV1GAMarketingDetails as index } from '@/services/ant-design-pro/GAMarketingDetail';
 import { getAdminV1GCMarketingHistories as getGCMarketingHistories } from '@/services/ant-design-pro/GCMarketingHistory';
+import { useIntl } from '@@/exports';
 import { DollarOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -12,6 +13,7 @@ import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
   const [currentRow, setCurrentRow] = useState<API.AUser>();
   /** DrawerFC 类型 */
   const [type, setType] = useState<string>('');
@@ -37,7 +39,7 @@ const TableList: React.FC = () => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
-    const res = await index({ type: 1, page: params.current, ...params });
+    const res = await index({ type: 4, page: params.current, ...params });
     return {
       data: res.data,
       // success 请返回 true，
@@ -102,90 +104,117 @@ const TableList: React.FC = () => {
   const columns: ProColumns<TableListItem>[] = [
     //todo 动态draw和复制分离
     {
-      title: '电话',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.a_phone',
+        defaultMessage: '',
+      }),
       dataIndex: 'a_phone',
       tooltip: '规则名称是唯一的',
       copyable: true,
     },
     {
-      title: '渠道',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.i_channel_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'i_channel_id',
       valueType: 'select',
       request: _getChannelsEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: '导入序号',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.n_admin_file_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'n_admin_file_id',
     },
     {
-      title: '录入时间',
+      title: intl.formatMessage({
+        id: 'pages.common.created_at',
+        defaultMessage: '',
+      }),
       dataIndex: 'created_at',
       valueType: 'dateRange',
       render: (_, record) => {
         return moment(record!.created_at).format('YY-MM-DD');
       },
       search: {
-        transform: (value: any) => ({
-          'created_at[0]': value[0],
-          'created_at[1]': value[1],
-        }),
+        transform: (value: any) => {
+          return {
+            'created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
+
     {
-      title: '注册时间',
-      dataIndex: ['a_a_a_a_a_a_user', 'created_at'],
-      valueType: 'dateRange',
-      render: (_, record) => {
-        return (
-          <a
-            onClick={async () => {
-              await _showDrawer(record.a_a_a_a_a_a_user!, 'aCUserNews');
-            }}
-          >
-            {moment(record.a_a_a_a_a_a_user!.created_at).format('YY-MM-DD HH:mm')}
-          </a>
-        );
-      },
-      search: {
-        transform: (value: any) => ({
-          'a_a_a_a_a_a_user-created_at[0]': value[0],
-          'a_a_a_a_a_a_user-created_at[1]': value[1],
-        }),
-      },
-    },
-    {
-      title: '时间间隔',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.j_span_days',
+        defaultMessage: '',
+      }),
       dataIndex: 'j_span_days',
     },
     {
-      title: '批次',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.f_marketing_history_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'f_marketing_history_id',
       valueType: 'select',
       request: _getGCMarketingHistories,
       params: { timestamp: Math.random() },
     },
     {
-      title: '短信次数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.g_sms_times',
+        defaultMessage: '',
+      }),
       dataIndex: 'g_sms_times',
     },
     {
-      title: '邮件次数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.h_email_times',
+        defaultMessage: '',
+      }),
       dataIndex: 'h_email_times',
     },
     //todo 跳转到此用户规则匹配记录
     {
-      title: '信用分',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.g_credit_fraction',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_a_user', 'g_credit_fraction'],
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({
+          id: 'pages.common.range',
+          defaultMessage: '',
+        }),
+      },
       search: {
         transform: (value: any) => ({ 'a_a_a_a_a_a_user-g_credit_fraction': value }),
       },
     },
     {
-      title: '授信额度',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.f_credit_amount',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_a_user', 'f_credit_amount'],
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({
+          id: 'pages.common.range',
+          defaultMessage: '',
+        }),
+      },
       render: (_, record) => {
         return (
           <a
@@ -201,59 +230,130 @@ const TableList: React.FC = () => {
         transform: (value: any) => ({ 'a_a_a_a_a_a_user-f_credit_amount': value }),
       },
     },
-    //todo 跳转
     {
-      title: '当前订单',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.t_cur_borrow_status',
+        defaultMessage: '',
+      }),
+      hideInSearch: true,
       dataIndex: ['a_a_a_a_a_a_user', 'r_current_borrow_id'],
-      search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-r_current_borrow_id': value }),
+      render: (_, record) => {
+        if (
+          record.a_a_a_a_a_a_user!.r_current_borrow_id !== undefined &&
+          record.a_a_a_a_a_a_user!.r_current_borrow_id > 0
+        ) {
+          return (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`/borrow/detail/${record.a_a_a_a_a_a_user!.r_current_borrow_id}`}
+            >
+              {intl.formatMessage({
+                id: 'pages.common.borrow_detail',
+                defaultMessage: '',
+              })}
+            </a>
+          );
+        } else {
+          return null;
+        }
       },
     },
     //todo 跳转到此用户所有订单
     {
-      title: '逾期/放款',
+      title:
+        intl.formatMessage({
+          id: 'pages.userManager.aUser.a_h_overdue_times',
+          defaultMessage: '',
+        }) +
+        '/' +
+        intl.formatMessage({
+          id: 'pages.userManager.aUser.a_f_loan_count',
+          defaultMessage: '',
+        }),
       dataIndex: ['a_a_a_a_a_a_user', 'a_f_loan_count'],
       hideInSearch: true,
-      tip: '2笔为一个图标',
+      /*      tip: intl.formatMessage({
+              id: 'pages.userManager.aUser.a_f_loan_count_tip',
+              defaultMessage: '',
+            }),*/
       colSize: 16,
       render: (_, record) => {
-        return (
-          <div>
-            <Rate
-              character={<DollarOutlined style={{ fontSize: 12 }} />}
-              disabled
-              allowHalf={true}
-              style={{ color: 'red', margin: 0 }}
-              count={record.a_a_a_a_a_a_user!.a_f_loan_count}
-              value={record.a_a_a_a_a_a_user!.a_h_overdue_times! / 2}
-            />
-          </div>
-        );
+        if (
+          record.a_a_a_a_a_a_user!.a_f_loan_count !== undefined &&
+          record.a_a_a_a_a_a_user!.a_f_loan_count > 0
+        ) {
+          return (
+            <div className="rate-container">
+              <Rate
+                className="custom-rate"
+                character={<DollarOutlined style={{ fontSize: 12 }} />}
+                disabled
+                // allowHalf={true}
+                // style={{ color: 'red', margin: 0 }}
+                count={record.a_a_a_a_a_a_user!.a_f_loan_count!}
+                value={record.a_a_a_a_a_a_user!.a_h_overdue_times!}
+              />
+            </div>
+          );
+        } else {
+          return <div></div>;
+        }
       },
     },
     {
-      title: '放款笔数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_f_loan_count',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_a_user', 'a_f_loan_count'],
       hideInTable: true,
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({
+          id: 'pages.common.range',
+          defaultMessage: '',
+        }),
+      },
       search: {
         transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_f_loan_count': value }),
       },
     },
     {
-      title: '逾期次数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_h_overdue_times',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_a_user', 'a_h_overdue_times'],
       hideInTable: true,
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({
+          id: 'pages.common.range',
+          defaultMessage: '',
+        }),
+      },
       search: {
         transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_h_overdue_times': value }),
       },
     },
     {
-      title: '逾期',
+      title:
+        intl.formatMessage({
+          id: 'pages.userManager.aUser.a_i_repay_max_overdue_days',
+          defaultMessage: '',
+        }) +
+        '/' +
+        intl.formatMessage({
+          id: 'pages.userManager.aUser.a_n_total_overdue_days',
+          defaultMessage: '',
+        }),
       dataIndex: ['a_a_a_a_a_a_user', 'a_i_repay_max_overdue_days'],
-      tooltip: '历史最大逾期天数/累计逾期天数',
       hideInSearch: true,
+      fieldProps: {
+        placeholder: intl.formatMessage({
+          id: 'pages.common.range',
+          defaultMessage: '',
+        }),
+      },
       render(_, record) {
         return record.a_a_a_a_a_a_user!.a_i_repay_max_overdue_days ||
           record.a_a_a_a_a_a_user!.a_n_total_overdue_days
@@ -264,28 +364,52 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '历史最大逾期天数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_i_repay_max_overdue_days',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_a_user', 'a_i_repay_max_overdue_days'],
       hideInTable: true,
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({
+          id: 'pages.common.range',
+          defaultMessage: '',
+        }),
+      },
       search: {
         transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_i_repay_max_overdue_days': value }),
       },
     },
     {
-      title: '累计逾期天数',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_n_total_overdue_days',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_a_user', 'a_n_total_overdue_days'],
       hideInTable: true,
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({
+          id: 'pages.common.range',
+          defaultMessage: '',
+        }),
+      },
       search: {
         transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_n_total_overdue_days': value }),
       },
     },
     //todo 跳转到此用户所有费用
     {
-      title: '损益',
+      title: intl.formatMessage({
+        id: 'pages.userManager.aUser.a_j_loss',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_a_user', 'a_j_loss'],
-      fieldProps: { placeholder: '支持区间' },
+      fieldProps: {
+        placeholder: intl.formatMessage({
+          id: 'pages.common.range',
+          defaultMessage: '',
+        }),
+      },
       render(_, record) {
         let color = 'success';
         if (record.a_a_a_a_a_a_user!.a_j_loss) {
