@@ -272,6 +272,8 @@ export default {
   'pages.userManager.marketingHistory.viewed': 'Viewd',
   'pages.userManager.marketingHistory.preview': 'Sms Templete Preview',
   // 营销详情
+  'pages.userManager.marketingDetail.tab.marketing-success-user': 'Registered User',
+  'pages.userManager.marketingDetail.tab.marketing-list': 'Unregistered User',
   'pages.userManager.marketingDetail.a_phone': 'Phone',
   'pages.userManager.marketingDetail.b_name': 'Name',
   'pages.userManager.marketingDetail.c_email': 'Email',
@@ -287,4 +289,19 @@ export default {
   'pages.userManager.marketingDetail.m_last_viewed_time': 'Last Viewed Time',
   'pages.userManager.marketingDetail.n_admin_file_id': 'Admin File',
   'pages.userManager.marketingDetail.o_status': 'Status',
+  // 导入结果
+  'pages.userManager.BEImportResult.a_admin_file_id': 'Admin File',
+  'pages.userManager.BEImportResult.b_type': 'Type',
+  'pages.userManager.BEImportResult.c_channel_id': 'Channel',
+  'pages.userManager.BEImportResult.d_valid_date': 'Valid Date',
+  'pages.userManager.BEImportResult.e_import_count': 'Import Count',
+  'pages.userManager.BEImportResult.f_valid_count': 'Valid Count',
+  'pages.userManager.BEImportResult.g_register_count': 'Register Count',
+  'pages.userManager.BEImportResult.h_repeat_count': 'Repeat Count',
+  'pages.userManager.BEImportResult.i_admin_id': 'Admin',
+  'pages.userManager.BEImportResult.j_during_second': 'During Second',
+  'pages.userManager.BEImportResult.k_status': 'Status',
+  'pages.userManager.BEImportResult.l_expect_execute_at': 'Expect Execute',
+  'pages.userManager.BEImportResult.m_register_count': 'Register Count',
+  'pages.userManager.BEImportResult.n_overdue_count': 'Overdue Count',
 };

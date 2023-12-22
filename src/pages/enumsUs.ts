@@ -26,7 +26,7 @@ export interface StatusColorEnum2 extends ProSchemaValueEnumObj {
   [key: string]: StatusColorItem;
 }
 
-type StatusOption = {
+export type StatusOption = {
   label: string;
   value: string | number;
 };

@@ -1,19 +1,26 @@
-import { Outlet } from '@@/exports';
+import { Outlet, useIntl } from '@@/exports';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { history } from 'umi';
 
 const GCMarketingDetail: FC = () => {
+  const intl = useIntl();
   /** tabs */
   const tabList = [
     {
       key: 'marketing-success-user',
-      tab: '已注册用户',
+      tab: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.tab.marketing-success-user',
+        defaultMessage: '白名单用户',
+      }),
     },
     {
       key: 'marketing-list',
-      tab: '未注册名单',
+      tab: intl.formatMessage({
+        id: 'pages.userManager.marketingDetail.tab.marketing-list',
+        defaultMessage: '白名单用户',
+      }),
     },
   ];
   /** 获取tab */

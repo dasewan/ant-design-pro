@@ -272,6 +272,8 @@ export default {
   'pages.userManager.marketingHistory.viewed': '已查看',
   'pages.userManager.marketingHistory.preview': '短信模版预览',
   // 营销详情
+  'pages.userManager.marketingDetail.tab.marketing-success-user': '已注册用户',
+  'pages.userManager.marketingDetail.tab.marketing-list': '未注册用户',
   'pages.userManager.marketingDetail.a_phone': '手机号',
   'pages.userManager.marketingDetail.b_name': '用户名',
   'pages.userManager.marketingDetail.c_email': 'Email',
@@ -287,4 +289,19 @@ export default {
   'pages.userManager.marketingDetail.m_last_viewed_time': '最近查看时间',
   'pages.userManager.marketingDetail.n_admin_file_id': '文件',
   'pages.userManager.marketingDetail.o_status': '状态',
+  // 导入结果
+  'pages.userManager.BEImportResult.a_admin_file_id': '文件',
+  'pages.userManager.BEImportResult.b_type': '导入类型',
+  'pages.userManager.BEImportResult.c_channel_id': '所属渠道',
+  'pages.userManager.BEImportResult.d_valid_date': '有效期',
+  'pages.userManager.BEImportResult.e_import_count': '导入数量',
+  'pages.userManager.BEImportResult.f_valid_count': '有效数量',
+  'pages.userManager.BEImportResult.g_register_count': '已注册数量',
+  'pages.userManager.BEImportResult.h_repeat_count': '重复数量',
+  'pages.userManager.BEImportResult.i_admin_id': '管理员',
+  'pages.userManager.BEImportResult.j_during_second': '导入执行时长',
+  'pages.userManager.BEImportResult.k_status': '执行状态',
+  'pages.userManager.BEImportResult.l_expect_execute_at': '计划执行时间',
+  'pages.userManager.BEImportResult.m_register_count': '命中次数',
+  'pages.userManager.BEImportResult.n_overdue_count': '逾期次数',
 };
