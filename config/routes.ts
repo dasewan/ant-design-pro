@@ -213,49 +213,7 @@ export default [
       },
     ],
   },
-  {
-    name: 'review',
-    icon: 'smile',
-    path: '/review',
-    routes: [
-      {
-        name: 'review-group',
-        icon: 'smile',
-        path: '/review/review-group',
-        component: './Review/ReviewGroup',
-      },
-      {
-        name: 'review-admin',
-        icon: 'smile',
-        path: '/review/review-admin',
-        component: './Review/ReviewAdmin',
-      },
-      {
-        name: 'review-borrow',
-        icon: 'smile',
-        path: '/review/review-borrow',
-        component: './Review/ReviewBorrow',
-      },
-      {
-        name: 'review-borrow-accept',
-        icon: 'smile',
-        path: '/review/review-borrow-accept',
-        component: './Review/ReviewBorrowAccept',
-      },
-      {
-        name: 'review-borrow-reject',
-        icon: 'smile',
-        path: '/review/review-borrow-reject',
-        component: './Review/ReviewBorrowReject',
-      },
-      {
-        name: 'review-borrow-flow',
-        icon: 'smile',
-        path: '/review/review-borrow-flow',
-        component: './Review/ReviewBorrowFlow',
-      },
-    ],
-  },
+
   {
     name: 'borrow',
     icon: 'smile',
@@ -268,11 +226,29 @@ export default [
         component: './Borrow/BorrowList',
       },
       {
-        name: 'outstanding-list',
+        name: 'loaned-list',
+        icon: 'smile',
+        path: '/borrow/loan-list',
+        component: './Borrow/LoanList',
+      },
+      /*{
+        name: 'recently-list',
         icon: 'smile',
         path: '/borrow/outstanding-list',
         component: './Borrow/OutstandingList',
       },
+      {
+        name: 'overdue-list',
+        icon: 'smile',
+        path: '/borrow/outstanding-list',
+        component: './Borrow/OutstandingList',
+      },*/
+      /*      {
+              name: 'outstanding-list',
+              icon: 'smile',
+              path: '/borrow/outstanding-list',
+              component: './Borrow/OutstandingList',
+            },*/
       {
         name: 'verify-list',
         icon: 'smile',
@@ -331,6 +307,49 @@ export default [
             component: './Borrow/BorrowList/components/DeviceDetail',
           },
         ],
+      },
+    ],
+  },
+  {
+    name: 'review',
+    icon: 'smile',
+    path: '/review',
+    routes: [
+      {
+        name: 'review-group',
+        icon: 'smile',
+        path: '/review/review-group',
+        component: './Review/ReviewGroup',
+      },
+      {
+        name: 'review-admin',
+        icon: 'smile',
+        path: '/review/review-admin',
+        component: './Review/ReviewAdmin',
+      },
+      {
+        name: 'review-borrow',
+        icon: 'smile',
+        path: '/review/review-borrow',
+        component: './Review/ReviewBorrow',
+      },
+      {
+        name: 'review-borrow-accept',
+        icon: 'smile',
+        path: '/review/review-borrow-accept',
+        component: './Review/ReviewBorrowAccept',
+      },
+      {
+        name: 'review-borrow-reject',
+        icon: 'smile',
+        path: '/review/review-borrow-reject',
+        component: './Review/ReviewBorrowReject',
+      },
+      {
+        name: 'review-borrow-flow',
+        icon: 'smile',
+        path: '/review/review-borrow-flow',
+        component: './Review/ReviewBorrowFlow',
       },
     ],
   },

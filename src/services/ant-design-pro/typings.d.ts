@@ -15,7 +15,7 @@ declare namespace API {
     /** 关联订单id* */
     f_borrow_id?: number;
     /** 提降额风控id* */
-    g_risk_id?: number;
+    g_risk_strategy_id?: number;
     /** 备注 */
     h_comment?: string;
     /** created_at */
@@ -1332,7 +1332,7 @@ declare namespace API {
     /** 优惠券快照id */
     f_coupon_snapshots_id?: number;
     /** 风控id */
-    g_risk_id?: number;
+    g_risk_strategy_id?: number;
     /** 订单号 */
     h_sn?: string;
     /** 三方订单号 */

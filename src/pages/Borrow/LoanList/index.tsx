@@ -11,7 +11,7 @@ import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
-import type { TableListItem, TableListPagination } from './data';
+import type { TableListItem, TableListPagination } from '../BorrowList/data';
 
 const TableList: React.FC = () => {
   const intl = useIntl();
@@ -158,10 +158,121 @@ const TableList: React.FC = () => {
     },
     {
       title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.u_settled_period',
+        defaultMessage: '',
+      }),
+      dataIndex: 'u_settled_period',
+    },
+    {
+      title: intl.formatMessage({
         id: 'pages.Borrow.BorrowDetail.m_borrow_amount',
         defaultMessage: '',
       }),
       dataIndex: 'm_borrow_amount',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.p_loan_amount',
+        defaultMessage: '',
+      }),
+      dataIndex: 'p_loan_amount',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.o_loan_time',
+        defaultMessage: '',
+      }),
+      dataIndex: 'o_loan_time',
+      valueType: 'dateRange',
+      render: (_, value) => {
+        return moment(value.o_loan_time).format('YYYY-MM-DD');
+      },
+      search: {
+        transform: (value: any) => {
+          return {
+            'o_loan_time[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'o_loan_time[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.s_amount_paid',
+        defaultMessage: '',
+      }),
+      dataIndex: 's_amount_paid',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.q_expect_repay_time',
+        defaultMessage: '',
+      }),
+      dataIndex: 'q_expect_repay_time',
+      valueType: 'dateRange',
+      render: (_, value) => {
+        if (value.q_expect_repay_time !== null) {
+          return moment(value.q_expect_repay_time).format('YYYY-MM-DD');
+        } else {
+          return '-';
+        }
+      },
+      search: {
+        transform: (value: any) => {
+          return {
+            'q_expect_repay_time[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'q_expect_repay_time[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.t_settled_time',
+        defaultMessage: '',
+      }),
+      dataIndex: 't_settled_time',
+      valueType: 'dateRange',
+      render: (_, value) => {
+        if (value.t_settled_time !== null) {
+          return moment(value.t_settled_time).format('YYYY-MM-DD');
+        } else {
+          return '-';
+        }
+      },
+      search: {
+        transform: (value: any) => {
+          return {
+            't_settled_time[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            't_settled_time[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.a_h_total_overdue_days',
+        defaultMessage: '',
+      }),
+      dataIndex: 'a_h_total_overdue_days',
     },
     {
       title: intl.formatMessage({
@@ -194,7 +305,6 @@ const TableList: React.FC = () => {
       }),
       dataIndex: 'j_status',
       valueEnum: BORROW_STATUS_ENUM,
-      hideInSearch: true,
     },
     {
       title: intl.formatMessage({
@@ -203,7 +313,6 @@ const TableList: React.FC = () => {
       }),
       dataIndex: 'k_sub_status',
       valueEnum: BORROW_SUB_STATUS_ENUM,
-      hideInSearch: true,
     },
     {
       title: intl.formatMessage({
@@ -256,6 +365,7 @@ const TableList: React.FC = () => {
         rowKey="id"
         search={{
           labelWidth: 120,
+          defaultCollapsed: false,
         }}
         request={_index}
         columns={columns}
