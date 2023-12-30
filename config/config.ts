@@ -151,4 +151,6 @@ export default defineConfig({
     strategy: 'normal',
   },
   requestRecord: {},
+  /*  base: '/admin/',
+    publicPath: '/admin/',*/
 });
