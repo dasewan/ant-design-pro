@@ -1,16 +1,30 @@
-import { VERIFY_STATUS_ENUM } from '@/pages/enums';
+import { RISK_STATUS_OPTION, VERIFY_STATUS_OPTION } from '@/pages/enums';
+import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1GGRiskStrateiesEnums as getStrateiesEnums } from '@/services/ant-design-pro/GGRiskStratey';
 import { getAdminV1GVerifies as index } from '@/services/ant-design-pro/GVerify';
 import { history } from '@@/core/history';
+import { useIntl } from '@@/exports';
+import {
+  CheckCircleTwoTone,
+  ClockCircleTwoTone,
+  CloseCircleTwoTone,
+  ExclamationCircleTwoTone,
+} from '@ant-design/icons';
+import { ProFormSelect } from '@ant-design/pro-form';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
+import { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
+import { Tag } from 'antd';
 import moment from 'moment';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
   const actionRef = useRef<ActionType>();
+  const [channels, setChannels] = useState<RequestOptionsType[]>([]);
+  const [strateies, setStrateies] = useState<RequestOptionsType[]>([]);
   /** 渠道enum */
 
   /** table */
@@ -39,130 +53,425 @@ const TableList: React.FC = () => {
     };
   };
 
+  /**
+   * 查询渠道enum
+   */
+  const _getChannelsEnum: ProFieldRequestData = async () => {
+    const data: RequestOptionsType[] = [];
+    if (channels.length === 0) {
+      const res = await getChannelsEnum({ foo: 1 });
+      for (const item of res.data!) {
+        data.push({
+          label: item.a_title,
+          value: item.id,
+        });
+      }
+      setChannels(data);
+      return data;
+    } else {
+      return channels;
+    }
+  };
+  /**
+   * 查询策略enum
+   */
+  const _getStrateiesEnums = async () => {
+    const data: RequestOptionsType[] = [];
+    if (strateies.length === 0) {
+      const res = await getStrateiesEnums({ foo: 1 });
+      for (const item of res.data!) {
+        data.push({
+          label: item.a_name + '(' + item.f_version + ')',
+          value: item.id,
+        });
+      }
+      setStrateies(data);
+      return data;
+    } else {
+      return strateies;
+    }
+  };
+
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.w_phone,
-      dataIndex: FieldIndex.w_phone,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.w_phone',
+        defaultMessage: '',
+      }),
+      dataIndex: 'w_phone',
       copyable: true,
     },
     {
-      title: FieldLabels.y_ocr_verify_status,
-      dataIndex: FieldIndex.y_ocr_verify_status,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.b_channel_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'a_g_channel_id',
+      valueType: 'select',
+      request: _getChannelsEnum,
+      params: { timestamp: Math.random() },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.y_ocr_verify_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 'y_ocr_verify_status',
+      valueType: 'select',
+      render: (_, row) => {
+        if (row.y_ocr_verify_status === 10) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.y_ocr_verify_status === 20) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.y_ocr_verify_status === 30) {
+          return <ExclamationCircleTwoTone twoToneColor="#EEC211" />;
+        } else if (row.y_ocr_verify_status === 40) {
+          return <CloseCircleTwoTone twoToneColor="#D83939" />;
+        } else if (row.y_ocr_verify_status === 50) {
+          return <CheckCircleTwoTone twoToneColor="#52c41a" />;
+        }
+      },
+      renderFormItem: () => (
+        <ProFormSelect
+          name={intl.formatMessage({
+            id: 'pages.Borrow.VerifyDetail.y_ocr_verify_status',
+            defaultMessage: '',
+          })}
+          options={VERIFY_STATUS_OPTION}
+          placeholder="Please select"
+        />
+      ),
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.j_idnumber_verify_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 'j_idnumber_verify_status',
+      render: (_, row) => {
+        if (row.j_idnumber_verify_status === 10) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.j_idnumber_verify_status === 20) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.j_idnumber_verify_status === 30) {
+          return <ExclamationCircleTwoTone twoToneColor="#EEC211" />;
+        } else if (row.j_idnumber_verify_status === 40) {
+          return <CloseCircleTwoTone twoToneColor="#D83939" />;
+        } else if (row.j_idnumber_verify_status === 50) {
+          return <CheckCircleTwoTone twoToneColor="#52c41a" />;
+        }
+      },
+      renderFormItem: () => (
+        <ProFormSelect
+          name={intl.formatMessage({
+            id: 'pages.Borrow.VerifyDetail.j_idnumber_verify_status',
+            defaultMessage: '',
+          })}
+          options={VERIFY_STATUS_OPTION}
+          placeholder="Please select"
+        />
+      ),
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.n_contact_verify_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 'n_contact_verify_status',
+      render: (_, row) => {
+        if (row.n_contact_verify_status === 10) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.n_contact_verify_status === 20) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.n_contact_verify_status === 30) {
+          return <ExclamationCircleTwoTone twoToneColor="#EEC211" />;
+        } else if (row.n_contact_verify_status === 40) {
+          return <CloseCircleTwoTone twoToneColor="#D83939" />;
+        } else if (row.n_contact_verify_status === 50) {
+          return <CheckCircleTwoTone twoToneColor="#52c41a" />;
+        }
+      },
+      renderFormItem: () => (
+        <ProFormSelect
+          name={intl.formatMessage({
+            id: 'pages.Borrow.VerifyDetail.n_contact_verify_status',
+            defaultMessage: '',
+          })}
+          options={VERIFY_STATUS_OPTION}
+          placeholder="Please select"
+        />
+      ),
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.p_job_verify_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 'p_job_verify_status',
+      render: (_, row) => {
+        if (row.p_job_verify_status === 10) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.p_job_verify_status === 20) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.p_job_verify_status === 30) {
+          return <ExclamationCircleTwoTone twoToneColor="#EEC211" />;
+        } else if (row.p_job_verify_status === 40) {
+          return <CloseCircleTwoTone twoToneColor="#D83939" />;
+        } else if (row.p_job_verify_status === 50) {
+          return <CheckCircleTwoTone twoToneColor="#52c41a" />;
+        }
+      },
+      renderFormItem: () => (
+        <ProFormSelect
+          name={intl.formatMessage({
+            id: 'pages.Borrow.VerifyDetail.p_job_verify_status',
+            defaultMessage: '',
+          })}
+          options={VERIFY_STATUS_OPTION}
+          placeholder="Please select"
+        />
+      ),
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.r_loan_bank_verify_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 'r_loan_bank_verify_status',
+      render: (_, row) => {
+        if (row.r_loan_bank_verify_status === 10) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.r_loan_bank_verify_status === 20) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.r_loan_bank_verify_status === 30) {
+          return <ExclamationCircleTwoTone twoToneColor="#EEC211" />;
+        } else if (row.r_loan_bank_verify_status === 40) {
+          return <CloseCircleTwoTone twoToneColor="#D83939" />;
+        } else if (row.r_loan_bank_verify_status === 50) {
+          return <CheckCircleTwoTone twoToneColor="#52c41a" />;
+        }
+      },
+      renderFormItem: () => (
+        <ProFormSelect
+          name={intl.formatMessage({
+            id: 'pages.Borrow.VerifyDetail.r_loan_bank_verify_status',
+            defaultMessage: '',
+          })}
+          options={VERIFY_STATUS_OPTION}
+          placeholder="Please select"
+        />
+      ),
+    },
+    /*{
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.t_repay_bank_verify_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 't_repay_bank_verify_status',
       valueType: 'select',
       valueEnum: VERIFY_STATUS_ENUM,
     },
     {
-      title: FieldLabels.a_b_ocr_verify_times,
-      dataIndex: FieldIndex.a_b_ocr_verify_times,
-    },
-    {
-      title: FieldLabels.j_idnumber_verify_status,
-      dataIndex: FieldIndex.j_idnumber_verify_status,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.v_h5_verify_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 'v_h5_verify_status',
       valueType: 'select',
       valueEnum: VERIFY_STATUS_ENUM,
+    },*/
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.l_liveness_verify_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 'l_liveness_verify_status',
+      render: (_, row) => {
+        if (row.l_liveness_verify_status === 10) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.l_liveness_verify_status === 20) {
+          return <ClockCircleTwoTone twoToneColor="#d2ccbf" />;
+        } else if (row.l_liveness_verify_status === 30) {
+          return <ExclamationCircleTwoTone twoToneColor="#EEC211" />;
+        } else if (row.l_liveness_verify_status === 40) {
+          return <CloseCircleTwoTone twoToneColor="#D83939" />;
+        } else if (row.l_liveness_verify_status === 50) {
+          return <CheckCircleTwoTone twoToneColor="#52c41a" />;
+        }
+      },
+      renderFormItem: () => (
+        <ProFormSelect
+          name={intl.formatMessage({
+            id: 'pages.Borrow.VerifyDetail.l_liveness_verify_status',
+            defaultMessage: '',
+          })}
+          options={VERIFY_STATUS_OPTION}
+          placeholder="Please select"
+        />
+      ),
     },
     {
-      title: FieldLabels.a_c_idnumber_verify_times,
-      dataIndex: FieldIndex.a_c_idnumber_verify_times,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.a_b_ocr_verify_times',
+        defaultMessage: '',
+      }),
+      dataIndex: 'a_b_ocr_verify_times',
     },
     {
-      title: FieldLabels.n_contact_verify_status,
-      dataIndex: FieldIndex.n_contact_verify_status,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.a_c_idnumber_verify_times',
+        defaultMessage: '',
+      }),
+      dataIndex: 'a_c_idnumber_verify_times',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.a_e_liveness_verify_times',
+        defaultMessage: '',
+      }),
+      dataIndex: 'a_e_liveness_verify_times',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.g_risk_strategy_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'c_risk_id',
       valueType: 'select',
-      valueEnum: VERIFY_STATUS_ENUM,
+      request: _getStrateiesEnums,
+      params: { timestamp: Math.random() },
     },
     {
-      title: FieldLabels.p_job_verify_status,
-      dataIndex: FieldIndex.p_job_verify_status,
-      valueType: 'select',
-      valueEnum: VERIFY_STATUS_ENUM,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.d_risk_score',
+        defaultMessage: '',
+      }),
+      dataIndex: 'd_risk_score',
     },
     {
-      title: FieldLabels.r_loan_bank_verify_status,
-      dataIndex: FieldIndex.r_loan_bank_verify_status,
-      valueType: 'select',
-      valueEnum: VERIFY_STATUS_ENUM,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.e_risk_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'e_risk_result',
+      render: (_, row) => {
+        if (row.e_risk_result === 10) {
+          return <Tag color="#d2ccbf">WAITING</Tag>;
+        } else if (row.e_risk_result === 20) {
+          return <Tag color="#d2ccbf">WAITING</Tag>;
+        } else if (row.e_risk_result === 30) {
+          return <Tag color="#EEC211">REVIEW</Tag>;
+        } else if (row.e_risk_result === 40) {
+          return <Tag color="#f50">REJECT</Tag>;
+        } else if (row.e_risk_result === 50) {
+          return <Tag color="#87d068">ACCEPT</Tag>;
+        }
+      },
+      renderFormItem: () => (
+        <ProFormSelect
+          name={intl.formatMessage({
+            id: 'pages.Borrow.VerifyDetail.e_risk_result',
+            defaultMessage: '',
+          })}
+          options={RISK_STATUS_OPTION}
+          placeholder="Please select"
+        />
+      ),
     },
     {
-      title: FieldLabels.t_repay_bank_verify_status,
-      dataIndex: FieldIndex.t_repay_bank_verify_status,
-      valueType: 'select',
-      valueEnum: VERIFY_STATUS_ENUM,
-    },
-    {
-      title: FieldLabels.v_h5_verify_status,
-      dataIndex: FieldIndex.v_h5_verify_status,
-      valueType: 'select',
-      valueEnum: VERIFY_STATUS_ENUM,
-    },
-    {
-      title: FieldLabels.l_liveness_verify_status,
-      dataIndex: FieldIndex.l_liveness_verify_status,
-      valueType: 'select',
-      valueEnum: VERIFY_STATUS_ENUM,
-    },
-    {
-      title: FieldLabels.a_e_liveness_verify_times,
-      dataIndex: FieldIndex.a_e_liveness_verify_times,
-    },
-    {
-      title: FieldLabels.d_risk_score,
-      dataIndex: FieldIndex.d_risk_score,
-    },
-    {
-      title: FieldLabels.e_risk_result,
-      dataIndex: FieldIndex.e_risk_result,
-    },
-    {
-      title: FieldLabels.h_next_expired_date,
-      dataIndex: FieldIndex.h_next_expired_date,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.VerifyDetail.h_next_expired_date',
+        defaultMessage: '',
+      }),
+      dataIndex: 'h_next_expired_date',
       valueType: 'dateRange',
-      render: (_, value) => {
-        return moment(value.h_next_expired_date).format('YYYY-MM-DD');
+      render: (_, record) => {
+        if (record.h_next_expired_date) {
+          return moment(record.h_next_expired_date).format('YY-MM-DD');
+        } else {
+          return '-';
+        }
       },
       search: {
-        transform: (value: any) => ({
-          'h_next_expired_date[0]': value[0],
-          'h_next_expired_date[1]': value[1],
-        }),
+        transform: (value: any) => {
+          return {
+            'h_next_expired_date[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'h_next_expired_date[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
     {
-      title: FieldLabels.created_at,
-      dataIndex: FieldIndex.created_at,
+      title: intl.formatMessage({
+        id: 'pages.common.created_at',
+        defaultMessage: '',
+      }),
+      dataIndex: 'created_at',
       valueType: 'dateRange',
-      render: (_, value) => {
-        return moment(value.created_at).format('YYYY-MM-DD');
+      render: (_, record) => {
+        return moment(record.created_at).format('MM-DD HH:mm');
       },
       search: {
-        transform: (value: any) => ({ 'created_at[0]': value[0], 'created_at[1]': value[1] }),
+        transform: (value: any) => {
+          return {
+            'created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
     {
-      title: FieldLabels.updated_at,
-      dataIndex: FieldIndex.updated_at,
+      title: intl.formatMessage({
+        id: 'pages.common.updated_at',
+        defaultMessage: '',
+      }),
+      dataIndex: 'updated_at',
       valueType: 'dateRange',
-      render: (_, value) => {
-        return moment(value.updated_at).format('YYYY-MM-DD');
+      render: (_, record) => {
+        if (record.created_at !== record.updated_at) {
+          return moment(record.updated_at).format('MM-DD HH:mm');
+        } else {
+          return '-';
+        }
       },
       search: {
-        transform: (value: any) => ({ 'updated_at[0]': value[0], 'updated_at[1]': value[1] }),
+        transform: (value: any) => {
+          return {
+            'updated_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'updated_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
     {
-      title: '操作',
+      title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),
       dataIndex: 'id',
       valueType: 'option',
-      width: 220,
       fixed: 'right',
       render: (_, record) => {
-        const edit = (
+        return (
           <a key="edit" onClick={() => history.push(`/borrow/verify/detail/${record.id}`)}>
-            编辑
+            {intl.formatMessage({ id: 'pages.common.option.detail', defaultMessage: '' })}
           </a>
         );
-
-        return [edit];
       },
     },
   ];
@@ -171,7 +480,6 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '认证列表',
         ghost: true,
       }}
     >

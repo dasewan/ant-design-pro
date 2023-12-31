@@ -48,13 +48,57 @@ export const COMMON_STATUS: StatusEnum = {
 };
 
 export const VERIFY_STATUS_ENUM: StatusEnum = {
-  10: { text: 'WAITING', status: 'Default' },
-  20: { text: 'PROCESSING', status: 'Processing' },
-  30: { text: 'UNKNOWN', status: 'Default' },
-  40: { text: 'FAIL', status: 'Error' },
-  50: { text: 'SUCCESS', status: 'Success' },
-  60: { text: 'EXPIRED', status: 'Error' },
+  10: { text: '', status: 'Default' },
+  20: { text: '', status: 'Processing' },
+  30: { text: '', status: 'Default' },
+  40: { text: '', status: 'Error' },
+  50: { text: '', status: 'Success' },
+  60: { text: '', status: 'Error' },
 };
+export const VERIFY_STATUS_OPTION: StatusOption[] = [
+  {
+    label: 'WAITING',
+    value: 10,
+  },
+  {
+    label: 'PROCESSING',
+    value: 20,
+  },
+  {
+    label: 'REVIEW',
+    value: 30,
+  },
+  {
+    label: 'FAIL',
+    value: 40,
+  },
+  {
+    label: 'SUCCESS',
+    value: 50,
+  },
+];
+export const RISK_STATUS_OPTION: StatusOption[] = [
+  {
+    label: 'WAITING',
+    value: 10,
+  },
+  {
+    label: 'PROCESSING',
+    value: 20,
+  },
+  {
+    label: 'REVIEW',
+    value: 30,
+  },
+  {
+    label: 'REFUSE',
+    value: 40,
+  },
+  {
+    label: 'ACCEPT',
+    value: 50,
+  },
+];
 
 export type NoticeIconItemType = 'notification' | 'message' | 'event';
 //用户动态 1：注册 3：登录 5：认证 7：机审 9：人审 11：放款 13：展期 15：还款 17：部分还款 19：提额 21：降额
