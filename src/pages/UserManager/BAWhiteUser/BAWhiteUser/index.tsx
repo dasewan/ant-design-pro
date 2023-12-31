@@ -2,11 +2,9 @@ import DrawerFC from '@/pages/UserManager/AUser/components/DrawerFC';
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { getAdminV1BAWhitesUsers as index } from '@/services/ant-design-pro/BAWhite';
 import { useIntl } from '@@/exports';
-import { DollarOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
-import { Rate } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import '../style.less';
@@ -219,141 +217,11 @@ const TableList: React.FC = () => {
     },
     //todo 跳转到此用户所有订单
     {
-      title:
-        intl.formatMessage({
-          id: 'pages.userManager.aUser.a_h_overdue_times',
-          defaultMessage: '',
-        }) +
-        '/' +
-        intl.formatMessage({
-          id: 'pages.userManager.aUser.a_f_loan_count',
-          defaultMessage: '',
-        }),
-      dataIndex: ['a_a_a_a_a_a_user', 'a_f_loan_count'],
-      hideInSearch: true,
-      /*      tip: intl.formatMessage({
-              id: 'pages.userManager.aUser.a_f_loan_count_tip',
-              defaultMessage: '',
-            }),*/
-      colSize: 16,
-      render: (_, record) => {
-        if (
-          record.a_a_a_a_a_a_user!.a_f_loan_count !== undefined &&
-          record.a_a_a_a_a_a_user!.a_f_loan_count > 0
-        ) {
-          return (
-            <div className="rate-container">
-              <Rate
-                className="custom-rate"
-                character={<DollarOutlined style={{ fontSize: 12 }} />}
-                disabled
-                // allowHalf={true}
-                // style={{ color: 'red', margin: 0 }}
-                count={record.a_a_a_a_a_a_user!.a_f_loan_count!}
-                value={record.a_a_a_a_a_a_user!.a_h_overdue_times!}
-              />
-            </div>
-          );
-        } else {
-          return <div></div>;
-        }
-      },
-    },
-    {
       title: intl.formatMessage({
         id: 'pages.userManager.aUser.a_f_loan_count',
         defaultMessage: '',
       }),
       dataIndex: ['a_a_a_a_a_a_user', 'a_f_loan_count'],
-      hideInTable: true,
-      fieldProps: {
-        placeholder: intl.formatMessage({
-          id: 'pages.common.range',
-          defaultMessage: '',
-        }),
-      },
-      search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_f_loan_count': value }),
-      },
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.aUser.a_h_overdue_times',
-        defaultMessage: '',
-      }),
-      dataIndex: ['a_a_a_a_a_a_user', 'a_h_overdue_times'],
-      hideInTable: true,
-      fieldProps: {
-        placeholder: intl.formatMessage({
-          id: 'pages.common.range',
-          defaultMessage: '',
-        }),
-      },
-      search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_h_overdue_times': value }),
-      },
-    },
-    {
-      title:
-        intl.formatMessage({
-          id: 'pages.userManager.aUser.a_i_repay_max_overdue_days',
-          defaultMessage: '',
-        }) +
-        '/' +
-        intl.formatMessage({
-          id: 'pages.userManager.aUser.a_n_total_overdue_days',
-          defaultMessage: '',
-        }),
-      dataIndex: ['a_a_a_a_a_a_user', 'a_i_repay_max_overdue_days'],
-      hideInSearch: true,
-      fieldProps: {
-        placeholder: intl.formatMessage({
-          id: 'pages.common.range',
-          defaultMessage: '',
-        }),
-      },
-      render(_, record) {
-        return record.a_a_a_a_a_a_user!.a_i_repay_max_overdue_days ||
-          record.a_a_a_a_a_a_user!.a_n_total_overdue_days
-          ? record.a_a_a_a_a_a_user!.a_i_repay_max_overdue_days +
-              '/' +
-              record.a_a_a_a_a_a_user!.a_n_total_overdue_days
-          : '-';
-      },
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.aUser.a_i_repay_max_overdue_days',
-        defaultMessage: '',
-      }),
-      dataIndex: ['a_a_a_a_a_a_user', 'a_i_repay_max_overdue_days'],
-      hideInTable: true,
-      fieldProps: {
-        placeholder: intl.formatMessage({
-          id: 'pages.common.range',
-          defaultMessage: '',
-        }),
-      },
-      search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_i_repay_max_overdue_days': value }),
-      },
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.aUser.a_n_total_overdue_days',
-        defaultMessage: '',
-      }),
-      dataIndex: ['a_a_a_a_a_a_user', 'a_n_total_overdue_days'],
-      hideInTable: true,
-      fieldProps: {
-        placeholder: intl.formatMessage({
-          id: 'pages.common.range',
-          defaultMessage: '',
-        }),
-      },
-      search: {
-        transform: (value: any) => ({ 'a_a_a_a_a_a_user-a_n_total_overdue_days': value }),
-      },
     },
     //todo 跳转到此用户所有费用
     {
