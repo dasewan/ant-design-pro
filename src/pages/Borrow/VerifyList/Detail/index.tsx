@@ -7,7 +7,6 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '认证详情',
         ghost: true,
       }}
     >

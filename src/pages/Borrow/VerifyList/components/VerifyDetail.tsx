@@ -16,22 +16,28 @@ import {
 } from '@/pages/Borrow/VerifyList/components/enums';
 import ReviewForm from '@/pages/Borrow/VerifyList/components/ReviewForm';
 import type { TableListItem } from '@/pages/Borrow/VerifyList/data';
-import { FieldLabels } from '@/pages/Borrow/VerifyList/Detail/service';
 import { getAdminV1GVerifiesId as show } from '@/services/ant-design-pro/GVerify';
+import { useIntl } from '@@/exports';
 import { PhoneOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Descriptions, Row } from 'antd';
+import { Button, Card, Col, Descriptions, Image, Row } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'umi';
 
+import HistoryList from '@/pages/Borrow/VerifyList/components/HistoryList';
+
 const VerifyDetail: React.FC = () => {
+  const intl = useIntl();
   const params = useParams<{ id: string; verifyId?: string }>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
 
   const [reviewModalVisible, handleReviewModalVisible] = useState<boolean>(false);
+  const [historyListModalVisible, handleHistoryListModalVisible] = useState<boolean>(false);
+  const [historyListModelTitle, handleHistoryListModelTitle] = useState<string>('');
   //当前审核原因
   const [reasonIds, handleReasonIds] = useState<string>('');
   const [reasonsDetail, handleReasonsDetail] = useState<string>('');
+  const [historyList, handleHistoryList] = useState<any[]>([]);
   const [modelTitle, handleModelTitle] = useState<string>('');
   const [currentStatus, handleCurrentStatus] = useState<number>(0);
   //当前审核项
@@ -52,6 +58,31 @@ const VerifyDetail: React.FC = () => {
       // 如果需要转化参数可以在这里进行修改
       // @ts-ignore
       const res = await show({ id: params.verifyId ? params.verifyId : params.id });
+      // res.data.a_a_a_a_a_m_idnumber =
+      if (res.data && res.data.a_a_a_a_a_q_a_ocrs && res.data.a_a_a_a_a_q_a_ocrs.length > 0) {
+        res.data.a_a_a_a_a_q_a_ocr =
+          res.data.a_a_a_a_a_q_a_ocrs[res.data.a_a_a_a_a_q_a_ocrs.length - 1];
+      }
+      if (res.data && res.data.a_a_a_a_a_m_idnumbers && res.data.a_a_a_a_a_m_idnumbers.length > 0) {
+        res.data.a_a_a_a_a_m_idnumber =
+          res.data.a_a_a_a_a_m_idnumbers[res.data.a_a_a_a_a_m_idnumbers.length - 1];
+      }
+      if (res.data && res.data.a_a_a_a_a_o_contacts && res.data.a_a_a_a_a_o_contacts.length > 0) {
+        res.data.a_a_a_a_a_o_contact =
+          res.data.a_a_a_a_a_o_contacts[res.data.a_a_a_a_a_o_contacts.length - 1];
+      }
+      if (res.data && res.data.a_a_a_a_a_m_a_jobs && res.data.a_a_a_a_a_m_a_jobs.length > 0) {
+        res.data.a_a_a_a_a_m_a_job =
+          res.data.a_a_a_a_a_m_a_jobs[res.data.a_a_a_a_a_m_a_jobs.length - 1];
+      }
+      if (
+        res.data &&
+        res.data.a_a_a_a_a_a_o_loan_banks &&
+        res.data.a_a_a_a_a_a_o_loan_banks.length > 0
+      ) {
+        res.data.a_a_a_a_a_a_o_loan_bank =
+          res.data.a_a_a_a_a_a_o_loan_banks[res.data.a_a_a_a_a_a_o_loan_banks.length - 1];
+      }
       setOldRecord(res.data);
       return {
         data: res.data,
@@ -94,12 +125,21 @@ const VerifyDetail: React.FC = () => {
     _reasonsDetail: string,
     _currentStatus: number,
   ) => {
+    console.log(contactRawStatus);
     handleReasonIds(_reasonIds);
+    handleReasonsDetail(_reasonsDetail);
     handleReasonsDetail(_reasonsDetail);
     handleCurrentItem(_currentItem);
     handleReviewModalVisible(true);
     handleModelTitle(_modelTitle);
     handleCurrentStatus(_currentStatus);
+  };
+
+  const onHistoryClick = async (_currentItem: string, _modelTitle: string, _historyList: any[]) => {
+    handleCurrentItem(_currentItem);
+    handleHistoryListModalVisible(true);
+    handleHistoryListModelTitle(_modelTitle);
+    handleHistoryList(_historyList);
   };
   const idnumberReasons = oldRecord?.a_a_a_a_a_m_idnumber?.b_d_reasons?.split(',');
   const nameRed = idnumberReasons?.find((item) => ['5'].includes(item));
@@ -131,44 +171,8 @@ const VerifyDetail: React.FC = () => {
       oldRecord?.a_a_a_a_a_m_idnumber?.a_j_id_number3_same === 'n') ||
     (oldRecord?.a_a_a_a_a_m_idnumber?.a_k_id_number4_same &&
       oldRecord?.a_a_a_a_a_m_idnumber?.a_k_id_number4_same === 'n');
-  const isBlack =
-    oldRecord?.a_a_a_a_a_m_idnumber?.d_black_id && oldRecord?.a_a_a_a_a_m_idnumber?.d_black_id > 0;
-  const isGrey =
-    oldRecord?.a_a_a_a_a_m_idnumber?.e_grey_id && oldRecord?.a_a_a_a_a_m_idnumber?.e_grey_id > 0;
-  const isWhite =
-    oldRecord?.a_a_a_a_a_m_idnumber?.f_white_id && oldRecord?.a_a_a_a_a_m_idnumber?.f_white_id > 0;
 
-  const contact1IsBlack =
-    oldRecord?.a_a_a_a_a_o_contact?.y_contact1_black_id &&
-    oldRecord?.a_a_a_a_a_o_contact?.y_contact1_black_id > 0;
-  const contact1IsGrey =
-    oldRecord?.a_a_a_a_a_o_contact?.z_contact1_grey_id &&
-    oldRecord?.a_a_a_a_a_o_contact?.z_contact1_grey_id > 0;
-  const contact1IsWhite =
-    oldRecord?.a_a_a_a_a_o_contact?.x_contact1_white_id &&
-    oldRecord?.a_a_a_a_a_o_contact?.x_contact1_white_id > 0;
-
-  const contact2IsBlack =
-    oldRecord?.a_a_a_a_a_o_contact?.a_b_contact2_black_id &&
-    oldRecord?.a_a_a_a_a_o_contact?.a_b_contact2_black_id > 0;
-  const contact2IsGrey =
-    oldRecord?.a_a_a_a_a_o_contact?.a_c_contact2_grey_id &&
-    oldRecord?.a_a_a_a_a_o_contact?.a_c_contact2_grey_id > 0;
-  const contact2IsWhite =
-    oldRecord?.a_a_a_a_a_o_contact?.a_a_contact2_white_id &&
-    oldRecord?.a_a_a_a_a_o_contact?.a_a_contact2_white_id > 0;
-
-  const contact3IsBlack =
-    oldRecord?.a_a_a_a_a_o_contact?.a_e_contact3_black_id &&
-    oldRecord?.a_a_a_a_a_o_contact?.a_e_contact3_black_id > 0;
-
-  const loanBankIsBlack =
-    oldRecord?.a_a_a_a_a_a_o_loan_bank?.n_black_id &&
-    oldRecord?.a_a_a_a_a_a_o_loan_bank?.n_black_id > 0;
-  const loanBankIsGrey =
-    oldRecord?.a_a_a_a_a_a_o_loan_bank?.o_grey_id &&
-    oldRecord?.a_a_a_a_a_a_o_loan_bank?.o_grey_id > 0;
-
+  // @ts-ignore
   return (
     <>
       <Row
@@ -179,32 +183,70 @@ const VerifyDetail: React.FC = () => {
       >
         <Col xs={24} sm={24} xl={12} xxl={8}>
           <Card
-            title="身份信息"
+            title={intl.formatMessage({ id: 'pages.Borrow.Idnumber', defaultMessage: '' })}
             bodyStyle={{ padding: 0 }}
             extra={
-              idNumberRawStatus === 30 ? (
-                <Button
-                  type="primary"
-                  onClick={() =>
-                    onReviewClick(
-                      'idNumber',
-                      '身份信息',
-                      oldRecord!.a_a_a_a_a_m_idnumber!.b_d_reasons!,
-                      oldRecord!.a_a_a_a_a_m_idnumber!.b_e_reasons_detail!,
-                      idNumberStatus,
-                    )
-                  }
-                >
-                  {idNumberStatus === 30 ? '审核' : '复审原因'}
-                </Button>
-              ) : (
-                ''
-              )
+              <Row gutter={16}>
+                <Col>
+                  {oldRecord &&
+                  oldRecord.a_a_a_a_a_m_idnumbers &&
+                  oldRecord!.a_a_a_a_a_m_idnumbers?.length > 1 ? (
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        onHistoryClick(
+                          'idNumber',
+                          intl.formatMessage({ id: 'pages.Borrow.Idnumber', defaultMessage: '' }),
+                          oldRecord!.a_a_a_a_a_m_idnumbers!,
+                        )
+                      }
+                    >
+                      {`${intl.formatMessage({
+                        id: 'pages.Borrow.VerifyDetail.VerifyHistory',
+                        defaultMessage: '',
+                      })}(${oldRecord!.a_a_a_a_a_m_idnumbers?.length})`}
+                    </Button>
+                  ) : (
+                    ''
+                  )}
+                </Col>
+                <Col>
+                  {idNumberRawStatus === 30 ? (
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        onReviewClick(
+                          'idNumber',
+                          intl.formatMessage({ id: 'pages.Borrow.Idnumber', defaultMessage: '' }),
+                          oldRecord!.a_a_a_a_a_m_idnumber!.b_d_reasons!,
+                          oldRecord!.a_a_a_a_a_m_idnumber!.b_e_reasons_detail!,
+                          idNumberStatus,
+                        )
+                      }
+                    >
+                      {idNumberStatus === 30
+                        ? intl.formatMessage({
+                            id: 'pages.Borrow.VerifyDetail.review',
+                            defaultMessage: '',
+                          })
+                        : intl.formatMessage({
+                            id: 'pages.Borrow.VerifyDetail.review_reason',
+                            defaultMessage: '',
+                          })}
+                    </Button>
+                  ) : (
+                    ''
+                  )}
+                </Col>
+              </Row>
             }
           >
             <Descriptions bordered column={{ xs: 1, sm: 1, md: 2, xl: 2, xxl: 2 }} size="small">
               <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_m_idnumber.q_name1}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Idnumber.q_name1',
+                  defaultMessage: '',
+                })}
                 labelStyle={nameRed ? { color: 'red', fontWeight: 'bold' } : {}}
               >
                 {oldRecord?.a_a_a_a_a_m_idnumber?.q_name1}
@@ -224,7 +266,10 @@ const VerifyDetail: React.FC = () => {
               </Descriptions.Item>
               <Descriptions.Item
                 labelStyle={idNumberRed ? { color: 'red', fontWeight: 'bold' } : {}}
-                label={FieldLabels.a_a_a_a_a_m_idnumber.m_idnumber}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Idnumber.m_idnumber',
+                  defaultMessage: '',
+                })}
               >
                 {oldRecord?.a_a_a_a_a_m_idnumber?.m_idnumber}
                 {!idNumberIsSame && oldRecord?.a_a_a_a_a_q_a_ocr?.h_idnumber ? (
@@ -233,65 +278,69 @@ const VerifyDetail: React.FC = () => {
                   ''
                 )}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.u_gender}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Idnumber.u_gender',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_idnumber?.u_gender
                   ? GENDER_ENUM[oldRecord?.a_a_a_a_a_m_idnumber?.u_gender]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.v_birthday}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Idnumber.v_birthday',
+                  defaultMessage: '',
+                })}
+              >
                 {moment(oldRecord?.a_a_a_a_a_m_idnumber?.v_birthday).format('YYYY-MM-DD')}
               </Descriptions.Item>
               <Descriptions.Item
-                labelStyle={
-                  oldRecord?.a_a_a_a_a_m_idnumber?.a_x_index &&
-                  oldRecord?.a_a_a_a_a_m_idnumber?.a_x_index > 1
-                    ? {
-                        color: 'red',
-                        fontWeight: 'bold',
-                      }
-                    : {}
-                }
-                label={FieldLabels.a_a_a_a_a_m_idnumber.a_x_index}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Idnumber.x_idnumber_state_id',
+                  defaultMessage: '',
+                })}
               >
-                {oldRecord?.a_a_a_a_a_m_idnumber?.a_x_index}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_m_idnumber.d_black_id}
-                labelStyle={isBlack ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {isBlack ? '命中黑名单' : '-'}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_m_idnumber.e_grey_id}
-                labelStyle={isGrey ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {isGrey ? '命中灰名单' : '-'}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_m_idnumber.f_white_id}
-                labelStyle={isWhite ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {isWhite ? '命中白名单' : '-'}
-              </Descriptions.Item>
-
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.x_idnumber_state_id}>
                 {oldRecord?.a_a_a_a_a_m_idnumber?.x_idnumber_state_id}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.a_b_idnumber_address}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Idnumber.a_b_idnumber_address',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_idnumber?.a_b_idnumber_address}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.a_y_email}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Idnumber.a_y_email',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_idnumber?.a_y_email}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.a_z_whatapp}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Idnumber.a_z_whatapp',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_idnumber?.a_z_whatapp}
               </Descriptions.Item>
-              {/*            <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.b_a_facebook}>{oldRecord?.a_a_a_a_a_m_idnumber?.b_a_facebook}</Descriptions.Item>
+              {/*            <Descriptions.Item label={intl.formatMessage({ id: 'pages.Borrow.Idnumber.b_a_facebook}>{oldRecord?.a_a_a_a_a_m_idnumber?.b_a_facebook', defaultMessage: '' })}</Descriptions.Item>
             <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.b_b_line}>{oldRecord?.a_a_a_a_a_m_idnumber?.b_b_line}</Descriptions.Item>*/}
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.created_at}>
+              <Descriptions.Item
+                label={intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' })}
+              >
                 {moment(oldRecord?.a_a_a_a_a_m_idnumber?.created_at).format('YYYY-MM-DD HH:mm:ss')}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.g_valid_date}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Idnumber.g_valid_date',
+                  defaultMessage: '',
+                })}
+              >
                 {moment(oldRecord?.a_a_a_a_a_m_idnumber?.g_valid_date).format('YYYY-MM-DD')}
               </Descriptions.Item>
             </Descriptions>
@@ -299,32 +348,72 @@ const VerifyDetail: React.FC = () => {
         </Col>
         <Col xs={24} sm={24} xl={12} xxl={8}>
           <Card
-            title="联系人信息"
+            title={intl.formatMessage({ id: 'pages.Borrow.Contact', defaultMessage: '' })}
             bodyStyle={{ padding: 0 }}
             extra={
-              contactRawStatus === 30 ? (
-                <Button
-                  type="primary"
-                  onClick={() =>
-                    onReviewClick(
-                      'contact',
-                      '联系人信息',
-                      oldRecord!.a_a_a_a_a_o_contact!.a_l_reasons!,
-                      oldRecord!.a_a_a_a_a_o_contact!.a_n_reasons_detail!,
-                      contactStatus,
-                    )
-                  }
-                >
-                  {contactStatus === 30 ? '审核' : '复审原因'}
-                </Button>
-              ) : (
-                ''
-              )
+              <Row gutter={16}>
+                <Col>
+                  {oldRecord &&
+                  oldRecord.a_a_a_a_a_o_contacts &&
+                  oldRecord!.a_a_a_a_a_o_contacts?.length > 1 ? (
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        onHistoryClick(
+                          'contact',
+                          intl.formatMessage({ id: 'pages.Borrow.Contact', defaultMessage: '' }),
+                          oldRecord!.a_a_a_a_a_o_contacts!,
+                        )
+                      }
+                    >
+                      {`${intl.formatMessage({
+                        id: 'pages.Borrow.VerifyDetail.VerifyHistory',
+                        defaultMessage: '',
+                      })}(${oldRecord!.a_a_a_a_a_o_contacts?.length})`}
+                    </Button>
+                  ) : (
+                    ''
+                  )}
+                </Col>
+                <Col>
+                  {contactStatus === 30 ? (
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        onReviewClick(
+                          'contact',
+                          intl.formatMessage({ id: 'pages.Borrow.Contact', defaultMessage: '' }),
+                          oldRecord!.a_a_a_a_a_o_contact!.a_l_reasons!,
+                          oldRecord!.a_a_a_a_a_o_contact!.a_n_reasons_detail!,
+                          contactStatus,
+                        )
+                      }
+                    >
+                      {contactStatus === 30
+                        ? intl.formatMessage({
+                            id: 'pages.Borrow.VerifyDetail.review',
+                            defaultMessage: '',
+                          })
+                        : intl.formatMessage({
+                            id: 'pages.Borrow.VerifyDetail.review_reason',
+                            defaultMessage: '',
+                          })}
+                    </Button>
+                  ) : (
+                    ''
+                  )}
+                </Col>
+              </Row>
             }
           >
             <Descriptions bordered column={{ xs: 1, sm: 1, md: 2, xl: 2, xxl: 2 }} size="small">
               {/*<Descriptions.Item label={FieldLabels.a_a_a_a_a_o_contact.j_contact1_relation}>{oldRecord?.a_a_a_a_a_o_contact?.j_contact1_relation}</Descriptions.Item>*/}
-              <Descriptions.Item label={<>{FieldLabels.a_a_a_a_a_o_contact.contact1_name}</>}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Contact.contact1_name',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_o_contact?.contact1_name} (
                 {oldRecord?.a_a_a_a_a_o_contact?.j_contact1_relation
                   ? CONTACT_RELATION_ENUM[oldRecord?.a_a_a_a_a_o_contact?.j_contact1_relation]?.text
@@ -332,7 +421,10 @@ const VerifyDetail: React.FC = () => {
                 )
               </Descriptions.Item>
               <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.contact1_phone}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Contact.contact1_phone',
+                  defaultMessage: '',
+                })}
                 labelStyle={
                   contact1Red
                     ? {
@@ -347,37 +439,32 @@ const VerifyDetail: React.FC = () => {
               </Descriptions.Item>
               {/*联系人1*/}
               <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.y_contact1_black_id}
-                labelStyle={contact1IsBlack ? { color: 'red', fontWeight: 'bold' } : {}}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Contact.a_o_contact1_sms_contact_id',
+                  defaultMessage: '',
+                })}
+                labelStyle={contact1BorrowRed ? { color: 'red', fontWeight: 'bold' } : {}}
               >
-                {contact1IsBlack ? '命中黑名单' : '-'}
+                {oldRecord?.a_a_a_a_a_o_contact?.a_o_contact1_sms_contact_id}
               </Descriptions.Item>
               <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.z_contact1_grey_id}
-                labelStyle={contact1IsGrey ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {contact1IsBlack ? '命中灰名单' : '-'}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.x_contact1_white_id}
-                labelStyle={contact1IsWhite ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {contact1IsBlack ? '命中白名单' : '-'}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.a_i_contact1_borrow_id}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Contact.a_p_contact1_contact_record_id',
+                  defaultMessage: '',
+                })}
                 labelStyle={contact1BorrowRed ? { color: 'red', fontWeight: 'bold' } : {}}
               >
                 {/*//todo 跳转所在订单*/}
-                {oldRecord?.a_a_a_a_a_o_contact?.a_i_contact1_borrow_id &&
-                oldRecord?.a_a_a_a_a_o_contact?.a_i_contact1_borrow_id > 0
-                  ? '存在订单'
-                  : '-'}
+                {oldRecord?.a_a_a_a_a_o_contact?.a_p_contact1_contact_record_id}
               </Descriptions.Item>
-
               {/*联系人2*/}
               {/*<Descriptions.Item label={FieldLabels.a_a_a_a_a_o_contact.m_contact2_relation}>{oldRecord?.a_a_a_a_a_o_contact?.m_contact2_relation}</Descriptions.Item>*/}
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_o_contact.contact2_name}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Contact.contact2_name',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_o_contact?.contact2_name} (
                 {oldRecord?.a_a_a_a_a_o_contact?.m_contact2_relation
                   ? CONTACT2_RELATION_ENUM[oldRecord?.a_a_a_a_a_o_contact?.m_contact2_relation]
@@ -386,7 +473,10 @@ const VerifyDetail: React.FC = () => {
                 )
               </Descriptions.Item>
               <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.contact2_phone}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Contact.contact2_phone',
+                  defaultMessage: '',
+                })}
                 labelStyle={
                   contact2Red
                     ? {
@@ -399,90 +489,35 @@ const VerifyDetail: React.FC = () => {
                 {oldRecord?.a_a_a_a_a_o_contact?.contact2_phone}
                 <PhoneOutlined />
               </Descriptions.Item>
-
               <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.a_b_contact2_black_id}
-                labelStyle={contact2IsBlack ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {contact2IsGrey ? '命中黑名单' : '-'}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.a_c_contact2_grey_id}
-                labelStyle={contact2IsGrey ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {contact2IsGrey ? '命中灰名单' : '-'}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.a_a_contact2_white_id}
-                labelStyle={contact2IsWhite ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {contact2IsGrey ? '命中白名单' : '-'}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_o_contact.a_j_contact2_borrow_id}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Contact.a_q_contact2_sms_contact_id',
+                  defaultMessage: '',
+                })}
                 labelStyle={contact2BorrowRed ? { color: 'red', fontWeight: 'bold' } : {}}
               >
-                {/*//todo 跳转所在订单*/}
-                {oldRecord?.a_a_a_a_a_o_contact?.a_j_contact2_borrow_id &&
-                oldRecord?.a_a_a_a_a_o_contact?.a_j_contact2_borrow_id > 0
-                  ? '存在订单'
-                  : '-'}
+                {oldRecord?.a_a_a_a_a_o_contact?.a_q_contact2_sms_contact_id}
               </Descriptions.Item>
-
-              {/*联系人3*/}
-              {oldRecord?.a_a_a_a_a_o_contact?.contact3_name !== undefined ? (
-                <>
-                  {contact3IsBlack ? (
-                    <Descriptions.Item
-                      label={FieldLabels.a_a_a_a_a_o_contact.a_e_contact3_black_id}
-                      labelStyle={{ color: 'red' }}
-                    >
-                      命中黑名单
-                    </Descriptions.Item>
-                  ) : null}
-                  {contact2IsGrey ? (
-                    <Descriptions.Item
-                      label={FieldLabels.a_a_a_a_a_o_contact.a_f_contact3_grey_id}
-                      labelStyle={{ color: 'red' }}
-                    >
-                      命中灰名单
-                    </Descriptions.Item>
-                  ) : null}
-                  {contact2IsWhite ? (
-                    <Descriptions.Item
-                      label={FieldLabels.a_a_a_a_a_o_contact.a_d_contact3_white_id}
-                      labelStyle={{ color: 'red' }}
-                    >
-                      命中白名单
-                    </Descriptions.Item>
-                  ) : null}
-                  <Descriptions.Item label={FieldLabels.a_a_a_a_a_o_contact.p_contact3_relation}>
-                    {oldRecord?.a_a_a_a_a_o_contact?.p_contact3_relation}
-                  </Descriptions.Item>
-                  <Descriptions.Item label={FieldLabels.a_a_a_a_a_o_contact.contact3_name}>
-                    {oldRecord?.a_a_a_a_a_o_contact?.contact3_name}
-                  </Descriptions.Item>
-                  <Descriptions.Item label={FieldLabels.a_a_a_a_a_o_contact.contact3_phone}>
-                    {oldRecord?.a_a_a_a_a_o_contact?.contact3_phone}
-                  </Descriptions.Item>
-                  {oldRecord?.a_a_a_a_a_o_contact?.a_k_contact3_borrow_id &&
-                  oldRecord?.a_a_a_a_a_o_contact?.a_k_contact3_borrow_id > 0 ? (
-                    <Descriptions.Item
-                      label={FieldLabels.a_a_a_a_a_o_contact.a_k_contact3_borrow_id}
-                      labelStyle={{ color: 'red' }}
-                    >
-                      {/*//todo 跳转所在订单*/}
-                      存在订单
-                    </Descriptions.Item>
-                  ) : null}
-                </>
-              ) : (
-                ''
-              )}
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_o_contact.created_at}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Contact.a_r_contact2_contact_record_id',
+                  defaultMessage: '',
+                })}
+                labelStyle={contact2BorrowRed ? { color: 'red', fontWeight: 'bold' } : {}}
+              >
+                {oldRecord?.a_a_a_a_a_o_contact?.a_r_contact2_contact_record_id}
+              </Descriptions.Item>
+              <Descriptions.Item
+                label={intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' })}
+              >
                 {moment(oldRecord?.a_a_a_a_a_o_contact?.created_at).format('YYYY-MM-DD HH:mm:ss')}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_o_contact.b_valid_date}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Contact.b_valid_date',
+                  defaultMessage: '',
+                })}
+              >
                 {moment(oldRecord?.a_a_a_a_a_o_contact?.b_valid_date).format('YYYY-MM-DD')}
               </Descriptions.Item>
             </Descriptions>
@@ -490,37 +525,81 @@ const VerifyDetail: React.FC = () => {
         </Col>
         <Col xs={24} sm={24} xl={12} xxl={8}>
           <Card
-            title="银行卡信息"
+            title={intl.formatMessage({ id: 'pages.Borrow.BankCard', defaultMessage: '' })}
             bodyStyle={{ padding: 0 }}
             extra={
-              loanBankRawStatus === 30 ? (
-                <Button
-                  type="primary"
-                  onClick={() =>
-                    onReviewClick(
-                      'loanBank',
-                      '银行卡信息',
-                      oldRecord!.a_a_a_a_a_a_o_loan_bank!.y_reasons!,
-                      '',
-                      loanBankStatus,
-                    )
-                  }
-                >
-                  {loanBankStatus === 30 ? '审核' : '复审原因'}
-                </Button>
-              ) : (
-                ''
-              )
+              <Row gutter={16}>
+                <Col>
+                  {oldRecord &&
+                  oldRecord.a_a_a_a_a_a_o_loan_banks &&
+                  oldRecord!.a_a_a_a_a_a_o_loan_banks?.length > 1 ? (
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        onHistoryClick(
+                          'loanBank',
+                          intl.formatMessage({ id: 'pages.Borrow.BankCard', defaultMessage: '' }),
+                          oldRecord!.a_a_a_a_a_a_o_loan_banks!,
+                        )
+                      }
+                    >
+                      {`${intl.formatMessage({
+                        id: 'pages.Borrow.VerifyDetail.VerifyHistory',
+                        defaultMessage: '',
+                      })}(${oldRecord!.a_a_a_a_a_a_o_loan_banks?.length})`}
+                    </Button>
+                  ) : (
+                    ''
+                  )}
+                </Col>
+                <Col>
+                  {loanBankRawStatus === 30 ? (
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        onReviewClick(
+                          'loanBank',
+                          intl.formatMessage({ id: 'pages.Borrow.BankCard', defaultMessage: '' }),
+                          oldRecord!.a_a_a_a_a_a_o_loan_bank!.y_reasons!,
+                          oldRecord!.a_a_a_a_a_a_o_loan_bank!.a_b_reasons_detail!,
+                          idNumberStatus,
+                        )
+                      }
+                    >
+                      {loanBankStatus === 30
+                        ? intl.formatMessage({
+                            id: 'pages.Borrow.VerifyDetail.review',
+                            defaultMessage: '',
+                          })
+                        : intl.formatMessage({
+                            id: 'pages.Borrow.VerifyDetail.review_reason',
+                            defaultMessage: '',
+                          })}
+                    </Button>
+                  ) : (
+                    ''
+                  )}
+                </Col>
+              </Row>
             }
           >
             <Descriptions bordered column={{ xs: 1, sm: 1, md: 1, xl: 1, xxl: 2 }} size="small">
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_a_o_loan_bank.d_bank_name}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.BankCard.d_bank_name',
+                  defaultMessage: '',
+                })}
+                span={2}
+              >
                 {oldRecord?.a_a_a_a_a_a_o_loan_bank?.d_bank_name
-                  ? BANK_NAME[oldRecord?.a_a_a_a_a_a_o_loan_bank?.d_bank_name]?.text
+                  ? BANK_NAME[oldRecord?.a_a_a_a_a_a_o_loan_bank!.d_bank_name]!.text
                   : ''}
               </Descriptions.Item>
               <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_a_o_loan_bank.f_bank_card_no}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.BankCard.f_bank_card_no',
+                  defaultMessage: '',
+                })}
                 labelStyle={
                   loanBankRed
                     ? {
@@ -529,85 +608,53 @@ const VerifyDetail: React.FC = () => {
                       }
                     : {}
                 }
+                span={2}
               >
                 {oldRecord?.a_a_a_a_a_a_o_loan_bank?.f_bank_card_no}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_a_o_loan_bank.s_first_name} span={2}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.BankCard.s_first_name',
+                  defaultMessage: '',
+                })}
+                span={2}
+              >
                 {oldRecord?.a_a_a_a_a_a_o_loan_bank?.s_first_name}
                 {oldRecord?.a_a_a_a_a_a_o_loan_bank?.t_middle_name}
                 {oldRecord?.a_a_a_a_a_a_o_loan_bank?.u_last_name}
               </Descriptions.Item>
               <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_a_o_loan_bank.v_loan_success_times}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.BankCard.s_first_name',
+                  defaultMessage: '',
+                })}
                 span={2}
               >
-                {oldRecord?.a_a_a_a_a_a_o_loan_bank?.v_loan_success_times}
+                {oldRecord?.a_a_a_a_a_a_o_loan_bank?.s_first_name}
+                {oldRecord?.a_a_a_a_a_a_o_loan_bank?.t_middle_name}
+                {oldRecord?.a_a_a_a_a_a_o_loan_bank?.u_last_name}
               </Descriptions.Item>
               <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_a_o_loan_bank.w_loan_total_amount}
-                span={2}
+                label={intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' })}
               >
-                {oldRecord?.a_a_a_a_a_a_o_loan_bank?.w_loan_total_amount}
+                {moment(oldRecord?.a_a_a_a_a_a_o_loan_bank?.created_at).format(
+                  'YYYY-MM-DD HH:mm:ss',
+                )}
               </Descriptions.Item>
               <Descriptions.Item
-                labelStyle={{
-                  color:
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.m_index &&
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.m_index > 1
-                      ? 'red'
-                      : '',
-                  fontWeight:
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.m_index &&
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.m_index > 1
-                      ? 'bold'
-                      : 'normal',
-                }}
-                label={FieldLabels.a_a_a_a_a_a_o_loan_bank.m_index}
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.BankCard.c_valid_date',
+                  defaultMessage: '',
+                })}
               >
-                {oldRecord?.a_a_a_a_a_a_o_loan_bank?.m_index}
-              </Descriptions.Item>
-              <Descriptions.Item
-                labelStyle={{
-                  color:
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity &&
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity !== 50
-                      ? 'red'
-                      : '',
-                  fontWeight:
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity &&
-                    oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity !== 50
-                      ? 'bold'
-                      : 'normal',
-                }}
-                label={FieldLabels.a_a_a_a_a_a_o_loan_bank.x_authenticity}
-              >
-                {oldRecord?.a_a_a_a_a_a_o_loan_bank?.x_authenticity}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_a_o_loan_bank.n_black_id}
-                labelStyle={loanBankIsBlack ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {loanBankIsBlack ? '命中黑名单' : '-'}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label={FieldLabels.a_a_a_a_a_a_o_loan_bank.o_grey_id}
-                labelStyle={loanBankIsGrey ? { color: 'red', fontWeight: 'bold' } : {}}
-              >
-                {loanBankIsGrey ? '命中灰名单' : '-'}
-              </Descriptions.Item>
-
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.created_at}>
-                {moment(oldRecord?.a_a_a_a_a_m_idnumber?.created_at).format('YYYY-MM-DD HH:mm:ss')}
-              </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_idnumber.g_valid_date}>
-                {moment(oldRecord?.a_a_a_a_a_m_idnumber?.g_valid_date).format('YYYY-MM-DD')}
+                {moment(oldRecord?.a_a_a_a_a_a_o_loan_bank?.c_valid_date).format('YYYY-MM-DD')}
               </Descriptions.Item>
             </Descriptions>
           </Card>
         </Col>
         <Col xs={24} sm={24} xl={12} xxl={24}>
           <Card
-            title="工作及其他信息"
+            title={intl.formatMessage({ id: 'pages.Borrow.Job', defaultMessage: '' })}
             bodyStyle={{ padding: 0 }}
             extra={
               jobRawStatus === 30 ? (
@@ -616,14 +663,22 @@ const VerifyDetail: React.FC = () => {
                   onClick={() =>
                     onReviewClick(
                       'job',
-                      '工作及其他信息',
+                      intl.formatMessage({ id: 'pages.Borrow.Job', defaultMessage: '' }),
                       oldRecord!.a_a_a_a_a_m_a_job!.a_q_reasons!,
                       oldRecord!.a_a_a_a_a_m_a_job!.a_r_reasons_detail!,
                       jobStatus,
                     )
                   }
                 >
-                  {jobStatus === 30 ? '审核' : '复审原因'}
+                  {jobStatus === 30
+                    ? intl.formatMessage({
+                        id: 'pages.Borrow.VerifyDetail.review',
+                        defaultMessage: '',
+                      })
+                    : intl.formatMessage({
+                        id: 'pages.Borrow.VerifyDetail.review_reason',
+                        defaultMessage: '',
+                      })}
                 </Button>
               ) : (
                 ''
@@ -631,100 +686,243 @@ const VerifyDetail: React.FC = () => {
             }
           >
             <Descriptions bordered column={{ xs: 1, sm: 1, md: 2, xl: 2, xxl: 3 }} size="small">
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.v_employment_status}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.v_employment_status',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.v_employment_status
                   ? EMPLOYMENT_STATUS[oldRecord?.a_a_a_a_a_m_a_job?.v_employment_status]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.w_employment_period}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.w_employment_period',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.w_employment_period
                   ? EMPLOYMENT_PERIOD[oldRecord?.a_a_a_a_a_m_a_job?.w_employment_period]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.x_monthly_salary}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.x_monthly_salary',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.x_monthly_salary}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.y_payroll_period}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.y_payroll_period',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.y_payroll_period
                   ? PAYROLL_PERIOD[oldRecord?.a_a_a_a_a_m_a_job?.y_payroll_period]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.z_pay_day}>
+              <Descriptions.Item
+                label={intl.formatMessage({ id: 'pages.Borrow.Job.z_pay_day', defaultMessage: '' })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.z_pay_day
                   ? PAY_DAY[oldRecord?.a_a_a_a_a_m_a_job?.z_pay_day]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.a_a_company_name}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.a_a_company_name',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.a_a_company_name}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.a_b_employer_name}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.a_b_employer_name',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.a_b_employer_name}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.a_c_employer_phone}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.a_c_employer_phone',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.a_c_employer_phone}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.a_d_company_state_id}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.a_d_company_state_id',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.a_d_company_state_id}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.a_g_company_address}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.a_g_company_address',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.a_g_company_address}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.m_residential_type}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.m_residential_type',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.m_residential_type
                   ? RESIDENTIAL_TYPE[oldRecord?.a_a_a_a_a_m_a_job?.m_residential_type]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.n_current_state_id}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.n_current_state_id',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.n_current_state_id}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.q_current_address}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.q_current_address',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.q_current_address}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.r_living_length}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.r_living_length',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.r_living_length}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.l_education}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.l_education',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.l_education
                   ? EDUCATION[oldRecord?.a_a_a_a_a_m_a_job?.l_education]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.k_preferred_language}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.k_preferred_language',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.k_preferred_language
                   ? PREFERRED_LANGUAGE[oldRecord?.a_a_a_a_a_m_a_job?.k_preferred_language]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.j_religion}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.j_religion',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.j_religion
                   ? RELIGION[oldRecord?.a_a_a_a_a_m_a_job?.j_religion]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.h_marital_status}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.h_marital_status',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.h_marital_status
                   ? MARITAL_STATUS[oldRecord?.a_a_a_a_a_m_a_job?.h_marital_status]?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.i_children_count}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.i_children_count',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.i_children_count}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.e_personal_loan_purpose}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.e_personal_loan_purpose',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.e_personal_loan_purpose
                   ? PERSONAL_LOAN_PURPOSE[oldRecord?.a_a_a_a_a_m_a_job?.e_personal_loan_purpose]
                       ?.text
                   : ''}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.f_expect_loan_days}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.f_expect_loan_days',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.f_expect_loan_days}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.g_expect_loan_amount}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.g_expect_loan_amount',
+                  defaultMessage: '',
+                })}
+              >
                 {oldRecord?.a_a_a_a_a_m_a_job?.g_expect_loan_amount}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.created_at}>
+              <Descriptions.Item
+                label={intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' })}
+              >
                 {moment(oldRecord?.a_a_a_a_a_m_a_job?.created_at).format('YYYY-MM-DD HH:mm:ss')}
               </Descriptions.Item>
-              <Descriptions.Item label={FieldLabels.a_a_a_a_a_m_a_job.d_valid_date}>
+              <Descriptions.Item
+                label={intl.formatMessage({
+                  id: 'pages.Borrow.Job.d_valid_date',
+                  defaultMessage: '',
+                })}
+              >
                 {moment(oldRecord?.a_a_a_a_a_m_a_job?.d_valid_date).format('YYYY-MM-DD')}
               </Descriptions.Item>
             </Descriptions>
+          </Card>
+        </Col>
+      </Row>
+      <Row
+        gutter={[
+          { xs: 10, sm: 12, md: 12 },
+          { xs: 10, sm: 12, md: 12 },
+        ]}
+        style={{ marginTop: 12 }}
+      >
+        <Col xs={24} sm={24} xl={24} xxl={24}>
+          <Card
+            title={intl.formatMessage({ id: 'pages.Borrow.Ocr', defaultMessage: '' })}
+            bodyStyle={{ padding: 0 }}
+          >
+            <Image.PreviewGroup
+              preview={{
+                onChange: (current, prev) =>
+                  console.log(`current index: ${current}, prev index: ${prev}`),
+              }}
+            >
+              {oldRecord &&
+              oldRecord.a_a_a_a_a_q_a_ocrs &&
+              oldRecord!.a_a_a_a_a_q_a_ocrs!.length > 0
+                ? oldRecord!.a_a_a_a_a_q_a_ocrs!.map((item: API.QAOcr, index) => {
+                    return <Image key={index} width={200} src={item.x_picture_1} />;
+                  })
+                : ''}
+            </Image.PreviewGroup>
           </Card>
         </Col>
       </Row>
@@ -754,6 +952,15 @@ const VerifyDetail: React.FC = () => {
         id={oldRecord?.id}
         title={modelTitle}
         status={currentStatus}
+      />
+      <HistoryList
+        onCancel={() => {
+          handleHistoryListModalVisible(false);
+        }}
+        modalVisible={historyListModalVisible}
+        item={currentItem}
+        title={historyListModelTitle}
+        data={historyList}
       />
     </>
   );

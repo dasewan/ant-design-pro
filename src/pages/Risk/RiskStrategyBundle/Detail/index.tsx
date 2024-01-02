@@ -317,8 +317,6 @@ const AdvancedForm: FC<Record<string, any>> = () => {
   };
   /**
    * 初始请求或者切换版本
-   * @param version
-   * @param getRoleItem
    */
   const _refresh = async () => {
     const res = await show({ id: currentId });
@@ -816,7 +814,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
    */
   const onFinish = async (values: Record<string, any>) => {
     setError([]);
-    message.loading('正在提交');
+    message.loading(intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }));
     try {
       const tmp: string[] = [];
       let riskRoleCount: number = 0;
@@ -838,7 +836,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         // @ts-ignore
         await store({ risk_role_bundle_ids: tmp.join('#'), ...values });
       }
-      message.success('提交成功');
+      message.success(
+        intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
+      );
       history.push(`/risk/risk-strategy-bundle`);
     } catch {}
   };

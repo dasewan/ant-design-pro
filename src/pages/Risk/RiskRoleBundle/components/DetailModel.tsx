@@ -230,10 +230,12 @@ const DetailModel: FC<FormProps> = (props) => {
    * @param values
    */
   const onFinish = async (values: Record<string, any>) => {
-    message.loading('正在提交');
+    message.loading(intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }));
     values.table = values.table?.map((item: API.GFRiskRole) => JSON.stringify(item)).join('##');
     try {
-      message.success('提交成功');
+      message.success(
+        intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
+      );
     } catch {}
     return true;
   };

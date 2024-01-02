@@ -324,7 +324,7 @@ declare namespace API {
     /** 认证有效时间 */
     c_valid_date?: string;
     /** 银行名称 */
-    d_bank_name?: string;
+    d_bank_name?: number;
     /** 银行code */
     e_bank_code?: string;
     /** 银行卡号 */
@@ -1876,6 +1876,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1NFSmsContactsIdParams = {
+    /** id of NFSmsContact */
+    id: number;
+  };
+
   type deleteAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -2072,12 +2077,14 @@ declare namespace API {
     j_span_days?: number;
     /** 查看次数* */
     k_view_count?: number;
-    /** 上次成功时间* */
+    /** 上次成功时间 */
     l_last_marketing_time?: string;
-    /** 最近查看时间* */
+    /** 最近查看时间 */
     m_last_viewed_time?: string;
-    /** 文件id* */
+    /** 文件id */
     n_admin_file_id?: number;
+    /** 状态 0：待营销 1：营销中 2：过期 */
+    o_status?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3024,6 +3031,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1NFSmsContactsIdParams = {
+    /** id of NFSmsContact */
+    id: number;
+  };
+
+  type getAdminV1NFSmsContactsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -3689,10 +3706,20 @@ declare namespace API {
     /** id */
     id?: number;
     a_a_a_a_a_q_a_ocr?: QAOcr;
+    /** App\Models\GVerify */
+    a_a_a_a_a_q_a_ocrs?: QAOcr[];
     a_a_a_a_a_m_idnumber?: MIdnumber;
+    /** App\Models\GVerify */
+    a_a_a_a_a_m_idnumbers?: MIdnumber[];
     a_a_a_a_a_o_contact?: OContact;
+    /** App\Models\GVerify */
+    a_a_a_a_a_o_contacts?: OContact[];
     a_a_a_a_a_m_a_job?: MAJob;
+    /** App\Models\GVerify */
+    a_a_a_a_a_m_a_jobs?: MAJob[];
     a_a_a_a_a_a_o_loan_bank?: AOLoanBank;
+    /** App\Models\GVerify */
+    a_a_a_a_a_a_o_loan_banks?: AOLoanBank[];
     /** 用户id */
     a_user_id?: number;
     /** 订单id */
@@ -4061,17 +4088,33 @@ declare namespace API {
     /** id */
     id?: number;
     /** 信息* */
-    a_info: string;
+    a_info?: string;
     /** 信息命中次数* */
     b_hit_count?: number;
+    /** 1:手机号 2:身份证号 3:身份证2号 4:银行卡 5：设备 */
+    c_type?: number;
+    /** 结束时间* */
+    d_overdate?: string;
+    /** 管理员id* */
+    e_admin_id?: number;
     /** 原因 */
-    c_reason_id?: string;
-    /** 类型 1：关联黑名单 2：逾期 */
+    f_black_reason_id?: string;
+    /** 类型 1：导入黑名单 2：系统录入 3：管理员录入* */
     g_type?: number;
     /** 备注 */
     h_remark?: string;
+    /** 是否已扫描* 0：未扫描 1：已扫描 */
+    i_scan?: number;
+    /** 扫描结束时间* */
+    j_scan_date?: string;
+    /** 影响灰名单数量 */
+    k_gray_hit_count?: number;
+    /** 文件id* */
+    l_admin_file_id?: number;
     /** 最近命中时间 */
-    i_last_hit_time?: string;
+    m_last_hit_time?: string;
+    /** 状态 1：正常 2：已移除 */
+    n_status?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4625,6 +4668,10 @@ declare namespace API {
     b_d_reasons?: string;
     /** 复审原因详情 */
     b_e_reasons_detail?: string;
+    /** 验真结果 */
+    b_f_validate_result?: string;
+    /** 验真报文 */
+    b_g_validate_raw?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4826,6 +4873,27 @@ declare namespace API {
     v_risk_strategy_3_code?: string;
     /** 策略3版本 */
     w_risk_strategy_3_version?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type NFSmsContact = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** 联系人 */
+    b_contact_id?: number;
+    /** 短信数量 */
+    c_sms_count?: number;
+    /** 手机号 */
+    d_phone?: string;
+    /** 短信 */
+    e_sms_ids?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -5129,13 +5197,13 @@ declare namespace API {
     /** 联系人1电话 */
     contact1_phone?: string;
     /** 联系人1关系 */
-    j_contact1_relation?: string;
+    j_contact1_relation?: number;
     /** 联系人2姓名 */
     contact2_name?: string;
     /** 联系人2电话 */
     contact2_phone?: string;
     /** 联系人2关系 */
-    m_contact2_relation?: string;
+    m_contact2_relation?: number;
     /** 联系人3姓名 */
     contact3_name?: string;
     /** 联系人3电话 */
@@ -5190,6 +5258,14 @@ declare namespace API {
     a_m_admin_id?: number;
     /** 审核原因详情 */
     a_n_reasons_detail?: string;
+    /** 联系人1短信数 */
+    a_o_contact1_sms_contact_id?: number;
+    /** 联系人1通话数 */
+    a_p_contact1_contact_record_id?: number;
+    /** 联系人2短信数 */
+    a_q_contact2_sms_contact_id?: number;
+    /** 联系人2通话数 */
+    a_r_contact2_contact_record_id?: number;
     /** deleted_at */
     deleted_at?: string;
     /** created_at */
@@ -5550,6 +5626,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1NFSmsContactsIdParams = {
+    /** id of NFSmsContact */
+    id: number;
+  };
+
   type putAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -5735,7 +5816,7 @@ declare namespace API {
     /** 本次认证次数序号 */
     c_index?: number;
     /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
-    d_status?: boolean;
+    d_status?: number;
     /** 黑名单id */
     e_black_id?: number;
     /** 灰名单id */
@@ -5780,6 +5861,10 @@ declare namespace API {
     y_picture_2?: string;
     /** 图片3 */
     z_picture_3?: string;
+    /** ocr结果 */
+    a_a_ocr_result?: string;
+    /** ocr报文 */
+    a_b_ocr_raw?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */

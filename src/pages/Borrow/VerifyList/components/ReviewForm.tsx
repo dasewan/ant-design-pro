@@ -2,9 +2,11 @@ import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm } from '@ant-design/pro-form';
 
 import { REVIEW_REASON } from '@/pages/Borrow/VerifyList/components/enums';
+import { REVIEW_REASON_US } from '@/pages/Borrow/VerifyList/components/enumsUs';
 import { putAdminV1GVerifiesId as update } from '@/services/ant-design-pro/GVerify';
-import { Alert, Button, message, Space } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import { useIntl } from '@@/exports';
+import { Alert, Button, ConfigProvider, message, Space } from 'antd';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import type { TableListItem } from '../data';
 
 export type FormValueType = Partial<TableListItem>;
@@ -28,6 +30,9 @@ export type FormProps = {
  * @constructor
  */
 const ReviewForm: React.FC<FormProps> = (props) => {
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   const [reasonsDetailArr, handleReasonsDetailArr] = useState<string[]>([]);
 
@@ -39,7 +44,7 @@ const ReviewForm: React.FC<FormProps> = (props) => {
    * @param accept
    */
   const onFinish = async (accept: boolean) => {
-    message.loading('正在提交');
+    message.loading(intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }));
     let formValues;
 
     if (props.item === 'idNumber') {
@@ -59,7 +64,9 @@ const ReviewForm: React.FC<FormProps> = (props) => {
       return false;
     }
     try {
-      message.success('提交成功');
+      message.success(
+        intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
+      );
     } catch {}
     return true;
   };
@@ -97,7 +104,7 @@ const ReviewForm: React.FC<FormProps> = (props) => {
                   }
                 }}
               >
-                拒绝
+                {intl.formatMessage({ id: 'pages.common.refuse', defaultMessage: '' })}
               </Button>
             ) : null;
           const passButton =
@@ -112,7 +119,7 @@ const ReviewForm: React.FC<FormProps> = (props) => {
                   }
                 }}
               >
-                通过
+                {intl.formatMessage({ id: 'pages.common.pass', defaultMessage: '' })}
               </Button>
             ) : null;
           return [
@@ -122,7 +129,7 @@ const ReviewForm: React.FC<FormProps> = (props) => {
                 props.onCancel();
               }}
             >
-              取消
+              {intl.formatMessage({ id: 'pages.common.cancel', defaultMessage: '' })}
             </Button>,
             refuseButton,
             passButton,
@@ -167,7 +174,18 @@ const ReviewForm: React.FC<FormProps> = (props) => {
           return (
             <Alert
               key={value}
-              message={props.item !== '' ? <>{REVIEW_REASON[props.item][value]}</> : ''}
+              // @ts-ignore
+              message={
+                props.item !== '' ? (
+                  <>
+                    {currentLanguage === 'zh-cn'
+                      ? REVIEW_REASON[props.item][value]
+                      : REVIEW_REASON_US[props.item][value]}
+                  </>
+                ) : (
+                  ''
+                )
+              }
               type="warning"
               showIcon
               action={_detail}

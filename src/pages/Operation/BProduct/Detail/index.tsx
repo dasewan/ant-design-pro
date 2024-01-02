@@ -175,7 +175,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         // @ts-ignore
         await store(values);
       }
-      message.success('提交成功');
+      message.success(
+        intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
+      );
       history.push(`/operation/product`);
     } catch {
       // console.log
