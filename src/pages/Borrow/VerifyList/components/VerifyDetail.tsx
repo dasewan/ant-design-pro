@@ -294,7 +294,9 @@ const VerifyDetail: React.FC = () => {
                   defaultMessage: '',
                 })}
               >
-                {moment(oldRecord?.a_a_a_a_a_m_idnumber?.v_birthday).format('YYYY-MM-DD')}
+                {oldRecord?.a_a_a_a_a_m_idnumber?.v_birthday
+                  ? moment(oldRecord?.a_a_a_a_a_m_idnumber?.v_birthday).format('YYYY-MM-DD')
+                  : ''}
               </Descriptions.Item>
               <Descriptions.Item
                 label={intl.formatMessage({
@@ -333,7 +335,11 @@ const VerifyDetail: React.FC = () => {
               <Descriptions.Item
                 label={intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' })}
               >
-                {moment(oldRecord?.a_a_a_a_a_m_idnumber?.created_at).format('YYYY-MM-DD HH:mm:ss')}
+                {oldRecord?.a_a_a_a_a_m_idnumber?.created_at
+                  ? moment(oldRecord?.a_a_a_a_a_m_idnumber?.created_at).format(
+                      'YYYY-MM-DD HH:mm:ss',
+                    )
+                  : ''}
               </Descriptions.Item>
               <Descriptions.Item
                 label={intl.formatMessage({
@@ -341,7 +347,9 @@ const VerifyDetail: React.FC = () => {
                   defaultMessage: '',
                 })}
               >
-                {moment(oldRecord?.a_a_a_a_a_m_idnumber?.g_valid_date).format('YYYY-MM-DD')}
+                {oldRecord?.a_a_a_a_a_m_idnumber?.g_valid_date
+                  ? moment(oldRecord?.a_a_a_a_a_m_idnumber?.g_valid_date).format('YYYY-MM-DD')
+                  : ''}
               </Descriptions.Item>
             </Descriptions>
           </Card>
@@ -414,11 +422,10 @@ const VerifyDetail: React.FC = () => {
                   defaultMessage: '',
                 })}
               >
-                {oldRecord?.a_a_a_a_a_o_contact?.contact1_name} (
+                {oldRecord?.a_a_a_a_a_o_contact?.contact1_name}
                 {oldRecord?.a_a_a_a_a_o_contact?.j_contact1_relation
                   ? CONTACT_RELATION_ENUM[oldRecord?.a_a_a_a_a_o_contact?.j_contact1_relation]?.text
                   : ''}
-                )
               </Descriptions.Item>
               <Descriptions.Item
                 label={intl.formatMessage({
@@ -435,7 +442,7 @@ const VerifyDetail: React.FC = () => {
                 }
               >
                 {oldRecord?.a_a_a_a_a_o_contact?.contact1_phone}
-                <PhoneOutlined />
+                {oldRecord?.a_a_a_a_a_o_contact?.contact1_phone ? <PhoneOutlined /> : ''}
               </Descriptions.Item>
               {/*联系人1*/}
               <Descriptions.Item
@@ -465,12 +472,11 @@ const VerifyDetail: React.FC = () => {
                   defaultMessage: '',
                 })}
               >
-                {oldRecord?.a_a_a_a_a_o_contact?.contact2_name} (
+                {oldRecord?.a_a_a_a_a_o_contact?.contact2_name}
                 {oldRecord?.a_a_a_a_a_o_contact?.m_contact2_relation
                   ? CONTACT2_RELATION_ENUM[oldRecord?.a_a_a_a_a_o_contact?.m_contact2_relation]
                       ?.text
                   : ''}
-                )
               </Descriptions.Item>
               <Descriptions.Item
                 label={intl.formatMessage({
@@ -487,7 +493,7 @@ const VerifyDetail: React.FC = () => {
                 }
               >
                 {oldRecord?.a_a_a_a_a_o_contact?.contact2_phone}
-                <PhoneOutlined />
+                {oldRecord?.a_a_a_a_a_o_contact?.contact2_phone ? <PhoneOutlined /> : ''}
               </Descriptions.Item>
               <Descriptions.Item
                 label={intl.formatMessage({
@@ -510,7 +516,9 @@ const VerifyDetail: React.FC = () => {
               <Descriptions.Item
                 label={intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' })}
               >
-                {moment(oldRecord?.a_a_a_a_a_o_contact?.created_at).format('YYYY-MM-DD HH:mm:ss')}
+                {oldRecord?.a_a_a_a_a_o_contact?.created_at
+                  ? moment(oldRecord?.a_a_a_a_a_o_contact?.created_at).format('YYYY-MM-DD HH:mm:ss')
+                  : ''}
               </Descriptions.Item>
               <Descriptions.Item
                 label={intl.formatMessage({
@@ -518,7 +526,9 @@ const VerifyDetail: React.FC = () => {
                   defaultMessage: '',
                 })}
               >
-                {moment(oldRecord?.a_a_a_a_a_o_contact?.b_valid_date).format('YYYY-MM-DD')}
+                {oldRecord?.a_a_a_a_a_o_contact?.b_valid_date
+                  ? moment(oldRecord?.a_a_a_a_a_o_contact?.b_valid_date).format('YYYY-MM-DD')
+                  : ''}
               </Descriptions.Item>
             </Descriptions>
           </Card>
@@ -637,9 +647,11 @@ const VerifyDetail: React.FC = () => {
               <Descriptions.Item
                 label={intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' })}
               >
-                {moment(oldRecord?.a_a_a_a_a_a_o_loan_bank?.created_at).format(
-                  'YYYY-MM-DD HH:mm:ss',
-                )}
+                {oldRecord?.a_a_a_a_a_a_o_loan_bank?.created_at
+                  ? moment(oldRecord?.a_a_a_a_a_a_o_loan_bank?.created_at).format(
+                      'YYYY-MM-DD HH:mm:ss',
+                    )
+                  : ''}
               </Descriptions.Item>
               <Descriptions.Item
                 label={intl.formatMessage({
@@ -647,7 +659,9 @@ const VerifyDetail: React.FC = () => {
                   defaultMessage: '',
                 })}
               >
-                {moment(oldRecord?.a_a_a_a_a_a_o_loan_bank?.c_valid_date).format('YYYY-MM-DD')}
+                {oldRecord?.a_a_a_a_a_a_o_loan_bank?.c_valid_date
+                  ? moment(oldRecord?.a_a_a_a_a_a_o_loan_bank?.c_valid_date).format('YYYY-MM-DD')
+                  : ''}
               </Descriptions.Item>
             </Descriptions>
           </Card>
@@ -883,7 +897,9 @@ const VerifyDetail: React.FC = () => {
               <Descriptions.Item
                 label={intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' })}
               >
-                {moment(oldRecord?.a_a_a_a_a_m_a_job?.created_at).format('YYYY-MM-DD HH:mm:ss')}
+                {oldRecord?.a_a_a_a_a_m_a_job?.created_at
+                  ? moment(oldRecord?.a_a_a_a_a_m_a_job?.created_at).format('YYYY-MM-DD HH:mm:ss')
+                  : ''}
               </Descriptions.Item>
               <Descriptions.Item
                 label={intl.formatMessage({
@@ -891,7 +907,9 @@ const VerifyDetail: React.FC = () => {
                   defaultMessage: '',
                 })}
               >
-                {moment(oldRecord?.a_a_a_a_a_m_a_job?.d_valid_date).format('YYYY-MM-DD')}
+                {oldRecord?.a_a_a_a_a_m_a_job?.d_valid_date
+                  ? moment(oldRecord?.a_a_a_a_a_m_a_job?.d_valid_date).format('YYYY-MM-DD')
+                  : ''}
               </Descriptions.Item>
             </Descriptions>
           </Card>

@@ -392,18 +392,33 @@ export const REVIEW_STATUS: StatusEnum = {
   40: { text: 'REJECT', status: 'Error' },
   50: { text: 'ACCEPT', status: 'Success' },
 };
-export const SMS_TYPE: StatusColorEnum = {
-  101: { text: '登录', color: '#0099FF' },
-  102: { text: '拒绝', color: '#FF9900' },
-  103: { text: '通过', color: '#a0c69d' },
-  104: { text: '放款', color: '#99CC33' },
-  105: { text: '还款', color: '#006633' },
-  106: { text: '展期', color: '#CCFF99' },
-  107: { text: '催收', color: '#FF0033' },
-  108: { text: '召回', color: '#999999' },
-  109: { text: '营销', color: '#CC99CC' },
-  110: { text: '其他', color: '#666666' },
+// 'login','accept','refuse','loan','repay','extend','overdue','recall','marketing','other','serious_overdue','before_overdue','reloan'
+export const SMS_TYPE: StatusColorEnum2 = {
+  login: { text: '登录', color: '#0099FF' },
+  refuse: { text: '拒绝', color: '#FF9900' },
+  accept: { text: '通过', color: '#a0c69d' },
+  loan: { text: '放款', color: '#99CC33' },
+  repay: { text: '还款', color: '#006633' },
+  extend: { text: '展期', color: '#CCFF99' },
+  before_overdue: { text: '逾前提醒', color: '#97d8eb' },
+  serious_overdue: { text: '严重逾期', color: '#711212' },
+  overdue: { text: '催收', color: '#FF0033' },
+  recall: { text: '召回', color: '#999999' },
+  marketing: { text: '营销', color: '#CC99CC' },
+  other: { text: '其他', color: '#ffffff' },
 };
+export const SMS_TYPE_FILTER = [
+  { text: '登录', value: 'login' },
+  { text: '拒绝', value: 'refuse' },
+  { text: '通过', value: 'accept' },
+  { text: '放款', value: 'loan' },
+  { text: '还款', value: 'repay' },
+  { text: '展期', value: 'extend' },
+  { text: '催收', value: 'overdue' },
+  { text: '召回', value: 'recall' },
+  { text: '营销', value: 'marketing' },
+  { text: '其他', value: 'other' },
+];
 
 //产品结算方式
 export const FLOW_TYPE: StatusEnum = {

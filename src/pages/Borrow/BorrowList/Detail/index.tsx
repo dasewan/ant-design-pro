@@ -30,6 +30,7 @@ const Advanced: FC = () => {
   const [verifyId, setVerifyId] = useState<number>();
   const [showReviewButton, setShowReviewButton] = useState<boolean>(true);
   const [reviewModalVisible, handleReviewModalVisible] = useState<boolean>(false);
+  const [tabActiveKey, handleTabActiveKey] = useState<string>('urge');
 
   /** tabs */
   const [tabList, setTabList] = useState<
@@ -93,6 +94,7 @@ const Advanced: FC = () => {
 
   /** 获取tab */
   const _getTab = async () => {
+    return;
     // @ts-ignore
     const res = await getTab({ foo: null });
     tabList.forEach((value) => {
@@ -128,10 +130,19 @@ const Advanced: FC = () => {
         success: res.success,
       };
     };
-    // _show();
-    _show().then((_data) =>
-      _getTab().then(() => history.push(`/borrow/detail/${_data.data!.id}/urge/${_data.data!.id}`)),
-    );
+    _show().then((_data) => {
+      if (_data.data!.k_sub_status === 3040 || _data.data!.j_status === 40) {
+        _getTab().then(() =>
+          history.push(`/borrow/detail/${_data.data!.id}/verify/${_data.data!.c_verify_id}`),
+        );
+        handleTabActiveKey('verify');
+      } else {
+        _getTab().then(() =>
+          history.push(`/borrow/detail/${_data.data!.id}/urge/${_data.data!.id}`),
+        );
+        handleTabActiveKey('urge');
+      }
+    });
     // _getTab().then(() => history.push(`/borrow/detail/10/verify`));
     return () => {};
   }, []);
@@ -149,22 +160,11 @@ const Advanced: FC = () => {
     } else if (['verify'].find((item) => item === key)) {
       url = `/borrow/detail/${borrowId}/${key}/${verifyId}`;
     }
-    console.log(`${url}`);
+    handleTabActiveKey(key);
 
     history.push(`${url}`);
   };
 
-  const _getTabKey = () => {
-    /*    const { location } = props;
-        location.pathname.split('/').pop();
-        const tabKey = location.pathname.split('/').splice(-2, 1)[0];
-        console.log(tabKey);
-
-        if (tabKey && tabKey !== '/') {
-          return tabKey;
-        }*/
-    return 'urge';
-  };
   const items: MenuProps['items'] = [
     { label: '展期', key: 'item-1', icon: <FileTextOutlined /> },
     {
@@ -380,7 +380,7 @@ const Advanced: FC = () => {
         className={styles.pageHeader}
         content={description}
         extraContent={extra}
-        tabActiveKey={_getTabKey()}
+        tabActiveKey={tabActiveKey}
         onTabChange={_handleTabChange}
         tabList={tabList}
       >

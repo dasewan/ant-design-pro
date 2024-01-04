@@ -348,17 +348,19 @@ export const US_REVIEW_STATUS: StatusEnum = {
   40: { text: 'REJECT', status: 'Error' },
   50: { text: 'ACCEPT', status: 'Success' },
 };
-export const US_SMS_TYPE: StatusColorEnum = {
-  101: { text: '登录', color: '#0099FF' },
-  102: { text: '拒绝', color: '#FF9900' },
-  103: { text: '通过', color: '#a0c69d' },
-  104: { text: '放款', color: '#99CC33' },
-  105: { text: '还款', color: '#006633' },
-  106: { text: '展期', color: '#CCFF99' },
-  107: { text: '催收', color: '#FF0033' },
-  108: { text: '召回', color: '#999999' },
-  109: { text: '营销', color: '#CC99CC' },
-  110: { text: '其他', color: '#666666' },
+export const US_SMS_TYPE: StatusColorEnum2 = {
+  login: { text: 'login', color: '#0099FF' },
+  refuse: { text: 'refuse', color: '#FF9900' },
+  accept: { text: 'accept', color: '#a0c69d' },
+  loan: { text: 'loan', color: '#99CC33' },
+  repay: { text: 'repay', color: '#006633' },
+  extend: { text: 'extend', color: '#CCFF99' },
+  before_overdue: { text: 'before overdue', color: '#97d8eb' },
+  serious_overdue: { text: 'serious overdue', color: '#711212' },
+  overdue: { text: 'overdue', color: '#FF0033' },
+  recall: { text: 'recall', color: '#999999' },
+  marketing: { text: 'marketing', color: '#CC99CC' },
+  other: { text: 'other', color: '#ffffff' },
 };
 
 //产品结算方式

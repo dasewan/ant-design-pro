@@ -1,50 +1,14 @@
-.main {
-  :global {
-    .ant-descriptions-row > td {
-      padding-bottom: 8px;
-    }
-
-    .ant-page-header-heading-extra {
-      flex-direction: column;
-    }
-  }
+.strike {
+  position: relative;
 }
 
-.headerList {
-  margin-bottom: 4px;
-
-  :global {
-    .ant-descriptions-row > td {
-      padding-bottom: 8px;
-    }
-  }
-
-  .stepDescription {
-    position: relative;
-    left: 38px;
-    padding-top: 8px;
-    font-size: 14px;
-    text-align: left;
-
-    > div {
-      margin-top: 8px;
-      margin-bottom: 4px;
-    }
-  }
-}
-
-.pageHeader {
-  :global {
-    .ant-page-header-heading-extra > * + * {
-      margin-left: 8px;
-    }
-  }
-
-  .moreInfo {
-    display: flex;
-    justify-content: space-between;
-    width: 236px;
-  }
+.strike::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  border-bottom: 2px solid red; /* 控制中划线的颜色和粗细 */
 }
 
 /*@media screen and (max-width: @screen-sm) {

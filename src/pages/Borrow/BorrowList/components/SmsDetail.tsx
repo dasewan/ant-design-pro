@@ -1,56 +1,112 @@
 import { TableListItem } from '@/pages/Borrow/BorrowList/components/data';
-import { SmsFieldIndex, SmsFieldLabels } from '@/pages/Borrow/BorrowList/components/service';
+import { SmsFieldIndex } from '@/pages/Borrow/BorrowList/components/service';
 import { TableListPagination } from '@/pages/Borrow/BorrowList/data';
 import { SMS_TYPE } from '@/pages/enums';
+import { US_SMS_TYPE } from '@/pages/enumsUs';
 import { getAdminV1RCSms as index } from '@/services/ant-design-pro/RCSms';
-import { SearchOutlined } from '@ant-design/icons';
+import { useIntl } from '@@/exports';
+import { PhoneTwoTone, SearchOutlined } from '@ant-design/icons';
 import { Bar, Pie } from '@ant-design/plots';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Datum } from '@antv/g2plot/src/types/common';
-import { Button, Card, Col, Divider, Input, InputRef, Row, Space } from 'antd';
+import { Button, Card, Col, ConfigProvider, Divider, Input, InputRef, Row, Space, Tag } from 'antd';
 import { ColumnType } from 'antd/es/table';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import _ from 'lodash';
 import moment from 'moment';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useParams } from 'umi';
+import styles from './style.less';
 
 type DataIndex = keyof API.RCSms;
 
-const colorMap = {
+const colorMap: { [key: string]: string } = {
   登录: '#0099FF',
   拒绝: '#FF9900',
   通过: '#a0c69d',
   放款: '#99CC33',
   还款: '#006633',
   展期: '#CCFF99',
-  催收: '#FF0033',
+  逾期: '#FF0033',
   召回: '#999999',
   营销: '#CC99CC',
   其他: '#666666',
+  严重逾期: '#711212',
+  逾期提醒: '#97d8eb',
 };
-const typeTitleMap = {
-  101: '登录',
-  102: '拒绝',
-  103: '通过',
-  104: '放款',
-  105: '还款',
-  106: '展期',
-  107: '催收',
-  108: '召回',
-  109: '营销',
-  110: '其他',
+const typeTitleMap: { [key: string]: string } = {
+  login: '登录',
+  refuse: '拒绝',
+  accept: '通过',
+  loan: '放款',
+  repay: '还款',
+  extend: '展期',
+  overdue: '逾期',
+  recall: '召回',
+  marketing: '营销',
+  other: '其他',
+  serious_overdue: '严重逾期',
+  before_overdue: '逾期提醒',
 };
 
+const colorMapUs = {
+  login: '#0099FF',
+  refuse: '#FF9900',
+  accept: '#a0c69d',
+  loan: '#99CC33',
+  repay: '#006633',
+  extend: '#CCFF99',
+  overdue: '#FF0033',
+  recall: '#999999',
+  marketing: '#CC99CC',
+  other: '#666666',
+  seriousOverdue: '#711212',
+  beforeOverdue: '#97d8eb',
+};
+const typeTitleMapUs: { [key: string]: string } = {
+  login: 'login',
+  refuse: 'refuse',
+  accept: 'accept',
+  loan: 'loan',
+  repay: 'repay',
+  extend: 'extend',
+  overdue: 'overdue',
+  recall: 'recall',
+  marketing: 'marketing',
+  other: 'other',
+  serious_overdue: 'seriousOverdue',
+  before_overdue: 'beforeOverdue',
+};
+const typeOrder = [
+  'login',
+  'refuse',
+  'accept',
+  'loan',
+  'repay',
+  'extend',
+  'before_overdue',
+  'overdue',
+  'serious_overdue',
+  'repay',
+  'recall',
+  'marketing',
+  'other',
+];
+
 const SmsDetail: React.FC = () => {
-  const params2 = useParams<{ id: string; verifyId?: string }>();
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
+  const params2 = useParams<{ id: string; userId?: string }>();
   const [dataSource, setDataSource] = useState<TableListItem[]>([]);
   const [allDataSource, setAllDataSource] = useState<TableListItem[]>([]);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
   const chartRef = useRef(null);
+  // const [checkedList, setCheckedList] = useState<CheckboxValueType[]>([]);
+  const [lastUploadTime, setLastUploadTime] = useState<string>('');
   // const tableListDataSource: TableListItem[] = [];
 
   useEffect(() => {
@@ -59,9 +115,10 @@ const SmsDetail: React.FC = () => {
       // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
       // 如果需要转化参数可以在这里进行修改
       // @ts-ignore
-      const res = await index({ page: 1, limit: 100 });
+      const res = await index({ page: 1, limit: 100, a_user_id: params2.userId });
       setDataSource(res.data!);
       setAllDataSource(res.data!);
+      setLastUploadTime(res.other.last_upload_time);
       return {
         data: res.data,
         // success 请返回 true，
@@ -103,9 +160,27 @@ const SmsDetail: React.FC = () => {
 
         },*/
     color: ({ type }: { type: string }) => {
-      if (colorMap[type] !== undefined) {
-        return colorMap[type];
+      /*      if(currentLanguage === 'zh-cn'){
+              if (colorMap[type] !== undefined) {
+                return colorMap[type];
+              }
+            }else{
+              if (colorMapUs[type] !== undefined) {
+                return colorMapUs[type];
+              }
+            }*/
+
+      if (currentLanguage === 'zh-cn') {
+        if (colorMap[type] !== undefined) {
+          return colorMap[type];
+        }
+      } else {
+        console.log(type);
+        if (colorMapUs[type] !== undefined) {
+          return colorMapUs[type];
+        }
       }
+
       return '#F0FFFF';
     },
     interactions: [
@@ -142,8 +217,14 @@ const SmsDetail: React.FC = () => {
       ],
     },
     color: ({ type }: { type: string }) => {
-      if (colorMap[type] !== undefined) {
-        return colorMap[type];
+      if (currentLanguage === 'zh-cn') {
+        if (colorMap[type] !== undefined) {
+          return colorMap[type];
+        }
+      } else {
+        if (colorMapUs[type] !== undefined) {
+          return colorMapUs[type];
+        }
       }
       return 'red';
     },
@@ -154,14 +235,25 @@ const SmsDetail: React.FC = () => {
     confirm: (param?: FilterConfirmProps) => void,
     dataIndex: DataIndex,
   ) => {
+    /*    if (checkedList.length === 1 && checkedList.includes('已删除')) {
+          setDataSource(allDataSource.filter((item) => 1 === item.q_is_deleted!));
+        }
+        if (checkedList.length === 1 && checkedList.includes('通讯录')) {
+          setDataSource(allDataSource.filter((item) => item.r_is_contact! === 1));
+        }
+        if (checkedList.length === 2) {
+          setDataSource(allDataSource.filter((item) => item.q_is_deleted! === 1 && item.r_is_contact! === 1));
+        }*/
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
-  const handleReset = (clearFilters: () => void) => {
+  const handleReset = (clearFilters: () => void, dataIndex: string) => {
     clearFilters();
+    if (dataIndex === 'address') {
+      // setCheckedList([]);
+    }
     setSearchText('');
-    console.log(allDataSource);
     setDataSource(allDataSource);
   };
   const pieElementClick = (_type: string) => {
@@ -172,6 +264,12 @@ const SmsDetail: React.FC = () => {
       allDataSource.filter((item) => item.d_type === _type && item.e_merchant === _merchant),
     );
   };
+  /*  const onChange = (e: CheckboxChangeEvent) => {
+      console.log(`checked = ${e.target.checked}`);
+    };*/
+  /*  const onChange = (list: CheckboxValueType[]) => {
+      setCheckedList(list);
+    };*/
 
   const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<API.RCSms> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -184,6 +282,14 @@ const SmsDetail: React.FC = () => {
           onPressEnter={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
           style={{ marginBottom: 8, display: 'block' }}
         />
+        {/*{dataIndex === 'address' ?
+          <div style={{marginBottom: 8, display: 'block'}}>
+            <Space>
+              <CheckboxGroup options={['已删除', '通讯录']} value={checkedList} onChange={onChange} />
+            </Space>
+          </div> : ''
+        }*/}
+
         <Space>
           <Button
             type="primary"
@@ -195,7 +301,7 @@ const SmsDetail: React.FC = () => {
             Search
           </Button>
           <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
+            onClick={() => clearFilters && handleReset(clearFilters, dataIndex)}
             size="small"
             style={{ width: 90 }}
           >
@@ -217,36 +323,69 @@ const SmsDetail: React.FC = () => {
             setTimeout(() => searchInput.current?.select(), 100);
           }
         },*/
-    render: (text) => {
-      return searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ''}
-        />
-      ) : (
-        text
-      );
+    render: (text, value) => {
+      let tmp;
+      if (searchedColumn === dataIndex && searchText !== '') {
+        tmp = (
+          <Highlighter
+            highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+            searchWords={[searchText, value.s_keyword]}
+            autoEscape
+            textToHighlight={text ? text.toString() : ''}
+          />
+        );
+      } else if (dataIndex === 'body' && value.s_keyword !== '' && value.s_keyword !== null) {
+        let keywords: string[] = [value.s_keyword];
+        let markedContent = text;
+        keywords.forEach((keyword) => {
+          const regex = new RegExp(`${keyword}`, 'gi');
+          markedContent = markedContent.replace(
+            regex,
+            `<span style="color: red; font-weight: bold;">$&</span>`,
+          );
+        });
+
+        tmp = <span dangerouslySetInnerHTML={{ __html: markedContent }} />;
+      } else {
+        tmp = <span>{text}</span>;
+      }
+      if (value.q_is_deleted && value.r_is_contact && dataIndex === 'address') {
+        return (
+          <div className={styles.strike}>
+            {tmp} <PhoneTwoTone />
+          </div>
+        );
+      } else if (value.q_is_deleted && dataIndex === 'address') {
+        return <div className={styles.strike}>{tmp}</div>;
+      } else if (value.r_is_contact && dataIndex === 'address') {
+        return (
+          <div>
+            {tmp} <PhoneTwoTone />
+          </div>
+        );
+      }
+      return <div>{tmp}</div>;
     },
   });
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: SmsFieldLabels.address,
+      // @ts-ignore
+      title: intl.formatMessage({ id: 'pages.Borrow.Sms.address', defaultMessage: '' }),
       // @ts-ignore
       dataIndex: SmsFieldIndex.address,
       ...getColumnSearchProps('address'),
     },
     {
-      title: SmsFieldLabels.body,
+      // @ts-ignore
+      title: intl.formatMessage({ id: 'pages.Borrow.Sms.body', defaultMessage: '' }),
       // @ts-ignore
       dataIndex: SmsFieldIndex.body,
-      width: '60%',
+      width: '50%',
       ...getColumnSearchProps('body'),
     },
     {
-      title: SmsFieldLabels.date_sent,
+      title: intl.formatMessage({ id: 'pages.Borrow.Sms.date_sent', defaultMessage: '' }),
       dataIndex: SmsFieldIndex.date_sent,
       render: (__, value) => {
         // @ts-ignore
@@ -255,13 +394,29 @@ const SmsDetail: React.FC = () => {
     },
 
     {
-      title: SmsFieldLabels.c_level,
+      title: intl.formatMessage({ id: 'pages.Borrow.Sms.c_level', defaultMessage: '' }),
       dataIndex: SmsFieldIndex.c_level,
+      render: (__, value) => {
+        if (value.c_level === 1) {
+          return (
+            <Tag color="#f50">
+              {intl.formatMessage({ id: 'pages.Borrow.Sms.finance1', defaultMessage: '' })}
+            </Tag>
+          );
+        } else if (value.c_level === 2) {
+          return (
+            <Tag color="#2db7f5">
+              {intl.formatMessage({ id: 'pages.Borrow.Sms.finance2', defaultMessage: '' })}
+            </Tag>
+          );
+        }
+      },
     },
     {
-      title: SmsFieldLabels.d_type,
+      title: intl.formatMessage({ id: 'pages.Borrow.Sms.d_type', defaultMessage: '' }),
       dataIndex: SmsFieldIndex.d_type,
-      valueEnum: SMS_TYPE,
+      valueEnum: currentLanguage === 'zh-cn' ? SMS_TYPE : US_SMS_TYPE,
+      // filters: SMS_TYPE_FILTER,
     },
   ];
   return (
@@ -271,8 +426,11 @@ const SmsDetail: React.FC = () => {
           <Card bordered={false} style={{ marginBottom: 24 }}>
             <Row gutter={0} justify="space-between">
               <Col span={24}>
-                <Divider>一类金融总览</Divider>
+                <Divider>
+                  {intl.formatMessage({ id: 'pages.Borrow.Sms.overview', defaultMessage: '' })}
+                </Divider>
                 {allDataSource.length > 0 ? (
+                  // @ts-ignore
                   <Pie
                     ref={chartRef}
                     onEvent={(chart, event) => {
@@ -281,13 +439,19 @@ const SmsDetail: React.FC = () => {
                       }
                     }}
                     data={_(allDataSource)
+                      .filter((item) => item.d_type !== 'other')
+                      .orderBy((item) => typeOrder.indexOf(item.d_type!))
                       .groupBy('d_type')
                       .map((level, d_type) => ({
                         d_type: d_type,
-                        type: typeTitleMap[d_type],
+                        type:
+                          currentLanguage === 'zh-cn'
+                            ? typeTitleMap[d_type!]
+                            : typeTitleMapUs[d_type],
                         count: level.length,
                       }))
-                      .orderBy('d_type')
+                      .orderBy((item) => typeOrder.indexOf(item.d_type))
+                      // .orderBy('d_type')
                       .value()}
                     {...config}
                   />
@@ -298,8 +462,14 @@ const SmsDetail: React.FC = () => {
             </Row>
             <Row gutter={0} justify="space-between">
               <Col span={24}>
-                <Divider>商户一类金融统计</Divider>
+                <Divider>
+                  {intl.formatMessage({
+                    id: 'pages.Borrow.Sms.merchant_overview',
+                    defaultMessage: '',
+                  })}
+                </Divider>
                 {allDataSource.length > 0 ? (
+                  // @ts-ignore
                   <Bar
                     onEvent={(chart, event) => {
                       if (event.type === 'element:click') {
@@ -307,16 +477,19 @@ const SmsDetail: React.FC = () => {
                       }
                     }}
                     data={_.chain(allDataSource)
+                      .orderBy((item) => typeOrder.indexOf(item.d_type!))
                       .groupBy('e_merchant') // 先按省份分组
                       .map((group, e_merchant) => {
                         // 对每个省份的数据再按年龄分组，并计算数量
                         const d_typeCounts = _.chain(group)
+                          .filter((item) => item.d_type !== 'other')
                           .groupBy('d_type')
                           .map((d_typeGroup, d_type) => ({
                             d_type: d_type,
                             count: d_typeGroup.length,
                           }))
-                          .orderBy(['d_type'], ['asc']) // 再按年龄排序
+                          .orderBy((item) => typeOrder.indexOf(item.d_type))
+                          // .orderBy(['d_type'], ['asc']) // 再按年龄排序
                           .value();
 
                         // 计算该省份所占总数和每个年龄所占总数
@@ -327,13 +500,27 @@ const SmsDetail: React.FC = () => {
                       })
                       .orderBy(['totalCount'], ['desc']) // 先按总数排序
                       .flatMap(({ e_merchant, d_typeCounts }) => {
+                        // console.log(b)
+                        return _.chain(d_typeCounts)
+                          .orderBy((item) => typeOrder.indexOf(item.d_type))
+                          .map(({ d_type, count }) => ({
+                            e_merchant,
+                            d_type: d_type,
+                            type:
+                              currentLanguage === 'zh-cn'
+                                ? typeTitleMap[d_type]
+                                : typeTitleMapUs[d_type],
+                            count,
+                          }))
+                          .value();
+                        // console.log(d_typeCounts.sort((item) =>  typeOrder.indexOf(item.d_type)))
                         // 将每个省份的年龄数量信息展开成一个新的数组
-                        return d_typeCounts.map(({ d_type, count }) => ({
-                          e_merchant,
-                          d_type: d_type,
-                          type: typeTitleMap[d_type],
-                          count,
-                        }));
+                        /*                        return d_typeCounts.sort((item) =>  typeOrder.indexOf(item.d_type)).map(({ d_type, count }) => ({
+                                                  e_merchant,
+                                                  d_type: d_type,
+                                                  type: typeTitleMap[d_type],
+                                                  count,
+                                                }));*/
                       })
                       .value()}
                     {...barConfig}
@@ -357,9 +544,17 @@ const SmsDetail: React.FC = () => {
                 return data;
               }}
               pagination={{
-                pageSize: 5,
+                pageSize: 500,
               }}
-              toolBarRender={() => [<span key="sms">最近上送时间： 2022-03-02 15:34</span>]}
+              toolBarRender={() => [
+                <span key="sms">
+                  {intl.formatMessage({
+                    id: 'pages.Borrow.Sms.last_upload_time',
+                    defaultMessage: '',
+                  })}
+                  ： {moment(lastUploadTime).format('YY-MM-DD HH:mm')}
+                </span>,
+              ]}
             />
           </Card>
         </Col>

@@ -6266,7 +6266,7 @@ declare namespace API {
     a_user_id?: number;
     /** 1 验证码类 2 推广类 3 通知类 4 社交类 */
     b_cat?: string;
-    /** 1类金融 2类金融 3其他 */
+    /** 1类金融 2类金融 3通讯录 4其他 */
     c_level?: string;
     /** 101: '登录',102: '拒绝',103: '通过',104: '放款',105: '还款',106: '展期',107: '催收',108: '召回',109: '营销',110:'其他',111: '严重催收',112逾前提醒 ，113预计还款，114提前还款，115复贷 */
     d_type?: string;
@@ -6282,8 +6282,8 @@ declare namespace API {
     i_amount2?: number;
     /** 金额（备用） */
     j_amount3?: number;
-    /** 第二类型(备用) */
-    k_type2?: number;
+    /** 101: '登录',102: '拒绝',103: '通过',104: '放款',105: '还款',106: '展期',107: '催收',108: '召回',109: '营销',110:'其他',111: '严重催收',112逾前提醒 ，113预计还款，114提前还款，115复贷 */
+    k_type2?: string;
     /** 链接 */
     l_url?: string;
     /** 联系手机 */
@@ -6298,6 +6298,8 @@ declare namespace API {
     q_is_deleted?: number;
     /** 是否通讯录 1:是 2:否 */
     r_is_contact?: number;
+    /** 关键字 */
+    s_keyword?: string;
     /** data */
     date?: number;
     /** date_sent */
