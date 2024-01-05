@@ -149,7 +149,8 @@ const DetailList: React.FC<FormProps> = (props) => {
         return (
           <>
             {row.a_a_a_a_a_g_f_risk_role.e_value_operator === '' ||
-            row.a_a_a_a_a_g_f_risk_role.e_value_operator === undefined ? (
+            row.a_a_a_a_a_g_f_risk_role.e_value_operator === undefined ||
+            row.a_a_a_a_a_g_f_risk_role.e_value_operator === null ? (
               <span
                 style={{
                   color: '#1441D9',

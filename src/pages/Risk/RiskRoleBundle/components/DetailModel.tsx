@@ -1,6 +1,7 @@
 import type { FormValueType } from '@/pages/Risk/RiskRoleBundle/components/CreateForm';
 import { EXECUTE_LOGIC_OPTION, FINNAL_DECISION_OPTION } from '@/pages/Risk/RiskRoleBundle/enums';
 import { getAdminV1GDRiskItemEnum as getRiskItemEnum } from '@/services/ant-design-pro/GDRiskItem';
+import { useIntl } from '@@/exports';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProFormInstance } from '@ant-design/pro-components';
 import { ProFormDependency } from '@ant-design/pro-components';
@@ -29,6 +30,7 @@ type versionOptionType = { label?: React.ReactNode; value?: number };
 const { Option } = Select;
 // 切换规则版本
 const DetailModel: FC<FormProps> = (props) => {
+  const intl = useIntl();
   const params = useParams<{ id: string }>();
   /** 大表单ref **/
   const formRef = useRef<ProFormInstance<any>>();

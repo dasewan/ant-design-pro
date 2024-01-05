@@ -13,6 +13,7 @@ import {
   postAdminV1NERiskStrategyRoutes as store,
   putAdminV1NERiskStrategyRoutesId as update,
 } from '@/services/ant-design-pro/NERiskStrategyRoute';
+import { useIntl } from '@@/exports';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
 import { Divider, message } from 'antd';
 import moment from 'moment';
@@ -37,6 +38,7 @@ export type FormProps = {
  * @constructor
  */
 const CreateForm: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();

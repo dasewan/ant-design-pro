@@ -1,6 +1,7 @@
 import DrawerFC from '@/pages/Risk/RiskRoleBundle/Detail/components/DrawerFC';
 import { EXECUTE_LOGIC_OPTION, FINNAL_DECISION_OPTION } from '@/pages/Risk/RiskRoleBundle/enums';
 import { history } from '@@/core/history';
+import { useIntl } from '@@/exports';
 import {
   AppstoreAddOutlined,
   CloseCircleOutlined,
@@ -64,6 +65,7 @@ const { Option } = Select;
 const { SHOW_CHILD } = Cascader;
 
 const AdvancedForm: FC<Record<string, any>> = () => {
+  const intl = useIntl();
   const [error, setError] = useState<ErrorField[]>([]);
   const params = useParams<{ id: string }>();
   /** 大表单ref **/

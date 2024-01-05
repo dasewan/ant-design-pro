@@ -4,6 +4,7 @@ import RiskRoleBundleTableModel from '@/pages/Risk/RiskStrategyBundle/Detail/com
 import { FUSE, FUSE_OPTION } from '@/pages/Risk/RiskStrategyBundle/enums';
 import { getAdminV1BDRiskRoleBundles as riskRoleBundleIndex } from '@/services/ant-design-pro/BDRiskRoleBundle';
 import { history } from '@@/core/history';
+import { useIntl } from '@@/exports';
 import {
   CloseCircleOutlined,
   MenuOutlined,
@@ -107,6 +108,7 @@ type versionOptionType = { label?: React.ReactNode; value?: number };
 const { Option } = Select;
 
 const AdvancedForm: FC<Record<string, any>> = () => {
+  const intl = useIntl();
   const [error, setError] = useState<ErrorField[]>([]);
   const params = useParams<{ id: string }>();
   /** 大表单ref **/
