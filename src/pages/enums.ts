@@ -407,6 +407,10 @@ export const SMS_TYPE: StatusColorEnum2 = {
   marketing: { text: '营销', color: '#CC99CC' },
   other: { text: '', color: '#ffffff' },
 };
+export const IS_REGISTER: StatusColorEnum2 = {
+  '1': { text: '已注册', color: '#0099FF' },
+  '2': { text: '', color: '#ffffff' },
+};
 export const SMS_TYPE_FILTER = [
   { text: '登录', value: 'login' },
   { text: '拒绝', value: 'refuse' },
@@ -418,6 +422,10 @@ export const SMS_TYPE_FILTER = [
   { text: '召回', value: 'recall' },
   { text: '营销', value: 'marketing' },
   { text: '其他', value: 'other' },
+];
+export const IS_REGISTER_FILTER = [
+  { text: '已注册', value: 1 },
+  { text: '未注册', value: 2 },
 ];
 export const SMS_FINANCE_TYPE_FILTER = [
   { text: '一类', value: '1' },

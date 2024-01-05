@@ -362,6 +362,10 @@ export const US_SMS_TYPE: StatusColorEnum2 = {
   marketing: { text: 'marketing', color: '#CC99CC' },
   other: { text: 'other', color: '#ffffff' },
 };
+export const US_IS_REGISTER: StatusColorEnum2 = {
+  '1': { text: 'Registered', color: '#0099FF' },
+  '2': { text: '', color: '#ffffff' },
+};
 export const US_SMS_TYPE_FILTER = [
   { text: 'login', value: 'login' },
   { text: 'refuse', value: 'refuse' },
@@ -373,6 +377,10 @@ export const US_SMS_TYPE_FILTER = [
   { text: 'recall', value: 'recall' },
   { text: 'marketing', value: 'marketing' },
   { text: 'other', value: 'other' },
+];
+export const US_IS_REGISTER_FILTER = [
+  { text: 'Registered', value: 1 },
+  { text: 'UnRegister', value: 2 },
 ];
 export const US_SMS_FINANCE_TYPE_FILTER = [
   { text: 'Finance 1', value: '1' },
