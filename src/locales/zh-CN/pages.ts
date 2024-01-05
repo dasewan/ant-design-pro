@@ -541,7 +541,7 @@ export default {
   // 短信
   'pages.Borrow.Sms.a_user_id': '用户',
   'pages.Borrow.Sms.b_cat': '分类',
-  'pages.Borrow.Sms.c_level': '金融类型',
+  'pages.Borrow.Sms.c_level': '金融',
   'pages.Borrow.Sms.d_type': '类型',
   'pages.Borrow.Sms.e_merchant': '商户',
   'pages.Borrow.Sms.f_amount': '金额',
@@ -572,4 +572,5 @@ export default {
   'pages.Borrow.Sms.last_upload_time': '最近上送时间',
   'pages.Borrow.Sms.finance1': '一类',
   'pages.Borrow.Sms.finance2': '二类',
+  'pages.Borrow.Sms.contact': '通讯录',
 };

@@ -572,4 +572,5 @@ export default {
   'pages.Borrow.Sms.last_upload_time': 'Last Upload Time',
   'pages.Borrow.Sms.finance1': 'Finance One',
   'pages.Borrow.Sms.finance2': 'Finance Two',
+  'pages.Borrow.Sms.contact': 'Contact',
 };

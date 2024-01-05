@@ -362,6 +362,23 @@ export const US_SMS_TYPE: StatusColorEnum2 = {
   marketing: { text: 'marketing', color: '#CC99CC' },
   other: { text: 'other', color: '#ffffff' },
 };
+export const US_SMS_TYPE_FILTER = [
+  { text: 'login', value: 'login' },
+  { text: 'refuse', value: 'refuse' },
+  { text: 'accept', value: 'accept' },
+  { text: 'loan', value: 'loan' },
+  { text: 'repay', value: 'repay' },
+  { text: 'extend', value: 'extend' },
+  { text: 'overdue', value: 'overdue' },
+  { text: 'recall', value: 'recall' },
+  { text: 'marketing', value: 'marketing' },
+  { text: 'other', value: 'other' },
+];
+export const US_SMS_FINANCE_TYPE_FILTER = [
+  { text: 'Finance 1', value: '1' },
+  { text: 'Finance 2', value: '2' },
+  { text: 'Contact', value: '3' },
+];
 
 //产品结算方式
 export const US_FLOW_TYPE: StatusEnum = {

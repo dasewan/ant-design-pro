@@ -405,7 +405,7 @@ export const SMS_TYPE: StatusColorEnum2 = {
   overdue: { text: '催收', color: '#FF0033' },
   recall: { text: '召回', color: '#999999' },
   marketing: { text: '营销', color: '#CC99CC' },
-  other: { text: '其他', color: '#ffffff' },
+  other: { text: '', color: '#ffffff' },
 };
 export const SMS_TYPE_FILTER = [
   { text: '登录', value: 'login' },
@@ -418,6 +418,11 @@ export const SMS_TYPE_FILTER = [
   { text: '召回', value: 'recall' },
   { text: '营销', value: 'marketing' },
   { text: '其他', value: 'other' },
+];
+export const SMS_FINANCE_TYPE_FILTER = [
+  { text: '一类', value: '1' },
+  { text: '二类', value: '2' },
+  { text: '通讯录', value: '3' },
 ];
 
 //产品结算方式

@@ -1,8 +1,7 @@
 import { TableListItem } from '@/pages/Borrow/BorrowList/components/data';
-import { SmsFieldIndex } from '@/pages/Borrow/BorrowList/components/service';
 import { TableListPagination } from '@/pages/Borrow/BorrowList/data';
-import { SMS_TYPE } from '@/pages/enums';
-import { US_SMS_TYPE } from '@/pages/enumsUs';
+import { SMS_FINANCE_TYPE_FILTER, SMS_TYPE, SMS_TYPE_FILTER } from '@/pages/enums';
+import { US_SMS_FINANCE_TYPE_FILTER, US_SMS_TYPE, US_SMS_TYPE_FILTER } from '@/pages/enumsUs';
 import { getAdminV1RCSms as index } from '@/services/ant-design-pro/RCSms';
 import { useIntl } from '@@/exports';
 import { PhoneTwoTone, SearchOutlined } from '@ant-design/icons';
@@ -373,20 +372,22 @@ const SmsDetail: React.FC = () => {
       // @ts-ignore
       title: intl.formatMessage({ id: 'pages.Borrow.Sms.address', defaultMessage: '' }),
       // @ts-ignore
-      dataIndex: SmsFieldIndex.address,
+      dataIndex: 'address',
       ...getColumnSearchProps('address'),
     },
     {
       // @ts-ignore
       title: intl.formatMessage({ id: 'pages.Borrow.Sms.body', defaultMessage: '' }),
       // @ts-ignore
-      dataIndex: SmsFieldIndex.body,
+      dataIndex: 'body',
       width: '50%',
       ...getColumnSearchProps('body'),
     },
     {
       title: intl.formatMessage({ id: 'pages.Borrow.Sms.date_sent', defaultMessage: '' }),
-      dataIndex: SmsFieldIndex.date_sent,
+      dataIndex: 'date_sent',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.date_sent - b.date_sent,
       render: (__, value) => {
         // @ts-ignore
         return moment(new Date(value.date)).format('YYYY-MM-DD HH:mm');
@@ -395,18 +396,28 @@ const SmsDetail: React.FC = () => {
 
     {
       title: intl.formatMessage({ id: 'pages.Borrow.Sms.c_level', defaultMessage: '' }),
-      dataIndex: SmsFieldIndex.c_level,
+      dataIndex: 'c_level',
+      filters: currentLanguage === 'zh-cn' ? SMS_FINANCE_TYPE_FILTER : US_SMS_FINANCE_TYPE_FILTER,
+      onFilter: (value: string, record) => {
+        return record.c_level === value;
+      },
       render: (__, value) => {
-        if (value.c_level === 1) {
+        if (value.c_level === '1') {
           return (
             <Tag color="#f50">
               {intl.formatMessage({ id: 'pages.Borrow.Sms.finance1', defaultMessage: '' })}
             </Tag>
           );
-        } else if (value.c_level === 2) {
+        } else if (value.c_level === '2') {
           return (
-            <Tag color="#2db7f5">
+            <Tag color="#108ee9">
               {intl.formatMessage({ id: 'pages.Borrow.Sms.finance2', defaultMessage: '' })}
+            </Tag>
+          );
+        } else if (value.c_level === '3') {
+          return (
+            <Tag color="#87d068">
+              {intl.formatMessage({ id: 'pages.Borrow.Sms.contact', defaultMessage: '' })}
             </Tag>
           );
         }
@@ -414,9 +425,12 @@ const SmsDetail: React.FC = () => {
     },
     {
       title: intl.formatMessage({ id: 'pages.Borrow.Sms.d_type', defaultMessage: '' }),
-      dataIndex: SmsFieldIndex.d_type,
+      dataIndex: 'd_type',
       valueEnum: currentLanguage === 'zh-cn' ? SMS_TYPE : US_SMS_TYPE,
-      // filters: SMS_TYPE_FILTER,
+      filters: currentLanguage === 'zh-cn' ? SMS_TYPE_FILTER : US_SMS_TYPE_FILTER,
+      onFilter: (value: string, record) => {
+        return record.d_type === value;
+      },
     },
   ];
   return (
