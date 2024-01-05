@@ -432,6 +432,19 @@ export const SMS_FINANCE_TYPE_FILTER = [
   { text: '二类', value: '2' },
   { text: '通讯录', value: '3' },
 ];
+export const APP_FINANCE_TYPE_FILTER = [
+  { text: '一类', value: '1' },
+  { text: '二类', value: '2' },
+  { text: '其他', value: '3' },
+];
+export const IS_UNINSTALL: StatusColorEnum2 = {
+  1: { text: '已卸载', color: '#0099FF' },
+  0: { text: '', color: '#ffffff' },
+};
+export const IS_UNINSTALL_FILTER = [
+  { text: '已卸载', value: 1 },
+  { text: '已安装', value: 0 },
+];
 
 //产品结算方式
 export const FLOW_TYPE: StatusEnum = {

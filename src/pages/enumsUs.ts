@@ -387,6 +387,19 @@ export const US_SMS_FINANCE_TYPE_FILTER = [
   { text: 'Finance 2', value: '2' },
   { text: 'Contact', value: '3' },
 ];
+export const US_APP_FINANCE_TYPE_FILTER = [
+  { text: 'Finance 1', value: '1' },
+  { text: 'Finance 2', value: '2' },
+  { text: 'Other', value: '3' },
+];
+export const US_IS_UNINSTALL: StatusColorEnum2 = {
+  1: { text: 'UnInstall', color: '#0099FF' },
+  0: { text: '', color: '#ffffff' },
+};
+export const US_IS_UNINSTALL_FILTER = [
+  { text: 'UNINSTALL', value: 1 },
+  { text: 'INSTALL', value: 0 },
+];
 
 //产品结算方式
 export const US_FLOW_TYPE: StatusEnum = {
