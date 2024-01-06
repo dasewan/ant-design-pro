@@ -1,4 +1,4 @@
-import DetailList from '@/pages/Risk/RiskResult/components/detail';
+import DetailList from '@/pages/Risk/RiskResult/components/DetailList';
 import { FINNAL_DECISION } from '@/pages/Risk/RiskRoleBundle/enums';
 import styles from '@/pages/Risk/RiskStrategyRoute/index.less';
 import { getAdminV1BMBorrowRiskResults as index } from '@/services/ant-design-pro/BMBorrowRiskResult';

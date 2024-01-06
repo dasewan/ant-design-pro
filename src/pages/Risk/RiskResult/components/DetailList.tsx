@@ -7,6 +7,8 @@ import type { TableListItem2, TableListPagination } from '../data';
 import { FieldIndex2, FieldLabels2 } from '../service';
 
 import { EXECUTE_LOGIC, FINNAL_DECISION, OPERATOR } from '@/pages/Risk/RiskRoleBundle/enums';
+import { getAdminV1GDRiskItemEnum2 as getRiskItemEnum2 } from '@/services/ant-design-pro/GDRiskItem';
+import { useParams } from '@@/exports';
 
 export type FormProps = {
   onCancel: () => void;
@@ -17,8 +19,13 @@ export type FormProps = {
 };
 
 const DetailList: React.FC<FormProps> = (props) => {
+  const params2 = useParams<{ id: string; riskId?: string }>();
   const actionRef = useRef<ActionType>();
   const [groupData, seGroupData] = useState<Map<number, object>>(new Map());
+  /** 管理员enum */
+  const [riskItems, setRiskItems] = useState<Map<number, API.GDRiskItem>>(
+    props.riskItems ? props.riskItems : new Map(),
+  );
   /** 风控字段展示 */
   /** 当前编辑数据 */
   /** 管理员enum */
@@ -34,16 +41,27 @@ const DetailList: React.FC<FormProps> = (props) => {
     // sort,
     // filter,
   ) => {
+    console.log(123123);
+    console.log(riskItems);
+    if (params2.riskId && riskItems.size === 0) {
+      const res2 = await getRiskItemEnum2({ foo: 1 });
+      for (const riskItem of res2.data!) {
+        riskItems.set(riskItem.id!, riskItem);
+      }
+      setRiskItems(riskItems);
+    }
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
-    alert(props.id);
     // @ts-ignore
-    const res = await index({ p_borrow_risk_result_id: props.id, page: params.current, ...params });
+    const res = await index({
+      p_borrow_risk_result_id: params2.riskId ? params2.riskId : props.id,
+      page: params.current,
+      ...params,
+    });
     let tmp = new Map();
     for (const item of res!.other!.b_d_risk_role_bundle) {
       tmp.set(item.id, item);
     }
-    console.log(tmp);
     seGroupData(tmp);
 
     return {
@@ -74,7 +92,6 @@ const DetailList: React.FC<FormProps> = (props) => {
           } else {
             return { rowSpan: 0 };
           }
-          // console.log(row.a_a_a_a_a_g_f_risk_role.u_bundle_index);
         }
         return {};
       },
@@ -157,7 +174,7 @@ const DetailList: React.FC<FormProps> = (props) => {
                   marginRight: '5px',
                 }}
               >
-                {props.riskItems.get(row.a_a_a_a_a_g_f_risk_role!.c_risk_item_id).a_name}
+                {riskItems.get(row.a_a_a_a_a_g_f_risk_role!.c_risk_item_id).a_name}
               </span>
             ) : (
               <span
@@ -168,7 +185,7 @@ const DetailList: React.FC<FormProps> = (props) => {
               >
                 {row.a_a_a_a_a_g_f_risk_role.e_value_operator.replace(
                   /\$x/g,
-                  props.riskItems.get(row.a_a_a_a_a_g_f_risk_role!.c_risk_item_id).a_name,
+                  riskItems.get(row.a_a_a_a_a_g_f_risk_role!.c_risk_item_id).a_name,
                 )}
               </span>
             )}
@@ -191,7 +208,7 @@ const DetailList: React.FC<FormProps> = (props) => {
               >
                 {row.a_a_a_a_a_g_f_risk_role.j_compare_value_operator.replace(
                   /\$y/g,
-                  props.riskItems.get(row.a_a_a_a_a_g_f_risk_role!.h_compare_risk_item_id).a_name,
+                  riskItems.get(row.a_a_a_a_a_g_f_risk_role!.h_compare_risk_item_id).a_name,
                 )}
               </span>
             )}
@@ -293,7 +310,23 @@ const DetailList: React.FC<FormProps> = (props) => {
   ];
 
   // @ts-ignore
-  return (
+  return params2.riskId ? (
+    <ProTable<TableListItem2, TableListPagination>
+      revalidateOnFocus={false}
+      actionRef={actionRef}
+      rowKey="id"
+      search={false}
+      request={_index}
+      columns={columns}
+      postData={(data: any[]) => {
+        return data;
+      }}
+      bordered={true}
+      pagination={{
+        pageSize: 50,
+      }}
+    />
+  ) : (
     <Modal
       open={props.modalVisible}
       destroyOnClose={true}
@@ -318,7 +351,7 @@ const DetailList: React.FC<FormProps> = (props) => {
         }}
         bordered={true}
         pagination={{
-          pageSize: 50,
+          pageSize: 10000,
         }}
       />
     </Modal>

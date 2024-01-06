@@ -26,6 +26,7 @@ const Advanced: FC = () => {
   const [oldRecord, setOldRecord] = useState<TableListItem>();
   const [other, setOther] = useState<API.BorrowDetail>();
   const [userId, setUserId] = useState<number>();
+  const [riskId, setRiskId] = useState<number>();
   const [borrowId, setBorrowId] = useState<number>();
   const [verifyId, setVerifyId] = useState<number>();
   const [showReviewButton, setShowReviewButton] = useState<boolean>(true);
@@ -123,6 +124,7 @@ const Advanced: FC = () => {
       setUserId(res.data!.a_user_id);
       setBorrowId(res.data!.id);
       setVerifyId(res.data!.c_verify_id);
+      setRiskId(res.data!.a_a_a_a_a_g_verify!.c_risk_id);
       return {
         data: res.data,
         // success 请返回 true，
@@ -133,9 +135,11 @@ const Advanced: FC = () => {
     _show().then((_data) => {
       if (_data.data!.k_sub_status === 3040 || _data.data!.j_status === 40) {
         _getTab().then(() =>
-          history.push(`/borrow/detail/${_data.data!.id}/verify/${_data.data!.c_verify_id}`),
+          history.push(
+            `/borrow/detail/${_data.data!.id}/risk/${_data.data!.a_a_a_a_a_g_verify!.c_risk_id}`,
+          ),
         );
-        handleTabActiveKey('verify');
+        handleTabActiveKey('risk');
       } else {
         _getTab().then(() =>
           history.push(`/borrow/detail/${_data.data!.id}/urge/${_data.data!.id}`),
@@ -149,7 +153,7 @@ const Advanced: FC = () => {
 
   const _handleTabChange = (key: string) => {
     let url = '';
-    if (['urge', 'risk', 'borrow-log', 'send-log', 'repay-log'].find((item) => item === key)) {
+    if (['urge', 'borrow-log', 'send-log', 'repay-log'].find((item) => item === key)) {
       url = `/borrow/detail/${borrowId}/${key}/${borrowId}`;
     } else if (
       ['profile', 'sms', 'contact', 'app', 'device', 'borrow', 'relation'].find(
@@ -159,9 +163,11 @@ const Advanced: FC = () => {
       url = `/borrow/detail/${borrowId}/${key}/${userId}`;
     } else if (['verify'].find((item) => item === key)) {
       url = `/borrow/detail/${borrowId}/${key}/${verifyId}`;
+    } else if (['risk'].find((item) => item === key)) {
+      url = `/borrow/detail/${borrowId}/${key}/${riskId}`;
     }
     handleTabActiveKey(key);
-
+    console.log(url);
     history.push(`${url}`);
   };
 

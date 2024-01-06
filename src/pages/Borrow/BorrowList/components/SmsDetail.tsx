@@ -8,7 +8,19 @@ import { PhoneTwoTone, SearchOutlined } from '@ant-design/icons';
 import { Bar, Pie } from '@ant-design/plots';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { Datum } from '@antv/g2plot/src/types/common';
-import { Button, Card, Col, ConfigProvider, Divider, Input, InputRef, Row, Space, Tag } from 'antd';
+import {
+  Button,
+  Card,
+  Col,
+  ConfigProvider,
+  Divider,
+  Input,
+  InputRef,
+  Row,
+  Space,
+  Spin,
+  Tag,
+} from 'antd';
 import { ColumnType } from 'antd/es/table';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import _ from 'lodash';
@@ -102,6 +114,7 @@ const SmsDetail: React.FC = () => {
   const [allDataSource, setAllDataSource] = useState<TableListItem[]>([]);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
+  const [loading, setLoading] = useState(true);
   const searchInput = useRef<InputRef>(null);
   const chartRef = useRef(null);
   // const [checkedList, setCheckedList] = useState<CheckboxValueType[]>([]);
@@ -118,6 +131,7 @@ const SmsDetail: React.FC = () => {
       setDataSource(res.data!);
       setAllDataSource(res.data!);
       setLastUploadTime(res.other.last_upload_time);
+      setLoading(false);
       return {
         data: res.data,
         // success 请返回 true，
@@ -434,7 +448,7 @@ const SmsDetail: React.FC = () => {
     },
   ];
   return (
-    <>
+    <Spin spinning={loading}>
       <Row gutter={24}>
         <Col lg={7} md={24}>
           <Card bordered={false} style={{ marginBottom: 24 }}>
@@ -573,7 +587,7 @@ const SmsDetail: React.FC = () => {
           </Card>
         </Col>
       </Row>
-    </>
+    </Spin>
   );
 };
 

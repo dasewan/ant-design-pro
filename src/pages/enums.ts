@@ -411,6 +411,11 @@ export const IS_REGISTER: StatusColorEnum2 = {
   '1': { text: '已注册', color: '#0099FF' },
   '2': { text: '', color: '#ffffff' },
 };
+export const DEVICE_NODE: StatusColorEnum2 = {
+  '1': { text: '登录', color: '#0099FF' },
+  '3': { text: '签约', color: '#006633' },
+  '6': { text: '催收', color: '#FF0033' },
+};
 export const SMS_TYPE_FILTER = [
   { text: '登录', value: 'login' },
   { text: '拒绝', value: 'refuse' },

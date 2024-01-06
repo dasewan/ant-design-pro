@@ -289,6 +289,12 @@ export default [
             component: './Borrow/BorrowList/components/SmsDetail',
           },
           {
+            name: 'sms-detail',
+            icon: 'smile',
+            path: '/borrow/detail/:id/risk/:riskId',
+            component: './Risk/RiskResult/components/DetailList',
+          },
+          {
             name: 'app-detail',
             icon: 'smile',
             path: '/borrow/detail/:id/app/:userId',

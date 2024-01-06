@@ -366,6 +366,11 @@ export const US_IS_REGISTER: StatusColorEnum2 = {
   '1': { text: 'Registered', color: '#0099FF' },
   '2': { text: '', color: '#ffffff' },
 };
+export const US_DEVICE_NODE: StatusColorEnum2 = {
+  '1': { text: 'Login', color: '#0099FF' },
+  '3': { text: 'Sign', color: '#006633' },
+  '6': { text: 'Urge', color: '#FF0033' },
+};
 export const US_SMS_TYPE_FILTER = [
   { text: 'login', value: 'login' },
   { text: 'refuse', value: 'refuse' },
