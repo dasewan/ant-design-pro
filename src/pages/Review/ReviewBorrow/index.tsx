@@ -206,6 +206,26 @@ const TableList: React.FC = () => {
         );
       },
     },
+    {
+      title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),
+      dataIndex: 'id',
+      valueType: 'option',
+      width: 60,
+      fixed: 'right',
+      render: (_, record) => {
+        const edit = (
+          <a
+            key="edit"
+            target="_blank"
+            rel="noreferrer"
+            href={`/borrow/detail/${record.a_borrow_id}`}
+          >
+            {intl.formatMessage({ id: 'pages.Borrow.ReviewBorrow.review', defaultMessage: '' })}
+          </a>
+        );
+        return [edit];
+      },
+    },
   ];
 
   // @ts-ignore

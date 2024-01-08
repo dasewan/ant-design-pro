@@ -783,6 +783,7 @@ export default {
   'pages.Borrow.ReviewBorrow.r_liveness_result': 'Liveness',
   'pages.Borrow.ReviewBorrow.s_ocr_result': 'Ocr',
   'pages.Borrow.ReviewBorrow.batchMove': 'Batch Move',
+  'pages.Borrow.ReviewBorrow.review': 'Review',
   'pages.Borrow.ReviewBorrow.batchMoveTooltip': 'Select借款类型种类和管理员后可以批量操作',
   // 审核订单流转记录
   'pages.Borrow.BHReviewBorrowFlow.b_before_admin_id': 'Before Admin',
