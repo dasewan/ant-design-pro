@@ -5,6 +5,7 @@ import React, { useRef } from 'react';
 
 import { VERIFY_STATUS_MAP } from '@/pages/enums';
 import { putAdminV1GVerifiesId as update } from '@/services/ant-design-pro/GVerify';
+import { useIntl } from '@@/exports';
 
 export type FormValueType = Partial<API.GBMarketing>;
 export type FormRecord = API.GBMarketing;
@@ -23,6 +24,7 @@ export type FormProps = {
  * @constructor
  */
 const ReviewForm: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   /**
    * 开始营销

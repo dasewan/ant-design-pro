@@ -388,9 +388,9 @@ export const CALLBACK_CODE: StatusEnum = {
 };
 
 export const REVIEW_STATUS: StatusEnum = {
-  10: { text: 'WAITING', status: 'Default' },
-  40: { text: 'REJECT', status: 'Error' },
-  50: { text: 'ACCEPT', status: 'Success' },
+  10: { text: '待审核', status: 'Default' },
+  40: { text: '拒绝', status: 'Error' },
+  50: { text: '通过', status: 'Success' },
 };
 // 'login','accept','refuse','loan','repay','extend','overdue','recall','marketing','other','serious_overdue','before_overdue','reloan'
 export const SMS_TYPE: StatusColorEnum2 = {

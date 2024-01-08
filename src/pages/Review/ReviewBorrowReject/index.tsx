@@ -7,6 +7,7 @@ import React, { useContext, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 
 import { REVIEW_STATUS } from '@/pages/enums';
+import { US_REVIEW_STATUS } from '@/pages/enumsUs';
 import { BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enums';
 import { US_BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enumsUs';
 import { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
@@ -192,7 +193,7 @@ const TableList: React.FC = () => {
       }),
       dataIndex: 's_ocr_result',
       valueType: 'select',
-      valueEnum: REVIEW_STATUS,
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
     },
     {
       title: intl.formatMessage({
@@ -201,7 +202,7 @@ const TableList: React.FC = () => {
       }),
       dataIndex: 'd_id_number_result',
       valueType: 'select',
-      valueEnum: REVIEW_STATUS,
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
     },
     {
       title: intl.formatMessage({
@@ -210,7 +211,7 @@ const TableList: React.FC = () => {
       }),
       dataIndex: 'e_contact_persion_result',
       valueType: 'select',
-      valueEnum: REVIEW_STATUS,
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
     },
     {
       title: intl.formatMessage({
@@ -219,61 +220,7 @@ const TableList: React.FC = () => {
       }),
       dataIndex: 'f_job_result',
       valueType: 'select',
-      valueEnum: REVIEW_STATUS,
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.Borrow.ReviewBorrow.g_contact_result',
-        defaultMessage: '',
-      }),
-      dataIndex: 'g_contact_result',
-      valueType: 'select',
-      valueEnum: REVIEW_STATUS,
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.Borrow.ReviewBorrow.h_sms_result',
-        defaultMessage: '',
-      }),
-      dataIndex: 'h_sms_result',
-      valueType: 'select',
-      valueEnum: REVIEW_STATUS,
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.Borrow.ReviewBorrow.i_risk_result',
-        defaultMessage: '',
-      }),
-      dataIndex: 'i_risk_result',
-      valueType: 'select',
-      valueEnum: REVIEW_STATUS,
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.Borrow.ReviewBorrow.j_app_result',
-        defaultMessage: '',
-      }),
-      dataIndex: 'j_app_result',
-      valueType: 'select',
-      valueEnum: REVIEW_STATUS,
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.Borrow.ReviewBorrow.k_history_result',
-        defaultMessage: '',
-      }),
-      dataIndex: 'k_history_result',
-      valueType: 'select',
-      valueEnum: REVIEW_STATUS,
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.Borrow.ReviewBorrow.o_device_result',
-        defaultMessage: '',
-      }),
-      dataIndex: 'o_device_result',
-      valueType: 'select',
-      valueEnum: REVIEW_STATUS,
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
     },
     {
       title: intl.formatMessage({
@@ -282,7 +229,61 @@ const TableList: React.FC = () => {
       }),
       dataIndex: 'p_bank_result',
       valueType: 'select',
-      valueEnum: REVIEW_STATUS,
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.g_contact_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'g_contact_result',
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.h_sms_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'h_sms_result',
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.i_risk_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'i_risk_result',
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.j_app_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'j_app_result',
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.k_history_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'k_history_result',
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.o_device_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'o_device_result',
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
     },
     {
       title: intl.formatMessage({
@@ -291,7 +292,7 @@ const TableList: React.FC = () => {
       }),
       dataIndex: 'r_liveness_result',
       valueType: 'select',
-      valueEnum: REVIEW_STATUS,
+      valueEnum: currentLanguage === 'zh-cn' ? REVIEW_STATUS : US_REVIEW_STATUS,
     },
     {
       title: intl.formatMessage({
