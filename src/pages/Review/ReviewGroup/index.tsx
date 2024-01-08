@@ -1,8 +1,10 @@
 import CreateForm from '@/pages/Review/ReviewGroup/components/CreateForm';
 
-import { COMMON_STATUS_QIYONG } from '@/pages/Operation/Channel/enums';
+import { COMMON_STATUS_QIYONG } from '@/pages/enums';
+import { US_COMMON_STATUS_QIYONG } from '@/pages/enumsUs';
 import ReleaseForm from '@/pages/Review/ReviewGroup/components/ReleaseForm';
-import { BORROW_TIMES_TYPE, MODE_TYPE } from '@/pages/Review/ReviewGroup/enums';
+import { BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enums';
+import { US_BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enumsUs';
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import {
   getAdminV1APReviewGroups as index,
@@ -10,16 +12,19 @@ import {
 } from '@/services/ant-design-pro/APReviewGroup';
 import { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
+import { useIntl } from '@@/exports';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, message, Tag } from 'antd';
-import React, { useRef, useState } from 'react';
+import { Button, ConfigProvider, message, Tag } from 'antd';
+import React, { useContext, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   /** 新建审核组 */
   const [createModalVisible, handleCreateModalVisible] = useState<boolean>(false);
@@ -144,7 +149,9 @@ const TableList: React.FC = () => {
     };
   };
   const _check = async () => {
-    const hide = message.loading('正在检查配置');
+    const hide = message.loading(
+      intl.formatMessage({ id: 'pages.common.check', defaultMessage: '' }),
+    );
 
     try {
       const res = await check({ foo: 1 });
@@ -185,49 +192,59 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.a_name,
-      dataIndex: FieldIndex.a_name,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewGroup.a_name', defaultMessage: '' }),
+      dataIndex: 'a_name',
+      key: 'a_name',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewGroup.b_borrow_times',
+        defaultMessage: '',
+      }),
+      dataIndex: 'b_borrow_times',
+      key: 'b_borrow_times',
+      valueType: 'select',
+      initialValue: [],
+      valueEnum: currentLanguage === 'zh-cn' ? BORROW_TIMES_TYPE : US_BORROW_TIMES_TYPE,
+      render: (_, record) => {
+        if (currentLanguage === 'zh-cn') {
+          return (
+            <Tag color={BORROW_TIMES_TYPE[record.b_borrow_times!].color}>
+              {BORROW_TIMES_TYPE[record.b_borrow_times!].text}
+            </Tag>
+          );
+        } else {
+          return (
+            <Tag color={US_BORROW_TIMES_TYPE[record.b_borrow_times!].color}>
+              {US_BORROW_TIMES_TYPE[record.b_borrow_times!].text}
+            </Tag>
+          );
+        }
+      },
     },
 
+    /*    {
+          title: FieldLabels.g_mode,
+          dataIndex: FieldIndex.g_mode,
+          valueType: 'select',
+          initialValue: [],
+          valueEnum: MODE_TYPE,
+          render: (_, record) => (
+            <Tag color={MODE_TYPE[record.g_mode!].color}>{MODE_TYPE[record.g_mode!].text}</Tag>
+          ),
+        },*/
+
     {
-      title: FieldLabels.b_borrow_times,
-      dataIndex: FieldIndex.b_borrow_times,
-      valueType: 'select',
-      initialValue: [],
-      valueEnum: BORROW_TIMES_TYPE,
-      render: (_, record) => (
-        <Tag color={BORROW_TIMES_TYPE[record.b_borrow_times!].color}>
-          {BORROW_TIMES_TYPE[record.b_borrow_times!].text}
-        </Tag>
-      ),
-    },
-    {
-      title: FieldLabels.c_weight,
-      dataIndex: FieldIndex.c_weight,
-    },
-    {
-      title: FieldLabels.g_mode,
-      dataIndex: FieldIndex.g_mode,
-      valueType: 'select',
-      initialValue: [],
-      valueEnum: MODE_TYPE,
-      render: (_, record) => (
-        <Tag color={MODE_TYPE[record.g_mode!].color}>{MODE_TYPE[record.g_mode!].text}</Tag>
-      ),
-    },
-    {
-      title: FieldLabels.d_status,
-      dataIndex: FieldIndex.d_status,
-      initialValue: [],
-      valueType: 'select',
-      valueEnum: COMMON_STATUS_QIYONG,
-    },
-    {
-      title: FieldLabels.e_channels,
-      dataIndex: FieldIndex.e_channels,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewGroup.e_channels', defaultMessage: '' }),
+      dataIndex: 'e_channels',
+      key: 'e_channels',
       render: (_, record) => {
         let r = '';
-        if (record.e_channels !== null && record.e_channels.length > 0) {
+        if (
+          record.e_channels !== null &&
+          record.e_channels !== undefined &&
+          record.e_channels.length > 0
+        ) {
           const channelsIdArr = record.e_channels!.split(',');
           const channelsArr = channels.filter((value) =>
             channelsIdArr.find((_id) => _id === value.value),
@@ -242,11 +259,15 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.h_products,
-      dataIndex: FieldIndex.h_products,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewGroup.h_products', defaultMessage: '' }),
+      dataIndex: 'h_products',
       render: (_, record) => {
         let r = '';
-        if (record.h_products !== '' && record.h_products !== null) {
+        if (
+          record.h_products !== undefined &&
+          record.h_products !== '' &&
+          record.h_products !== null
+        ) {
           const productIdArr = record.h_products!.split(',');
           const productArr = products.filter((value) =>
             productIdArr.find((_id) => _id === value.value),
@@ -261,11 +282,12 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.f_admins,
-      dataIndex: FieldIndex.f_admins,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewGroup.f_admins', defaultMessage: '' }),
+      dataIndex: 'f_admins',
+      key: 'f_admins',
       render: (_, record) => {
         let r = '';
-        if (record.f_admins !== null && record.f_admins !== '') {
+        if (record.f_admins !== undefined && record.f_admins !== null && record.f_admins !== '') {
           const adminIdArr = record.f_admins!.split(',');
           const adminsArr = admins.filter((value) => adminIdArr.find((_id) => _id === value.value));
 
@@ -278,32 +300,65 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.i_review_wait_count,
-      dataIndex: FieldIndex.i_review_wait_count,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewGroup.c_weight', defaultMessage: '' }),
+      dataIndex: 'c_weight',
+      key: 'c_weight',
+      render: (_, record) => {
+        if (record.c_weight !== undefined && record.c_weight !== null && record.c_weight > 0) {
+          return record.c_weight + '%';
+        } else {
+          return '-';
+        }
+      },
     },
     {
-      title: FieldLabels.j_review_refuse_count,
-      dataIndex: FieldIndex.j_review_refuse_count,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewGroup.i_review_wait_count',
+        defaultMessage: '',
+      }),
+      dataIndex: 'i_review_wait_count',
+      key: 'i_review_wait_count',
     },
     {
-      title: FieldLabels.k_review_accept_count,
-      dataIndex: FieldIndex.k_review_accept_count,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewGroup.j_review_refuse_count',
+        defaultMessage: '',
+      }),
+      dataIndex: 'j_review_refuse_count',
+      key: 'j_review_refuse_count',
     },
     {
-      title: '操作',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewGroup.k_review_accept_count',
+        defaultMessage: '',
+      }),
+      dataIndex: 'k_review_accept_count',
+      key: 'k_review_accept_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewGroup.d_status', defaultMessage: '' }),
+      dataIndex: 'd_status',
+      key: 'd_status',
+      initialValue: [],
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? COMMON_STATUS_QIYONG : US_COMMON_STATUS_QIYONG,
+    },
+
+    {
+      title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
         const edit = (
           <a key="edit" onClick={() => onEditClick(record.id!)}>
-            编辑
+            {intl.formatMessage({ id: 'pages.common.option.edit', defaultMessage: '' })}
           </a>
         );
         let move;
         if (record.i_review_wait_count! > 0) {
           move = (
             <a key="move" onClick={() => onReleaseClick(record)}>
-              释放
+              {intl.formatMessage({ id: 'pages.common.option.release', defaultMessage: '' })}
             </a>
           );
         }
@@ -317,14 +372,13 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '审核组管理',
         ghost: true,
         extra: [
           <Button key="2" type="primary" onClick={() => _check()}>
-            验证审核配置
+            {intl.formatMessage({ id: 'pages.Borrow.ReviewGroup.check', defaultMessage: '' })}
           </Button>,
           <Button key="3" type="primary" onClick={() => onEditClick(0)}>
-            新建审核组
+            {intl.formatMessage({ id: 'pages.Borrow.ReviewGroup.add', defaultMessage: '' })}
           </Button>,
         ],
       }}

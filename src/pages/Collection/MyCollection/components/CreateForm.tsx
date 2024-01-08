@@ -44,7 +44,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
     if (moment().diff(currentTableListItemMoment) > 3000000) {
       console.log(moment().diff(currentTableListItemMoment));
       hide();
-      message.error('配置超时！');
+      message.error(intl.formatMessage({ id: 'pages.common.editExpired', defaultMessage: '' }));
       return false;
     }
     try {
@@ -79,9 +79,9 @@ const CreateForm: React.FC<FormProps> = (props) => {
 
   return (
     <ModalForm<FormRecord>
-      visible={props.modalVisible}
+      open={props.modalVisible}
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onVisibleChange={(visible) => {
+      onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
           props.onCancel();

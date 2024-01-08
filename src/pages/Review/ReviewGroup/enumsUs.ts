@@ -1,21 +1,21 @@
 import { StatusColorEnum2 } from '@/pages/enums';
 
-export const BORROW_TIMES_TYPE: StatusColorEnum2 = {
-  1: { text: '首借', color: '#108ee9' },
-  2: { text: '复借2-4', color: '#2db7f5' },
-  3: { text: '复借5+', color: '#888dd1' },
+export const US_BORROW_TIMES_TYPE: StatusColorEnum2 = {
+  1: { text: 'First', color: '#108ee9' },
+  2: { text: 'ReBorrow2-4', color: '#2db7f5' },
+  3: { text: 'ReBorrow5+', color: '#888dd1' },
 };
-export const BORROW_TIMES_OPTION = [
+export const US_BORROW_TIMES_OPTION = [
   {
-    label: '首借',
+    label: 'First',
     value: '1',
   },
   {
-    label: '复借2-4',
+    label: 'ReBorrow2-4',
     value: '2',
   },
   {
-    label: '复借5+',
+    label: 'ReBorrow5+',
     value: '3',
   },
 ];

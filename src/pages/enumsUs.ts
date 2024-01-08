@@ -242,8 +242,8 @@ export const US_PRODUCT_TYPE: StatusColorEnum = {
 };
 //状态：启用/禁用
 export const US_COMMON_STATUS_QIYONG: StatusEnum2 = {
-  y: { text: '启用', status: 'Success' },
-  n: { text: '禁用', status: 'Error' },
+  y: { text: 'Enable', status: 'Success' },
+  n: { text: 'Disable', status: 'Error' },
 };
 export const US_COMMON_STATUS_QIYONG_ARRAY: StatusOption[] = [
   {

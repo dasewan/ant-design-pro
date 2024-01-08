@@ -295,7 +295,7 @@ const EditForm: React.FC<FormProps> = (props) => {
     );
     if (moment().diff(currentTableListItemMoment) > 3000000) {
       hide();
-      message.error('配置超时！');
+      message.error(intl.formatMessage({ id: 'pages.common.editExpired', defaultMessage: '' }));
       return false;
     }
     try {

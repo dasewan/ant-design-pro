@@ -1,4 +1,5 @@
 import { putAdminV1BFReviewBorrowsRelease as release } from '@/services/ant-design-pro/BFReviewBorrow';
+import { useIntl } from '@@/exports';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 import type { ProFieldRequestData } from '@ant-design/pro-utils';
@@ -26,6 +27,7 @@ export type FormProps = {
  * @constructor
  */
 const MoveForm: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
 
   /**
@@ -98,7 +100,10 @@ const MoveForm: React.FC<FormProps> = (props) => {
     >
       <ProFormSelect
         name="after_admin_ids"
-        label="审核管理员"
+        label={intl.formatMessage({
+          id: 'pages.Borrow.ReviewBorrow.b_admin_id',
+          defaultMessage: '',
+        })}
         request={_getAdminsEnum}
         placeholder="Please select a admin"
         rules={[{ required: true, message: 'Please select your admin!' }]}

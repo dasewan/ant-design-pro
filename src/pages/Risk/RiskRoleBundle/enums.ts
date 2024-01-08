@@ -16,11 +16,11 @@ export const EXECUTE_LOGIC_OPTION = [
     value: 'anysatisfied',
   },
   {
-    label: '所有均不满足',
+    label: '至少一条不满足',
     value: 'anyunsatisfied',
   },
   {
-    label: '至少一条不满足',
+    label: '所有均不满足',
     value: 'nonesatisfied',
   },
 ];

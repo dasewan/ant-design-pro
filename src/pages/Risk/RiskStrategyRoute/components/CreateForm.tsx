@@ -8,6 +8,7 @@ import {
   ProFormText,
 } from '@ant-design/pro-form';
 
+import { COMMON_STATUS_INT_ARRAY, RISK_TAGS_ARRAY } from '@/pages/enums';
 import {
   getAdminV1NERiskStrategyRoutesId as show,
   postAdminV1NERiskStrategyRoutes as store,
@@ -18,7 +19,6 @@ import type { RequestOptionsType } from '@ant-design/pro-utils';
 import { Divider, message } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
-import { COMMON_STATUS_INT_ARRAY, RISK_TAGS_ARRAY } from '../../../enums';
 import type { TableListItem } from '../data';
 import { FieldIndex, FieldLabels } from '../service';
 
@@ -53,7 +53,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
     if (moment().diff(currentTableListItemMoment) > 3000000) {
       console.log(moment().diff(currentTableListItemMoment));
       hide();
-      message.error('配置超时！');
+      message.error(intl.formatMessage({ id: 'pages.common.editExpired', defaultMessage: '' }));
       return false;
     }
     try {

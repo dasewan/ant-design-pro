@@ -1,22 +1,26 @@
 import DrawerFC from '@/pages/Review/ReviewBorrow/components/DrawerFC';
 import MoveForm from '@/pages/Review/ReviewBorrow/components/MoveForm';
 import { BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enums';
+import { US_BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enumsUs';
 import { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
 import { getAdminV1BFReviewBorrows as index } from '@/services/ant-design-pro/BFReviewBorrow';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
+import { useIntl } from '@@/exports';
 import { QuestionOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Space, Table, Tooltip } from 'antd';
-import React, { useRef, useState } from 'react';
+import { ConfigProvider, Space, Table, Tooltip } from 'antd';
+import React, { useContext, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
 
 export { getAdminV1BHReviewBorrowFlows as index2 } from '@/services/ant-design-pro/BHReviewBorrowFlow';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
@@ -131,57 +135,67 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '订单号',
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.h_sn', defaultMessage: '' }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'h_sn'],
       copyable: true,
       search: {
-        transform: (value: any) => ({ 'd_borrow-h_sn': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-h_sn': value }),
       },
     },
     {
-      title: '手机号',
-      dataIndex: ['a_a_a_a_a_d_borrow', 'ak_phone'],
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.a_k_phone', defaultMessage: '' }),
+      dataIndex: ['a_a_a_a_a_d_borrow', 'a_k_phone'],
       copyable: true,
       search: {
-        transform: (value: any) => ({ 'd_borrow-ak_phone': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-a_k_phone': value }),
       },
     },
     {
-      title: '借款金额',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.m_borrow_amount',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'm_borrow_amount'],
       search: {
-        transform: (value: any) => ({ 'd_borrow-m_borrow_amount': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-m_borrow_amount': value }),
       },
     },
     {
-      title: '借款次数',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.l_borrow_count',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'l_borrow_count'],
       search: {
-        transform: (value: any) => ({ 'd_borrow-l_borrow_count': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-l_borrow_count': value }),
       },
     },
     {
-      title: '借款类型种类',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.n_borrow_times_type',
+        defaultMessage: '',
+      }),
       dataIndex: 'n_borrow_times_type',
       valueType: 'select',
-      valueEnum: BORROW_TIMES_TYPE,
+      valueEnum: currentLanguage === 'zh-cn' ? BORROW_TIMES_TYPE : US_BORROW_TIMES_TYPE,
     },
     {
-      title: FieldLabels.m_review_group_id,
-      dataIndex: FieldIndex.m_review_group_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.m_review_group_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'm_review_group_id',
       valueType: 'select',
       request: _getAPReviewGroupsEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: FieldLabels.b_admin_id,
-      dataIndex: FieldIndex.b_admin_id,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewBorrow.b_admin_id', defaultMessage: '' }),
+      dataIndex: 'b_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
       params: { timestamp: Math.random() },
       render: (_, record) => {
-        console.log(admins);
-        console.log(_);
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
           return item.role_id === 1 && item.id === record.b_admin_id;
@@ -198,7 +212,6 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '待审核的订单',
         ghost: true,
       }}
     >
@@ -229,9 +242,20 @@ const TableList: React.FC = () => {
         tableAlertRender={({ selectedRowKeys, onCleanSelected }) => (
           <Space size={24}>
             <span>
-              已选 {selectedRowKeys.length} 项
+              {intl.formatMessage({
+                id: 'pages.searchTable.chosen',
+                defaultMessage: '',
+              })}{' '}
+              {selectedRowKeys.length}{' '}
+              {intl.formatMessage({
+                id: 'pages.searchTable.item',
+                defaultMessage: '',
+              })}
               <a style={{ marginLeft: 8 }} onClick={onCleanSelected}>
-                取消选择
+                {intl.formatMessage({
+                  id: 'pages.searchTable.cancelSelected',
+                  defaultMessage: '',
+                })}
               </a>
             </span>
           </Space>
@@ -244,14 +268,26 @@ const TableList: React.FC = () => {
                   handleMove(selectedRows.map((item: TableListItem) => item.id).join(','))
                 }
               >
-                转移
+                {intl.formatMessage({
+                  id: 'pages.common.move',
+                  defaultMessage: '',
+                })}
               </a>
             </Space>
           );
         }}
         headerTitle={
-          <Tooltip placement="right" title={<>选择借款类型种类和管理员后可以批量操作</>}>
-            批量操作
+          <Tooltip
+            placement="right"
+            title={intl.formatMessage({
+              id: 'pages.Borrow.ReviewBorrow.batchMoveTooltip',
+              defaultMessage: '',
+            })}
+          >
+            {intl.formatMessage({
+              id: 'pages.Borrow.ReviewBorrow.batchMove',
+              defaultMessage: '',
+            })}
             <QuestionOutlined />
           </Tooltip>
         }
@@ -291,6 +327,7 @@ const TableList: React.FC = () => {
         }}
         data={currentRow!}
         admins={admins}
+        groups={groups}
       />
     </PageContainer>
   );

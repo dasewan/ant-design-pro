@@ -1,18 +1,22 @@
 import { FLOW_TYPE } from '@/pages/Review/ReviewBorrowFlow/enums';
+import { US_FLOW_TYPE } from '@/pages/Review/ReviewBorrowFlow/enumsUs';
+import { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
+import { getAdminV1BHReviewBorrowFlows as index } from '@/services/ant-design-pro/BHReviewBorrowFlow';
+import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
+import { useIntl } from '@@/exports';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
+import { ConfigProvider } from 'antd';
 import moment from 'moment';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
-
-import { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
-import { getAdminV1BHReviewBorrowFlows as index } from '@/services/ant-design-pro/BHReviewBorrowFlow';
-import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
@@ -96,51 +100,57 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '订单号',
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.h_sn', defaultMessage: '' }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'h_sn'],
       copyable: true,
       search: {
-        transform: (value: any) => ({ 'd_borrow-h_sn': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-h_sn': value }),
       },
     },
     {
-      title: '手机号',
-      dataIndex: ['a_a_a_a_a_d_borrow', 'ak_phone'],
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.a_k_phone', defaultMessage: '' }),
+      dataIndex: ['a_a_a_a_a_d_borrow', 'a_k_phone'],
       copyable: true,
       search: {
-        transform: (value: any) => ({ 'd_borrow-ak_phone': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-a_k_phone': value }),
       },
     },
     {
-      title: '借款金额',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.m_borrow_amount',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'm_borrow_amount'],
       search: {
-        transform: (value: any) => ({ 'd_borrow-m_borrow_amount': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-m_borrow_amount': value }),
       },
     },
     {
-      title: '借款次数',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.l_borrow_count',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'l_borrow_count'],
       search: {
-        transform: (value: any) => ({ 'd_borrow-l_borrow_count': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-l_borrow_count': value }),
       },
     },
     {
-      title: FieldLabels.c_before_review_group_id,
-      dataIndex: FieldIndex.c_before_review_group_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.c_before_review_group_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'c_before_review_group_id',
       valueType: 'select',
       request: _getAPReviewGroupsEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: FieldLabels.g_type,
-      dataIndex: FieldIndex.g_type,
-      valueType: 'select',
-      valueEnum: FLOW_TYPE,
-    },
-    {
-      title: FieldLabels.b_before_admin_id,
-      dataIndex: FieldIndex.b_before_admin_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.b_before_admin_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'b_before_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
       render: (_, record) => {
@@ -155,15 +165,30 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.e_after_review_group_id,
-      dataIndex: FieldIndex.e_after_review_group_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.g_type',
+        defaultMessage: '',
+      }),
+      dataIndex: 'g_type',
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? FLOW_TYPE : US_FLOW_TYPE,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.e_after_review_group_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'e_after_review_group_id',
       valueType: 'select',
       request: _getAPReviewGroupsEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: FieldLabels.d_after_admin_id,
-      dataIndex: FieldIndex.d_after_admin_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.d_after_admin_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'd_after_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
       render: (_, record) => {
@@ -178,7 +203,10 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '流转时间',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.created_at',
+        defaultMessage: '',
+      }),
       dataIndex: 'created_at',
       key: 'created_at',
       render: (_, record) => {
@@ -191,7 +219,6 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '审核订单流转记录',
         ghost: true,
       }}
     >

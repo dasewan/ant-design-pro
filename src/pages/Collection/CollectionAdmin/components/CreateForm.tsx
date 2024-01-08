@@ -46,7 +46,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
     if (moment().diff(currentTableListItemMoment) > 3000000) {
       console.log(moment().diff(currentTableListItemMoment));
       hide();
-      message.error('配置超时！');
+      message.error(intl.formatMessage({ id: 'pages.common.editExpired', defaultMessage: '' }));
       return false;
     }
     try {

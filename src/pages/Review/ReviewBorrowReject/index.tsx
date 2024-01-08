@@ -3,16 +3,22 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
 
 import { REVIEW_STATUS } from '@/pages/enums';
+import { BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enums';
+import { US_BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enumsUs';
 import { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
 import { getAdminV1BFReviewBorrows as index } from '@/services/ant-design-pro/BFReviewBorrow';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
+import { useIntl } from '@@/exports';
+import { ConfigProvider } from 'antd';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
@@ -108,44 +114,67 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '订单号',
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.h_sn', defaultMessage: '' }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'h_sn'],
       copyable: true,
       search: {
-        transform: (value: any) => ({ 'd_borrow-h_sn': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-h_sn': value }),
       },
     },
     {
-      title: '手机号',
-      dataIndex: ['a_a_a_a_a_d_borrow', 'ak_phone'],
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.a_k_phone', defaultMessage: '' }),
+      dataIndex: ['a_a_a_a_a_d_borrow', 'a_k_phone'],
       copyable: true,
       search: {
-        transform: (value: any) => ({ 'd_borrow-ak_phone': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-a_k_phone': value }),
       },
     },
     {
-      title: '借款金额',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.m_borrow_amount',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'm_borrow_amount'],
       search: {
-        transform: (value: any) => ({ 'd_borrow-m_borrow_amount': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-m_borrow_amount': value }),
       },
     },
     {
-      title: '借款次数',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.l_borrow_count',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'l_borrow_count'],
       search: {
-        transform: (value: any) => ({ 'd_borrow-l_borrow_count': value }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-l_borrow_count': value }),
       },
     },
     {
-      title: FieldLabels.b_admin_id,
-      dataIndex: FieldIndex.b_admin_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.n_borrow_times_type',
+        defaultMessage: '',
+      }),
+      dataIndex: 'n_borrow_times_type',
+      valueType: 'select',
+      valueEnum: currentLanguage === 'zh-cn' ? BORROW_TIMES_TYPE : US_BORROW_TIMES_TYPE,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.m_review_group_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'm_review_group_id',
+      valueType: 'select',
+      request: _getAPReviewGroupsEnum,
+      params: { timestamp: Math.random() },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewBorrow.b_admin_id', defaultMessage: '' }),
+      dataIndex: 'b_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
       params: { timestamp: Math.random() },
       render: (_, record) => {
-        console.log(admins);
-        console.log(_);
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
           return item.role_id === 1 && item.id === record.b_admin_id;
@@ -157,80 +186,119 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.s_ocr_result,
-      dataIndex: FieldIndex.s_ocr_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.s_ocr_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 's_ocr_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.d_id_number_result,
-      dataIndex: FieldIndex.d_id_number_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.d_id_number_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'd_id_number_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.e_contact_persion_result,
-      dataIndex: FieldIndex.e_contact_persion_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.e_contact_persion_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'e_contact_persion_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.f_job_result,
-      dataIndex: FieldIndex.f_job_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.f_job_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'f_job_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.g_contact_result,
-      dataIndex: FieldIndex.g_contact_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.g_contact_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'g_contact_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.h_sms_result,
-      dataIndex: FieldIndex.h_sms_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.h_sms_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'h_sms_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.i_risk_result,
-      dataIndex: FieldIndex.i_risk_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.i_risk_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'i_risk_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.j_app_result,
-      dataIndex: FieldIndex.j_app_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.j_app_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'j_app_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.k_history_result,
-      dataIndex: FieldIndex.k_history_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.k_history_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'k_history_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.o_device_result,
-      dataIndex: FieldIndex.o_device_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.o_device_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'o_device_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.p_bank_result,
-      dataIndex: FieldIndex.p_bank_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.p_bank_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'p_bank_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.r_liveness_result,
-      dataIndex: FieldIndex.r_liveness_result,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.r_liveness_result',
+        defaultMessage: '',
+      }),
+      dataIndex: 'r_liveness_result',
       valueType: 'select',
       valueEnum: REVIEW_STATUS,
     },
     {
-      title: FieldLabels.l_flow_count,
-      dataIndex: FieldIndex.l_flow_count,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewBorrow.l_flow_count',
+        defaultMessage: '',
+      }),
+      dataIndex: 'l_flow_count',
       hideInSearch: true,
       render: (_, record) => {
         return (
@@ -279,6 +347,7 @@ const TableList: React.FC = () => {
         }}
         data={currentRow!}
         admins={admins}
+        groups={groups}
       />
     </PageContainer>
   );

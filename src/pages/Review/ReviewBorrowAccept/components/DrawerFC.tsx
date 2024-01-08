@@ -1,6 +1,6 @@
 import { FieldIndex2, FieldLabels2 } from '@/pages/Review/ReviewBorrow/service';
 import type { TableListPagination } from '@/pages/UserManager/AUser/data';
-import { getAdminV1BHReviewBorrowFlows as index2 } from '@/services/ant-design-pro/BHReviewBorrowFlow';
+import { getAdminV1BHReviewBorrowFlows as index } from '@/services/ant-design-pro/BHReviewBorrowFlow';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
@@ -35,7 +35,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
-    const res = await index2({
+    const res = await index({
       // @ts-ignore
       a_borrow_id: props.data!.a_borrow_id!,
       page: params.current,
@@ -115,7 +115,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
       destroyOnClose={true}
     >
       <ProTable<API.ABCreditHistory, TableListPagination>
-        headerTitle="流转历史"
+        headerTitle="流转历史22"
         actionRef={actionRef}
         revalidateOnFocus={false}
         search={false}

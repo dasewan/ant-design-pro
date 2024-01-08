@@ -7,10 +7,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import ReviewForm from '@/pages/Borrow/BorrowList/components/ReviewForm';
 import { BORROW_STATUS_ENUM, BORROW_STATUS_MAP, VERIFY_STATUS_MAP } from '@/pages/enums';
-import {
-  getAdminV1DBorrowsId as show,
-  getAdminV1DBorrowTab as getTab,
-} from '@/services/ant-design-pro/DBorrow';
+import { getAdminV1DBorrowsId as show } from '@/services/ant-design-pro/DBorrow';
 import { Outlet } from '@@/exports';
 import moment from 'moment';
 import { AliveScope, KeepAlive } from 'react-activation';
@@ -78,6 +75,10 @@ const Advanced: FC = () => {
     {
       key: 'relation',
       tab: '关系网络',
+    },
+    {
+      key: 'borrow-history',
+      tab: '历史借贷',
     },
     {
       key: 'borrow-log',

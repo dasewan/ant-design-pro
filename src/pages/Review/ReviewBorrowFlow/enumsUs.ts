@@ -1,10 +1,10 @@
-export const FLOW_TYPE = {
-  system: { text: '系统', color: 'cyan' },
-  release_group: { text: '释放组', color: 'purple' },
-  release_admin: { text: '释放审核员', color: 'geekblue' },
-  move: { text: '转移', color: 'volcano' },
+export const US_FLOW_TYPE = {
+  system: { text: 'System', color: 'cyan' },
+  release_group: { text: 'Release Group', color: 'purple' },
+  release_admin: { text: 'Release Admin', color: 'geekblue' },
+  move: { text: 'Move', color: 'volcano' },
 };
-export const FLOW_OPTION = [
+export const US_FLOW_OPTION = [
   {
     label: '系统',
     value: 'system',

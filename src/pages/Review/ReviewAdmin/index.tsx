@@ -1,20 +1,25 @@
 import ReleaseForm from '@/pages/Review/ReviewAdmin/components/ReleaseForm';
-import { BORROW_TIMES_OPTION, BORROW_TIMES_TYPE } from '@/pages/Review/ReviewAdmin/enums';
+import { BORROW_TIMES_OPTION, BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enums';
+import { US_BORROW_TIMES_OPTION, US_BORROW_TIMES_TYPE } from '@/pages/Review/ReviewGroup/enumsUs';
 import { getAdminV1APReviewGroupsEnum as getAPReviewGroupsEnum } from '@/services/ant-design-pro/APReviewGroup';
 import {
   getAdminV1ARReviewAdmins as index,
   putAdminV1ARReviewAdminsId as update,
 } from '@/services/ant-design-pro/ARReviewAdmin';
+import { getAdminV1UsersEnum as getUserEnum } from '@/services/ant-design-pro/User';
+import { useIntl } from '@@/exports';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { message, Popconfirm, Spin, Switch } from 'antd';
-import React, { useRef, useState } from 'react';
+import { ConfigProvider, message, Popconfirm, Spin, Switch } from 'antd';
+import React, { useContext, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
@@ -162,9 +167,15 @@ const TableList: React.FC = () => {
   };
 
   const columns: ProColumns<TableListItem>[] = [
+    /*    {
+          title: intl.formatMessage({ id: 'pages.Borrow.ReviewAdmin.a_name', defaultMessage: '' }),
+          dataIndex: 'a_name',
+          key: 'a_name',
+        },*/
     {
-      title: FieldLabels.b_admin_id,
-      dataIndex: FieldIndex.b_admin_id,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewAdmin.b_admin_id', defaultMessage: '' }),
+      dataIndex: 'b_admin_id',
+      key: 'b_admin_id',
       valueType: 'select',
       request: _getUserEnum,
       params: { timestamp: Math.random() },
@@ -180,8 +191,12 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.c_review_group_id,
-      dataIndex: FieldIndex.c_review_group_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.c_review_group_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'c_review_group_id',
+      key: 'c_review_group_id',
       valueType: 'select',
       request: _getAPReviewGroupsEnum,
       params: { timestamp: Math.random() },
@@ -200,18 +215,25 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.m_borrow_times,
-      dataIndex: FieldIndex.m_borrow_times,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.m_borrow_times',
+        defaultMessage: '',
+      }),
+      dataIndex: 'm_borrow_times',
+      key: 'm_borrow_times',
       valueType: 'select',
       initialValue: [],
-      valueEnum: BORROW_TIMES_TYPE,
+      valueEnum: currentLanguage === 'zh-cn' ? BORROW_TIMES_TYPE : US_BORROW_TIMES_TYPE,
       render: (_, record) => {
         let r = '';
         if (record.m_borrow_times !== null && record.m_borrow_times !== '') {
           const groupIdArr = record.m_borrow_times!.split(',');
-          const groupsArr = BORROW_TIMES_OPTION.filter((value) =>
-            groupIdArr.find((_id) => _id === value.value),
-          );
+          const groupsArr =
+            currentLanguage === 'zh-cn'
+              ? BORROW_TIMES_OPTION.filter((value) => groupIdArr.find((_id) => _id === value.value))
+              : US_BORROW_TIMES_OPTION.filter((value) =>
+                  groupIdArr.find((_id) => _id === value.value),
+                );
 
           for (const c of groupsArr) {
             r += '[' + c.label + '] ';
@@ -222,116 +244,33 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.n_review_wait_count,
-      dataIndex: FieldIndex.n_review_wait_count,
-    },
-    {
-      title: FieldLabels.o_review_refuse_count,
-      dataIndex: FieldIndex.o_review_refuse_count,
-    },
-    {
-      title: FieldLabels.p_review_accept_count,
-      dataIndex: FieldIndex.p_review_accept_count,
-    },
-    {
-      title: FieldLabels.d_can_id_number,
-      dataIndex: FieldIndex.d_can_id_number,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.g_can_contact',
+        defaultMessage: '',
+      }),
+      dataIndex: 'g_can_contact',
+      key: 'g_can_contact',
       render: (_, record) => {
         return (
           <Popconfirm
-            title={`Are you sure to switch ${FieldLabels.d_can_id_number}`}
-            onConfirm={confirmSwitch.bind(this, record, FieldIndex.d_can_id_number)}
+            title={`${intl.formatMessage({
+              id: 'pages.common.switch_tip',
+              defaultMessage: '',
+            })} ${intl.formatMessage({
+              id: 'pages.Borrow.ReviewAdmin.g_can_contact',
+              defaultMessage: '',
+            })}`}
+            onConfirm={confirmSwitch.bind(this, record, 'g_can_contact2')}
             // onCancel={cancel}
             okText="Yes"
             cancelText="No"
           >
             <Switch
-              checkedChildren="开"
-              unCheckedChildren="关"
-              checked={record.d_can_id_number === 'y'}
-            />
-          </Popconfirm>
-        );
-      },
-    },
-    {
-      title: FieldLabels.e_can_contact_persion,
-      dataIndex: FieldIndex.e_can_contact_persion,
-      render: (_, record) => {
-        return (
-          <Popconfirm
-            title={`Are you sure to switch ${FieldLabels.e_can_contact_persion}`}
-            onConfirm={confirmSwitch.bind(this, record, FieldIndex.e_can_contact_persion)}
-            // onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Switch
-              checkedChildren="开"
-              unCheckedChildren="关"
-              checked={record.e_can_contact_persion === 'y'}
-            />
-          </Popconfirm>
-        );
-      },
-    },
-    {
-      title: FieldLabels.f_can_job,
-      dataIndex: FieldIndex.f_can_job,
-      render: (_, record) => {
-        return (
-          <Popconfirm
-            title={`Are you sure to switch ${FieldLabels.f_can_job}`}
-            onConfirm={confirmSwitch.bind(this, record, FieldIndex.f_can_job)}
-            // onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Switch
-              checkedChildren="开"
-              unCheckedChildren="关"
-              checked={record.f_can_job === 'y'}
-            />
-          </Popconfirm>
-        );
-      },
-    },
-    {
-      title: FieldLabels.k_can_app,
-      dataIndex: FieldIndex.k_can_app,
-      render: (_, record) => {
-        return (
-          <Popconfirm
-            title={`Are you sure to switch ${FieldLabels.k_can_app}`}
-            onConfirm={confirmSwitch.bind(this, record, FieldIndex.k_can_app)}
-            // onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Switch
-              checkedChildren="开"
-              unCheckedChildren="关"
-              checked={record.k_can_app === 'y'}
-            />
-          </Popconfirm>
-        );
-      },
-    },
-    {
-      title: FieldLabels.g_can_contact,
-      dataIndex: FieldIndex.g_can_contact,
-      render: (_, record) => {
-        return (
-          <Popconfirm
-            title={`Are you sure to switch ${FieldLabels.g_can_contact}`}
-            onConfirm={confirmSwitch.bind(this, record, FieldIndex.g_can_contact)}
-            // onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Switch
-              checkedChildren="开"
-              unCheckedChildren="关"
+              checkedChildren={intl.formatMessage({ id: 'pages.common.open', defaultMessage: '' })}
+              unCheckedChildren={intl.formatMessage({
+                id: 'pages.common.close',
+                defaultMessage: '',
+              })}
               checked={record.g_can_contact === 'y'}
             />
           </Popconfirm>
@@ -339,20 +278,30 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.h_can_sms,
-      dataIndex: FieldIndex.h_can_sms,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewAdmin.h_can_sms', defaultMessage: '' }),
+      dataIndex: 'h_can_sms',
+      key: 'h_can_sms',
       render: (_, record) => {
         return (
           <Popconfirm
-            title={`Are you sure to switch ${FieldLabels.h_can_sms}`}
-            onConfirm={confirmSwitch.bind(this, record, FieldIndex.h_can_sms)}
+            title={`${intl.formatMessage({
+              id: 'pages.common.switch_tip',
+              defaultMessage: '',
+            })} ${intl.formatMessage({
+              id: 'pages.Borrow.ReviewAdmin.h_can_sms',
+              defaultMessage: '',
+            })}`}
+            onConfirm={confirmSwitch.bind(this, record, 'h_can_sms2')}
             // onCancel={cancel}
             okText="Yes"
             cancelText="No"
           >
             <Switch
-              checkedChildren="开"
-              unCheckedChildren="关"
+              checkedChildren={intl.formatMessage({ id: 'pages.common.open', defaultMessage: '' })}
+              unCheckedChildren={intl.formatMessage({
+                id: 'pages.common.close',
+                defaultMessage: '',
+              })}
               checked={record.h_can_sms === 'y'}
             />
           </Popconfirm>
@@ -360,20 +309,30 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.i_can_risk,
-      dataIndex: FieldIndex.i_can_risk,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewAdmin.i_can_risk', defaultMessage: '' }),
+      dataIndex: 'i_can_risk',
+      key: 'i_can_risk',
       render: (_, record) => {
         return (
           <Popconfirm
-            title={`Are you sure to switch ${FieldLabels.i_can_risk}`}
-            onConfirm={confirmSwitch.bind(this, record, FieldIndex.i_can_risk)}
+            title={`${intl.formatMessage({
+              id: 'pages.common.switch_tip',
+              defaultMessage: '',
+            })} ${intl.formatMessage({
+              id: 'pages.Borrow.ReviewAdmin.i_can_risk',
+              defaultMessage: '',
+            })}`}
+            onConfirm={confirmSwitch.bind(this, record, 'i_can_risk2')}
             // onCancel={cancel}
             okText="Yes"
             cancelText="No"
           >
             <Switch
-              checkedChildren="开"
-              unCheckedChildren="关"
+              checkedChildren={intl.formatMessage({ id: 'pages.common.open', defaultMessage: '' })}
+              unCheckedChildren={intl.formatMessage({
+                id: 'pages.common.close',
+                defaultMessage: '',
+              })}
               checked={record.i_can_risk === 'y'}
             />
           </Popconfirm>
@@ -381,45 +340,152 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: FieldLabels.l_can_history_borrow,
-      dataIndex: FieldIndex.l_can_history_borrow,
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewAdmin.k_can_app', defaultMessage: '' }),
+      dataIndex: 'k_can_app',
+      key: 'k_can_app',
       render: (_, record) => {
         return (
           <Popconfirm
-            title={`Are you sure to switch ${FieldLabels.l_can_history_borrow}`}
-            onConfirm={confirmSwitch.bind(this, record, FieldIndex.l_can_history_borrow)}
+            title={`${intl.formatMessage({
+              id: 'pages.common.switch_tip',
+              defaultMessage: '',
+            })} ${intl.formatMessage({
+              id: 'pages.Borrow.ReviewAdmin.k_can_app',
+              defaultMessage: '',
+            })}`}
+            onConfirm={confirmSwitch.bind(this, record, 'k_can_app2')}
             // onCancel={cancel}
             okText="Yes"
             cancelText="No"
           >
             <Switch
-              checkedChildren="开"
-              unCheckedChildren="关"
-              checked={record.l_can_history_borrow === 'y'}
+              checkedChildren={intl.formatMessage({ id: 'pages.common.open', defaultMessage: '' })}
+              unCheckedChildren={intl.formatMessage({
+                id: 'pages.common.close',
+                defaultMessage: '',
+              })}
+              checked={record.k_can_app === 'y'}
             />
           </Popconfirm>
         );
       },
     },
     {
-      title: FieldLabels.j_status,
-      dataIndex: FieldIndex.j_status,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.l_can_history_borrow',
+        defaultMessage: '',
+      }),
+      dataIndex: 'l_can_history_borrow',
+      key: 'l_can_history_borrow',
       render: (_, record) => {
         return (
           <Popconfirm
-            title={`Are you sure to switch ${FieldLabels.j_status}`}
-            onConfirm={confirmSwitch.bind(this, record, FieldIndex.j_status)}
+            title={`${intl.formatMessage({
+              id: 'pages.common.switch_tip',
+              defaultMessage: '',
+            })} ${intl.formatMessage({
+              id: 'pages.Borrow.ReviewAdmin.l_can_history_borrow',
+              defaultMessage: '',
+            })}`}
+            onConfirm={confirmSwitch.bind(this, record, 'l_can_history_borrow2')}
             // onCancel={cancel}
             okText="Yes"
             cancelText="No"
           >
-            <Switch checkedChildren="开" unCheckedChildren="关" checked={record.j_status === 'y'} />
+            <Switch
+              checkedChildren={intl.formatMessage({ id: 'pages.common.open', defaultMessage: '' })}
+              unCheckedChildren={intl.formatMessage({
+                id: 'pages.common.close',
+                defaultMessage: '',
+              })}
+              checked={record.l_can_history_borrow === 'y'}
+            />
+          </Popconfirm>
+        );
+      },
+    },
+
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.n_review_wait_count',
+        defaultMessage: '',
+      }),
+      dataIndex: 'n_review_wait_count',
+      key: 'n_review_wait_count',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.o_review_refuse_count',
+        defaultMessage: '',
+      }),
+      dataIndex: 'o_review_refuse_count',
+      key: 'o_review_refuse_count',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.p_review_accept_count',
+        defaultMessage: '',
+      }),
+      dataIndex: 'p_review_accept_count',
+      key: 'p_review_accept_count',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.q_review_wait_count1',
+        defaultMessage: '',
+      }),
+      dataIndex: 'q_review_wait_count1',
+      key: 'q_review_wait_count1',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.r_review_wait_count2',
+        defaultMessage: '',
+      }),
+      dataIndex: 'r_review_wait_count2',
+      key: 'r_review_wait_count2',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.ReviewAdmin.s_review_wait_count3',
+        defaultMessage: '',
+      }),
+      dataIndex: 's_review_wait_count3',
+      key: 's_review_wait_count3',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewAdmin.j_status', defaultMessage: '' }),
+      dataIndex: 'j_status',
+      key: 'j_status',
+      render: (_, record) => {
+        return (
+          <Popconfirm
+            title={`${intl.formatMessage({
+              id: 'pages.common.switch_tip',
+              defaultMessage: '',
+            })} ${intl.formatMessage({
+              id: 'pages.Borrow.ReviewAdmin.j_status',
+              defaultMessage: '',
+            })}`}
+            onConfirm={confirmSwitch.bind(this, record, 'j_status2')}
+            // onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Switch
+              checkedChildren={intl.formatMessage({ id: 'pages.common.open', defaultMessage: '' })}
+              unCheckedChildren={intl.formatMessage({
+                id: 'pages.common.close',
+                defaultMessage: '',
+              })}
+              checked={record.j_status === 'y'}
+            />
           </Popconfirm>
         );
       },
     },
     {
-      title: '操作',
+      title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
@@ -427,7 +493,7 @@ const TableList: React.FC = () => {
         if (record.n_review_wait_count! > 0) {
           move = (
             <a key="move" onClick={() => onReleaseClick(record)}>
-              释放
+              {intl.formatMessage({ id: 'pages.common.option.release', defaultMessage: '' })}
             </a>
           );
         }
@@ -441,7 +507,6 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '审核成员管理',
         ghost: true,
       }}
     >

@@ -1,24 +1,30 @@
-import { FieldIndex, FieldLabels } from '@/pages/Review/ReviewBorrowFlow/service';
+import { FLOW_TYPE } from '@/pages/Review/ReviewBorrowFlow/enums';
+import { US_FLOW_TYPE } from '@/pages/Review/ReviewBorrowFlow/enumsUs';
 import type { TableListPagination } from '@/pages/UserManager/AUser/data';
+import { getAdminV1BHReviewBorrowFlows as index } from '@/services/ant-design-pro/BHReviewBorrowFlow';
+import { useIntl } from '@@/exports';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
-import { Drawer } from 'antd';
+import { ConfigProvider, Drawer } from 'antd';
 import moment from 'moment';
-import React, { useRef, useState } from 'react';
-
-export { getAdminV1BHReviewBorrowFlows as index2 } from '@/services/ant-design-pro/BHReviewBorrowFlow';
+import React, { useContext, useRef, useState } from 'react';
 
 export type DrawerFCProps = {
   showDetail: boolean;
   onClose: () => void;
   data: API.BFReviewBorrow;
   admins: RequestOptionsType[];
+  groups: RequestOptionsType[];
 };
 
 const DrawerFC: React.FC<DrawerFCProps> = (props) => {
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   const [admins, setAdmins] = useState<RequestOptionsType[]>(props.admins);
+  const [groups, setGroups] = useState<RequestOptionsType[]>(props.admins);
   /**
    * 获取用户动态
    * @param params
@@ -36,7 +42,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
-    const res = await index2({
+    const res = await index({
       // @ts-ignore
       a_borrow_id: props.data!.a_borrow_id!,
       page: params.current,
@@ -54,7 +60,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
   /**
    * 查询管理员enum
    */
-  const _getUserEnum = async () => {
+  const _getUsersEnum = async () => {
     if (admins.length === 0) {
       setAdmins(props.admins);
       return props.admins;
@@ -62,12 +68,36 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
       return admins;
     }
   };
+  /**
+   * 查询管理员enum
+   */
+  const _getAPReviewGroupsEnum = async () => {
+    if (groups.length === 0) {
+      setGroups(props.groups);
+      return props.groups;
+    } else {
+      return groups;
+    }
+  };
   const columns: ProColumns<API.BHReviewBorrowFlow>[] = [
     {
-      title: FieldLabels.b_before_admin_id,
-      dataIndex: FieldIndex.b_before_admin_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.c_before_review_group_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'c_before_review_group_id',
       valueType: 'select',
-      request: _getUserEnum,
+      request: _getAPReviewGroupsEnum,
+      params: { timestamp: Math.random() },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.b_before_admin_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'b_before_admin_id',
+      valueType: 'select',
+      request: _getUsersEnum,
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
@@ -80,10 +110,32 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
       },
     },
     {
-      title: FieldLabels.d_after_admin_id,
-      dataIndex: FieldIndex.d_after_admin_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.g_type',
+        defaultMessage: '',
+      }),
+      dataIndex: 'g_type',
       valueType: 'select',
-      request: _getUserEnum,
+      valueEnum: currentLanguage === 'zh-cn' ? FLOW_TYPE : US_FLOW_TYPE,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.e_after_review_group_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'e_after_review_group_id',
+      valueType: 'select',
+      request: _getAPReviewGroupsEnum,
+      params: { timestamp: Math.random() },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.d_after_admin_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'd_after_admin_id',
+      valueType: 'select',
+      request: _getUsersEnum,
       render: (_, record) => {
         //todo 如果管理员状态被禁用，删除线
         return admins.find((item) => {
@@ -96,18 +148,21 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
       },
     },
     {
-      title: '流转时间',
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BHReviewBorrowFlow.created_at',
+        defaultMessage: '',
+      }),
       dataIndex: 'created_at',
       key: 'created_at',
-      render: (_, value) => {
-        return moment(value.created_at).format('YYYY-MM-DD HH:mm');
+      render: (_, record) => {
+        return moment(record.created_at).format('YYYY-MM-DD HH:mm');
       },
     },
   ];
 
   return (
     <Drawer
-      width={600}
+      width={900}
       open={props.showDetail}
       onClose={() => {
         props.onClose();
