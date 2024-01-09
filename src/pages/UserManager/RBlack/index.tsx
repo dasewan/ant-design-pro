@@ -99,7 +99,6 @@ const RBlack: FC = () => {
   };
 
   const _getTabKey = () => {
-    console.log(location.pathname);
     const url = '/user-manager/black-info-list';
     const tabKey = location.pathname.replace(`${url}/`, '');
     if (tabKey && tabKey !== '/') {

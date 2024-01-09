@@ -2,6 +2,7 @@ import { BORROW_SUB_STATUS_ENUM } from '@/pages/enums';
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { getAdminV1DBorrowsWaitingLoan as index } from '@/services/ant-design-pro/DBorrow';
 import { putAdminV1MBLoansId as update } from '@/services/ant-design-pro/MBLoan';
+import { useIntl } from '@@/exports';
 import { QuestionOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -11,9 +12,9 @@ import { message, Popconfirm, Space, Table, Tooltip } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
   const actionRef = useRef<ActionType>();
   /** 渠道enum */
   const [channels, setChannels] = useState<RequestOptionsType[]>([]);
@@ -131,65 +132,99 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.h_sn,
-      dataIndex: FieldIndex.h_sn,
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.h_sn', defaultMessage: '' }),
+      dataIndex: 'h_sn',
+      render: (_, record) => {
+        return (
+          <a key="edit" target="_blank" rel="noreferrer" href={`/borrow/detail/${record.id}`}>
+            {record.h_sn}
+          </a>
+        );
+      },
     },
     {
-      title: FieldLabels.l_borrow_count,
-      dataIndex: FieldIndex.l_borrow_count,
-    },
-    {
-      title: FieldLabels.m_borrow_amount,
-      dataIndex: FieldIndex.m_borrow_amount,
-    },
-    {
-      title: FieldLabels.p_loan_amount,
-      dataIndex: FieldIndex.p_loan_amount,
-    },
-    {
-      title: FieldLabels.k_sub_status,
-      dataIndex: FieldIndex.k_sub_status,
-      valueEnum: BORROW_SUB_STATUS_ENUM,
-      hideInSearch: true,
-    },
-    {
-      title: FieldLabels.b_channel_id,
-      dataIndex: FieldIndex.b_channel_id,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.b_channel_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'b_channel_id',
       valueType: 'select',
       request: _getChannelsEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: FieldLabels.a_k_phone,
-      dataIndex: FieldIndex.a_k_phone,
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.a_k_phone', defaultMessage: '' }),
+      dataIndex: 'a_k_phone',
     },
     {
-      title: FieldLabels.a_l_name1,
-      dataIndex: FieldIndex.a_l_name1,
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.a_l_name1', defaultMessage: '' }),
+      dataIndex: 'a_l_name1',
     },
     {
-      title: FieldLabels.created_at,
-      dataIndex: FieldIndex.created_at,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.l_borrow_count',
+        defaultMessage: '',
+      }),
+      dataIndex: 'l_borrow_count',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.m_borrow_amount',
+        defaultMessage: '',
+      }),
+      dataIndex: 'm_borrow_amount',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.p_loan_amount',
+        defaultMessage: '',
+      }),
+      dataIndex: 'p_loan_amount',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.k_sub_status',
+        defaultMessage: '',
+      }),
+      dataIndex: 'k_sub_status',
+      valueEnum: BORROW_SUB_STATUS_ENUM,
+      hideInSearch: true,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.created_at', defaultMessage: '' }),
+      dataIndex: 'created_at',
+      render: (_, record) => {
+        return moment(record.created_at).format('YYYY-MM-DD HH:mm:ss');
+      },
       valueType: 'dateRange',
-      render: (_, value) => {
-        return moment(value.created_at).format('YYYY-MM-DD');
-      },
       search: {
-        transform: (value: any) => ({ 'created_at[0]': value[0], 'created_at[1]': value[1] }),
+        transform: (value: any) => {
+          return {
+            'created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
     },
     {
-      title: '操作',
+      title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
-        const remove = (
+        const transfer = (
           <Popconfirm
             title={
               <>
-                Are you sure to transfer
-                <text style={{ color: 'red' }}>{record.a_k_phone}</text>
-                the total money <text style={{ color: 'red' }}>{record.p_loan_amount}</text>
+                {intl.formatMessage({ id: 'pages.Loan.option.transfer_tip1', defaultMessage: '' })}
+                <b style={{ color: 'red' }}>{record.a_k_phone}</b>
+                {intl.formatMessage({ id: 'pages.Loan.option.transfer_tip2', defaultMessage: '' })}
+                <b style={{ color: 'red' }}>{record.p_loan_amount}</b>
               </>
             }
             key={record.id}
@@ -197,10 +232,10 @@ const TableList: React.FC = () => {
             okText="Yes"
             cancelText="No"
           >
-            <a href="@/pages/UserManager/BAWhite/index#">transfer</a>
+            <a>{intl.formatMessage({ id: 'pages.Loan.option.transfer', defaultMessage: '' })}</a>
           </Popconfirm>
         );
-        return [remove];
+        return [transfer];
       },
     },
   ];

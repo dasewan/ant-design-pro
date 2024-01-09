@@ -1,20 +1,16 @@
-import CreateForm from '@/pages/Risk/RiskItemCat/components/CreateForm';
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { getAdminV1MBLoans as index } from '@/services/ant-design-pro/MBLoan';
+import { useIntl } from '@@/exports';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
   const actionRef = useRef<ActionType>();
-  /** 风控字段展示 */
-  const [createModalVisible, handleCreateModalVisible] = useState<boolean>(false);
-  /** 当前编辑数据 */
-  const [id, setId] = useState<number>(0);
   const [channels, setChannels] = useState<RequestOptionsType[]>([]);
 
   /** table */
@@ -66,92 +62,144 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.a_a_a_a_a_d_borrow.h_sn,
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.h_sn', defaultMessage: '' }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'h_sn'],
-      copyable: true,
-      width: 160,
-      fixed: 'left',
+      search: {
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-h_sn': value }),
+      },
     },
     {
-      title: FieldLabels.a_a_a_a_a_d_borrow.b_channel_id,
-      dataIndex: ['a_a_a_a_a_d_borrow', 'b_channel_id'],
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.b_channel_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'b_channel_id',
       valueType: 'select',
       request: _getChannelsEnum,
       params: { timestamp: Math.random() },
-      width: 140,
     },
     {
-      title: FieldLabels.a_a_a_a_a_d_borrow.a_l_name1,
-      dataIndex: ['a_a_a_a_a_d_borrow', 'a_l_name1'],
-      width: 140,
-    },
-    {
-      title: FieldLabels.a_a_a_a_a_d_borrow.a_k_phone,
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.a_k_phone', defaultMessage: '' }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'a_k_phone'],
       copyable: true,
-      width: 140,
-    },
-    {
-      title: FieldLabels.a_a_a_a_a_d_borrow.created_at,
-      dataIndex: ['a_a_a_a_a_d_borrow', 'created_at'],
-      valueType: 'dateRange',
-      render: (_, value) => {
-        return moment(value.a_a_a_a_a_d_borrow!.created_at).format('YYYY-MM-DD HH:mm');
-      },
       search: {
-        transform: (value: any) => ({
-          'a_a_a_a_a_d_borrow-created_at[0]': value[0],
-          'a_a_a_a_a_d_borrow-created_at[1]': value[1],
-        }),
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-a_k_phone': value }),
       },
-      width: 140,
     },
     {
-      title: FieldLabels.a_a_a_a_a_d_borrow.l_borrow_count,
-      dataIndex: ['a_a_a_a_a_d_borrow', 'l_borrow_count'],
-      width: 80,
-    },
-    {
-      title: FieldLabels.a_a_a_a_a_d_borrow.m_borrow_amount,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.m_borrow_amount',
+        defaultMessage: '',
+      }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'm_borrow_amount'],
-      width: 80,
+      search: {
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-m_borrow_amount': value }),
+      },
     },
     {
-      title: FieldLabels.g_receiver_name,
-      dataIndex: FieldIndex.g_receiver_name,
-      width: 120,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.p_loan_amount',
+        defaultMessage: '',
+      }),
+      dataIndex: ['a_a_a_a_a_d_borrow', 'p_loan_amount'],
+      search: {
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-p_loan_amount': value }),
+      },
     },
     {
-      title: FieldLabels.h_receiver_bankcard_number,
-      dataIndex: FieldIndex.h_receiver_bankcard_number,
-      width: 100,
+      title: intl.formatMessage({
+        id: 'pages.Borrow.BorrowDetail.l_borrow_count',
+        defaultMessage: '',
+      }),
+      dataIndex: ['a_a_a_a_a_d_borrow', 'l_borrow_count'],
+      search: {
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-l_borrow_count': value }),
+      },
     },
     {
-      title: FieldLabels.l_call_times,
-      dataIndex: FieldIndex.l_call_times,
-      width: 80,
+      title: intl.formatMessage({ id: 'pages.Loan.g_receiver_name', defaultMessage: '' }),
+      dataIndex: 'g_receiver_name',
     },
     {
-      title: FieldLabels.c_payment_channel,
-      dataIndex: FieldIndex.c_payment_channel,
-      width: 80,
+      title: intl.formatMessage({
+        id: 'pages.Loan.h_receiver_bankcard_number',
+        defaultMessage: '',
+      }),
+      dataIndex: 'h_receiver_bankcard_number',
     },
     {
-      title: FieldLabels.d_loan_time,
-      dataIndex: FieldIndex.d_loan_time,
+      title: intl.formatMessage({ id: 'pages.Loan.l_call_times', defaultMessage: '' }),
+      dataIndex: 'l_call_times',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.Loan.c_payment_channel', defaultMessage: '' }),
+      dataIndex: 'c_payment_channel',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.created_at', defaultMessage: '' }),
+      dataIndex: 'a_a_a_a_a_d_borrow.created_at',
+      render: (_, record) => {
+        return moment(record.created_at).format('YYYY-MM-DD HH:mm:ss');
+      },
       valueType: 'dateRange',
-      render: (_, value) => {
-        return moment(value.d_loan_time).format('YYYY-MM-DD HH:mm:ss');
+      search: {
+        transform: (value: any) => {
+          return {
+            'a_a_a_a_a_d_borrow-created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'a_a_a_a_a_d_borrow-created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.Loan.created_at', defaultMessage: '' }),
+      dataIndex: 'created_at',
+      valueType: 'dateRange',
+      render: (_, record) => {
+        return moment(record.d_loan_time).format('YYYY-MM-DD HH:mm:ss');
       },
       search: {
-        transform: (value: any) => ({ 'd_loan_time[0]': value[0], 'd_loan_time[1]': value[1] }),
+        transform: (value: any) => {
+          return {
+            'created_at[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'created_at[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
       },
-      fixed: 'right',
     },
     {
-      title: FieldLabels.a_a_a_a_a_d_borrow.p_loan_amount,
-      dataIndex: ['a_a_a_a_a_d_borrow', 'p_loan_amount'],
-      fixed: 'right',
+      title: intl.formatMessage({ id: 'pages.Loan.d_loan_time', defaultMessage: '' }),
+      dataIndex: 'd_loan_time',
+      valueType: 'dateRange',
+      render: (_, record) => {
+        return moment(record.d_loan_time).format('YYYY-MM-DD HH:mm:ss');
+      },
+      search: {
+        transform: (value: any) => {
+          return {
+            'd_loan_time[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'd_loan_time[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
     },
   ];
 
@@ -174,24 +222,6 @@ const TableList: React.FC = () => {
         pagination={{
           pageSize: 50,
         }}
-      />
-      {/*表单model*/}
-      <CreateForm
-        onSubmit={async (success) => {
-          if (success) {
-            handleCreateModalVisible(false);
-            setId(0);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
-        }}
-        onCancel={() => {
-          handleCreateModalVisible(false);
-          setId(0);
-        }}
-        id={id}
-        modalVisible={createModalVisible}
       />
     </>
   );

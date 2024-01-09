@@ -1,12 +1,15 @@
 import { getAdminV1MBLoanTab as getTab } from '@/services/ant-design-pro/MBLoan';
-import { Outlet } from '@@/exports';
+import { useIntl } from '@@/exports';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { TabPaneProps } from 'antd';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
-import { history } from 'umi';
+import { AliveScope, KeepAlive } from 'react-activation';
+import { useLocation } from 'react-router-dom';
+import { history, Outlet } from 'umi';
 
 const RBlack: FC = () => {
+  const intl = useIntl();
   /** tabs */
   const [tabList, setTabList] = useState<
     (TabPaneProps & {
@@ -15,31 +18,54 @@ const RBlack: FC = () => {
   >([
     {
       key: 'success-loan',
-      tab: '放款成功订单',
+      tab: intl.formatMessage({
+        id: 'pages.Loan.success-loan',
+        defaultMessage: 'phone',
+      }),
     },
     {
       key: 'processing-loan',
-      tab: '放款中订单',
+      tab: intl.formatMessage({
+        id: 'pages.Loan.processing-loan',
+        defaultMessage: 'phone',
+      }),
     },
     {
       key: 'fail-loan',
-      tab: '放款失败订单',
+      tab: intl.formatMessage({
+        id: 'pages.Loan.fail-loan',
+        defaultMessage: 'phone',
+      }),
     },
     {
       key: 'unknown-loan',
-      tab: '放款未知结果订单',
+      tab: intl.formatMessage({
+        id: 'pages.Loan.unknown-loan',
+        defaultMessage: 'phone',
+      }),
     },
     {
       key: 'intercept-loan',
-      tab: '放款拦截订单',
+      tab: intl.formatMessage({
+        id: 'pages.Loan.intercept-loan',
+        defaultMessage: 'phone',
+      }),
     },
   ]);
+  const location = useLocation();
   /** 获取tab */
   const _getRBlackTab = async () => {
+    // return;
     // @ts-ignore
     const res = await getTab({ foo: null });
     tabList.forEach((value) => {
       const tabCount = res.data?.find((item: API.CommonTab) => item.key === value.key)?.tab_count;
+      let color = 'blue';
+      if (value.key === 'success-loan') {
+        color = 'green';
+      } else if (value.key === 'intercept-loan' || value.key === 'fail-loan') {
+        color = 'red';
+      }
       const todayCount = res.data?.find(
         (item: API.CommonTab) => item.key === value.key,
       )?.today_count;
@@ -48,9 +74,9 @@ const RBlack: FC = () => {
           <div>
             {value.tab + ' '}
             <span className={'statistic-total-increase'}>
-              {todayCount !== undefined && todayCount > 0 ? '+' + todayCount : ''}
+              {todayCount !== undefined && todayCount > 0 ? '' + todayCount : ''}
             </span>
-            <span className={'statistic-today-increase'}>
+            <span className={'statistic-today-increase'} style={{ color: color }}>
               {todayCount !== undefined && todayCount > 0 ? '+' + todayCount : ''}
             </span>
           </div>
@@ -69,27 +95,35 @@ const RBlack: FC = () => {
   };
 
   const _getTabKey = () => {
-    /*    const { location } = props;
-        const url = match.path === '/' ? '' : match.path;
-        const tabKey = location.pathname.replace(`${url}/`, '');
-        if (tabKey && tabKey !== '/') {
-          return tabKey;
-        }*/
-    return 'articles';
+    const url = '/loan/loan-list';
+    const tabKey = location.pathname.replace(`${url}/`, '');
+    console.log(tabKey);
+    if (tabKey && tabKey !== '/') {
+      return tabKey;
+    }
+    return 'success-loan';
   };
 
   return (
-    <PageContainer
-      header={{
-        title: '放款结果',
-        ghost: true,
-      }}
-      tabList={tabList}
-      tabActiveKey={_getTabKey()}
-      onTabChange={_handleTabChange}
-    >
-      <Outlet />
-    </PageContainer>
+    <AliveScope>
+      <PageContainer
+        header={{
+          ghost: true,
+        }}
+        tabList={tabList}
+        tabActiveKey={_getTabKey()}
+        onTabChange={_handleTabChange}
+      >
+        <KeepAlive
+          when={true}
+          name={location.pathname}
+          id={location.pathname}
+          saveScrollPosition="screen"
+        >
+          <Outlet context={{}} />
+        </KeepAlive>
+      </PageContainer>
+    </AliveScope>
   );
 };
 
