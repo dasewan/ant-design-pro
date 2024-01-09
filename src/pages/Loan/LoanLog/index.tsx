@@ -1,25 +1,32 @@
 import { CALLBACK_CODE, LOAN_LOG_STATUS, LOAN_LOG_TYPE, SYNC_CODE } from '@/pages/enums';
+import {
+  US_CALLBACK_CODE,
+  US_LOAN_LOG_STATUS,
+  US_LOAN_LOG_TYPE,
+  US_SYNC_CODE,
+} from '@/pages/enumsUs';
 import DetailModel from '@/pages/Loan/LoanLog/components/DetailModel';
-import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
 import { getAdminV1MCLoanLogs as index } from '@/services/ant-design-pro/MCLoanLog';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
+import { useIntl } from '@@/exports';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type { ProFieldRequestData, RequestOptionsType } from '@ant-design/pro-utils';
+import type { RequestOptionsType } from '@ant-design/pro-utils';
+import { ConfigProvider } from 'antd';
 import moment from 'moment';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import styles from './index.less';
-import { FieldIndex, FieldLabels } from './service';
 
 const TableList: React.FC = () => {
+  const intl = useIntl();
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  const currentLanguage = locale!.locale;
   const actionRef = useRef<ActionType>();
   /** 当前编辑数据 */
   /** 管理员enum */
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
-  /** 当前编辑数据 */
-  const [channels, setChannels] = useState<RequestOptionsType[]>([]);
   /** 当前数据 */
   const [newRecord, setNewRecord] = useState<TableListItem>();
   /** 明细model */
@@ -73,26 +80,6 @@ const TableList: React.FC = () => {
   };
 
   /**
-   * 查询渠道enum
-   */
-  const _getChannelsEnum: ProFieldRequestData = async () => {
-    const data: RequestOptionsType[] = [];
-    if (channels.length === 0) {
-      const res = await getChannelsEnum({ foo: 1 });
-      for (const item of res.data!) {
-        data.push({
-          label: item.a_title,
-          value: item.id,
-        });
-      }
-      setChannels(data);
-      return data;
-    } else {
-      return channels;
-    }
-  };
-
-  /**
    * 展示明细model
    * @param record
    */
@@ -110,70 +97,99 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.a_a_a_a_a_d_borrow.h_sn,
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.h_sn', defaultMessage: '' }),
       dataIndex: ['a_a_a_a_a_d_borrow', 'h_sn'],
       copyable: true,
       width: 160,
-      fixed: 'left',
+      search: {
+        transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-h_sn': value }),
+      },
     },
     {
-      title: '订单信息',
+      title: intl.formatMessage({ id: 'pages.LoanLog.borrow_info', defaultMessage: '' }),
       search: false,
       children: [
         {
-          title: FieldLabels.a_a_a_a_a_d_borrow.b_channel_id,
-          dataIndex: ['a_a_a_a_a_d_borrow', 'b_channel_id'],
-          valueType: 'select',
-          request: _getChannelsEnum,
-          params: { timestamp: Math.random() },
-          width: 140,
-        },
-        {
-          title: FieldLabels.a_a_a_a_a_d_borrow.a_l_name1,
-          dataIndex: ['a_a_a_a_a_d_borrow', 'a_l_name1'],
-          width: 140,
-        },
-        {
-          title: FieldLabels.a_a_a_a_a_d_borrow.a_k_phone,
+          title: intl.formatMessage({
+            id: 'pages.Borrow.BorrowDetail.a_k_phone',
+            defaultMessage: '',
+          }),
           dataIndex: ['a_a_a_a_a_d_borrow', 'a_k_phone'],
           copyable: true,
           width: 140,
-        },
-        {
-          title: FieldLabels.a_a_a_a_a_d_borrow.created_at,
-          dataIndex: ['a_a_a_a_a_d_borrow', 'created_at'],
-          valueType: 'dateRange',
-          render: (_, value) => {
-            return moment(value.a_a_a_a_a_d_borrow!.created_at).format('YYYY-MM-DD HH:mm');
-          },
           search: {
-            transform: (value: any) => ({
-              'a_a_a_a_a_d_borrow-created_at[0]': value[0],
-              'a_a_a_a_a_d_borrow-created_at[1]': value[1],
-            }),
+            transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-a_k_phone': value }),
           },
-          width: 140,
         },
         {
-          title: FieldLabels.a_a_a_a_a_d_borrow.l_borrow_count,
-          dataIndex: ['a_a_a_a_a_d_borrow', 'l_borrow_count'],
-          width: 80,
-        },
-        {
-          title: FieldLabels.a_a_a_a_a_d_borrow.m_borrow_amount,
+          title: intl.formatMessage({
+            id: 'pages.Borrow.BorrowDetail.m_borrow_amount',
+            defaultMessage: '',
+          }),
           dataIndex: ['a_a_a_a_a_d_borrow', 'm_borrow_amount'],
-          width: 80,
+          width: 140,
+          search: {
+            transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-m_borrow_amount': value }),
+          },
+        },
+        {
+          title: intl.formatMessage({
+            id: 'pages.Borrow.BorrowDetail.p_loan_amount',
+            defaultMessage: '',
+          }),
+          dataIndex: ['a_a_a_a_a_d_borrow', 'p_loan_amount'],
+          width: 140,
+          search: {
+            transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-p_loan_amount': value }),
+          },
+        },
+        {
+          title: intl.formatMessage({
+            id: 'pages.Borrow.BorrowDetail.l_borrow_count',
+            defaultMessage: '',
+          }),
+          dataIndex: ['a_a_a_a_a_d_borrow', 'l_borrow_count'],
+          width: 100,
+          search: {
+            transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-l_borrow_count': value }),
+          },
+        },
+        {
+          title: intl.formatMessage({
+            id: 'pages.Borrow.BorrowDetail.created_at',
+            defaultMessage: '',
+          }),
+          dataIndex: 'created_at',
+          width: 180,
+          render: (_, record) => {
+            return moment(record.created_at).format('YYYY-MM-DD HH:mm:ss');
+          },
+          valueType: 'dateRange',
+          search: {
+            transform: (value: any) => {
+              return {
+                'a_a_a_a_a_d_borrow-created_at[0]':
+                  value[0].$d !== undefined
+                    ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                    : value[0] + ' 00:00:00',
+                'a_a_a_a_a_d_borrow-created_at[1]':
+                  value[1].$d !== undefined
+                    ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                    : value[1] + ' 00:00:00',
+              };
+            },
+          },
         },
       ],
     },
     {
-      title: '流水信息',
+      title: intl.formatMessage({ id: 'pages.LoanLog.log_info', defaultMessage: '' }),
       search: false,
       className: styles.blue,
       children: [
         {
-          title: FieldLabels.c_admin_id,
-          dataIndex: FieldIndex.c_admin_id,
+          title: intl.formatMessage({ id: 'pages.LoanLog.c_admin_id', defaultMessage: '' }),
+          dataIndex: 'c_admin_id',
           valueType: 'select',
           request: _getUsersEnum,
           className: styles.blue,
@@ -191,43 +207,49 @@ const TableList: React.FC = () => {
           width: 80,
         },
         {
-          title: FieldLabels.e_payment_channel,
-          dataIndex: FieldIndex.e_payment_channel,
+          title: intl.formatMessage({ id: 'pages.LoanLog.e_payment_channel', defaultMessage: '' }),
+          dataIndex: 'e_payment_channel',
           className: styles.blue,
           width: 140,
         },
         {
-          title: FieldLabels.g_type,
-          dataIndex: FieldIndex.g_type,
+          title: intl.formatMessage({ id: 'pages.LoanLog.g_type', defaultMessage: '' }),
+          dataIndex: 'g_type',
           initialValue: [],
           valueType: 'select',
-          valueEnum: LOAN_LOG_TYPE,
+          valueEnum: currentLanguage === 'zh-cn' ? LOAN_LOG_TYPE : US_LOAN_LOG_TYPE,
           className: styles.blue,
           width: 90,
         },
 
         {
-          title: FieldLabels.i_receiver_name,
-          dataIndex: FieldIndex.i_receiver_name,
+          title: intl.formatMessage({ id: 'pages.LoanLog.i_receiver_name', defaultMessage: '' }),
+          dataIndex: 'i_receiver_name',
+          className: styles.blue,
+          width: 250,
+        },
+        {
+          title: intl.formatMessage({
+            id: 'pages.LoanLog.j_receiver_bankcard_number',
+            defaultMessage: '',
+          }),
+          dataIndex: 'j_receiver_bankcard_number',
           className: styles.blue,
           width: 140,
         },
         {
-          title: FieldLabels.j_receiver_bankcard_number,
-          dataIndex: FieldIndex.j_receiver_bankcard_number,
-          className: styles.blue,
-          width: 140,
-        },
-        {
-          title: FieldLabels.k_receiver_bankcard_name,
-          dataIndex: FieldIndex.k_receiver_bankcard_name,
+          title: intl.formatMessage({
+            id: 'pages.LoanLog.k_receiver_bankcard_name',
+            defaultMessage: '',
+          }),
+          dataIndex: 'k_receiver_bankcard_name',
           className: styles.blue,
           width: 140,
         },
 
         {
-          title: FieldLabels.q_outer_sn,
-          dataIndex: FieldIndex.q_outer_sn,
+          title: intl.formatMessage({ id: 'pages.LoanLog.q_outer_sn', defaultMessage: '' }),
+          dataIndex: 'q_outer_sn',
           className: styles.blue,
           width: 140,
           copyable: true,
@@ -235,14 +257,14 @@ const TableList: React.FC = () => {
       ],
     },
     {
-      title: FieldLabels.a_b_index,
-      dataIndex: FieldIndex.a_b_index,
+      title: intl.formatMessage({ id: 'pages.LoanLog.a_b_index', defaultMessage: '' }),
+      dataIndex: 'a_b_index',
       width: 80,
       fixed: 'right',
     },
     {
-      title: FieldLabels.o_loan_time,
-      dataIndex: FieldIndex.o_loan_time,
+      title: intl.formatMessage({ id: 'pages.LoanLog.o_loan_time', defaultMessage: '' }),
+      dataIndex: 'o_loan_time',
       valueType: 'dateRange',
       render: (_, value) => {
         return moment(value.o_loan_time).format('YYYY-MM-DD HH:mm:ss');
@@ -254,48 +276,48 @@ const TableList: React.FC = () => {
       width: 150,
     },
     {
-      title: FieldLabels.r_amount,
-      dataIndex: FieldIndex.r_amount,
+      title: intl.formatMessage({ id: 'pages.LoanLog.r_amount', defaultMessage: '' }),
+      dataIndex: 'r_amount',
       width: 100,
       fixed: 'right',
     },
     {
-      title: FieldLabels.t_sync_code,
-      dataIndex: FieldIndex.t_sync_code,
+      title: intl.formatMessage({ id: 'pages.LoanLog.t_sync_code', defaultMessage: '' }),
+      dataIndex: 't_sync_code',
       initialValue: [],
       valueType: 'select',
-      valueEnum: SYNC_CODE,
+      valueEnum: currentLanguage === 'zh-cn' ? SYNC_CODE : US_SYNC_CODE,
       width: 100,
       fixed: 'right',
     },
     {
-      title: FieldLabels.w_callback_code,
-      dataIndex: FieldIndex.w_callback_code,
+      title: intl.formatMessage({ id: 'pages.LoanLog.w_callback_code', defaultMessage: '' }),
+      dataIndex: 'w_callback_code',
       initialValue: [],
       valueType: 'select',
-      valueEnum: CALLBACK_CODE,
-      width: 120,
+      valueEnum: currentLanguage === 'zh-cn' ? CALLBACK_CODE : US_CALLBACK_CODE,
+      width: 140,
       fixed: 'right',
     },
     {
-      title: FieldLabels.h_status,
-      dataIndex: FieldIndex.h_status,
+      title: intl.formatMessage({ id: 'pages.LoanLog.h_status', defaultMessage: '' }),
+      dataIndex: 'h_status',
       initialValue: [],
       valueType: 'select',
-      valueEnum: LOAN_LOG_STATUS,
-      width: 90,
+      valueEnum: currentLanguage === 'zh-cn' ? LOAN_LOG_STATUS : US_LOAN_LOG_STATUS,
+      width: 140,
       fixed: 'right',
     },
     {
-      title: '操作',
+      title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),
       dataIndex: 'id',
       valueType: 'option',
-      width: 60,
+      width: 90,
       fixed: 'right',
       render: (_, record) => {
         const edit = (
           <a key="overdue" onClick={() => onDetailClick(record)}>
-            明细
+            {intl.formatMessage({ id: 'pages.LoanLog.detail', defaultMessage: '' })}
           </a>
         );
 
@@ -308,7 +330,6 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '放款流水',
         ghost: true,
       }}
     >
@@ -334,7 +355,6 @@ const TableList: React.FC = () => {
       <DetailModel
         onOk={onDetailModelOk}
         admins={admins}
-        channels={channels}
         modalVisible={detailModalVisible}
         id={newRecord?.id}
       />

@@ -342,8 +342,9 @@ export const LOAN_LOG_METHOD: StatusEnum = {
 };
 //放款日志类型
 export const LOAN_LOG_TYPE: StatusEnum = {
-  1: { text: '正常放款', status: '' },
-  2: { text: '强行放款', status: 'Error' },
+  1: { text: '人工', status: 'Default' },
+  2: { text: '强行', status: 'Error' },
+  3: { text: '自动', status: 'Warning' },
 };
 //放款款日志类型 type 1:结清 2：展期 3：部分还款 4：减免 5：核销
 export const REPAY_LOG_TYPE: StatusColorEnum = {
@@ -375,14 +376,14 @@ export const REPAY_WAY: StatusEnum = {
   2: { text: 'app', status: '' },
 };
 export const SYNC_CODE: StatusEnum = {
-  300: { text: '请求结果未知', status: 'Processing' },
-  500: { text: '请求失败', status: 'Error' },
-  200: { text: '请求成功', status: 'Success' },
-  500_001: { text: '风控拦截', status: 'Error' },
-  500_002: { text: '系统异常', status: 'Error' },
+  300: { text: '未知', status: 'Processing' },
+  500: { text: '失败', status: 'Error' },
+  200: { text: '成功', status: 'Success' },
+  500_001: { text: '拦截', status: 'Error' },
+  500_002: { text: '异常', status: 'Error' },
 };
 export const CALLBACK_CODE: StatusEnum = {
-  100: { text: '暂未收到回调', status: 'Default' },
+  100: { text: '暂未收到', status: 'Default' },
   500: { text: '回调失败', status: 'Error' },
   200: { text: '回调成功', status: 'Success' },
 };

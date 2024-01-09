@@ -298,8 +298,9 @@ export const US_LOAN_LOG_METHOD: StatusEnum = {
 };
 //放款日志类型
 export const US_LOAN_LOG_TYPE: StatusEnum = {
-  1: { text: '正常放款', status: '' },
-  2: { text: '强行放款', status: 'Error' },
+  1: { text: 'Admin', status: 'Default' },
+  2: { text: 'Force', status: 'Error' },
+  3: { text: 'Auto', status: 'Warning' },
 };
 //放款款日志类型 type 1:结清 2：展期 3：部分还款 4：减免 5：核销
 export const US_REPAY_LOG_TYPE: StatusColorEnum = {
@@ -311,11 +312,11 @@ export const US_REPAY_LOG_TYPE: StatusColorEnum = {
 };
 //放款日志状态  状态 10:待放款 20： 放款中 30:未知 40：放款失败 50：放款成功
 export const US_LOAN_LOG_STATUS: StatusEnum = {
-  10: { text: '待放款', status: 'Default' },
-  20: { text: '放款中', status: 'Processing' },
-  30: { text: '未知', status: 'Error' },
-  40: { text: '放款失败', status: 'Error' },
-  50: { text: '放款成功', status: 'Success' },
+  10: { text: 'waiting transfer', status: 'Default' },
+  20: { text: 'during transfer', status: 'Processing' },
+  30: { text: 'unknown', status: 'Error' },
+  40: { text: 'transfer fail', status: 'Error' },
+  50: { text: 'transfer success', status: 'Success' },
 };
 //放款日志状态  状态 10:回调中 20： 支付中 30:未知 40：支付失败 50：支付成功
 export const US_REPAY_LOG_STATUS: StatusEnum = {
@@ -331,16 +332,16 @@ export const US_REPAY_WAY: StatusEnum = {
   2: { text: 'app', status: '' },
 };
 export const US_SYNC_CODE: StatusEnum = {
-  300: { text: '请求结果未知', status: 'Processing' },
-  500: { text: '请求失败', status: 'Error' },
-  200: { text: '请求成功', status: 'Success' },
-  500_001: { text: '风控拦截', status: 'Error' },
-  500_002: { text: '系统异常', status: 'Error' },
+  300: { text: 'unknown', status: 'Processing' },
+  500: { text: 'fail', status: 'Error' },
+  200: { text: 'success', status: 'Success' },
+  500_001: { text: 'risk', status: 'Error' },
+  500_002: { text: 'error', status: 'Error' },
 };
 export const US_CALLBACK_CODE: StatusEnum = {
-  100: { text: '暂未收到回调', status: 'Default' },
-  500: { text: '回调失败', status: 'Error' },
-  200: { text: '回调成功', status: 'Success' },
+  100: { text: 'waiting callback', status: 'Default' },
+  500: { text: 'callback fail', status: 'Error' },
+  200: { text: 'callback success', status: 'Success' },
 };
 
 export const US_REVIEW_STATUS: StatusEnum = {
