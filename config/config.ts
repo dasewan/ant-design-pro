@@ -13,6 +13,7 @@ export default defineConfig({
    * @doc https://umijs.org/docs/api/config#hash
    */
   hash: true,
+  history: { type: 'hash' },
 
   /**
    * @name 兼容性设置
@@ -154,3 +155,4 @@ export default defineConfig({
   /*  base: '/admin/',
     publicPath: '/admin/',*/
 });
+

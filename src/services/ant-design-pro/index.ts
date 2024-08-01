@@ -61,15 +61,18 @@ import * as HECollectionGroup from './HECollectionGroup';
 import * as HFCollectionAgencyRole from './HFCollectionAgencyRole';
 import * as HGGrey from './HGGrey';
 import * as HHRecall from './HHRecall';
+import * as HIBackTip from './HIBackTip';
 import * as HProductSnapshot from './HProductSnapshot';
 import * as MBLoan from './MBLoan';
 import * as MCExtend from './MCExtend';
 import * as MCLoanLog from './MCLoanLog';
+import * as MGBanner from './MGBanner';
 import * as NBCollectionGroupRole from './NBCollectionGroupRole';
 import * as NCCollectionOrderFlowHistory from './NCCollectionOrderFlowHistory';
 import * as NDRiskValueSmsIncome from './NDRiskValueSmsIncome';
 import * as NERiskStrategyRoute from './NERiskStrategyRoute';
 import * as NFSmsContact from './NFSmsContact';
+import * as NGNotification from './NGNotification';
 import * as NoticeIconItem from './NoticeIconItem';
 import * as OARepay from './OARepay';
 import * as QCCollectionNews from './QCCollectionNews';
@@ -103,7 +106,6 @@ import * as WOFee from './WOFee';
 import * as WPBackFill from './WPBackFill';
 import * as WQSmsReport from './WQSmsReport';
 import * as WRSmsTemplate from './WRSmsTemplate';
-
 export default {
   ABCreditHistory,
   ACUserNew,
@@ -164,15 +166,18 @@ export default {
   HFCollectionAgencyRole,
   HGGrey,
   HHRecall,
+  HIBackTip,
   HProductSnapshot,
   MBLoan,
   MCExtend,
   MCLoanLog,
+  MGBanner,
   NBCollectionGroupRole,
   NCCollectionOrderFlowHistory,
   NDRiskValueSmsIncome,
   NERiskStrategyRoute,
   NFSmsContact,
+  NGNotification,
   NoticeIconItem,
   OARepay,
   QCCollectionNews,

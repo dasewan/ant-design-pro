@@ -18,6 +18,7 @@ import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
 import { FieldIndex, FieldLabels } from '../service';
+import {useIntl} from "@@/exports";
 
 export { getAdminV1ProductsEnum as getProductsEnum } from '@/services/ant-design-pro/BProduct';
 
@@ -37,6 +38,7 @@ export type FormProps = {
  * @constructor
  */
 const CreateForm: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();

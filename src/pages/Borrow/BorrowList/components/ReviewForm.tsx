@@ -40,7 +40,7 @@ const ReviewForm: React.FC<FormProps> = (props) => {
     // props.values.id
     try {
       // @ts-ignore
-      const res = await update({ id: props.verifyId!, f_status: status, ...fields });
+      const res = await update({ id: props.borrowId!, f_status: status, ...fields });
       if (!res.success) {
         message.error(res.message);
         return false;

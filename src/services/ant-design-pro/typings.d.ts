@@ -521,7 +521,7 @@ declare namespace API {
     f_credit_amount?: number;
     /** 信用分* */
     g_credit_fraction?: number;
-    /** 1：首贷 2：审核 3：被拒 4：还款 5：复贷 */
+    /** 1：未认证 2：认证过期 3：活体 4：待签约 */
     h_index_no?: number;
     /** 客户首页动作：【11：创建订单 12：认证列表 13：活体 14：签约】【 21：待机审 22：待人审 23：待放款】【31：活体被拒 32：机审被拒 33：人审被拒】【41：逾前还款 42：还款日 43：逾期 44：严重逾期】【51：创建订单 52：认证列表 53：活体 54：签约】 */
     i_index_action?: number;
@@ -542,15 +542,15 @@ declare namespace API {
     /** block节点 */
     q_block_type?: string;
     /** 当前订单id */
-    r_current_borrow_id?: number;
+    r_current_borrow_id?: string;
     /** 当前认证项id */
     s_current_verify_id?: number;
     /** 当前订单状态* */
     t_cur_borrow_status?: string;
     /** 在途产品id */
-    u_on_way_product_id?: number;
-    /** 是否存在多笔在途订单  1:允许   0:不允许* */
-    v_allow_many_borrow?: string;
+    u_on_way_product_id?: string;
+    /** 最多申请产品数 */
+    v_max_count?: number;
     /** 注册类型 网页，手机，邀请，电销* */
     w_register_type?: string;
     /** 用户标签 */
@@ -587,6 +587,12 @@ declare namespace API {
     a_m_access_time?: number;
     /** 累计逾期天数* */
     a_n_total_overdue_days?: number;
+    /** 客服消息数 */
+    a_o_service_count?: number;
+    /** 借款次数 */
+    a_p_borrow_count?: number;
+    /** 结清次数 */
+    a_q_settled_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -711,8 +717,6 @@ declare namespace API {
   type BCProductFeature = {
     /** id */
     id?: number;
-    /** 产品id */
-    a_product_id?: number;
     /** 标题* */
     b_title: string;
     /** 内容* */
@@ -974,6 +978,10 @@ declare namespace API {
     postalAddresses?: string;
     /** birthday */
     birthday?: string;
+    /** 关联短信数 */
+    j_sms_count?: number;
+    /** 关联短信 */
+    k_sms?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1229,8 +1237,10 @@ declare namespace API {
     a_c_snapshot_count?: number;
     /** 产品标签* */
     a_d_tags?: string;
-    /** 产品特点* */
+    /** 产品标签* */
     a_e_features?: string;
+    /** 图片 */
+    a_f_pic?: string;
     /** App\Models\BProduct */
     a_a_a_a_b_c_product_features?: BCProductFeature[];
     /** created_at */
@@ -1407,6 +1417,10 @@ declare namespace API {
     a_r_sign_time?: string;
     /** 当前催员 */
     a_s_urge_admin_id?: number;
+    /** 最大展期天数 */
+    a_t_max_extend_days?: number;
+    /** 状态时间 关闭状态此字段为关闭时间，拒绝状态此字段为下次可重新申请日期 */
+    a_u_status_time?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1836,6 +1850,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1HIBackTipsIdParams = {
+    /** id of HIBackTip */
+    id: number;
+  };
+
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -1853,6 +1872,11 @@ declare namespace API {
 
   type deleteAdminV1MCLoanLogsIdParams = {
     /** id of MCLoanLog */
+    id: number;
+  };
+
+  type deleteAdminV1MGBannersIdParams = {
+    /** id of MGBanner */
     id: number;
   };
 
@@ -1878,6 +1902,11 @@ declare namespace API {
 
   type deleteAdminV1NFSmsContactsIdParams = {
     /** id of NFSmsContact */
+    id: number;
+  };
+
+  type deleteAdminV1NGNotificationsIdParams = {
+    /** id of NGNotification */
     id: number;
   };
 
@@ -2931,6 +2960,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1HIBackTipsIdParams = {
+    /** id of HIBackTip */
+    id: number;
+  };
+
+  type getAdminV1HIBackTipsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -2986,6 +3025,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1MGBannersIdParams = {
+    /** id of MGBanner */
+    id: number;
+  };
+
+  type getAdminV1MGBannersParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1NBCollectionGroupRolesIdParams = {
     /** id of NBCollectionGroupRole */
     id: number;
@@ -3037,6 +3086,16 @@ declare namespace API {
   };
 
   type getAdminV1NFSmsContactsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1NGNotificationsIdParams = {
+    /** id of NGNotification */
+    id: number;
+  };
+
+  type getAdminV1NGNotificationsParams = {
     /** foo */
     foo: number;
   };
@@ -4164,6 +4223,23 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type HIBackTip = {
+    /** id */
+    id?: number;
+    /** 类型 */
+    a_type?: string;
+    /** 内容 */
+    b_content?: string;
+    /** 状态 */
+    d_status: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type HProductSnapshot = {
     /** id */
     id?: number;
@@ -4397,7 +4473,7 @@ declare namespace API {
     b_loan_bank_id?: number;
     /** 最终支付渠道 */
     c_payment_channel?: string;
-    /** 成功时间 */
+    /** 上次尝试放款时间 */
     d_loan_time?: string;
     /** 打款金额 */
     e_amount?: number;
@@ -4417,6 +4493,10 @@ declare namespace API {
     l_call_times?: number;
     /** 放款回调次数 */
     m_callback_times?: number;
+    /** 失败原因 */
+    n_error_message?: string;
+    /** 成功时间 */
+    o_success_at?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4543,6 +4623,31 @@ declare namespace API {
     a_a_certificate?: string;
     /** a_b_index */
     a_b_index?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type MGBanner = {
+    /** id */
+    id?: number;
+    /** 名称 */
+    a_title: string;
+    /** 图片 */
+    b_pic: string;
+    /** 状态 */
+    c_status: number;
+    /** 备注 */
+    d_comment?: string;
+    /** 点击页面 */
+    e_url?: string;
+    /** 管理员 */
+    f_admin_id?: number;
+    /** 链接类型 1：web 2：action */
+    g_type?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4902,6 +5007,29 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type NGNotification = {
+    /** id */
+    id?: number;
+    /** icon */
+    a_icon?: string;
+    /** URL */
+    b_color: number;
+    /** 备注 */
+    c_content?: string;
+    /** 状态 */
+    d_status: number;
+    /** 链接地址 */
+    e_url?: string;
+    /** 链接类型 1：web 2：action */
+    f_type: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type NoticeIconItem = {
     /** id */
     id?: number;
@@ -5010,6 +5138,8 @@ declare namespace API {
     a_k_risk_count?: number;
     /** 召回次数 */
     a_l_recall_times?: number;
+    /** 人审次数 */
+    a_m_review_count?: number;
     /** deleted_at */
     deleted_at?: string;
     /** created_at */
@@ -5160,13 +5290,19 @@ declare namespace API {
     /** 应还款总金额 */
     a_l_expect_repay_total_amount?: number;
     /** 结算方式* 1:先扣除手续费和利息 2:先扣除手续费 3:到期扣除所有费用 */
-    a_m_product_settlement_type?: string;
+    a_m_product_settlement_type?: number;
     /** 核算日期 */
     a_n_calculate_time?: string;
     /** 最后一次查看时间 */
     a_o_view_time?: string;
-    /** 最后一次查看时间 */
+    /** 在逾期数 */
     a_p_overdue_period_count?: number;
+    /** 利息 */
+    a_q_interest?: number;
+    /** 服务费 */
+    a_r_service_fee?: number;
+    /** 结清时间 */
+    a_s_settled_time?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -5586,6 +5722,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1HIBackTipsIdParams = {
+    /** id of HIBackTip */
+    id: number;
+  };
+
   type putAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -5603,6 +5744,11 @@ declare namespace API {
 
   type putAdminV1MCLoanLogsIdParams = {
     /** id of MCLoanLog */
+    id: number;
+  };
+
+  type putAdminV1MGBannersIdParams = {
+    /** id of MGBanner */
     id: number;
   };
 
@@ -5628,6 +5774,11 @@ declare namespace API {
 
   type putAdminV1NFSmsContactsIdParams = {
     /** id of NFSmsContact */
+    id: number;
+  };
+
+  type putAdminV1NGNotificationsIdParams = {
+    /** id of NGNotification */
     id: number;
   };
 
@@ -5964,8 +6115,20 @@ declare namespace API {
     a_r_extend_admin_id?: number;
     /** 展期天数 */
     a_s_extend_days?: number;
+    /** 展期总天数 */
+    a_t_extend_total_days?: number;
+    /** 当前减免金额 */
+    a_u_current_deduction_fee?: number;
     /** created_at */
     created_at?: string;
+    /** 本金 */
+    a_v_borrow_amount?: number;
+    /** 利息 */
+    a_w_interest?: number;
+    /** 服务费 */
+    a_x_service_fee?: number;
+    /** 结清时间 */
+    a_y_settled_time?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
@@ -6734,6 +6897,10 @@ declare namespace API {
     p_callback_description?: string;
     /** 发送时间 */
     q_sent_at?: string;
+    /** 类型 1:otp 2:通知类 3:营销类 4:灰线 */
+    r_type?: number;
+    /** 'register'注册,'login'登录,'verify'认证完成,'sign'签约完成,‘loan‘放款’’'repay'还款完成,'recall'召回,'marketing'营销,'s0','s1','s2','s3','admin'后台管理员,'urge'催员,'contact'向通讯录发送,'other'其他 */
+    s_node?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */

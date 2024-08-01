@@ -37,6 +37,7 @@ import { useParams } from 'umi';
 import { fieldLabels } from '../service';
 import type { TableListItem } from './data';
 import styles from './style.less';
+import {useIntl} from '@@/exports';
 
 interface TableFormDateType {
   id: React.Key;
@@ -65,6 +66,7 @@ export type tryCalcuteType = {
 };
 
 const AdvancedForm: FC<Record<string, any>> = () => {
+  const intl = useIntl();
   const [error, setError] = useState<ErrorField[]>([]);
   const formRef = useRef<FormInstance>();
   // const inputRef = useRef<InputRef>(null);

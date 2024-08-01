@@ -33,6 +33,7 @@ const TableList: React.FC = () => {
   const [contactData, setContactData] = useState<TableListItem[]>([]);
   const [jobData, setJobData] = useState<TableListItem[]>([]);
   const [loanBankData, setLoanBankData] = useState<TableListItem[]>([]);
+  const [livenessData, setLivenessData] = useState<TableListItem[]>([]);
   const [readed, setReaded] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   // @ts-ignore
@@ -45,20 +46,24 @@ const TableList: React.FC = () => {
         const contact: TableListItem[] = [];
         const job: TableListItem[] = [];
         const loanBank: TableListItem[] = [];
+        const liveness: TableListItem[] = [];
         const tmpMap: Map<string, TableListItem[]> = new Map();
         idNumber.push(...res.data![0].children!);
         contact.push(...res.data![1].children!);
         job.push(...res.data![2].children!);
         loanBank.push(...res.data![3].children!);
+        liveness.push(...res.data![4].children!);
         tmpMap.set('idNumber', idNumber);
         tmpMap.set('contact', contact);
         tmpMap.set('job', job);
         tmpMap.set('loanBank', loanBank);
+        tmpMap.set('liveness', liveness);
         setDataMap(tmpMap);
         setIdNumberData(idNumber);
         setContactData(contact);
         setJobData(job);
         setLoanBankData(loanBank);
+        setLivenessData(liveness);
       }
       return dataMap;
     }
@@ -105,6 +110,9 @@ const TableList: React.FC = () => {
           }
           if (cat === 'loanBank') {
             setLoanBankData(newData);
+          }
+          if (cat === 'liveness') {
+            setLivenessData(newData);
           }
           message.success('排序成功');
         } else {
@@ -438,6 +446,27 @@ const TableList: React.FC = () => {
                 row: DraggableBodyRow4,
               },
             }}
+          />
+          <Divider orientation="left">Liveness</Divider>
+          <ProTable<TableListItem, TableListPagination>
+            // headerTitle="客户列表"
+            revalidateOnFocus={false}
+            actionRef={actionRef}
+            rowKey="id"
+            toolBarRender={false}
+            search={false}
+            columns={columns}
+            dataSource={livenessData}
+            pagination={false}
+            scroll={{ x: '50%' }}
+            bordered={true}
+            // 排序固定模版
+            // components={{
+            //   body: {
+            //     wrapper: DraggableContainer4,
+            //     row: DraggableBodyRow4,
+            //   },
+            // }}
           />
         </Spin>
       </div>
