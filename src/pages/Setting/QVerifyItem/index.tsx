@@ -52,18 +52,18 @@ const TableList: React.FC = () => {
         contact.push(...res.data![1].children!);
         job.push(...res.data![2].children!);
         loanBank.push(...res.data![3].children!);
-        liveness.push(...res.data![4].children!);
+        // liveness.push(...res.data![4].children!);
         tmpMap.set('idNumber', idNumber);
         tmpMap.set('contact', contact);
         tmpMap.set('job', job);
         tmpMap.set('loanBank', loanBank);
-        tmpMap.set('liveness', liveness);
+        // tmpMap.set('liveness', liveness);
         setDataMap(tmpMap);
         setIdNumberData(idNumber);
         setContactData(contact);
         setJobData(job);
         setLoanBankData(loanBank);
-        setLivenessData(liveness);
+        // setLivenessData(liveness);
       }
       return dataMap;
     }
@@ -111,9 +111,9 @@ const TableList: React.FC = () => {
           if (cat === 'loanBank') {
             setLoanBankData(newData);
           }
-          if (cat === 'liveness') {
-            setLivenessData(newData);
-          }
+          // if (cat === 'liveness') {
+          //   setLivenessData(newData);
+          // }
           message.success('排序成功');
         } else {
           message.error('排序失败');
@@ -279,7 +279,7 @@ const TableList: React.FC = () => {
     if (_success) {
       message.success('修改成功');
     } else {
-      message.warn('修改失败');
+      message.warning('修改失败');
     }
   };
 
@@ -447,27 +447,27 @@ const TableList: React.FC = () => {
               },
             }}
           />
-          <Divider orientation="left">Liveness</Divider>
-          <ProTable<TableListItem, TableListPagination>
-            // headerTitle="客户列表"
-            revalidateOnFocus={false}
-            actionRef={actionRef}
-            rowKey="id"
-            toolBarRender={false}
-            search={false}
-            columns={columns}
-            dataSource={livenessData}
-            pagination={false}
-            scroll={{ x: '50%' }}
-            bordered={true}
-            // 排序固定模版
-            // components={{
-            //   body: {
-            //     wrapper: DraggableContainer4,
-            //     row: DraggableBodyRow4,
-            //   },
-            // }}
-          />
+          {/*<Divider orientation="left">Liveness</Divider>*/}
+          {/*<ProTable<TableListItem, TableListPagination>*/}
+          {/*  // headerTitle="客户列表"*/}
+          {/*  revalidateOnFocus={false}*/}
+          {/*  actionRef={actionRef}*/}
+          {/*  rowKey="id"*/}
+          {/*  toolBarRender={false}*/}
+          {/*  search={false}*/}
+          {/*  columns={columns}*/}
+          {/*  dataSource={livenessData}*/}
+          {/*  pagination={false}*/}
+          {/*  scroll={{ x: '50%' }}*/}
+          {/*  bordered={true}*/}
+          {/*  // 排序固定模版*/}
+          {/*  // components={{*/}
+          {/*  //   body: {*/}
+          {/*  //     wrapper: DraggableContainer4,*/}
+          {/*  //     row: DraggableBodyRow4,*/}
+          {/*  //   },*/}
+          {/*  // }}*/}
+          {/*/>*/}
         </Spin>
       </div>
       <div style={{ display: readed ? 'none' : 'block' }}>

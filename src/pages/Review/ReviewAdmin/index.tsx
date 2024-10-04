@@ -94,7 +94,7 @@ const TableList: React.FC = () => {
     if (_success) {
       message.success('修改成功');
     } else {
-      message.warn('修改失败');
+      message.warning('修改失败');
     }
   };
 

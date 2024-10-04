@@ -851,4 +851,13 @@ export default {
   'pages.LoanLog.detail': 'Detail',
   'pages.LoanLog.borrow_info': 'Borrow Info',
   'pages.LoanLog.log_info': 'Log Info',
+  'pages.OBKyc.a_name': 'Name',
+  'pages.OBKyc.b_channel_code': 'Channel Code',
+  'pages.OBKyc.c_parent_id': 'Parent',
+  'pages.OBKyc.d_logo': 'Logo',
+  'pages.OBKyc.e_method': 'Method',
+  'pages.OBKyc.f_sort': 'Sort',
+  'pages.OBKyc.g_status': 'Status',
+  'pages.OBKyc.h_method_name': 'Method Name',
+  'pages.OBKyc.i_description': 'Description',
 };

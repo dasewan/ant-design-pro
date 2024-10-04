@@ -591,6 +591,12 @@ export default [
         path: '/operation/payment-channel',
         component: './Operation/PaymentChannel',
       },
+      {
+        name: 'kyc',
+        icon: 'smile',
+        path: '/operation/kyc',
+        component: './Operation/Kyc',
+      },
     ],
   },
   {

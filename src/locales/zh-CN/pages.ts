@@ -851,4 +851,13 @@ export default {
   'pages.LoanLog.detail': '流水明细',
   'pages.LoanLog.borrow_info': '订单信息',
   'pages.LoanLog.log_info': '流水信息',
+  'pages.OBKyc.a_name': '名称',
+  'pages.OBKyc.b_channel_code': '标识',
+  'pages.OBKyc.c_parent_id': '名称',
+  'pages.OBKyc.d_logo': 'logo',
+  'pages.OBKyc.e_method': '方法',
+  'pages.OBKyc.f_sort': '排序',
+  'pages.OBKyc.g_status': '状态',
+  'pages.OBKyc.h_method_name': '方法',
+  'pages.OBKyc.i_description': '描述',
 };

@@ -8,6 +8,7 @@ import type { CheckboxOptionType } from 'antd/lib/checkbox/Group';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
+import { useIntl } from '@@/exports';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;
@@ -26,6 +27,7 @@ export type FormProps = {
  * @constructor
  */
 const SwitchChannel: React.FC<FormProps> = (props) => {
+  const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   /**

@@ -1810,6 +1810,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GPEasyPaymentsIdParams = {
+    /** id of GPEasyPayment */
+    id: number;
+  };
+
   type deleteAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -1915,6 +1920,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1OBKycsIdParams = {
+    /** id of OBKyc */
+    id: number;
+  };
+
   type deleteAdminV1QCCollectionNewsIdParams = {
     /** id of QCCollectionNews */
     id: number;
@@ -1952,6 +1962,11 @@ declare namespace API {
 
   type deleteAdminV1SCRiskValueSmsIdParams = {
     /** id of SCRiskValueSms */
+    id: number;
+  };
+
+  type deleteAdminV1SDLivenessesIdParams = {
+    /** id of SDLiveness */
     id: number;
   };
 
@@ -2875,6 +2890,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GPEasyPaymentsIdParams = {
+    /** id of GPEasyPayment */
+    id: number;
+  };
+
+  type getAdminV1GPEasyPaymentsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -3110,6 +3135,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1OBKycsIdParams = {
+    /** id of OBKyc */
+    id: number;
+  };
+
+  type getAdminV1OBKycsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1ProductsEnumParams = {
     /** foo */
     foo: number;
@@ -3201,6 +3236,16 @@ declare namespace API {
   };
 
   type getAdminV1SCRiskValueSmsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1SDLivenessesIdParams = {
+    /** id of SDLiveness */
+    id: number;
+  };
+
+  type getAdminV1SDLivenessesParams = {
     /** foo */
     foo: number;
   };
@@ -3753,6 +3798,47 @@ declare namespace API {
     l_slope?: number;
     /** 短信相关性系数 */
     m_relevant?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type GPEasyPayment = {
+    /** id */
+    id?: number;
+    /** 排序 */
+    a_user_id?: number;
+    /** 网关 */
+    b_gateway_code?: string;
+    /** kyc */
+    c_action?: string;
+    /** 接口 */
+    d_endpoint?: string;
+    /** 状态 */
+    e_status?: string;
+    /** extra */
+    f_extra?: string;
+    /** extra */
+    g_extra?: string;
+    /** extra */
+    h_extra?: string;
+    /** extra */
+    i_extra?: string;
+    /** extra */
+    j_extra?: string;
+    /** message */
+    k_message?: string;
+    /** message */
+    l_message?: string;
+    /** 请求 */
+    m_request?: string;
+    /** 请求md5 */
+    n_request_md5?: string;
+    /** 返回 */
+    o_response?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -5311,6 +5397,37 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type OBKyc = {
+    /** id */
+    id?: number;
+    /** 名称 */
+    a_name?: string;
+    /** 标识 */
+    b_channel_code?: string;
+    /** 名称 */
+    c_parent_id?: string;
+    /** logo */
+    d_logo?: string;
+    /** 方法 */
+    e_method?: string;
+    /** 排序 */
+    f_sort?: number;
+    /** 状态 */
+    g_status?: string;
+    /** 方法 */
+    h_method_name?: string;
+    /** 描述 */
+    i_description?: string;
+    /** App\Models\OBKyc */
+    children?: OBKyc[];
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type OContact = {
     /** id */
     id?: number;
@@ -5682,6 +5799,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1GPEasyPaymentsIdParams = {
+    /** id of GPEasyPayment */
+    id: number;
+  };
+
   type putAdminV1GVerifiesIdParams = {
     /** id of GVerify */
     id: number;
@@ -5787,6 +5909,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1OBKycsIdParams = {
+    /** id of OBKyc */
+    id: number;
+  };
+
   type putAdminV1QCCollectionNewsIdParams = {
     /** id of QCCollectionNews */
     id: number;
@@ -5829,6 +5956,11 @@ declare namespace API {
 
   type putAdminV1SCRiskValueSmsIdParams = {
     /** id of SCRiskValueSms */
+    id: number;
+  };
+
+  type putAdminV1SDLivenessesIdParams = {
+    /** id of SDLiveness */
     id: number;
   };
 
@@ -6750,6 +6882,61 @@ declare namespace API {
     n_value_360?: number;
     /** 所有天内 */
     o_value_0?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type SDLiveness = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** verify id */
+    b_borrow_id?: number;
+    /** 人脸 */
+    c_face1?: string;
+    /** 人脸 */
+    d_face2?: string;
+    /** 人脸 */
+    e_face3?: string;
+    /** 人脸 */
+    f_face4?: string;
+    /** 人脸 */
+    g_face5?: string;
+    /** 人脸 */
+    h_face6?: string;
+    /** ocr相似度 */
+    i_compare_score?: number;
+    /** ocr相似度 */
+    j_compare_score2?: number;
+    /** 相似1 */
+    k_similar_id?: number;
+    /** 相似1 */
+    l_similar_score?: number;
+    /** 相似2 */
+    m_similar2_id?: number;
+    /** 相似2 */
+    n_similar2_score?: number;
+    /** 相似3 */
+    o_similar3_id?: number;
+    /** 相似3 */
+    p_similar3_score?: number;
+    /** 相似4 */
+    q_similar4_id?: number;
+    /** 相似4 */
+    r_similar4_score?: number;
+    /** 相似5 */
+    s_similar5_id?: number;
+    /** 相似5 */
+    t_similar5_score?: number;
+    /** encoding */
+    u_encoding1?: string;
+    /** encoding */
+    v_encoding2?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */

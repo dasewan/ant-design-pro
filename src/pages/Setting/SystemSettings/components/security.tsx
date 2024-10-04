@@ -56,7 +56,7 @@ const SecurityView: React.FC<Props> = (props) => {
     if (_success) {
       message.success('修改成功');
     } else {
-      message.warn('修改失败');
+      message.warning('修改失败');
     }
   };
 

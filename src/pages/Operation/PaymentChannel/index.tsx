@@ -18,6 +18,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import type { ColumnType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import Highlighter from 'react-highlight-words';
+import { useIntl } from '@@/exports';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -33,6 +34,7 @@ type CommonProps = {
 type DataIndex = keyof API.HAPaymentChannelBank;
 
 const BAWhite: FC<CommonProps> = () => {
+  const intl = useIntl();
   const [tabActive, SetTabActive] = useState<string>('transfer');
   // const [transferData, setTransferData] = useState<TableListItem[]>([]);
   const [resultData, setResultData] = useState<TableListItem[]>([]);
@@ -216,7 +218,7 @@ const BAWhite: FC<CommonProps> = () => {
     if (_success) {
       message.success('修改成功');
     } else {
-      message.warn('修改失败');
+      message.warning('修改失败');
     }
   };
 

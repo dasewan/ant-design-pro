@@ -1,9 +1,9 @@
 // https://umijs.org/config/
 import { defineConfig } from '@umijs/max';
+import type { OperationObject } from 'openapi3-ts';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
-
 const { REACT_APP_ENV = 'dev' } = process.env;
 
 export default defineConfig({
@@ -141,6 +141,23 @@ export default defineConfig({
       // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
       schemaPath: 'http://api.dasewan.cn/docs',
       mock: false,
+      hook: {
+        // customFunctionName(operationObject: OperationObject) {
+        //   const { operationId } = operationObject
+        //
+        //   if (!operationId) {
+        //     return 'test'
+        //   }
+        //
+        //   const funcName = operationId.replace( /[-_ .](\w)/gi, (_all, letter) =>
+        //     letter.toUpperCase()
+        //   )
+        //
+        //   operationObject.operationId = funcName
+        //
+        //   return funcName
+        // },
+      },
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
@@ -152,7 +169,6 @@ export default defineConfig({
     strategy: 'normal',
   },
   requestRecord: {},
-  /*  base: '/admin/',
-    publicPath: '/admin/',*/
+    base: '/admin/',
+    publicPath: '/admin/',
 });
-
