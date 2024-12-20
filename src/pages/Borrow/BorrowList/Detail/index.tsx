@@ -137,7 +137,7 @@ const Advanced: FC = () => {
       if (_data.data!.k_sub_status === 3040 || _data.data!.j_status === 40) {
         _getTab().then(() =>
           history.push(
-            `/borrow/detail/${_data.data!.id}/risk/${_data.data!.a_a_a_a_a_g_verify!.c_risk_id}`,
+            `/borrow/detail/${_data.data!.id}/risk/${_data.data!.a_a_a_a_a_b_m_borrow_risk_result!.id}`,
           ),
         );
         handleTabActiveKey('risk');
@@ -239,7 +239,7 @@ const Advanced: FC = () => {
               <ButtonGroup>
                 <Button key="sms">发送短信</Button>
                 <Button key="black">拉黑</Button>
-                {oldRecord?.a_a_a_a_a_g_verify?.f_status === VERIFY_STATUS_MAP.OVERVIEW &&
+                {oldRecord?.a_a_a_a_a_b_m_borrow_risk_result?.k_machine_result === VERIFY_STATUS_MAP.OVERVIEW &&
                 showReviewButton ? (
                   <Button key="review" onClick={() => handleReviewModalVisible(true)}>
                     审核
@@ -280,7 +280,7 @@ const Advanced: FC = () => {
             <ButtonGroup>
               <Button key="sms">发送短信</Button>
               <Button key="black">拉黑</Button>
-              {oldRecord?.a_a_a_a_a_g_verify?.f_status === VERIFY_STATUS_MAP.OVERVIEW &&
+              {oldRecord?.a_a_a_a_a_b_m_borrow_risk_result?.k_machine_result === VERIFY_STATUS_MAP.OVERVIEW &&
               showReviewButton ? (
                 <Button key="review" onClick={() => handleReviewModalVisible(true)}>
                   审核
@@ -294,25 +294,12 @@ const Advanced: FC = () => {
                 </Button>
               ) : null}
               <Button key="link">还款链接</Button>
-              <Button
-                key="show"
-                onClick={() => {
-                  if (display === 'table-cell') {
-                    setDisplay('none');
-                  } else {
-                    setDisplay('table-cell');
-                  }
-                }}
-              >
-                {display === 'table-cell' ? '隐藏' : '展示'}
-              </Button>
               <Dropdown key="dropdown" trigger={['click']} menu={{ items: items2 }}>
                 <Button key="4" style={{ padding: '0 8px' }}>
                   <EllipsisOutlined />
                 </Button>
               </Dropdown>
             </ButtonGroup>
-            <Button type="primary">主操作</Button>
           </Fragment>
         );
       }}

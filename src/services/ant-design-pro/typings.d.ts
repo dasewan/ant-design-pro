@@ -174,6 +174,34 @@ declare namespace API {
     g_sms_count?: number;
     /** 推送数量 */
     h_push_count?: number;
+    /** 累计减免次数 */
+    i_deduction_count?: number;
+    /** 累计减免金额 */
+    j_deduction_amount?: number;
+    /** 累计核销次数 */
+    k_write_off_count?: number;
+    /** 累计核销金额 */
+    l_write_off_amount?: number;
+    /** 借款次数 */
+    m_borrow_count?: number;
+    /** 累计逾期次数 */
+    n_overdue_count?: number;
+    /** 累计逾期天数 */
+    o_overdue_days?: number;
+    /** 提前还款次数 */
+    p_early_repay_count?: number;
+    /** 正常还款次数 */
+    r_normal_repay_count?: number;
+    /** 放款次数 */
+    s_loan_count?: number;
+    /** 放款金额 */
+    t_loan_amount?: number;
+    /** 还款次数（所有类型的次数，包括部分还款） */
+    u_repay_count?: number;
+    /** 还款金额 */
+    v_repay_amount?: number;
+    /** 拨打电话次数 */
+    w_call_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -373,6 +401,14 @@ declare namespace API {
     a_a_authenticity_raw?: string;
     /** 审核原因详情 */
     a_b_reasons_detail?: string;
+    /** 证件号 */
+    a_c_idnumber?: string;
+    /** 手机号 */
+    a_d_phone?: string;
+    /** email */
+    a_e_email?: string;
+    /** 出生日期 */
+    a_f_birth_day?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1108,7 +1144,7 @@ declare namespace API {
     /** 借款次数 */
     j_borrow_count?: number;
     /** 机审结果 */
-    k_machine_result?: string;
+    k_machine_result?: number;
     /** 人审结果 */
     l_review_result?: string;
     /** 信用分 */
@@ -1329,6 +1365,7 @@ declare namespace API {
     a_a_a_a_a_q_b_periods?: QBPeriod[];
     a_a_a_a_a_o_a_repay?: OARepay;
     a_a_a_a_a_g_verify?: GVerify;
+    a_a_a_a_a_b_m_borrow_risk_result?: BMBorrowRiskResult;
     /** 用户id */
     a_user_id?: number;
     /** 渠道 */
@@ -1930,6 +1967,16 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1QEPaymentGatewayLogsIdParams = {
+    /** id of QEPaymentGatewayLog */
+    id: number;
+  };
+
+  type deleteAdminV1QFSmsGatewayLogsIdParams = {
+    /** id of QFSmsGatewayLog */
+    id: number;
+  };
+
   type deleteAdminV1QVerifyItemsIdParams = {
     /** id of QVerifyItem */
     id: number;
@@ -1970,6 +2017,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1SEVirtualAccountsIdParams = {
+    /** id of SEVirtualAccount */
+    id: number;
+  };
+
   type deleteAdminV1TARiskValueSmsOrdersIdParams = {
     /** id of TARiskValueSmsOrder */
     id: number;
@@ -1982,6 +2034,11 @@ declare namespace API {
 
   type deleteAdminV1TCollectionAgenciesIdParams = {
     /** id of TCollectionAgency */
+    id: number;
+  };
+
+  type deleteAdminV1TCOtherGatewayLogsIdParams = {
+    /** id of TCOtherGatewayLog */
     id: number;
   };
 
@@ -3160,6 +3217,26 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1QEPaymentGatewayLogsIdParams = {
+    /** id of QEPaymentGatewayLog */
+    id: number;
+  };
+
+  type getAdminV1QEPaymentGatewayLogsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1QFSmsGatewayLogsIdParams = {
+    /** id of QFSmsGatewayLog */
+    id: number;
+  };
+
+  type getAdminV1QFSmsGatewayLogsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1QVerifyItemsIdParams = {
     /** id of QVerifyItem */
     id: number;
@@ -3250,6 +3327,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1SEVirtualAccountsIdParams = {
+    /** id of SEVirtualAccount */
+    id: number;
+  };
+
+  type getAdminV1SEVirtualAccountsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1TARiskValueSmsOrdersIdParams = {
     /** id of TARiskValueSmsOrder */
     id: number;
@@ -3281,6 +3368,16 @@ declare namespace API {
   };
 
   type getAdminV1TCollectionAgenciesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1TCOtherGatewayLogsIdParams = {
+    /** id of TCOtherGatewayLog */
+    id: number;
+  };
+
+  type getAdminV1TCOtherGatewayLogsParams = {
     /** foo */
     foo: number;
   };
@@ -4657,18 +4754,14 @@ declare namespace API {
     a_a_a_a_a_d_borrow?: DBorrow;
     /** borrow_id */
     a_borrow_id?: number;
-    /** loan id */
-    b_loan_id?: number;
+    /** user id */
+    b_user_id?: number;
     /** 管理员 id */
     c_admin_id?: number;
     /** loan bank id */
     d_loan_bank_id?: number;
     /** 最终支付渠道 */
     e_payment_channel?: string;
-    /** 放款方式 1：线上放款 2： 线下放款 */
-    f_method?: number;
-    /** 放款类型 1：自动放款 2： 手动放款 */
-    g_type?: number;
     /** 状态 10:待放款 20： 放款中 30:未知 40：放款失败 50：放款成功 */
     h_status?: number;
     /** 持卡人姓名 */
@@ -4691,23 +4784,19 @@ declare namespace API {
     r_amount?: number;
     /** fee */
     s_fee?: number;
-    /** 同步code */
-    t_sync_code?: string;
+    /** 同步日志 */
+    t_easy_payment_id?: number;
     /** 同步消息 */
     u_sync_message?: string;
-    /** 同步原始报文 */
-    v_sync_raw?: string;
     /** 异步code */
-    w_callback_code?: string;
+    w_easy_payment_id?: number;
     /** 异步消息 */
     x_callback_message?: string;
-    /** 异步原始报文 */
-    y_callback_raw?: string;
     /** 审核备注 */
     z_remark?: string;
     /** 放款凭证 */
     a_a_certificate?: string;
-    /** a_b_index */
+    /** 放款次数 */
     a_b_index?: number;
     /** created_at */
     created_at?: string;
@@ -5150,7 +5239,7 @@ declare namespace API {
     id?: number;
     /** 用户id */
     a_user_id?: number;
-    /** 白名单id */
+    /** 白名单id -1代表曾经是白名单 */
     b_white_id?: number;
     /** 黑名单id */
     c_black_phone_id?: number;
@@ -5163,7 +5252,7 @@ declare namespace API {
     /** 黑名单device id */
     g_black_device_id?: number;
     /** 灰名单id */
-    h_grey_id?: number;
+    h_grey_id?: string;
     /** 渠道id */
     i_channel_id?: number;
     /** 性别 1:男 2:女 */
@@ -5204,12 +5293,12 @@ declare namespace API {
     a_a_imei?: string;
     /** 最后一次device */
     a_b_device?: string;
-    /** 借款次数 */
-    a_c_borrow_count?: number;
-    /** 逾期次数 */
-    a_d_overdue_count?: number;
-    /** 提前还款次数 */
-    a_e_early_repay_count?: number;
+    /** ocr次数 */
+    a_c_ocr_count?: number;
+    /** 活体总次数 */
+    a_d_liveness_total_count?: number;
+    /** 当前订单活体次数 */
+    a_e_liveness_current_count?: number;
     /** 地理信息风险等级 */
     a_f_ip_geography_risk_level?: number;
     /** 风险地区id */
@@ -5217,7 +5306,7 @@ declare namespace API {
     /** 营销id */
     a_h_marketing_detail_id?: number;
     /** 可疑详情id */
-    a_i_suspicious_id?: number;
+    a_i_suspicious_id?: string;
     /** 营销id */
     a_j_marketing_id?: number;
     /** 机审次数 */
@@ -5919,6 +6008,16 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1QEPaymentGatewayLogsIdParams = {
+    /** id of QEPaymentGatewayLog */
+    id: number;
+  };
+
+  type putAdminV1QFSmsGatewayLogsIdParams = {
+    /** id of QFSmsGatewayLog */
+    id: number;
+  };
+
   type putAdminV1QVerifyItemsIdParams = {
     /** id of QVerifyItem */
     id: number;
@@ -5964,6 +6063,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1SEVirtualAccountsIdParams = {
+    /** id of SEVirtualAccount */
+    id: number;
+  };
+
   type putAdminV1TARiskValueSmsOrdersIdParams = {
     /** id of TARiskValueSmsOrder */
     id: number;
@@ -5976,6 +6080,11 @@ declare namespace API {
 
   type putAdminV1TCollectionAgenciesIdParams = {
     /** id of TCollectionAgency */
+    id: number;
+  };
+
+  type putAdminV1TCOtherGatewayLogsIdParams = {
+    /** id of TCOtherGatewayLog */
     id: number;
   };
 
@@ -6126,18 +6235,18 @@ declare namespace API {
     p_birthday?: string;
     /** 有效日期 */
     q_valid_date?: string;
+    /** 地址 */
+    r_address?: string;
+    /** 地址2 */
+    s_address2?: string;
+    /** 性别 */
+    t_sex?: string;
+    /** 类型 */
+    u_type?: string;
     /** 信息1 */
-    r_info?: string;
+    v_info1?: string;
     /** 信息2 */
-    s_info2?: string;
-    /** 信息3 */
-    t_info3?: string;
-    /** 信息4 */
-    u_info4?: string;
-    /** 信息5 */
-    v_info5?: string;
-    /** 信息6 */
-    w_info6?: string;
+    w_info2?: string;
     /** 图片1 */
     x_picture_1?: string;
     /** 图片2 */
@@ -6145,9 +6254,7 @@ declare namespace API {
     /** 图片3 */
     z_picture_3?: string;
     /** ocr结果 */
-    a_a_ocr_result?: string;
-    /** ocr报文 */
-    a_b_ocr_raw?: string;
+    a_a_other_gateway_log_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -6302,6 +6409,78 @@ declare namespace API {
     l_stage_day_index?: number;
     /** 逾期天数（只针对f_cat=5还款的情况） */
     m_overdue_days?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type QEPaymentGatewayLog = {
+    /** id */
+    id?: number;
+    /** 网关 */
+    a_gateway?: string;
+    /** 系统方法 */
+    b_action?: string;
+    /** endpoint */
+    c_endpoint?: string;
+    /** 请求类型 */
+    d_type?: string;
+    /** http code */
+    e_http_code?: number;
+    /** code */
+    f_code?: string;
+    /** msg */
+    g_msg?: string;
+    /** message */
+    h_message?: string;
+    /** request 请求三方的时候为请求体，回调的时候为回调体 */
+    i_request?: string;
+    /** response */
+    j_response?: string;
+    /** md5 */
+    k_md5?: string;
+    /** user id */
+    l_user_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type QFSmsGatewayLog = {
+    /** id */
+    id?: number;
+    /** 网关 */
+    a_gateway?: string;
+    /** 系统方法 */
+    b_action?: string;
+    /** endpoint */
+    c_endpoint?: string;
+    /** http code */
+    d_http_code?: number;
+    /** code */
+    e_sync_code?: string;
+    /** msg */
+    f_sync_msg?: string;
+    /** message */
+    g_sync_message?: string;
+    /** code */
+    h_callback_code?: string;
+    /** msg */
+    i_callback_msg?: string;
+    /** message */
+    j_callback_message?: string;
+    /** request 请求三方的时候为请求体，回调的时候为回调体 */
+    k_sync_response?: string;
+    /** response */
+    l_callback_response?: string;
+    /** phone */
+    m_to?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -6945,6 +7124,49 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type SEVirtualAccount = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** 网关id */
+    b_easy_payment_id?: number;
+    /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
+    c_status?: number;
+    /** 银行名称 */
+    d_account_name?: number;
+    /** 银行code */
+    e_account_number?: string;
+    /** 认证有效时间 */
+    f_expired?: string;
+    /** email */
+    g_email?: string;
+    /** 银行名称 */
+    h_bank_name?: number;
+    /** 银行code */
+    i_bank_code?: string;
+    /** 持有人姓名 */
+    j_full_name?: string;
+    /** 网关 */
+    k_gateway?: string;
+    /** 支付次数 */
+    l_pay_count?: number;
+    /** 最近一次支付时间 */
+    m_pay_last_time?: string;
+    /** Call Log */
+    n_payment_gateway_log_id?: number;
+    /** CallBack Log */
+    o_payment_gateway_log_id?: number;
+    /** QR */
+    p_qr?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type SWriteOff = {
     /** id */
     id?: number;
@@ -7068,20 +7290,18 @@ declare namespace API {
     h_reference: string;
     /** message_id */
     i_message_id?: string;
-    /** 20：发送中 30：未知  40：失败 50：成功 */
-    j_status?: number;
+    /** 耗时 */
+    j_duration?: number;
     /** 发送状态 */
     k_send_status?: string;
-    /** 详细状态 */
-    l_send_sub_status?: string;
+    /** 返回消息 */
+    l_message?: string;
     /** 价格 */
     m_price?: number;
     /** 币种 */
     n_currency?: string;
     /** 同步通知 */
-    o_sync_description?: string;
-    /** 异步通知 */
-    p_callback_description?: string;
+    o_sms_gateway_log_id?: number;
     /** 发送时间 */
     q_sent_at?: string;
     /** 类型 1:otp 2:通知类 3:营销类 4:灰线 */
@@ -7119,6 +7339,47 @@ declare namespace API {
     i_end_collection_stage?: number;
     /** 是否锁定案件 1：锁定 2：不锁定 */
     j_lock?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type TCOtherGatewayLog = {
+    /** id */
+    id?: number;
+    /** 网关 */
+    a_gateway?: string;
+    /** 系统方法 */
+    b_action?: string;
+    /** endpoint */
+    c_endpoint?: string;
+    /** http code */
+    d_http_code?: number;
+    /** code */
+    e_sync_code?: string;
+    /** msg */
+    f_sync_msg?: string;
+    /** message */
+    g_sync_message?: string;
+    /** code */
+    h_callback_code?: string;
+    /** msg */
+    i_callback_msg?: string;
+    /** message */
+    j_callback_message?: string;
+    /** request 请求三方的时候为请求体，回调的时候为回调体 */
+    k_sync_response?: string;
+    /** response */
+    l_callback_response?: string;
+    /** user */
+    m_user_id?: number;
+    /** borrow */
+    n_borrow_id?: number;
+    /** request */
+    o_request?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */

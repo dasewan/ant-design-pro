@@ -2,213 +2,227 @@
 /* eslint-disable */
 // API 更新时间：
 // API 唯一标识：
-import * as ABCreditHistory from './ABCreditHistory';
-import * as ACUserNew from './ACUserNew';
-import * as AEBorrowAdminOperate from './AEBorrowAdminOperate';
-import * as AFChannel from './AFChannel';
-import * as AGBlackReason from './AGBlackReason';
-import * as AHUserSup from './AHUserSup';
-import * as AIBlackUser from './AIBlackUser';
-import * as AKReason from './AKReason';
-import * as ALAdminFile from './ALAdminFile';
-import * as AMBlackHitHistory from './AMBlackHitHistory';
-import * as ANRiskItemCat from './ANRiskItemCat';
-import * as APReviewGroup from './APReviewGroup';
-import * as ARReviewAdmin from './ARReviewAdmin';
-import * as ASRiskValueSmsSuspicious from './ASRiskValueSmsSuspicious';
-import * as AUser from './AUser';
-import * as BAWhite from './BAWhite';
-import * as BBProductSnapshotCopy from './BBProductSnapshotCopy';
-import * as BCProductFeature from './BCProductFeature';
-import * as BDRiskRoleBundle from './BDRiskRoleBundle';
-import * as BEImportResult from './BEImportResult';
-import * as BFReviewBorrow from './BFReviewBorrow';
-import * as BGReviewTag from './BGReviewTag';
-import * as BHReviewBorrowFlow from './BHReviewBorrowFlow';
-import * as BIPaymentChannel from './BIPaymentChannel';
-import * as BJContact from './BJContact';
-import * as BKCollectionRole from './BKCollectionRole';
-import * as BLCollectionOrder from './BLCollectionOrder';
-import * as BMBorrowRiskResult from './BMBorrowRiskResult';
-import * as BProduct from './BProduct';
-import * as Captcha from './Captcha';
-import * as CurrentUser from './CurrentUser';
-import * as DACollectionKpi from './DACollectionKpi';
-import * as DBorrow from './DBorrow';
-import * as DBSmsOrder from './DBSmsOrder';
-import * as DCBorrowRiskDetail from './DCBorrowRiskDetail';
-import * as DDRecallDetail from './DDRecallDetail';
-import * as GAMarketingDetail from './GAMarketingDetail';
-import * as GBMarketing from './GBMarketing';
-import * as GCMarketingHistory from './GCMarketingHistory';
-import * as GDRiskItem from './GDRiskItem';
-import * as GERiskRoleGroup from './GERiskRoleGroup';
-import * as GFRiskRole from './GFRiskRole';
-import * as GGRiskStratey from './GGRiskStratey';
-import * as GHSetting from './GHSetting';
-import * as GIRiskStrategyBundle from './GIRiskStrategyBundle';
-import * as GJRiskTag from './GJRiskTag';
-import * as GKBank from './GKBank';
-import * as GLPhoto from './GLPhoto';
-import * as GMCollectionAdmin from './GMCollectionAdmin';
-import * as GNCollectionStage from './GNCollectionStage';
-import * as GORiskValueSmsSlope from './GORiskValueSmsSlope';
-import * as GVerify from './GVerify';
-import * as HAPaymentChannelBank from './HAPaymentChannelBank';
-import * as HCDevice from './HCDevice';
-import * as HDDynamicDevice from './HDDynamicDevice';
-import * as HECollectionGroup from './HECollectionGroup';
-import * as HFCollectionAgencyRole from './HFCollectionAgencyRole';
-import * as HGGrey from './HGGrey';
-import * as HHRecall from './HHRecall';
-import * as HIBackTip from './HIBackTip';
-import * as HProductSnapshot from './HProductSnapshot';
-import * as MBLoan from './MBLoan';
-import * as MCExtend from './MCExtend';
-import * as MCLoanLog from './MCLoanLog';
-import * as MGBanner from './MGBanner';
-import * as NBCollectionGroupRole from './NBCollectionGroupRole';
-import * as NCCollectionOrderFlowHistory from './NCCollectionOrderFlowHistory';
-import * as NDRiskValueSmsIncome from './NDRiskValueSmsIncome';
-import * as NERiskStrategyRoute from './NERiskStrategyRoute';
-import * as NFSmsContact from './NFSmsContact';
-import * as NGNotification from './NGNotification';
-import * as NoticeIconItem from './NoticeIconItem';
-import * as OARepay from './OARepay';
-import * as QCCollectionNews from './QCCollectionNews';
-import * as QVerifyItem from './QVerifyItem';
-import * as RARepayLog from './RARepayLog';
-import * as RBlack from './RBlack';
-import * as RCSms from './RCSms';
-import * as RERiskValueSmsBasic from './RERiskValueSmsBasic';
-import * as SAApp from './SAApp';
-import * as SBApp from './SBApp';
-import * as SCRiskValueSms from './SCRiskValueSms';
-import * as TARiskValueSmsOrder from './TARiskValueSmsOrder';
-import * as TBSms from './TBSms';
-import * as TCollectionAgency from './TCollectionAgency';
-import * as User from './User';
-import * as VCollectionAssignLog from './VCollectionAssignLog';
-import * as WAMarketing from './WAMarketing';
-import * as WBProductOverdue from './WBProductOverdue';
-import * as WCProductLoanOverdue from './WCProductLoanOverdue';
-import * as WDMultiDimensionOverdue from './WDMultiDimensionOverdue';
-import * as WEProductProfit from './WEProductProfit';
-import * as WFDailyReport from './WFDailyReport';
-import * as WHOverdueRiskItemRange from './WHOverdueRiskItemRange';
-import * as WIRiskBundle from './WIRiskBundle';
-import * as WJRiskStrategy from './WJRiskStrategy';
-import * as WKRiskTag from './WKRiskTag';
-import * as WLCollectionAdmin from './WLCollectionAdmin';
-import * as WMCollectionReport from './WMCollectionReport';
-import * as WNCollectionFlow from './WNCollectionFlow';
-import * as WOFee from './WOFee';
-import * as WPBackFill from './WPBackFill';
-import * as WQSmsReport from './WQSmsReport';
-import * as WRSmsTemplate from './WRSmsTemplate';
+import * as abCreditHistory from './abCreditHistory';
+import * as acUserNew from './acUserNew';
+import * as aeBorrowAdminOperate from './aeBorrowAdminOperate';
+import * as afChannel from './afChannel';
+import * as agBlackReason from './agBlackReason';
+import * as ahUserSup from './ahUserSup';
+import * as aiBlackUser from './aiBlackUser';
+import * as akReason from './akReason';
+import * as alAdminFile from './alAdminFile';
+import * as amBlackHitHistory from './amBlackHitHistory';
+import * as anRiskItemCat from './anRiskItemCat';
+import * as apReviewGroup from './apReviewGroup';
+import * as arReviewAdmin from './arReviewAdmin';
+import * as asRiskValueSmsSuspicious from './asRiskValueSmsSuspicious';
+import * as aUser from './aUser';
+import * as baWhite from './baWhite';
+import * as bbProductSnapshotCopy from './bbProductSnapshotCopy';
+import * as bcProductFeature from './bcProductFeature';
+import * as bdRiskRoleBundle from './bdRiskRoleBundle';
+import * as beImportResult from './beImportResult';
+import * as bfReviewBorrow from './bfReviewBorrow';
+import * as bgReviewTag from './bgReviewTag';
+import * as bhReviewBorrowFlow from './bhReviewBorrowFlow';
+import * as biPaymentChannel from './biPaymentChannel';
+import * as bjContact from './bjContact';
+import * as bkCollectionRole from './bkCollectionRole';
+import * as blCollectionOrder from './blCollectionOrder';
+import * as bmBorrowRiskResult from './bmBorrowRiskResult';
+import * as bProduct from './bProduct';
+import * as captcha from './captcha';
+import * as currentUser from './currentUser';
+import * as daCollectionKpi from './daCollectionKpi';
+import * as dBorrow from './dBorrow';
+import * as dbSmsOrder from './dbSmsOrder';
+import * as dcBorrowRiskDetail from './dcBorrowRiskDetail';
+import * as ddRecallDetail from './ddRecallDetail';
+import * as gaMarketingDetail from './gaMarketingDetail';
+import * as gbMarketing from './gbMarketing';
+import * as gcMarketingHistory from './gcMarketingHistory';
+import * as gdRiskItem from './gdRiskItem';
+import * as geRiskRoleGroup from './geRiskRoleGroup';
+import * as gfRiskRole from './gfRiskRole';
+import * as ggRiskStratey from './ggRiskStratey';
+import * as ghSetting from './ghSetting';
+import * as giRiskStrategyBundle from './giRiskStrategyBundle';
+import * as gjRiskTag from './gjRiskTag';
+import * as gkBank from './gkBank';
+import * as glPhoto from './glPhoto';
+import * as gmCollectionAdmin from './gmCollectionAdmin';
+import * as gnCollectionStage from './gnCollectionStage';
+import * as goRiskValueSmsSlope from './goRiskValueSmsSlope';
+import * as gpEasyPayment from './gpEasyPayment';
+import * as gVerify from './gVerify';
+import * as haPaymentChannelBank from './haPaymentChannelBank';
+import * as hcDevice from './hcDevice';
+import * as hdDynamicDevice from './hdDynamicDevice';
+import * as heCollectionGroup from './heCollectionGroup';
+import * as hfCollectionAgencyRole from './hfCollectionAgencyRole';
+import * as hgGrey from './hgGrey';
+import * as hhRecall from './hhRecall';
+import * as hiBackTip from './hiBackTip';
+import * as hProductSnapshot from './hProductSnapshot';
+import * as mbLoan from './mbLoan';
+import * as mcExtend from './mcExtend';
+import * as mcLoanLog from './mcLoanLog';
+import * as mgBanner from './mgBanner';
+import * as nbCollectionGroupRole from './nbCollectionGroupRole';
+import * as ncCollectionOrderFlowHistory from './ncCollectionOrderFlowHistory';
+import * as ndRiskValueSmsIncome from './ndRiskValueSmsIncome';
+import * as neRiskStrategyRoute from './neRiskStrategyRoute';
+import * as nfSmsContact from './nfSmsContact';
+import * as ngNotification from './ngNotification';
+import * as noticeIconItem from './noticeIconItem';
+import * as oaRepay from './oaRepay';
+import * as obKyc from './obKyc';
+import * as qcCollectionNews from './qcCollectionNews';
+import * as qePaymentGatewayLog from './qePaymentGatewayLog';
+import * as qfSmsGatewayLog from './qfSmsGatewayLog';
+import * as qVerifyItem from './qVerifyItem';
+import * as raRepayLog from './raRepayLog';
+import * as rBlack from './rBlack';
+import * as rcSms from './rcSms';
+import * as reRiskValueSmsBasic from './reRiskValueSmsBasic';
+import * as saApp from './saApp';
+import * as sbApp from './sbApp';
+import * as scRiskValueSms from './scRiskValueSms';
+import * as sdLiveness from './sdLiveness';
+import * as seVirtualAccount from './seVirtualAccount';
+import * as taRiskValueSmsOrder from './taRiskValueSmsOrder';
+import * as tbSms from './tbSms';
+import * as tCollectionAgency from './tCollectionAgency';
+import * as tcOtherGatewayLog from './tcOtherGatewayLog';
+import * as user from './user';
+import * as vCollectionAssignLog from './vCollectionAssignLog';
+import * as waMarketing from './waMarketing';
+import * as wbProductOverdue from './wbProductOverdue';
+import * as wcProductLoanOverdue from './wcProductLoanOverdue';
+import * as wdMultiDimensionOverdue from './wdMultiDimensionOverdue';
+import * as weProductProfit from './weProductProfit';
+import * as wfDailyReport from './wfDailyReport';
+import * as whOverdueRiskItemRange from './whOverdueRiskItemRange';
+import * as wiRiskBundle from './wiRiskBundle';
+import * as wjRiskStrategy from './wjRiskStrategy';
+import * as wkRiskTag from './wkRiskTag';
+import * as wlCollectionAdmin from './wlCollectionAdmin';
+import * as wmCollectionReport from './wmCollectionReport';
+import * as wnCollectionFlow from './wnCollectionFlow';
+import * as woFee from './woFee';
+import * as wpBackFill from './wpBackFill';
+import * as wqSmsReport from './wqSmsReport';
+import * as wrSmsTemplate from './wrSmsTemplate';
 export default {
-  ABCreditHistory,
-  ACUserNew,
-  AEBorrowAdminOperate,
-  AFChannel,
-  ALAdminFile,
-  AGBlackReason,
-  AHUserSup,
-  AIBlackUser,
-  AKReason,
-  AMBlackHitHistory,
-  ANRiskItemCat,
-  APReviewGroup,
-  ARReviewAdmin,
-  ASRiskValueSmsSuspicious,
-  AUser,
-  BAWhite,
-  BBProductSnapshotCopy,
-  BCProductFeature,
-  BDRiskRoleBundle,
-  BEImportResult,
-  BFReviewBorrow,
-  BGReviewTag,
-  BHReviewBorrowFlow,
-  BIPaymentChannel,
-  BJContact,
-  BKCollectionRole,
-  BLCollectionOrder,
-  BMBorrowRiskResult,
-  BProduct,
-  Captcha,
-  CurrentUser,
-  DACollectionKpi,
-  DBSmsOrder,
-  DBorrow,
-  DCBorrowRiskDetail,
-  DDRecallDetail,
-  GAMarketingDetail,
-  GBMarketing,
-  GCMarketingHistory,
-  GDRiskItem,
-  GERiskRoleGroup,
-  GFRiskRole,
-  GGRiskStratey,
-  GHSetting,
-  GIRiskStrategyBundle,
-  GJRiskTag,
-  GKBank,
-  GLPhoto,
-  GMCollectionAdmin,
-  GNCollectionStage,
-  GORiskValueSmsSlope,
-  GVerify,
-  HAPaymentChannelBank,
-  HCDevice,
-  HDDynamicDevice,
-  HECollectionGroup,
-  HFCollectionAgencyRole,
-  HGGrey,
-  HHRecall,
-  HIBackTip,
-  HProductSnapshot,
-  MBLoan,
-  MCExtend,
-  MCLoanLog,
-  MGBanner,
-  NBCollectionGroupRole,
-  NCCollectionOrderFlowHistory,
-  NDRiskValueSmsIncome,
-  NERiskStrategyRoute,
-  NFSmsContact,
-  NGNotification,
-  NoticeIconItem,
-  OARepay,
-  QCCollectionNews,
-  QVerifyItem,
-  RARepayLog,
-  RBlack,
-  RCSms,
-  RERiskValueSmsBasic,
-  SAApp,
-  SBApp,
-  SCRiskValueSms,
-  TARiskValueSmsOrder,
-  TBSms,
-  TCollectionAgency,
-  User,
-  VCollectionAssignLog,
-  WAMarketing,
-  WBProductOverdue,
-  WCProductLoanOverdue,
-  WDMultiDimensionOverdue,
-  WEProductProfit,
-  WFDailyReport,
-  WHOverdueRiskItemRange,
-  WIRiskBundle,
-  WJRiskStrategy,
-  WKRiskTag,
-  WLCollectionAdmin,
-  WMCollectionReport,
-  WNCollectionFlow,
-  WOFee,
-  WPBackFill,
-  WQSmsReport,
-  WRSmsTemplate,
+  abCreditHistory,
+  acUserNew,
+  aeBorrowAdminOperate,
+  afChannel,
+  alAdminFile,
+  agBlackReason,
+  ahUserSup,
+  aiBlackUser,
+  akReason,
+  amBlackHitHistory,
+  anRiskItemCat,
+  apReviewGroup,
+  arReviewAdmin,
+  asRiskValueSmsSuspicious,
+  aUser,
+  baWhite,
+  bbProductSnapshotCopy,
+  bcProductFeature,
+  bdRiskRoleBundle,
+  beImportResult,
+  bfReviewBorrow,
+  bgReviewTag,
+  bhReviewBorrowFlow,
+  biPaymentChannel,
+  bjContact,
+  bkCollectionRole,
+  blCollectionOrder,
+  bmBorrowRiskResult,
+  bProduct,
+  captcha,
+  currentUser,
+  daCollectionKpi,
+  dbSmsOrder,
+  dBorrow,
+  dcBorrowRiskDetail,
+  ddRecallDetail,
+  gaMarketingDetail,
+  gbMarketing,
+  gcMarketingHistory,
+  gdRiskItem,
+  geRiskRoleGroup,
+  gfRiskRole,
+  ggRiskStratey,
+  ghSetting,
+  giRiskStrategyBundle,
+  gjRiskTag,
+  gkBank,
+  glPhoto,
+  gmCollectionAdmin,
+  gnCollectionStage,
+  goRiskValueSmsSlope,
+  gpEasyPayment,
+  gVerify,
+  haPaymentChannelBank,
+  hcDevice,
+  hdDynamicDevice,
+  heCollectionGroup,
+  hfCollectionAgencyRole,
+  hgGrey,
+  hhRecall,
+  hiBackTip,
+  hProductSnapshot,
+  mbLoan,
+  mcExtend,
+  mcLoanLog,
+  mgBanner,
+  nbCollectionGroupRole,
+  ncCollectionOrderFlowHistory,
+  ndRiskValueSmsIncome,
+  neRiskStrategyRoute,
+  nfSmsContact,
+  ngNotification,
+  noticeIconItem,
+  oaRepay,
+  obKyc,
+  qcCollectionNews,
+  qePaymentGatewayLog,
+  qfSmsGatewayLog,
+  qVerifyItem,
+  raRepayLog,
+  rBlack,
+  rcSms,
+  reRiskValueSmsBasic,
+  saApp,
+  sbApp,
+  scRiskValueSms,
+  sdLiveness,
+  seVirtualAccount,
+  taRiskValueSmsOrder,
+  tbSms,
+  tcOtherGatewayLog,
+  tCollectionAgency,
+  user,
+  vCollectionAssignLog,
+  waMarketing,
+  wbProductOverdue,
+  wcProductLoanOverdue,
+  wdMultiDimensionOverdue,
+  weProductProfit,
+  wfDailyReport,
+  whOverdueRiskItemRange,
+  wiRiskBundle,
+  wjRiskStrategy,
+  wkRiskTag,
+  wlCollectionAdmin,
+  wmCollectionReport,
+  wnCollectionFlow,
+  woFee,
+  wpBackFill,
+  wqSmsReport,
+  wrSmsTemplate,
 };
