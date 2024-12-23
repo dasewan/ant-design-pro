@@ -712,7 +712,9 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         // displayRender: displayRender,
         showSearch: { filter },
         showCheckedStrategy: { SHOW_CHILD },
+        maxTagCount: 200,
         width: 100,
+        maxTagTextLength: 200,
         // listHeight: 1,
         /*        dropdownRender : menu => {
                   return <div>

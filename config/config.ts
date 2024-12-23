@@ -1,6 +1,5 @@
 // https://umijs.org/config/
 import { defineConfig } from '@umijs/max';
-import type { OperationObject } from 'openapi3-ts';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
@@ -169,6 +168,6 @@ export default defineConfig({
     strategy: 'normal',
   },
   requestRecord: {},
-    base: '/admin/',
-    publicPath: '/admin/',
+  // base: '/admin/',
+  // publicPath: '/admin/',
 });
