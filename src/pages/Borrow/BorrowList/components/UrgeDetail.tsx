@@ -257,6 +257,11 @@ const UrgeDetail: React.FC = () => {
                   <Statistic title="已还金额" value={oldRecord?.s_amount_paid} prefix="¥" />
                 </Col>
               ) : null}
+              {loaned ? (
+                <Col span={3}>
+                  <Statistic title="减免金额" value={oldRecord?.s_amount_paid} prefix="¥" />
+                </Col>
+              ) : null}
               {loaned && oldRecord?.t_settled_time ? (
                 <Col span={3}>
                   <Statistic
@@ -278,12 +283,29 @@ const UrgeDetail: React.FC = () => {
             />
           </Card>
           <Card
-            title="催收详情"
+            title="催收动态"
             className={styles.tabsCard}
             bordered={false}
             tabList={urgeTabList}
             onTabChange={onOperationTabChange}
           />
+          <Card
+            title="支付动态"
+            className={styles.tabsCard}
+            bordered={false}
+            tabList={urgeTabList}
+            onTabChange={onOperationTabChange}
+          >
+            <Table
+              columns={columns}
+              // dataSource={oldRecord?.a_a_a_a_a_q_b_periods}
+              bordered
+              pagination={false}
+              rowKey="id"
+              size="small"
+              expandable={{ expandedRowRender, expandedRowClassName: () => 'red' }}
+            />
+          </Card>
         </GridContent>
       </Spin>
     </div>
