@@ -1146,7 +1146,7 @@ declare namespace API {
     /** 机审结果 */
     k_machine_result?: number;
     /** 人审结果 */
-    l_review_result?: string;
+    l_review_result?: number;
     /** 信用分 */
     m_score?: number;
     /** 拒绝数 */
@@ -1456,8 +1456,14 @@ declare namespace API {
     a_s_urge_admin_id?: number;
     /** 最大展期天数 */
     a_t_max_extend_days?: number;
-    /** 状态时间 关闭状态此字段为关闭时间，拒绝状态此字段为下次可重新申请日期 */
+    /** 状态时间 关闭状态此字段为关闭时间，拒绝状态此字段为下次可重新申请日期，机审和人审为预计完成时间 */
     a_u_status_time?: string;
+    /** 催收日志数量 */
+    a_v_urge_log_count?: number;
+    /** 发送短信数量 */
+    a_w_sms_count?: number;
+    /** 操作日志 */
+    a_x_action_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

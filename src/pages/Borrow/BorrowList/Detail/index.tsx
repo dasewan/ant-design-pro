@@ -94,25 +94,7 @@ const Advanced: FC = () => {
     },
   ]);
 
-  /** 获取tab */
-  const _getTab = async () => {
-    return;
-    // @ts-ignore
-    const res = await getTab({ foo: null });
-    tabList.forEach((value) => {
-      const tabCount = res.data?.find((item: API.CommonTab) => item.key === value.key)?.tab_count;
 
-      if (tabCount !== undefined && tabCount > 0) {
-        value.tab = (
-          <div>
-            {value.tab}
-            <span style={{ color: 'red' }}>{tabCount > 0 ? ' ' + tabCount : ''}</span>
-          </div>
-        );
-      }
-    });
-    setTabList(tabList);
-  };
 
   useEffect(() => {
     const _show = async () => {
@@ -126,6 +108,95 @@ const Advanced: FC = () => {
       setBorrowId(res.data!.id);
       setVerifyId(res.data!.c_verify_id);
       setRiskId(res.data!.a_a_a_a_a_g_verify!.c_risk_id);
+      tabList.forEach((value) => {
+
+        switch (value.key) {
+          case 'urge':
+            value.tab = (
+              <div>
+                {value.tab}
+                <span style={{color: 'red', fontSize: 12}}> {res.data!.a_v_urge_log_count!}</span>
+              </div>
+            );
+            break;
+          case 'risk':
+            value.tab = (
+              <div>
+                {value.tab}
+                <span style={{color: 'red', fontSize: 12}}> {res.data!.a_a_risk_score}</span>
+              </div>
+            );
+            break;
+          case 'sms':
+            value.tab = (
+              <div>
+                {value.tab}
+                {/*<span style={{color: 'red', fontSize: 12}}> {res.data!!}</span>*/}
+              </div>
+            );
+            break;
+          case 'contact':
+            value.tab = (
+              <div>
+                {value.tab}
+                <span style={{color: 'red', fontSize: 12}}> {res.data!.a_v_urge_log_count!}</span>
+              </div>
+            );
+            break;
+          case 'app':
+            value.tab = (
+              <div>
+                {value.tab}
+                <span style={{color: 'red', fontSize: 12}}> {res.data!.a_v_urge_log_count!}</span>
+              </div>
+            );
+            break;
+          case 'borrow':
+            value.tab = (
+              <div>
+                {value.tab}
+                <span style={{color: 'red', fontSize: 12}}> {res.data!.a_v_urge_log_count!}</span>
+              </div>
+            );
+            break;
+          case 'relation':
+            value.tab = (
+              <div>
+                {value.tab}
+                <span style={{color: 'red', fontSize: 12}}> {res.data!.a_v_urge_log_count!}</span>
+              </div>
+            );
+            break;
+          case 'borrow-history':
+            value.tab = (
+              <div>
+                {value.tab}
+                <span style={{color: 'red', fontSize: 12}}> {res.data!.a_v_urge_log_count!}</span>
+              </div>
+            );
+            break;
+          case 'borrow-log':
+            value.tab = (
+              <div>
+                {value.tab}
+                <span style={{color: 'red', fontSize: 12}}> {res.data!.a_v_urge_log_count!}</span>
+              </div>
+            );
+            break;
+          case 'send-log':
+            value.tab = (
+              <div>
+                {value.tab}
+                <span style={{color: 'red', fontSize: 12}}> {res.data!.a_v_urge_log_count!}</span>
+              </div>
+            );
+            break;
+        }
+
+
+      });
+      setTabList(tabList);
+
       return {
         data: res.data,
         // success 请返回 true，
@@ -135,16 +206,13 @@ const Advanced: FC = () => {
     };
     _show().then((_data) => {
       if (_data.data!.k_sub_status === 3040 || _data.data!.j_status === 40) {
-        _getTab().then(() =>
-          history.push(
-            `/borrow/detail/${_data.data!.id}/risk/${_data.data!.a_a_a_a_a_b_m_borrow_risk_result!.id}`,
-          ),
+        history.push(
+          `/borrow/detail/${_data.data!.id}/risk/${_data.data!.a_a_a_a_a_b_m_borrow_risk_result!.id}`,
         );
         handleTabActiveKey('risk');
+
       } else {
-        _getTab().then(() =>
-          history.push(`/borrow/detail/${_data.data!.id}/urge/${_data.data!.id}`),
-        );
+        history.push(`/borrow/detail/${_data.data!.id}/urge/${_data.data!.id}`);
         handleTabActiveKey('urge');
       }
     });

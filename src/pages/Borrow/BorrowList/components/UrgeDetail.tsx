@@ -15,6 +15,7 @@ import {
   PeriodFieldIndex,
   PeriodFieldLabels,
 } from './service';
+import {useIntl} from "@@/exports";
 
 type AdvancedState = {
   operationKey: string;
@@ -40,6 +41,7 @@ const urgeTabList = [
 ];
 const UrgeDetail: React.FC = () => {
   const params = useParams<{ id: string }>();
+  const intl = useIntl();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
   const [other, setOther] = useState<API.BorrowDetail>();
   // const [defaultExpandedRowKey, setDefaultExpandedRowKey] = useState<number>();
@@ -149,6 +151,81 @@ const UrgeDetail: React.FC = () => {
     },
   ];
 
+  const loanColumns: ColumnsType<API.MCLoanLog> = [
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.created_at', defaultMessage: '' }),
+      dataIndex: 'created_at',
+      key: 'created_at',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.e_payment_channel', defaultMessage: '' }),
+      dataIndex: 'e_payment_channel',
+      key: 'e_payment_channel',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.r_amount', defaultMessage: '' }),
+      dataIndex: 'r_amount',
+      key: 'r_amount',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.k_receiver_bankcard_name', defaultMessage: '' }),
+      dataIndex: 'k_receiver_bankcard_name',
+      key: 'k_receiver_bankcard_name',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.j_receiver_bankcard_number', defaultMessage: '' }),
+      dataIndex: 'j_receiver_bankcard_number',
+      key: 'j_receiver_bankcard_number',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.i_receiver_name', defaultMessage: '' }),
+      dataIndex: 'i_receiver_name',
+      key: 'i_receiver_name',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.c_admin_id', defaultMessage: '' }),
+      dataIndex: 'c_admin_id',
+      key: 'c_admin_id',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.h_status', defaultMessage: '' }),
+      dataIndex: 'h_status',
+      key: 'h_status',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.o_loan_time', defaultMessage: '' }),
+      dataIndex: 'o_loan_time',
+      key: 'o_loan_time',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.p_reference', defaultMessage: '' }),
+      dataIndex: 'p_reference',
+      key: 'p_reference',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.s_fee', defaultMessage: '' }),
+      dataIndex: 's_fee',
+      key: 's_fee',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.u_sync_message', defaultMessage: '' }),
+      dataIndex: 'u_sync_message',
+      key: 'u_sync_message',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.x_callback_message', defaultMessage: '' }),
+      dataIndex: 'x_callback_message',
+      key: 'x_callback_message',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.MCLoanLog.z_remark', defaultMessage: '' }),
+      dataIndex: 'z_remark',
+      key: 'z_remark',
+    },
+
+
+  ];
+
   const expandColumns: ColumnsType<API.PeriodDetail> = [
     {
       title: PeriodDetailFieldLabels.title,
@@ -205,73 +282,76 @@ const UrgeDetail: React.FC = () => {
     <div className={styles.main}>
       <Spin spinning={loading} delay={300}>
         <GridContent>
-          <Card title="订单详情" style={{ marginBottom: 24 }}>
-            <Row style={{ marginBottom: 24 }}>
-              <Col span={3}>
-                <Statistic title="借款金额" value={oldRecord?.l_borrow_count} prefix="¥" />
-              </Col>
-              <Col span={3}>
-                <Statistic title="借款期数" value={oldRecord?.a_p_period_count} />
-              </Col>
-              {loaned ? (
+          <Card title="订单详情" style={{ marginBottom: 10 }}>
+            {oldRecord?.a_p_period_count !== undefined && oldRecord?.a_p_period_count > 1 ?
+              <Row style={{ marginBottom: 24 }}>
                 <Col span={3}>
-                  <Statistic
-                    title="放款时间"
-                    value={moment(oldRecord?.o_loan_time).format('YYYY-MM-DD')}
-                    prefix={<ClockCircleTwoTone style={{ fontSize: '16px' }} />}
-                  />
+                  <Statistic title="借款金额" value={oldRecord?.m_borrow_amount} prefix="¥" />
                 </Col>
-              ) : null}
-              {loaned ? (
                 <Col span={3}>
-                  <Statistic title="放款金额" value={oldRecord?.p_loan_amount} prefix="¥" />
+                  <Statistic title="借款期数" value={oldRecord?.a_p_period_count} />
                 </Col>
-              ) : null}
-              {loaned ? (
-                <Col span={3}>
-                  <Statistic
-                    title="应完结时间"
-                    value={moment(oldRecord?.q_expect_repay_time).format('YYYY-MM-DD')}
-                    prefix={
-                      <HourglassTwoTone
-                        style={{ fontSize: '16px' }}
-                        twoToneColor={
-                          oldRecord?.j_status === BORROW_STATUS_MAP.OVERDUE ? '#eb2f96' : '#52c41a'
-                        }
-                      />
-                    }
-                  />
-                </Col>
-              ) : null}
-              {loaned ? (
-                <Col span={3}>
-                  <Statistic
-                    title="应还金额"
-                    value={oldRecord?.a_a_a_a_a_o_a_repay?.a_l_expect_repay_total_amount}
-                    prefix="¥"
-                  />
-                </Col>
-              ) : null}
-              {loaned ? (
-                <Col span={3}>
-                  <Statistic title="已还金额" value={oldRecord?.s_amount_paid} prefix="¥" />
-                </Col>
-              ) : null}
-              {loaned ? (
-                <Col span={3}>
-                  <Statistic title="减免金额" value={oldRecord?.s_amount_paid} prefix="¥" />
-                </Col>
-              ) : null}
-              {loaned && oldRecord?.t_settled_time ? (
-                <Col span={3}>
-                  <Statistic
-                    title="完结日期"
-                    value={moment(oldRecord?.t_settled_time).format('YYYY-MM-DD')}
-                    prefix="¥"
-                  />
-                </Col>
-              ) : null}
-            </Row>
+                {loaned ? (
+                  <Col span={3}>
+                    <Statistic
+                      title="放款时间"
+                      value={moment(oldRecord?.o_loan_time).format('YYYY-MM-DD')}
+                      prefix={<ClockCircleTwoTone style={{ fontSize: '16px' }} />}
+                    />
+                  </Col>
+                ) : null}
+                {loaned ? (
+                  <Col span={3}>
+                    <Statistic title="放款金额" value={oldRecord?.p_loan_amount} prefix="¥" />
+                  </Col>
+                ) : null}
+                {loaned ? (
+                  <Col span={3}>
+                    <Statistic
+                      title="应完结时间"
+                      value={moment(oldRecord?.q_expect_repay_time).format('YYYY-MM-DD')}
+                      prefix={
+                        <HourglassTwoTone
+                          style={{ fontSize: '16px' }}
+                          twoToneColor={
+                            oldRecord?.j_status === BORROW_STATUS_MAP.OVERDUE ? '#eb2f96' : '#52c41a'
+                          }
+                        />
+                      }
+                    />
+                  </Col>
+                ) : null}
+                {loaned ? (
+                  <Col span={3}>
+                    <Statistic
+                      title="应还金额"
+                      value={oldRecord?.a_a_a_a_a_o_a_repay?.a_l_expect_repay_total_amount}
+                      prefix="¥"
+                    />
+                  </Col>
+                ) : null}
+                {loaned ? (
+                  <Col span={3}>
+                    <Statistic title="已还金额" value={oldRecord?.s_amount_paid} prefix="¥" />
+                  </Col>
+                ) : null}
+                {loaned ? (
+                  <Col span={3}>
+                    <Statistic title="减免金额" value={oldRecord?.s_amount_paid} prefix="¥" />
+                  </Col>
+                ) : null}
+                {loaned && oldRecord?.t_settled_time ? (
+                  <Col span={3}>
+                    <Statistic
+                      title="完结日期"
+                      value={moment(oldRecord?.t_settled_time).format('YYYY-MM-DD')}
+                      prefix="¥"
+                    />
+                  </Col>
+                ) : null}
+              </Row>
+              : null}
+
             <Table
               columns={columns}
               dataSource={oldRecord?.a_a_a_a_a_q_b_periods}
@@ -284,26 +364,42 @@ const UrgeDetail: React.FC = () => {
           </Card>
           <Card
             title="催收动态"
+            style={{ marginBottom: 10 }}
             className={styles.tabsCard}
             bordered={false}
             tabList={urgeTabList}
             onTabChange={onOperationTabChange}
           />
           <Card
-            title="支付动态"
+            title="放款记录"
+            style={{ marginBottom: 10 }}
             className={styles.tabsCard}
             bordered={false}
-            tabList={urgeTabList}
             onTabChange={onOperationTabChange}
           >
             <Table
-              columns={columns}
+              columns={loanColumns}
               // dataSource={oldRecord?.a_a_a_a_a_q_b_periods}
               bordered
               pagination={false}
               rowKey="id"
               size="small"
-              expandable={{ expandedRowRender, expandedRowClassName: () => 'red' }}
+            />
+          </Card>
+          <Card
+            title="还款记录"
+            style={{ marginBottom: 10 }}
+            className={styles.tabsCard}
+            bordered={false}
+            onTabChange={onOperationTabChange}
+          >
+            <Table
+              columns={loanColumns}
+              // dataSource={oldRecord?.a_a_a_a_a_q_b_periods}
+              bordered
+              pagination={false}
+              rowKey="id"
+              size="small"
             />
           </Card>
         </GridContent>
