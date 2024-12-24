@@ -4694,9 +4694,9 @@ declare namespace API {
     /** 放款回调次数 */
     m_callback_times?: number;
     /** 失败原因 */
-    n_error_message?: string;
+    n_last_message?: string;
     /** 成功时间 */
-    o_success_at?: string;
+    o_last_event_at?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
