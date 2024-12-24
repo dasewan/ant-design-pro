@@ -1363,9 +1363,13 @@ declare namespace API {
     id?: number;
     /** App\Models\DBorrow */
     a_a_a_a_a_q_b_periods?: QBPeriod[];
+    a_a_a_a_a_a_a_user?: AUser;
     a_a_a_a_a_o_a_repay?: OARepay;
+    a_a_a_a_a_n_user_profile?: NUserProfile;
     a_a_a_a_a_g_verify?: GVerify;
     a_a_a_a_a_b_m_borrow_risk_result?: BMBorrowRiskResult;
+    a_a_a_a_a_h_product_snapshot?: HProductSnapshot;
+    a_a_a_a_a_g_g_risk_stratey?: GGRiskStratey;
     /** 用户id */
     a_user_id?: number;
     /** 渠道 */
@@ -1376,8 +1380,8 @@ declare namespace API {
     d_product_id?: number;
     /** 产品快照id */
     e_product_snapshots_id?: number;
-    /** 优惠券快照id */
-    f_coupon_snapshots_id?: number;
+    /** 风控结果 */
+    f_risk_result_id?: number;
     /** 风控id */
     g_risk_strategy_id?: number;
     /** 订单号 */
@@ -1444,8 +1448,8 @@ declare namespace API {
     a_l_name1?: string;
     /** 银行卡 */
     a_m_bankcard?: string;
-    /** 姓名2 */
-    a_n_name3?: string;
+    /** 借款天数 */
+    a_n_days?: string;
     /** 标签 */
     a_o_tags?: string;
     /** 分期期数 */
@@ -1464,6 +1468,8 @@ declare namespace API {
     a_w_sms_count?: number;
     /** 操作日志 */
     a_x_action_count?: number;
+    /** 风控结果 */
+    a_y_risk_result?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2711,6 +2717,11 @@ declare namespace API {
   type getAdminV1DBorrowsParams = {
     /** foo */
     foo: number;
+  };
+
+  type getAdminV1DBorrowsProfileIdParams = {
+    /** id of DBorrow */
+    id: number;
   };
 
   type getAdminV1DBorrowsQueueLoanParams = {
