@@ -42,6 +42,33 @@ import { history, useParams } from 'umi';
 import styles from '../style.less';
 import type { TableListItem } from './data.d';
 const ButtonGroup = Button.Group;
+const formatTimeAgo = (dateString: string)  => {
+  const now = new Date();
+  const pastDate = new Date(dateString);
+  const diffInSeconds = Math.floor((now.getTime() - pastDate.getTime()) / 1000);
+
+  const secondsInMinute = 60;
+  const secondsInHour = 3600; // 60 * 60
+  const secondsInDay = 86400; // 60 * 60 * 24
+  const secondsInMonth = 2592000; // 60 * 60 * 24 * 30
+
+  if (diffInSeconds < secondsInMinute) {
+    return `${diffInSeconds}秒前`;
+  } else if (diffInSeconds < secondsInHour) {
+    const minutes = Math.floor(diffInSeconds / secondsInMinute);
+    return `${minutes}分钟前`;
+  } else if (diffInSeconds < secondsInDay) {
+    const hours = Math.floor(diffInSeconds / secondsInHour);
+    const minutes = Math.floor((diffInSeconds % secondsInHour) / secondsInMinute);
+    return `${hours}小时${minutes}分钟前`;
+  } else if (diffInSeconds < secondsInMonth) {
+    const days = Math.floor(diffInSeconds / secondsInDay);
+    return `${days}天前`;
+  } else {
+    const months = Math.floor(diffInSeconds / secondsInMonth);
+    return `${months}个月前`;
+  }
+}
 
 const Advanced: FC = () => {
   const params = useParams<{ id: string }>();
@@ -682,7 +709,8 @@ const Advanced: FC = () => {
             {oldRecord?.a_n_days}
           </Descriptions.Item>
           <Descriptions.Item style={{ display: display }} label="最后活跃时间">
-            {moment(oldRecord?.a_a_a_a_a_a_a_user?.a_m_access_time).format('YYYY-MM-DD HH:mm')}
+            {formatTimeAgo(oldRecord?.a_a_a_a_a_a_a_user?.a_m_access_time!)}
+            {/*{moment(oldRecord?.a_a_a_a_a_a_a_user?.a_m_access_time).format('YYYY-MM-DD HH:mm')}*/}
           </Descriptions.Item>
           <Descriptions.Item style={{ display: display }} label="风控策略">
             {oldRecord?.a_a_a_a_a_g_g_risk_stratey?.a_name}(
