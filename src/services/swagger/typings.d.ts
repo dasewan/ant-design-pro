@@ -1112,6 +1112,14 @@ declare namespace API {
     a_d_last_log_time?: string;
     /** 借款次数 */
     a_e_borrow_count?: number;
+    /** S0催回金额 */
+    a_f_s0_collection_amount?: number;
+    /** S1催回金额 */
+    a_g_s1_collection_amount?: number;
+    /** S2催回金额 */
+    a_h_s2_collection_amount?: number;
+    /** S3催回金额 */
+    a_f_s3_collection_amount?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1370,6 +1378,14 @@ declare namespace API {
     a_a_a_a_a_b_m_borrow_risk_result?: BMBorrowRiskResult;
     a_a_a_a_a_h_product_snapshot?: HProductSnapshot;
     a_a_a_a_a_g_g_risk_stratey?: GGRiskStratey;
+    /** App\Models\DBorrow */
+    a_a_a_a_a_q_c_collection_news?: QCCollectionNews[];
+    /** App\Models\DBorrow */
+    a_a_a_a_a_m_c_loan_logs?: MCLoanLog[];
+    /** App\Models\DBorrow */
+    a_a_a_a_a_r_a_repay_logs?: RARepayLog[];
+    a_a_a_a_a_b_l_collection_order?: BLCollectionOrder;
+    a_a_a_a_a_s_f_collection_sub_order?: SFCollectionSubOrder;
     /** 用户id */
     a_user_id?: number;
     /** 渠道 */
@@ -1989,6 +2005,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1QGCollectionCommissionLogsIdParams = {
+    /** id of QGCollectionCommissionLog */
+    id: number;
+  };
+
   type deleteAdminV1QVerifyItemsIdParams = {
     /** id of QVerifyItem */
     id: number;
@@ -2031,6 +2052,11 @@ declare namespace API {
 
   type deleteAdminV1SEVirtualAccountsIdParams = {
     /** id of SEVirtualAccount */
+    id: number;
+  };
+
+  type deleteAdminV1SFCollectionSubOrdersIdParams = {
+    /** id of SFCollectionSubOrder */
     id: number;
   };
 
@@ -3254,6 +3280,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1QGCollectionCommissionLogsIdParams = {
+    /** id of QGCollectionCommissionLog */
+    id: number;
+  };
+
+  type getAdminV1QGCollectionCommissionLogsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1QVerifyItemsIdParams = {
     /** id of QVerifyItem */
     id: number;
@@ -3350,6 +3386,16 @@ declare namespace API {
   };
 
   type getAdminV1SEVirtualAccountsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1SFCollectionSubOrdersIdParams = {
+    /** id of SFCollectionSubOrder */
+    id: number;
+  };
+
+  type getAdminV1SFCollectionSubOrdersParams = {
     /** foo */
     foo: number;
   };
@@ -3934,13 +3980,13 @@ declare namespace API {
     /** 状态 */
     e_status?: string;
     /** extra */
-    f_extra?: string;
+    f_outer_sn?: string;
     /** extra */
-    g_extra?: string;
+    g_code?: string;
     /** extra */
-    h_extra?: string;
+    h_fee?: string;
     /** extra */
-    i_extra?: string;
+    i_type?: string;
     /** extra */
     j_extra?: string;
     /** message */
@@ -4779,6 +4825,8 @@ declare namespace API {
     d_loan_bank_id?: number;
     /** 最终支付渠道 */
     e_payment_channel?: string;
+    /** 放款类型 1：自动放款 2： 手动放款 3:强行放款 */
+    g_type?: number;
     /** 状态 10:待放款 20： 放款中 30:未知 40：放款失败 50：放款成功 */
     h_status?: number;
     /** 持卡人姓名 */
@@ -6035,6 +6083,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1QGCollectionCommissionLogsIdParams = {
+    /** id of QGCollectionCommissionLog */
+    id: number;
+  };
+
   type putAdminV1QVerifyItemsIdParams = {
     /** id of QVerifyItem */
     id: number;
@@ -6082,6 +6135,11 @@ declare namespace API {
 
   type putAdminV1SEVirtualAccountsIdParams = {
     /** id of SEVirtualAccount */
+    id: number;
+  };
+
+  type putAdminV1SFCollectionSubOrdersIdParams = {
+    /** id of SFCollectionSubOrder */
     id: number;
   };
 
@@ -6506,6 +6564,41 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type QGCollectionCommissionLog = {
+    /** id */
+    id?: number;
+    /** 父id */
+    a_borrow_id?: number;
+    /** 阶段id */
+    b_collection_stage_id?: number;
+    /** 机构id */
+    c_collection_agency_id?: number;
+    /** 小组id */
+    d_collection_group_id?: number;
+    /** 催员id */
+    e_collection_admin_id?: number;
+    /** 分期id */
+    f_period_id?: number;
+    /** 催回金额 */
+    g_amount?: number;
+    /** 佣金 */
+    h_commission_amount?: number;
+    /** kpi */
+    i_collection_kpi_id?: number;
+    /** 佣金比例 */
+    j_rate?: number;
+    /** 等级 */
+    k_level?: number;
+    /** 还款日志 */
+    l_repay_log_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type QVerifyItem = {
     /** id */
     id?: number;
@@ -6612,13 +6705,13 @@ declare namespace API {
     /** 同步消息 */
     x_sync_message?: string;
     /** 同步原始报文 */
-    y_sync_raw?: string;
+    y_easy_payment_id?: string;
     /** 异步code */
     z_callback_code?: string;
     /** 异步消息 */
     a_a_callback_message?: string;
     /** 异步原始报文 */
-    a_b_callback_raw?: string;
+    a_b_easy_payment_id?: string;
     /** 审核备注 */
     a_c_remark?: string;
     /** 还款凭证 */
@@ -7176,6 +7269,69 @@ declare namespace API {
     o_payment_gateway_log_id?: number;
     /** QR */
     p_qr?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type SFCollectionSubOrder = {
+    /** id */
+    id?: number;
+    /** 父id */
+    a_borrow_id?: number;
+    /** 分期id */
+    b_period_id?: number;
+    /** S0入催金额 */
+    c_s0_collection_amount?: number;
+    /** S1入催金额 */
+    d_s1_collection_amount?: number;
+    /** S2入催金额 */
+    e_s2_collection_amount?: number;
+    /** S3入催金额 */
+    f_s3_collection_amount?: number;
+    /** S0催回金额 */
+    g_s0_collection_success_amount?: number;
+    /** S1催回金额 */
+    h_s1_collection_success_amount?: number;
+    /** S2催回金额 */
+    i_s2_collection_success_amount?: number;
+    /** S3催回金额 */
+    j_s3_collection_success_amount?: number;
+    /** S0日志数 */
+    k_s0_collection_admin_log_count?: number;
+    /** S1日志数 */
+    l_s1_collection_admin_log_count?: number;
+    /** S2日志数 */
+    m_s2_collection_admin_log_count?: number;
+    /** S3日志数 */
+    n_s3_collection_admin_log_count?: number;
+    /** S0电话数 */
+    o_s0_collection_admin_call_count?: number;
+    /** S1电话数 */
+    p_s1_collection_admin_call_count?: number;
+    /** S2电话数 */
+    q_s2_collection_admin_call_count?: number;
+    /** S3电话数 */
+    r_s3_collection_admin_call_count?: number;
+    /** S0短信数 */
+    s_s0_collection_sms_count?: number;
+    /** S1短信数 */
+    t_s1_collection_sms_count?: number;
+    /** S2短信数 */
+    u_s2_collection_sms_count?: number;
+    /** S3短信数 */
+    v_s3_collection_sms_count?: number;
+    /** S0佣金 */
+    w_s0_collection_commission?: number;
+    /** S1佣金 */
+    x_s1_collection_commission?: number;
+    /** S2佣金 */
+    y_s2_collection_commission?: number;
+    /** S3佣金 */
+    z_s3_collection_commission?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

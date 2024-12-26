@@ -80,6 +80,7 @@ import * as obKyc from './obKyc';
 import * as qcCollectionNews from './qcCollectionNews';
 import * as qePaymentGatewayLog from './qePaymentGatewayLog';
 import * as qfSmsGatewayLog from './qfSmsGatewayLog';
+import * as qgCollectionCommissionLog from './qgCollectionCommissionLog';
 import * as qVerifyItem from './qVerifyItem';
 import * as raRepayLog from './raRepayLog';
 import * as rBlack from './rBlack';
@@ -90,6 +91,7 @@ import * as sbApp from './sbApp';
 import * as scRiskValueSms from './scRiskValueSms';
 import * as sdLiveness from './sdLiveness';
 import * as seVirtualAccount from './seVirtualAccount';
+import * as sfCollectionSubOrder from './sfCollectionSubOrder';
 import * as taRiskValueSmsOrder from './taRiskValueSmsOrder';
 import * as tbSms from './tbSms';
 import * as tCollectionAgency from './tCollectionAgency';
@@ -192,6 +194,7 @@ export default {
   qcCollectionNews,
   qePaymentGatewayLog,
   qfSmsGatewayLog,
+  qgCollectionCommissionLog,
   qVerifyItem,
   raRepayLog,
   rBlack,
@@ -202,6 +205,7 @@ export default {
   scRiskValueSms,
   sdLiveness,
   seVirtualAccount,
+  sfCollectionSubOrder,
   taRiskValueSmsOrder,
   tbSms,
   tcOtherGatewayLog,

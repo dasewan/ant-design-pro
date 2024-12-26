@@ -308,7 +308,7 @@ const DetailList: React.FC<FormProps> = (props) => {
       },
     },
   ];
-
+  //todo 展示可疑信息
   // @ts-ignore
   return params2.riskId ? (
     <ProTable<TableListItem2, TableListPagination>

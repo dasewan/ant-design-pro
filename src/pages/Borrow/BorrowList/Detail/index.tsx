@@ -374,10 +374,6 @@ const Advanced: FC = () => {
       key: 'send-log',
       tab: '发送日志',
     },
-    {
-      key: 'repay-log',
-      tab: '还款日志',
-    },
   ]);
 
   useEffect(() => {
@@ -397,7 +393,7 @@ const Advanced: FC = () => {
             value.tab = (
               <div>
                 {value.tab}
-                <span style={{ color: 'red', fontSize: 12 }}> {res.data!.a_v_urge_log_count!}</span>
+                <span style={{ color: '#43bcba', fontSize: 12 }}> {res.data!.a_v_urge_log_count!}</span>
               </div>
             );
             break;
@@ -405,7 +401,9 @@ const Advanced: FC = () => {
             value.tab = (
               <div>
                 {value.tab}
-                <span style={{ color: 'red', fontSize: 12 }}> {res.data!.a_a_risk_score}</span>
+                <span style={{ color: 'green', fontSize: 12 }}> {res.data?.a_a_a_a_a_b_m_borrow_risk_result?.o_accept_risk_role_count ?? ''}</span>
+                <span style={{ color: 'red', fontSize: 12 }}> {res.data?.a_a_a_a_a_b_m_borrow_risk_result?.n_reject_risk_role_count ?? ''}</span>
+                <span style={{ color: 'blue', fontSize: 12 }}> {res.data?.a_a_a_a_a_b_m_borrow_risk_result?.p_review_risk_role_count ?? ''}</span>
               </div>
             );
             break;
@@ -413,7 +411,7 @@ const Advanced: FC = () => {
             value.tab = (
               <div>
                 {value.tab}
-                {/*<span style={{color: 'red', fontSize: 12}}> {res.data!!}</span>*/}
+                <span style={{ color: '#43bcba', fontSize: 12 }}> {res.data?.a_a_a_a_a_n_user_profile?.o_sms_count ?? ''}</span>
               </div>
             );
             break;
@@ -421,7 +419,7 @@ const Advanced: FC = () => {
             value.tab = (
               <div>
                 {value.tab}
-                <span style={{ color: 'red', fontSize: 12 }}> {res.data!.a_v_urge_log_count!}</span>
+                <span style={{ color: '#43bcba', fontSize: 12 }}> {res.data?.a_a_a_a_a_n_user_profile?.x_contact_count ?? ''}</span>
               </div>
             );
             break;
@@ -429,23 +427,23 @@ const Advanced: FC = () => {
             value.tab = (
               <div>
                 {value.tab}
-                <span style={{ color: 'red', fontSize: 12 }}> {res.data!.a_v_urge_log_count!}</span>
+                <span style={{ color: '#43bcba', fontSize: 12 }}> {res.data?.a_a_a_a_a_n_user_profile?.u_app_count ?? ''}</span>
               </div>
             );
             break;
           case 'borrow':
+            //todo 展示借贷分析个数
             value.tab = (
               <div>
                 {value.tab}
-                <span style={{ color: 'red', fontSize: 12 }}> {res.data!.a_v_urge_log_count!}</span>
               </div>
             );
             break;
           case 'relation':
+            //todo 展示关系网络个数
             value.tab = (
               <div>
                 {value.tab}
-                <span style={{ color: 'red', fontSize: 12 }}> {res.data!.a_v_urge_log_count!}</span>
               </div>
             );
             break;
@@ -453,7 +451,7 @@ const Advanced: FC = () => {
             value.tab = (
               <div>
                 {value.tab}
-                <span style={{ color: 'red', fontSize: 12 }}> {res.data!.a_v_urge_log_count!}</span>
+                <span style={{ color: '#43bcba', fontSize: 12 }}> {res.data?.a_a_a_a_a_a_a_user?.a_p_borrow_count ?? ''}</span>
               </div>
             );
             break;
@@ -461,7 +459,7 @@ const Advanced: FC = () => {
             value.tab = (
               <div>
                 {value.tab}
-                <span style={{ color: 'red', fontSize: 12 }}> {res.data!.a_v_urge_log_count!}</span>
+                <span style={{ color: '#43bcba', fontSize: 12 }}> {res.data?.a_x_action_count ?? ''}</span>
               </div>
             );
             break;
@@ -469,7 +467,7 @@ const Advanced: FC = () => {
             value.tab = (
               <div>
                 {value.tab}
-                <span style={{ color: 'red', fontSize: 12 }}> {res.data!.a_v_urge_log_count!}</span>
+                <span style={{ color: '#43bcba', fontSize: 12 }}> {res.data?.a_w_sms_count ?? ''}</span>
               </div>
             );
             break;
@@ -671,7 +669,7 @@ const Advanced: FC = () => {
           size="small"
           column={isMobile ? 1 : { xs: 1, sm: 2, md: 3, lg: 3, xl: 5, xxl: 5 }}
         >
-          <Descriptions.Item style={{ display: display }} label="产品">
+          <Descriptions.Item style={{ display: display }} label="借款产品">
             {oldRecord?.a_a_a_a_a_h_product_snapshot?.b_name}
           </Descriptions.Item>
           <Descriptions.Item style={{ display: display }} label="借款金额">
@@ -734,6 +732,10 @@ const Advanced: FC = () => {
             oldRecord?.a_a_a_a_a_n_user_profile?.h_grey_id !== '0'
               ? <span style={{color: "darkred"}}>灰名单&nbsp;&nbsp;</span>
               : ''}
+              {oldRecord?.a_a_a_a_a_n_user_profile?.a_j_marketing_id !== undefined &&
+            oldRecord?.a_a_a_a_a_n_user_profile?.a_j_marketing_id !== 0
+              ? <span style={{color: "green"}}>营销名单&nbsp;&nbsp;</span>
+              : ''}
           </Descriptions.Item>
           <Descriptions.Item style={{ display: display }} label="放款时间">
             {moment(oldRecord?.o_loan_time).format('YYYY-MM-DD HH:mm')}
@@ -756,6 +758,9 @@ const Advanced: FC = () => {
           </Descriptions.Item>
           <Descriptions.Item style={{ display: display }} label="减免次数">
             {oldRecord?.a_d_reduce_times}
+          </Descriptions.Item>
+          <Descriptions.Item style={{ display: display }} label="查看次数">
+            {oldRecord?.a_f_operate_times}
           </Descriptions.Item>
 
         </Descriptions>

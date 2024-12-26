@@ -341,9 +341,9 @@ export const LOAN_LOG_METHOD: StatusEnum = {
 };
 //放款日志类型
 export const LOAN_LOG_TYPE: StatusEnum = {
-  1: { text: '人工', status: 'Default' },
-  2: { text: '强行', status: 'Error' },
-  3: { text: '自动', status: 'Warning' },
+  1: { text: '自动', status: 'Default' },
+  2: { text: '人工', status: 'Warning' },
+  3: { text: '强行', status: 'Error' },
 };
 //放款款日志类型 type 1:结清 2：展期 3：部分还款 4：减免 5：核销
 export const REPAY_LOG_TYPE: StatusColorEnum = {
@@ -358,8 +358,8 @@ export const LOAN_LOG_STATUS: StatusEnum = {
   10: { text: '待放款', status: 'Default' },
   20: { text: '放款中', status: 'Processing' },
   30: { text: '未知', status: 'Error' },
-  40: { text: '放款失败', status: 'Error' },
-  50: { text: '放款成功', status: 'Success' },
+  40: { text: '失败', status: 'Error' },
+  50: { text: '成功', status: 'Success' },
 };
 //放款日志状态  状态 10:回调中 20： 支付中 30:未知 40：支付失败 50：支付成功
 export const REPAY_LOG_STATUS: StatusEnum = {
@@ -795,3 +795,40 @@ export const BORROW_AMOUNT_GROUP: StatusOption[] = [
     value: '4',
   },
 ];
+
+export const COLLECTION_STAGE: StatusColorEnum2 = {
+  92: { text: 'S0', color: '#0099FF' },
+  93: { text: 'S1', color: '#CC99CC' },
+  94: { text: 'S2', color: '#FF9900' },
+  95: { text: 'S3', color: '#711212' },
+};
+
+export const COLLECTION_NEWS_CAT: StatusColorEnum = {
+  1: { text: '记录', color: '#0099FF' },
+  2: { text: '电话', color: '#FF9900' },
+  3: { text: '入催', color: '#97d8eb' },
+  4: { text: '系统', color: '#CC99CC' },
+  5: { text: '还款', color: '#006633' },
+};
+export const COLLECTION_NEWS_TYPE: StatusColorEnum = {
+  11: { text: '承诺还款', color: '#0099FF' },
+  12: { text: '支付确认', color: '#99CC33' },
+  13: { text: '还款协商', color: '#97d8eb' },
+  14: { text: '电话未接通', color: '#CC99CC' },
+  15: { text: '接通非本人', color: '#FF9900' },
+  16: { text: '疑似欺诈用户', color: '#711212' },
+  41: { text: '承诺未还', color: '#FF0033' },
+  42: { text: '无日志', color: '#ffffff' },
+  43: { text: '催收短信', color: '#a0c69d' },
+  51: { text: '部分还款', color: '#99CC33' },
+  52: { text: '展期', color: '#CCFF99' },
+  53: { text: '结清', color: '#006633' },
+};
+export const RELATION: StatusColorEnum = {
+  1: { text: '本人', color: 'white' },
+  2: { text: '亲人', color: 'white' },
+  3: { text: '紧急联系人', color: 'white' },
+  4: { text: '通讯录', color: 'white' },
+  5: { text: '其他', color: 'white' },
+};
+
