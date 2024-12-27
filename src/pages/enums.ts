@@ -366,13 +366,13 @@ export const REPAY_LOG_STATUS: StatusEnum = {
   10: { text: '回调中', status: 'Default' },
   20: { text: '支付中', status: 'Processing' },
   30: { text: '未知', status: 'Error' },
-  40: { text: '支付失败', status: 'Error' },
-  50: { text: '支付成功', status: 'Success' },
+  40: { text: '失败', status: 'Error' },
+  50: { text: '成功', status: 'Success' },
 };
 //1还款链接 2：app
 export const REPAY_WAY: StatusEnum = {
-  1: { text: '还款链接', status: '' },
-  2: { text: 'app', status: '' },
+  1: { text: '还款链接' },
+  2: { text: 'app' },
 };
 export const SYNC_CODE: StatusEnum = {
   300: { text: '未知', status: 'Processing' },
@@ -832,3 +832,7 @@ export const RELATION: StatusColorEnum = {
   5: { text: '其他', color: 'white' },
 };
 
+export const REPAY_LOG_WAY: StatusColorEnum = {
+  1: { text: 'LINK' },
+  2: { text: 'APP' },
+};

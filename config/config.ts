@@ -158,11 +158,11 @@ export default defineConfig({
         // },
       },
     },
-    {
-      requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'http://api.dasewan.cn/docs',
-      projectName: 'swagger',
-    },
+    // {
+    //   requestLibPath: "import { request } from '@umijs/max'",
+    //   schemaPath: 'http://api.dasewan.cn/docs',
+    //   projectName: 'swagger',
+    // },
   ],
   mfsu: {
     strategy: 'normal',

@@ -620,7 +620,7 @@ declare namespace API {
     /** 最后一次结清时间 */
     a_l_last_settled_time?: string;
     /** 最后一次访问时间 */
-    a_m_access_time?: number;
+    a_m_access_time?: string;
     /** 累计逾期天数* */
     a_n_total_overdue_days?: number;
     /** 客服消息数 */
@@ -6664,7 +6664,7 @@ declare namespace API {
     c_period_id?: number;
     /** admin_id */
     d_admin_id?: number;
-    /** 催员 */
+    /** 催收订单 */
     e_collection_order_id?: number;
     /** 催收小组 */
     f_collection_group_id?: number;
@@ -6766,6 +6766,10 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 用户id */
+    b_a_user_id?: number;
+    /** 催员 */
+    b_b_collection_admin_id?: number;
   };
 
   type RBlack = {
