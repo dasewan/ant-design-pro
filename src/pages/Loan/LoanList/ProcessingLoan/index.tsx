@@ -159,8 +159,8 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.Loan.created_at', defaultMessage: '' }),
-      dataIndex: 'created_at',
+      title: intl.formatMessage({ id: 'pages.Loan.d_loan_time', defaultMessage: '' }),
+      dataIndex: 'd_loan_time',
       valueType: 'dateRange',
       render: (_, record) => {
         return moment(record.d_loan_time).format('YYYY-MM-DD HH:mm:ss');
@@ -168,11 +168,11 @@ const TableList: React.FC = () => {
       search: {
         transform: (value: any) => {
           return {
-            'created_at[0]':
+            'd_loan_time[0]':
               value[0].$d !== undefined
                 ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
                 : value[0] + ' 00:00:00',
-            'created_at[1]':
+            'd_loan_time[1]':
               value[1].$d !== undefined
                 ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
                 : value[1] + ' 00:00:00',

@@ -67,6 +67,7 @@ const TableList: React.FC = () => {
       search: {
         transform: (value: any) => ({ 'a_a_a_a_a_d_borrow-h_sn': value }),
       },
+
     },
     {
       title: intl.formatMessage({
@@ -119,6 +120,7 @@ const TableList: React.FC = () => {
     {
       title: intl.formatMessage({ id: 'pages.Loan.g_receiver_name', defaultMessage: '' }),
       dataIndex: 'g_receiver_name',
+      ellipsis: true,
     },
     {
       title: intl.formatMessage({
@@ -139,7 +141,7 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.created_at', defaultMessage: '' }),
       dataIndex: 'a_a_a_a_a_d_borrow.created_at',
       render: (_, record) => {
-        return moment(record.created_at).format('YYYY-MM-DD HH:mm:ss');
+        return moment(record.created_at).format('YYYY-MM-DD HH:mm');
       },
       valueType: 'dateRange',
       search: {
@@ -158,33 +160,11 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.Loan.created_at', defaultMessage: '' }),
-      dataIndex: 'created_at',
-      valueType: 'dateRange',
-      render: (_, record) => {
-        return moment(record.d_loan_time).format('YYYY-MM-DD HH:mm:ss');
-      },
-      search: {
-        transform: (value: any) => {
-          return {
-            'created_at[0]':
-              value[0].$d !== undefined
-                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[0] + ' 00:00:00',
-            'created_at[1]':
-              value[1].$d !== undefined
-                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
-                : value[1] + ' 00:00:00',
-          };
-        },
-      },
-    },
-    {
       title: intl.formatMessage({ id: 'pages.Loan.d_loan_time', defaultMessage: '' }),
       dataIndex: 'd_loan_time',
       valueType: 'dateRange',
       render: (_, record) => {
-        return moment(record.d_loan_time).format('YYYY-MM-DD HH:mm:ss');
+        return moment(record.d_loan_time).format('MM-DD HH:mm');
       },
       search: {
         transform: (value: any) => {
@@ -194,6 +174,28 @@ const TableList: React.FC = () => {
                 ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
                 : value[0] + ' 00:00:00',
             'd_loan_time[1]':
+              value[1].$d !== undefined
+                ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[1] + ' 00:00:00',
+          };
+        },
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.Borrow.BorrowDetail.o_loan_time', defaultMessage: '' }),
+      dataIndex: 'a_a_a_a_a_d_borrow.o_loan_time',
+      valueType: 'dateRange',
+      render: (_, record) => {
+        return moment(record.d_loan_time).format('MM-DD HH:mm');
+      },
+      search: {
+        transform: (value: any) => {
+          return {
+            'a_a_a_a_a_d_borrow-o_loan_time[0]':
+              value[0].$d !== undefined
+                ? moment(value[0].$d).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+                : value[0] + ' 00:00:00',
+            'a_a_a_a_a_d_borrow-o_loan_time[1]':
               value[1].$d !== undefined
                 ? moment(value[1].$d).endOf('day').format('YYYY-MM-DD HH:mm:ss')
                 : value[1] + ' 00:00:00',

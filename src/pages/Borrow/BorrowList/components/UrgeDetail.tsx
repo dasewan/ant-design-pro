@@ -50,7 +50,7 @@ const UrgeDetail: React.FC = () => {
   const [collectionAgencies, setCollectionAgencies] = useState<RequestOptionsType[]>([]);
   const [collectionGroups, setCollectionGroups] = useState<RequestOptionsType[]>([]);
   const [collectionSub, setCollectionSub] = useState<{logCount:number, callCount: number, smsCount: number, amount: number, successAmount: number, commission: number}>();
-  const [tabActiveKey, handleTabActiveKey] = useState<string>('92');
+  const [tabActiveKey, handleTabActiveKey] = useState<string>('0');
   const [tabStatus, seTabStatus] = useState<AdvancedState>({
     operationKey: 'tab1',
     tabActiveKey: 'detail',
@@ -136,9 +136,10 @@ const UrgeDetail: React.FC = () => {
     }
   };
   const _setCollectionFooter = (key: string, order2?: API.SFCollectionSubOrder) => {
-    if(oldRecord?.a_a_a_a_a_s_f_collection_sub_order !== undefined || order2 !== undefined){
+    console.log(order2);
+    console.log(oldRecord?.a_a_a_a_a_s_f_collection_sub_order);
+    if(oldRecord?.a_a_a_a_a_s_f_collection_sub_order?.k_s0_collection_admin_log_count !== undefined || order2?.k_s0_collection_admin_log_count !== undefined){
       let order = oldRecord?.a_a_a_a_a_s_f_collection_sub_order || order2;
-
       switch (key) {
         case '92':
           setCollectionSub({logCount:order!.k_s0_collection_admin_log_count!, callCount: order!.o_s0_collection_admin_call_count!, smsCount: order!.s_s0_collection_sms_count!, amount: order!.c_s0_collection_amount!, successAmount: order!.g_s0_collection_success_amount!, commission: order!.w_s0_collection_commission!})
@@ -539,7 +540,7 @@ const UrgeDetail: React.FC = () => {
 
     const collectionExtra = (
       <div style={{width: 1100}}>
-        {oldRecord?.a_a_a_a_a_b_l_collection_order !== undefined ? <Alert message={
+        {oldRecord?.a_a_a_a_a_b_l_collection_order?.g_collection_order_flow_history_count !== undefined ? <Alert message={
           <Descriptions
           size="small"
           column={17}
@@ -642,7 +643,7 @@ const UrgeDetail: React.FC = () => {
               columns={collectionNewsColumns}
               size="small"
               pagination={false}
-              title={() => <><Descriptions
+              title={() => collectionSub?.logCount !== undefined ? <><Descriptions
                 size="small"
                 column={9}
                 style={{width: 1000}}
@@ -666,7 +667,7 @@ const UrgeDetail: React.FC = () => {
                   {collectionSub?.commission}
                 </Descriptions.Item>
 
-              </Descriptions></>}
+              </Descriptions></> : null}
             />
 
             </Card>
