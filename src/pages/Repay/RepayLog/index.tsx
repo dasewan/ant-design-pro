@@ -227,8 +227,8 @@ const TableList: React.FC = () => {
           copyable: true,
         },
         {
-          title: FieldLabels.e_urge_id,
-          dataIndex: FieldIndex.e_urge_id,
+          title: FieldLabels.e_collection_order_id,
+          dataIndex: FieldIndex.e_collection_order_id,
           valueType: 'select',
           request: _getUsersEnum,
           className: styles.blue,
@@ -236,7 +236,7 @@ const TableList: React.FC = () => {
           render: (_, record) => {
             //todo 如果管理员状态被禁用，删除线
             return admins.find((item) => {
-              return item.role_id === 1 && item.id === record.e_urge_id;
+              return item.role_id === 1 && item.id === record.e_collection_order_id;
             }) ? (
               <del>{_}</del>
             ) : (

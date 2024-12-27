@@ -151,7 +151,7 @@ const DetailModel: React.FC<FormProps> = (props) => {
           </Descriptions.Item>
         </Descriptions>
         <Divider orientation="left">关联催收</Divider>
-        <div hidden={!(oldRecord?.e_urge_id && oldRecord?.e_urge_id > 0)}>
+        <div hidden={!(oldRecord?.e_collection_order_id && oldRecord?.e_collection_order_id > 0)}>
           <Descriptions
             column={{ xxl: 4, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
             bordered

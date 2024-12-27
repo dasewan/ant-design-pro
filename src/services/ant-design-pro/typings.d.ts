@@ -6665,13 +6665,13 @@ declare namespace API {
     /** admin_id */
     d_admin_id?: number;
     /** 催员 */
-    e_urge_id?: number;
+    e_collection_order_id?: number;
     /** 催收小组 */
-    f_urge_group_id?: number;
+    f_collection_group_id?: number;
     /** 催收公司 */
-    g_urge_company_id?: number;
+    g_collection_company_id?: number;
     /** 催收阶段 */
-    h_urge_stage_id?: number;
+    h_collection_stage_id?: number;
     /** type 1:结清 2：展期 3：部分还款 4：减免 5：核销 */
     i_type?: number;
     /** 状态 10:回调中 20： 支付中 30:未知 40：支付失败 50：支付成功  */

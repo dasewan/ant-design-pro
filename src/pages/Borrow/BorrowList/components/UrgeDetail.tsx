@@ -384,6 +384,94 @@ const UrgeDetail: React.FC = () => {
       },
     },
   ];
+
+  const repayColumns:  ProColumns<API.RARepayLog>[] = [
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.d_admin_id', defaultMessage: '' }),
+      dataIndex: 'd_admin_id',
+      key: 'd_admin_id',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.b_b_collection_admin_id', defaultMessage: '' }),
+      dataIndex: 'b_b_collection_admin_id',
+      key: 'b_b_collection_admin_id',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.i_type', defaultMessage: '' }),
+      dataIndex: 'i_type',
+      key: 'i_type',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.j_status', defaultMessage: '' }),
+      dataIndex: 'j_status',
+      key: 'j_status',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.k_way', defaultMessage: '' }),
+      dataIndex: 'k_way',
+      key: 'k_way',
+    },
+
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.m_payment_channel', defaultMessage: '' }),
+      dataIndex: 'm_payment_channel',
+      key: 'm_payment_channel',
+    },
+
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.o_bankcard_number', defaultMessage: '' }),
+      dataIndex: 'o_bankcard_number',
+      key: 'o_bankcard_number',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.p_bankcard_name', defaultMessage: '' }),
+      dataIndex: 'p_bankcard_name',
+      key: 'p_bankcard_name',
+    },
+
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.u_amount', defaultMessage: '' }),
+      dataIndex: 'u_amount',
+      key: 'u_amount',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.x_sync_message', defaultMessage: '' }),
+      dataIndex: 'x_sync_message',
+      key: 'x_sync_message',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.a_a_callback_message', defaultMessage: '' }),
+      dataIndex: 'a_a_callback_message',
+      key: 'a_a_callback_message',
+    },
+
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.a_e_expect_repay_total_amount', defaultMessage: '' }),
+      dataIndex: 'a_e_expect_repay_total_amount',
+      key: 'a_e_expect_repay_total_amount',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.a_w_overdue_days', defaultMessage: '' }),
+      dataIndex: 'a_w_overdue_days',
+      key: 'a_w_overdue_days',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.a_x_payment_method', defaultMessage: '' }),
+      dataIndex: 'a_x_payment_method',
+      key: 'a_x_payment_method',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.a_y_period_index', defaultMessage: '' }),
+      dataIndex: 'a_y_period_index',
+      key: 'a_y_period_index',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.created_at', defaultMessage: '' }),
+      dataIndex: 'created_at',
+      key: 'created_at',
+    },
+  ];
+
   const collectionNewsColumns: ProColumns<API.QCCollectionNews>[] = [
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNew.l_stage_day_index', defaultMessage: '' }),
@@ -616,11 +704,11 @@ const UrgeDetail: React.FC = () => {
             extra={<Alert message={<><span>还款次数：3 还款总额：3000 减免次数：3 减免总额：4 部分还款次数：3 部分还款金额：4000</span></>} type="info" />}
           >
             <ProTable<TableListItem, TableListPagination>
-              dataSource={oldRecord?.a_a_a_a_a_m_c_loan_logs}
+              dataSource={oldRecord?.a_a_a_a_a_r_a_repay_logs}
               rowKey="id"
               search={false}
               options={false}
-              columns={loanColumns}
+              columns={repayColumns}
               size="small"
               pagination={false}
             />
