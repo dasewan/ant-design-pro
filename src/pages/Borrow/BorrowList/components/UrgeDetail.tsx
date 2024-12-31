@@ -1,14 +1,25 @@
 import {
-  BORROW_STATUS_MAP,
-  COLLECTION_ASSIGN_LOG_TYPE, COLLECTION_NEWS_CAT, COLLECTION_NEWS_TYPE,
-  COLLECTION_STAGE,
+  COLLECTION_NEWS_CAT,
+  COLLECTION_NEWS_TYPE,
   LOAN_LOG_STATUS,
-  LOAN_LOG_TYPE, RELATION
+  LOAN_LOG_TYPE,
+  RELATION,
+  REPAY_LOG_STATUS,
+  REPAY_LOG_TYPE,
+  REPAY_LOG_WAY,
 } from '@/pages/enums';
 import { getAdminV1DBorrowsId as show } from '@/services/ant-design-pro/DBorrow';
 
+import type { TableListPagination } from '@/pages/Loan/LoanList/SuccessLoan/data';
+import { getAdminV1HECollectionGroupsEnum as getCollectionGroupsEnum } from '@/services/ant-design-pro/HECollectionGroup';
+import { getAdminV1TCollectionAgenciesEnum as getCollectionAgenciesEnum } from '@/services/ant-design-pro/TCollectionAgency';
+import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
+import { useIntl } from '@@/exports';
 import { GridContent } from '@ant-design/pro-layout';
-import {Card, Col, Row, Spin, Statistic, Table, Alert, Descriptions, } from 'antd';
+import ProTable, { type ProColumns } from '@ant-design/pro-table';
+import type { RequestOptionsType } from '@ant-design/pro-utils';
+import { Alert, Card, Descriptions, Spin, Table } from 'antd';
+import { CardTabListType } from 'antd/es/card/Card';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -21,16 +32,6 @@ import {
   PeriodFieldIndex,
   PeriodFieldLabels,
 } from './service';
-import {useIntl} from "@@/exports";
-import type {RequestOptionsType} from "@ant-design/pro-utils";
-import {getAdminV1UsersEnum as getUsersEnum} from "@/services/ant-design-pro/User";
-import ProTable, {type ProColumns} from "@ant-design/pro-table";
-import type {TableListPagination} from "@/pages/Loan/LoanList/SuccessLoan/data";
-import {CardTabListType} from "antd/es/card/Card";
-import {
-  getAdminV1TCollectionAgenciesEnum as getCollectionAgenciesEnum
-} from "@/services/ant-design-pro/TCollectionAgency";
-import {getAdminV1HECollectionGroupsEnum as getCollectionGroupsEnum} from "@/services/ant-design-pro/HECollectionGroup";
 
 type AdvancedState = {
   operationKey: string;
@@ -49,7 +50,14 @@ const UrgeDetail: React.FC = () => {
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
   const [collectionAgencies, setCollectionAgencies] = useState<RequestOptionsType[]>([]);
   const [collectionGroups, setCollectionGroups] = useState<RequestOptionsType[]>([]);
-  const [collectionSub, setCollectionSub] = useState<{logCount:number, callCount: number, smsCount: number, amount: number, successAmount: number, commission: number}>();
+  const [collectionSub, setCollectionSub] = useState<{
+    logCount: number;
+    callCount: number;
+    smsCount: number;
+    amount: number;
+    successAmount: number;
+    commission: number;
+  }>();
   const [tabActiveKey, handleTabActiveKey] = useState<string>('0');
   const [tabStatus, seTabStatus] = useState<AdvancedState>({
     operationKey: 'tab1',
@@ -138,28 +146,64 @@ const UrgeDetail: React.FC = () => {
   const _setCollectionFooter = (key: string, order2?: API.SFCollectionSubOrder) => {
     console.log(order2);
     console.log(oldRecord?.a_a_a_a_a_s_f_collection_sub_order);
-    if(oldRecord?.a_a_a_a_a_s_f_collection_sub_order?.k_s0_collection_admin_log_count !== undefined || order2?.k_s0_collection_admin_log_count !== undefined){
+    if (
+      oldRecord?.a_a_a_a_a_s_f_collection_sub_order?.k_s0_collection_admin_log_count !==
+        undefined ||
+      order2?.k_s0_collection_admin_log_count !== undefined
+    ) {
       let order = oldRecord?.a_a_a_a_a_s_f_collection_sub_order || order2;
       switch (key) {
         case '92':
-          setCollectionSub({logCount:order!.k_s0_collection_admin_log_count!, callCount: order!.o_s0_collection_admin_call_count!, smsCount: order!.s_s0_collection_sms_count!, amount: order!.c_s0_collection_amount!, successAmount: order!.g_s0_collection_success_amount!, commission: order!.w_s0_collection_commission!})
+          setCollectionSub({
+            logCount: order!.k_s0_collection_admin_log_count!,
+            callCount: order!.o_s0_collection_admin_call_count!,
+            smsCount: order!.s_s0_collection_sms_count!,
+            amount: order!.c_s0_collection_amount!,
+            successAmount: order!.g_s0_collection_success_amount!,
+            commission: order!.w_s0_collection_commission!,
+          });
           break;
         case '93':
-          setCollectionSub({logCount:order!.l_s1_collection_admin_log_count!, callCount: order!.p_s1_collection_admin_call_count!, smsCount: order!.t_s1_collection_sms_count!, amount: order!.d_s1_collection_amount!, successAmount: order!.h_s1_collection_success_amount!, commission: order!.x_s1_collection_commission!})
+          setCollectionSub({
+            logCount: order!.l_s1_collection_admin_log_count!,
+            callCount: order!.p_s1_collection_admin_call_count!,
+            smsCount: order!.t_s1_collection_sms_count!,
+            amount: order!.d_s1_collection_amount!,
+            successAmount: order!.h_s1_collection_success_amount!,
+            commission: order!.x_s1_collection_commission!,
+          });
           break;
         case '94':
-          setCollectionSub({logCount:order!.m_s2_collection_admin_log_count!, callCount: order!.q_s2_collection_admin_call_count!, smsCount: order!.u_s2_collection_sms_count!, amount: order!.e_s2_collection_amount!, successAmount: order!.i_s2_collection_success_amount!, commission: order!.y_s2_collection_commission!})
+          setCollectionSub({
+            logCount: order!.m_s2_collection_admin_log_count!,
+            callCount: order!.q_s2_collection_admin_call_count!,
+            smsCount: order!.u_s2_collection_sms_count!,
+            amount: order!.e_s2_collection_amount!,
+            successAmount: order!.i_s2_collection_success_amount!,
+            commission: order!.y_s2_collection_commission!,
+          });
           break;
         case '95':
-          setCollectionSub({logCount:order!.n_s3_collection_admin_log_count!, callCount: order!.r_s3_collection_admin_call_count!, smsCount: order!.v_s3_collection_sms_count!, amount: order!.f_s3_collection_amount!, successAmount: order!.j_s3_collection_success_amount!, commission: order!.z_s3_collection_commission!})
+          setCollectionSub({
+            logCount: order!.n_s3_collection_admin_log_count!,
+            callCount: order!.r_s3_collection_admin_call_count!,
+            smsCount: order!.v_s3_collection_sms_count!,
+            amount: order!.f_s3_collection_amount!,
+            successAmount: order!.j_s3_collection_success_amount!,
+            commission: order!.z_s3_collection_commission!,
+          });
           break;
       }
     }
   };
   const _handleTabChange = (key: string) => {
     handleTabActiveKey(key);
-    if(oldRecord?.a_a_a_a_a_q_c_collection_news !== undefined){
-      setcollectionNews(oldRecord?.a_a_a_a_a_q_c_collection_news.filter(item => item.b_collection_stage_id?.toString() === key));
+    if (oldRecord?.a_a_a_a_a_q_c_collection_news !== undefined) {
+      setcollectionNews(
+        oldRecord?.a_a_a_a_a_q_c_collection_news.filter(
+          (item) => item.b_collection_stage_id?.toString() === key,
+        ),
+      );
     }
     _setCollectionFooter(key);
   };
@@ -178,31 +222,39 @@ const UrgeDetail: React.FC = () => {
       }
       if (res.data && res?.data?.a_a_a_a_a_q_c_collection_news !== undefined) {
         let tmpTabActiveKey: string = tabActiveKey;
-        let tmpTabCollectionNewsCount:{[key: string]: number} = {};
-        const groupedByStage = res?.data?.a_a_a_a_a_q_c_collection_news.reduce((accumulator, current) => {
-          if (!accumulator[current!.b_collection_stage_id!.toString()]) {
+        let tmpTabCollectionNewsCount: { [key: string]: number } = {};
+        const groupedByStage = res?.data?.a_a_a_a_a_q_c_collection_news.reduce(
+          (accumulator, current) => {
+            if (!accumulator[current!.b_collection_stage_id!.toString()]) {
               accumulator[current!.b_collection_stage_id!.toString()] = [];
-            tmpTabCollectionNewsCount[current!.b_collection_stage_id!.toString()] = 1;
-          }
-          accumulator[current!.b_collection_stage_id!.toString()].push(current);
-          tmpTabActiveKey = current!.b_collection_stage_id!.toString();
-          tmpTabCollectionNewsCount[current!.b_collection_stage_id!.toString()]++;
-          return accumulator;
-      }, {} as Record<string, API.QCCollectionNews[]>);
+              tmpTabCollectionNewsCount[current!.b_collection_stage_id!.toString()] = 1;
+            }
+            accumulator[current!.b_collection_stage_id!.toString()].push(current);
+            tmpTabActiveKey = current!.b_collection_stage_id!.toString();
+            tmpTabCollectionNewsCount[current!.b_collection_stage_id!.toString()]++;
+            return accumulator;
+          },
+          {} as Record<string, API.QCCollectionNews[]>,
+        );
         handleTabActiveKey(tmpTabActiveKey);
         _setCollectionFooter(tmpTabActiveKey, res?.data?.a_a_a_a_a_s_f_collection_sub_order);
         setcollectionNews(groupedByStage[tmpTabActiveKey]);
         collectionTabList.forEach((value) => {
-          value.tab =  <div>
-            {value.tab}
-            {tmpTabCollectionNewsCount[Number(value.key)] !== undefined ? <span style={{ color: '#43bcba', fontSize: 12 }}> {tmpTabCollectionNewsCount[Number(value.key)]}</span> : null}
-          </div>
+          value.tab = (
+            <div>
+              {value.tab}
+              {tmpTabCollectionNewsCount[Number(value.key)] !== undefined ? (
+                <span style={{ color: '#43bcba', fontSize: 12 }}>
+                  {' '}
+                  {tmpTabCollectionNewsCount[Number(value.key)]}
+                </span>
+              ) : null}
+            </div>
+          );
         });
         setCollectionTabList(collectionTabList);
         //设置催收footer
-
       }
-
 
       return {
         data: res.data,
@@ -289,7 +341,7 @@ const UrgeDetail: React.FC = () => {
     },
   ];
 
-  const loanColumns:  ProColumns<API.MCLoanLog>[] = [
+  const loanColumns: ProColumns<API.MCLoanLog>[] = [
     {
       title: intl.formatMessage({ id: 'pages.MCLoanLog.e_payment_channel', defaultMessage: '' }),
       dataIndex: 'e_payment_channel',
@@ -297,13 +349,19 @@ const UrgeDetail: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: intl.formatMessage({ id: 'pages.MCLoanLog.k_receiver_bankcard_name', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.MCLoanLog.k_receiver_bankcard_name',
+        defaultMessage: '',
+      }),
       dataIndex: 'k_receiver_bankcard_name',
       key: 'k_receiver_bankcard_name',
       ellipsis: true,
     },
     {
-      title: intl.formatMessage({ id: 'pages.MCLoanLog.j_receiver_bankcard_number', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.MCLoanLog.j_receiver_bankcard_number',
+        defaultMessage: '',
+      }),
       dataIndex: 'j_receiver_bankcard_number',
       key: 'j_receiver_bankcard_number',
       ellipsis: true,
@@ -378,77 +436,76 @@ const UrgeDetail: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.MCLoanLog.o_loan_time', defaultMessage: '' }),
       dataIndex: 'o_loan_time',
       key: 'o_loan_time',
-      width:90,
+      width: 90,
       render: (_, record) => {
         return moment(record.o_loan_time).format('MM-DD HH:mm');
       },
     },
   ];
 
-  const repayColumns:  ProColumns<API.RARepayLog>[] = [
-    {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.d_admin_id', defaultMessage: '' }),
-      dataIndex: 'd_admin_id',
-      key: 'd_admin_id',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.b_b_collection_admin_id', defaultMessage: '' }),
-      dataIndex: 'b_b_collection_admin_id',
-      key: 'b_b_collection_admin_id',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.i_type', defaultMessage: '' }),
-      dataIndex: 'i_type',
-      key: 'i_type',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.j_status', defaultMessage: '' }),
-      dataIndex: 'j_status',
-      key: 'j_status',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.k_way', defaultMessage: '' }),
-      dataIndex: 'k_way',
-      key: 'k_way',
-    },
-
+  const repayColumns: ProColumns<API.RARepayLog>[] = [
     {
       title: intl.formatMessage({ id: 'pages.RARepayLog.m_payment_channel', defaultMessage: '' }),
       dataIndex: 'm_payment_channel',
       key: 'm_payment_channel',
     },
-
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.a_x_payment_method', defaultMessage: '' }),
+      dataIndex: 'a_x_payment_method',
+      key: 'a_x_payment_method',
+      ellipsis: true,
+    },
     {
       title: intl.formatMessage({ id: 'pages.RARepayLog.o_bankcard_number', defaultMessage: '' }),
       dataIndex: 'o_bankcard_number',
       key: 'o_bankcard_number',
+      ellipsis: true,
     },
     {
       title: intl.formatMessage({ id: 'pages.RARepayLog.p_bankcard_name', defaultMessage: '' }),
       dataIndex: 'p_bankcard_name',
       key: 'p_bankcard_name',
-    },
-
-    {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.u_amount', defaultMessage: '' }),
-      dataIndex: 'u_amount',
-      key: 'u_amount',
+      ellipsis: true,
     },
     {
       title: intl.formatMessage({ id: 'pages.RARepayLog.x_sync_message', defaultMessage: '' }),
       dataIndex: 'x_sync_message',
       key: 'x_sync_message',
+      ellipsis: true,
     },
     {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.a_a_callback_message', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.RARepayLog.a_a_callback_message',
+        defaultMessage: '',
+      }),
       dataIndex: 'a_a_callback_message',
       key: 'a_a_callback_message',
+      ellipsis: true,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.RARepayLog.b_b_collection_admin_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'b_b_collection_admin_id',
+      key: 'b_b_collection_admin_id',
+      valueType: 'select',
+      ellipsis: true,
+      request: _getUsersEnum,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.k_way', defaultMessage: '' }),
+      dataIndex: 'k_way',
+      key: 'k_way',
+      filters: true,
+      onFilter: true,
+      valueEnum: REPAY_LOG_WAY,
     },
 
     {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.a_e_expect_repay_total_amount', defaultMessage: '' }),
-      dataIndex: 'a_e_expect_repay_total_amount',
-      key: 'a_e_expect_repay_total_amount',
+      title: intl.formatMessage({ id: 'pages.RARepayLog.a_y_period_index', defaultMessage: '' }),
+      dataIndex: 'a_y_period_index',
+      key: 'a_y_period_index',
     },
     {
       title: intl.formatMessage({ id: 'pages.RARepayLog.a_w_overdue_days', defaultMessage: '' }),
@@ -456,25 +513,50 @@ const UrgeDetail: React.FC = () => {
       key: 'a_w_overdue_days',
     },
     {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.a_x_payment_method', defaultMessage: '' }),
-      dataIndex: 'a_x_payment_method',
-      key: 'a_x_payment_method',
+      title: intl.formatMessage({
+        id: 'pages.RARepayLog.a_e_expect_repay_total_amount',
+        defaultMessage: '',
+      }),
+      dataIndex: 'a_e_expect_repay_total_amount',
+      key: 'a_e_expect_repay_total_amount',
     },
     {
-      title: intl.formatMessage({ id: 'pages.RARepayLog.a_y_period_index', defaultMessage: '' }),
-      dataIndex: 'a_y_period_index',
-      key: 'a_y_period_index',
+      title: intl.formatMessage({ id: 'pages.RARepayLog.u_amount', defaultMessage: '' }),
+      dataIndex: 'u_amount',
+      key: 'u_amount',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.i_type', defaultMessage: '' }),
+      dataIndex: 'i_type',
+      key: 'i_type',
+      filters: true,
+      onFilter: true,
+      valueEnum: REPAY_LOG_TYPE,
+      width: 120,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.RARepayLog.j_status', defaultMessage: '' }),
+      dataIndex: 'j_status',
+      key: 'j_status',
+      filters: true,
+      onFilter: true,
+      valueEnum: REPAY_LOG_STATUS,
     },
     {
       title: intl.formatMessage({ id: 'pages.RARepayLog.created_at', defaultMessage: '' }),
       dataIndex: 'created_at',
       key: 'created_at',
+      valueType: 'dateTime',
+      width: 160,
     },
   ];
 
   const collectionNewsColumns: ProColumns<API.QCCollectionNews>[] = [
     {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNew.l_stage_day_index', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.QCCollectionNew.l_stage_day_index',
+        defaultMessage: '',
+      }),
       dataIndex: 'l_stage_day_index',
       key: 'l_stage_day_index',
       ellipsis: true,
@@ -485,69 +567,77 @@ const UrgeDetail: React.FC = () => {
       key: 'm_overdue_days',
       ellipsis: true,
     },
-{
-          title: intl.formatMessage({ id: 'pages.QCCollectionNew.o_period_id', defaultMessage: '' }),
-          dataIndex: 'o_period_id',
-          key: 'o_period_id',
-  ellipsis: true,
-        },
-        {
-          title: intl.formatMessage({ id: 'pages.QCCollectionNew.c_collection_agency_id', defaultMessage: '' }),
-          dataIndex: 'c_collection_agency_id',
-          key: 'c_collection_agency_id',
-          valueType: 'select',
-          ellipsis: true,
-          request: _getCollectionAgenciesEnum,
-        },
-        {
-          title: intl.formatMessage({ id: 'pages.QCCollectionNew.d_collection_group_id', defaultMessage: '' }),
-          dataIndex: 'd_collection_group_id',
-          key: 'd_collection_group_id',
-          valueType: 'select',
-          ellipsis: true,
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNew.o_period_id', defaultMessage: '' }),
+      dataIndex: 'o_period_id',
+      key: 'o_period_id',
+      ellipsis: true,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.QCCollectionNew.c_collection_agency_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'c_collection_agency_id',
+      key: 'c_collection_agency_id',
+      valueType: 'select',
+      ellipsis: true,
+      request: _getCollectionAgenciesEnum,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.QCCollectionNew.d_collection_group_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'd_collection_group_id',
+      key: 'd_collection_group_id',
+      valueType: 'select',
+      ellipsis: true,
 
-          request: _getCollectionGroupsEnum,
-        },
-        {
-          title: intl.formatMessage({ id: 'pages.QCCollectionNew.e_collection_admin_id', defaultMessage: '' }),
-          dataIndex: 'e_collection_admin_id',
-          key: 'e_collection_admin_id',
-          valueType: 'select',
-          ellipsis: true,
-          request: _getUsersEnum,
-        },
-        {
-          title: intl.formatMessage({ id: 'pages.QCCollectionNew.f_cat', defaultMessage: '' }),
-          dataIndex: 'f_cat',
-          key: 'f_cat',
-          ellipsis: true,
-          filters: true,
-          onFilter: true,
-          valueEnum:COLLECTION_NEWS_CAT,
-        },
+      request: _getCollectionGroupsEnum,
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.QCCollectionNew.e_collection_admin_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'e_collection_admin_id',
+      key: 'e_collection_admin_id',
+      valueType: 'select',
+      ellipsis: true,
+      request: _getUsersEnum,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNew.f_cat', defaultMessage: '' }),
+      dataIndex: 'f_cat',
+      key: 'f_cat',
+      ellipsis: true,
+      filters: true,
+      onFilter: true,
+      valueEnum: COLLECTION_NEWS_CAT,
+    },
 
-        {
-          title: intl.formatMessage({ id: 'pages.QCCollectionNew.h_phone', defaultMessage: '' }),
-          dataIndex: 'h_phone',
-          key: 'h_phone',
-          ellipsis: true,
-        },
-        {
-          title: intl.formatMessage({ id: 'pages.QCCollectionNew.i_target', defaultMessage: '' }),
-          dataIndex: 'i_target',
-          key: 'i_target',
-          ellipsis: true,
-          filters: true,
-          onFilter: true,
-          valueEnum:RELATION,
-        },
-        {
-          title: intl.formatMessage({ id: 'pages.QCCollectionNew.j_content', defaultMessage: '' }),
-          dataIndex: 'j_content',
-          key: 'j_content',
-          ellipsis: true,
-        },
-
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNew.h_phone', defaultMessage: '' }),
+      dataIndex: 'h_phone',
+      key: 'h_phone',
+      ellipsis: true,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNew.i_target', defaultMessage: '' }),
+      dataIndex: 'i_target',
+      key: 'i_target',
+      ellipsis: true,
+      filters: true,
+      onFilter: true,
+      valueEnum: RELATION,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNew.j_content', defaultMessage: '' }),
+      dataIndex: 'j_content',
+      key: 'j_content',
+      ellipsis: true,
+    },
 
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNew.k_promise_time', defaultMessage: '' }),
@@ -562,16 +652,16 @@ const UrgeDetail: React.FC = () => {
       ellipsis: true,
       filters: true,
       onFilter: true,
-      valueEnum:COLLECTION_NEWS_TYPE,
+      valueEnum: COLLECTION_NEWS_TYPE,
     },
-        {
-          title: intl.formatMessage({ id: 'pages.QCCollectionNew.created_at', defaultMessage: '' }),
-          dataIndex: 'created_at',
-          key: 'created_at',
-          valueType: 'dateTime',
-          sorter: true,
-          ellipsis: true,
-        }
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNew.created_at', defaultMessage: '' }),
+      dataIndex: 'created_at',
+      key: 'created_at',
+      valueType: 'dateTime',
+      sorter: true,
+      ellipsis: true,
+    },
   ];
 
   const expandColumns: ColumnsType<API.PeriodDetail> = [
@@ -626,42 +716,73 @@ const UrgeDetail: React.FC = () => {
     );
   };
 
-    const collectionExtra = (
-      <div style={{width: 1100}}>
-        {oldRecord?.a_a_a_a_a_b_l_collection_order?.g_collection_order_flow_history_count !== undefined ? <Alert message={
-          <Descriptions
-          size="small"
-          column={17}
-        >
-          <Descriptions.Item span={3} label="入催时间">
-          {moment(oldRecord?.a_a_a_a_a_b_l_collection_order?.created_at).format('YYYY-MM-DD')}
-                    </Descriptions.Item>
-                    <Descriptions.Item span={2} label="流转次数">
-                    {oldRecord?.a_a_a_a_a_b_l_collection_order?.g_collection_order_flow_history_count}
-                    </Descriptions.Item>
-                    <Descriptions.Item span={2} label="催记数">
-                    {oldRecord?.a_a_a_a_a_b_l_collection_order?.h_collection_admin_log_count}
-                    </Descriptions.Item>
-                    <Descriptions.Item span={2} label="电话数">
-                    {oldRecord?.a_a_a_a_a_b_l_collection_order?.z_current_call_count}
-                    </Descriptions.Item>
-                    <Descriptions.Item span={2} label="短信数">
-                    {oldRecord?.a_a_a_a_a_b_l_collection_order?.j_system_sms_count}
-                    </Descriptions.Item>
-            <Descriptions.Item span={2}  label="入催金额">
-              {oldRecord?.a_a_a_a_a_b_l_collection_order?.n_borrow_amount}
-            </Descriptions.Item>
-                    <Descriptions.Item span={2} label="催回金额">
-                    {oldRecord?.a_a_a_a_a_b_l_collection_order?.l_collection_amount}
-                    </Descriptions.Item>
-            <Descriptions.Item span={2} label="佣金">
-              {oldRecord?.a_a_a_a_a_b_l_collection_order?.a_a_commission}
-            </Descriptions.Item>
+  const collectionExtra = (
+    <div style={{ width: 1100 }}>
+      {oldRecord?.a_a_a_a_a_b_l_collection_order?.g_collection_order_flow_history_count !==
+      undefined ? (
+        <Alert
+          message={
+            <Descriptions size="small" column={17}>
+              <Descriptions.Item span={3} label="入催时间">
+                {moment(oldRecord?.a_a_a_a_a_b_l_collection_order?.created_at).format('YYYY-MM-DD')}
+              </Descriptions.Item>
+              <Descriptions.Item span={2} label="流转次数">
+                {oldRecord?.a_a_a_a_a_b_l_collection_order?.g_collection_order_flow_history_count}
+              </Descriptions.Item>
+              <Descriptions.Item span={2} label="催记数">
+                {oldRecord?.a_a_a_a_a_b_l_collection_order?.h_collection_admin_log_count}
+              </Descriptions.Item>
+              <Descriptions.Item span={2} label="电话数">
+                {oldRecord?.a_a_a_a_a_b_l_collection_order?.z_current_call_count}
+              </Descriptions.Item>
+              <Descriptions.Item span={2} label="短信数">
+                {oldRecord?.a_a_a_a_a_b_l_collection_order?.j_system_sms_count}
+              </Descriptions.Item>
+              <Descriptions.Item span={2} label="入催金额">
+                {oldRecord?.a_a_a_a_a_b_l_collection_order?.n_borrow_amount}
+              </Descriptions.Item>
+              <Descriptions.Item span={2} label="催回金额">
+                {oldRecord?.a_a_a_a_a_b_l_collection_order?.l_collection_amount}
+              </Descriptions.Item>
+              <Descriptions.Item span={2} label="佣金">
+                {oldRecord?.a_a_a_a_a_b_l_collection_order?.a_a_commission}
+              </Descriptions.Item>
+            </Descriptions>
+          }
+          type="info"
+        />
+      ) : null}
+    </div>
+  );
 
-        </Descriptions>
-        } type="info" /> : null}
-      </div>
-    );
+  const repayExtra = (
+    <div style={{ width: 700 }}>
+      {oldRecord?.a_a_a_a_a_o_a_repay?.a_j_withhold_times !== undefined ? (
+        <Alert
+          message={
+            <Descriptions size="small" column={5}>
+              <Descriptions.Item label="支付次数">
+                {oldRecord?.a_a_a_a_a_o_a_repay?.a_j_withhold_times}
+              </Descriptions.Item>
+              <Descriptions.Item label="成功次数">
+                {oldRecord?.a_a_a_a_a_o_a_repay?.a_k_success_withhold_times}
+              </Descriptions.Item>
+              <Descriptions.Item label="减免次数">
+                {oldRecord?.a_a_a_a_a_o_a_repay?.t_deduction_times}
+              </Descriptions.Item>
+              <Descriptions.Item label="部分还款次数">
+                {oldRecord?.a_a_a_a_a_o_a_repay?.a_h_part_times}
+              </Descriptions.Item>
+              <Descriptions.Item label="展期次数">
+                {oldRecord?.a_a_a_a_a_o_a_repay?.a_b_extend_times}
+              </Descriptions.Item>
+            </Descriptions>
+          }
+          type="info"
+        />
+      ) : null}
+    </div>
+  );
 
   return (
     <div className={styles.main}>
@@ -701,7 +822,7 @@ const UrgeDetail: React.FC = () => {
             className={styles.tabsCard}
             bordered={false}
             onTabChange={onOperationTabChange}
-            extra={<Alert message={<><span>还款次数：3 还款总额：3000 减免次数：3 减免总额：4 部分还款次数：3 部分还款金额：4000</span></>} type="info" />}
+            extra={repayExtra}
           >
             <ProTable<TableListItem, TableListPagination>
               dataSource={oldRecord?.a_a_a_a_a_r_a_repay_logs}
@@ -731,34 +852,34 @@ const UrgeDetail: React.FC = () => {
               columns={collectionNewsColumns}
               size="small"
               pagination={false}
-              title={() => collectionSub?.logCount !== undefined ? <><Descriptions
-                size="small"
-                column={9}
-                style={{width: 1000}}
-              >
-                <Descriptions.Item label="催记数">
-                  {collectionSub?.logCount}
-                </Descriptions.Item>
-                <Descriptions.Item label="电话数">
-                  {collectionSub?.callCount}
-                </Descriptions.Item>
-                <Descriptions.Item label="短信数">
-                  {collectionSub?.smsCount}
-                </Descriptions.Item>
-                <Descriptions.Item label="入催金额">
-                  {collectionSub?.amount}
-                </Descriptions.Item>
-                <Descriptions.Item label="催回金额">
-                  {collectionSub?.successAmount}
-                </Descriptions.Item>
-                <Descriptions.Item label="佣金">
-                  {collectionSub?.commission}
-                </Descriptions.Item>
-
-              </Descriptions></> : null}
+              title={() =>
+                collectionSub?.logCount !== undefined ? (
+                  <>
+                    <Descriptions size="small" column={9} style={{ width: 1000 }}>
+                      <Descriptions.Item label="催记数">
+                        {collectionSub?.logCount}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="电话数">
+                        {collectionSub?.callCount}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="短信数">
+                        {collectionSub?.smsCount}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="入催金额">
+                        {collectionSub?.amount}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="催回金额">
+                        {collectionSub?.successAmount}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="佣金">
+                        {collectionSub?.commission}
+                      </Descriptions.Item>
+                    </Descriptions>
+                  </>
+                ) : null
+              }
             />
-
-            </Card>
+          </Card>
         </GridContent>
       </Spin>
     </div>
