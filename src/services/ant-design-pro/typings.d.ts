@@ -620,7 +620,7 @@ declare namespace API {
     /** 最后一次结清时间 */
     a_l_last_settled_time?: string;
     /** 最后一次访问时间 */
-    a_m_access_time?: string;
+    a_m_access_time?: Date;
     /** 累计逾期天数* */
     a_n_total_overdue_days?: number;
     /** 客服消息数 */
@@ -1835,8 +1835,18 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1GHOtpsIdParams = {
+    /** id of GHOtp */
+    id: number;
+  };
+
   type deleteAdminV1GHSettingsIdParams = {
     /** id of GHSetting */
+    id: number;
+  };
+
+  type deleteAdminV1GINotifiesIdParams = {
+    /** id of GINotify */
     id: number;
   };
 
@@ -2895,12 +2905,32 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1GHOtpsIdParams = {
+    /** id of GHOtp */
+    id: number;
+  };
+
+  type getAdminV1GHOtpsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GHSettingsIdParams = {
     /** id of GHSetting */
     id: number;
   };
 
   type getAdminV1GHSettingsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1GINotifiesIdParams = {
+    /** id of GINotify */
+    id: number;
+  };
+
+  type getAdminV1GINotifiesParams = {
     /** foo */
     foo: number;
   };
@@ -3762,6 +3792,39 @@ declare namespace API {
     a_a_a_a_g_i_risk_strategy_bundles?: GIRiskStrategyBundle[];
   };
 
+  type GHOtp = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** 号码 */
+    b_phone?: string;
+    /** opt */
+    c_content?: string;
+    /** 网关 */
+    d_gateway?: string;
+    /** 状态 */
+    e_status?: number;
+    /** md5 */
+    f_md5?: string;
+    /** 回调时间 */
+    g_success_at?: string;
+    /** 回填时间 */
+    h_fill_at?: string;
+    /** 送达时长 */
+    i_during_sec?: string;
+    /** device */
+    j_device?: string;
+    /** opt */
+    k_otp?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type GHSetting = {
     /** id */
     id?: number;
@@ -3787,6 +3850,39 @@ declare namespace API {
     j_sort?: number;
     /** badge */
     k_badge?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type GINotify = {
+    /** id */
+    id?: number;
+    /** 用户id */
+    a_user_id?: number;
+    /** 号码 */
+    b_phone?: string;
+    /** opt */
+    c_content?: string;
+    /** 网关 */
+    d_gateway?: string;
+    /** 状态 */
+    e_status?: number;
+    /** md5 */
+    f_md5?: string;
+    /** 回调时间 */
+    g_success_at?: string;
+    /** 回填时间 */
+    h_fill_at?: string;
+    /** 送达时长 */
+    i_during_sec?: string;
+    /** device */
+    j_device?: string;
+    /** 订单 */
+    k_borrow_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3999,6 +4095,12 @@ declare namespace API {
     n_request_md5?: string;
     /** 返回 */
     o_response?: string;
+    /** 订单id */
+    p_borrow_id?: number;
+    /** 分期ids */
+    q_period_ids?: string;
+    /** reference */
+    r_reference?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -5224,6 +5326,20 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 附加策略类型 0：不使用 1：回捞 2：收缩 */
+    x_suffix?: number;
+    /** 回捞策略 */
+    y_expand_risk_strategy_id?: number;
+    /** code */
+    z_expand_risk_strategy_code?: string;
+    /** 版本 */
+    a_a_expand_risk_strategy_version?: string;
+    /** 收缩策略 */
+    a_b_shrink_risk_strategy_id?: number;
+    /** code */
+    a_c_shrink_risk_strategy_code?: string;
+    /** 版本 */
+    a_d_shrink_risk_strategy_version?: string;
   };
 
   type NFSmsContact = {
@@ -5474,7 +5590,7 @@ declare namespace API {
     /** 应还违约金 */
     j_expect_violate_fee?: number;
     /** 应还罚息 */
-    k_expect_overdue_fee?: number;
+    k_expect_overdue_amount?: number;
     /** 在逾天数 */
     l_overdue_days?: number;
     /** 历史逾期天数 */
@@ -5490,7 +5606,7 @@ declare namespace API {
     /** 已支付违约金 */
     r_paid_violate_fee?: number;
     /** 已支付罚息 */
-    s_paid_overdue_fee?: number;
+    s_paid_overdue_amount?: number;
     /** 减免次数 */
     t_deduction_times?: number;
     /** 减免总额 */
@@ -5504,7 +5620,7 @@ declare namespace API {
     /** 减免总违约金 */
     y_deduction_total_violate_fee?: number;
     /** 减免总罚息 */
-    z_deduction_total_overdue_fee?: number;
+    z_deduction_total_overdue_amount?: number;
     /** 平账金额 */
     a_a_write_off_amount?: number;
     /** 展期次数 */
@@ -5518,7 +5634,7 @@ declare namespace API {
     /** 展期违约金 */
     a_f_extend_total_violate_fee?: number;
     /** 展期罚息 */
-    a_g_extend_total_overdue_fee?: number;
+    a_g_extend_total_overdue_amount?: number;
     /** 部分还款次数 */
     a_h_part_times?: number;
     /** 查看次数 */
@@ -5913,8 +6029,18 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1GHOtpsIdParams = {
+    /** id of GHOtp */
+    id: number;
+  };
+
   type putAdminV1GHSettingsIdParams = {
     /** id of GHSetting */
+    id: number;
+  };
+
+  type putAdminV1GINotifiesIdParams = {
+    /** id of GINotify */
     id: number;
   };
 
@@ -6364,7 +6490,7 @@ declare namespace API {
     /** 应还违约金 */
     j_expect_violate_fee?: number;
     /** 应还罚息 */
-    k_expect_overdue_fee?: number;
+    k_expect_overdue_amount?: number;
     /** 在逾天数 */
     l_overdue_days?: number;
     /** 历史逾期天数 */
@@ -6380,7 +6506,7 @@ declare namespace API {
     /** 已支付违约金 */
     r_paid_violate_fee?: number;
     /** 已支付罚息 */
-    s_paid_overdue_fee?: number;
+    s_paid_overdue_amount?: number;
     /** 减免次数 */
     t_deduction_times?: number;
     /** 减免总额 */
@@ -6394,7 +6520,7 @@ declare namespace API {
     /** 减免总违约金 */
     y_deduction_total_violate_fee?: number;
     /** 减免总罚息 */
-    z_deduction_total_overdue_fee?: number;
+    z_deduction_total_overdue_amount?: number;
     /** 平账金额 */
     a_a_write_off_amount?: number;
     /** 展期次数 */
@@ -6408,7 +6534,7 @@ declare namespace API {
     /** 展期违约金 */
     a_f_extend_total_violate_fee?: number;
     /** 展期罚息 */
-    a_g_extend_total_overdue_fee?: number;
+    a_g_extend_total_overdue_amount?: number;
     /** 部分还款次数 */
     a_h_part_times?: number;
     /** 查看次数 */
@@ -6719,9 +6845,9 @@ declare namespace API {
     /** 应还款总金额 */
     a_e_expect_repay_total_amount?: number;
     /** 本次还款利息部分 */
-    a_f_expect_interest_amount?: number;
+    a_f_expect_interest?: number;
     /** 本次还款利息部分 */
-    a_g_interest_amount?: number;
+    a_g_interest?: number;
     /** 本次已完结利息天数 */
     a_h_interest_finished_days?: number;
     /** 本次还款利息结余 */
@@ -6760,16 +6886,18 @@ declare namespace API {
     a_y_period_index?: number;
     /** 分期期数 */
     a_z_period_count?: number;
+    /** 用户id */
+    b_a_user_id?: number;
+    /** 催员 */
+    b_b_collection_admin_id?: number;
+    /** 实际支付时间和回调时间是否跨天 */
+    b_c_is_pay_span_day?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
-    /** 用户id */
-    b_a_user_id?: number;
-    /** 催员 */
-    b_b_collection_admin_id?: number;
   };
 
   type RBlack = {

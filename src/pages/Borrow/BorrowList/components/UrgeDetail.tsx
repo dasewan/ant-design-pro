@@ -288,11 +288,6 @@ const UrgeDetail: React.FC = () => {
       key: PeriodFieldIndex.g_expect_borrow_amount,
     },
     {
-      title: PeriodFieldLabels.l_overdue_days,
-      dataIndex: PeriodFieldIndex.l_overdue_days,
-      key: PeriodFieldIndex.l_overdue_days,
-    },
-    {
       title: PeriodFieldLabels.a_p_expect_repay_time,
       dataIndex: PeriodFieldIndex.a_p_expect_repay_time,
       key: PeriodFieldIndex.a_p_expect_repay_time,
@@ -310,35 +305,61 @@ const UrgeDetail: React.FC = () => {
       },
     },
     {
+      title: PeriodFieldLabels.l_overdue_days,
+      dataIndex: PeriodFieldIndex.l_overdue_days,
+      key: PeriodFieldIndex.l_overdue_days,
+    },
+    {
       title: PeriodFieldLabels.f_expect_repay_total_amount,
       dataIndex: PeriodFieldIndex.f_expect_repay_total_amount,
       key: PeriodFieldIndex.f_expect_repay_total_amount,
+      render: (_, record) => {
+        let amount =  record.f_expect_repay_total_amount!;
+        if(record.a_o_product_settlement_type == 1){
+            return amount - record.q_paid_service_fee! - record.p_paid_interest!;
+        }else if(record.a_o_product_settlement_type == 2){
+          return amount - record.q_paid_service_fee!;
+        }else{
+          return amount;
+        }
+      },
     },
     {
       title: PeriodFieldLabels.u_deduction_total_amount,
       dataIndex: PeriodFieldIndex.u_deduction_total_amount,
       key: PeriodFieldIndex.u_deduction_total_amount,
     },
-    {
-      title: PeriodFieldLabels.a_c_extend_total_amount,
-      dataIndex: PeriodFieldIndex.a_c_extend_total_amount,
-      key: PeriodFieldIndex.a_c_extend_total_amount,
-    },
+    // {
+    //   title: PeriodFieldLabels.a_c_extend_total_amount,
+    //   dataIndex: PeriodFieldIndex.a_c_extend_total_amount,
+    //   key: PeriodFieldIndex.a_c_extend_total_amount,
+    // },
     {
       title: PeriodFieldLabels.a_a_write_off_amount,
       dataIndex: PeriodFieldIndex.a_a_write_off_amount,
       key: PeriodFieldIndex.a_a_write_off_amount,
     },
     {
-      title: PeriodFieldLabels.u_deduction_total_amount,
-      dataIndex: PeriodFieldIndex.u_deduction_total_amount,
-      key: PeriodFieldIndex.u_deduction_total_amount,
+      title: PeriodFieldLabels.n_paid_amount,
+      dataIndex: PeriodFieldIndex.n_paid_amount,
+      key: PeriodFieldIndex.n_paid_amount,
     },
     {
-      title: PeriodFieldLabels.u_deduction_total_amount,
-      dataIndex: PeriodFieldIndex.u_deduction_total_amount,
-      key: PeriodFieldIndex.u_deduction_total_amount,
+      title: "剩余应还",
+      dataIndex: PeriodFieldIndex.f_expect_repay_total_amount,
+      key: PeriodFieldIndex.f_expect_repay_total_amount,
+      render: (_, record) => {
+        let amount =  record.f_expect_repay_total_amount! - record.u_deduction_total_amount! - record.n_paid_amount!;
+        if(record.a_o_product_settlement_type == 1){
+            return amount - record.q_paid_service_fee! - record.p_paid_interest!;
+        }else if(record.a_o_product_settlement_type == 2){
+          return amount - record.q_paid_service_fee!;
+        }else{
+          return amount;
+        }
+      },
     },
+
   ];
 
   const loanColumns: ProColumns<API.MCLoanLog>[] = [

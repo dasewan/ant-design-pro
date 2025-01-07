@@ -45,7 +45,9 @@ import * as gdRiskItem from './gdRiskItem';
 import * as geRiskRoleGroup from './geRiskRoleGroup';
 import * as gfRiskRole from './gfRiskRole';
 import * as ggRiskStratey from './ggRiskStratey';
+import * as ghOtp from './ghOtp';
 import * as ghSetting from './ghSetting';
+import * as giNotify from './giNotify';
 import * as giRiskStrategyBundle from './giRiskStrategyBundle';
 import * as gjRiskTag from './gjRiskTag';
 import * as gkBank from './gkBank';
@@ -159,7 +161,9 @@ export default {
   geRiskRoleGroup,
   gfRiskRole,
   ggRiskStratey,
+  ghOtp,
   ghSetting,
+  giNotify,
   giRiskStrategyBundle,
   gjRiskTag,
   gkBank,
