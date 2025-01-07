@@ -42,6 +42,8 @@ const CreateForm: React.FC<FormProps> = (props) => {
   const formRef = useRef<ProFormInstance>();
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
+  const [suffix, setSuffix] = useState<number>(0);
+  console.log(props.strategies);
   /**
    * 提交风控字段
    * @param values
@@ -57,59 +59,60 @@ const CreateForm: React.FC<FormProps> = (props) => {
       return false;
     }
     try {
-      if (props.id > 0) {
-        if (values.c_borrow !== undefined) {
-          // @ts-ignore
-          values.c_borrow = values.c_borrow.join(',');
-        }
-        if (values.d_channel !== undefined) {
-          // @ts-ignore
-          values.d_channel = values.d_channel.join(',');
-        }
-        if (values.e_sms !== undefined) {
-          // @ts-ignore
-          values.e_sms = values.e_sms.join(',');
-        }
-        if (values.f_contact !== undefined) {
-          // @ts-ignore
-          values.f_contact = values.f_contact.join(',');
-        }
-        if (values.g_app !== undefined) {
-          // @ts-ignore
-          values.g_app = values.g_app.join(',');
-        }
-        if (values.h_region !== undefined) {
-          // @ts-ignore
-          values.h_region = values.h_region.join(',');
-        }
-        if (values.i_age !== undefined) {
-          // @ts-ignore
-          values.i_age = values.i_age.join(',');
-        }
+      if (values.c_borrow !== undefined) {
+        // @ts-ignore
+        values.c_borrow = values.c_borrow.join(',');
+      }
+      if (values.d_channel !== undefined) {
+        // @ts-ignore
+        values.d_channel = values.d_channel.join(',');
+      }
+      if (values.e_sms !== undefined) {
+        // @ts-ignore
+        values.e_sms = values.e_sms.join(',');
+      }
+      if (values.f_contact !== undefined) {
+        // @ts-ignore
+        values.f_contact = values.f_contact.join(',');
+      }
+      if (values.g_app !== undefined) {
+        // @ts-ignore
+        values.g_app = values.g_app.join(',');
+      }
+      if (values.h_region !== undefined) {
+        // @ts-ignore
+        values.h_region = values.h_region.join(',');
+      }
+      if (values.i_age !== undefined) {
+        // @ts-ignore
+        values.i_age = values.i_age.join(',');
+      }
+      if (
+        values.m_risk_strategy_2_rate !== undefined &&
+        values.o_risk_strategy_3_rate !== undefined
+      ) {
         if (
-          values.m_risk_strategy_2_rate !== undefined &&
-          values.o_risk_strategy_3_rate !== undefined
+          values.k_risk_strategy_1_rate! +
+            values.m_risk_strategy_2_rate +
+            values.o_risk_strategy_3_rate !==
+          100
         ) {
-          if (
-            values.k_risk_strategy_1_rate! +
-              values.m_risk_strategy_2_rate +
-              values.o_risk_strategy_3_rate !==
-            100
-          ) {
-            message.error('占比总和不等于100%');
-            return false;
-          }
-        } else if (values.m_risk_strategy_2_rate !== undefined) {
-          if (values.k_risk_strategy_1_rate! + values.m_risk_strategy_2_rate !== 100) {
-            message.error('占比总和不等于100%');
-            return false;
-          }
-        } else if (values.o_risk_strategy_3_rate !== undefined) {
-          if (values.k_risk_strategy_1_rate! + values.o_risk_strategy_3_rate !== 100) {
-            message.error('占比总和不等于100%');
-            return false;
-          }
+          message.error('占比总和不等于100%');
+          return false;
         }
+      } else if (values.m_risk_strategy_2_rate !== undefined) {
+        if (values.k_risk_strategy_1_rate! + values.m_risk_strategy_2_rate !== 100) {
+          message.error('占比总和不等于100%');
+          return false;
+        }
+      } else if (values.o_risk_strategy_3_rate !== undefined) {
+        if (values.k_risk_strategy_1_rate! + values.o_risk_strategy_3_rate !== 100) {
+          message.error('占比总和不等于100%');
+          return false;
+        }
+      }
+      if (props.id > 0) {
+        
         // @ts-ignore
         const res = await update({ id: props.id, ...values });
         if (!res.success) {
@@ -254,6 +257,25 @@ const CreateForm: React.FC<FormProps> = (props) => {
               res.data!.n_risk_strategy_id_3,
             ];
           }
+          if (
+            res.data!.y_expand_risk_strategy_id !== undefined &&
+            res.data!.y_expand_risk_strategy_id !== null
+          ) {
+            res.data!.y_expand_risk_strategy_id = [
+              res.data!.z_expand_risk_strategy_code,
+              res.data!.y_expand_risk_strategy_id,
+            ];
+          }
+          if (
+            res.data!.a_b_shrink_risk_strategy_id !== undefined &&
+            res.data!.a_b_shrink_risk_strategy_id !== null
+          ) {
+            res.data!.a_b_shrink_risk_strategy_id = [
+              res.data!.a_c_shrink_risk_strategy_code,
+              res.data!.a_b_shrink_risk_strategy_id,
+            ];
+          }
+          setSuffix(res.data!.x_suffix);
           setOldRecord(res.data!);
           return res.data!;
         } else {
@@ -621,7 +643,49 @@ const CreateForm: React.FC<FormProps> = (props) => {
           },
         ]}
       />
-
+      <Divider>附加策略</Divider>
+      <ProFormRadio.Group
+              name={FieldIndex.x_suffix}
+              label={FieldLabels.x_suffix}
+              radioType="button"
+              options={[
+                {
+                  label: "不使用",
+                  value: 0,
+                },
+                {
+                  label: FieldLabels.y_expand_risk_strategy_id,
+                  value: 1,
+                },
+                {
+                  label: FieldLabels.a_b_shrink_risk_strategy_id,
+                  value: 2,
+                },
+              ]}
+              fieldProps={{
+                onChange: (value) => {
+                  console.log(value.target.value);
+                  setSuffix(value.target.value);
+                },
+              }}
+            />
+            {suffix === 1 ? <ProFormCascader
+        label={FieldLabels.y_expand_risk_strategy_id}
+        name={FieldIndex.y_expand_risk_strategy_id}
+        colProps={{ md: 24, xl: 24 }}
+        fieldProps={{
+          options: props.strategies,
+        }}
+      />: null}
+      {suffix === 2 ? <ProFormCascader
+        label={FieldLabels.a_b_shrink_risk_strategy_id}
+        name={FieldIndex.a_b_shrink_risk_strategy_id}
+        colProps={{ md: 24, xl: 24 }}
+        fieldProps={{
+          options: props.strategies,
+        }}
+      />: null}
+      
       {/*备注*/}
       <ProFormText
         label={FieldLabels.p_description}
