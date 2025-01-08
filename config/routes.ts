@@ -597,6 +597,12 @@ export default [
         path: '/operation/kyc',
         component: './Operation/Kyc',
       },
+      {
+        name: 'credit',
+        icon: 'smile',
+        path: '/operation/credit',
+        component: './Operation/Credit',
+      },
     ],
   },
   {

@@ -98,6 +98,7 @@ export default {
   'menu.review.review-borrow-flow': '审核订单流转记录',
   'menu.operation.payment-channel': '支付渠道管理',
   'menu.operation.kyc': 'KYC管理',
+  'menu.operation.credit': '信用分系数',
   'menu.loan': '放款管理',
   'menu.loan.waiting-loan': '待放款订单',
   'menu.loan.queue-loan': '放款队列',
