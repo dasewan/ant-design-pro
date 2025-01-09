@@ -5,17 +5,19 @@ import {
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { PageContainer } from '@ant-design/pro-layout';
-import {Divider, message, Row, Col, Result, Spin, Switch, Alert, Radio,Table, InputNumber,Space  } from 'antd';
+import {Divider, message, Row, Col, Result, Spin, Switch, Alert, Radio, Table, InputNumber, Space, Button} from 'antd';
 import type { RadioChangeEvent, InputNumberProps } from 'antd';
 import { ProForm, ProFormRadio, ProFormText,ProFormDigit } from '@ant-design/pro-components';
 import React, { useEffect, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { fieldLabels } from './service';
-import {useIntl} from "@@/exports";
+import {history, useIntl} from "@@/exports";
 import 'katex/dist/katex.min.css';
 import MathFormula from './MathFormula';
 import { ProCard } from '@ant-design/pro-components';
 import moment from "moment/moment";
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 
 const ageGroups = [
@@ -112,6 +114,8 @@ const TableList: React.FC = () => {
   const [data, setData] = useState<TableListItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [dataSource, setDataSource] = useState<[]>([]);
+  const [coefficient, setCoefficient] = useState<Coefficient>([]);
+
   const [loading, setLoading] = useState(true);
 
   const [mode, setMode] = useState('break');
@@ -184,8 +188,8 @@ const TableList: React.FC = () => {
         }
         let dayPenalty = calculateCreditScorePenalty(i, penaltyParams.p, penaltyParams.q);
         dataSource.push({
-          overdueDays: i,
           repayCount: order.repay_count,
+          overdueDays: i,
           type: 'penalty',
           change: dayPenalty,
           credit: score + dayPenalty,
@@ -203,8 +207,8 @@ const TableList: React.FC = () => {
         rewardParams.b
       );
       dataSource.push({
-        overdueDays: order.overdue_days,
         repayCount: order.repay_count,
+        overdueDays: order.overdue_days,
         type: 'reward',
         change: reward,
         credit: score + reward,
@@ -213,6 +217,44 @@ const TableList: React.FC = () => {
     });
     setDataSource(dataSource)
   };
+
+  const exportToExcel = (data, columns, filename) => {
+    const extraRows = [
+      { p: coefficient.p1, q: coefficient.q1, k: coefficient.k1, a: coefficient.a1, b: coefficient.b1, break: coefficient.break1 },
+      { p: coefficient.p2, q: coefficient.q2, k: coefficient.k2, a: coefficient.a2, b: coefficient.b2, break: coefficient.break2 },
+      { p: coefficient.p3, q: coefficient.q3, k: coefficient.k3, a: coefficient.a3, b: coefficient.b3, break: coefficient.break3 },
+      { p: coefficient.p4, q: coefficient.q4, k: coefficient.k4, a: coefficient.a4, b: coefficient.b4, break: coefficient.break4 },
+
+    ];
+    // 1. 创建一个空的工作表
+    const worksheet = XLSX.utils.aoa_to_sheet([]);
+
+    // 2. 添加额外数据的表头
+    const extraHeader = ['p', 'q', 'k', 'a', 'b', 'break']; // 额外数据的表头
+    XLSX.utils.sheet_add_aoa(worksheet, [extraHeader], { origin: 'A1' }); // 在 A1 开始添加表头
+
+    // 3. 添加额外数据
+    extraRows.forEach((row, rowIndex) => {
+      const rowData = [row.p, row.q, row.k, row.a, row.b, row.break]; // 将额外数据转换为数组
+      XLSX.utils.sheet_add_aoa(worksheet, [rowData], { origin: `A${rowIndex + 2}` }); // 从 A2 开始添加数据
+    });
+
+    // 4. 添加表格数据的表头
+    const tableHeader = columns.map(col => col.title); // 表格数据的表头
+    XLSX.utils.sheet_add_aoa(worksheet, [tableHeader], { origin: `A${extraRows.length + 3}` }); // 在额外数据下方添加表头
+
+    // 5. 添加表格数据
+    const tableData = data.map(item => columns.map(col => item[col.dataIndex])); // 将表格数据转换为二维数组
+    XLSX.utils.sheet_add_aoa(worksheet, tableData, { origin: `A${extraRows.length + 4}` }); // 在表头下方添加数据
+
+    // 6. 创建并导出 Excel 文件
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(blob, `${filename}.xlsx`);
+  };
+
   const columns = [
     { title: '借款次数', dataIndex: 'repayCount', key: 'repayCount' ,
       onCell: (record, rowIndex) => {
@@ -253,7 +295,7 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: 'KYC管理',
+        title: '信用分系数',
         ghost: true,
       }}
     >
@@ -265,8 +307,6 @@ const TableList: React.FC = () => {
         />
 
         <ProCard
-          title="逾期惩罚公式"
-          extra="2019年9月28日"
           split="vertical"
           bordered
           headerBordered
@@ -276,14 +316,22 @@ const TableList: React.FC = () => {
             <p>
               <MathFormula formula="\Delta S_{\text{penalty}} = -\frac{p \cdot \text{overdueDays}}{1 + q \cdot \text{overdueDays}}" />
             </p>
-            <div>
-              <ul>
-                <li></li>
+            <div style={{ textAlign: 'center' }}>
+              <ul style={{ display: 'inline-block', textAlign: 'left' }}>
+                <li>p: 惩罚强度系数，控制惩罚的最大值。</li>
+                <li>q: 惩罚增长系数，控制惩罚的增长速度。</li>
               </ul>
             </div>
             <Divider orientation="left">还款奖励公式</Divider>
             <p>
               <MathFormula formula="\Delta S_{\text{reward}} = \frac{k}{(1 + a \cdot \text{overdueDays}) \cdot (1 + b \cdot \text{repayCount})}" />
+              <div style={{ textAlign: 'center' }}>
+                <ul style={{ display: 'inline-block', textAlign: 'left' }}>
+                  <li>k：基础奖励值。</li>
+                  <li>a：逾期天数对奖励的影响系数。</li>
+                  <li>b：还款次数对奖励的影响系数。</li>
+                </ul>
+              </div>
             </p>
             <Divider orientation="left">系数</Divider>
 
@@ -292,25 +340,28 @@ const TableList: React.FC = () => {
               company?: string;
               useMode?: string;
             }>
-              layout={"horizontal"}
+              layout={'horizontal'}
               submitter={{
                 render: (props, doms) => {
-                  return <Row>
-                    <Col offset={16}>
-                      <Space>{doms}</Space>
-                    </Col>
-                  </Row>;
+                  return (
+                    <Row>
+                      <Col offset={16}>
+                        <Space>{doms}</Space>
+                      </Col>
+                    </Row>
+                  );
                 },
               }}
               onFinish={async (values) => {
                 console.log(values);
+                setCoefficient(values);
                 calculate(values);
                 message.success('提交成功');
               }}
               grid={true}
               params={{}}
               request={async () => {
-                return {
+                let values = {
                   p1: 15,
                   p2: 15,
                   p3: 15,
@@ -335,229 +386,241 @@ const TableList: React.FC = () => {
                   break2: 4,
                   break3: 4,
                   break4: 5,
-                  initial_score:600,
-                  overdue_days:'0-0-1-0-2-3-2-4-5-6-5-4-7-8-12-11-7-6-15',
+                  initial_score: 600,
+                  overdue_days: '0-0-1-0-2-3-2-4-5-6-5-4-7-8-12-11-7-6-15',
                 };
+                setCoefficient(values);
+                calculate(values);
+                return values;
               }}
             >
-              <Divider variant="dashed" orientation="left">0-5</Divider>
+              <Divider variant="dashed" orientation="left">
+                0-5
+              </Divider>
               <ProFormDigit
                 name="p1"
                 min={10}
                 max={50}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 1, addonBefore:"p"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 1, addonBefore: 'p' }}
               />
               <ProFormDigit
                 name="q1"
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.1,addonBefore:"q"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.1, addonBefore: 'q' }}
               />
               <ProFormDigit
                 name="k1"
                 min={10}
                 max={70}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 1,addonBefore:"k"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 1, addonBefore: 'k' }}
               />
               <ProFormDigit
                 name="a1"
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.1,addonBefore:"a"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.1, addonBefore: 'a' }}
               />
               <ProFormDigit
                 name="b1"
                 min={0.01}
-                max={0.20}
+                max={0.2}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.01,addonBefore:"b"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.01, addonBefore: 'b' }}
               />
               <ProFormDigit
                 name="break1"
                 min={1}
                 max={10}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.01,addonBefore:"break",  precision: 0 }}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
               />
-              <Divider variant="dashed" orientation="left">6-10</Divider>
+              <Divider variant="dashed" orientation="left">
+                6-10
+              </Divider>
               <ProFormDigit
                 name="p2"
                 min={10}
                 max={50}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 1, addonBefore:"p"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 1, addonBefore: 'p' }}
               />
               <ProFormDigit
                 name="q2"
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.1,addonBefore:"q"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.1, addonBefore: 'q' }}
               />
               <ProFormDigit
                 name="k2"
                 min={10}
                 max={70}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 1,addonBefore:"k"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 1, addonBefore: 'k' }}
               />
               <ProFormDigit
                 name="a2"
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.1,addonBefore:"a"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.1, addonBefore: 'a' }}
               />
               <ProFormDigit
                 name="b2"
                 min={0.01}
-                max={0.20}
+                max={0.2}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.01,addonBefore:"b"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.01, addonBefore: 'b' }}
               />
               <ProFormDigit
                 name="break2"
                 min={1}
                 max={10}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.01,addonBefore:"break",  precision: 0 }}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
               />
-              <Divider variant="dashed" orientation="left">11-15</Divider>
+              <Divider variant="dashed" orientation="left">
+                11-15
+              </Divider>
               <ProFormDigit
                 name="p3"
                 min={10}
                 max={50}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 1, addonBefore:"p"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 1, addonBefore: 'p' }}
               />
               <ProFormDigit
                 name="q3"
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.1,addonBefore:"q"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.1, addonBefore: 'q' }}
               />
               <ProFormDigit
                 name="k3"
                 min={10}
                 max={70}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 1,addonBefore:"k"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 1, addonBefore: 'k' }}
               />
               <ProFormDigit
                 name="a3"
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.1,addonBefore:"a"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.1, addonBefore: 'a' }}
               />
               <ProFormDigit
                 name="b3"
                 min={0.01}
-                max={0.20}
+                max={0.2}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.01,addonBefore:"b"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.01, addonBefore: 'b' }}
               />
               <ProFormDigit
                 name="break3"
                 min={1}
                 max={10}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.01,addonBefore:"break",  precision: 0 }}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
               />
-              <Divider variant="dashed" orientation="left">16+</Divider>
+              <Divider variant="dashed" orientation="left">
+                16+
+              </Divider>
               <ProFormDigit
                 name="p4"
                 min={10}
                 max={50}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 1, addonBefore:"p"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 1, addonBefore: 'p' }}
               />
               <ProFormDigit
                 name="q4"
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.1,addonBefore:"q"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.1, addonBefore: 'q' }}
               />
               <ProFormDigit
                 name="k4"
                 min={10}
                 max={70}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 1,addonBefore:"k"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 1, addonBefore: 'k' }}
               />
               <ProFormDigit
                 name="a4"
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.1,addonBefore:"a"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.1, addonBefore: 'a' }}
               />
               <ProFormDigit
                 name="b4"
                 min={0.01}
-                max={0.20}
+                max={0.2}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.01,addonBefore:"b"}}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.01, addonBefore: 'b' }}
               />
               <ProFormDigit
                 name="break4"
                 min={1}
                 max={10}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.01,addonBefore:"break",  precision: 0 }}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
               />
               <ProFormDigit
                 name="initial_score"
                 min={200}
                 max={700}
                 width="sm"
-                colProps={{span: 4}}
-                fieldProps={{ step: 0.01,addonBefore:"基础信用分", precision: 0 }}
+                colProps={{ span: 4 }}
+                fieldProps={{ step: 0.01, addonBefore: '基础信用分', precision: 0 }}
               />
 
               <ProFormText
                 name="overdue_days"
                 tooltip="最长为 24 位"
                 placeholder="-分割"
-                colProps={{span: 20}}
-                fieldProps={{ step: 0.01,addonBefore:"overdueDays",style:{width: '100%'}}}
+                colProps={{ span: 20 }}
+                fieldProps={{ step: 0.01, addonBefore: 'overdueDays', style: { width: '100%' } }}
               />
-
             </ProForm>
-
-
           </ProCard>
-          <ProCard title="预演结果">
+          <ProCard title="预演结果"     extra={
+            <Button type="primary" onClick={() => exportToExcel(dataSource, columns, 'table_data')}>
+              导出
+            </Button>
+          }>
             <Table
               dataSource={dataSource}
               columns={columns}
@@ -571,8 +634,6 @@ const TableList: React.FC = () => {
             />
           </ProCard>
         </ProCard>
-
-
       </div>
     </PageContainer>
   );

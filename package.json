@@ -54,6 +54,7 @@
     "antd": "^5.2.2",
     "array-move": "^4.0.0",
     "classnames": "^2.3.2",
+    "file-saver": "^2.0.5",
     "immutability-helper": "^3.1.1",
     "katex": "^0.16.19",
     "lodash": "^4.17.21",
@@ -72,7 +73,8 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-cache-route": "^1.12.11",
     "react-sortable-hoc": "latest",
-    "umi-plugin-keep-alive": "^0.0.1-beta.35"
+    "umi-plugin-keep-alive": "^0.0.1-beta.35",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.1.5",
