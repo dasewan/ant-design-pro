@@ -1,21 +1,28 @@
 import {
-  getAdminV1OBKycs as index,
-  putAdminV1OBKycsId as update,
-} from '@/services/ant-design-pro/OBKyc';
+  getAdminV1NHCreditRoles as index,
+  putAdminV1NHCreditRolesId as update,
+  postAdminV1NHCreditRoles as store,
+  getAdminV1NHCreditRolesId as show,
+} from '@/services/ant-design-pro/NHCreditRole';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { PageContainer } from '@ant-design/pro-layout';
-import {Divider, message, Row, Col, Result, Spin, Switch, Alert, Radio, Table, InputNumber, Space, Button} from 'antd';
-import type { RadioChangeEvent, InputNumberProps } from 'antd';
-import { ProForm, ProFormRadio, ProFormText,ProFormDigit } from '@ant-design/pro-components';
+import {
+  Divider,
+  message,
+  Alert,
+  Table,
+  Button,
+  type FormInstance, Tooltip
+} from 'antd';
+import { ProForm, ProFormText,ProFormDigit } from '@ant-design/pro-components';
 import React, { useEffect, useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { fieldLabels } from './service';
-import {history, useIntl} from "@@/exports";
+import { useIntl} from "@@/exports";
 import 'katex/dist/katex.min.css';
 import MathFormula from './MathFormula';
 import { ProCard } from '@ant-design/pro-components';
-import moment from "moment/moment";
+import moment from 'moment';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
@@ -24,7 +31,7 @@ const ageGroups = [
   { min: 0, max: 5, startColor: [220, 220, 220], endColor: [150, 150, 150] }, // 少年：浅灰色到深灰色
   { min: 6, max: 10, startColor: [200, 255, 255], endColor: [0, 200, 200] }, // 青年：浅青色到深青色
   { min: 11, max: 15, startColor: [255, 255, 200], endColor: [200, 200, 0] }, // 中年：浅黄色到深黄色
-  { min: 16, max: 20, startColor: [230, 200, 255], endColor: [128, 0, 188] }, // 老年：浅红色到深红色
+  { min: 16, max: 20, startColor: [230, 200, 255], endColor: [128, 100, 238] }, // 老年：浅红色到深红色
 ];
 // 根据年龄计算背景颜色
 const getBackgroundColor = (age) => {
@@ -109,33 +116,37 @@ interface Coefficient {
 
 const TableList: React.FC = () => {
   const intl = useIntl();
+  const formRef = useRef<FormInstance>();
+  const [form] = ProForm.useForm();
   const actionRef = useRef<ActionType>();
   // 排序固定模版
-  const [data, setData] = useState<TableListItem[]>([]);
-  const [orders, setOrders] = useState<Order[]>([]);
   const [dataSource, setDataSource] = useState<[]>([]);
-  const [coefficient, setCoefficient] = useState<Coefficient>([]);
+  const [coefficient, setCoefficient] = useState<API.NHCreditRole>([]);
 
-  const [loading, setLoading] = useState(true);
+  const _index = async (
+    // 第一个参数 params 查询表单和 params 参数的结合
+    // 第一个参数中一定会有 pageSize 和  current ，这两个参数是 antd 的规范
+    params: TableListPagination & {
+      pageSize: number;
+      current: number;
+    },
+    // sort,
+    // filter,
+  ) => {
+    // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
+    // 如果需要转化参数可以在这里进行修改
+    // @ts-ignore
+    const res = await index({ page: params.current, ...params });
 
-  const [mode, setMode] = useState('break');
-  //loose strict
-  // @ts-ignore
-  useEffect(() => {
-    async function _index() {
-        // @ts-ignore
-        const res = await index({ page: 1, limit: 10000 });
-        setData(res.data!)
-        // @ts-ignore
-      setMode(res.other.mode);
-        setLoading(false)
-    }
-
-    _index();
-    return () => {
-      return;
+    return {
+      data: res.data,
+      // success 请返回 true，
+      // 不然 table 会停止解析数据，即使有数据
+      success: res.success,
+      // 不传会使用 data 的长度，如果是分页一定要传
+      total: res.total,
     };
-  }, [loading]);
+  };
   function getDynamicPenaltyParameters(repayCount: number, coefficient: Coefficient): DynamicPenaltyParameters {
     if (repayCount > 15) {
       return { p: coefficient.p4, q: coefficient.q4 };
@@ -169,8 +180,26 @@ const TableList: React.FC = () => {
       return coefficient.break1;
     }
   }
+  const onFinish = async () => {
+    console.log(123);
+    console.log(formRef?.current?.getFieldsError());
 
-  const calculate =  (coefficient: Coefficient) => {
+    try {
+      // 手动验证表单
+      const values = await form.validateFields();
+        await store(values);
+    } catch (error) {
+      message.error('表单验证失败');
+    }
+  }
+  const calculate =  (coefficient?: API.NHCreditRole) => {
+    if(coefficient === undefined){
+      setCoefficient(formRef!.current!.getFieldsValue);
+      coefficient = formRef!.current!.getFieldsValue! as API.NHCreditRole;
+    }else{
+      setCoefficient(coefficient);
+    }
+
     console.log(coefficient)
     const orders: Order[] = coefficient.overdue_days.split('-').map(Number).map((overdueDays, index) => ({
       overdue_days: overdueDays,
@@ -291,7 +320,140 @@ const TableList: React.FC = () => {
     },
     { title: '信用分', dataIndex: 'credit', key: 'credit' },
   ];
+  const columns2: ProColumns<API.NHCreditRole>[] = [
 
+    {
+      title: 'p1',
+      dataIndex: 'p1',
+      key: 'p1',
+    },
+    {
+      title: 'p2',
+      dataIndex: 'p2',
+      key: 'p2',
+    },
+    {
+      title: 'p3',
+      dataIndex: 'p3',
+      key: 'p3',
+    },
+    {
+      title: 'p4',
+      dataIndex: 'p4',
+      key: 'p4',
+    },
+    {
+      title: 'q1',
+      dataIndex: 'q1',
+      key: 'q1',
+    },
+    {
+      title: 'q2',
+      dataIndex: 'q2',
+      key: 'q2',
+    },
+    {
+      title: 'q3',
+      dataIndex: 'q3',
+      key: 'q3',
+    },
+    {
+      title: 'q4',
+      dataIndex: 'q4',
+      key: 'q4',
+    },
+    {
+      title: 'k1',
+      dataIndex: 'k1',
+      key: 'k1',
+    },
+    {
+      title: 'k2',
+      dataIndex: 'k2',
+      key: 'k2',
+    },
+    {
+      title: 'k3',
+      dataIndex: 'k3',
+      key: 'k3',
+    },
+    {
+      title: 'k4',
+      dataIndex: 'k4',
+      key: 'k4',
+    },
+    {
+      title: 'a1',
+      dataIndex: 'a1',
+      key: 'a1',
+    },
+    {
+      title: 'a2',
+      dataIndex: 'a2',
+      key: 'a2',
+    },
+    {
+      title: 'a3',
+      dataIndex: 'a3',
+      key: 'a3',
+    },
+    {
+      title: 'a4',
+      dataIndex: 'a4',
+      key: 'a4',
+    },
+    {
+      title: 'b1',
+      dataIndex: 'b1',
+      key: 'b1',
+    },
+    {
+      title: 'b2',
+      dataIndex: 'b2',
+      key: 'b2',
+    },
+    {
+      title: 'b3',
+      dataIndex: 'b3',
+      key: 'b3',
+    },
+    {
+      title: 'b4',
+      dataIndex: 'b4',
+      key: 'b4',
+    },
+    {
+      title: 'bk1',
+      dataIndex: 'break1',
+      key: 'break1',
+    },
+    {
+      title: 'bk2',
+      dataIndex: 'break2',
+      key: 'break2',
+    },
+    {
+      title: 'bk3',
+      dataIndex: 'break3',
+      key: 'break3',
+    },
+    {
+      title: 'bk4',
+      dataIndex: 'break4',
+      key: 'break4',
+    },
+    {
+      title: 'created_at',
+      dataIndex: 'created_at',
+      render: (_, record) => {
+        return <Tooltip placement="right" title={record.comment}>
+          {moment(record.created_at).format('YYYY-MM-DD')}
+        </Tooltip>;
+
+      },
+    },
+
+  ];
   return (
     <PageContainer
       header={{
@@ -311,7 +473,7 @@ const TableList: React.FC = () => {
           bordered
           headerBordered
         >
-          <ProCard title="公式" colSpan="60%">
+          <ProCard title="公式" colSpan="70%">
             <Divider orientation="left">逾期惩罚公式</Divider>
             <p>
               <MathFormula formula="\Delta S_{\text{penalty}} = -\frac{p \cdot \text{overdueDays}}{1 + q \cdot \text{overdueDays}}" />
@@ -342,24 +504,28 @@ const TableList: React.FC = () => {
             }>
               layout={'horizontal'}
               submitter={{
-                render: (props, doms) => {
-                  return (
-                    <Row>
-                      <Col offset={16}>
-                        <Space>{doms}</Space>
-                      </Col>
-                    </Row>
-                  );
+                render: () => {
+                  return [
+                    <Button
+                      key="预演"
+                      onClick={() => calculate()}
+                    >
+                      预演
+                    </Button>,
+                    <Button
+                      type="primary"
+                      key="back"
+                      onClick={() => onFinish()}
+                    >
+                     提交
+                    </Button>,
+
+                  ];
                 },
               }}
-              onFinish={async (values) => {
-                console.log(values);
-                setCoefficient(values);
-                calculate(values);
-                message.success('提交成功');
-              }}
               grid={true}
-              params={{}}
+              formRef={formRef}
+              form={form}
               request={async () => {
                 let values = {
                   p1: 15,
@@ -389,9 +555,10 @@ const TableList: React.FC = () => {
                   initial_score: 600,
                   overdue_days: '0-0-1-0-2-3-2-4-5-6-5-4-7-8-12-11-7-6-15',
                 };
-                setCoefficient(values);
-                calculate(values);
-                return values;
+                const res = await show({ id: 0 });
+                // setCoefficient(values);
+                calculate({...values, ...res.data});
+                return {...values, ...res.data};
               }}
             >
               <Divider variant="dashed" orientation="left">
@@ -614,7 +781,29 @@ const TableList: React.FC = () => {
                 colProps={{ span: 20 }}
                 fieldProps={{ step: 0.01, addonBefore: 'overdueDays', style: { width: '100%' } }}
               />
+              <ProFormText
+                name="comment"
+                placeholder=""
+                fieldProps={{  addonBefore: 'comment', style: { width: '100%' } }}
+              />
             </ProForm>
+            <Divider orientation="left">
+              历史记录
+            </Divider>
+            <ProTable<API.NHCreditRole, TableListPagination>
+              revalidateOnFocus={false}
+              actionRef={actionRef}
+              rowKey="id"
+              search={false}
+              request={_index}
+              columns={columns2}
+              postData={(data: any[]) => {
+                return data;
+              }}
+              pagination={{
+                pageSize: 50,
+              }}
+            />
           </ProCard>
           <ProCard title="预演结果"     extra={
             <Button type="primary" onClick={() => exportToExcel(dataSource, columns, 'table_data')}>

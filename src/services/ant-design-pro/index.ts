@@ -76,6 +76,7 @@ import * as ndRiskValueSmsIncome from './ndRiskValueSmsIncome';
 import * as neRiskStrategyRoute from './neRiskStrategyRoute';
 import * as nfSmsContact from './nfSmsContact';
 import * as ngNotification from './ngNotification';
+import * as nhCreditRole from './nhCreditRole';
 import * as noticeIconItem from './noticeIconItem';
 import * as oaRepay from './oaRepay';
 import * as obKyc from './obKyc';
@@ -192,6 +193,7 @@ export default {
   neRiskStrategyRoute,
   nfSmsContact,
   ngNotification,
+  nhCreditRole,
   noticeIconItem,
   oaRepay,
   obKyc,

@@ -1990,6 +1990,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1NHCreditRolesIdParams = {
+    /** id of NHCreditRole */
+    id: number;
+  };
+
   type deleteAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -3251,6 +3256,16 @@ declare namespace API {
   };
 
   type getAdminV1NGNotificationsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1NHCreditRolesIdParams = {
+    /** id of NHCreditRole */
+    id: number;
+  };
+
+  type getAdminV1NHCreditRolesParams = {
     /** foo */
     foo: number;
   };
@@ -5386,6 +5401,71 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type NHCreditRole = {
+    /** id */
+    id?: number;
+    /** 管理员 */
+    admin_id?: number;
+    /** 状态 */
+    status?: number;
+    /** p1 */
+    p1?: number;
+    /** p2 */
+    p2?: number;
+    /** p3 */
+    p3?: number;
+    /** p4 */
+    p4?: number;
+    /** q1 */
+    q1?: number;
+    /** q2 */
+    q2?: number;
+    /** q3 */
+    q3?: number;
+    /** q4 */
+    q4?: number;
+    /** k1 */
+    k1?: number;
+    /** k2 */
+    k2?: number;
+    /** k3 */
+    k3?: number;
+    /** k4 */
+    k4?: number;
+    /** a1 */
+    a1?: number;
+    /** a2 */
+    a2?: number;
+    /** a3 */
+    a3?: number;
+    /** a4 */
+    a4?: number;
+    /** b1 */
+    b1?: number;
+    /** b2 */
+    b2?: number;
+    /** b3 */
+    b3?: number;
+    /** b4 */
+    b4?: number;
+    /** break1 */
+    break1?: number;
+    /** break2 */
+    break2?: number;
+    /** break3 */
+    break3?: number;
+    /** break4 */
+    break4?: number;
+    /** 备注 */
+    comment?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type NoticeIconItem = {
     /** id */
     id?: number;
@@ -6181,6 +6261,11 @@ declare namespace API {
 
   type putAdminV1NGNotificationsIdParams = {
     /** id of NGNotification */
+    id: number;
+  };
+
+  type putAdminV1NHCreditRolesIdParams = {
+    /** id of NHCreditRole */
     id: number;
   };
 
