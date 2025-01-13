@@ -836,3 +836,17 @@ export const REPAY_LOG_WAY: StatusColorEnum = {
   1: { text: 'LINK' },
   2: { text: 'APP' },
 };
+export const SMS_NODE_TYPE: StatusOption[] = [
+  {
+    label: '节点发送',
+    value: 1,
+  },
+  {
+    label: '计划任务',
+    value: 2,
+  },
+  {
+    label: '手动发送',
+    value: 3,
+  },
+];

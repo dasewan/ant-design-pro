@@ -1935,8 +1935,28 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1HISmsTemplatesIdParams = {
+    /** id of HISmsTemplate */
+    id: number;
+  };
+
+  type deleteAdminV1HJSmsTemplatesIdParams = {
+    /** id of HJSmsTemplate */
+    id: number;
+  };
+
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
+    id: number;
+  };
+
+  type deleteAdminV1KASmsTemplateOperatorRolesIdParams = {
+    /** id of KASmsTemplateOperatorRole */
+    id: number;
+  };
+
+  type deleteAdminV1KSmsTemplateOperatorsIdParams = {
+    /** id of KSmsTemplateOperator */
     id: number;
   };
 
@@ -2022,6 +2042,11 @@ declare namespace API {
 
   type deleteAdminV1QGCollectionCommissionLogsIdParams = {
     /** id of QGCollectionCommissionLog */
+    id: number;
+  };
+
+  type deleteAdminV1QHSmsChannelsIdParams = {
+    /** id of QHSmsChannel */
     id: number;
   };
 
@@ -3130,12 +3155,52 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1HISmsTemplatesIdParams = {
+    /** id of HISmsTemplate */
+    id: number;
+  };
+
+  type getAdminV1HISmsTemplatesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1HJSmsTemplatesIdParams = {
+    /** id of HJSmsTemplate */
+    id: number;
+  };
+
+  type getAdminV1HJSmsTemplatesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
   };
 
   type getAdminV1HProductSnapshotsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1KASmsTemplateOperatorRolesIdParams = {
+    /** id of KASmsTemplateOperatorRole */
+    id: number;
+  };
+
+  type getAdminV1KASmsTemplateOperatorRolesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1KSmsTemplateOperatorsIdParams = {
+    /** id of KSmsTemplateOperator */
+    id: number;
+  };
+
+  type getAdminV1KSmsTemplateOperatorsParams = {
     /** foo */
     foo: number;
   };
@@ -3331,6 +3396,26 @@ declare namespace API {
   };
 
   type getAdminV1QGCollectionCommissionLogsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1QHSmsChannelsEnum2Params = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1QHSmsChannelsEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1QHSmsChannelsIdParams = {
+    /** id of QHSmsChannel */
+    id: number;
+  };
+
+  type getAdminV1QHSmsChannelsParams = {
     /** foo */
     foo: number;
   };
@@ -4603,6 +4688,64 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type HISmsTemplate = {
+    /** id */
+    id?: number;
+    /** 节点类型 1:节点发送 2:计划任务 3:手动发送 */
+    b_node_type?: number;
+    /** 类型 1：注册 */
+    c_type?: number;
+    /** 名称 */
+    d_template?: string;
+    /** 触发天数 */
+    e_days?: number;
+    /** 状态 */
+    f_status?: number;
+    /** 计费条数 */
+    g_charge_count?: number;
+    /** 累计发送条数 */
+    h_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type HJSmsTemplate = {
+    /** id */
+    id?: number;
+    /** App\Models\HJSmsTemplate */
+    a_a_a_a_a_k_sms_template_operators?: KSmsTemplateOperator[];
+    /** Sender ID */
+    a_sender_id?: string;
+    /** 节点类型 1:节点发送 2:计划任务 3:手动发送 */
+    b_node_type?: number;
+    /** 类型 1：注册 */
+    c_type?: number;
+    /** 模板 */
+    d_template?: string;
+    /** 触发天数 */
+    e_days?: number;
+    /** 状态 */
+    f_status?: number;
+    /** 发送条数 */
+    g_count?: number;
+    /** 昨日发送条数 */
+    h_yesterday_count?: number;
+    /** 是否开启分流 */
+    i_proportion?: number;
+    /** 默认渠道 */
+    i_default_sms_channel_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type HProductSnapshot = {
     /** id */
     id?: number;
@@ -4708,6 +4851,42 @@ declare namespace API {
     m_last_app_time?: string;
     /** 最后一次设备信息上送时间 */
     n_last_device_time?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type KASmsTemplateOperatorRole = {
+    /** id */
+    id?: number;
+    /** 模板 */
+    a_sms_template_id?: number;
+    /** 运营商 */
+    b_sms_template_operator_id?: number;
+    /** 供应商 */
+    c_sms_supplier_id?: number;
+    /** 分流比例 */
+    d_proportion?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type KSmsTemplateOperator = {
+    /** id */
+    id?: number;
+    /** App\Models\KSmsTemplateOperator */
+    a_a_a_a_a_k_a_sms_template_operator_roles?: KASmsTemplateOperatorRole[];
+    /** 模板 */
+    a_sms_template_id?: number;
+    /** 运营商 */
+    c_operator?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -6209,8 +6388,28 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1HISmsTemplatesIdParams = {
+    /** id of HISmsTemplate */
+    id: number;
+  };
+
+  type putAdminV1HJSmsTemplatesIdParams = {
+    /** id of HJSmsTemplate */
+    id: number;
+  };
+
   type putAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
+    id: number;
+  };
+
+  type putAdminV1KASmsTemplateOperatorRolesIdParams = {
+    /** id of KASmsTemplateOperatorRole */
+    id: number;
+  };
+
+  type putAdminV1KSmsTemplateOperatorsIdParams = {
+    /** id of KSmsTemplateOperator */
     id: number;
   };
 
@@ -6296,6 +6495,11 @@ declare namespace API {
 
   type putAdminV1QGCollectionCommissionLogsIdParams = {
     /** id of QGCollectionCommissionLog */
+    id: number;
+  };
+
+  type putAdminV1QHSmsChannelsIdParams = {
+    /** id of QHSmsChannel */
     id: number;
   };
 
@@ -6802,6 +7006,31 @@ declare namespace API {
     k_level?: number;
     /** 还款日志 */
     l_repay_log_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type QHSmsChannel = {
+    /** id */
+    id?: number;
+    /** 名称 */
+    a_channel_name?: string;
+    /** 供应商 */
+    b_sms_supplier_code?: string;
+    /** 通道 */
+    c_sms_channel_code?: string;
+    /** 余额 */
+    d_balance?: number;
+    /** 消耗金额 */
+    e_amount?: number;
+    /** 发送条数 */
+    f_count?: number;
+    /** 昨日发送条数 */
+    g_yesterday?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

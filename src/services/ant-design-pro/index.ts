@@ -65,7 +65,11 @@ import * as hfCollectionAgencyRole from './hfCollectionAgencyRole';
 import * as hgGrey from './hgGrey';
 import * as hhRecall from './hhRecall';
 import * as hiBackTip from './hiBackTip';
+import * as hiSmsTemplate from './hiSmsTemplate';
+import * as hjSmsTemplate from './hjSmsTemplate';
 import * as hProductSnapshot from './hProductSnapshot';
+import * as kaSmsTemplateOperatorRole from './kaSmsTemplateOperatorRole';
+import * as kSmsTemplateOperator from './kSmsTemplateOperator';
 import * as mbLoan from './mbLoan';
 import * as mcExtend from './mcExtend';
 import * as mcLoanLog from './mcLoanLog';
@@ -84,6 +88,7 @@ import * as qcCollectionNews from './qcCollectionNews';
 import * as qePaymentGatewayLog from './qePaymentGatewayLog';
 import * as qfSmsGatewayLog from './qfSmsGatewayLog';
 import * as qgCollectionCommissionLog from './qgCollectionCommissionLog';
+import * as qhSmsChannel from './qhSmsChannel';
 import * as qVerifyItem from './qVerifyItem';
 import * as raRepayLog from './raRepayLog';
 import * as rBlack from './rBlack';
@@ -182,7 +187,11 @@ export default {
   hgGrey,
   hhRecall,
   hiBackTip,
+  hiSmsTemplate,
+  hjSmsTemplate,
   hProductSnapshot,
+  kaSmsTemplateOperatorRole,
+  kSmsTemplateOperator,
   mbLoan,
   mcExtend,
   mcLoanLog,
@@ -201,6 +210,7 @@ export default {
   qePaymentGatewayLog,
   qfSmsGatewayLog,
   qgCollectionCommissionLog,
+  qhSmsChannel,
   qVerifyItem,
   raRepayLog,
   rBlack,

@@ -603,6 +603,19 @@ export default [
         path: '/operation/credit',
         component: './Operation/Credit',
       },
+      {
+        name: 'sms',
+        icon: 'smile',
+        path: '/operation/sms',
+        routes: [
+          {
+            name: 'template',
+            icon: 'smile',
+            path: '/operation/sms/template',
+            component: './Operation/Sms/Template',
+          },
+        ],
+      },
     ],
   },
   {
