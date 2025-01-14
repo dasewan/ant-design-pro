@@ -307,13 +307,17 @@ const TableList: React.FC = () => {
       key: 'e_days',
     },
     {
+      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.k_time', defaultMessage: '' }),
+      dataIndex: 'k_time',
+      key: 'k_time',
+    },
+    {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.f_status', defaultMessage: '' }),
       dataIndex: 'f_status',
       key: 'f_status',
       valueType: 'select',
       valueEnum: COMMON_STATUS_INT,
     },
-
     {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.h_yesterday_count', defaultMessage: '' }),
       dataIndex: 'h_yesterday_count',
@@ -333,12 +337,7 @@ const TableList: React.FC = () => {
       valueType: 'select',
       request: _getChannelssEnum
     },
-    {
-      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.updated_at', defaultMessage: '' }),
-      dataIndex: 'updated_at',
-      key: 'updated_at',
-      valueType: 'date',
-    },
+
     {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.created_at', defaultMessage: '' }),
       dataIndex: 'created_at',

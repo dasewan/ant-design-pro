@@ -961,6 +961,7 @@ export default {
   'pages.HJSmsTemplate.d_template': '模板',
   'pages.HJSmsTemplate.template_preview': '模板预览',
   'pages.HJSmsTemplate.e_days': '触发天数',
+  'pages.HJSmsTemplate.k_time': '时间',
   'pages.HJSmsTemplate.f_status': '状态',
   'pages.HJSmsTemplate.g_count': '发送条数',
   'pages.HJSmsTemplate.h_yesterday_count': '发送条数',

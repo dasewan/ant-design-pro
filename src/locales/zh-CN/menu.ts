@@ -165,5 +165,5 @@ export default {
   'menu.statistics.finance': '财务报表',
   'menu.statistics.finance.fee': '财务报表',
   'menu.operation.sms': '短信管理',
-  'menu.operation.sms.template': '模板管理',
+  'menu.operation.sms.template': '模板发送',
 };

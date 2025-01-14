@@ -14,6 +14,7 @@ import {
   ProFormRadio,
   ProFormText,
   ProFormTextArea,
+  ProFormTimePicker
 } from '@ant-design/pro-form';
 import type { ProColumns } from '@ant-design/pro-table';
 import { EditableProTable } from '@ant-design/pro-table';
@@ -518,6 +519,7 @@ const EditForm: React.FC<FormProps> = (props) => {
         min={-7}
         fieldProps={{ precision: 0 }}
       />
+      <ProFormTimePicker name="k_time" label={intl.formatMessage({ id: 'pages.HJSmsTemplate.k_time', defaultMessage: '' })} />
       <ProFormTextArea
         label={intl.formatMessage({ id: 'pages.HJSmsTemplate.d_template', defaultMessage: '' })}
         name="d_template"
