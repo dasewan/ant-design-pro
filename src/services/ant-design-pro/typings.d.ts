@@ -3170,6 +3170,11 @@ declare namespace API {
     id: number;
   };
 
+  type getAdminV1HJSmsTemplatesIndex2Params = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HJSmsTemplatesParams = {
     /** foo */
     foo: number;
@@ -4720,7 +4725,7 @@ declare namespace API {
     a_a_a_a_a_k_sms_template_operators?: KSmsTemplateOperator[];
     /** Sender ID */
     a_sender_id?: string;
-    /** 节点类型 1:节点发送 2:计划任务 3:手动发送 */
+    /** 节点类型 1:节点发送 2:计划任务 3:手动发送 4:自定义发送 */
     b_node_type?: number;
     /** 类型 1：注册 */
     c_type?: number;
@@ -4738,6 +4743,16 @@ declare namespace API {
     i_proportion?: number;
     /** 默认渠道 */
     j_default_sms_channel_id?: number;
+    /** 发送时间 */
+    k_time?: string;
+    /** 文件 */
+    l_admin_file_id?: string;
+    /** 上传数量 */
+    m_upload_count?: number;
+    /** 成功数量 */
+    n_success_count?: number;
+    /** 计划发送时间 */
+    o_plan_time?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -7913,8 +7928,8 @@ declare namespace API {
     i_message_id?: string;
     /** 耗时 */
     j_duration?: number;
-    /** 发送状态 */
-    k_send_status?: string;
+    /** 发送状态10:waiting 20:pending 30:unknown 40:undelivered 50:delivered 60:expired 70:rejected */
+    k_send_status?: number;
     /** 返回消息 */
     l_message?: string;
     /** 价格 */
@@ -7928,7 +7943,11 @@ declare namespace API {
     /** 类型 1:otp 2:通知类 3:营销类 4:灰线 */
     r_type?: number;
     /** 'register'注册,'login'登录,'verify'认证完成,'sign'签约完成,‘loan‘放款’’'repay'还款完成,'recall'召回,'marketing'营销,'s0','s1','s2','s3','admin'后台管理员,'urge'催员,'contact'向通讯录发送,'other'其他 */
-    s_node?: string;
+    s_node?: number;
+    /** 来源 */
+    t_sms_template_id?: number;
+    /** 回调 */
+    u_callback_sms_gateway_log_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

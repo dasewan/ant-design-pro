@@ -614,6 +614,12 @@ export default [
             path: '/operation/sms/template',
             component: './Operation/Sms/Template',
           },
+          {
+            name: 'custom',
+            icon: 'smile',
+            path: '/operation/sms/custom',
+            component: './Operation/Sms/Custom',
+          },
         ],
       },
     ],
