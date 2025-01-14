@@ -46,12 +46,6 @@ export default [
     ],
   },
   {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
-  },
-  {
     path: '/',
     redirect: '/welcome',
   },
@@ -449,6 +443,44 @@ export default [
     ],
   },
   {
+    name: 'telemarketing',
+    icon: 'smile',
+    path: '/telemarketing',
+    routes: [
+      {
+        name: 'telemarketing-role',
+        icon: 'smile',
+        path: '/telemarketing/telemarketing-role',
+        component: './Stay',
+      },
+      {
+        name: 'telemarketing-admin-list',
+        icon: 'smile',
+        path: '/telemarketing/telemarketing-admin-list',
+        component: './Stay',
+      },
+      {
+        name: 'my-telemarketing',
+        icon: 'smile',
+        path: '/telemarketing/my-telemarketing',
+        component: './Stay',
+      },
+      {
+        name: 'telemarketing-order-flow-history',
+        icon: 'smile',
+        path: '/telemarketing/telemarketing-order-flow-history',
+        component: './Stay',
+      },
+      {
+        name: 'telemarketing-role',
+        icon: 'smile',
+        path: '/telemarketing/telemarketing-role',
+        component: './Stay',
+      },
+
+    ],
+  },
+  {
     name: 'collection',
     icon: 'smile',
     path: '/collection',
@@ -559,6 +591,12 @@ export default [
         path: '/risk/risk-result',
         component: './Risk/RiskResult',
       },
+      {
+        name: 'risk-back-tracking',
+        icon: 'smile',
+        path: '/risk/risk-back-tracking',
+        component: './Stay',
+      },
     ],
   },
   {
@@ -621,6 +659,98 @@ export default [
             component: './Operation/Sms/Custom',
           },
         ],
+      },
+      {
+        name: 'app',
+        icon: 'smile',
+        path: '/operation/app',
+        routes: [
+          {
+            name: 'push',
+            icon: 'smile',
+            path: '/operation/app/push',
+            component: './Stay',
+          },
+          {
+            name: 'news',
+            icon: 'smile',
+            path: '/operation/app/news',
+            component: './Stay',
+          },
+          {
+            name: 'banner',
+            icon: 'smile',
+            path: '/operation/app/banner',
+            component: './Stay',
+          },
+          {
+            name: 'service',
+            icon: 'smile',
+            path: '/operation/app/service',
+            component: './Stay',
+          },
+          {
+            name: 'node',
+            icon: 'smile',
+            path: '/operation/app/node',
+            component: './Stay',
+          },
+          {
+            name: 'point',
+            icon: 'smile',
+            path: '/operation/app/point',
+            component: './Stay',
+          },
+          {
+            name: 'update',
+            icon: 'smile',
+            path: '/operation/app/update',
+            component: './Stay',
+          },
+          {
+            name: 'agreement',
+            icon: 'smile',
+            path: '/operation/app/agreement',
+            component: './Stay',
+          },
+        ],
+      },
+      {
+        name: 'market',
+        icon: 'smile',
+        path: '/operation/market',
+        routes: [
+          {
+            name: 'competitors-list',
+            icon: 'smile',
+            path: '/operation/market/competitors-list',
+            component: './Stay',
+          },
+          {
+            name: 'competitors',
+            icon: 'smile',
+            path: '/operation/market/competitors',
+            component: './Stay',
+          },
+          {
+            name: 'trend',
+            icon: 'smile',
+            path: '/operation/market/trend',
+            component: './Stay',
+          },
+        ],
+      },
+      {
+        name: 'feedback',
+        icon: 'smile',
+        path: '/operation/feedback',
+        component: './Stay',
+      },
+      {
+        name: 'loss',
+        icon: 'smile',
+        path: '/operation/loss',
+        component: './Stay',
       },
     ],
   },
@@ -800,6 +930,94 @@ export default [
           },
         ],
       },
+    ],
+  },
+  {
+    name: 'finance',
+    icon: 'smile',
+    path: '/finance',
+    routes: [
+      {
+        name: 'collection-agency-day',
+        icon: 'smile',
+        path: '/finance/collection-agency-day',
+        component: './Stay',
+      },
+      {
+        name: 'collection-agency-month',
+        icon: 'smile',
+        path: '/finance/collection-agency-month',
+        component: './Stay',
+      },
+
+      {
+        name: 'collection-admin-day',
+        icon: 'smile',
+        path: '/finance/collection-admin-day',
+        component: './Stay',
+      },
+      {
+        name: 'collection-admin-month',
+        icon: 'smile',
+        path: '/finance/collection-admin-month',
+        component: './Stay',
+      },
+      {
+        name: 'review-admin-day',
+        icon: 'smile',
+        path: '/finance/review-admin-day',
+        component: './Stay',
+      },
+      {
+        name: 'review-admin-month',
+        icon: 'smile',
+        path: '/finance/review-admin-month',
+        component: './Stay',
+      },
+      {
+        name: 'telemarketing-admin-day',
+        icon: 'smile',
+        path: '/finance/telemarketing-admin-day',
+        component: './Stay',
+      },
+      {
+        name: 'telemarketing-admin-month',
+        icon: 'smile',
+        path: '/finance/telemarketing-admin-month',
+        component: './Stay',
+      },
+      {
+        name: 'loan-day',
+        icon: 'smile',
+        path: '/finance/loan-day',
+        component: './Stay',
+      },
+
+      {
+        name: 'repay-day',
+        icon: 'smile',
+        path: '/finance/repay-day',
+        component: './Stay',
+      },
+      {
+        name: 'loan-repay-week',
+        icon: 'smile',
+        path: '/finance/loan-repay-week',
+        component: './Stay',
+      },
+      {
+        name: 'loan-repay-month',
+        icon: 'smile',
+        path: '/finance/loan-repay-month',
+        component: './Stay',
+      },
+      {
+        name: 'supplier',
+        icon: 'smile',
+        path: '/finance/supplier',
+        component: './Stay',
+      },
+
     ],
   },
   {
