@@ -4737,7 +4737,7 @@ declare namespace API {
     /** 是否开启分流 */
     i_proportion?: number;
     /** 默认渠道 */
-    i_default_sms_channel_id?: number;
+    j_default_sms_channel_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4867,9 +4867,11 @@ declare namespace API {
     /** 运营商 */
     b_sms_template_operator_id?: number;
     /** 供应商 */
-    c_sms_supplier_id?: number;
+    c_sms_channel_id?: number;
     /** 分流比例 */
     d_proportion?: number;
+    /** Sender ID */
+    e_sender_id?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */

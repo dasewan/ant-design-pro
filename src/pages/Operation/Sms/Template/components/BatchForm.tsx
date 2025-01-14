@@ -1,24 +1,18 @@
-import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
-import { postAdminV1GBMarketings as store } from '@/services/ant-design-pro/GBMarketing';
+import { postAdminV1HJSmsTemplates as store } from '@/services/ant-design-pro/HJSmsTemplate';
 import { useIntl } from '@@/exports';
-import type { ProFormInstance } from '@ant-design/pro-form';
+import {ProFormInstance, ProFormRadio} from '@ant-design/pro-form';
 import {
   ModalForm,
-  ProFormRadio,
   ProFormSelect,
   ProFormText,
-  ProFormUploadButton,
 } from '@ant-design/pro-form';
-import type { ProFieldRequestData } from '@ant-design/pro-utils';
 import type { RequestOptionsType } from '@ant-design/pro-utils/lib/typing';
 import { message } from 'antd';
-import type { RcFile, UploadChangeParam } from 'antd/lib/upload/interface';
-import type { UploadRequestOption } from 'rc-upload/lib/interface';
 import React, { useRef, useState } from 'react';
-import { request } from 'umi';
+import {VERIFY_STATUS_MAP} from "@/pages/enums";
 
-export type FormValueType = Partial<API.GBMarketing>;
-export type FormRecord = API.GBMarketing;
+export type FormValueType = Partial<API.HJSmsTemplate>;
+export type FormRecord = API.HJSmsTemplate;
 export type FormProps = {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
   onSubmit: (values: boolean) => Promise<void>;
@@ -36,10 +30,6 @@ const BatchForm: React.FC<FormProps> = (props) => {
   const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   /** 渠道enum */
-  /** 提交按钮是否可用 */
-  const [_confirmLoading, setConfirmLoading] = useState<boolean>(true);
-  /** 设置上传文件id */
-  const [fileId, setFileId] = useState<number>(0);
   /**
    * 导入白名单
    * @param fields
@@ -52,7 +42,7 @@ const BatchForm: React.FC<FormProps> = (props) => {
     try {
       // @ts-ignore
       await store({
-        k_admin_file_id: fileId,
+        batch_ids: props.batchIds,
         ...fields,
       });
       hide();
@@ -76,7 +66,6 @@ const BatchForm: React.FC<FormProps> = (props) => {
       onOpenChange={(visible) => {
         formRef.current?.resetFields();
         if (!visible) {
-          setConfirmLoading(true);
           props.onCancel();
         }
       }}
@@ -89,13 +78,9 @@ const BatchForm: React.FC<FormProps> = (props) => {
       layout="horizontal"
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 14 }}
-      initialValues={{
-        l_type: 'delay',
-      }}
 
       submitter={{
         submitButtonProps: {
-          disabled: _confirmLoading,
         },
       }}
     >
@@ -107,7 +92,6 @@ const BatchForm: React.FC<FormProps> = (props) => {
           id: 'pages.HJSmsTemplate.before_sender_id',
           defaultMessage: '',
         })}
-        rules={[{ required: true, message: 'Please select your reason!' }]}
       />
       <ProFormText
         // width="md"
@@ -117,7 +101,6 @@ const BatchForm: React.FC<FormProps> = (props) => {
           id: 'pages.HJSmsTemplate.after_sender_id',
           defaultMessage: '',
         })}
-        rules={[{ required: true, message: 'Please select your reason!' }]}
       />
       <ProFormSelect
         name="before_sms_channel_id"
@@ -125,9 +108,8 @@ const BatchForm: React.FC<FormProps> = (props) => {
           id: 'pages.HJSmsTemplate.before_sms_channel_id',
           defaultMessage: '',
         })}
-        request={_getChannelsEnum}
+        options={props.channels}
         placeholder="Please select a channel"
-        rules={[{ required: true, message: 'Please select your reason!' }]}
       />
       <ProFormSelect
         name="after_sms_channel_id"
@@ -135,9 +117,29 @@ const BatchForm: React.FC<FormProps> = (props) => {
           id: 'pages.HJSmsTemplate.after_sms_channel_id',
           defaultMessage: '',
         })}
-        request={_getChannelsEnum}
+        options={props.channels}
         placeholder="Please select a channel"
-        rules={[{ required: true, message: 'Please select your reason!' }]}
+      />
+      <ProFormRadio.Group
+        name="update_role"
+        label="是否变更分流"
+        radioType="button"
+        options={[
+          {
+            label: intl.formatMessage({
+                id: 'pages.common.yes',
+                defaultMessage: '',
+              }),
+            value: 1,
+          },
+          {
+            label: intl.formatMessage({
+                id: 'pages.common.no',
+                defaultMessage: '',
+              }),
+            value: 2,
+          },
+        ]}
       />
 
 

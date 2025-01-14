@@ -34,6 +34,7 @@ import {
   GroupRoleFieldIndex,
   GroupRoleFieldLabels,
 } from '../service';
+import {useIntl} from "@@/exports";
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;
@@ -227,6 +228,7 @@ const EditForm: React.FC<FormProps> = (props) => {
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
   const [tableData, setTableData] = useState<API.HFCollectionAgencyRole[]>([]);
+  const intl = useIntl();
 
   const columns: ProColumns<API.HFCollectionAgencyRole>[] = [
     {

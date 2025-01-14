@@ -26,6 +26,7 @@ import type { TableListItem } from '../data';
 import styles from '../index.less';
 import { AgencyRoleFieldLabels, GroupRoleFieldLabels } from '../service';
 
+
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;
 export type FormProps = {
@@ -69,6 +70,12 @@ const NestedEditableTable: React.FC<NestedEditableTableProps> = ({
       className: styles.blue2,
     },
     {
+      title: 'Sender ID',
+      dataIndex: 'e_sender_id',
+      valueType: 'text',
+      className: styles.blue2,
+    },
+    {
       title: '分流比例',
       dataIndex: 'd_proportion',
       valueType: 'percent',
@@ -76,7 +83,7 @@ const NestedEditableTable: React.FC<NestedEditableTableProps> = ({
         rules: [
           {
             required: true,
-            message: `${GroupRoleFieldLabels.e_collection_group_proportion}是必填项`,
+            message: `必填`,
           },
         ],
       },
@@ -142,7 +149,7 @@ const NestedEditableTable: React.FC<NestedEditableTableProps> = ({
             type: 'single',
             // @ts-ignore
             onChange: onEditChange,
-            deletePopconfirmMessage: '确定要删除这个催收小组吗？',
+            deletePopconfirmMessage: '确定要删除这个吗？',
           }}
           tableRender={(_, dom) => (
             <div
@@ -179,6 +186,8 @@ const EditForm: React.FC<FormProps> = (props) => {
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
   const [tableData, setTableData] = useState<API.KSmsTemplateOperator[]>([]);
+  const [preview, setPreview] = useState<string>('');
+  const [chargeCount, setChargeCount] = useState<number>(0);
 
   const columns: ProColumns<API.KSmsTemplateOperator>[] = [
     {
@@ -227,11 +236,11 @@ const EditForm: React.FC<FormProps> = (props) => {
       return false;
     }
     try {
+      let res;
       if (props.id > 0) {
-        let res = await update({ id: props.id, ...values });
+        res = await update({ id: props.id, ...values });
       }else{
-        let res = await update({ id: 0, ...values });
-
+        res = await update({ id: 0, ...values });
       }
       console.log('values', values);
       // @ts-ignore
@@ -274,7 +283,7 @@ const EditForm: React.FC<FormProps> = (props) => {
         onChange={(updatedRecord) => {
           handleNestedTableChange(updatedRecord, index);
         }}
-        myKey={crypto.randomBytes(10).toString('hex').slice(0, 10)}
+        myKey={record.id ? record.id.toString() : crypto.randomBytes(10).toString('hex').slice(0, 10)}
         channels={props.channels}
       />
     );
@@ -283,6 +292,48 @@ const EditForm: React.FC<FormProps> = (props) => {
   const BlueTableHeader = ({ children }) => (
     <th style={{ backgroundColor: '#66CCCC' }}>{children}</th>
   );
+  const calculateSmsCount = (message: string) => {
+    const gsm7bitChars = /^[A-Za-z0-9 \r\n@£$¥èéùìòÇØøÅå\u0394_\u03A6\u0393\u039B\u03A9\u03A0\u03A8\u03A3\u0398\u039EÆæßÉ!"#$%&'()*+,\-./:;<=>?¡ÄÖÑÜ§¿äöñüà^{}\[~\]|\u20AC]*$/;
+
+    let isGsm7bit = gsm7bitChars.test(message);
+    let maxLengthPerSms = isGsm7bit ? 160 : 70;
+    let maxLengthPerPart = isGsm7bit ? 153 : 67;
+
+    if (message.length <= maxLengthPerSms) {
+      return 1;
+    } else {
+      return Math.ceil(message.length / maxLengthPerPart);
+    }
+  }
+  // 替换占位符的逻辑
+  const replacePlaceholders = (input: string): string => {
+    const replacements = {
+      code: '4361',
+      mobile: '521452354',
+      name: 'Isioma Osamor',
+      loan_amount: '2000',
+      repay_amount: '2000',
+      expect_repay_time: '2025-05-21',
+      borrow_days: '7',
+      overdue_days: '3',
+      up_amount: '1500',
+      bankcard_bank: 'Access Bank',
+      bankcard_number: '6042209290',
+      app_name: 'CashU',
+      product_name: 'We Loan',
+      recieve_bank: 'PALMPAY',
+      recieve_bank_no: '6615155578',
+    };
+
+    return input.replace(/@(\w+)@/g, (match, p1) => replacements[p1] || match);
+  };
+  // 当模板输入变化时，更新预览
+  const handleTemplateChange = (preview:string) => {
+    let tmp = replacePlaceholders(preview);
+    setPreview(tmp);
+    setChargeCount(calculateSmsCount(tmp));
+  };
+
 
   return (
     <ModalForm<FormRecord>
@@ -300,8 +351,8 @@ const EditForm: React.FC<FormProps> = (props) => {
         if (props.id > 0) {
           const res = await show({ id: props.id });
           setCurrentTableListItemMoment(moment());
-          setOldRecord(res.data);
           setTableData(res.data!.a_a_a_a_a_k_sms_template_operators!);
+          handleTemplateChange(res.data.d_template)
           res.data.b_node_type = [res.data!.b_node_type!, res.data!.c_type!];
           return res.data;
         } else {
@@ -330,17 +381,14 @@ const EditForm: React.FC<FormProps> = (props) => {
         o_send_email: 1,
       }}
     >
-      <ProFormText
-        label={intl.formatMessage({ id: 'pages.HJSmsTemplate.a_sender_id', defaultMessage: '' })}
-        name={'a_sender_id'}
-      />
+
       <ProFormCascader
         name="b_node_type"
         label="类型"
         fieldProps={{
           options: [
             {
-              value: 1,
+              value: 100,
               label: '节点发送',
               children: [
                 {
@@ -406,7 +454,7 @@ const EditForm: React.FC<FormProps> = (props) => {
               ],
             },
             {
-              value: 2,
+              value: 200,
               label: '计划任务',
               children: [
                 {
@@ -448,7 +496,7 @@ const EditForm: React.FC<FormProps> = (props) => {
               ],
             },
             {
-              value: 3,
+              value: 300,
               label: '手动发送',
               children: [
                 {
@@ -473,6 +521,21 @@ const EditForm: React.FC<FormProps> = (props) => {
       <ProFormTextArea
         label={intl.formatMessage({ id: 'pages.HJSmsTemplate.d_template', defaultMessage: '' })}
         name="d_template"
+        fieldProps={{
+          onChange: (e) => {
+            handleTemplateChange(e.target.value);
+          },
+        }}
+        extra=" @code@验证码 @mobile@手机号 @name@姓名 @loan_amount@放款金额 @repay_amount@还款金额 @expect_repay_time@还款时间 @borrow_days@借款天数 @overdue_days@逾期天数 @up_amount@提额金额 @bankcard_bank@收款银行 @bankcard_number@收款银行卡号 @overdue_days@逾期天数 @app_name@APP名称 @product_name@产品名称  @recieve_bank@收款银行 @recieve_bank_no@收款账号"
+      />
+      <ProFormTextArea
+        label={intl.formatMessage({ id: 'pages.HJSmsTemplate.template_preview', defaultMessage: '' })}
+        name="template_preview"
+        disabled={true}
+        fieldProps={{
+          value: preview,
+        }}
+        extra={`预计扣费：${chargeCount}条`}
       />
       <ProFormRadio.Group
         label={intl.formatMessage({ id: 'pages.HJSmsTemplate.f_status', defaultMessage: '' })}
@@ -482,19 +545,10 @@ const EditForm: React.FC<FormProps> = (props) => {
       />
       <ProFormSelect
         label="默认通道"
-        name="i_default_sms_channel_id"
+        name="j_default_sms_channel_id"
         rules={[{ required: true, message: `请选择` }]}
         // @ts-ignore
-        options={[
-          {
-            label: 'Infobip',
-            value: 1,
-          },
-          {
-            label: 'Kirusa',
-            value: 2,
-          },
-        ]}
+        options={props.channels}
       />
       <ProFormRadio.Group
         label={intl.formatMessage({ id: 'pages.HJSmsTemplate.i_proportion', defaultMessage: '' })}
@@ -502,7 +556,11 @@ const EditForm: React.FC<FormProps> = (props) => {
         radioType="button"
         options={COMMON_STATUS_INT_ARRAY}
       />
-      <ProForm.Item name="a_a_a_a_a_k_sms_template_operators" label="运营商分流">
+      <ProFormText
+        label={intl.formatMessage({ id: 'pages.HJSmsTemplate.e_sender_id', defaultMessage: '' })}
+        name="a_sender_id"
+      />
+      <ProForm.Item name="a_a_a_a_a_k_sms_template_operators" label="分流">
         <EditableProTable<API.KSmsTemplateOperator>
           columns={columns}
           rowKey="id"

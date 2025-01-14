@@ -15,6 +15,9 @@ import {useIntl} from "@@/exports";
 import moment from "moment/moment";
 import ImportForm from "@/pages/UserManager/GBMarketing/components/ImportForm";
 import BatchForm from "@/pages/Operation/Sms/Template/components/BatchForm";
+import {FieldIndex2, FieldLabels2} from "@/pages/Risk/RiskRoleBundle/service";
+import {COMMON_STATUS_INT, COMMON_STATUS_INT_ARRAY, LOAN_LOG_STATUS} from "@/pages/enums";
+import {US_LOAN_LOG_STATUS} from "@/pages/enumsUs";
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -78,15 +81,20 @@ const TableList: React.FC = () => {
   ) => {
     // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
     // 如果需要转化参数可以在这里进行修改
-    // @ts-ignore
-    const res = await index({ page: params.current, ...params });
-
     if (channels.length === 0) {
       await _getChannelssEnum();
     }
     if (operators.length === 0) {
       await _getOperatorsEnum();
     }
+    // @ts-ignore
+    const res = await index({ page: params.current, ...params });
+
+
+    res.data!.forEach((_item: API.HJSmsTemplate) => {
+        // @ts-ignore
+      _item.b_node_type = [_item.b_node_type, _item.c_type];
+    });
     return {
       data: res.data,
       // success 请返回 true，
@@ -124,37 +132,175 @@ const TableList: React.FC = () => {
     },
   ];
   const expendColumns2: ProColumns<API.HFCollectionAgencyRole>[] = [
+
     {
-      title: '通道',
+      title: intl.formatMessage({ id: 'pages.KASmsTemplateOperatorRole.c_sms_channel_id', defaultMessage: '' }),
       dataIndex: 'c_sms_channel_id',
+      key: 'c_sms_channel_id',
       valueType: 'select',
       request: async () => {
         return channels;
       },
     },
+    {
+      title: intl.formatMessage({ id: 'pages.KASmsTemplateOperatorRole.d_proportion', defaultMessage: '' }),
+      dataIndex: 'd_proportion',
+      key: 'd_proportion',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.KASmsTemplateOperatorRole.e_sender_id', defaultMessage: '' }),
+      dataIndex: 'e_sender_id',
+      key: 'e_sender_id',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.KASmsTemplateOperatorRole.updated_at', defaultMessage: '' }),
+      dataIndex: 'updated_at',
+      key: 'updated_at',
+      valueType: 'date',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.KASmsTemplateOperatorRole.created_at', defaultMessage: '' }),
+      dataIndex: 'created_at',
+      key: 'created_at',
+      valueType: 'date',
+    }
+
   ];
 
   const columns: ProColumns<TableListItem>[] = [
-    {
-      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.a_sender_id', defaultMessage: '' }),
-      dataIndex: 'a_sender_id',
-      key: 'a_sender_id',
-    },
+
     {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.b_node_type', defaultMessage: '' }),
       dataIndex: 'b_node_type',
-      key: 'b_node_type',
+      valueType: 'cascader',
+      request: () => {
+        return [
+          {
+            value: 100,
+            label: '节点发送',
+            children: [
+              {
+                value: 1,
+                label: 'OTP',
+              },
+              {
+                value: 2,
+                label: '认证通过',
+              },
+              {
+                value: 3,
+                label: '认证拒绝',
+              },
+              {
+                value: 4,
+                label: '机审通过',
+              },
+              {
+                value: 5,
+                label: '机审拒绝',
+              },
+              {
+                value: 6,
+                label: '人审通过',
+              },
+              {
+                value: 7,
+                label: '人审拒绝',
+              },
+              {
+                value: 8,
+                label: '放款成功',
+              },
+              {
+                value: 9,
+                label: '放款失败',
+              },
+              {
+                value: 10,
+                label: '结清',
+              },
+              {
+                value: 11,
+                label: '还款失败',
+              },
+              {
+                value: 12,
+                label: '展期成功',
+              },
+              {
+                value: 13,
+                label: '部分还款成功',
+              },
+              {
+                value: 14,
+                label: '提额',
+              },
+              {
+                value: 15,
+                label: '减免',
+              },
+            ],
+          },
+          {
+            value: 200,
+            label: '计划任务',
+            children: [
+              {
+                value: 16,
+                label: '逾前提醒',
+              },
+              {
+                value: 17,
+                label: '还款日',
+              },
+              {
+                value: 18,
+                label: '轻度逾期',
+              },
+              {
+                value: 19,
+                label: '中度逾期',
+              },
+              {
+                value: 20,
+                label: '严重逾期',
+              },
+              {
+                value: 21,
+                label: '注册未认证',
+              },
+              {
+                value: 22,
+                label: '认证未签约',
+              },
+              {
+                value: 23,
+                label: '结清未复借',
+              },
+              {
+                value: 24,
+                label: '冷静期过期',
+              },
+            ],
+          },
+          {
+            value: 300,
+            label: '手动发送',
+            children: [
+              {
+                value: 25,
+                label: '营销短信',
+              },
+              {
+                value: 26,
+                label: '催收短信',
+              }
+            ],
+          },
+        ];
+      },
     },
-    {
-      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.c_type', defaultMessage: '' }),
-      dataIndex: 'c_type',
-      key: 'c_type',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.d_template', defaultMessage: '' }),
-      dataIndex: 'd_template',
-      key: 'd_template',
-    },
+
     {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.e_days', defaultMessage: '' }),
       dataIndex: 'e_days',
@@ -164,12 +310,10 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.f_status', defaultMessage: '' }),
       dataIndex: 'f_status',
       key: 'f_status',
+      valueType: 'select',
+      valueEnum: COMMON_STATUS_INT,
     },
-    {
-      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.g_count', defaultMessage: '' }),
-      dataIndex: 'g_count',
-      key: 'g_count',
-    },
+
     {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.h_yesterday_count', defaultMessage: '' }),
       dataIndex: 'h_yesterday_count',
@@ -179,21 +323,38 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.i_proportion', defaultMessage: '' }),
       dataIndex: 'i_proportion',
       key: 'i_proportion',
+      valueType: 'select',
+      valueEnum: COMMON_STATUS_INT,
     },
     {
-      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.i_default_sms_channel_id', defaultMessage: '' }),
-      dataIndex: 'i_default_sms_channel_id',
-      key: 'i_default_sms_channel_id',
+      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.j_default_sms_channel_id', defaultMessage: '' }),
+      dataIndex: 'j_default_sms_channel_id',
+      key: 'j_default_sms_channel_id',
+      valueType: 'select',
+      request: _getChannelssEnum
     },
     {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.updated_at', defaultMessage: '' }),
       dataIndex: 'updated_at',
       key: 'updated_at',
+      valueType: 'date',
     },
     {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.created_at', defaultMessage: '' }),
       dataIndex: 'created_at',
       key: 'created_at',
+      valueType: 'date',
+    },
+    {
+      title: 'Sender',
+      dataIndex: 'a_sender_id',
+      key: 'a_sender_id',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.d_template', defaultMessage: '' }),
+      dataIndex: 'd_template',
+      key: 'd_template',
+      width: "50%"
     },
     {
       title: '操作',
@@ -237,6 +398,7 @@ const TableList: React.FC = () => {
         rowKey="id"
         // @ts-ignore
         expandable={{
+          defaultExpandAllRows: true,
           expandedRowRender: expandedRowRender2,
           // @ts-ignore
           rowExpandable: (_record) => _record.a_a_a_a_a_k_a_sms_template_operator_roles.length! > 0,
@@ -249,7 +411,6 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '123123',
         ghost: true,
         extra: [
           <Button key="3" type="primary" onClick={() => onEditClick(0)}>
@@ -286,12 +447,6 @@ const TableList: React.FC = () => {
               >
                 {intl.formatMessage({
                   id: 'pages.common.option.batch',
-                  defaultMessage: '',
-                })}
-              </a>
-              <a>
-                {intl.formatMessage({
-                  id: 'pages.common.export',
                   defaultMessage: '',
                 })}
               </a>
