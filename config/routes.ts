@@ -392,19 +392,19 @@ export default [
           {
             name: 'intercept-loan',
             icon: 'smile',
-            path: '/loan/loan-list/intercept-loan',
+            path: '/loan/loan-list/intercept',
             component: './Loan/LoanList/InterceptLoan',
           },
           {
             name: 'processing-loan',
             icon: 'smile',
-            path: '/loan/loan-list/processing-loan',
+            path: '/loan/loan-list/processing',
             component: './Loan/LoanList/ProcessingLoan',
           },
           {
             name: 'unknown-loan',
             icon: 'smile',
-            path: '/loan/loan-list/unknown-loan',
+            path: '/loan/loan-list/unknown',
             component: './Loan/LoanList/UnknownLoan',
           },
         ],
@@ -412,7 +412,7 @@ export default [
       {
         name: 'loan-log',
         icon: 'smile',
-        path: '/loan/loan-log',
+        path: '/loan/log',
         component: './Loan/LoanLog',
       },
     ],
@@ -425,13 +425,13 @@ export default [
       {
         name: 'repay-list',
         icon: 'smile',
-        path: '/repay/repay-list',
+        path: '/repay/list',
         component: './Repay/RepayList',
       },
       {
         name: 'repay-log',
         icon: 'smile',
-        path: '/repay/repay-log',
+        path: '/repay/log',
         component: './Repay/RepayLog',
       },
       {
@@ -450,13 +450,13 @@ export default [
       {
         name: 'telemarketing-role',
         icon: 'smile',
-        path: '/telemarketing/telemarketing-role',
+        path: '/telemarketing/role',
         component: './Stay',
       },
       {
         name: 'telemarketing-admin-list',
         icon: 'smile',
-        path: '/telemarketing/telemarketing-admin-list',
+        path: '/telemarketing/admin-list',
         component: './Stay',
       },
       {
@@ -468,13 +468,13 @@ export default [
       {
         name: 'telemarketing-order-flow-history',
         icon: 'smile',
-        path: '/telemarketing/telemarketing-order-flow-history',
+        path: '/telemarketing/order-flow-history',
         component: './Stay',
       },
       {
         name: 'telemarketing-role',
         icon: 'smile',
-        path: '/telemarketing/telemarketing-role',
+        path: '/telemarketing/role',
         component: './Stay',
       },
 
@@ -605,41 +605,47 @@ export default [
     path: '/operation',
     routes: [
       {
-        name: 'product',
+        name: 'operation.product',
         icon: 'smile',
         path: '/operation/product',
         component: './Operation/BProduct',
+        access: 'normalRouteFilter',
       },
       {
-        name: 'product-detail',
+        name: 'operation.product-detail',
         icon: 'smile',
         path: '/operation/product/detail/:id',
         component: './Operation/BProduct/Detail',
         hideInMenu: true,
+        access: 'normalRouteFilter',
       },
       {
-        name: 'channel',
+        name: 'operation.channel',
         icon: 'smile',
         path: '/operation/channel',
         component: './Operation/Channel',
+        access: 'normalRouteFilter',
       },
       {
-        name: 'payment-channel',
+        name: 'operation.payment-channel',
         icon: 'smile',
         path: '/operation/payment-channel',
         component: './Operation/PaymentChannel',
+        access: 'normalRouteFilter',
       },
       {
-        name: 'kyc',
+        name: 'operation.kyc',
         icon: 'smile',
         path: '/operation/kyc',
         component: './Operation/Kyc',
+        access: 'normalRouteFilter',
       },
       {
-        name: 'credit',
+        name: 'operation.credit',
         icon: 'smile',
         path: '/operation/credit',
         component: './Operation/Credit',
+        access: 'normalRouteFilter',
       },
       {
         name: 'sms',
@@ -647,16 +653,18 @@ export default [
         path: '/operation/sms',
         routes: [
           {
-            name: 'template',
+            name: 'operation.sms.template',
             icon: 'smile',
             path: '/operation/sms/template',
             component: './Operation/Sms/Template',
+            access: 'normalRouteFilter',
           },
           {
-            name: 'custom',
+            name: 'operation.sms.custom',
             icon: 'smile',
             path: '/operation/sms/custom',
             component: './Operation/Sms/Custom',
+            access: 'normalRouteFilter',
           },
         ],
       },

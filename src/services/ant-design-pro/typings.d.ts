@@ -1339,6 +1339,7 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    permissions?: string[];
   };
 
   type DACollectionKpi = {
