@@ -25,7 +25,7 @@ export default [
   {
     path: '/welcome',
     name: 'welcome',
-    icon: 'smile',
+    icon: 'DashboardOutlined',
     component: './Welcome',
   },
   {
@@ -51,45 +51,45 @@ export default [
   },
   {
     name: 'user',
-    icon: 'smile',
+    icon: 'TeamOutlined',
     path: '/user-manager',
     // component: './AUser',
     routes: [
       {
-        name: 'user-list',
+        name: 'user',
         icon: 'smile',
-        path: '/user-manager/user-list',
+        path: '/user-manager/user',
         component: './UserManager/AUser',
       },
       {
-        name: 'white-info-list',
+        name: 'white-info',
         icon: 'smile',
-        path: '/user-manager/white-info-list',
+        path: '/user-manager/white-info',
         component: './UserManager/BAWhite',
       },
       {
-        name: 'white-user-list',
+        name: 'white',
         icon: 'smile',
-        path: '/user-manager/white-user-list',
+        path: '/user-manager/white',
         component: './UserManager/BAWhiteUser',
         hideChildrenInMenu: true,
         routes: [
           {
-            name: 'white-user',
+            name: 'user',
             icon: 'smile',
-            path: '/user-manager/white-user-list/white-user',
+            path: '/user-manager/white/user',
             component: './UserManager/BAWhiteUser/BAWhiteUser',
           },
           {
-            name: 'white-user-with-overdue',
+            name: 'user-with-overdue',
             icon: 'smile',
-            path: '/user-manager/white-user-list/white-user-with-overdue',
+            path: '/user-manager/white/user-with-overdue',
             component: './UserManager/BAWhiteUser/BAWhiteUserWithOverdue',
           },
           {
-            name: 'white-user-with-serious-overdue',
+            name: 'user-with-serious-overdue',
             icon: 'smile',
-            path: '/user-manager/white-user-list/white-user-with-serious-overdue',
+            path: '/user-manager/white/user-with-serious-overdue',
             component: './UserManager/BAWhiteUser/BAWhiteUserWithSeriousOverdue',
           },
         ],
@@ -210,7 +210,7 @@ export default [
 
   {
     name: 'borrow',
-    icon: 'smile',
+    icon: 'ContainerOutlined',
     path: '/borrow',
     routes: [
       {
@@ -312,7 +312,7 @@ export default [
   },
   {
     name: 'review',
-    icon: 'smile',
+    icon: 'FileSearchOutlined',
     path: '/review',
     routes: [
       {
@@ -355,7 +355,7 @@ export default [
   },
   {
     name: 'loan',
-    icon: 'smile',
+    icon: 'BankOutlined',
     path: '/loan',
     routes: [
       {
@@ -419,7 +419,7 @@ export default [
   },
   {
     name: 'repay',
-    icon: 'smile',
+    icon: 'CreditCardOutlined',
     path: '/repay',
     routes: [
       {
@@ -444,7 +444,7 @@ export default [
   },
   {
     name: 'telemarketing',
-    icon: 'smile',
+    icon: 'PhoneOutlined',
     path: '/telemarketing',
     routes: [
       {
@@ -482,7 +482,7 @@ export default [
   },
   {
     name: 'collection',
-    icon: 'smile',
+    icon: 'CommentOutlined',
     path: '/collection',
     routes: [
       {
@@ -532,7 +532,7 @@ export default [
 
   {
     name: 'risk',
-    icon: 'smile',
+    icon: 'AlertOutlined',
     path: '/risk',
     routes: [
       {
@@ -601,7 +601,7 @@ export default [
   },
   {
     name: 'operation',
-    icon: 'smile',
+    icon: 'ProductOutlined',
     path: '/operation',
     routes: [
       {
@@ -764,7 +764,7 @@ export default [
   },
   {
     name: 'statistics',
-    icon: 'smile',
+    icon: 'FundOutlined',
     path: '/statistics',
     routes: [
       {
@@ -942,7 +942,7 @@ export default [
   },
   {
     name: 'finance',
-    icon: 'smile',
+    icon: 'CalculatorOutlined',
     path: '/finance',
     routes: [
       {
@@ -1030,7 +1030,7 @@ export default [
   },
   {
     name: 'setting',
-    icon: 'smile',
+    icon: 'SettingOutlined',
     path: '/setting',
     routes: [
       {
