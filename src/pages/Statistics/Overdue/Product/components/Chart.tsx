@@ -66,25 +66,15 @@ const Chart: React.FC<FormProps> = (props) => {
       xField: 'time',
       yField: 'value',
       seriesField: 'type',
-      point: {
-        size: 4,
-        style: {
-          lineWidth: 1,
-          fillOpacity: 1,
-        },
+      // shapeField: 'type',
+
+      legend: { size: false },
+      colorField: 'type',
+      axis: {
+        x: { labelAutoHide: 'greedy' },
       },
-      annotations: [
-        {
-          type: 'line',
-          start: ['min', 'mean'],
-          end: ['max', 'mean'],
-          style: {
-            stroke: '#F4664A',
-            lineDash: [2, 2],
-          },
-        },
-      ],
     };
+    console.log(config);
     // @ts-ignore
     return <Line {...config} />;
   } else if (

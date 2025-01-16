@@ -29,6 +29,35 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/dashboard',
+    name: 'dashboard',
+    icon: 'dashboard',
+    routes: [
+      {
+        path: '/dashboard',
+        redirect: '/dashboard/analysis',
+      },
+      {
+        name: 'analysis',
+        icon: 'smile',
+        path: '/dashboard/analysis',
+        component: './dashboard/analysis',
+      },
+      {
+        name: 'monitor',
+        icon: 'smile',
+        path: '/dashboard/monitor',
+        component: './dashboard/monitor',
+      },
+      {
+        name: 'workplace',
+        icon: 'smile',
+        path: '/dashboard/workplace',
+        component: './dashboard/workplace',
+      },
+    ],
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',
@@ -469,12 +498,6 @@ export default [
         name: 'telemarketing-order-flow-history',
         icon: 'smile',
         path: '/telemarketing/order-flow-history',
-        component: './Stay',
-      },
-      {
-        name: 'telemarketing-role',
-        icon: 'smile',
-        path: '/telemarketing/role',
         component: './Stay',
       },
 
