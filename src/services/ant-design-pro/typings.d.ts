@@ -1335,11 +1335,12 @@ declare namespace API {
     phone: string;
     /** created_at */
     created_at?: string;
+    /** 权限 */
+    permissions?: string[];
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
-    permissions?: string[];
   };
 
   type DACollectionKpi = {
@@ -2026,6 +2027,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1PermissionsIdParams = {
+    /** id of Permission */
+    id: number;
+  };
+
   type deleteAdminV1QCCollectionNewsIdParams = {
     /** id of QCCollectionNews */
     id: number;
@@ -2068,6 +2074,16 @@ declare namespace API {
 
   type deleteAdminV1RERiskValueSmsBasicsIdParams = {
     /** id of RERiskValueSmsBasic */
+    id: number;
+  };
+
+  type deleteAdminV1RoleHasPermissionsIdParams = {
+    /** id of RoleHasPermission */
+    id: number;
+  };
+
+  type deleteAdminV1RolesIdParams = {
+    /** id of Role */
     id: number;
   };
 
@@ -3361,6 +3377,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1PermissionsIdParams = {
+    /** id of Permission */
+    id: number;
+  };
+
+  type getAdminV1PermissionsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1ProductsEnumParams = {
     /** foo */
     foo: number;
@@ -3472,6 +3498,26 @@ declare namespace API {
   };
 
   type getAdminV1RERiskValueSmsBasicsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1RoleHasPermissionsIdParams = {
+    /** id of RoleHasPermission */
+    id: number;
+  };
+
+  type getAdminV1RoleHasPermissionsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1RolesIdParams = {
+    /** id of Role */
+    id: number;
+  };
+
+  type getAdminV1RolesParams = {
     /** foo */
     foo: number;
   };
@@ -6091,6 +6137,19 @@ declare namespace API {
     total_amount?: number;
   };
 
+  type Permission = {
+    /** id */
+    id?: number;
+    /** name */
+    name: string;
+    /** guard_name */
+    guard_name: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+  };
+
   type putACUserNewsIdParams = {
     /** id of ACUserNew */
     id: number;
@@ -6496,6 +6555,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1PermissionsIdParams = {
+    /** id of Permission */
+    id: number;
+  };
+
   type putAdminV1QCCollectionNewsIdParams = {
     /** id of QCCollectionNews */
     id: number;
@@ -6543,6 +6607,16 @@ declare namespace API {
 
   type putAdminV1RERiskValueSmsBasicsIdParams = {
     /** id of RERiskValueSmsBasic */
+    id: number;
+  };
+
+  type putAdminV1RoleHasPermissionsIdParams = {
+    /** id of RoleHasPermission */
+    id: number;
+  };
+
+  type putAdminV1RolesIdParams = {
+    /** id of Role */
     id: number;
   };
 
@@ -7482,6 +7556,26 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+  };
+
+  type Role = {
+    /** id */
+    id?: number;
+    /** name */
+    name: string;
+    /** guard_name */
+    guard_name: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+  };
+
+  type RoleHasPermission = {
+    /** permission_id */
+    permission_id?: number;
+    /** role_id */
+    role_id: number;
   };
 
   type SAApp = {

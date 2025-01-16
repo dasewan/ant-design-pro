@@ -84,6 +84,7 @@ import * as nhCreditRole from './nhCreditRole';
 import * as noticeIconItem from './noticeIconItem';
 import * as oaRepay from './oaRepay';
 import * as obKyc from './obKyc';
+import * as permission from './permission';
 import * as qcCollectionNews from './qcCollectionNews';
 import * as qePaymentGatewayLog from './qePaymentGatewayLog';
 import * as qfSmsGatewayLog from './qfSmsGatewayLog';
@@ -94,6 +95,8 @@ import * as raRepayLog from './raRepayLog';
 import * as rBlack from './rBlack';
 import * as rcSms from './rcSms';
 import * as reRiskValueSmsBasic from './reRiskValueSmsBasic';
+import * as role from './role';
+import * as roleHasPermission from './roleHasPermission';
 import * as saApp from './saApp';
 import * as sbApp from './sbApp';
 import * as scRiskValueSms from './scRiskValueSms';
@@ -206,6 +209,7 @@ export default {
   noticeIconItem,
   oaRepay,
   obKyc,
+  permission,
   qcCollectionNews,
   qePaymentGatewayLog,
   qfSmsGatewayLog,
@@ -216,6 +220,8 @@ export default {
   rBlack,
   rcSms,
   reRiskValueSmsBasic,
+  role,
+  roleHasPermission,
   saApp,
   sbApp,
   scRiskValueSms,

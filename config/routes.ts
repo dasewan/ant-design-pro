@@ -653,14 +653,14 @@ export default [
         path: '/operation/sms',
         routes: [
           {
-            name: 'operation.sms.template',
+            name: 'template',
             icon: 'smile',
             path: '/operation/sms/template',
             component: './Operation/Sms/Template',
             access: 'normalRouteFilter',
           },
           {
-            name: 'operation.sms.custom',
+            name: 'custom',
             icon: 'smile',
             path: '/operation/sms/custom',
             component: './Operation/Sms/Custom',
@@ -1044,6 +1044,12 @@ export default [
         icon: 'smile',
         path: '/setting/verify-item',
         component: './Setting/QVerifyItem',
+      },
+      {
+        name: 'role',
+        icon: 'smile',
+        path: '/setting/role',
+        component: './Setting/Role',
       },
     ],
   },

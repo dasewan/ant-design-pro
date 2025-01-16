@@ -90,6 +90,7 @@ export default {
   'menu.setting': '设置',
   'menu.setting.system-setting': '系统设置',
   'menu.setting.verify-item': '认证项',
+  'menu.setting.role': '角色管理',
   'menu.review': '审核管理',
   'menu.review.review-group': '审核组管理',
   'menu.review.review-admin': '审核成员管理',
