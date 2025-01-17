@@ -60,12 +60,10 @@ const PageHeaderContent: FC<{
       </div>
       <div className={styles.content}>
         <div className={styles.contentTitle}>
-          早安，
-          {currentUser.name}
-          ，祝你开心每一天！
+          13:54
         </div>
         <div>
-          {currentUser.title} |{currentUser.group}
+          尼日时间
         </div>
       </div>
     </div>

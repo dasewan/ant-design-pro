@@ -1,5 +1,5 @@
 import { Funnel } from '@ant-design/plots';
-import { Card, DatePicker, Typography } from 'antd';
+import { Card, DatePicker, Typography, Row, Col } from 'antd';
 import type { RadioChangeEvent } from 'antd/es/radio';
 import numeral from 'numeral';
 import React from 'react';
@@ -43,7 +43,7 @@ const RiskFields = ({
       loading={loading}
       className={styles.salesCard}
       bordered={false}
-      title="细则拒绝率"
+      title="细则通过拒绝率"
       style={{
         height: '100%',
       }}
@@ -60,9 +60,11 @@ const RiskFields = ({
         </div>
       }
     >
-      <div>
-        <Funnel {...config} />
-      </div>
+      <Row gutter={24}>
+        <Col xl={12} lg={24} md={24} sm={24} xs={24}><Funnel {...config} /></Col>
+        <Col xl={12} lg={24} md={24} sm={24} xs={24}><Funnel {...config} /></Col>
+      </Row>
+
     </Card>
   );
 };

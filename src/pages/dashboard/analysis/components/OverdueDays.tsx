@@ -1,5 +1,5 @@
-import { Pie } from '@ant-design/plots';
-import { Card, DatePicker, Typography } from 'antd';
+import {Funnel, Pie} from '@ant-design/plots';
+import {Card, Col, DatePicker, Row, Typography} from 'antd';
 import type { RadioChangeEvent } from 'antd/es/radio';
 import numeral from 'numeral';
 import React from 'react';
@@ -75,9 +75,12 @@ const OverdueDays = ({
         </div>
       }
     >
-      <div>
-        <Pie {...config} />
-      </div>
+      <Row gutter={24}>
+        <Col xl={8} lg={24} md={24} sm={24} xs={24}><Pie {...config} /></Col>
+        <Col xl={8} lg={24} md={24} sm={24} xs={24}> <Pie {...config} /></Col>
+        <Col xl={8} lg={24} md={24} sm={24} xs={24}> <Pie {...config} /></Col>
+      </Row>
+
     </Card>
   );
 };
