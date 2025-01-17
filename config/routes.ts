@@ -640,7 +640,6 @@ export default [
         path: '/operation/product/detail/:id',
         component: './Operation/BProduct/Detail',
         hideInMenu: true,
-        access: 'normalRouteFilter',
       },
       {
         name: 'operation.channel',

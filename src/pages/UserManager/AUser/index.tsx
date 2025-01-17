@@ -209,17 +209,6 @@ const TableList: React.FC = () => {
       title: '信用分',
       dataIndex: 'g_credit_fraction',
       fieldProps: { placeholder: '支持区间' },
-      render: (_, record) => {
-        if (record.q_block_type === 'black') {
-          return <Tag color="FF0000">{_}</Tag>;
-        } else if (record.q_block_type === 'gray') {
-          return <Tag color="#FFCC00">{_}</Tag>;
-        } else if (record.q_block_type === 'white') {
-          return <Tag color="#87d068">{_}</Tag>;
-        } else {
-          return _;
-        }
-      },
     },
     {
       title: '授信额度',

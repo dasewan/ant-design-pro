@@ -2,6 +2,7 @@ import type { TableListItem } from '@/pages/Operation/BProduct/data';
 import type { tryCalcuteType } from '@/pages/Operation/BProduct/Detail';
 import { Button, Col, Modal, Row, Statistic, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
+import numeral from "numeral";
 
 export type FormProps = {
   onOk: () => void;
@@ -87,17 +88,17 @@ const TryCalcuteModel: React.FC<FormProps> = (props) => {
     >
       <Row gutter={16}>
         <Col span={4}>
-          <Statistic title="借款金额" value={tryCalcuteData.borrowAmount} />
+          <Statistic title="借款金额" value={numeral(tryCalcuteData.borrowAmount).format('0,0')} />
         </Col>
         <Col span={4}>
-          <Statistic title="放款金额" value={tryCalcuteData.loanAmount} suffix="" />
+          <Statistic title="放款金额" value={numeral(tryCalcuteData.loanAmount).format('0,0')} suffix="" />
         </Col>
         <Col span={4}>
           <Statistic
             title={
               <>服务费 {tryCalcuteData.settlementType !== 3 ? <Tag color="red">头收</Tag> : ''}</>
             }
-            value={tryCalcuteData.serviceFee}
+            value={numeral(tryCalcuteData.serviceFee).format('0,0')}
           />
         </Col>
         <Col span={4}>
@@ -105,15 +106,15 @@ const TryCalcuteModel: React.FC<FormProps> = (props) => {
             title={
               <>利息 {tryCalcuteData.settlementType === 1 ? <Tag color="red">头收</Tag> : ''}</>
             }
-            value={tryCalcuteData.intersetFee}
+            value={numeral(tryCalcuteData.intersetFee).format('0,0')}
             suffix=""
           />
         </Col>
         <Col span={4}>
-          <Statistic title="违约金" value={tryCalcuteData.violateFee} suffix="" />
+          <Statistic title="违约金" value={numeral(tryCalcuteData.violateFee).format('0,0')} suffix="" />
         </Col>
         <Col span={4}>
-          <Statistic title="罚息" value={tryCalcuteData.overdueAmount} suffix="/日" />
+          <Statistic title="罚息" value={numeral(tryCalcuteData.overdueAmount).format('0,0')} suffix="/日" />
         </Col>
       </Row>
     </Modal>
