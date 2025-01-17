@@ -84,7 +84,7 @@ const Chart2: React.FC<FormProps> = (props) => {
   columnData4.sort((x, y) => x.value - y.value);
   columnData4 = [...columnData4, ...columnData5];
   console.log(pieData)
-  G2.registerInteraction('custom-association-filter', {
+  /*G2.registerInteraction('custom-association-filter', {
     showEnable: [
       {
         trigger: 'element:mouseenter',
@@ -118,7 +118,7 @@ const Chart2: React.FC<FormProps> = (props) => {
         },
       },
     ],
-  });
+  });*/
 
   const config = {
     // 关闭 chart 上的 tooltip，子 view 开启 tooltip
@@ -213,14 +213,14 @@ const Chart2: React.FC<FormProps> = (props) => {
             content: '{name} {percentage}',
           },
 
-          interactions: [
+/*          interactions: [
             {
               type: 'element-active',
             },
             {
               type: 'custom-association-filter',
             },
-          ],
+          ],*/
         },
       },
       {

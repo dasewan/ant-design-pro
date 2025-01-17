@@ -111,7 +111,7 @@ const Chart2: React.FC<FormProps> = (props) => {
   lineData = _.chain(lineData).orderBy(['name', 'time'], 'asc').value();
   columnData.sort((x, y) => x.value - y.value);
   columnData = [...columnData, ...columnData2];
-  G2.registerInteraction('custom-association-filter', {
+  /*G2.registerInteraction('custom-association-filter', {
     showEnable: [
       {
         trigger: 'element:mouseenter',
@@ -151,7 +151,7 @@ const Chart2: React.FC<FormProps> = (props) => {
         },
       },
     ],
-  });
+  });*/
 
   const config = {
     // 关闭 chart 上的 tooltip，子 view 开启 tooltip
@@ -215,14 +215,14 @@ const Chart2: React.FC<FormProps> = (props) => {
             content: '{name} {percentage}',
           },
 
-          interactions: [
+/*          interactions: [
             {
               type: 'element-active',
             },
             {
               type: 'custom-association-filter',
             },
-          ],
+          ],*/
         },
       },
       {

@@ -168,6 +168,6 @@ export default defineConfig({
     strategy: 'normal',
   },
   requestRecord: {},
-  // base: '/admin/',
-  // publicPath: '/admin/',
+  base: '/admin/',
+  publicPath: '/admin/',
 });
