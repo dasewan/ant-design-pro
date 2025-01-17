@@ -1,10 +1,11 @@
-import { Column } from '@ant-design/plots';
+import {Column, DualAxes} from '@ant-design/plots';
 import { Card, Col, DatePicker, Row, Tabs } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
 import type dayjs from 'dayjs';
 import numeral from 'numeral';
 import type { DataItem } from '../data.d';
 import useStyles from '../style.style';
+import React from "react";
 
 export type TimeType = 'today' | 'week' | 'month' | 'year';
 const { RangePicker } = DatePicker;
@@ -14,7 +15,7 @@ const rankingListData: {
   total: number;
 }[] = [];
 
-for (let i = 0; i < 7; i += 1) {
+for (let i = 0; i < 17; i += 1) {
   rankingListData.push({
     title: `工专路 ${i} 号店`,
     total: 323234,
@@ -37,6 +38,70 @@ const SalesCard = ({
   selectDate: (key: TimeType) => void;
 }) => {
   const { styles } = useStyles();
+
+  const uvBillData = [
+    { time: '2019-03', value: 350, type: 'uv' },
+    { time: '2019-04', value: 900, type: 'uv' },
+    { time: '2019-05', value: 300, type: 'uv' },
+    { time: '2019-06', value: 450, type: 'uv' },
+    { time: '2019-07', value: 470, type: 'uv' },
+    { time: '2019-03', value: 220, type: 'bill' },
+    { time: '2019-04', value: 300, type: 'bill' },
+    { time: '2019-05', value: 250, type: 'bill' },
+    { time: '2019-06', value: 220, type: 'bill' },
+    { time: '2019-07', value: 362, type: 'bill' },
+  ];
+
+  const transformData = [
+    { time: '2019-03', count: 800 },
+    { time: '2019-04', count: 600 },
+    { time: '2019-05', count: 400 },
+    { time: '2019-06', count: 380 },
+    { time: '2019-07', count: 220 },
+  ];
+
+  const config = {
+    xField: 'time',
+    height:300,
+    legend: {
+      color: {
+        itemMarker: 'round',
+        itemMarkerSize: 14,
+        position: 'top',
+      },
+    },
+    children: [
+      {
+        data: uvBillData,
+        type: 'interval',
+        yField: 'value',
+        stack: true,
+        colorField: 'type',
+        style: { maxWidth: 80 },
+        label: { position: 'inside' },
+        scale: { y: { domainMax: 1200 } },
+        interaction: {
+          elementHighlight: true,
+          elementHighlight: { background: true },
+        },
+      },
+      {
+        data: transformData,
+        type: 'line',
+        yField: 'count',
+        colorField: () => 'count',
+        style: { lineWidth: 2 },
+        axis: { y: { position: 'right' } },
+        interaction: {
+          tooltip: {
+            crosshairs: false,
+            marker: false,
+          },
+        },
+      },
+    ],
+    theme: { category10: ['#8085df', '#e35d76', '#0b18f5', '#0b18f5', '#0b18f5', '#0b18f5'] },
+  };
   return (
     <Card
       loading={loading}
@@ -78,40 +143,17 @@ const SalesCard = ({
           }}
           items={[
             {
-              key: 'sales',
-              label: '销售额',
+              key: 'S0',
+              label: 'S0',
               children: (
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesBar}>
-                      <Column
-                        height={300}
-                        data={salesData}
-                        xField="x"
-                        yField="y"
-                        paddingBottom={12}
-                        axis={{
-                          x: {
-                            title: false,
-                          },
-                          y: {
-                            title: false,
-                            gridLineDash: null,
-                            gridStroke: '#ccc',
-                          },
-                        }}
-                        scale={{
-                          x: { paddingInner: 0.4 },
-                        }}
-                        tooltip={{
-                          name: '销售量',
-                          channel: 'y',
-                        }}
-                      />
+                      <DualAxes {...config} />
                     </div>
                   </Col>
                   <Col xl={8} lg={12} md={12} sm={24} xs={24}>
-                    <div className={styles.salesRank}>
+                    <div className={styles.salesRank} style={{ maxHeight: '300px', overflowY: 'auto' }}>
                       <h4 className={styles.rankingTitle}>门店销售额排名</h4>
                       <ul className={styles.rankingList}>
                         {rankingListData.map((item, i) => (
@@ -136,45 +178,94 @@ const SalesCard = ({
               ),
             },
             {
-              key: 'views',
-              label: '访问量',
+              key: 'S1',
+              label: 'S1',
               children: (
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesBar}>
-                      <Column
-                        height={300}
-                        data={salesData}
-                        xField="x"
-                        yField="y"
-                        paddingBottom={12}
-                        axis={{
-                          x: {
-                            title: false,
-                          },
-                          y: {
-                            title: false,
-                          },
-                        }}
-                        scale={{
-                          x: { paddingInner: 0.4 },
-                        }}
-                        tooltip={{
-                          name: '访问量',
-                          channel: 'y',
-                        }}
-                      />
+                      <DualAxes {...config} />
                     </div>
                   </Col>
                   <Col xl={8} lg={12} md={12} sm={24} xs={24}>
-                    <div className={styles.salesRank}>
-                      <h4 className={styles.rankingTitle}>门店访问量排名</h4>
+                    <div className={styles.salesRank} style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                      <h4 className={styles.rankingTitle}>门店销售额排名</h4>
                       <ul className={styles.rankingList}>
                         {rankingListData.map((item, i) => (
                           <li key={item.title}>
                             <span
-                              className={`${
-                                i < 3 ? styles.rankingItemNumberActive : styles.rankingItemNumber
+                              className={`${styles.rankingItemNumber} ${
+                                i < 3 ? styles.rankingItemNumberActive : ''
+                              }`}
+                            >
+                              {i + 1}
+                            </span>
+                            <span className={styles.rankingItemTitle} title={item.title}>
+                              {item.title}
+                            </span>
+                            <span>{numeral(item.total).format('0,0')}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Col>
+                </Row>
+              ),
+            },
+            {
+              key: 'S2',
+              label: 'S2',
+              children: (
+                <Row>
+                  <Col xl={16} lg={12} md={12} sm={24} xs={24}>
+                    <div className={styles.salesBar}>
+                      <DualAxes {...config} />
+                    </div>
+                  </Col>
+                  <Col xl={8} lg={12} md={12} sm={24} xs={24}>
+                    <div className={styles.salesRank} style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                      <h4 className={styles.rankingTitle}>门店销售额排名</h4>
+                      <ul className={styles.rankingList}>
+                        {rankingListData.map((item, i) => (
+                          <li key={item.title}>
+                            <span
+                              className={`${styles.rankingItemNumber} ${
+                                i < 3 ? styles.rankingItemNumberActive : ''
+                              }`}
+                            >
+                              {i + 1}
+                            </span>
+                            <span className={styles.rankingItemTitle} title={item.title}>
+                              {item.title}
+                            </span>
+                            <span>{numeral(item.total).format('0,0')}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Col>
+                </Row>
+              ),
+            },
+            {
+              key: 'S3',
+              label: 'S3',
+              children: (
+                <Row>
+                  <Col xl={16} lg={12} md={12} sm={24} xs={24}>
+                    <div className={styles.salesBar}>
+                      <DualAxes {...config} />
+                    </div>
+                  </Col>
+                  <Col xl={8} lg={12} md={12} sm={24} xs={24}>
+                    <div className={styles.salesRank} style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                      <h4 className={styles.rankingTitle}>门店销售额排名</h4>
+                      <ul className={styles.rankingList}>
+                        {rankingListData.map((item, i) => (
+                          <li key={item.title}>
+                            <span
+                              className={`${styles.rankingItemNumber} ${
+                                i < 3 ? styles.rankingItemNumberActive : ''
                               }`}
                             >
                               {i + 1}

@@ -13,7 +13,7 @@ const useStyles = createStyles(({ token }) => {
       lineHeight: '22px',
     },
     number: {
-      marginLeft: '8px',
+      marginLeft: '4px',
       color: token.colorTextHeading,
     },
   };

@@ -18,6 +18,13 @@ import type { AnalysisData } from './data.d';
 import { fakeChartData } from './service';
 import useStyles from './style.style';
 import { getTimeDistance } from './utils/utils';
+import RegisterLine from "@/pages/dashboard/analysis/components/RegisterLine";
+import RiskAxes from "@/pages/dashboard/analysis/components/RiskAxes";
+import Overdue from "@/pages/dashboard/analysis/components/Overdue";
+import RiskFields from "@/pages/dashboard/analysis/components/RiskFields";
+import Reloan from "@/pages/dashboard/analysis/components/Reloan";
+import Overdue2 from "@/pages/dashboard/analysis/components/Overdue2";
+import OverdueDays from "@/pages/dashboard/analysis/components/OverdueDays";
 type RangePickerValue = RangePickerProps<dayjs.Dayjs>['value'];
 type AnalysisProps = {
   dashboardAndanalysis: AnalysisData;
@@ -98,10 +105,65 @@ const Analysis: FC<AnalysisProps> = () => {
     <GridContent>
       <>
         <Suspense fallback={<PageLoading />}>
+          {/*今日数据*/}
           <IntroduceRow loading={loading} visitData={data?.visitData || []} />
         </Suspense>
 
-        <Suspense fallback={null}>
+        <Row
+          gutter={24}
+          style={{
+            marginBottom: 24,
+          }}
+        >
+          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+            <Suspense fallback={null}>
+              {/*注册*/}
+              <RegisterLine
+                dropdownGroup={dropdownGroup}
+                salesType={salesType}
+                loading={loading}
+                salesPieData={salesPieData || []}
+                handleChangeSalesType={handleChangeSalesType}
+              />
+            </Suspense>
+          </Col>
+          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+            <Suspense fallback={null}>
+              {/*风控*/}
+              <RiskAxes
+                dropdownGroup={dropdownGroup}
+                salesType={salesType}
+                loading={loading}
+                salesPieData={salesPieData || []}
+                handleChangeSalesType={handleChangeSalesType}
+              />
+            </Suspense>
+          </Col>
+        </Row>
+
+        <Row
+          gutter={24}
+          style={{
+            marginBottom: 24,
+          }}
+        >
+          <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+            <Suspense fallback={null}>
+              {/*首逾*/}
+              <Overdue
+                dropdownGroup={dropdownGroup}
+                salesType={salesType}
+                loading={loading}
+                salesPieData={salesPieData || []}
+                handleChangeSalesType={handleChangeSalesType}
+              />
+            </Suspense>
+          </Col>
+
+        </Row>
+
+        <Suspense fallback={null} >
+          {/*催收*/}
           <SalesCard
             rangePickerValue={rangePickerValue}
             salesData={data?.salesData || []}
@@ -118,19 +180,52 @@ const Analysis: FC<AnalysisProps> = () => {
             marginTop: 24,
           }}
         >
+
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={null}>
-              <TopSearch
-                loading={loading}
-                visitData2={data?.visitData2 || []}
-                searchData={data?.searchData || []}
+              {/*字段拒绝率*/}
+              <RiskFields
                 dropdownGroup={dropdownGroup}
+                salesType={salesType}
+                loading={loading}
+                salesPieData={salesPieData || []}
+                handleChangeSalesType={handleChangeSalesType}
               />
             </Suspense>
           </Col>
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={null}>
-              <ProportionSales
+              <Overdue2
+                dropdownGroup={dropdownGroup}
+                salesType={salesType}
+                loading={loading}
+                salesPieData={salesPieData || []}
+                handleChangeSalesType={handleChangeSalesType}
+              />
+
+            </Suspense>
+          </Col>
+        </Row>
+        <Row
+          gutter={24}
+          style={{
+            marginTop: 24,
+          }}
+        >
+          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+            <Suspense fallback={null}>
+              <Reloan
+                dropdownGroup={dropdownGroup}
+                salesType={salesType}
+                loading={loading}
+                salesPieData={salesPieData || []}
+                handleChangeSalesType={handleChangeSalesType}
+              />
+            </Suspense>
+          </Col>
+          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+            <Suspense fallback={null}>
+              <OverdueDays
                 dropdownGroup={dropdownGroup}
                 salesType={salesType}
                 loading={loading}
@@ -141,15 +236,6 @@ const Analysis: FC<AnalysisProps> = () => {
           </Col>
         </Row>
 
-        <Suspense fallback={null}>
-          <OfflineData
-            activeKey={activeKey}
-            loading={loading}
-            offlineData={data?.offlineData || []}
-            offlineChartData={data?.offlineChartData || []}
-            handleTabChange={handleTabChange}
-          />
-        </Suspense>
       </>
     </GridContent>
   );
