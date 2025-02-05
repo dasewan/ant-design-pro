@@ -4,6 +4,7 @@ import ReleaseForm from '@/pages/Collection/CollectionAdmin/components/ReleaseFo
 import {
   getAdminV1GMCollectionAdmins as index,
   getAdminV1GMCollectionAdminsEnum as getCollectionAdminsEnum,
+  putAdminV1GMCollectionAdminsId as update,
 } from '@/services/ant-design-pro/GMCollectionAdmin';
 import { getAdminV1GNCollectionStagesEnum as getCollectionStagesEnum } from '@/services/ant-design-pro/GNCollectionStage';
 import { getAdminV1HECollectionGroupsEnum as getCollectionGroupsEnum } from '@/services/ant-design-pro/HECollectionGroup';
@@ -13,11 +14,12 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Button } from 'antd';
+import {Button, message, Popconfirm, Switch, Spin} from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { FieldIndex, FieldLabels } from './service';
+import { useIntl } from '@@/exports';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -35,6 +37,8 @@ const TableList: React.FC = () => {
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
   /** 渠道enum */
   const [currentRecord, setCurrentRecord] = useState<TableListItem>();
+  const [loading, setLoading] = useState(false);
+  const intl = useIntl();
 
   /**
    * 查询管理员enum
@@ -191,6 +195,33 @@ const TableList: React.FC = () => {
     setCurrentRecord(_record);
     handleReleaseModalVisible(true);
   };
+  const confirmSwitch = async (_item: TableListItem, field: string) => {
+    let _success = true;
+    _item[field] = _item[field] === 1 ? 0 : 1;
+    setLoading(true);
+    try {
+      // @ts-ignore
+      const res = await update({ ..._item });
+      if (!res.success) {
+        //恢复原值
+        _item[field] = _item[field] === 1 ? 0 : 1;
+        _success = false;
+      }
+    } catch (error) {
+      message.error(
+        intl.formatMessage({ id: 'pages.common.editFailed', defaultMessage: '配置失败请重试！' }),
+      );
+      //恢复原值
+      _item[field] = _item[field] === 1 ? 0 : 1;
+      _success = false;
+    }
+    setLoading(false);
+    if (_success) {
+      message.success('修改成功');
+    } else {
+      message.warning('修改失败');
+    }
+  };
 
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -265,6 +296,37 @@ const TableList: React.FC = () => {
       },
     },
     {
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewAdmin.j_status', defaultMessage: '' }),
+      dataIndex: 'f_status',
+      key: 'f_status',
+      render: (_, record) => {
+        return (
+          <Popconfirm
+            title={`${intl.formatMessage({
+              id: 'pages.common.switch_tip',
+              defaultMessage: '',
+            })} ${intl.formatMessage({
+              id: 'pages.Borrow.ReviewAdmin.f_status',
+              defaultMessage: '',
+            })}`}
+            onConfirm={confirmSwitch.bind(this, record, 'f_status')}
+            // onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Switch
+              checkedChildren={intl.formatMessage({ id: 'pages.common.enable', defaultMessage: '' })}
+              unCheckedChildren={intl.formatMessage({
+                id: 'pages.common.disable',
+                defaultMessage: '',
+              })}
+              checked={record.f_status === 1}
+            />
+          </Popconfirm>
+        );
+      },
+    },
+    {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
@@ -283,7 +345,7 @@ const TableList: React.FC = () => {
           );
         }
 
-        return [edit, move];
+        return [ move];
       },
     },
   ];
@@ -301,6 +363,7 @@ const TableList: React.FC = () => {
         ],
       }}
     >
+      <Spin spinning={loading}>
       <ProTable<TableListItem, TableListPagination>
         revalidateOnFocus={false}
         actionRef={actionRef}
@@ -317,6 +380,7 @@ const TableList: React.FC = () => {
           pageSize: 50,
         }}
       />
+      </Spin>
       {/*表单model*/}
       <CreateForm
         onSubmit={async (success) => {

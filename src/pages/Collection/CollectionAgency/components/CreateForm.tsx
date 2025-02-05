@@ -11,6 +11,7 @@ import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
 import { FieldIndex, FieldLabels } from '../service';
+import { useIntl } from '@@/exports';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;
@@ -32,6 +33,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
   const formRef = useRef<ProFormInstance>();
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
+  const intl = useIntl();
 
   /**
    * 提交渠道

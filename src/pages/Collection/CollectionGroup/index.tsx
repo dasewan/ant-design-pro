@@ -5,6 +5,7 @@ import { getAdminV1GNCollectionStagesEnum as getCollectionStagesEnum } from '@/s
 import {
   getAdminV1HECollectionGroups as index,
   getAdminV1HECollectionGroupsEnum as getCollectionGroupsEnum,
+  putAdminV1HECollectionGroupsId as update,
 } from '@/services/ant-design-pro/HECollectionGroup';
 import { getAdminV1TCollectionAgenciesEnum as getCollectionAgenciesEnum } from '@/services/ant-design-pro/TCollectionAgency';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
@@ -12,11 +13,12 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Button } from 'antd';
+import {Button, message, Popconfirm, Spin, Switch} from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { FieldIndex, FieldLabels } from './service';
+import { useIntl } from '@@/exports';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -33,6 +35,8 @@ const TableList: React.FC = () => {
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
   /** 渠道enum */
   const [currentRecord, setCurrentRecord] = useState<TableListItem>();
+  const [loading, setLoading] = useState(false);
+  const intl = useIntl();
 
   /**
    * 查询管理员enum
@@ -165,6 +169,33 @@ const TableList: React.FC = () => {
     setCurrentRecord(_record);
     handleReleaseModalVisible(true);
   };
+  const confirmSwitch = async (_item: TableListItem, field: string) => {
+    let _success = true;
+    _item[field] = _item[field] === 1 ? 0 : 1;
+    setLoading(true);
+    try {
+      // @ts-ignore
+      const res = await update({ ..._item });
+      if (!res.success) {
+        //恢复原值
+        _item[field] = _item[field] === 1 ? 0 : 1;
+        _success = false;
+      }
+    } catch (error) {
+      message.error(
+        intl.formatMessage({ id: 'pages.common.editFailed', defaultMessage: '配置失败请重试！' }),
+      );
+      //恢复原值
+      _item[field] = _item[field] === 1 ? 0 : 1;
+      _success = false;
+    }
+    setLoading(false);
+    if (_success) {
+      message.success('修改成功');
+    } else {
+      message.warning('修改失败');
+    }
+  };
 
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -190,26 +221,26 @@ const TableList: React.FC = () => {
       dataIndex: FieldIndex.e_collection_admin_count,
     },
     {
-      title: FieldLabels.d_collection_stages,
-      dataIndex: FieldIndex.d_collection_stages,
+      title: FieldLabels.d_collection_stage_id,
+      dataIndex: FieldIndex.d_collection_stage_id,
       valueType: 'select',
       request: _getCollectionStagesEnum,
       params: { timestamp: Math.random() },
-      render: (_, record) => {
-        let r = '';
-        if (record.d_collection_stages !== null && record.d_collection_stages !== '') {
-          const collectionStageIdsArr = record.d_collection_stages!.split(',');
-          const collectionStagesArr = collectionStages.filter((value) =>
-            collectionStageIdsArr.find((_id) => _id === value.value),
-          );
-
-          for (const c of collectionStagesArr) {
-            r += '[' + c.label + '] ';
-          }
-          return r;
-        }
-        return r;
-      },
+      // render: (_, record) => {
+      //   let r = '';
+      //   if (record.d_collection_stage_id !== null && record.d_collection_stage_id !== '') {
+      //     const collectionStageIdsArr = record.d_collection_stage_id!.split(',');
+      //     const collectionStagesArr = collectionStages.filter((value) =>
+      //       collectionStageIdsArr.find((_id) => _id === value.value),
+      //     );
+      //
+      //     for (const c of collectionStagesArr) {
+      //       r += '[' + c.label + '] ';
+      //     }
+      //     return r;
+      //   }
+      //   return r;
+      // },
     },
     {
       title: FieldLabels.h_collection_ing_order_count,
@@ -229,6 +260,37 @@ const TableList: React.FC = () => {
       valueType: 'dateRange',
       render: (_, record) => {
         return moment(record!.created_at).format('YY-MM-DD HH:mm');
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.Borrow.ReviewAdmin.j_status', defaultMessage: '' }),
+      dataIndex: 'f_status',
+      key: 'f_status',
+      render: (_, record) => {
+        return (
+          <Popconfirm
+            title={`${intl.formatMessage({
+              id: 'pages.common.switch_tip',
+              defaultMessage: '',
+            })} ${intl.formatMessage({
+              id: 'pages.Borrow.ReviewAdmin.f_status',
+              defaultMessage: '',
+            })}`}
+            onConfirm={confirmSwitch.bind(this, record, 'f_status')}
+            // onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Switch
+              checkedChildren={intl.formatMessage({ id: 'pages.common.enable', defaultMessage: '' })}
+              unCheckedChildren={intl.formatMessage({
+                id: 'pages.common.disable',
+                defaultMessage: '',
+              })}
+              checked={record.f_status === 1}
+            />
+          </Popconfirm>
+        );
       },
     },
     {
@@ -268,6 +330,7 @@ const TableList: React.FC = () => {
         ],
       }}
     >
+      <Spin spinning={loading}>
       <ProTable<TableListItem, TableListPagination>
         revalidateOnFocus={false}
         actionRef={actionRef}
@@ -284,6 +347,7 @@ const TableList: React.FC = () => {
           pageSize: 50,
         }}
       />
+      </Spin>
       {/*表单model*/}
       <CreateForm
         onSubmit={async (success) => {
@@ -302,6 +366,7 @@ const TableList: React.FC = () => {
         id={id}
         modalVisible={createModalVisible}
         collectionAgencies={collectionAgencies}
+        collectionStages={collectionStages}
         admins={admins}
       />
       {/*释放model*/}

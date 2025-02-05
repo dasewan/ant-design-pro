@@ -47,6 +47,7 @@ const TableList: React.FC = () => {
           value: item.id,
           c_collection_agency_id: item.c_collection_agency_id,
           f_status: item.f_status,
+          d_collection_stage_id: item.d_collection_stage_id,
         });
       }
       setCollectionGroups(data);

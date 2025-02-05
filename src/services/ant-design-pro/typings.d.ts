@@ -4605,7 +4605,7 @@ declare namespace API {
     /** 所属机构 */
     c_collection_agency_id?: number;
     /** 负责的催收阶段 */
-    d_collection_stages?: string;
+    d_collection_stage_id?: number;
     /** 催员数 */
     e_collection_admin_count?: number;
     /** 状态 */

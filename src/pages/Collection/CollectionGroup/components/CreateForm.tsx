@@ -11,6 +11,7 @@ import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
 import { FieldIndex, FieldLabels } from '../service';
+import { useIntl } from '@umijs/max';
 
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;
@@ -20,6 +21,7 @@ export type FormProps = {
   modalVisible: boolean;
   id: number;
   collectionAgencies: RequestOptionsType[];
+  collectionStages: RequestOptionsType[];
   admins: RequestOptionsType[];
 };
 
@@ -32,6 +34,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
   const formRef = useRef<ProFormInstance>();
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
+  const intl = useIntl();
 
   /**
    * 提交渠道
@@ -181,6 +184,29 @@ const CreateForm: React.FC<FormProps> = (props) => {
         ]}
         // @ts-ignore
         options={props.collectionAgencies}
+      />
+      <ProFormSelect
+        label={FieldLabels.d_collection_stage_id}
+        tooltip={<></>}
+        name={FieldIndex.d_collection_stage_id}
+        rules={[
+          { required: true, message: `请选择${FieldLabels.d_collection_stage_id}` },
+          {
+            validator: (_, value) => {
+              const oldValue = props.collectionAgencies.find(
+                (item) => item.value === oldRecord?.d_collection_stage_id,
+              )?.label;
+              // @ts-ignore
+              return value === oldRecord?.d_collection_stage_id ||
+              !oldRecord?.d_collection_stage_id
+                ? Promise.resolve()
+                : Promise.reject(new Error(`旧值：  ${oldValue} `));
+            },
+            warningOnly: true,
+          },
+        ]}
+        // @ts-ignore
+        options={props.collectionStages}
       />
 
       {/*状态*/}
