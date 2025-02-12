@@ -192,10 +192,14 @@ const TableList: React.FC = () => {
       message.error('表单验证失败');
     }
   }
-  const calculate =  (coefficient?: API.NHCreditRole) => {
+  const calculate = async (coefficient?: API.NHCreditRole) => {
+    console.log(coefficient);
     if(coefficient === undefined){
-      setCoefficient(formRef!.current!.getFieldsValue);
-      coefficient = formRef!.current!.getFieldsValue! as API.NHCreditRole;
+      const values = await form.validateFields();
+      console.log(values);
+      console.log(formRef!.current!.getFieldsValue);
+      setCoefficient(values);
+      coefficient = values as API.NHCreditRole;
     }else{
       setCoefficient(coefficient);
     }
@@ -567,7 +571,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="p1"
                 min={10}
-                max={50}
+                max={150}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
@@ -575,7 +579,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="q1"
                 min={0.1}
-                max={5.0}
+                max={15.0}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 0.1, addonBefore: 'q' }}
@@ -618,7 +622,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="p2"
                 min={10}
-                max={50}
+                max={150}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
@@ -626,7 +630,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="q2"
                 min={0.1}
-                max={5.0}
+                max={15.0}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 0.1, addonBefore: 'q' }}
@@ -669,7 +673,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="p3"
                 min={10}
-                max={50}
+                max={150}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
@@ -677,7 +681,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="q3"
                 min={0.1}
-                max={5.0}
+                max={15.0}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 0.1, addonBefore: 'q' }}
@@ -720,7 +724,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="p4"
                 min={10}
-                max={50}
+                max={150}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
@@ -728,7 +732,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="q4"
                 min={0.1}
-                max={5.0}
+                max={15.0}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 0.1, addonBefore: 'q' }}
