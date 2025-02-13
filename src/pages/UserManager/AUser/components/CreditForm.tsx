@@ -28,9 +28,7 @@ export type FormProps = {
  * @param id
  */
 const handle = async (fields: FormValueType, id: number | undefined) => {
-  const hide = message.loading(
-    intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }),
-  );
+  const hide = message.loading('正在配置');
 
   try {
     await postABCreditHistories({
@@ -38,9 +36,7 @@ const handle = async (fields: FormValueType, id: number | undefined) => {
       ...fields,
     });
     hide();
-    message.success(
-      intl.formatMessage({ id: 'pages.common.editSuccess', defaultMessage: '配置成功' }),
-    );
+    message.success('配置成功');
     return true;
   } catch (error) {
     hide();
@@ -65,9 +61,16 @@ const CreditForm: React.FC<FormProps> = (props) => {
       key: 'b_type',
       render: (_, value) => {
         if (value.b_type === 1) {
-          return <Badge status="error" text="提额" />;
+          return '登陆';
+        } else if (value.b_type === 2) {
+          return '风控';
+        } else if (value.b_type === 3) {
+          return '还款';
+        } else if (value.b_type === 4) {
+          return '逾期';
+        } else if (value.b_type === 5) {
+          return '人工';
         }
-        return <Badge status="success" text="降额" />;
       },
     },
     {
@@ -79,6 +82,32 @@ const CreditForm: React.FC<FormProps> = (props) => {
       title: '变更额度',
       dataIndex: 'd_amount',
       key: 'd_amount',
+      render: (_, value) => {
+        if (value.d_amount! < 0) {
+          return <Badge status="error" text={value.d_amount} />;
+        } else if (value.d_amount! > 0) {
+          return <Badge status="success" text={value.d_amount} />;
+        }
+        return 0;
+      },
+    },
+    {
+      title: '变更前信用分',
+      dataIndex: 'i_before_credit_score',
+      key: 'i_before_credit_score',
+    },
+    {
+      title: '变更信用分',
+      dataIndex: 'j_credit_score',
+      key: 'j_credit_score',
+      render: (_, value) => {
+        if (value.j_credit_score! < 0) {
+          return <Badge status="error" text={value.j_credit_score!} />;
+        } else if (value.j_credit_score! > 0) {
+          return <Badge status="success" text={value.j_credit_score!} />;
+        }
+        return 0;
+      },
     },
     {
       title: '变更时间',
