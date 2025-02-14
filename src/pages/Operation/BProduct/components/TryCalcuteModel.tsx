@@ -60,7 +60,8 @@ const TryCalcuteModel: React.FC<FormProps> = (props) => {
       tryCalcuteDataTmp.borrowAmount = props.record!.c_amount;
       tryCalcuteDataTmp.serviceFee =
         (props.record!.c_amount * props.record!.h_service_fee_rate!) / 100;
-      tryCalcuteDataTmp.intersetFee = (props.record!.c_amount * props.record!.g_interest!) / 100;
+      console.log(props);
+      tryCalcuteDataTmp.intersetFee = (props.record!.c_amount * props.record!.g_interest! * props.record!.e_life!) / 10000;
       tryCalcuteDataTmp.violateFee =
         (props.record!.c_amount * props.record!.j_violate_fee_rate!) / 100;
       tryCalcuteDataTmp.overdueAmount =

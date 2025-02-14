@@ -207,6 +207,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
         'j_violate_fee_rate',
         'i_overdue_rate',
         'f_settlement_type',
+        'e_life',
       ])
       .then((values) => {
         if (values.a_a_amount_type === 1) {
