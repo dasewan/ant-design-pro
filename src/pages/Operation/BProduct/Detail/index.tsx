@@ -737,7 +737,7 @@ const AdvancedForm: FC<Record<string, any>> = () => {
                     warningOnly: true,
                   },
                 ]}
-                fieldProps={{ precision: 0, addonAfter: '%' }}
+                fieldProps={{ precision: 0, addonAfter: '‱' }}
                 placeholder={`请输入${fieldLabels.g_interest}`}
               />
             </Col>
