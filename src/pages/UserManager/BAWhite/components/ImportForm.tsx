@@ -1,5 +1,5 @@
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
-import { postAdminV1BAWhites as importWhite } from '@/services/ant-design-pro/BAWhite';
+import { postAdminV1_openAPI_import as importWhite } from '@/services/ant-design-pro/BAWhite';
 import { useIntl } from '@@/exports';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import {
