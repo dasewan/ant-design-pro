@@ -82,6 +82,7 @@ import * as nfSmsContact from './nfSmsContact';
 import * as ngNotification from './ngNotification';
 import * as nhCreditRole from './nhCreditRole';
 import * as noticeIconItem from './noticeIconItem';
+import * as oaDeduction from './oaDeduction';
 import * as oaRepay from './oaRepay';
 import * as obKyc from './obKyc';
 import * as permission from './permission';
@@ -207,6 +208,7 @@ export default {
   ngNotification,
   nhCreditRole,
   noticeIconItem,
+  oaDeduction,
   oaRepay,
   obKyc,
   permission,

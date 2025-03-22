@@ -11,7 +11,7 @@ import { message, Modal } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import { KpiFieldIndex, KpiFieldLabels } from '../service';
-
+import {useIntl} from "@@/exports";
 export type FormValueType = Partial<API.DACollectionKpi>;
 export type FormRecord = API.DACollectionKpi;
 export type FormProps = {
@@ -35,17 +35,21 @@ const KpiForm: React.FC<FormProps> = (props) => {
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [tableData, setTableData] = useState<API.DACollectionKpi[]>([]);
   const [table2Data, setTable2Data] = useState<API.DACollectionKpi[]>([]);
+  const intl = useIntl();
 
   const columns: ProColumns<API.DACollectionKpi>[] = [
+
     {
-      title: KpiFieldLabels.d_level,
-      dataIndex: KpiFieldIndex.d_level,
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.d_level', defaultMessage: '' }),
+      dataIndex: 'd_level',
+      key: 'd_level',
       valueType: 'select',
       request: async () => {
         return [
           { label: 'Lv-1', value: 1 },
           { label: 'Lv-2', value: 2 },
           { label: 'Lv-3', value: 3 },
+          { label: 'Lv-4', value: 4 },
         ];
       },
       editable: () => {
@@ -53,8 +57,9 @@ const KpiForm: React.FC<FormProps> = (props) => {
       },
     },
     {
-      title: KpiFieldLabels.e_collection_amount_begin_rate,
-      dataIndex: KpiFieldIndex.e_collection_amount_begin_rate,
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.e_collection_amount_begin_rate', defaultMessage: '' }),
+      dataIndex: 'e_collection_amount_begin_rate',
+      key: 'e_collection_amount_begin_rate',
       valueType: 'percent',
       formItemProps: {
         rules: [
@@ -66,8 +71,9 @@ const KpiForm: React.FC<FormProps> = (props) => {
       },
     },
     {
-      title: KpiFieldLabels.f_collection_amount_end_rate,
-      dataIndex: KpiFieldIndex.f_collection_amount_end_rate,
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.f_collection_amount_end_rate', defaultMessage: '' }),
+      dataIndex: 'f_collection_amount_end_rate',
+      key: 'f_collection_amount_end_rate',
       valueType: 'percent',
       formItemProps: {
         rules: [
@@ -79,8 +85,9 @@ const KpiForm: React.FC<FormProps> = (props) => {
       },
     },
     {
-      title: KpiFieldLabels.g_commission_rate,
-      dataIndex: KpiFieldIndex.g_commission_rate,
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.g_commission_rate', defaultMessage: '' }),
+      dataIndex: 'g_commission_rate',
+      key: 'g_commission_rate',
       valueType: 'percent',
       formItemProps: {
         rules: [
@@ -90,6 +97,72 @@ const KpiForm: React.FC<FormProps> = (props) => {
           },
         ],
       },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.r_reach_day_bonus', defaultMessage: '' }),
+      dataIndex: 'r_reach_day_bonus',
+      key: 'r_reach_day_bonus',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.h_additional_1_days', defaultMessage: '' }),
+      dataIndex: 'h_additional_1_days',
+      key: 'h_additional_1_days',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.i_addition_2_bonus', defaultMessage: '' }),
+      dataIndex: 'i_addition_2_bonus',
+      key: 'i_addition_2_bonus',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.j_additional_2_days', defaultMessage: '' }),
+      dataIndex: 'j_additional_2_days',
+      key: 'j_additional_2_days',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.k_addition_2_bonus', defaultMessage: '' }),
+      dataIndex: 'k_addition_2_bonus',
+      key: 'k_addition_2_bonus',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.l_additional_3_days', defaultMessage: '' }),
+      dataIndex: 'l_additional_3_days',
+      key: 'l_additional_3_days',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.m_addition_3_bonus', defaultMessage: '' }),
+      dataIndex: 'm_addition_3_bonus',
+      key: 'm_addition_3_bonus',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.n_additional_4_days', defaultMessage: '' }),
+      dataIndex: 'n_additional_4_days',
+      key: 'n_additional_4_days',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.s_addition_4_bonus', defaultMessage: '' }),
+      dataIndex: 's_addition_4_bonus',
+      key: 's_addition_4_bonus',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.o_exceeds_days', defaultMessage: '' }),
+      dataIndex: 'o_exceeds_days',
+      key: 'o_exceeds_days',
+      valueType: 'digit',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.DACollectionKpi.p_exceeds_penalty', defaultMessage: '' }),
+      dataIndex: 'p_exceeds_penalty',
+      key: 'p_exceeds_penalty',
+      valueType: 'digit',
     },
     {
       title: '操作',
@@ -182,14 +255,14 @@ const KpiForm: React.FC<FormProps> = (props) => {
           props.onCancel();
         }
       }}
-      width={1400}
+      width={1500}
       // @ts-ignore
       request={async () => {
         // @ts-ignore
         const res = await index({
           foo: 1,
-          a_collection_stage_id: props.collectionAgencyId,
           a_collection_stage_id: props.collectionStageId,
+          b_collection_agency_id: props.collectionAgencyId,
         });
         setCurrentTableListItemMoment(moment());
         if (res.data!.length === 0) {
@@ -200,18 +273,64 @@ const KpiForm: React.FC<FormProps> = (props) => {
               e_collection_amount_begin_rate: 0,
               f_collection_amount_end_rate: 0,
               g_commission_rate: 0,
+              h_additional_1_days:0,
+              i_addition_2_bonus:0,
+              j_additional_2_days:0,
+              k_addition_2_bonus:0,
+              l_additional_3_days:0,
+              m_addition_3_bonus:0,
+              n_additional_days:0,
+              o_exceeds_days:0,
+              p_exceeds_penalty:0,
+              r_reach_day_bonus:0,
             },
             {
               d_level: 2,
               e_collection_amount_begin_rate: 0,
               f_collection_amount_end_rate: 0,
               g_commission_rate: 0,
+              h_additional_1_days:0,
+              i_addition_2_bonus:0,
+              j_additional_2_days:0,
+              k_addition_2_bonus:0,
+              l_additional_3_days:0,
+              m_addition_3_bonus:0,
+              n_additional_days:0,
+              o_exceeds_days:0,
+              p_exceeds_penalty:0,
+              r_reach_day_bonus:0,
             },
             {
               d_level: 3,
               e_collection_amount_begin_rate: 0,
               f_collection_amount_end_rate: 0,
               g_commission_rate: 0,
+              h_additional_1_days:0,
+              i_addition_2_bonus:0,
+              j_additional_2_days:0,
+              k_addition_2_bonus:0,
+              l_additional_3_days:0,
+              m_addition_3_bonus:0,
+              n_additional_days:0,
+              o_exceeds_days:0,
+              p_exceeds_penalty:0,
+              r_reach_day_bonus:0,
+            },
+            {
+              d_level: 4,
+              e_collection_amount_begin_rate: 0,
+              f_collection_amount_end_rate: 0,
+              g_commission_rate: 0,
+              h_additional_1_days:0,
+              i_addition_2_bonus:0,
+              j_additional_2_days:0,
+              k_addition_2_bonus:0,
+              l_additional_3_days:0,
+              m_addition_3_bonus:0,
+              n_additional_days:0,
+              o_exceeds_days:0,
+              p_exceeds_penalty:0,
+              r_reach_day_bonus:0,
             },
           ];
           // @ts-ignore
@@ -257,14 +376,14 @@ const KpiForm: React.FC<FormProps> = (props) => {
           message.error('等级催回率验证错误！');
           return;
         }
-        if (!validate(table2Data)) {
-          message.error('等级催回率验证错误！');
-          return;
-        }
+        // if (!validate(table2Data)) {
+        //   message.error('等级催回率验证错误！');
+        //   return;
+        // }
         // @ts-ignore
         formData.new_kpis = JSON.stringify(tableData);
         // @ts-ignore
-        formData.old_kpis = JSON.stringify(table2Data);
+        // formData.old_kpis = JSON.stringify(table2Data);
         const success = await onFinish(formData);
         if (success) {
           return props.onSubmit(success);
@@ -309,7 +428,7 @@ const KpiForm: React.FC<FormProps> = (props) => {
             type: 'single',
             onlyAddOneLineAlertMessage: '111',
             // @ts-ignore
-            onSave: onChange2,
+            // onSave: onChange2,
             actionRender: (row, config, defaultDom) => {
               return [defaultDom.save, defaultDom.cancel];
             },
@@ -317,7 +436,7 @@ const KpiForm: React.FC<FormProps> = (props) => {
           recordCreatorProps={false}
         />
       </ProForm.Item>
-      <ProForm.Item name="old_kpis" label="旧案件和部分催回催收规则">
+      {/*<ProForm.Item name="old_kpis" label="旧案件和部分催回催收规则">
         <EditableProTable<API.DACollectionKpi>
           columns={columns}
           rowKey="d_level"
@@ -340,7 +459,7 @@ const KpiForm: React.FC<FormProps> = (props) => {
             },
           }}
         />
-      </ProForm.Item>
+      </ProForm.Item>*/}
     </ModalForm>
   );
 };

@@ -4,7 +4,7 @@ declare namespace API {
     id?: number;
     /** 用户id* */
     a_user_id?: number;
-    /** 类型 1：提额 2：降额* */
+    /** 类型 1：登陆 2：风控 3：还款 4 逾期 5：人工 */
     b_type?: number;
     /** 改动前的授信额度* */
     c_before_credit_amount?: number;
@@ -13,11 +13,23 @@ declare namespace API {
     /** 管理员id* */
     e_admin_id?: number;
     /** 关联订单id* */
-    f_borrow_id?: number;
+    f_period_id?: number;
     /** 提降额风控id* */
-    g_risk_strategy_id?: number;
+    g_risk_id?: number;
     /** 备注 */
     h_comment?: string;
+    /** 改动前的信用分 */
+    i_before_credit_score?: number;
+    /** 改动信用分 */
+    j_credit_score?: number;
+    /** k_overdue_days */
+    k_overdue_days?: number;
+    /** 改动后信用额度 */
+    l_after_credit_amount?: number;
+    /** 改动后信用分 */
+    m_after_credit_score?: number;
+    /** 放款期数 */
+    n_loan_period_index?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1119,7 +1131,13 @@ declare namespace API {
     /** S2催回金额 */
     a_h_s2_collection_amount?: number;
     /** S3催回金额 */
-    a_f_s3_collection_amount?: number;
+    a_i_s3_collection_amount?: number;
+    /** 产品id */
+    a_j_product_id?: number;
+    /** 当前编号 */
+    a_k_no?: string;
+    /** 当前日志 */
+    a_l_last_log?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1360,6 +1378,26 @@ declare namespace API {
     f_collection_amount_end_rate?: number;
     /** 佣金 */
     g_commission_rate?: number;
+    /** 额外奖励1天数 */
+    h_additional_1_days?: number;
+    /** 额外奖励1 */
+    i_addition_2_bonus?: number;
+    /** 额外奖励2天数 */
+    j_additional_2_days?: number;
+    /** 额外奖励 */
+    k_addition_2_bonus?: number;
+    /** 额外奖励3天数 */
+    l_additional_3_days?: number;
+    /** 额外奖励3 */
+    m_addition_3_bonus?: number;
+    /** 额外奖励 */
+    n_additional_days?: number;
+    /** 未达标天数阈值 */
+    o_exceeds_days?: number;
+    /** 罚款 */
+    p_exceeds_penalty?: number;
+    /** 每日达标奖励 */
+    r_reach_day_bonus?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1467,7 +1505,7 @@ declare namespace API {
     /** 银行卡 */
     a_m_bankcard?: string;
     /** 借款天数 */
-    a_n_days?: string;
+    a_n_days?: number;
     /** 标签 */
     a_o_tags?: string;
     /** 分期期数 */
@@ -1488,6 +1526,8 @@ declare namespace API {
     a_x_action_count?: number;
     /** 风控结果 */
     a_y_risk_result?: string;
+    /** 放款次数 */
+    a_z_loan_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2014,6 +2054,11 @@ declare namespace API {
 
   type deleteAdminV1NHCreditRolesIdParams = {
     /** id of NHCreditRole */
+    id: number;
+  };
+
+  type deleteAdminV1OADeductionsIdParams = {
+    /** id of OADeduction */
     id: number;
   };
 
@@ -3357,6 +3402,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1OADeductionsIdParams = {
+    /** id of OADeduction */
+    id: number;
+  };
+
+  type getAdminV1OADeductionsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -3969,6 +4024,8 @@ declare namespace API {
     j_device?: string;
     /** opt */
     k_otp?: string;
+    /** l_sms_id */
+    l_sms_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4087,7 +4144,7 @@ declare namespace API {
     /** 银行全名 */
     a_name?: string;
     /** 简写 */
-    b_ab_name?: string;
+    b_name?: string;
     /** 标识 */
     c_bank_code?: string;
     /** 金融标识 */
@@ -4142,6 +4199,46 @@ declare namespace API {
     g_comment?: string;
     /** 在催订单数 */
     h_collection_ing_order_count?: number;
+    /** 当前kpi等级，每日催收计划任务清空为0 */
+    i_today_current_kpi_level?: number;
+    /** 计划任务后，当日初始手持案件总额 */
+    j_today_init_amount?: number;
+    /** 当前新案件（计划任务重新计算，日志后增减） */
+    k_current_new_count?: number;
+    /** 当前协商中案件（计划任务重新计算，日志后增减） */
+    l_current_negotiating_count?: number;
+    /** 当前承诺还款案件数（计划任务重新计算，日志后增减） */
+    m_currrent_promised_count?: number;
+    /** 当前承诺未还 */
+    n_current_broken_count?: number;
+    /** 当前拒绝还款数 */
+    o_current_refused_count?: number;
+    /** 今日已还订单数（计划任务，无差别置为0） */
+    p_today_current_repay_count?: number;
+    /** 今日已还订单金额 */
+    r_today_current_repay_amount?: number;
+    /** 今日lv1佣金 */
+    t_today_lv1_commission?: number;
+    /** 今日lv2佣金 */
+    u_today_lv2_commission?: number;
+    /** 今日lv3佣金 */
+    v_today_lv3_commission?: number;
+    /** 今日lv4佣金 */
+    w_today_lv4_commission?: number;
+    /** 计划任务后，当日初始手持案件数 */
+    x_today_init_count?: number;
+    /** 当日首条日志时间（计划任务，无差别置为0） */
+    y_first_log_at?: string;
+    /** 最后一条日志时间(计划任务，无差别置为0) */
+    z_last_log_at?: string;
+    /** 本月lv1佣金 */
+    a_a_month_lv1_commission?: number;
+    /** 本月lv2佣金 */
+    a_b_month_lv2_commission?: number;
+    /** 本月lv3佣金 */
+    a_c_month_lv3_commission?: number;
+    /** 本月lv4佣金 */
+    a_d_month_lv4_commission?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -4175,6 +4272,52 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 在催订单数 */
+    h_collection_ing_order_count?: number;
+    /** 当前kpi等级，每日催收计划任务清空为0 */
+    i_today_current_kpi_level?: number;
+    /** 计划任务后，当日初始手持案件总额 */
+    j_today_init_amount?: number;
+    /** 当前新案件（计划任务重新计算，日志后增减） */
+    k_current_new_count?: number;
+    /** 当前协商中案件（计划任务重新计算，日志后增减） */
+    l_current_negotiating_count?: number;
+    /** 当前承诺还款案件数（计划任务重新计算，日志后增减） */
+    m_currrent_promised_count?: number;
+    /** 当前承诺未还 */
+    n_current_broken_count?: number;
+    /** 当前拒绝还款数 */
+    o_current_refused_count?: number;
+    /** 今日已还订单数（计划任务，无差别置为0） */
+    p_today_current_repay_count?: number;
+    /** 今日已还订单金额 */
+    r_today_current_repay_amount?: number;
+    /** 今日lv1佣金 */
+    t_today_lv1_commission?: number;
+    /** 今日lv2佣金 */
+    u_today_lv2_commission?: number;
+    /** 今日lv3佣金 */
+    v_today_lv3_commission?: number;
+    /** 今日lv4佣金 */
+    w_today_lv4_commission?: number;
+    /** 计划任务后，当日初始手持案件数 */
+    x_today_init_count?: number;
+    /** 当日首条日志时间（计划任务，无差别置为0） */
+    y_first_log_at?: string;
+    /** 最后一条日志时间(计划任务，无差别置为0) */
+    z_last_log_at?: string;
+    /** 本月lv1佣金 */
+    a_a_month_lv1_commission?: number;
+    /** 本月lv2佣金 */
+    a_b_month_lv2_commission?: number;
+    /** 本月lv3佣金 */
+    a_c_month_lv3_commission?: number;
+    /** 本月lv4佣金 */
+    a_d_month_lv4_commission?: number;
+    /** 无拨打罚款 */
+    b_a_no_call_penalty?: number;
+    /** 无日志罚款 */
+    b_b_no_log_penalty?: number;
   };
 
   type GORiskValueSmsSlope = {
@@ -4605,21 +4748,61 @@ declare namespace API {
     /** 所属机构 */
     c_collection_agency_id?: number;
     /** 负责的催收阶段 */
-    d_collection_stage_id?: number;
+    d_collection_stage_id?: string;
     /** 催员数 */
     e_collection_admin_count?: number;
     /** 状态 */
     f_status?: number;
     /** 备注 */
     g_comment?: string;
-    /** 在催订单数 */
-    h_collection_ing_order_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 在催订单数 */
+    h_collection_ing_order_count?: number;
+    /** 当前kpi等级，每日催收计划任务清空为0 */
+    i_today_current_kpi_level?: number;
+    /** 计划任务后，当日初始手持案件总额 */
+    j_today_init_amount?: number;
+    /** 当前新案件（计划任务重新计算，日志后增减） */
+    k_current_new_count?: number;
+    /** 当前协商中案件（计划任务重新计算，日志后增减） */
+    l_current_negotiating_count?: number;
+    /** 当前承诺还款案件数（计划任务重新计算，日志后增减） */
+    m_currrent_promised_count?: number;
+    /** 当前承诺未还 */
+    n_current_broken_count?: number;
+    /** 当前拒绝还款数 */
+    o_current_refused_count?: number;
+    /** 今日已还订单数（计划任务，无差别置为0） */
+    p_today_current_repay_count?: number;
+    /** 今日已还订单金额 */
+    r_today_current_repay_amount?: number;
+    /** 今日lv1佣金 */
+    t_today_lv1_commission?: number;
+    /** 今日lv2佣金 */
+    u_today_lv2_commission?: number;
+    /** 今日lv3佣金 */
+    v_today_lv3_commission?: number;
+    /** 今日lv4佣金 */
+    w_today_lv4_commission?: number;
+    /** 计划任务后，当日初始手持案件数 */
+    x_today_init_count?: number;
+    /** 当日首条日志时间（计划任务，无差别置为0） */
+    y_first_log_at?: string;
+    /** 最后一条日志时间(计划任务，无差别置为0) */
+    z_last_log_at?: string;
+    /** 本月lv1佣金 */
+    a_a_month_lv1_commission?: number;
+    /** 本月lv2佣金 */
+    a_b_month_lv2_commission?: number;
+    /** 本月lv3佣金 */
+    a_c_month_lv3_commission?: number;
+    /** 本月lv4佣金 */
+    a_d_month_lv4_commission?: number;
   };
 
   type HFCollectionAgencyRole = {
@@ -5451,7 +5634,7 @@ declare namespace API {
     /** 催员拨打电话数 */
     n_collection_admin_call_count?: number;
     /** 系统催收短信数 */
-    o_system_sms_count?: number;
+    o_collection_admin_sms_count?: number;
     /** 累计催回金额 */
     p_collection_amount?: number;
     /** 催回类型 */
@@ -5982,6 +6165,8 @@ declare namespace API {
     a_r_service_fee?: number;
     /** 结清时间 */
     a_s_settled_time?: string;
+    /** 下个应还款日 */
+    a_t_next_expect_repay_time?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -6545,6 +6730,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1OADeductionsIdParams = {
+    /** id of OADeduction */
+    id: number;
+  };
+
   type putAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;
@@ -6850,6 +7040,7 @@ declare namespace API {
     id?: number;
     a_a_a_a_a_o_a_repay?: OARepay;
     a_a_a_a_a_d_borrow?: DBorrow;
+    a_a_a_a_a_a_user?: AUser;
     /** borrow_id */
     a_borrow_id?: number;
     /** 用户 */
@@ -7098,6 +7289,16 @@ declare namespace API {
     k_level?: number;
     /** 还款日志 */
     l_repay_log_id?: number;
+    /** 催收订单 */
+    m_collection_order_id?: number;
+    /** 订单号 */
+    n_borrow_sn?: string;
+    /** 佣金类型，1：催回佣金 2：额外佣金 3：手动发放奖励 */
+    o_type?: number;
+    /** 用户手机号 */
+    p_phone?: string;
+    /** kpi */
+    q_collection_kpi_history_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -7802,7 +8003,7 @@ declare namespace API {
     /** 身份证认证状态 10:待认证，20已认证 30：认证拒绝 40：认证过期 50：复审 */
     c_status?: number;
     /** 银行名称 */
-    d_account_name?: number;
+    d_account_name?: string;
     /** 银行code */
     e_account_number?: string;
     /** 认证有效时间 */
@@ -7810,7 +8011,7 @@ declare namespace API {
     /** email */
     g_email?: string;
     /** 银行名称 */
-    h_bank_name?: number;
+    h_bank_name?: string;
     /** 银行code */
     i_bank_code?: string;
     /** 持有人姓名 */
@@ -7827,6 +8028,12 @@ declare namespace API {
     o_payment_gateway_log_id?: number;
     /** QR */
     p_qr?: string;
+    /** 订单id */
+    r_product_id?: number;
+    /** reference */
+    s_reference?: string;
+    /** outerSn */
+    t_outer_sn?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -8068,18 +8275,54 @@ declare namespace API {
     f_status?: number;
     /** 备注 */
     g_comment?: string;
-    /** 在催订单数 */
-    h_collection_ing_order_count?: number;
-    /** 结束阶段 */
-    i_end_collection_stage?: number;
-    /** 是否锁定案件 1：锁定 2：不锁定 */
-    j_lock?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 在催订单数 */
+    h_collection_ing_order_count?: number;
+    /** 当前kpi等级，每日催收计划任务清空为0 */
+    i_today_current_kpi_level?: number;
+    /** 计划任务后，当日初始手持案件总额 */
+    j_today_init_amount?: number;
+    /** 当前新案件（计划任务重新计算，日志后增减） */
+    k_current_new_count?: number;
+    /** 当前协商中案件（计划任务重新计算，日志后增减） */
+    l_current_negotiating_count?: number;
+    /** 当前承诺还款案件数（计划任务重新计算，日志后增减） */
+    m_currrent_promised_count?: number;
+    /** 当前承诺未还 */
+    n_current_broken_count?: number;
+    /** 当前拒绝还款数 */
+    o_current_refused_count?: number;
+    /** 今日已还订单数（计划任务，无差别置为0） */
+    p_today_current_repay_count?: number;
+    /** 今日已还订单金额 */
+    r_today_current_repay_amount?: number;
+    /** 今日lv1佣金 */
+    t_today_lv1_commission?: number;
+    /** 今日lv2佣金 */
+    u_today_lv2_commission?: number;
+    /** 今日lv3佣金 */
+    v_today_lv3_commission?: number;
+    /** 今日lv4佣金 */
+    w_today_lv4_commission?: number;
+    /** 计划任务后，当日初始手持案件数 */
+    x_today_init_count?: number;
+    /** 当日首条日志时间（计划任务，无差别置为0） */
+    y_first_log_at?: string;
+    /** 最后一条日志时间(计划任务，无差别置为0) */
+    z_last_log_at?: string;
+    /** 本月lv1佣金 */
+    a_a_month_lv1_commission?: number;
+    /** 本月lv2佣金 */
+    a_b_month_lv2_commission?: number;
+    /** 本月lv3佣金 */
+    a_c_month_lv3_commission?: number;
+    /** 本月lv4佣金 */
+    a_d_month_lv4_commission?: number;
   };
 
   type TCOtherGatewayLog = {
