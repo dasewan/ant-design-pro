@@ -3412,6 +3412,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1OADeductionsIdParams = {
+    /** id of OADeduction */
+    id: number;
+  };
+
+  type getAdminV1OADeductionsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1OARepaysIdParams = {
     /** id of OARepay */
     id: number;

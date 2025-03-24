@@ -69,7 +69,7 @@ const TableList: React.FC = () => {
       for (const item of res.data!) {
         data.push({
           label: item.a_name,
-          value: item.id,
+          value: item.id!.toString(),
         });
       }
       setCollectionStages(data);
@@ -225,106 +225,177 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.a_name,
-      dataIndex: FieldIndex.a_name,
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.a_name', defaultMessage: '' }),
+      dataIndex: 'a_name',
+      key: 'a_name',
     },
     {
-      title: FieldLabels.b_admin_id,
-      dataIndex: FieldIndex.b_admin_id,
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.b_admin_id', defaultMessage: '' }),
+      dataIndex: 'b_admin_id',
+      key: 'b_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: FieldLabels.c_collection_agency_id,
-      dataIndex: FieldIndex.c_collection_agency_id,
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.c_collection_agency_id', defaultMessage: '' }),
+      dataIndex: 'c_collection_agency_id',
+      key: 'c_collection_agency_id',
       valueType: 'select',
       request: _getCollectionAgenciesEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: FieldLabels.d_collection_group_id,
-      dataIndex: FieldIndex.d_collection_group_id,
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.d_collection_group_id', defaultMessage: '' }),
+      dataIndex: 'd_collection_group_id',
+      key: 'd_collection_group_id',
       valueType: 'select',
       request: _getCollectionGroupsEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: FieldLabels.h_collection_ing_order_count,
-      dataIndex: FieldIndex.h_collection_ing_order_count,
-    },
-    {
-      title: FieldLabels.e_collection_stages,
-      dataIndex: FieldIndex.e_collection_stages,
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.e_collection_stages', defaultMessage: '' }),
+      dataIndex: 'e_collection_stages',
+      key: 'e_collection_stages',
       valueType: 'select',
       request: _getCollectionStagesEnum,
       params: { timestamp: Math.random() },
-      render: (_, record) => {
-        let r = '';
-        if (record.e_collection_stages !== null && record.e_collection_stages !== '') {
-          const collectionStageIdsArr = record.e_collection_stages!.split(',');
-          const collectionStagesArr = collectionStages.filter((value) =>
-            collectionStageIdsArr.find((_id) => _id === value.value),
-          );
-
-          for (const c of collectionStagesArr) {
-            r += '[' + c.label + '] ';
-          }
-          return r;
-        }
-        return r;
-      },
+      // render: (_, record) => {
+      //   let r = '';
+      //   if (record.e_collection_stages !== null && record.e_collection_stages !== '') {
+      //     const collectionStageIdsArr = record.e_collection_stages!.split(',');
+      //     const collectionStagesArr = collectionStages.filter((value) =>
+      //       collectionStageIdsArr.find((_id) => _id === value.value),
+      //     );
+      //
+      //     for (const c of collectionStagesArr) {
+      //       r += '[' + c.label + '] ';
+      //     }
+      //     return r;
+      //   }
+      //   return r;
+      // },
     },
     {
-      title: FieldLabels.h_collection_ing_order_count,
-      dataIndex: FieldIndex.h_collection_ing_order_count,
-    },
-    {
-      title: FieldLabels.f_status,
-      dataIndex: FieldIndex.f_status,
-    },
-    {
-      title: FieldLabels.g_comment,
-      dataIndex: FieldIndex.g_comment,
-    },
-    {
-      title: FieldLabels.created_at,
-      dataIndex: FieldIndex.created_at,
-      valueType: 'dateRange',
-      render: (_, record) => {
-        return moment(record!.created_at).format('YY-MM-DD HH:mm');
-      },
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.Borrow.ReviewAdmin.j_status', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.f_status', defaultMessage: '' }),
       dataIndex: 'f_status',
       key: 'f_status',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.g_comment', defaultMessage: '' }),
+      dataIndex: 'g_comment',
+      key: 'g_comment',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.h_collection_ing_order_count', defaultMessage: '' }),
+      dataIndex: 'h_collection_ing_order_count',
+      key: 'h_collection_ing_order_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.i_today_current_kpi_level', defaultMessage: '' }),
+      dataIndex: 'i_today_current_kpi_level',
+      key: 'i_today_current_kpi_level',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.j_today_init_amount', defaultMessage: '' }),
+      dataIndex: 'j_today_init_amount',
+      key: 'j_today_init_amount',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.k_current_new_count', defaultMessage: '' }),
+      dataIndex: 'k_current_new_count',
+      key: 'k_current_new_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.l_current_negotiating_count', defaultMessage: '' }),
+      dataIndex: 'l_current_negotiating_count',
+      key: 'l_current_negotiating_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.m_currrent_promised_count', defaultMessage: '' }),
+      dataIndex: 'm_currrent_promised_count',
+      key: 'm_currrent_promised_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.n_current_broken_count', defaultMessage: '' }),
+      dataIndex: 'n_current_broken_count',
+      key: 'n_current_broken_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.o_current_refused_count', defaultMessage: '' }),
+      dataIndex: 'o_current_refused_count',
+      key: 'o_current_refused_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.p_today_current_repay_count', defaultMessage: '' }),
+      dataIndex: 'p_today_current_repay_count',
+      key: 'p_today_current_repay_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.r_today_current_repay_amount', defaultMessage: '' }),
+      dataIndex: 'r_today_current_repay_amount',
+      key: 'r_today_current_repay_amount',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.t_today_lv1_commission', defaultMessage: '' }),
+      dataIndex: 't_today_lv1_commission',
+      key: 't_today_lv1_commission',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.u_today_lv2_commission', defaultMessage: '' }),
+      dataIndex: 'u_today_lv2_commission',
+      key: 'u_today_lv2_commission',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.v_today_lv3_commission', defaultMessage: '' }),
+      dataIndex: 'v_today_lv3_commission',
+      key: 'v_today_lv3_commission',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.w_today_lv4_commission', defaultMessage: '' }),
+      dataIndex: 'w_today_lv4_commission',
+      key: 'w_today_lv4_commission',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.x_today_init_count', defaultMessage: '' }),
+      dataIndex: 'x_today_init_count',
+      key: 'x_today_init_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.y_first_log_at', defaultMessage: '' }),
+      dataIndex: 'y_first_log_at',
+      key: 'y_first_log_at',
       render: (_, record) => {
-        return (
-          <Popconfirm
-            title={`${intl.formatMessage({
-              id: 'pages.common.switch_tip',
-              defaultMessage: '',
-            })} ${intl.formatMessage({
-              id: 'pages.Borrow.ReviewAdmin.f_status',
-              defaultMessage: '',
-            })}`}
-            onConfirm={confirmSwitch.bind(this, record, 'f_status')}
-            // onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Switch
-              checkedChildren={intl.formatMessage({ id: 'pages.common.enable', defaultMessage: '' })}
-              unCheckedChildren={intl.formatMessage({
-                id: 'pages.common.disable',
-                defaultMessage: '',
-              })}
-              checked={record.f_status === 1}
-            />
-          </Popconfirm>
-        );
+        return moment(record!.y_first_log_at).format('DD HH:mm');
       },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.z_last_log_at', defaultMessage: '' }),
+      dataIndex: 'z_last_log_at',
+      key: 'z_last_log_at',
+      render: (_, record) => {
+        return moment(record!.z_last_log_at).format('DD HH:mm');
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.a_a_month_lv1_commission', defaultMessage: '' }),
+      dataIndex: 'a_a_month_lv1_commission',
+      key: 'a_a_month_lv1_commission',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.a_b_month_lv2_commission', defaultMessage: '' }),
+      dataIndex: 'a_b_month_lv2_commission',
+      key: 'a_b_month_lv2_commission',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.a_c_month_lv1_commission', defaultMessage: '' }),
+      dataIndex: 'a_c_month_lv1_commission',
+      key: 'a_c_month_lv1_commission',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GMCollectionAdmin.a_d_month_lv1_commission', defaultMessage: '' }),
+      dataIndex: 'a_d_month_lv1_commission',
+      key: 'a_d_month_lv1_commission',
     },
     {
       title: '操作',
@@ -375,6 +446,9 @@ const TableList: React.FC = () => {
         columns={columns}
         postData={(data: any[]) => {
           return data;
+        }}
+        scroll={{
+          x: '50%'
         }}
         pagination={{
           pageSize: 50,
