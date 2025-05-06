@@ -902,6 +902,12 @@ export default [
         path: '/statistics/collection',
         routes: [
           {
+            name: 'admin-news',
+            icon: 'smile',
+            path: '/statistics/collection/admin-news',
+            component: './Statistics/Collection/AdminNews',
+          },
+          {
             name: 'admin',
             icon: 'smile',
             path: '/statistics/collection/admin',

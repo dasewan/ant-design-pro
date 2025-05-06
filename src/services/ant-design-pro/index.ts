@@ -38,6 +38,8 @@ import * as dBorrow from './dBorrow';
 import * as dbSmsOrder from './dbSmsOrder';
 import * as dcBorrowRiskDetail from './dcBorrowRiskDetail';
 import * as ddRecallDetail from './ddRecallDetail';
+import * as eaCollectionCallLog from './eaCollectionCallLog';
+import * as eCollectionNotification from './eCollectionNotification';
 import * as gaMarketingDetail from './gaMarketingDetail';
 import * as gbMarketing from './gbMarketing';
 import * as gcMarketingHistory from './gcMarketingHistory';
@@ -164,6 +166,8 @@ export default {
   dBorrow,
   dcBorrowRiskDetail,
   ddRecallDetail,
+  eaCollectionCallLog,
+  eCollectionNotification,
   gaMarketingDetail,
   gbMarketing,
   gcMarketingHistory,

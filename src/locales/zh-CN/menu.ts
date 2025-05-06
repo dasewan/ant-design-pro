@@ -163,6 +163,7 @@ export default {
   'menu.statistics.risk.risk-tree': '风控矩形分析',
   'menu.statistics.collection': '催收报表',
   'menu.statistics.collection.admin': '催员报表',
+  'menu.statistics.collection.admin-news': '催员动态',
   'menu.statistics.collection.report': '催收日报',
   'menu.statistics.collection.flow': '流转日报',
   'menu.statistics.sms': '短信报表',

@@ -1064,25 +1064,25 @@ declare namespace API {
     id?: number;
     /** 父id */
     a_borrow_id?: number;
-    /** 阶段id */
+    /** 阶段 */
     b_collection_stage_id?: number;
-    /** 机构id */
+    /** 机构 */
     c_collection_agency_id?: number;
-    /** 小组id */
+    /** 小组 */
     d_collection_group_id?: number;
-    /** 催员id */
+    /** 催员 */
     e_collection_admin_id?: number;
     /** 入催日志id（作为q_c_collection_news.parent_id） */
     f_collection_news_id?: number;
     /** 流转次数 */
     g_collection_order_flow_history_count?: number;
-    /** 催员催记数 */
+    /** 累计催记数 */
     h_collection_admin_log_count?: number;
-    /** 催员拨打电话数 */
+    /** 累计电话数 */
     i_collection_admin_call_count?: number;
-    /** 系统催收短信数 */
+    /** 系统短信数 */
     j_system_sms_count?: number;
-    /** 最新状态（只针对催员记录状态和承诺未还） */
+    /** 状态（只针对催员记录状态和承诺未还） */
     k_status?: number;
     /** 累计催回金额 */
     l_collection_amount?: number;
@@ -1100,19 +1100,19 @@ declare namespace API {
     r_flow_in_time?: string;
     /** 流出时间（倒计时，方便催员把握催收进度） */
     s_flow_out_time?: string;
-    /** 订单sn(冗余) */
+    /** sn */
     t_borrow_sn?: string;
-    /** 用户手机(冗余) */
+    /** 手机 */
     u_phone?: string;
-    /** 用户姓名(冗余) */
+    /** 姓名 */
     v_name?: string;
-    /** 查看次数 */
+    /** 累计查看次数 */
     w_view_times?: number;
-    /** 当前催员查看次数 */
+    /** 当前查看次数（流转的时候清空） */
     x_current_view_times?: number;
-    /** 当前催员记录日志次数 */
+    /** 当前日志数 */
     y_current_log_count?: number;
-    /** 当前催员电催次数 */
+    /** 当前电催数 */
     z_current_call_count?: number;
     /** 累计佣金 */
     a_a_commission?: number;
@@ -1136,8 +1136,24 @@ declare namespace API {
     a_j_product_id?: number;
     /** 当前编号 */
     a_k_no?: string;
-    /** 当前日志 */
+    /** 当前日志(每次记录日志时更新) */
     a_l_last_log?: string;
+    /** 今日查看次数（计划任务，无差别的执行此字段为0） */
+    a_m_current_day_view_time?: number;
+    /** 今日日志数（计划任务，无差别） */
+    a_n_current_day_log_count?: number;
+    /** 今日外呼数（计划任务无差别） */
+    a_o_current_day_call_count?: number;
+    /** 催员累计发送短信数 */
+    a_p_collection_admin_sms_count?: number;
+    /** 阶段催员发送短信数 */
+    a_q_current_sms_count?: string;
+    /** 结清时间 */
+    a_r_repay_at?: string;
+    /** 今日发送短信数 */
+    a_s_current_day_sms_count?: number;
+    /** 用户id */
+    a_t_user_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1381,7 +1397,7 @@ declare namespace API {
     /** 额外奖励1天数 */
     h_additional_1_days?: number;
     /** 额外奖励1 */
-    i_addition_2_bonus?: number;
+    i_addition_1_bonus?: number;
     /** 额外奖励2天数 */
     j_additional_2_days?: number;
     /** 额外奖励 */
@@ -1391,13 +1407,15 @@ declare namespace API {
     /** 额外奖励3 */
     m_addition_3_bonus?: number;
     /** 额外奖励 */
-    n_additional_days?: number;
+    n_additional_4_days?: number;
     /** 未达标天数阈值 */
     o_exceeds_days?: number;
     /** 罚款 */
     p_exceeds_penalty?: number;
     /** 每日达标奖励 */
     r_reach_day_bonus?: number;
+    /** 额外奖励 */
+    s_addition_4_bonus?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1839,6 +1857,16 @@ declare namespace API {
 
   type deleteAdminV1DDRecallDetailsIdParams = {
     /** id of DDRecallDetail */
+    id: number;
+  };
+
+  type deleteAdminV1EACollectionCallLogsIdParams = {
+    /** id of EACollectionCallLog */
+    id: number;
+  };
+
+  type deleteAdminV1ECollectionNotificationsIdParams = {
+    /** id of ECollectionNotification */
     id: number;
   };
 
@@ -2290,6 +2318,76 @@ declare namespace API {
   type deleteUsersIdParams = {
     /** id of User */
     id: number;
+  };
+
+  type EACollectionCallLog = {
+    /** id */
+    id?: number;
+    /** 阶段id */
+    a_collection_stage_id?: number;
+    /** 机构id */
+    b_collection_agency_id?: number;
+    /** 小组id */
+    c_collection_group_id?: number;
+    /** 催员id */
+    d_collection_admin_id?: number;
+    /** 拨打的电话 */
+    e_number?: string;
+    /** 时长 */
+    f_duration?: number;
+    /** 类型 */
+    g_call_type?: number;
+    /** call_at */
+    call_at?: string;
+    /** 拨打的电话 */
+    h_name?: string;
+    /** 催员id */
+    i_borrow_id?: number;
+    /** 催员id */
+    j_period_id?: number;
+    /** 催员id */
+    k_collection_order_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type ECollectionNotification = {
+    /** id */
+    id?: number;
+    /** 阶段id */
+    a_collection_stage_id?: number;
+    /** 机构id */
+    b_collection_agency_id?: number;
+    /** 小组id */
+    c_collection_group_id?: number;
+    /** 催员id */
+    d_collection_admin_id?: number;
+    /** 是否已读 */
+    e_readed?: number;
+    /** 读取时间 */
+    f_read_at?: string;
+    /** 0:个人通知 1：额外奖金 2：排名  3：系统通知 4：其他 */
+    g_cat?: number;
+    /** 拨打的电话 */
+    h_content?: string;
+    /** 相关阶段id */
+    i_collection_stage_id?: number;
+    /** 相关机构id */
+    g_collection_agency_id?: number;
+    /** 相关小组id */
+    k_collection_group_id?: number;
+    /** 相关催员id */
+    l_collection_admin_id?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type GAMarketingDetail = {
@@ -2902,6 +3000,26 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1EACollectionCallLogsIdParams = {
+    /** id of EACollectionCallLog */
+    id: number;
+  };
+
+  type getAdminV1EACollectionCallLogsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1ECollectionNotificationsIdParams = {
+    /** id of ECollectionNotification */
+    id: number;
+  };
+
+  type getAdminV1ECollectionNotificationsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1GAMarketingDetailsIdParams = {
     /** id of GAMarketingDetail */
     id: number;
@@ -3398,16 +3516,6 @@ declare namespace API {
   };
 
   type getAdminV1NHCreditRolesParams = {
-    /** foo */
-    foo: number;
-  };
-
-  type getAdminV1OADeductionsIdParams = {
-    /** id of OADeduction */
-    id: number;
-  };
-
-  type getAdminV1OADeductionsParams = {
     /** foo */
     foo: number;
   };
@@ -4241,20 +4349,64 @@ declare namespace API {
     y_first_log_at?: string;
     /** 最后一条日志时间(计划任务，无差别置为0) */
     z_last_log_at?: string;
-    /** 本月lv1佣金 */
-    a_a_month_lv1_commission?: number;
-    /** 本月lv2佣金 */
-    a_b_month_lv2_commission?: number;
-    /** 本月lv3佣金 */
-    a_c_month_lv3_commission?: number;
-    /** 本月lv4佣金 */
-    a_d_month_lv4_commission?: number;
+    /** 本周lv1佣金 */
+    a_a_week_lv1_commission?: number;
+    /** 本周lv2佣金 */
+    a_b_week_lv2_commission?: number;
+    /** 本周lv3佣金 */
+    a_c_week_lv3_commission?: number;
+    /** 本周lv4佣金 */
+    a_d_week_lv4_commission?: number;
+    /** 当日当前佣金比例 */
+    a_e_today_commission_rate?: number;
+    /** 最后一次拨打电话时间 */
+    a_f_last_call_at?: string;
+    /** 新佣金数 */
+    a_g_collection_commission_new_count?: number;
+    /** 新消息数 */
+    a_h_collection_notification_count?: number;
+    /** 本周催回订单数 */
+    a_i_week_repay_count?: number;
+    /** 本周佣金 */
+    a_j_week_commission?: number;
+    /** 本月催回数 */
+    a_k_month_repay_count?: number;
+    /** 本月佣金 */
+    a_l_month_commission?: number;
+    /** 今日佣金 */
+    a_m_today_commission?: number;
+    /** 本月lv1的天数 */
+    a_n_month_lv1_days?: number;
+    /** 本月lv2的天数 */
+    a_o_month_lv2_days?: number;
+    /** 本月lv3的天数 */
+    a_p_month_lv3_days?: number;
+    /** 本月lv4的天数 */
+    a_q_month_lv4_days?: number;
+    /** 今日部分还款数 */
+    a_r_today_part_count?: number;
+    /** 今日部分还款金额 */
+    a_s_today_part_amount?: number;
+    /** 今日发送短信数 */
+    a_t_today_sms_count?: number;
+    /** 今日拨打电话数 */
+    a_u_today_call_count?: number;
+    /** 今日日志数 */
+    a_v_today_log_count?: number;
+    /** 本周发送短信数 */
+    a_w_week_sms_count?: number;
+    /** 本周拨打电话数 */
+    a_x_week_call_count?: number;
+    /** 本周日志数 */
+    a_y_week_log_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 头像 */
+    b_a_avatar?: string;
   };
 
   type GNCollectionStage = {
@@ -4276,12 +4428,6 @@ declare namespace API {
     f_comment?: string;
     /** 分配模式 1：按比补齐 2：按比分配 */
     g_assign_type?: number;
-    /** created_at */
-    created_at?: string;
-    /** updated_at */
-    updated_at?: string;
-    /** deleted_at */
-    deleted_at?: string;
     /** 在催订单数 */
     h_collection_ing_order_count?: number;
     /** 当前kpi等级，每日催收计划任务清空为0 */
@@ -4317,17 +4463,65 @@ declare namespace API {
     /** 最后一条日志时间(计划任务，无差别置为0) */
     z_last_log_at?: string;
     /** 本月lv1佣金 */
-    a_a_month_lv1_commission?: number;
+    a_a_week_lv1_commission?: number;
     /** 本月lv2佣金 */
-    a_b_month_lv2_commission?: number;
+    a_b_week_lv2_commission?: number;
     /** 本月lv3佣金 */
-    a_c_month_lv3_commission?: number;
+    a_c_week_lv3_commission?: number;
     /** 本月lv4佣金 */
-    a_d_month_lv4_commission?: number;
+    a_d_week_lv4_commission?: number;
+    /** 当日当前佣金比例 */
+    a_e_today_commission_rate?: number;
+    /** 最后一次拨打电话时间 */
+    a_f_last_call_at?: string;
+    /** 新佣金数 */
+    a_g_collection_commission_new_count?: number;
+    /** 新消息数 */
+    a_h_collection_notification_count?: number;
+    /** 本周催回订单数 */
+    a_i_week_repay_count?: number;
+    /** 本周佣金 */
+    a_j_week_commission?: number;
+    /** 本月催回数 */
+    a_k_month_repay_count?: number;
+    /** 本月佣金 */
+    a_l_month_commission?: number;
+    /** 今日佣金 */
+    a_m_today_commission?: number;
+    /** 本月lv1的天数 */
+    a_n_month_lv1_days?: number;
+    /** 本月lv2的天数 */
+    a_o_month_lv2_days?: number;
+    /** 本月lv3的天数 */
+    a_p_month_lv3_days?: number;
+    /** 本月lv4的天数 */
+    a_q_month_lv4_days?: number;
+    /** 今日部分还款数 */
+    a_r_today_part_count?: number;
+    /** 今日部分还款金额 */
+    a_s_today_part_amount?: number;
+    /** 今日部分还款金额 */
+    a_t_today_sms_count?: number;
+    /** 今日拨打电话数 */
+    a_u_today_call_count?: number;
+    /** 今日日志数 */
+    a_v_today_log_count?: number;
+    /** 本周发送短信数 */
+    a_w_week_sms_count?: number;
+    /** 本周拨打电话数 */
+    a_x_week_call_count?: number;
+    /** 本周日志数 */
+    a_y_week_log_count?: number;
     /** 无拨打罚款 */
     b_a_no_call_penalty?: number;
     /** 无日志罚款 */
     b_b_no_log_penalty?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type GORiskValueSmsSlope = {
@@ -4765,12 +4959,6 @@ declare namespace API {
     f_status?: number;
     /** 备注 */
     g_comment?: string;
-    /** created_at */
-    created_at?: string;
-    /** updated_at */
-    updated_at?: string;
-    /** deleted_at */
-    deleted_at?: string;
     /** 在催订单数 */
     h_collection_ing_order_count?: number;
     /** 当前kpi等级，每日催收计划任务清空为0 */
@@ -4806,13 +4994,61 @@ declare namespace API {
     /** 最后一条日志时间(计划任务，无差别置为0) */
     z_last_log_at?: string;
     /** 本月lv1佣金 */
-    a_a_month_lv1_commission?: number;
+    a_a_week_lv1_commission?: number;
     /** 本月lv2佣金 */
-    a_b_month_lv2_commission?: number;
+    a_b_week_lv2_commission?: number;
     /** 本月lv3佣金 */
-    a_c_month_lv3_commission?: number;
+    a_c_week_lv3_commission?: number;
     /** 本月lv4佣金 */
-    a_d_month_lv4_commission?: number;
+    a_d_week_lv4_commission?: number;
+    /** a_e_today_commission_rate */
+    a_e_today_commission_rate?: number;
+    /** a_f_last_call_at */
+    a_f_last_call_at?: number;
+    /** a_g_collection_commission_new_count */
+    a_g_collection_commission_new_count?: number;
+    /** a_h_collection_notification_count */
+    a_h_collection_notification_count?: number;
+    /** 本周催回订单数 */
+    a_i_week_repay_count?: number;
+    /** 本周佣金 */
+    a_j_week_commission?: number;
+    /** 本月催回数 */
+    a_k_month_repay_count?: number;
+    /** 本月佣金 */
+    a_l_month_commission?: number;
+    /** 今日佣金 */
+    a_m_today_commission?: number;
+    /** 本月lv1的天数 */
+    a_n_month_lv1_days?: number;
+    /** 本月lv2的天数 */
+    a_o_month_lv2_days?: number;
+    /** 本月lv3的天数 */
+    a_p_month_lv3_days?: number;
+    /** 本月lv4的天数 */
+    a_q_month_lv4_days?: number;
+    /** 今日部分还款数 */
+    a_r_today_part_count?: number;
+    /** 今日部分还款金额 */
+    a_s_today_part_amount?: number;
+    /** 今日部分还款金额 */
+    a_t_today_sms_count?: number;
+    /** 今日拨打电话数 */
+    a_u_today_call_count?: number;
+    /** 今日日志数 */
+    a_v_today_log_count?: number;
+    /** 本周发送短信数 */
+    a_w_week_sms_count?: number;
+    /** 本周拨打电话数 */
+    a_x_week_call_count?: number;
+    /** 本周日志数 */
+    a_y_week_log_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type HFCollectionAgencyRole = {
@@ -4972,7 +5208,7 @@ declare namespace API {
     /** 模板 */
     d_template?: string;
     /** 触发天数 */
-    e_days?: number;
+    e_days?: string;
     /** 状态 */
     f_status?: number;
     /** 发送条数 */
@@ -5615,64 +5851,106 @@ declare namespace API {
   type NCCollectionOrderFlowHistory = {
     /** id */
     id?: number;
-    /** 订单id */
-    a_borrow_id?: number;
-    /** 催收id */
-    b_collection_order_id?: number;
-    /** 1:计划任务 2： 管理员转移 */
-    c_type?: number;
     /** 父id */
-    d_before_collection_order_id?: number;
-    /** 阶段id */
-    e_before_collection_stage_id?: number;
-    /** 机构id */
-    f_before_collection_agency_id?: number;
-    /** 小组id */
-    g_before_collection_group_id?: number;
-    /** 催员id */
-    h_before_collection_admin_id?: number;
-    /** 阶段id */
-    i_after_collection_stage_id?: number;
-    /** 机构id */
-    j_after_collection_agency_id?: number;
-    /** 小组id */
-    k_after_collection_group_id?: number;
-    /** 催员id */
-    l_after_collection_admin_id?: number;
-    /** 催员催记数 */
-    m_collection_admin_log_count?: number;
-    /** 催员拨打电话数 */
-    n_collection_admin_call_count?: number;
-    /** 系统催收短信数 */
-    o_collection_admin_sms_count?: number;
-    /** 累计催回金额 */
-    p_collection_amount?: number;
-    /** 催回类型 */
-    q_type?: number;
-    /** 支付流水日志（多笔流水用逗号） */
-    r_repay_log_ids?: string;
-    /** 分期id */
-    s_period_id?: number;
-    /** 入催金额（实际应还金额 例如在S0入催1000，然后催回900，那么S1的入催金额就是100） */
-    t_borrow_amount?: number;
-    /** 查看次数 */
-    u_view_times?: number;
-    /** 订单sn(冗余) */
-    v_borrow_sn?: string;
-    /** 用户手机(冗余) */
-    w_phone?: string;
-    /** 用户姓名(冗余) */
-    x_name?: string;
-    /** 累计佣金 */
-    y_commission?: number;
-    /** 最近日志时间 */
-    z_last_log_time?: string;
-    /** 流出时间 */
-    a_a_flow_out_time?: string;
-    /** 借款次数 */
-    a_b_borrow_count?: number;
+    a_borrow_id?: number;
+    /** 阶段 */
+    b_collection_stage_id?: number;
+    /** 机构 */
+    c_collection_agency_id?: number;
+    /** 小组 */
+    d_collection_group_id?: number;
+    /** 催员 */
+    e_collection_admin_id?: number;
     /** 入催日志id（作为q_c_collection_news.parent_id） */
-    a_c_collection_news_id?: number;
+    f_collection_news_id?: number;
+    /** 流转次数 */
+    g_collection_order_flow_history_count?: number;
+    /** 累计催记数 */
+    h_collection_admin_log_count?: number;
+    /** 累计电话数 */
+    i_collection_admin_call_count?: number;
+    /** 系统短信数 */
+    j_system_sms_count?: number;
+    /** 状态（只针对催员记录状态和承诺未还） */
+    k_status?: number;
+    /** 累计催回金额 */
+    l_collection_amount?: number;
+    /** 分期id */
+    m_period_id?: number;
+    /** 入催金额 */
+    n_borrow_amount?: number;
+    /** 分期期数 */
+    o_period_index?: number;
+    /** 预计还款时间 */
+    p_expect_repay_time?: string;
+    /** 结束锁定的阶段 */
+    q_lock_end_stage_id?: number;
+    /** 流入时间 */
+    r_flow_in_time?: string;
+    /** 流出时间（倒计时，方便催员把握催收进度） */
+    s_flow_out_time?: string;
+    /** sn */
+    t_borrow_sn?: string;
+    /** 手机 */
+    u_phone?: string;
+    /** 姓名 */
+    v_name?: string;
+    /** 累计查看次数 */
+    w_view_times?: number;
+    /** 当前查看次数（流转的时候清空） */
+    x_current_view_times?: number;
+    /** 当前日志数 */
+    y_current_log_count?: number;
+    /** 当前电催数 */
+    z_current_call_count?: number;
+    /** 累计佣金 */
+    a_a_commission?: number;
+    /** 当前佣金 */
+    a_b_current_commission?: number;
+    /** 当前催回可得佣金 */
+    a_c_expect_current_commission?: number;
+    /** 最近日志时间 */
+    a_d_last_log_time?: string;
+    /** 借款次数 */
+    a_e_borrow_count?: number;
+    /** S0催回金额 */
+    a_f_s0_collection_amount?: number;
+    /** S1催回金额 */
+    a_g_s1_collection_amount?: number;
+    /** S2催回金额 */
+    a_h_s2_collection_amount?: number;
+    /** S3催回金额 */
+    a_i_s3_collection_amount?: number;
+    /** 产品id */
+    a_j_product_id?: number;
+    /** 当前编号 */
+    a_k_no?: string;
+    /** 当前日志(每次记录日志时更新) */
+    a_l_last_log?: string;
+    /** 今日查看次数（计划任务，无差别的执行此字段为0） */
+    a_m_current_day_view_time?: number;
+    /** 今日日志数（计划任务，无差别） */
+    a_n_current_day_log_count?: number;
+    /** 今日外呼数（计划任务无差别） */
+    a_o_current_day_call_count?: number;
+    /** 催员累计发送短信数 */
+    a_p_collection_admin_sms_count?: number;
+    /** 阶段催员发送短信数 */
+    a_q_current_sms_count?: string;
+    /** 结清时间 */
+    a_r_repay_at?: string;
+    /** 阶段 */
+    b_a_collection_stage_id?: number;
+    /** 机构 */
+    b_b_collection_agency_id?: number;
+    /** 小组 */
+    b_c_collection_group_id?: number;
+    /** 催员 */
+    b_d_collection_admin_id?: number;
+    /** 管理员 */
+    b_e_admin_id?: number;
+    /** 类型 1：系统 2：管理员分配 3：释放 */
+    b_f_type?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -6525,6 +6803,16 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1EACollectionCallLogsIdParams = {
+    /** id of EACollectionCallLog */
+    id: number;
+  };
+
+  type putAdminV1ECollectionNotificationsIdParams = {
+    /** id of ECollectionNotification */
+    id: number;
+  };
+
   type putAdminV1GAMarketingDetailsIdParams = {
     /** id of GAMarketingDetail */
     id: number;
@@ -7049,8 +7337,11 @@ declare namespace API {
     /** id */
     id?: number;
     a_a_a_a_a_o_a_repay?: OARepay;
+    a_a_a_a_a_m_b_loan?: MBLoan;
     a_a_a_a_a_d_borrow?: DBorrow;
     a_a_a_a_a_a_user?: AUser;
+    /** App\Models\QBPeriod */
+    a_a_a_a_a_s_e_virtual_accounts?: SEVirtualAccount[];
     /** borrow_id */
     a_borrow_id?: number;
     /** 用户 */
@@ -7309,6 +7600,22 @@ declare namespace API {
     p_phone?: string;
     /** kpi */
     q_collection_kpi_history_id?: number;
+    /** 催回率 */
+    r_current_rate?: number;
+    /** 辅助率 */
+    s_assist_rate?: number;
+    /** 应得佣金 */
+    t_commission_amount_without_assist?: number;
+    /** 是否结清 */
+    u_is_settled?: number;
+    /** 订单累计还款 */
+    v_paid_amount?: number;
+    /** 是否已读 */
+    w_readed?: number;
+    /** 读取时间 */
+    x_read_at?: string;
+    /** 结清序号 */
+    y_day_index?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -8285,12 +8592,6 @@ declare namespace API {
     f_status?: number;
     /** 备注 */
     g_comment?: string;
-    /** created_at */
-    created_at?: string;
-    /** updated_at */
-    updated_at?: string;
-    /** deleted_at */
-    deleted_at?: string;
     /** 在催订单数 */
     h_collection_ing_order_count?: number;
     /** 当前kpi等级，每日催收计划任务清空为0 */
@@ -8326,13 +8627,61 @@ declare namespace API {
     /** 最后一条日志时间(计划任务，无差别置为0) */
     z_last_log_at?: string;
     /** 本月lv1佣金 */
-    a_a_month_lv1_commission?: number;
+    a_a_week_lv1_commission?: number;
     /** 本月lv2佣金 */
-    a_b_month_lv2_commission?: number;
+    a_b_week_lv2_commission?: number;
     /** 本月lv3佣金 */
-    a_c_month_lv3_commission?: number;
+    a_c_week_lv3_commission?: number;
     /** 本月lv4佣金 */
-    a_d_month_lv4_commission?: number;
+    a_d_week_lv4_commission?: number;
+    /** 当日当前佣金比例 */
+    a_e_today_commission_rate?: number;
+    /** 最后一次拨打电话时间 */
+    a_f_last_call_at?: string;
+    /** 新佣金数 */
+    a_g_collection_commission_new_count?: number;
+    /** 新消息数 */
+    a_h_collection_notification_count?: number;
+    /** 本周催回订单数 */
+    a_i_week_repay_count?: number;
+    /** 本周佣金 */
+    a_j_week_commission?: number;
+    /** 本月催回数 */
+    a_k_month_repay_count?: number;
+    /** 本月佣金 */
+    a_l_month_commission?: number;
+    /** 今日佣金 */
+    a_m_today_commission?: number;
+    /** 本月lv1的天数 */
+    a_n_month_lv1_days?: number;
+    /** 本月lv2的天数 */
+    a_o_month_lv2_days?: number;
+    /** 本月lv3的天数 */
+    a_p_month_lv3_days?: number;
+    /** 本月lv4的天数 */
+    a_q_month_lv4_days?: number;
+    /** 今日部分还款数 */
+    a_r_today_part_count?: number;
+    /** 今日部分还款金额 */
+    a_s_today_part_amount?: number;
+    /** 今日部分还款金额 */
+    a_t_today_sms_count?: number;
+    /** 今日拨打电话数 */
+    a_u_today_call_count?: number;
+    /** 今日日志数 */
+    a_v_today_log_count?: number;
+    /** 本周发送短信数 */
+    a_w_week_sms_count?: number;
+    /** 本周拨打电话数 */
+    a_x_week_call_count?: number;
+    /** 本周日志数 */
+    a_y_week_log_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type TCOtherGatewayLog = {

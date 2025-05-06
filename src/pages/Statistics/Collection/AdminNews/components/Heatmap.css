@@ -1,0 +1,23 @@
+.heatmap-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heatmap-cell {
+  transition: background-color 0.3s;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.heatmap-cell:hover {
+  filter: brightness(1.1);
+}
+
+.time-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  color: #666;
+  font-size: 12px;
+}

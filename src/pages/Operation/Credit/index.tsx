@@ -570,7 +570,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="p1"
                 min={10}
-                max={250}
+                max={350}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
@@ -586,7 +586,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="k1"
                 min={10}
-                max={220}
+                max={350}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'k' }}
@@ -621,7 +621,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="p2"
                 min={10}
-                max={250}
+                max={350}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
@@ -637,7 +637,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="k2"
                 min={10}
-                max={220}
+                max={350}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'k' }}
@@ -672,7 +672,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="p3"
                 min={10}
-                max={250}
+                max={350}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
@@ -688,7 +688,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="k3"
                 min={10}
-                max={220}
+                max={350}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'k' }}
@@ -723,7 +723,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="p4"
                 min={10}
-                max={250}
+                max={350}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
@@ -739,7 +739,7 @@ const TableList: React.FC = () => {
               <ProFormDigit
                 name="k4"
                 min={10}
-                max={220}
+                max={350}
                 width="sm"
                 colProps={{ span: 4 }}
                 fieldProps={{ step: 1, addonBefore: 'k' }}
@@ -770,7 +770,7 @@ const TableList: React.FC = () => {
               />
               <ProFormDigit
                 name="initial_score"
-                min={200}
+                min={100}
                 max={700}
                 width="sm"
                 colProps={{ span: 4 }}
