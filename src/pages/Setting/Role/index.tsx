@@ -34,18 +34,19 @@ const TableList: React.FC = () => {
     const nodeMap: { [key: string]: TreeDataNode } = { '': root };
 
     data.forEach(item => {
-      const parts = item.name.split('/');
+      const parts = item.path.split('/');
       let currentPath = '';
       let currentPath2 = '';
       let parentNode = root;
 
       parts.forEach((part, index) => {
         const path = currentPath ? `${currentPath}/${part}` : part;
+        console.log(path);
         const path2 = currentPath2 ? `${currentPath2}.${part}` : part;
         if (!nodeMap[path]) {
           const newNode: TreeDataNode = {
             key: '/' + path,
-            title: intl.formatMessage({ id: 'menu.' + path2, defaultMessage: '配置失败请重试！' }),
+            title: intl.formatMessage({ id: 'menu.' + path2, defaultMessage: 'menu.' + path2 }),
             children: [],
           };
           nodeMap[path] = newNode;
