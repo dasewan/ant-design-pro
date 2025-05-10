@@ -671,7 +671,7 @@ declare namespace API {
     h_admin_file_id?: number;
     /** 有效时间* */
     i_valid_date?: string;
-    /** 白名单状态 1：正常 2：有过逾期 3：有过严重逾期 4：在逾 5：过期 6：禁止* */
+    /** 白名单状态 1：正常 2：有过逾期 3：有过严重逾期 5：过期 6：禁止* */
     j_status?: number;
     /** 管理员id* */
     k_admin_id?: number;
@@ -681,6 +681,8 @@ declare namespace API {
     m_hit_count?: number;
     /** 最近命中时间 */
     n_last_hit_time?: string;
+    /** 初始信用分 */
+    o_credit_fraction?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2300,6 +2302,16 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1WSCollectionAdminHeatmapsIdParams = {
+    /** id of WSCollectionAdminHeatmap */
+    id: number;
+  };
+
+  type deleteAdminV1WTCollectionAdminHeatmapDetailsIdParams = {
+    /** id of WTCollectionAdminHeatmapDetail */
+    id: number;
+  };
+
   type deleteAEBorrowAdminOperatesIdParams = {
     /** id of AEBorrowAdminOperate */
     id: number;
@@ -2501,18 +2513,24 @@ declare namespace API {
     e_batch_sn?: string;
     /** 注册数量* */
     f_register_count?: number;
-    /** 查看数量（用户去重，隔天统计)* */
+    /** 备注* */
+    g_comment?: string;
+    /** 营销开始时间* */
+    h_begin_at?: string;
+    /** 查看数量* */
+    i_viewed_count?: number;
+    /** 查看数量（用户去重，隔天统计）* */
     j_viewed_deduplication_count?: number;
-    /** 营销数量* */
+    /** 营销数量（用户去重，隔天统计）* */
     k_marketing_count?: number;
     /** 类型 1：未注册 2：未查看* */
     l_type?: number;
-    /** 状态：1待执行 2：执行中 3：执行成功 4：执行失败* */
+    /** 状态：1待执行 2：执行中 3：执行成功 4：执行失败* 5：无效 */
     m_status?: number;
-    /** 备注 */
-    g_comment?: string;
-    /** h_begin_at */
-    h_begin_at?: string;
+    /** 目标用户查看次数，只针对l_type=3时有用* */
+    n_user_view_count?: number;
+    /** 是否同时发送邮件 */
+    o_send_email?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -3345,6 +3363,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1HJSmsTemplatesEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HJSmsTemplatesIdParams = {
     /** id of HJSmsTemplate */
     id: number;
@@ -3920,6 +3943,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1WLCollectionAdmins2Params = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1WLCollectionAdminsIdParams = {
     /** id of WLCollectionAdmin */
     id: number;
@@ -3986,6 +4014,26 @@ declare namespace API {
   };
 
   type getAdminV1WRSmsTemplatesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WSCollectionAdminHeatmapsIdParams = {
+    /** id of WSCollectionAdminHeatmap */
+    id: number;
+  };
+
+  type getAdminV1WSCollectionAdminHeatmapsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1WTCollectionAdminHeatmapDetailsIdParams = {
+    /** id of WTCollectionAdminHeatmapDetail */
+    id: number;
+  };
+
+  type getAdminV1WTCollectionAdminHeatmapDetailsParams = {
     /** foo */
     foo: number;
   };
@@ -4407,6 +4455,12 @@ declare namespace API {
     deleted_at?: string;
     /** 头像 */
     b_a_avatar?: string;
+    /** 今日未记录日志订单 */
+    a_z_today_no_log_count?: number;
+    /** 今日未拨打订单 */
+    c_a_today_no_call_count?: number;
+    /** 上次拨打电话时间 */
+    c_b_last_call?: string;
   };
 
   type GNCollectionStage = {
@@ -5201,7 +5255,7 @@ declare namespace API {
     a_a_a_a_a_k_sms_template_operators?: KSmsTemplateOperator[];
     /** Sender ID */
     a_sender_id?: string;
-    /** 节点类型 1:节点发送 2:计划任务 3:手动发送 4:自定义发送 */
+    /** 节点类型 100:节点发送 200:计划任务 300:手动发送 400:自定义发送 */
     b_node_type?: number;
     /** 类型 1：注册 */
     c_type?: number;
@@ -5229,6 +5283,14 @@ declare namespace API {
     n_success_count?: number;
     /** 计划发送时间 */
     o_plan_time?: string;
+    /** 发送时间2 */
+    p_time2?: string;
+    /** 发送时间3 */
+    q_time3?: string;
+    /** 发送时间4 */
+    r_time4?: string;
+    /** 别名 */
+    s_name?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -7245,6 +7307,16 @@ declare namespace API {
 
   type putAdminV1WRSmsTemplatesIdParams = {
     /** id of WRSmsTemplate */
+    id: number;
+  };
+
+  type putAdminV1WSCollectionAdminHeatmapsIdParams = {
+    /** id of WSCollectionAdminHeatmap */
+    id: number;
+  };
+
+  type putAdminV1WTCollectionAdminHeatmapDetailsIdParams = {
+    /** id of WTCollectionAdminHeatmapDetail */
     id: number;
   };
 
@@ -10618,8 +10690,9 @@ declare namespace API {
     h_collection_agency_id?: number;
     /** 小组 */
     i_collection_group_id?: number;
-    /** foo */
-    j_foo?: number;
+    /** kpi
+     *  */
+    j_kpi?: number;
     /** foo */
     k_foo?: number;
     /** 持有案件总数 */
@@ -10652,6 +10725,8 @@ declare namespace API {
     l_n_level2_commission?: number;
     /** level3佣金 */
     l_o_level3_commission?: number;
+    /** lv4奖金 */
+    k_h_level4_commission?: number;
     /** 首日催回数 */
     l_r_day1_paid_count?: number;
     /** 首日催回金额 */
@@ -10670,300 +10745,36 @@ declare namespace API {
     l_y_day4_paid_amount?: number;
     /** 4+操作数 */
     l_z_day4_action_count?: number;
-    /** P1持有案件总数 */
-    m_a_collection_total_count?: number;
-    /** P1持有案件总额 */
-    m_b_collection_total_amount?: number;
-    /** P1未催数 */
-    m_c_no_track_count?: number;
-    /** P1日志数 */
-    m_d_log_new_count?: number;
-    /** P1短信数 */
-    m_e_sms_new_count?: number;
-    /** P1呼叫数 */
-    m_f_call_new_count?: number;
-    /** P1结清数 */
-    m_g_settled_count?: number;
-    /** P1结清金额 */
-    m_h_settled_amount?: number;
-    /** P1部分还款数 */
-    m_i_part_count?: number;
-    /** P1部分还款金额 */
-    m_j_part_amount?: number;
-    /** P1展期数 */
-    m_k_extend_count?: number;
-    /** P1展期金额 */
-    m_l_extend_amount?: number;
-    /** P1 level1佣金 */
-    m_m_level1_commission?: number;
-    /** P1 level2佣金 */
-    m_n_level2_commission?: number;
-    /** P1 level3佣金 */
-    m_o_level3_commission?: number;
-    /** P1首日催回数 */
-    m_r_day1_paid_count?: number;
-    /** P1首日催回金额 */
-    m_s_day1_paid_amount?: number;
-    /** P1首日催回数 */
-    m_t_day1_action_count?: number;
-    /** P1 2-3催回数 */
-    m_u_day2_3_paid_count?: number;
-    /** P1 2-3催回金额 */
-    m_v_day2_3_paid_amount?: number;
-    /** P1 2-3催回数 */
-    m_w_day2_3_action_count?: number;
-    /** P1 4+催回数 */
-    m_x_day4_paid_count?: number;
-    /** P1 4+催回金额 */
-    m_y_day4_paid_amount?: number;
-    /** P1 4+操作数 */
-    m_z_day4_action_count?: number;
-    /** P2持有案件总数 */
-    n_a_collection_total_count?: number;
-    /** P2持有案件总额 */
-    n_b_collection_total_amount?: number;
-    /** P2未催数 */
-    n_c_no_track_count?: number;
-    /** P2日志数 */
-    n_d_log_new_count?: number;
-    /** P2短信数 */
-    n_e_sms_new_count?: number;
-    /** P2呼叫数 */
-    n_f_call_new_count?: number;
-    /** P2结清数 */
-    n_g_settled_count?: number;
-    /** P2结清金额 */
-    n_h_settled_amount?: number;
-    /** P2部分还款数 */
-    n_i_part_count?: number;
-    /** P2部分还款金额 */
-    n_j_part_amount?: number;
-    /** P2展期数 */
-    n_k_extend_count?: number;
-    /** P2展期金额 */
-    n_l_extend_amount?: number;
-    /** P2 level1佣金 */
-    n_m_level1_commission?: number;
-    /** P2 level2佣金 */
-    n_n_level2_commission?: number;
-    /** P2 level3佣金 */
-    n_o_level3_commission?: number;
-    /** P2首日催回数 */
-    n_r_day1_paid_count?: number;
-    /** P2首日催回金额 */
-    n_s_day1_paid_amount?: number;
-    /** P2首日催回数 */
-    n_t_day1_action_count?: number;
-    /** P2 2-3催回数 */
-    n_u_day2_3_paid_count?: number;
-    /** P2 2-3催回金额 */
-    n_v_day2_3_paid_amount?: number;
-    /** P2 2-3催回数 */
-    n_w_day2_3_action_count?: number;
-    /** P2 4+催回数 */
-    n_x_day4_paid_count?: number;
-    /** P2 4+催回金额 */
-    n_y_day4_paid_amount?: number;
-    /** P2 4+操作数 */
-    n_z_day4_action_count?: number;
-    /** P3持有案件总数 */
-    o_a_collection_total_count?: number;
-    /** P3持有案件总额 */
-    o_b_collection_total_amount?: number;
-    /** P3未催数 */
-    o_c_no_track_count?: number;
-    /** P3日志数 */
-    o_d_log_new_count?: number;
-    /** P3短信数 */
-    o_e_sms_new_count?: number;
-    /** P3呼叫数 */
-    o_f_call_new_count?: number;
-    /** P3结清数 */
-    o_g_settled_count?: number;
-    /** P3结清金额 */
-    o_h_settled_amount?: number;
-    /** P3部分还款数 */
-    o_i_part_count?: number;
-    /** P3部分还款金额 */
-    o_j_part_amount?: number;
-    /** P3展期数 */
-    o_k_extend_count?: number;
-    /** P3展期金额 */
-    o_l_extend_amount?: number;
-    /** P3 level1佣金 */
-    o_m_level1_commission?: number;
-    /** P3 level2佣金 */
-    o_n_level2_commission?: number;
-    /** P3 level3佣金 */
-    o_o_level3_commission?: number;
-    /** P3首日催回数 */
-    o_r_day1_paid_count?: number;
-    /** P3首日催回金额 */
-    o_s_day1_paid_amount?: number;
-    /** P3首日催回数 */
-    o_t_day1_action_count?: number;
-    /** P3 2-3催回数 */
-    o_u_day2_3_paid_count?: number;
-    /** P3 2-3催回金额 */
-    o_v_day2_3_paid_amount?: number;
-    /** P3 2-3催回数 */
-    o_w_day2_3_action_count?: number;
-    /** P3 4+催回数 */
-    o_x_day4_paid_count?: number;
-    /** P3 4+催回金额 */
-    o_y_day4_paid_amount?: number;
-    /** P3 4+操作数 */
-    o_z_day4_action_count?: number;
-    /** P4持有案件总数 */
-    p_a_collection_total_count?: number;
-    /** P4持有案件总额 */
-    p_b_collection_total_amount?: number;
-    /** P4未催数 */
-    p_c_no_track_count?: number;
-    /** P4日志数 */
-    p_d_log_new_count?: number;
-    /** P4短信数 */
-    p_e_sms_new_count?: number;
-    /** P4呼叫数 */
-    p_f_call_new_count?: number;
-    /** P4结清数 */
-    p_g_settled_count?: number;
-    /** P4结清金额 */
-    p_h_settled_amount?: number;
-    /** P4部分还款数 */
-    p_i_part_count?: number;
-    /** P4部分还款金额 */
-    p_j_part_amount?: number;
-    /** P4展期数 */
-    p_k_extend_count?: number;
-    /** P4展期金额 */
-    p_l_extend_amount?: number;
-    /** P4 level1佣金 */
-    p_m_level1_commission?: number;
-    /** P4 level2佣金 */
-    p_n_level2_commission?: number;
-    /** P4 level3佣金 */
-    p_o_level3_commission?: number;
-    /** P4首日催回数 */
-    p_r_day1_paid_count?: number;
-    /** P4首日催回金额 */
-    p_s_day1_paid_amount?: number;
-    /** P4首日催回数 */
-    p_t_day1_action_count?: number;
-    /** P4 2-3催回数 */
-    p_u_day2_3_paid_count?: number;
-    /** P4 2-3催回金额 */
-    p_v_day2_3_paid_amount?: number;
-    /** P4 2-3催回数 */
-    p_w_day2_3_action_count?: number;
-    /** P4 4+催回数 */
-    p_x_day4_paid_count?: number;
-    /** P4 4+催回金额 */
-    p_y_day4_paid_amount?: number;
-    /** P4 4+操作数 */
-    p_z_day4_action_count?: number;
-    /** P5持有案件总数 */
-    q_a_collection_total_count?: number;
-    /** P5持有案件总额 */
-    q_b_collection_total_amount?: number;
-    /** P5未催数 */
-    q_c_no_track_count?: number;
-    /** P5日志数 */
-    q_d_log_new_count?: number;
-    /** P5短信数 */
-    q_e_sms_new_count?: number;
-    /** P5呼叫数 */
-    q_f_call_new_count?: number;
-    /** P5结清数 */
-    q_g_settled_count?: number;
-    /** P5结清金额 */
-    q_h_settled_amount?: number;
-    /** P5部分还款数 */
-    q_i_part_count?: number;
-    /** P5部分还款金额 */
-    q_j_part_amount?: number;
-    /** P5展期数 */
-    q_k_extend_count?: number;
-    /** P5展期金额 */
-    q_l_extend_amount?: number;
-    /** P5 level1佣金 */
-    q_m_level1_commission?: number;
-    /** P5 level2佣金 */
-    q_n_level2_commission?: number;
-    /** P5 level3佣金 */
-    q_o_level3_commission?: number;
-    /** P5首日催回数 */
-    q_r_day1_paid_count?: number;
-    /** P5首日催回金额 */
-    q_s_day1_paid_amount?: number;
-    /** P5首日催回数 */
-    q_t_day1_action_count?: number;
-    /** P5 2-3催回数 */
-    q_u_day2_3_paid_count?: number;
-    /** P5 2-3催回金额 */
-    q_v_day2_3_paid_amount?: number;
-    /** P5 2-3催回数 */
-    q_w_day2_3_action_count?: number;
-    /** P5 4+催回数 */
-    q_x_day4_paid_count?: number;
-    /** P5 4+催回金额 */
-    q_y_day4_paid_amount?: number;
-    /** P5 4+操作数 */
-    q_z_day4_action_count?: number;
-    /** P6持有案件总数 */
-    r_a_collection_total_count?: number;
-    /** P6持有案件总额 */
-    r_b_collection_total_amount?: number;
-    /** P6未催数 */
-    r_c_no_track_count?: number;
-    /** P6日志数 */
-    r_d_log_new_count?: number;
-    /** P6短信数 */
-    r_e_sms_new_count?: number;
-    /** P6呼叫数 */
-    r_f_call_new_count?: number;
-    /** P6结清数 */
-    r_g_settled_count?: number;
-    /** P6结清金额 */
-    r_h_settled_amount?: number;
-    /** P6部分还款数 */
-    r_i_part_count?: number;
-    /** P6部分还款金额 */
-    r_j_part_amount?: number;
-    /** P6展期数 */
-    r_k_extend_count?: number;
-    /** P6展期金额 */
-    r_l_extend_amount?: number;
-    /** P6 level1佣金 */
-    r_m_level1_commission?: number;
-    /** P6 level2佣金 */
-    r_n_level2_commission?: number;
-    /** P6 level3佣金 */
-    r_o_level3_commission?: number;
-    /** P6首日催回数 */
-    r_r_day1_paid_count?: number;
-    /** P6首日催回金额 */
-    r_s_day1_paid_amount?: number;
-    /** P6首日催回数 */
-    r_t_day1_action_count?: number;
-    /** P6 2-3催回数 */
-    r_u_day2_3_paid_count?: number;
-    /** P6 2-3催回金额 */
-    r_v_day2_3_paid_amount?: number;
-    /** P6 2-3催回数 */
-    r_w_day2_3_action_count?: number;
-    /** P6 4+催回数 */
-    r_x_day4_paid_count?: number;
-    /** P6 4+催回金额 */
-    r_y_day4_paid_amount?: number;
-    /** P6 4+操作数 */
-    r_z_day4_action_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 协商中订单数 */
+    k_a_negotiating_cnt?: number;
+    /** 承诺还款订单数 */
+    k_b_promised_cnt?: number;
+    /** 承诺未还订单数 */
+    k_c_broken_cnt?: number;
+    /** 拒绝还款订单数 */
+    k_d_refuse_cnt?: number;
+    /** 挂断订单数 */
+    k_e_hang_up_cnt?: number;
+    /** 未记录日志数 */
+    k_f_no_log_cnt?: number;
+    /** 未拨打电话数 */
+    k_g_no_call_cnt?: number;
+    /** kpi1 */
+    k_i_collection_kpi_1_id?: number;
+    /** kpi2 */
+    k_j_collection_kpi_2_id?: number;
+    /** kpi3 */
+    k_k_collection_kpi_3_id?: number;
+    /** kpi4 */
+    k_l_collection_kpi_4_id?: number;
+    /** 热力图 */
+    k_m_heatmap?: string;
   };
 
   type WMCollectionReport = {
@@ -11450,6 +11261,86 @@ declare namespace API {
     a_j_template_count?: number;
     /** ak */
     a_k_template_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WSCollectionAdminHeatmap = {
+    /** id */
+    id?: number;
+    /** 日期 */
+    a_date?: string;
+    /** 时 */
+    b_init_count?: number;
+    /** 分 */
+    c_success_count?: number;
+    /** 员工 */
+    e_collection_admin_id?: number;
+    /** 机构 */
+    f_collection_agency_id?: number;
+    /** 小组 */
+    g_collection_group_id?: number;
+    /** 总数 */
+    h_count?: number;
+    /** 日志数 */
+    i_log_count?: number;
+    /** 外呼数 */
+    g_call_count?: number;
+    /** 短信 */
+    k_sms_count?: number;
+    /** 还款 */
+    l_repay_count?: number;
+    /** 详情 */
+    m_details?: string;
+    /** 未记录日志数 */
+    n_no_log_count?: number;
+    /** 未外呼数 */
+    o_no_call_count?: number;
+    /** 还款 */
+    p_kpi?: number;
+    /** 上一次id */
+    q_last_collection_admin_heatmap_detail_id?: number;
+    /** 奖金 */
+    r_bonus?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type WTCollectionAdminHeatmapDetail = {
+    /** id */
+    id?: number;
+    /** 日期 */
+    a_date?: string;
+    /** 时 */
+    b_hour?: number;
+    /** 分 */
+    c_minute?: number;
+    /** 员工 */
+    e_collection_admin_id?: number;
+    /** 机构 */
+    f_collection_agency_id?: number;
+    /** 小组 */
+    g_collection_group_id?: number;
+    /** 总数 */
+    h_count?: number;
+    /** 日志数 */
+    i_log_count?: number;
+    /** 外呼数 */
+    g_call_count?: number;
+    /** 短信 */
+    k_sms_count?: number;
+    /** 还款 */
+    l_repay_count?: number;
+    /** 日志 */
+    m_collection_news_ids?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */

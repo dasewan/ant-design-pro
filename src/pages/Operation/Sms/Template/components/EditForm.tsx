@@ -384,7 +384,10 @@ const EditForm: React.FC<FormProps> = (props) => {
         o_send_email: 1,
       }}
     >
-
+        <ProFormText
+            label={intl.formatMessage({ id: 'pages.HJSmsTemplate.e_sender_id', defaultMessage: '' })}
+            name="s_name"
+        />
       <ProFormCascader
         name="b_node_type"
         label="类型"

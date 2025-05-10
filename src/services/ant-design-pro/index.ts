@@ -129,6 +129,8 @@ import * as woFee from './woFee';
 import * as wpBackFill from './wpBackFill';
 import * as wqSmsReport from './wqSmsReport';
 import * as wrSmsTemplate from './wrSmsTemplate';
+import * as wsCollectionAdminHeatmap from './wsCollectionAdminHeatmap';
+import * as wtCollectionAdminHeatmapDetail from './wtCollectionAdminHeatmapDetail';
 export default {
   abCreditHistory,
   acUserNew,
@@ -257,4 +259,6 @@ export default {
   wpBackFill,
   wqSmsReport,
   wrSmsTemplate,
+  wsCollectionAdminHeatmap,
+  wtCollectionAdminHeatmapDetail,
 };

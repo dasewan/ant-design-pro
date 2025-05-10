@@ -10,6 +10,7 @@ import {useIntl} from '@@/exports';
 import {
   postAdminV1GCMarketingHistories as storeGCMarketingHistories
 } from '@/services/ant-design-pro/GCMarketingHistory';
+import { VERIFY_STATUS_OPTION } from '@/pages/enums';
 
 export type FormValueType = Partial<API.GBMarketing>;
 export type FormRecord = API.GBMarketing;
@@ -18,6 +19,8 @@ export type FormProps = {
   onSubmit: (values: boolean) => Promise<void>;
   modalVisible: boolean;
   marketingIds: string;
+  smss: RequestOptionsType[];
+  smsViews: RequestOptionsType[];
 };
 
 /**
@@ -29,9 +32,9 @@ const MarketingForm: React.FC<FormProps> = (props) => {
   const intl = useIntl();
   const formRef = useRef<ProFormInstance>();
   /** 短信模版enum */
-  const [smss, setSmss] = useState<RequestOptionsType[]>([]);
+  // const [smss, setSmss] = useState<RequestOptionsType[]>([]);
   /** 短信模版预览enum */
-  const [smsViews, setSmsViews] = useState<RequestOptionsType[]>([]);
+  // const [smsViews, setSmsViews] = useState<RequestOptionsType[]>([]);
   /** 已选择的预览内容 */
   const [smsSelectedView, setSmsSelectedView] = useState<string>('');
   // const [useViewCountShow, setUseViewCountShow] = useState<boolean>(false);
@@ -69,26 +72,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
    * 查询短信enum
    */
   const _getSMSsEnum: ProFieldRequestData = async () => {
-    if (smss.length === 0) {
-      // const res = await getChannelsEnum({ foo: 1 });
-      const data = [
-        { label: '营销短信1', value: 1 },
-        { label: '营销短信2', value: 2 },
-        { label: '营销短信3', value: 3 },
-        { label: '营销短信4', value: 4 },
-      ];
-      const data2 = [
-        { label: '亲爱的Tom你好，您的授信额度已送达，点击http://www.baidu.com获取额度', value: 1 },
-        { label: '亲爱的Tom你好，您的授信额度已送达，点击http://www.baidu.com获取额度2', value: 2 },
-        { label: '亲爱的Tom你好，您的授信额度已送达，点击http://www.baidu.com获取额度3', value: 3 },
-        { label: '亲爱的Tom你好，您的授信额度已送达，点击http://www.baidu.com获取额度4', value: 4 },
-      ];
-      setSmss(data);
-      setSmsViews(data2);
-      return data;
-    } else {
-      return smss;
-    }
+    return props.smss;
   };
 
   return (
@@ -123,12 +107,13 @@ const MarketingForm: React.FC<FormProps> = (props) => {
           id: 'pages.userManager.marketingHistory.c_sms_templete_id',
           defaultMessage: '',
         })}
-        request={_getSMSsEnum}
+        // request={_getSMSsEnum}
+        options={props.smss}
         fieldProps={{
           onChange: (value) => {
             // @ts-ignore
             setSmsSelectedView(
-              smsViews!.find((item) => {
+              props.smsViews!.find((item) => {
                 return item.value === value;
               })?.label! as string
             );
@@ -152,6 +137,18 @@ const MarketingForm: React.FC<FormProps> = (props) => {
       ) : (
         ''
       )}
+      <ProFormText
+        // width="md"
+        name="p_url"
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.p_url',
+          defaultMessage: '',
+        })}
+        fieldProps={{
+          addonBefore: 'https://',
+          addonAfter: '/',
+        }}
+      />
       <ProFormRadio.Group
         name="d_theme_id"
         label={intl.formatMessage({

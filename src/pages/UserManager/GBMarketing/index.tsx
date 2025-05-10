@@ -14,6 +14,7 @@ import type {TableListItem, TableListPagination} from './data';
 
 import {US_STATUS_ENUM} from '@/pages/enumsUs';
 import {getAdminV1ChannelsEnum as getChannelsEnum} from '@/services/ant-design-pro/AFChannel';
+import {getAdminV1HJSmsTemplatesEnum as getSmsTemplatesEnum} from '@/services/ant-design-pro/HJSmsTemplate';
 import {getAdminV1GBMarketings as index} from '@/services/ant-design-pro/GBMarketing';
 import {getAdminV1UsersEnum as getUserEnum} from '@/services/ant-design-pro/User';
 
@@ -34,7 +35,33 @@ const TableList: React.FC = () => {
   const [marketingIds, handleMarketingIds] = useState<string>('');
   /** 短信模版enum */
   const [smss, setSmss] = useState<RequestOptionsType[]>([]);
-
+  /** 短信模版预览enum */
+  const [smsViews, setSmsViews] = useState<RequestOptionsType[]>([]);
+  /**
+   * 查询短信enum
+   */
+  const _getSMSsEnum: ProFieldRequestData = async () => {
+    const data: RequestOptionsType[] = [];
+    const dataPreview: RequestOptionsType[] = [];
+    if (smss.length === 0) {
+      const res = await getSmsTemplatesEnum({ c_type: 25 });
+      for (const item of res.data!) {
+        data.push({
+          label: item.s_name,
+          value: item.id,
+        });
+        dataPreview.push({
+          label: item.d_template,
+          value: item.id,
+        });
+      }
+      setSmss(data);
+      setSmsViews(dataPreview);
+      return data;
+    } else {
+      return smss;
+    }
+  };
   /** table */
   const _index = async (
     // 第一个参数 params 查询表单和 params 参数的结合
@@ -50,6 +77,7 @@ const TableList: React.FC = () => {
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
+    await _getSMSsEnum({ foo: 1 });
     return {
       data: res.data,
       // success 请返回 true，
@@ -81,25 +109,7 @@ const TableList: React.FC = () => {
     }
   };
 
-  /**
-   * 查询短信enum
-   */
-  const _getSMSsEnum: ProFieldRequestData = async () => {
-    if (smss.length === 0) {
-      // const res = await getChannelsEnum({ foo: 1 });
-      const data = [
-        { label: '营销短信1', value: 1 },
-        { label: '营销短信2', value: 2 },
-        { label: '营销短信3', value: 3 },
-        { label: '营销短信4', value: 4 },
-      ];
-      console.log(data);
-      setSmss(data);
-      return data;
-    } else {
-      return smss;
-    }
-  };
+
   /**
    * 开始营销
    * @param ids
@@ -116,6 +126,26 @@ const TableList: React.FC = () => {
     const data: RequestOptionsType[] = [];
     if (channels.length === 0) {
       const res = await getChannelsEnum({ foo: 1 });
+      for (const item of res.data!) {
+        data.push({
+          label: item.a_title,
+          value: item.id,
+        });
+      }
+      setChannels(data);
+      return data;
+    } else {
+      return channels;
+    }
+  };
+
+  /**
+   * 查询渠道enum
+   */
+  const _getSmsTemplateEnum: ProFieldRequestData = async () => {
+    const data: RequestOptionsType[] = [];
+    if (channels.length === 0) {
+      const res = await getSmsTemplatesEnum({ c_type: 25 });
       for (const item of res.data!) {
         data.push({
           label: item.a_title,
@@ -719,6 +749,8 @@ const TableList: React.FC = () => {
           handleMarketingModalVisible(false);
           handleMarketingIds('');
         }}
+        smss={smss}
+        smsViews={smsViews}
         marketingIds={marketingIds}
         modalVisible={marketingModalVisible}
       />
