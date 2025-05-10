@@ -315,21 +315,23 @@ const EditForm: React.FC<FormProps> = (props) => {
   // 替换占位符的逻辑
   const replacePlaceholders = (input: string): string => {
     const replacements = {
-      code: '4361',
-      mobile: '521452354',
-      name: 'Isioma Osamor',
-      loan_amount: '2000',
-      repay_amount: '2000',
-      expect_repay_time: '2025-05-21',
-      borrow_days: '7',
-      overdue_days: '3',
-      up_amount: '1500',
-      bankcard_bank: 'Access Bank',
-      bankcard_number: '6042209290',
-      app_name: 'CashU',
-      product_name: 'We Loan',
-      recieve_bank: 'PALMPAY',
-      recieve_bank_no: '6615155578',
+      "code": "123456",
+      "mobile": "13800138000",
+      "name": "daniel osarumwens",
+      "loan_amount": "5000",
+      "expect_repay_amount": "5200",
+      "expect_repay_time": "May 16, 2025",
+      "borrow_days": "30",
+      "overdue_days": "5",
+      "up_amount": "1000.00",
+      "app_name": "kaka loan market",
+      "product_name": "weloan",
+      "receive_bank": "Sterling Bank",
+      "receive_bank_no": "5227281110",
+      "account_name": "John Doe",
+      "account_no": "5227281110",
+      "account_bank": "HSBC",
+      "url": "https://bit.ly/si3qdn"
     };
 
     return input.replace(/@(\w+)@/g, (match, p1) => replacements[p1] || match);
@@ -451,7 +453,7 @@ const EditForm: React.FC<FormProps> = (props) => {
             handleTemplateChange(e.target.value);
           },
         }}
-        extra=" @code@验证码 @mobile@手机号 @name@姓名 @loan_amount@放款金额 @repay_amount@还款金额 @expect_repay_time@还款时间 @borrow_days@借款天数 @overdue_days@逾期天数 @up_amount@提额金额 @bankcard_bank@收款银行 @bankcard_number@收款银行卡号 @overdue_days@逾期天数 @app_name@APP名称 @product_name@产品名称  @recieve_bank@收款银行 @recieve_bank_no@收款账号"
+        extra="@code@验证码 @mobile@手机号 @name@姓名 @loan_amount@放款金额 @expect_repay_amount@还款金额 @expect_repay_time@还款时间 @borrow_days@借款天数 @overdue_days@逾期天数 @up_amount@提额金额@app_name@APP名称 @product_name@产品名称 @receive_bank@收款银行 @receive_bank_no@收款账号@account_name@AccountName @account_no@ AccountNo @account_bank@ AccountBank @url@ url"
       />
       <ProFormUploadButton
         label="Upload"
