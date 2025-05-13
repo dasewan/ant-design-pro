@@ -333,7 +333,7 @@ const EditForm: React.FC<FormProps> = (props) => {
   const expandedRowRender2 = (record: API.HFCollectionAgencyRole, index: number) => {
     const nestedDataSource = record.a_a_a_a_a_n_b_collection_group_roles;
     const collectionGroups2 = props.collectionGroups.filter(
-      (item) => item.c_collection_agency_id === record.b_collection_agency_id! && item.d_collection_stage_id === props.id,
+      (item) => item.c_collection_agency_id === record.b_collection_agency_id! && item.d_collection_stage_id === String(props.id),
     );
     return (
       <NestedEditableTable

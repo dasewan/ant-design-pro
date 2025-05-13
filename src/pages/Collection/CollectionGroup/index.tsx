@@ -67,7 +67,7 @@ const TableList: React.FC = () => {
       for (const item of res.data!) {
         data.push({
           label: item.a_name,
-          value: item.id,
+          value: String(item.id),
         });
       }
       setCollectionStages(data);

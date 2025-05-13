@@ -83,32 +83,12 @@ const TableList: React.FC = () => {
   };
 
   const columns: ProColumns<TableListItem>[] = [
-    //todo 动态draw和复制分离
     {
-      title: intl.formatMessage({
-        id: 'pages.userManager.marketingDetail.a_phone',
-        defaultMessage: '',
-      }),
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_phone', defaultMessage: '' }),
       dataIndex: 'a_phone',
-      tooltip: '规则名称是唯一的',
+      key: 'a_phone',
+      width: 120,
       copyable: true,
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.marketingDetail.i_channel_id',
-        defaultMessage: '',
-      }),
-      dataIndex: 'i_channel_id',
-      valueType: 'select',
-      request: _getChannelsEnum,
-      params: { timestamp: Math.random() },
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.marketingDetail.n_admin_file_id',
-        defaultMessage: '',
-      }),
-      dataIndex: 'n_admin_file_id',
     },
     {
       title: intl.formatMessage({
@@ -137,28 +117,124 @@ const TableList: React.FC = () => {
     },
     {
       title: intl.formatMessage({
-        id: 'pages.userManager.marketingDetail.f_marketing_history_id',
+        id: 'pages.GAMarketingDetailFactory.i_channel_id',
         defaultMessage: '',
       }),
-      dataIndex: 'f_marketing_history_id',
+      dataIndex: 'i_channel_id',
       valueType: 'select',
-      request: _getGCMarketingHistories,
+      request: _getChannelsEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: intl.formatMessage({
-        id: 'pages.userManager.marketingDetail.g_sms_times',
-        defaultMessage: '',
-      }),
-      dataIndex: 'g_sms_times',
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.c_email', defaultMessage: '' }),
+      dataIndex: 'c_email',
+      key: 'c_email',
+      width: 120,
     },
     {
-      title: intl.formatMessage({
-        id: 'pages.userManager.marketingDetail.h_email_times',
-        defaultMessage: '',
-      }),
-      dataIndex: 'h_email_times',
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.e_marketing_id', defaultMessage: '' }),
+      dataIndex: 'e_marketing_id',
+      key: 'e_marketing_id',
+      width: 120,
     },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.f_marketing_history_id', defaultMessage: '' }),
+      dataIndex: 'f_marketing_history_id',
+      key: 'f_marketing_history_id',
+      width: 120,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.g_sms_times', defaultMessage: '' }),
+      dataIndex: 'g_sms_times',
+      key: 'g_sms_times',
+      width: 120,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.h_email_times', defaultMessage: '' }),
+      dataIndex: 'h_email_times',
+      key: 'h_email_times',
+      width: 120,
+    },
+
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.k_view_count', defaultMessage: '' }),
+      dataIndex: 'k_view_count',
+      key: 'k_view_count',
+      width: 120,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.t_download_times', defaultMessage: '' }),
+      dataIndex: 't_download_times',
+      key: 't_download_times',
+      width: 120,
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.l_last_marketing_time', defaultMessage: '' }),
+      dataIndex: 'l_last_marketing_time',
+      key: 'l_last_marketing_time',
+      width: 120,
+      render: (_, record) => {
+        if (!record!.l_last_marketing_time) {
+          return '-';
+        }
+        return moment(record!.l_last_marketing_time).format('YY-MM-DD HH:mm');
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.p_first_viewed_time', defaultMessage: '首次查看与最后营销时间差' }),
+      key: 'time_diff',
+      render: (_, record) => {
+        const lastMarketingTime = moment(record.l_last_marketing_time);
+        const firstViewedTime = record.p_first_viewed_time ? moment(record.p_first_viewed_time) : null;
+
+        if (!firstViewedTime) {
+          return '-';
+        }
+
+        const diff = firstViewedTime.diff(lastMarketingTime);
+        if (diff < 60000) {
+          return `${Math.round(diff / 1000)}秒`;
+        } else if (diff < 3600000) {
+          return `${Math.round(diff / 60000)}分钟`;
+        } else if (diff < 86400000) {
+          return `${Math.round(diff / 3600000)}小时`;
+        } else {
+          return `${Math.round(diff / 86400000)}天`;
+        }
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.q_first_download_time', defaultMessage: '首次查看与最后营销时间差' }),
+      key: 'time_diff',
+      render: (_, record) => {
+        const q_first_download_time = moment(record.q_first_download_time);
+        const firstViewedTime = record.p_first_viewed_time ? moment(record.p_first_viewed_time) : null;
+
+        if (!firstViewedTime) {
+          return '-';
+        }
+
+        const diff = firstViewedTime.diff(q_first_download_time);
+        if (diff < 60000) {
+          return `${Math.round(diff / 1000)}秒`;
+        } else if (diff < 3600000) {
+          return `${Math.round(diff / 60000)}分钟`;
+        } else if (diff < 86400000) {
+          return `${Math.round(diff / 3600000)}小时`;
+        } else {
+          return `${Math.round(diff / 86400000)}天`;
+        }
+      },
+    },
+    // 短信记录
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.sms', defaultMessage: '记录' }),
+      dataIndex: 'k_view_count',
+      key: 'k_view_count',
+      width: 120,
+    },
+
+    
   ];
 
   return (

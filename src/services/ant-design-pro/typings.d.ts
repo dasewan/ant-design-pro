@@ -2436,6 +2436,14 @@ declare namespace API {
     n_admin_file_id?: number;
     /** 状态 0：待营销 1：营销中 2：过期 */
     o_status?: number;
+    /** 首次查看时间 */
+    p_first_viewed_time?: string;
+    /** 首次下载时间 */
+    q_first_download_time?: string;
+    /** 最后一次下载时间 */
+    r_last_download_time?: string;
+    /** 下载次数 */
+    t_download_times?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2473,7 +2481,7 @@ declare namespace API {
     l_type?: string;
     /** 状态：1待执行 2：执行中 3：执行成功 4：执行失败* 5： 无效 */
     m_status?: number;
-    /** 注册数量* */
+    /** 查看数量* */
     n_viewed_count?: number;
     /** 查看数量（用户去重，隔天统计）* */
     o_viewed_deduplication_count?: number;
@@ -2489,6 +2497,12 @@ declare namespace API {
     t_black_count?: number;
     /** 首次营销时间 */
     u_first_marketing_time?: string;
+    /** 下载次数 */
+    v_download_count?: number;
+    /** 下载次数 */
+    w_download_deduplication_count?: number;
+    /** 注册数量 */
+    x_register_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2531,6 +2545,20 @@ declare namespace API {
     n_user_view_count?: number;
     /** 是否同时发送邮件 */
     o_send_email?: string;
+    /** url */
+    p_url?: string;
+    /** 下载次数 */
+    q_download_times?: number;
+    /** 下载次数（去重） */
+    r_download_deduplication_times?: number;
+    /** 首次查看时间 */
+    s_first_viewd_time?: string;
+    /** 最近查看时间 */
+    t_last_viewed_time?: string;
+    /** 首次下载时间 */
+    u_first_download_time?: string;
+    /** 最近下载时间 */
+    v_last_download_time?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */

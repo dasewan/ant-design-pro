@@ -7,11 +7,13 @@ import { history, Link } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import { getAdminV1CurrentUsers as queryCurrentUser } from './services/ant-design-pro/CurrentUser';
-import type { Context } from 'D:/x/github/ant-design-pro/node_modules/umi-request';
+import type { Context } from 'E:/www/x/ant-design-pro/node_modules/umi-request';
+// import moment from 'moment-timezone';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
-
+// 设置全局时区为尼日利亚时区
+// moment.tz.setDefault('Africa/Lagos');
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */

@@ -226,6 +226,8 @@ const CreateForm: React.FC<FormProps> = (props) => {
         label={FieldLabels.f_status}
         checkedChildren="启用"
         unCheckedChildren="禁用"
+        valuePropName="checked"
+        getValueFromEvent={(checked) => (checked ? 1 : 0)}
       />
       <ProFormText
         label={<>{FieldLabels.g_comment}</>}
