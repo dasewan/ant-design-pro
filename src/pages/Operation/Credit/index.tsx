@@ -27,14 +27,9 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 
-const ageGroups = [
-  { min: 0, max: 5, startColor: [220, 220, 220], endColor: [150, 150, 150] }, // 少年：浅灰色到深灰色
-  { min: 6, max: 10, startColor: [200, 255, 255], endColor: [0, 200, 200] }, // 青年：浅青色到深青色
-  { min: 11, max: 15, startColor: [255, 255, 200], endColor: [200, 200, 0] }, // 中年：浅黄色到深黄色
-  { min: 16, max: 20, startColor: [230, 200, 255], endColor: [128, 100, 238] }, // 老年：浅红色到深红色
-];
+
 // 根据年龄计算背景颜色
-const getBackgroundColor = (age) => {
+const getBackgroundColor = (age, ageGroups) => {
   // 找到年龄所属的分段
   const group = ageGroups.find((g) => age >= g.min && age <= g.max);
   if (!group) return 'white'; // 默认白色
@@ -106,9 +101,20 @@ interface Coefficient {
   break2: number;
   break3: number;
   break4: number;
+  count1: number;
+  count2: number;
+  count3: number;
+  count4: number;
   initial_score: number;
   overdue_days: string;
 }
+  // 定义年龄分组类型别名
+  type AgeGroup = {
+    min: number;
+    max: number;
+    startColor: number[];
+    endColor: number[];
+  };
 
 
 
@@ -122,6 +128,15 @@ const TableList: React.FC = () => {
   // 排序固定模版
   const [dataSource, setDataSource] = useState<[]>([]);
   const [coefficient, setCoefficient] = useState<API.NHCreditRole>([]);
+
+
+  const [ageGroups, setAgeGroups] = useState<AgeGroup[]>([
+    { min: 0, max: 5, startColor: [220, 220, 220], endColor: [150, 150, 150] }, // 少年：浅灰色到深灰色
+    { min: 6, max: 10, startColor: [200, 255, 255], endColor: [0, 200, 200] }, // 青年：浅青色到深青色
+    { min: 11, max: 15, startColor: [255, 255, 200], endColor: [200, 200, 0] }, // 中年：浅黄色到深黄色
+    { min: 16, max: 20, startColor: [230, 200, 255], endColor: [128, 100, 238] }, // 老年：浅红色到深红色
+  ]);
+
 
   const _index = async (
     // 第一个参数 params 查询表单和 params 参数的结合
@@ -148,33 +163,33 @@ const TableList: React.FC = () => {
     };
   };
   function getDynamicPenaltyParameters(repayCount: number, coefficient: Coefficient): DynamicPenaltyParameters {
-    if (repayCount > 15) {
+    if (repayCount > coefficient.count4) {
       return { p: coefficient.p4, q: coefficient.q4 };
-    } else if (repayCount > 10) {
+    } else if (repayCount > coefficient.count3) {
       return { p: coefficient.p3, q: coefficient.q3 };
-    } else if (repayCount > 5) {
+    } else if (repayCount > coefficient.count2) {
       return { p: coefficient.p2, q: coefficient.q2 };
     } else {
       return { p: coefficient.p1, q: coefficient.q1 };
     }
   }
   function getDynamicRewardParameters(repayCount: number, coefficient: Coefficient): DynamicRewardParameters {
-    if (repayCount > 15) {
+    if (repayCount > coefficient.count4) {
       return { k: coefficient.k4, a: coefficient.a4, b: coefficient.b4 };
-    } else if (repayCount > 10) {
+    } else if (repayCount > coefficient.count3) {
       return { k: coefficient.k3, a: coefficient.a3, b: coefficient.b3 };
-    } else if (repayCount > 5) {
+    } else if (repayCount > coefficient.count2) {
       return { k: coefficient.k2, a: coefficient.a2, b: coefficient.b2 };
     } else {
       return { k: coefficient.k1, a: coefficient.a1, b: coefficient.b1 };
     }
   }
   function getDynamicBreak(repayCount: number, coefficient: Coefficient): number {
-    if (repayCount > 15) {
+    if (repayCount > coefficient.count4) {
       return coefficient.break4;
-    } else if (repayCount > 10) {
+    } else if (repayCount > coefficient.count3) {
       return coefficient.break3;
-    } else if (repayCount > 5) {
+    } else if (repayCount > coefficient.count2) {
       return coefficient.break2;
     } else {
       return coefficient.break1;
@@ -204,6 +219,14 @@ const TableList: React.FC = () => {
     }
 
     console.log(coefficient)
+    let newAgeGroup  = [
+      { min: 0, max: coefficient.count2-1, startColor: [220, 220, 220], endColor: [150, 150, 150] }, // 少年：浅灰色到深灰色
+      { min: coefficient.count2, max: coefficient.count3 - 1, startColor: [200, 255, 255], endColor: [0, 200, 200] }, // 青年：浅青色到深青色
+      { min: coefficient.count3, max: coefficient.count4 - 1, startColor: [255, 255, 200], endColor: [200, 200, 0] }, // 中年：浅黄色到深黄色
+      { min: coefficient.count4, max: 120, startColor: [230, 200, 255], endColor: [128, 100, 238] }, // 老年：浅红色到深红色
+    ]
+    setAgeGroups(newAgeGroup);
+    
     const orders: Order[] = coefficient.overdue_days.split('-').map(Number).map((overdueDays, index) => ({
       overdue_days: overdueDays,
       repay_count: index + 1,
@@ -324,26 +347,15 @@ const TableList: React.FC = () => {
     { title: '信用分', dataIndex: 'credit', key: 'credit' },
   ];
   const columns2: ProColumns<API.NHCreditRole>[] = [
-
+    {
+      title: 'count1',
+      dataIndex: 'count1',
+      key: 'count1',
+    },
     {
       title: 'p1',
       dataIndex: 'p1',
       key: 'p1',
-    },
-    {
-      title: 'p2',
-      dataIndex: 'p2',
-      key: 'p2',
-    },
-    {
-      title: 'p3',
-      dataIndex: 'p3',
-      key: 'p3',
-    },
-    {
-      title: 'p4',
-      dataIndex: 'p4',
-      key: 'p4',
     },
     {
       title: 'q1',
@@ -351,39 +363,9 @@ const TableList: React.FC = () => {
       key: 'q1',
     },
     {
-      title: 'q2',
-      dataIndex: 'q2',
-      key: 'q2',
-    },
-    {
-      title: 'q3',
-      dataIndex: 'q3',
-      key: 'q3',
-    },
-    {
-      title: 'q4',
-      dataIndex: 'q4',
-      key: 'q4',
-    },
-    {
       title: 'k1',
       dataIndex: 'k1',
       key: 'k1',
-    },
-    {
-      title: 'k2',
-      dataIndex: 'k2',
-      key: 'k2',
-    },
-    {
-      title: 'k3',
-      dataIndex: 'k3',
-      key: 'k3',
-    },
-    {
-      title: 'k4',
-      dataIndex: 'k4',
-      key: 'k4',
     },
     {
       title: 'a1',
@@ -391,60 +373,16 @@ const TableList: React.FC = () => {
       key: 'a1',
     },
     {
-      title: 'a2',
-      dataIndex: 'a2',
-      key: 'a2',
-    },
-    {
-      title: 'a3',
-      dataIndex: 'a3',
-      key: 'a3',
-    },
-    {
-      title: 'a4',
-      dataIndex: 'a4',
-      key: 'a4',
-    },
-    {
       title: 'b1',
       dataIndex: 'b1',
       key: 'b1',
     },
     {
-      title: 'b2',
-      dataIndex: 'b2',
-      key: 'b2',
-    },
-    {
-      title: 'b3',
-      dataIndex: 'b3',
-      key: 'b3',
-    },
-    {
-      title: 'b4',
-      dataIndex: 'b4',
-      key: 'b4',
-    },
-    {
-      title: 'bk1',
+      title: 'break1',
       dataIndex: 'break1',
       key: 'break1',
     },
-    {
-      title: 'bk2',
-      dataIndex: 'break2',
-      key: 'break2',
-    },
-    {
-      title: 'bk3',
-      dataIndex: 'break3',
-      key: 'break3',
-    },
-    {
-      title: 'bk4',
-      dataIndex: 'break4',
-      key: 'break4',
-    },
+    
     {
       title: 'created_at',
       dataIndex: 'created_at',
@@ -555,8 +493,12 @@ const TableList: React.FC = () => {
                   break2: 4,
                   break3: 4,
                   break4: 5,
-                  initial_score: 600,
-                  overdue_days: '0-0-1-0-2-3-2-4-5-6-5-4-7-8-12-11-7-6-15',
+                  count1: 1,
+                  count2: 4,
+                  count3: 8,
+                  count4: 14,
+                  initial_score: 290,
+                  overdue_days: '0-0-0-0-0-0-0-0-0-0-0-0-0-0-1-2-3-4-5',
                 };
                 const res = await show({ id: 0 });
                 // setCoefficient(values);
@@ -564,15 +506,20 @@ const TableList: React.FC = () => {
                 return {...values, ...res.data};
               }}
             >
-              <Divider variant="dashed" orientation="left">
-                0-5
-              </Divider>
+              <ProFormDigit
+                name="count1"
+                min={0}
+                max={1000}
+                width="sm"
+                colProps={{ span: 3 }}
+                fieldProps={{ step: 1, addonBefore: 'count' }}
+              />
               <ProFormDigit
                 name="p1"
                 min={10}
                 max={350}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3, offset:1 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
               />
               <ProFormDigit
@@ -580,15 +527,23 @@ const TableList: React.FC = () => {
                 min={0.1}
                 max={15.0}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.1, addonBefore: 'q' }}
+              />
+              <ProFormDigit
+                name="break1"
+                min={1}
+                max={10}
+                width="sm"
+                colProps={{ span: 3 }}
+                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
               />
               <ProFormDigit
                 name="k1"
                 min={10}
                 max={350}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3, offset:1 }}
                 fieldProps={{ step: 1, addonBefore: 'k' }}
               />
               <ProFormDigit
@@ -596,7 +551,7 @@ const TableList: React.FC = () => {
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.1, addonBefore: 'a' }}
               />
               <ProFormDigit
@@ -604,26 +559,25 @@ const TableList: React.FC = () => {
                 min={0.01}
                 max={0.2}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.01, addonBefore: 'b' }}
               />
-              <ProFormDigit
-                name="break1"
-                min={1}
-                max={10}
+
+
+<ProFormDigit
+                name="count2"
+                min={0}
+                max={1000}
                 width="sm"
-                colProps={{ span: 4 }}
-                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
+                colProps={{ span: 3 }}
+                fieldProps={{ step: 1, addonBefore: 'count' }}
               />
-              <Divider variant="dashed" orientation="left">
-                6-10
-              </Divider>
               <ProFormDigit
                 name="p2"
                 min={10}
                 max={350}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3, offset:1 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
               />
               <ProFormDigit
@@ -631,15 +585,23 @@ const TableList: React.FC = () => {
                 min={0.1}
                 max={15.0}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.1, addonBefore: 'q' }}
+              />
+              <ProFormDigit
+                name="break2"
+                min={1}
+                max={10}
+                width="sm"
+                colProps={{ span: 3 }}
+                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
               />
               <ProFormDigit
                 name="k2"
                 min={10}
                 max={350}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3, offset:1 }}
                 fieldProps={{ step: 1, addonBefore: 'k' }}
               />
               <ProFormDigit
@@ -647,7 +609,7 @@ const TableList: React.FC = () => {
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.1, addonBefore: 'a' }}
               />
               <ProFormDigit
@@ -655,26 +617,23 @@ const TableList: React.FC = () => {
                 min={0.01}
                 max={0.2}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.01, addonBefore: 'b' }}
               />
               <ProFormDigit
-                name="break2"
-                min={1}
-                max={10}
+                name="count3"
+                min={0}
+                max={1000}
                 width="sm"
-                colProps={{ span: 4 }}
-                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
+                colProps={{ span: 3 }}
+                fieldProps={{ step: 1, addonBefore: 'count' }}
               />
-              <Divider variant="dashed" orientation="left">
-                11-15
-              </Divider>
               <ProFormDigit
                 name="p3"
                 min={10}
                 max={350}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3, offset:1 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
               />
               <ProFormDigit
@@ -682,15 +641,23 @@ const TableList: React.FC = () => {
                 min={0.1}
                 max={15.0}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.1, addonBefore: 'q' }}
+              />
+              <ProFormDigit
+                name="break3"
+                min={1}
+                max={10}
+                width="sm"
+                colProps={{ span: 3 }}
+                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
               />
               <ProFormDigit
                 name="k3"
                 min={10}
                 max={350}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3, offset:1 }}
                 fieldProps={{ step: 1, addonBefore: 'k' }}
               />
               <ProFormDigit
@@ -698,7 +665,7 @@ const TableList: React.FC = () => {
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.1, addonBefore: 'a' }}
               />
               <ProFormDigit
@@ -706,26 +673,23 @@ const TableList: React.FC = () => {
                 min={0.01}
                 max={0.2}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.01, addonBefore: 'b' }}
               />
               <ProFormDigit
-                name="break3"
-                min={1}
-                max={10}
+                name="count4"
+                min={0}
+                max={1000}
                 width="sm"
-                colProps={{ span: 4 }}
-                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
+                colProps={{ span: 3 }}
+                fieldProps={{ step: 1, addonBefore: 'count' }}
               />
-              <Divider variant="dashed" orientation="left">
-                16+
-              </Divider>
               <ProFormDigit
                 name="p4"
                 min={10}
                 max={350}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3, offset:1 }}
                 fieldProps={{ step: 1, addonBefore: 'p' }}
               />
               <ProFormDigit
@@ -733,15 +697,23 @@ const TableList: React.FC = () => {
                 min={0.1}
                 max={15.0}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.1, addonBefore: 'q' }}
+              />
+              <ProFormDigit
+                name="break4"
+                min={1}
+                max={10}
+                width="sm"
+                colProps={{ span: 3 }}
+                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
               />
               <ProFormDigit
                 name="k4"
                 min={10}
                 max={350}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3, offset:1 }}
                 fieldProps={{ step: 1, addonBefore: 'k' }}
               />
               <ProFormDigit
@@ -749,7 +721,7 @@ const TableList: React.FC = () => {
                 min={0.1}
                 max={5.0}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.1, addonBefore: 'a' }}
               />
               <ProFormDigit
@@ -757,23 +729,15 @@ const TableList: React.FC = () => {
                 min={0.01}
                 max={0.2}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.01, addonBefore: 'b' }}
-              />
-              <ProFormDigit
-                name="break4"
-                min={1}
-                max={10}
-                width="sm"
-                colProps={{ span: 4 }}
-                fieldProps={{ step: 0.01, addonBefore: 'break', precision: 0 }}
               />
               <ProFormDigit
                 name="initial_score"
                 min={100}
                 max={700}
                 width="sm"
-                colProps={{ span: 4 }}
+                colProps={{ span: 3 }}
                 fieldProps={{ step: 0.01, addonBefore: '基础信用分', precision: 0 }}
               />
 
@@ -781,12 +745,13 @@ const TableList: React.FC = () => {
                 name="overdue_days"
                 tooltip="最长为 24 位"
                 placeholder="-分割"
-                colProps={{ span: 20 }}
+                colProps={{ span: 9, offset:1 }}
                 fieldProps={{ step: 0.01, addonBefore: 'overdueDays', style: { width: '100%' } }}
               />
               <ProFormText
                 name="comment"
                 placeholder=""
+                colProps={{ span: 9, offset:1 }}
                 fieldProps={{  addonBefore: 'comment', style: { width: '100%' } }}
               />
             </ProForm>
@@ -820,7 +785,7 @@ const TableList: React.FC = () => {
               bordered
               onRow={(record) => ({
                 style: {
-                  backgroundColor: getBackgroundColor(record.repayCount), // 动态设置背景颜色
+                  backgroundColor: getBackgroundColor(record.repayCount, ageGroups), // 动态设置背景颜色
                 },
               })}
             />
