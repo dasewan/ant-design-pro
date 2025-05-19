@@ -168,7 +168,11 @@ const TableList: React.FC = () => {
   ];
 
   const columns: ProColumns<TableListItem>[] = [
-
+    {
+      title: intl.formatMessage({ id: 'pages.HJSmsTemplate.s_name', defaultMessage: '' }),
+      dataIndex: 's_name',
+      key: 's_name',
+    },
     {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.b_node_type', defaultMessage: '' }),
       dataIndex: 'b_node_type',
@@ -353,7 +357,7 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.HJSmsTemplate.d_template', defaultMessage: '' }),
       dataIndex: 'd_template',
       key: 'd_template',
-      width: "50%"
+      width: "40%"
     },
     {
       title: '操作',

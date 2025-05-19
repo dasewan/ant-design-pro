@@ -959,6 +959,7 @@ export default {
   'pages.RARepayLog.b_b_collection_admin_id': '催员',
   'pages.RARepayLog.created_at': '创建时间',
   'pages.HJSmsTemplate.a_sender_id': 'Sender',
+  'pages.HJSmsTemplate.s_name': '名称',
   'pages.HJSmsTemplate.b_node_type': '节点类型',
   'pages.HJSmsTemplate.c_type': '类型',
   'pages.HJSmsTemplate.d_template': '模板',
