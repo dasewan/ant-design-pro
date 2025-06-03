@@ -139,7 +139,7 @@ export default defineConfig({
       requestLibPath: "import { request } from '@umijs/max'",
       // 或者使用在线的版本
       // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
-      schemaPath: 'http://test.dasewan.cn/docs',
+      schemaPath: 'http://api.dasewan.cn/docs',
       mock: false,
       hook: {
         // customFunctionName(operationObject: OperationObject) {
@@ -161,7 +161,7 @@ export default defineConfig({
     },
     // {
     //   requestLibPath: "import { request } from '@umijs/max'",
-    //   schemaPath: 'http://test.dasewan.cn/docs',
+    //   schemaPath: 'http://api.dasewan.cn/docs',
     //   projectName: 'swagger',
     // },
   ],
