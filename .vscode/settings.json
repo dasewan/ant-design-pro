@@ -1,4 +1,4 @@
 {
-    "workbench.preferredLightColorTheme": "Light",
-    "workbench.colorTheme": "Deep Blue"
+    "workbench.preferredHighContrastColorTheme": "Default High Contrast",
+    "workbench.colorTheme": "Solarized Light"
 }

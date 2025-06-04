@@ -69,6 +69,7 @@ import * as hhRecall from './hhRecall';
 import * as hiBackTip from './hiBackTip';
 import * as hiSmsTemplate from './hiSmsTemplate';
 import * as hjSmsTemplate from './hjSmsTemplate';
+import * as hkContactSms from './hkContactSms';
 import * as hProductSnapshot from './hProductSnapshot';
 import * as kaSmsTemplateOperatorRole from './kaSmsTemplateOperatorRole';
 import * as kSmsTemplateOperator from './kSmsTemplateOperator';
@@ -83,6 +84,7 @@ import * as neRiskStrategyRoute from './neRiskStrategyRoute';
 import * as nfSmsContact from './nfSmsContact';
 import * as ngNotification from './ngNotification';
 import * as nhCreditRole from './nhCreditRole';
+import * as niAdminRecording from './niAdminRecording';
 import * as noticeIconItem from './noticeIconItem';
 import * as oaDeduction from './oaDeduction';
 import * as oaRepay from './oaRepay';
@@ -106,6 +108,7 @@ import * as scRiskValueSms from './scRiskValueSms';
 import * as sdLiveness from './sdLiveness';
 import * as seVirtualAccount from './seVirtualAccount';
 import * as sfCollectionSubOrder from './sfCollectionSubOrder';
+import * as sgContact from './sgContact';
 import * as taRiskValueSmsOrder from './taRiskValueSmsOrder';
 import * as tbSms from './tbSms';
 import * as tCollectionAgency from './tCollectionAgency';
@@ -199,6 +202,7 @@ export default {
   hiBackTip,
   hiSmsTemplate,
   hjSmsTemplate,
+  hkContactSms,
   hProductSnapshot,
   kaSmsTemplateOperatorRole,
   kSmsTemplateOperator,
@@ -213,6 +217,7 @@ export default {
   nfSmsContact,
   ngNotification,
   nhCreditRole,
+  niAdminRecording,
   noticeIconItem,
   oaDeduction,
   oaRepay,
@@ -236,6 +241,7 @@ export default {
   sdLiveness,
   seVirtualAccount,
   sfCollectionSubOrder,
+  sgContact,
   taRiskValueSmsOrder,
   tbSms,
   tcOtherGatewayLog,
