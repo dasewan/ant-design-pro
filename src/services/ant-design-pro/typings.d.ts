@@ -2485,6 +2485,8 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** u_register_time */
+    u_register_time?: string;
   };
 
   type GBMarketing = {
@@ -2600,6 +2602,10 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** w_first_register_time */
+    w_first_register_time?: string;
+    /** x_last_register_time */
+    x_last_register_time?: string;
   };
 
   type GDRiskItem = {
@@ -4548,15 +4554,12 @@ declare namespace API {
     deleted_at?: string;
     /** 头像 */
     b_a_avatar?: string;
-<<<<<<< HEAD
     /** 今日未记录日志订单 */
     a_z_today_no_log_count?: number;
     /** 今日未拨打订单 */
     c_a_today_no_call_count?: number;
     /** 上次拨打电话时间 */
     c_b_last_call?: string;
-=======
->>>>>>> 9a702f65 (-)
   };
 
   type GNCollectionStage = {
@@ -6859,8 +6862,6 @@ declare namespace API {
     id?: number;
     /** name */
     name: string;
-    /** name */
-    path: string;    
     /** guard_name */
     guard_name: string;
     /** created_at */

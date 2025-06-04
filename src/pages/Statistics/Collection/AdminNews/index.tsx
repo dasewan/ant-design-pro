@@ -226,24 +226,10 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.b_init_count', defaultMessage: '' }),
       dataIndex: 'b_init_count',
       key: 'b_init_count',
+      render: (__, value) => {
+        return (value.c_success_count ?? 0) + ' / ' + (value.b_init_count?? 0) ;
+      },
     },
-    {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.c_success_count', defaultMessage: '' }),
-      dataIndex: 'c_success_count',
-      key: 'c_success_count',
-    },
-
-    {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.i_log_count', defaultMessage: '' }),
-      dataIndex: 'i_log_count',
-      key: 'i_log_count',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.g_call_count', defaultMessage: '' }),
-      dataIndex: 'g_call_count',
-      key: 'g_call_count',
-    },
-    
     {
       title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.n_no_log_count', defaultMessage: '' }),
       dataIndex: 'n_no_log_count',
@@ -254,31 +240,14 @@ const TableList: React.FC = () => {
       dataIndex: 'o_no_call_count',
       key: 'o_no_call_count',
     },
-    {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.p_kpi', defaultMessage: '' }),
-      dataIndex: 'p_kpi',
-      key: 'p_kpi',
-    },
     
     {
       title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_q_neo_count', defaultMessage: '' }),
       dataIndex: 'a_q_neo_count',
       key: 'a_q_neo_count',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_r_promise_count', defaultMessage: '' }),
-      dataIndex: 'a_r_promise_count',
-      key: 'a_r_promise_count',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_s_broken_count', defaultMessage: '' }),
-      dataIndex: 'a_s_broken_count',
-      key: 'a_s_broken_count',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_t_refuse_count', defaultMessage: '' }),
-      dataIndex: 'a_t_refuse_count',
-      key: 'a_t_refuse_count',
+      render: (__, value) => {
+        return (value.a_q_neo_count ?? 0) + '-' + (value.a_r_promise_count?? 0) + '-' + (value.a_s_broken_count?? 0) + '-' + (value.a_t_refuse_count?? 0);
+      },
     },
     {
       title: '操作',
@@ -287,6 +256,16 @@ const TableList: React.FC = () => {
       render: (_, record) => {
         return <HeatmapChart data={record.a_a_a_a_a_w_t_collection_admin_heatmap_details!} activeButtonKey={activeButtonKey} />
       },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.i_log_count', defaultMessage: '' }),
+      dataIndex: 'i_log_count',
+      key: 'i_log_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.g_call_count', defaultMessage: '' }),
+      dataIndex: 'g_call_count',
+      key: 'g_call_count',
     },
   ];
 

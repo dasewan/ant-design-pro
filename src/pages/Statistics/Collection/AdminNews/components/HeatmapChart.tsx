@@ -89,9 +89,13 @@ const HeatmapChart: React.FC<Props> = ({ data, activeButtonKey }) => {
 
           return (
             <Col key={index}>
-              <Tooltip title={tooltipTitle} overlayStyle={{ fontSize: '12px' }}>
+              {count != undefined && count > 0 ? (
+                <Tooltip title={tooltipTitle} overlayStyle={{ fontSize: '12px' }}>
+                  <div style={boxStyle(getColor(count ?? 0))} />
+                </Tooltip>
+              ) : (
                 <div style={boxStyle(getColor(count ?? 0))} />
-              </Tooltip>
+              )}
             </Col>
           );
         })}
