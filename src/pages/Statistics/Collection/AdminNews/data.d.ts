@@ -1,4 +1,4 @@
-export type TableListItem = API.HECollectionGroup;
+export type TableListItem = API.WSCollectionAdminHeatmap;
 
 export type TableListPagination = {
   total: number;

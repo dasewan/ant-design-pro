@@ -861,7 +861,7 @@ declare namespace API {
     a_borrow_id?: number;
     /** 管理员id */
     b_admin_id?: number;
-    /** 审核结果 0:待审核 1: 通过 2:拒绝 */
+    /** 审核结果 0:待审核 50: 通过 40:拒绝 */
     c_result?: number;
     /** 证件号 */
     d_id_number_result?: number;
@@ -895,6 +895,26 @@ declare namespace API {
     r_liveness_result?: number;
     /** ocr */
     s_ocr_result?: number;
+    /** 标记总数 */
+    t_mark_phone_count?: number;
+    /** 真实数 */
+    u_mark_real_phone_count?: number;
+    /** 虚假数 */
+    v_mark_fake_phone_count?: number;
+    /** 是否是本人 */
+    w_is_borrower?: number;
+    /** 订单号 */
+    x_sn?: string;
+    /** 号码 */
+    y_phone?: string;
+    /** 借款次数 */
+    z_borrow_count?: number;
+    /** 姓名 */
+    a_a_name?: string;
+    /** 不认识数 */
+    a_b_not_know_count?: number;
+    /** 头像 */
+    a_c_avatar?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2017,6 +2037,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1HKContactSmsIdParams = {
+    /** id of HKContactSms */
+    id: number;
+  };
+
   type deleteAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -2084,6 +2109,11 @@ declare namespace API {
 
   type deleteAdminV1NHCreditRolesIdParams = {
     /** id of NHCreditRole */
+    id: number;
+  };
+
+  type deleteAdminV1NIAdminRecordingsIdParams = {
+    /** id of NIAdminRecording */
     id: number;
   };
 
@@ -2189,6 +2219,11 @@ declare namespace API {
 
   type deleteAdminV1SFCollectionSubOrdersIdParams = {
     /** id of SFCollectionSubOrder */
+    id: number;
+  };
+
+  type deleteAdminV1SGContactsIdParams = {
+    /** id of SGContact */
     id: number;
   };
 
@@ -2307,7 +2342,7 @@ declare namespace API {
     id: number;
   };
 
-  type deleteAdminV1WTCollectionAdminHeatmapDetailsIdParams = {
+  type deleteAdminV1WTHeatmapDetailsIdParams = {
     /** id of WTCollectionAdminHeatmapDetail */
     id: number;
   };
@@ -3411,6 +3446,16 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1HKContactSmsIdParams = {
+    /** id of HKContactSms */
+    id: number;
+  };
+
+  type getAdminV1HKContactSmsParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -3567,6 +3612,16 @@ declare namespace API {
   };
 
   type getAdminV1NHCreditRolesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1NIAdminRecordingsIdParams = {
+    /** id of NIAdminRecording */
+    id: number;
+  };
+
+  type getAdminV1NIAdminRecordingsParams = {
     /** foo */
     foo: number;
   };
@@ -3802,6 +3857,16 @@ declare namespace API {
   };
 
   type getAdminV1SFCollectionSubOrdersParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1SGContactsIdParams = {
+    /** id of SGContact */
+    id: number;
+  };
+
+  type getAdminV1SGContactsParams = {
     /** foo */
     foo: number;
   };
@@ -4056,12 +4121,12 @@ declare namespace API {
     foo: number;
   };
 
-  type getAdminV1WTCollectionAdminHeatmapDetailsIdParams = {
+  type getAdminV1WTHeatmapDetailsIdParams = {
     /** id of WTCollectionAdminHeatmapDetail */
     id: number;
   };
 
-  type getAdminV1WTCollectionAdminHeatmapDetailsParams = {
+  type getAdminV1WTHeatmapDetailsParams = {
     /** foo */
     foo: number;
   };
@@ -5327,6 +5392,51 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type HKContactSms = {
+    /** id */
+    id?: number;
+    /** 用户 */
+    a_user_id?: number;
+    /** data */
+    date?: number;
+    /** date_sent */
+    date_sent?: number;
+    /** thread_id */
+    thread_id?: number;
+    /** read */
+    read?: number;
+    /** seen */
+    seen?: number;
+    /** status */
+    status?: number;
+    /** type */
+    type?: number;
+    /** address */
+    address?: string;
+    /** body */
+    body?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+    /** 设备id */
+    u_device_id?: number;
+    /** 黑名单id */
+    v_black_user_id?: number;
+    /** 白名单id */
+    w_white_user_id?: number;
+    /** 已注册用户id */
+    x_registered_user_id?: number;
+    /** 已逾期用户id */
+    y_overdue_user_id?: number;
+    /** 通讯录id */
+    a_a_contact_id?: number;
+    /** 姓名 */
+    a_b_contact_name?: string;
+  };
+
   type HProductSnapshot = {
     /** id */
     id?: number;
@@ -6260,8 +6370,49 @@ declare namespace API {
     break3?: number;
     /** break4 */
     break4?: number;
+    /** 起始次数1 */
+    count1?: number;
+    /** 起始次数2 */
+    count2?: number;
+    /** 起始次数3 */
+    count3?: number;
+    /** 起始次数4 */
+    count4?: number;
     /** 备注 */
     comment?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type NIAdminRecording = {
+    /** id */
+    id?: number;
+    /** 管理员 */
+    a_admin_id?: number;
+    /** 订单 */
+    b_borrow_id?: number;
+    /** 用户 */
+    c_user_id?: number;
+    /** 用户 */
+    d_contact_id?: number;
+    /** 查看次数 */
+    e_view_times?: number;
+    /** 上传类型 1:审核，2催收 */
+    f_type?: number;
+    /** 原始文件名 */
+    g_original_filename?: string;
+    /** 文件大小 */
+    h_filesize?: number;
+    /** 新文件名 */
+    i_new_filename?: string;
+    /** 备注 */
+    j_comment?: string;
+    /** k_call_at */
+    k_call_at?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -7048,6 +7199,11 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1HKContactSmsIdParams = {
+    /** id of HKContactSms */
+    id: number;
+  };
+
   type putAdminV1HProductSnapshotsIdParams = {
     /** id of HProductSnapshot */
     id: number;
@@ -7115,6 +7271,11 @@ declare namespace API {
 
   type putAdminV1NHCreditRolesIdParams = {
     /** id of NHCreditRole */
+    id: number;
+  };
+
+  type putAdminV1NIAdminRecordingsIdParams = {
+    /** id of NIAdminRecording */
     id: number;
   };
 
@@ -7225,6 +7386,11 @@ declare namespace API {
 
   type putAdminV1SFCollectionSubOrdersIdParams = {
     /** id of SFCollectionSubOrder */
+    id: number;
+  };
+
+  type putAdminV1SGContactsIdParams = {
+    /** id of SGContact */
     id: number;
   };
 
@@ -7343,7 +7509,7 @@ declare namespace API {
     id: number;
   };
 
-  type putAdminV1WTCollectionAdminHeatmapDetailsIdParams = {
+  type putAdminV1WTHeatmapDetailsIdParams = {
     /** id of WTCollectionAdminHeatmapDetail */
     id: number;
   };
@@ -7722,6 +7888,8 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** account number */
+    z_account_number?: string;
   };
 
   type QHSmsChannel = {
@@ -8514,6 +8682,45 @@ declare namespace API {
     y_s2_collection_commission?: number;
     /** S3佣金 */
     z_s3_collection_commission?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type SGContact = {
+    /** id */
+    id?: number;
+    /** 证件号 */
+    a_idnumber?: string;
+    /** 用户 */
+    b_user_id?: number;
+    /** 关系 */
+    c_relation?: string;
+    /** 呼叫次数 */
+    d_call_times?: number;
+    /** 最后一次呼叫时间 */
+    e_last_call_time?: string;
+    /** displayName */
+    f_name?: string;
+    /** 电话 */
+    g_phone?: string;
+    /** 审核结果 0：未审核 1：关系正确2：不认识 3：无法拨通 */
+    h_review_result?: number;
+    /** 是否需要审核 0：不需要 1：需要 */
+    i_need_review?: number;
+    /** 管理员 */
+    j_admin_id?: number;
+    /** 审核次数 */
+    k_review_count?: number;
+    /** 短信条数 */
+    l_sms_count?: number;
+    /** 关系等级 */
+    m_relation_level?: number;
+    /** 拨打次数 */
+    n_call_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -11300,11 +11507,13 @@ declare namespace API {
   type WSCollectionAdminHeatmap = {
     /** id */
     id?: number;
+    /** App\Models\WSCollectionAdminHeatmap */
+    a_a_a_a_a_w_t_collection_admin_heatmap_details?: WTCollectionAdminHeatmapDetail[];
     /** 日期 */
     a_date?: string;
-    /** 时 */
+    /** 案件数 */
     b_init_count?: number;
-    /** 分 */
+    /** 成功 */
     c_success_count?: number;
     /** 员工 */
     e_collection_admin_id?: number;
@@ -11334,6 +11543,46 @@ declare namespace API {
     q_last_collection_admin_heatmap_detail_id?: number;
     /** 奖金 */
     r_bonus?: number;
+    /** 新案件数-0 */
+    a_a_0_new_count?: number;
+    /** 新案件数-12 */
+    a_b_12_new_count?: number;
+    /** 新案件数-18 */
+    a_c_18_new_count?: number;
+    /** 还款数-0 */
+    a_d_0_repay_count?: number;
+    /** 还款数-12 */
+    a_e_12_repay_count?: number;
+    /** 还款数-18 */
+    a_f_18_repay_count?: number;
+    /** 初始金额 */
+    a_g_init_amount?: number;
+    /** 已还金额 */
+    a_h_repay_amount?: number;
+    /** lv1奖金 */
+    a_i_lv1_bonus?: number;
+    /** lv2奖金 */
+    a_j_lv2_bonus?: number;
+    /** lv3奖金 */
+    a_k_lv3_bonus?: number;
+    /** lv4奖金 */
+    a_l_lv4_bonus?: number;
+    /** lv1 */
+    a_m_lv1_kpi_id?: number;
+    /** lv2 */
+    a_n_lv2_kpi_id?: number;
+    /** lv3 */
+    a_o_lv3_kpi_id?: number;
+    /** lv4 */
+    a_p_lv4_kpi_id?: number;
+    /** 协商中 */
+    a_q_neo_count?: number;
+    /** 承诺还款 */
+    a_r_promise_count?: number;
+    /** 承诺未还 */
+    a_s_broken_count?: number;
+    /** 拒绝还款 */
+    a_t_refuse_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -11369,11 +11618,31 @@ declare namespace API {
     l_repay_count?: number;
     /** 日志 */
     m_collection_news_ids?: string;
+    /** 已还金额 */
+    a_h_repay_amount?: number;
+    /** lv1奖金 */
+    a_i_lv1_bonus?: number;
+    /** lv2奖金 */
+    a_j_lv2_bonus?: number;
+    /** lv3奖金 */
+    a_k_lv3_bonus?: number;
+    /** lv4奖金 */
+    a_l_lv4_bonus?: number;
+    /** 协商中 */
+    a_q_neo_count?: number;
+    /** 承诺还款 */
+    a_r_promise_count?: number;
+    /** 承诺未还 */
+    a_s_broken_count?: number;
+    /** 拒绝还款 */
+    a_t_refuse_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** b_a_collection_admin_heatmap_id */
+    b_a_collection_admin_heatmap_id?: number;
   };
 }

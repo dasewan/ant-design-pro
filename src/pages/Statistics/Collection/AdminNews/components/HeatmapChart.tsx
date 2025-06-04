@@ -1,19 +1,11 @@
 import { Row, Col, Tooltip } from 'antd';
-import React, { CSSProperties } from 'react';
-
-interface TimePoint {
-  date: string;
-  hour: number;
-  minute: number;
-  count: number;
-}
-
+import React, { CSSProperties, useEffect, useRef } from 'react';
 interface Props {
-  data: TimePoint[];
+  data: API.WTCollectionAdminHeatmapDetail[];
+  activeButtonKey: string;
 }
 
-const HeatmapChart: React.FC<Props> = ({ data }) => {
-  // 生成所有时间槽（96个）
+const HeatmapChart: React.FC<Props> = ({ data, activeButtonKey }) => {
   const generateAllTimeSlots = () => {
     const slots: { hour: number; minute: number }[] = [];
     for (let hour = 0; hour < 24; hour++) {
@@ -24,29 +16,23 @@ const HeatmapChart: React.FC<Props> = ({ data }) => {
     return slots;
   };
 
-  // 创建数据映射
   const createDataMap = () => {
-    return data.reduce((acc: Record<string, number>, curr) => {
-      const key = `${curr.hour}:${curr.minute}`;
-      acc[key] = curr.count;
+    return data.reduce((acc: Record<string, API.WTCollectionAdminHeatmapDetail>, curr) => {
+      const key = `${curr.b_hour}:${curr.c_minute}`;
+      acc[key] = curr!;
       return acc;
     }, {});
   };
 
-  // 获取颜色强度
   const getColor = (count?: number): string => {
     if (typeof count !== 'number' || count === 0) return '#f0f0f0'; // 无数据
-    // if (count <= 3) return '#f6ffed';   // 极低值（浅青）
-    if (count <= 5) return '#b7eb8f';   // 低值
-    // if (count <= 9) return '#b7eb8f';   // 中低值
-    // if (count <= 12) return '#73d13d';  // 中等值
-    // if (count <= 15) return '#389e0d';  // 中高值
-    if (count <= 10) return '#237804';  // 高值
-    if (count <= 15) return '#FB7CC8';  // 高值
-    if (count <= 20) return '#FF0033';  // 高值
+    if (count <= 3) return '#b7eb8f';   // 低值
+    if (count <= 6) return '#237804';  // 高值
+    if (count <= 10) return '#FB7CC8';  // 高值
+    if (count <= 15) return '#FF0033';  // 高值
     return '#660000';                   // 极高值（深墨绿）
   };
-  // 生成三小时刻度
+
   const generateTimeTicks = () => {
     return Array.from({ length: 8 }, (_, index) => ({
       hour: index * 3,
@@ -54,12 +40,10 @@ const HeatmapChart: React.FC<Props> = ({ data }) => {
     }));
   };
 
-  // 格式化时间显示
   const formatTime = (hour: number, minute: number) => {
     return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
   };
 
-  // 样式配置
   const boxStyle = (color: string): CSSProperties => ({
     width: '6px',
     height: '20px',
@@ -70,24 +54,43 @@ const HeatmapChart: React.FC<Props> = ({ data }) => {
   });
 
   const timeSlots = generateAllTimeSlots();
-  const dataMap = createDataMap();
+  const dataMapRef = useRef(createDataMap());
   const timeTicks = generateTimeTicks();
+
+  // 修改 useEffect 依赖项，添加 activeButtonKey
+  useEffect(() => {
+    dataMapRef.current = createDataMap();
+  }, [data, activeButtonKey]);
 
   return (
     <div style={{ padding: '20px', position: 'relative' }}>
-      {/* 热力图主体 */}
       <Row wrap={false}>
         {timeSlots.map((slot, index) => {
           const timeKey = `${slot.hour}:${slot.minute}`;
-          const count = dataMap[timeKey];
-          const tooltipTitle = count !== undefined
-            ? `${formatTime(slot.hour, slot.minute)} - 访问量: ${count}次`
-            : `${formatTime(slot.hour, slot.minute)} - 无数据`;
+          const data = dataMapRef.current[timeKey];
+          let count;
+          switch (activeButtonKey) {
+            case 'show':
+              count = data?.h_count;
+              break;
+            case 'out':
+              count = data?.i_log_count;
+              break;
+            case 'primary':
+              count = data?.g_call_count;
+              break;
+            default:
+              count = data?.h_count;
+          }
+
+          const tooltipTitle = data !== undefined
+            ? `${formatTime(slot.hour, slot.minute)} - total cnt: ${data.h_count ?? 0}, log cnt: ${data.i_log_count ?? 0}, call cnt: ${data.g_call_count ?? 0}`
+            : `${formatTime(slot.hour, slot.minute)} - no data`;
 
           return (
             <Col key={index}>
               <Tooltip title={tooltipTitle} overlayStyle={{ fontSize: '12px' }}>
-                <div style={boxStyle(getColor(count))} />
+                <div style={boxStyle(getColor(count ?? 0))} />
               </Tooltip>
             </Col>
           );
@@ -116,7 +119,6 @@ const HeatmapChart: React.FC<Props> = ({ data }) => {
           />
         ))}
       </Row>
-      {/* 时间刻度线 */}
       <Row
         justify="space-between"
         style={{

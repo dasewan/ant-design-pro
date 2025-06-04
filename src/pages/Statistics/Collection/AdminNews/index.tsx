@@ -1,13 +1,14 @@
 import CreateForm from '@/pages/Collection/CollectionGroup/components/CreateForm';
 import ReleaseForm from '@/pages/Collection/CollectionGroup/components/ReleaseForm';
+import { PhoneOutlined ,HighlightOutlined,NumberOutlined} from '@ant-design/icons';
 
 import { getAdminV1GNCollectionStagesEnum as getCollectionStagesEnum } from '@/services/ant-design-pro/GNCollectionStage';
 import {
-  getAdminV1HECollectionGroups as index,
   getAdminV1HECollectionGroupsEnum as getCollectionGroupsEnum,
   putAdminV1HECollectionGroupsId as update,
 } from '@/services/ant-design-pro/HECollectionGroup';
 import { getAdminV1TCollectionAgenciesEnum as getCollectionAgenciesEnum } from '@/services/ant-design-pro/TCollectionAgency';
+import { getAdminV1WTHeatmapDetails as index } from '@/services/ant-design-pro/WTCollectionAdminHeatmapDetail';
 import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
@@ -198,68 +199,93 @@ const TableList: React.FC = () => {
     }
   };
 
+  // 添加一个状态来记录当前被点击的按钮的 key
+  const [activeButtonKey, setActiveButtonKey] = useState<string>('all');
+
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: FieldLabels.a_name,
-      dataIndex: FieldIndex.a_name,
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_date', defaultMessage: '' }),
+      dataIndex: 'a_date',
+      key: 'a_date',
+      render: (text) => {
+        const date = moment(text);
+        if (date.isValid()) {
+          return date.format('MM-DD');
+        }
+        return text;
+      },
     },
     {
-      title: FieldLabels.a_name,
-      dataIndex: FieldIndex.a_name,
-    },
-    {
-      title: FieldLabels.a_name,
-      dataIndex: FieldIndex.a_name,
-    },
-    {
-      title: FieldLabels.a_name,
-      dataIndex: FieldIndex.a_name,
-    },
-    {
-      title: FieldLabels.a_name,
-      dataIndex: FieldIndex.a_name,
-    },
-    {
-      title: FieldLabels.a_name,
-      dataIndex: FieldIndex.a_name,
-    },
-    {
-      title: FieldLabels.a_name,
-      dataIndex: FieldIndex.a_name,
-    },
-    {
-      title: FieldLabels.b_admin_id,
-      dataIndex: FieldIndex.b_admin_id,
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.e_collection_admin_id', defaultMessage: '' }),
+      dataIndex: 'e_collection_admin_id',
+      key: 'e_collection_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
-      params: { timestamp: Math.random() },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.b_init_count', defaultMessage: '' }),
+      dataIndex: 'b_init_count',
+      key: 'b_init_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.c_success_count', defaultMessage: '' }),
+      dataIndex: 'c_success_count',
+      key: 'c_success_count',
+    },
+
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.i_log_count', defaultMessage: '' }),
+      dataIndex: 'i_log_count',
+      key: 'i_log_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.g_call_count', defaultMessage: '' }),
+      dataIndex: 'g_call_count',
+      key: 'g_call_count',
+    },
+    
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.n_no_log_count', defaultMessage: '' }),
+      dataIndex: 'n_no_log_count',
+      key: 'n_no_log_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.o_no_call_count', defaultMessage: '' }),
+      dataIndex: 'o_no_call_count',
+      key: 'o_no_call_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.p_kpi', defaultMessage: '' }),
+      dataIndex: 'p_kpi',
+      key: 'p_kpi',
+    },
+    
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_q_neo_count', defaultMessage: '' }),
+      dataIndex: 'a_q_neo_count',
+      key: 'a_q_neo_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_r_promise_count', defaultMessage: '' }),
+      dataIndex: 'a_r_promise_count',
+      key: 'a_r_promise_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_s_broken_count', defaultMessage: '' }),
+      dataIndex: 'a_s_broken_count',
+      key: 'a_s_broken_count',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_t_refuse_count', defaultMessage: '' }),
+      dataIndex: 'a_t_refuse_count',
+      key: 'a_t_refuse_count',
     },
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
-        // 时间索引转换方法
-// 在父组件中使用
-        const demoData = [
-          { date: "2024-04-21", hour:7, minute:0, count:3 },
-          { date: "2024-04-21", hour:7, minute:15, count:6 },
-          { date: "2024-04-21", hour:7, minute:45, count:8 },
-          { date: "2024-04-21", hour:8, minute:0, count:12 },
-          { date: "2024-04-21", hour:9, minute:15, count:22 },
-          { date: "2024-04-21", hour:9, minute:45, count:15 },
-          { date: "2024-04-21", hour:10, minute:0, count:1 },
-          { date: "2024-04-21", hour:10, minute:15, count:17 },
-          { date: "2024-04-21", hour:11, minute:45, count:6 },
-          { date: "2024-04-21", hour:12, minute:0, count:4 },
-          { date: "2024-04-21", hour:13, minute:15, count:11 },
-          { date: "2024-04-21", hour:13, minute:45, count:12 },
-          { date: "2024-04-21", hour:14, minute:0, count:4 },
-          { date: "2024-04-21", hour:14, minute:15, count:25 },
-          { date: "2024-04-21", hour:17, minute:45, count:12 },
-        ];
-
-        return <HeatmapChart data={demoData} />
+        return <HeatmapChart data={record.a_a_a_a_a_w_t_collection_admin_heatmap_details!} activeButtonKey={activeButtonKey} />
       },
     },
   ];
@@ -294,49 +320,44 @@ const TableList: React.FC = () => {
         pagination={{
           pageSize: 50,
         }}
+        // toolBarRender={() => [
+        //   <Button
+        //     key="all"
+        //     type={activeButtonKey === 'all' ? 'primary' : 'default'}
+        //     onClick={() => {
+        //       setActiveButtonKey('all');
+        //       // 这里可以添加点击 'All' 按钮后的逻辑
+        //     }}
+        //   >
+        //     All
+        //     <NumberOutlined />
+        //   </Button>,
+        //   <Button
+        //     key="log"
+        //     type={activeButtonKey === 'log' ? 'primary' : 'default'}
+        //     onClick={() => {
+        //       setActiveButtonKey('log');
+        //       // 这里可以添加点击 'Log' 按钮后的逻辑
+        //     }}
+        //   >
+        //     Log
+        //     <HighlightOutlined />
+        //   </Button>,
+        //   <Button
+        //     key="call"
+        //     type={activeButtonKey === 'call' ? 'primary' : 'default'}
+        //     onClick={() => {
+        //       setActiveButtonKey('call');
+        //       // 这里可以添加点击 'Call' 按钮后的逻辑
+        //     }}
+        //   >
+        //     Call
+        //     <PhoneOutlined />
+        //   </Button>,
+        // ]}
       />
       </Spin>
-      {/*表单model*/}
-      <CreateForm
-        onSubmit={async (success) => {
-          if (success) {
-            handleCreateModalVisible(false);
-            setId(0);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
-        }}
-        onCancel={() => {
-          handleCreateModalVisible(false);
-          setId(0);
-        }}
-        id={id}
-        modalVisible={createModalVisible}
-        collectionAgencies={collectionAgencies}
-        collectionStages={collectionStages}
-        admins={admins}
-      />
-      {/*释放model*/}
-      <ReleaseForm
-        onSubmit={async (success) => {
-          if (success) {
-            handleReleaseModalVisible(false);
-            setId(0);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
-        }}
-        onCancel={() => {
-          handleReleaseModalVisible(false);
-          setId(0);
-        }}
-        modalVisible={releaseModalVisible}
-        record={currentRecord!}
-        collectionGroups={collectionGroups}
-        collectionStages={collectionStages}
-      />
+      
     </PageContainer>
   );
 };
