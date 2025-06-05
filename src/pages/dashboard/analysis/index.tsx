@@ -6,6 +6,7 @@ import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
 import type { RadioChangeEvent } from 'antd/es/radio';
 import type dayjs from 'dayjs';
 import type { FC } from 'react';
+import React, { useEffect } from 'react';
 import { Suspense, useState } from 'react';
 import IntroduceRow from './components/IntroduceRow';
 import OfflineData from './components/OfflineData';
@@ -14,10 +15,11 @@ import ProportionSales from './components/ProportionSales';
 import type { TimeType } from './components/SalesCard';
 import SalesCard from './components/SalesCard';
 import TopSearch from './components/TopSearch';
-import type { AnalysisData } from './data.d';
+import type { AnalysisData, CollectionDashboardData } from './data.d';
 import { fakeChartData } from './service';
 import useStyles from './style.style';
 import { getTimeDistance } from './utils/utils';
+import { getAdminV1WSCollectionAdminHeatmapsD as index } from '@/services/ant-design-pro/WSCollectionAdminHeatmap';
 import RegisterLine from "@/pages/dashboard/analysis/components/RegisterLine";
 import RiskAxes from "@/pages/dashboard/analysis/components/RiskAxes";
 import Overdue from "@/pages/dashboard/analysis/components/Overdue";
@@ -38,7 +40,22 @@ const Analysis: FC<AnalysisProps> = () => {
   const [rangePickerValue, setRangePickerValue] = useState<RangePickerValue>(
     getTimeDistance('year'),
   );
+  const [myData, setMyData] = useState<CollectionDashboardData>();
   const { loading, data } = useRequest(fakeChartData);
+
+  useEffect(() => {
+    async function _index() {
+        // @ts-ignore
+        const res = await index({ page: 1, limit: 10000 });
+        setMyData(res.data!)
+    }
+
+    _index();
+    return () => {
+      return;
+    };
+  }, [loading]);
+
   const selectDate = (type: TimeType) => {
     setRangePickerValue(getTimeDistance(type));
   };
@@ -106,7 +123,7 @@ const Analysis: FC<AnalysisProps> = () => {
       <>
         <Suspense fallback={<PageLoading />}>
           {/*今日数据*/}
-          <IntroduceRow loading={loading} visitData={data?.visitData || []} />
+          <IntroduceRow loading={loading} today={myData?.today} todayHour={myData?.todayHour} />
         </Suspense>
 
         <Row

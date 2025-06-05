@@ -2,7 +2,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import { Area, Column } from '@ant-design/plots';
 import { Col, Progress, Row, Tooltip } from 'antd';
 import numeral from 'numeral';
-import type { DataItem } from '../data.d';
+import type { DataItem, Today, TodayHour } from '../data.d';
 import useStyles from '../style.style';
 import Yuan from '../utils/Yuan';
 import { ChartCard, Field } from './Charts';
@@ -17,8 +17,52 @@ const topColResponsiveProps = {
     marginBottom: 24,
   },
 };
-const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: DataItem[] }) => {
+const IntroduceRow = ({ loading, today, todayHour }: { loading: boolean; today?: Today; todayHour?: TodayHour[]; }) => {
   const { styles } = useStyles();
+
+  // 处理数据补充逻辑
+  const processedTodayHour = (() => {
+    if (!todayHour) {
+      return Array.from({ length: 24 }, (_, index) => ({
+        b_hour: index,
+        i_log_count: 0,
+        g_call_count: 0,
+        k_sms_count: 0,
+        l_repay_count: 0
+      }));
+    }
+
+    const hourMap = new Map<number, any>();
+    todayHour.forEach(item => {
+      // 转换为整数
+      const convertedItem = {
+        ...item,
+        i_log_count: parseInt(item.i_log_count!, 10),
+        g_call_count: parseInt(item.g_call_count!, 10),
+        k_sms_count: parseInt(item.k_sms_count!, 10),
+        l_repay_count: parseInt(item.l_repay_count!, 10)
+      };
+      hourMap.set(item.b_hour, convertedItem);
+    });
+
+    const fullData = [];
+    for (let i = 0; i < 24; i++) {
+      if (hourMap.has(i)) {
+        fullData.push(hourMap.get(i)!);
+      } else {
+        fullData.push({
+          b_hour: i,
+          i_log_count: 0,
+          g_call_count: 0,
+          k_sms_count: 0,
+          l_repay_count: 0
+        } );
+      }
+    }
+
+    return fullData;
+  })();
+
   return (
     <Row gutter={24}>
       <Col {...topColResponsiveProps}>
@@ -39,15 +83,15 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
               display: 'flex',
             }}
           >
-            <Field label="已认证" value={numeral(981).format('0,0')}/>&nbsp;&nbsp;&nbsp;&nbsp;
-            <Field label="认证率" value={"84%"}/>
-        </div>}
-            contentHeight={46}
-            >
-            <Area
-              xField="x"
-              yField="y"
-              shapeField="smooth"
+            <Field label="已认证" value={numeral(981).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label="认证率" value={"84%"} />
+          </div>}
+          contentHeight={46}
+        >
+          <Area
+            xField="b_hour"
+            yField="i_log_count"
+            shapeField="smooth"
             height={46}
             axis={false}
             style={{
@@ -56,32 +100,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
               width: '100%',
             }}
             padding={-20}
-            data={[
-              {x: "00", y: 24},
-              {x: "01", y: 14},
-              {x: "02", y: 9},
-              {x: "03", y: 8},
-              {x: "04", y: 10},
-              {x: "05", y: 4},
-              {x: "06", y: 3},
-              {x: "07", y: 10},
-              {x: "08", y: 26},
-              {x: "09", y: 39},
-              {x: "10", y: 45},
-              {x: "11", y: 50},
-              {x: "12", y: 58},
-              {x: "13", y: 63},
-              {x: "14", y: 70},
-              {x: "15", y: 83},
-              {x: "16", y: 104},
-              {x: "17", y: 117},
-              {x: "18", y: 94},
-              {x: "19", y: 101},
-              {x: "20", y: 77},
-              {x: "21", y: 70},
-              {x: "22", y: 42},
-              {x: "23", y: 33},
-            ]}
+            data={processedTodayHour}
           />
         </ChartCard>
       </Col>
@@ -104,15 +123,15 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
               display: 'flex',
             }}
           >
-            <Field label="通过率" value={"32%"}/>&nbsp;&nbsp;&nbsp;&nbsp;
-            <Field label="拒绝率" value={"56%"}/>&nbsp;&nbsp;&nbsp;&nbsp;
-            <Field label="复审通过率" value={"63%"}/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label="通过率" value={"32%"} />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label="拒绝率" value={"56%"} />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label="复审通过率" value={"63%"} />&nbsp;&nbsp;&nbsp;&nbsp;
           </div>}
           contentHeight={46}
         >
           <Area
-            xField="x"
-            yField="y"
+            xField="b_hour"
+            yField="g_call_count"
             shapeField="smooth"
             height={46}
             axis={false}
@@ -122,32 +141,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
               width: '100%',
             }}
             padding={-20}
-            data={[
-              {x: "00", y: 102},
-              {x: "01", y: 74},
-              {x: "02", y: 29},
-              {x: "03", y: 18},
-              {x: "04", y: 10},
-              {x: "05", y: 19},
-              {x: "06", y: 33},
-              {x: "07", y: 60},
-              {x: "08", y: 156},
-              {x: "09", y: 199},
-              {x: "10", y: 265},
-              {x: "11", y: 210},
-              {x: "12", y: 151},
-              {x: "13", y: 193},
-              {x: "14", y: 200},
-              {x: "15", y: 213},
-              {x: "16", y: 224},
-              {x: "17", y: 197},
-              {x: "18", y: 168},
-              {x: "19", y: 181},
-              {x: "20", y: 187},
-              {x: "21", y: 150},
-              {x: "22", y: 102},
-              {x: "23", y: 93},
-            ]}
+            data={processedTodayHour}
           />
         </ChartCard>
       </Col>
@@ -169,7 +163,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
               display: 'flex',
             }}
           >
-            <Field label="放款金额" value={numeral(54200).format('0,0')}/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label="放款金额" value={numeral(54200).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
             <Trend flag="down">
               日同比
               <span className={styles.trendText}>11%</span>
@@ -178,42 +172,25 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
           contentHeight={46}
         >
           <Column
-            xField="x"
-            yField="y"
+            xField="b_hour"
+            yField="k_sms_count"
             padding={-20}
             axis={false}
             height={46}
-            data={[
-              {x: "00", y: 22},
-              {x: "01", y: 34},
-              {x: "02", y: 21},
-              {x: "03", y: 8},
-              {x: "04", y: 2},
-              {x: "05", y: 11},
-              {x: "06", y: 23},
-              {x: "07", y: 36},
-              {x: "08", y: 66},
-              {x: "09", y: 129},
-              {x: "10", y: 135},
-              {x: "11", y: 130},
-              {x: "12", y: 71},
-              {x: "13", y: 83},
-              {x: "14", y: 90},
-              {x: "15", y: 93},
-              {x: "16", y: 94},
-              {x: "17", y: 77},
-              {x: "18", y: 68},
-              {x: "19", y: 91},
-              {x: "20", y: 77},
-              {x: "21", y: 70},
-              {x: "22", y: 42},
-              {x: "23", y: 23},
-            ]}
+            data={processedTodayHour}
             style={{
               fill: '#21ace9',
-
             }}
             scale={{ x: { paddingInner: 0.4 } }}
+            // 设置 tooltip 配置
+            tooltip={{
+              items: [
+                {
+                  field: 'k_sms_count',
+                  label: '短信数量',
+                },
+              ],
+            }}
           />
         </ChartCard>
       </Col>
@@ -235,43 +212,18 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
               display: 'flex',
             }}
           >
-            <Field label="今日应还" value={numeral(1215).format('0,0')}/>&nbsp;&nbsp;&nbsp;&nbsp;
-            <Field label="今日已还" value={numeral(956).format('0,0')}/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label="今日应还" value={numeral(1215).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label="今日已还" value={numeral(956).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
           </div>}
           contentHeight={46}
         >
           <Column
-            xField="x"
-            yField="y"
+            xField="b_hour"
+            yField="l_repay_count"
             padding={-20}
             axis={false}
             height={46}
-            data={[
-              {x: "00", y: 42},
-              {x: "01", y: 24},
-              {x: "02", y: 11},
-              {x: "03", y: 8},
-              {x: "04", y: 2},
-              {x: "05", y: 1},
-              {x: "06", y: 9},
-              {x: "07", y: 26},
-              {x: "08", y: 36},
-              {x: "09", y: 49},
-              {x: "10", y: 145},
-              {x: "11", y: 130},
-              {x: "12", y: 71},
-              {x: "13", y: 63},
-              {x: "14", y: 60},
-              {x: "15", y: 73},
-              {x: "16", y: 64},
-              {x: "17", y: 127},
-              {x: "18", y: 168},
-              {x: "19", y: 91},
-              {x: "20", y: 47},
-              {x: "21", y: 30},
-              {x: "22", y: 42},
-              {x: "23", y: 23},
-            ]}
+            data={processedTodayHour}
             style={{
               fill: '#24cc29',
 

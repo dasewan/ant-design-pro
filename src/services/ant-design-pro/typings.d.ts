@@ -4117,6 +4117,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1WSCollectionAdminHeatmapsDParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1WSCollectionAdminHeatmapsIdParams = {
     /** id of WSCollectionAdminHeatmap */
     id: number;
