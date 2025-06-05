@@ -123,7 +123,7 @@ const Analysis: FC<AnalysisProps> = () => {
       <>
         <Suspense fallback={<PageLoading />}>
           {/*今日数据*/}
-          <IntroduceRow loading={loading} today={myData?.today} todayHour={myData?.todayHour} />
+          <IntroduceRow loading={loading} today={myData?.today} yesterday={myData?.yesterday} todayHour={myData?.todayHour} />
         </Suspense>
 
         <Row

@@ -60,6 +60,7 @@ export interface CollectionDashboard {
 export interface CollectionDashboardData {
   todayHour?: TodayHour[]
   today?: Today
+  yesterday?: Today
   last30AdminDay?: Last30AdminDay[]
   last30Day?: Last30Day[]
 }
