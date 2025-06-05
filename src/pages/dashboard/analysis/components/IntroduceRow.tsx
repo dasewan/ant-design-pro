@@ -25,9 +25,9 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
         <ChartCard
           bordered={false}
           loading={loading}
-          title="今日注册"
+          title="日志数"
           action={
-            <Tooltip title="指标说明">
+            <Tooltip title="今日各个时段记录日志数">
               <InfoCircleOutlined />
             </Tooltip>
           }
@@ -90,9 +90,9 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
         <ChartCard
           bordered={false}
           loading={loading}
-          title="今日签约"
+          title="电话数"
           action={
-            <Tooltip title="指标说明">
+            <Tooltip title="今日各个时段拨打电话数">
               <InfoCircleOutlined />
             </Tooltip>
           }
@@ -155,9 +155,9 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
         <ChartCard
           bordered={false}
           loading={loading}
-          title="今日放款"
+          title="案件总数"
           action={
-            <Tooltip title="指标说明">
+            <Tooltip title="今日各个时段成功催回案件数">
               <InfoCircleOutlined />
             </Tooltip>
           }
@@ -221,9 +221,9 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Dat
         <ChartCard
           bordered={false}
           loading={loading}
-          title="今日还款"
+          title="未跟总数"
           action={
-            <Tooltip title="指标说明">
+            <Tooltip title="今日各个时段未跟踪案件数">
               <InfoCircleOutlined />
             </Tooltip>
           }
