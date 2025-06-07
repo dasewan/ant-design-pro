@@ -137,10 +137,9 @@ const Analysis: FC<AnalysisProps> = () => {
               {/*注册*/}
               <RegisterLine
                 dropdownGroup={dropdownGroup}
-                salesType={salesType}
                 loading={loading}
-                salesPieData={salesPieData || []}
-                handleChangeSalesType={handleChangeSalesType}
+                last30AdminDay={myData?.last30AdminDay || []}
+                last30Day={myData?.last30Day || []}
               />
             </Suspense>
           </Col>
@@ -148,11 +147,8 @@ const Analysis: FC<AnalysisProps> = () => {
             <Suspense fallback={null}>
               {/*风控*/}
               <RiskAxes
-                dropdownGroup={dropdownGroup}
-                salesType={salesType}
                 loading={loading}
-                salesPieData={salesPieData || []}
-                handleChangeSalesType={handleChangeSalesType}
+                last30Day={myData?.last30Day || []}
               />
             </Suspense>
           </Col>
