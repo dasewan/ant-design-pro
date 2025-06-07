@@ -19,7 +19,7 @@ const RiskAxes = ({
 
   // 重组 last30Day 数据
   const restructuredData = last30Day.flatMap(item => {
-    const keys = Object.keys(item).filter(key => key !== 'a_date');
+    const keys = ['b_init_count', 'c_success_count', 'i_log_count', 'g_call_count'];
     return keys.map(key => ({
       a_date: item.a_date,
       value: item[key as keyof Last30Day],

@@ -134,7 +134,7 @@ const Analysis: FC<AnalysisProps> = () => {
         >
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={null}>
-              {/*注册*/}
+              {/*催回率*/}
               <RegisterLine
                 dropdownGroup={dropdownGroup}
                 loading={loading}
@@ -145,7 +145,7 @@ const Analysis: FC<AnalysisProps> = () => {
           </Col>
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={null}>
-              {/*风控*/}
+              {/*总案件，日志，电话，催回*/}
               <RiskAxes
                 loading={loading}
                 last30Day={myData?.last30Day || []}
@@ -154,36 +154,33 @@ const Analysis: FC<AnalysisProps> = () => {
           </Col>
         </Row>
 
-        <Row
-          gutter={24}
-          style={{
-            marginBottom: 24,
-          }}
-        >
-          <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-            <Suspense fallback={null}>
-              {/*首逾*/}
-              <Overdue
-                dropdownGroup={dropdownGroup}
-                salesType={salesType}
-                loading={loading}
-                salesPieData={salesPieData || []}
-                handleChangeSalesType={handleChangeSalesType}
-              />
-            </Suspense>
-          </Col>
 
-        </Row>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <Suspense fallback={null} >
           {/*催收*/}
           <SalesCard
             rangePickerValue={rangePickerValue}
-            salesData={data?.salesData || []}
             isActive={isActive}
             handleRangePickerChange={handleRangePickerChange}
             loading={loading}
             selectDate={selectDate}
+            last30Day={myData?.last30Day || []}
           />
         </Suspense>
 
