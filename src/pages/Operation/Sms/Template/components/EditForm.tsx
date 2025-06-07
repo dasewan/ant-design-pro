@@ -499,6 +499,10 @@ const EditForm: React.FC<FormProps> = (props) => {
                   value: 24,
                   label: '冷静期过期',
                 },
+                {
+                  value: 27,
+                  label: '联系人',
+                },
               ],
             },
             {
