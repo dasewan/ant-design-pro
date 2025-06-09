@@ -1,12 +1,13 @@
-import {Column, DualAxes, Pie} from '@ant-design/plots';
+import { Column, DualAxes, Pie } from '@ant-design/plots';
 import { Card, Col, DatePicker, Row, Tabs } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
 import type dayjs from 'dayjs';
 import numeral from 'numeral';
-import type { DataItem, Last30Day } from '../data.d';
+import type { DataItem, Last30AdminDay, Last30Day } from '../data.d';
 import useStyles from '../style.style';
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import OverdueDays from './OverdueDays';
+import { RequestOptionsType } from '@ant-design/pro-components';
 
 export type TimeType = 'today' | 'week' | 'month' | 'year';
 const { RangePicker } = DatePicker;
@@ -22,59 +23,142 @@ for (let i = 0; i < 17; i += 1) {
     total: 323234,
   });
 }
-
+const PlotMaps = {};
 const SalesCard = ({
   rangePickerValue,
   isActive,
   handleRangePickerChange,
   loading,
   selectDate,
-  last30Day,
+  last30AdminDay,
+  admins
 }: {
   rangePickerValue: RangePickerProps<dayjs.Dayjs>['value'];
   isActive: (key: TimeType) => string;
   loading: boolean;
   handleRangePickerChange: RangePickerProps<dayjs.Dayjs>['onChange'];
   selectDate: (key: TimeType) => void;
-  last30Day: Last30Day[];
+  last30AdminDay: Last30AdminDay[];
+  admins: RequestOptionsType[];
 }) => {
   const { styles } = useStyles();
 
-  
+  // 转换last30AdminDay数据结构
+  const transformAdminData = (data: Last30AdminDay[]) => {
+    const adminMap = new Map<number, { total_log_count: number, total_call_count: number, total_repay_count: number }>();
 
-  const config = {
-    data: last30Day,
-    angleField: 'value',
-    colorField: 'type',
-    paddingRight: 80,
-    innerRadius: 0.6,
-    label: {
-      text: 'value',
-      style: {
-        fontWeight: 'bold',
-      },
-    },
-    legend: {
-      color: {
-        title: false,
-        position: 'right',
-        rowPadding: 5,
-      },
-    },
-    annotations: [
-      {
-        type: 'text',
-        style: {
-          text: 'AntV\nCharts',
-          x: '50%',
-          y: '50%',
-          textAlign: 'center',
-          fontSize: 40,
-          fontStyle: 'bold',
-        },
-      },
-    ],
+    data.forEach(item => {
+      const adminId = item.e_collection_admin_id;
+      const current = adminMap.get(adminId!) || { total_log_count: 0, total_call_count: 0 };
+
+      adminMap.set(adminId!, {
+        total_log_count: current.total_log_count + parseInt(item.i_log_count!),
+        total_call_count: current.total_call_count + parseInt(item.g_call_count!),
+        total_repay_count: current.total_call_count + parseInt(item.l_repay_count!)
+      });
+    });
+
+    return {
+      total_log_count: Array.from(adminMap).map(([e_collection_admin_id, { total_log_count }]) => ({
+        e_collection_admin_id,
+        total_log_count
+      })),
+      total_call_count: Array.from(adminMap).map(([e_collection_admin_id, { total_call_count }]) => ({
+        e_collection_admin_id,
+        total_call_count
+      })),
+      total_repay_count: Array.from(adminMap).map(([e_collection_admin_id, { total_repay_count }]) => ({
+        e_collection_admin_id,
+        total_repay_count
+      }))
+    };
   };
+
+  const adminStats = transformAdminData(last30AdminDay);
+
+  const data = {
+    pie1: adminStats.total_log_count.map(item => ({
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `管理员${item.e_collection_admin_id}`,
+      bill: item.total_log_count
+    })),
+    pie2: adminStats.total_call_count.map(item => ({
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `管理员${item.e_collection_admin_id}`,
+      value: item.total_call_count
+    })),
+    pie3: adminStats.total_repay_count.map(item => ({
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `管理员${item.e_collection_admin_id}`,
+      profit: item.total_repay_count
+    }))
+  };
+
+  const showTooltip = (evt, currentPie) => {
+    Object.keys(PlotMaps).forEach((plotKey) => {
+      if (plotKey !== currentPie) {
+        const plot = PlotMaps[plotKey];
+        if (plot) {
+          plot.chart.emit('tooltip:show', {
+            data: { data: { area: evt.data?.data?.area } },
+          });
+          plot.chart.emit('element:highlight', {
+            data: { data: { area: evt.data?.data?.area } },
+          });
+        }
+      }
+    });
+  };
+
+  const hideTooltip = (evt, currentPie) => {
+    Object.keys(PlotMaps).forEach((plotKey) => {
+      if (plotKey !== currentPie) {
+        const plot = PlotMaps[plotKey];
+        if (plot) {
+          plot.chart.emit('tooltip:hide');
+          plot.chart.emit('element:unhighlight', {
+            data: { data: { area: evt.data?.data?.area } },
+          });
+        }
+      }
+    });
+  };
+
+  // 配置对象
+  const configs = {
+    pie1: {
+      angleField: 'bill',
+      colorField: 'area',
+      data: data.pie1,
+      label: { text: 'bill' },
+      legend: true,
+      tooltip: { title: 'area' },
+      interaction: { elementHighlight: true },
+      state: { inactive: { opacity: 0.5 } },
+      statistic: { title: { content: '日志总数' } }
+    },
+    pie2: {
+      angleField: 'value',
+      colorField: 'area',
+      data: data.pie2,
+      label: { text: 'value' },
+      legend: false,
+      tooltip: { title: 'area' },
+      interaction: { elementHighlight: true },
+      state: { inactive: { opacity: 0.5 } },
+      statistic: { title: { content: '电话总数' } }
+    },
+    pie3: {
+      angleField: 'profit',
+      colorField: 'area',
+      data: data.pie3,
+      label: { text: 'profit' },
+      legend: false,
+      tooltip: { title: 'area' },
+      interaction: { elementHighlight: true },
+      state: { inactive: { opacity: 0.5 } },
+      statistic: { title: { content: '还款总数' } }
+    }
+  };
+
+
   return (
     <Card
       loading={loading}
@@ -95,7 +179,7 @@ const SalesCard = ({
                   本周
                 </a>
                 <a className={isActive('month')} onClick={() => selectDate('month')}>
-                  
+
                 </a>
                 <a className={isActive('year')} onClick={() => selectDate('year')}>
                   本年
@@ -121,20 +205,25 @@ const SalesCard = ({
               children: (
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
-                    <div className={styles.salesBar}>
-                      <Row gutter={[16, 16]}>
-                        <Col span={8}>
-                          <div>              
-                          <Pie {...config} />
-                          </div>
-                        </Col>
-                        <Col span={8}>
-                        <Pie {...config} />
-                        </Col>
-                        <Col span={8}>
-                        <Pie {...config} />
-                        </Col>
-                      </Row>
+                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                      {Object.keys(configs).map((pieKey, index) => (
+                        <Pie
+                          key={pieKey}
+                          style={{ width: '30%', minWidth: '300px', margin: '10px 0' }}
+                          {...configs[pieKey]}
+                          onReady={(plot) => {
+                            PlotMaps[`pie${index + 1}`] = plot;
+                            plot.chart.on('element:pointerover', (evt) => {
+                              showTooltip(evt, `pie${index + 1}`);
+                            });
+                            plot.chart.on('element:pointerout', (evt) => {
+                              hideTooltip(evt, `pie${index + 1}`);
+                            });
+                          }}
+                        />
+                      ))}
+
+
                     </div>
                   </Col>
                   <Col xl={8} lg={12} md={12} sm={24} xs={24}>
@@ -144,9 +233,8 @@ const SalesCard = ({
                         {rankingListData.map((item, i) => (
                           <li key={item.title}>
                             <span
-                              className={`${styles.rankingItemNumber} ${
-                                i < 3 ? styles.rankingItemNumberActive : ''
-                              }`}
+                              className={`${styles.rankingItemNumber} ${i < 3 ? styles.rankingItemNumberActive : ''
+                                }`}
                             >
                               {i + 1}
                             </span>
@@ -162,8 +250,8 @@ const SalesCard = ({
                 </Row>
               ),
             },
-            
-            
+
+
           ]}
         />
       </div>

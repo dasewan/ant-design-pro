@@ -1,5 +1,5 @@
 import { EllipsisOutlined } from '@ant-design/icons';
-import { GridContent } from '@ant-design/pro-components';
+import { GridContent, RequestOptionsType } from '@ant-design/pro-components';
 import { useRequest } from '@umijs/max';
 import { Col, Dropdown, Row } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
@@ -27,6 +27,7 @@ import RiskFields from "@/pages/dashboard/analysis/components/RiskFields";
 import Reloan from "@/pages/dashboard/analysis/components/Reloan";
 import Overdue2 from "@/pages/dashboard/analysis/components/Overdue2";
 import OverdueDays from "@/pages/dashboard/analysis/components/OverdueDays";
+import { getAdminV1UsersEnum as getUsersEnum } from '@/services/ant-design-pro/User';
 type RangePickerValue = RangePickerProps<dayjs.Dayjs>['value'];
 type AnalysisProps = {
   dashboardAndanalysis: AnalysisData;
@@ -42,6 +43,7 @@ const Analysis: FC<AnalysisProps> = () => {
   );
   const [myData, setMyData] = useState<CollectionDashboardData>();
   const { loading, data } = useRequest(fakeChartData);
+  const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
 
   useEffect(() => {
     async function _index() {
@@ -51,6 +53,24 @@ const Analysis: FC<AnalysisProps> = () => {
     }
 
     _index();
+    const _getUsersEnum = async () => {
+      const data: RequestOptionsType[] = [];
+      if (admins.length === 0) {
+        const res = await getUsersEnum({ foo: 1 });
+        for (const item of res.data!) {
+          data.push({
+            label: item.name,
+            value: item.id,
+          });
+        }
+        setAdmins(data);
+        return data;
+      } else {
+        return admins;
+      }
+    };
+    _getUsersEnum();
+    
     return () => {
       return;
     };
@@ -180,7 +200,8 @@ const Analysis: FC<AnalysisProps> = () => {
             handleRangePickerChange={handleRangePickerChange}
             loading={loading}
             selectDate={selectDate}
-            last30Day={myData?.last30Day || []}
+            admins={admins}
+            last30AdminDay={myData?.last30AdminDay || []}
           />
         </Suspense>
 
