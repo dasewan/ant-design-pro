@@ -1,7 +1,7 @@
 import { Column, DualAxes, Pie } from '@ant-design/plots';
 import { Card, Col, DatePicker, Row, Tabs } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
-import type dayjs from 'dayjs';
+import dayjs from 'dayjs'; 
 import numeral from 'numeral';
 import type { DataItem, Last30AdminDay, Last30Day } from '../data.d';
 import useStyles from '../style.style';
@@ -42,19 +42,31 @@ const SalesCard = ({
   admins: RequestOptionsType[];
 }) => {
   const { styles } = useStyles();
+  const [currentTimeType, setCurrentTimeType] = useState<TimeType>('today');
 
-  // 转换last30AdminDay数据结构
-  const transformAdminData = (data: Last30AdminDay[]) => {
+  // 转换last30AdminDay数据结构，增加时间过滤
+  const transformAdminData = (data: Last30AdminDay[], timeType: TimeType) => {
+    const today = dayjs();
+    let filteredData = data;
+    
+    // 根据时间类型过滤数据
+    if (timeType === 'today') {
+      filteredData = data.filter(item => dayjs(item.a_date).isSame(today, 'day'));
+    } else if (timeType === 'week') {
+      filteredData = data.filter(item => dayjs(item.a_date).isSame(today, 'week'));
+    } else if (timeType === 'month') {
+      filteredData = data.filter(item => dayjs(item.a_date).isSame(today, 'month'));
+    }
     const adminMap = new Map<number, { total_log_count: number, total_call_count: number, total_repay_count: number }>();
 
-    data.forEach(item => {
+    filteredData.forEach(item => {
       const adminId = item.e_collection_admin_id;
-      const current = adminMap.get(adminId!) || { total_log_count: 0, total_call_count: 0 };
+      const current = adminMap.get(adminId!) || { total_log_count: 0, total_call_count: 0, total_repay_count: 0 };
 
       adminMap.set(adminId!, {
         total_log_count: current.total_log_count + parseInt(item.i_log_count!),
         total_call_count: current.total_call_count + parseInt(item.g_call_count!),
-        total_repay_count: current.total_call_count + parseInt(item.l_repay_count!)
+        total_repay_count: current.total_repay_count + parseInt(item.l_repay_count!)
       });
     });
 
@@ -74,7 +86,12 @@ const SalesCard = ({
     };
   };
 
-  const adminStats = transformAdminData(last30AdminDay);
+  const handleSelectDate = (key: TimeType) => {
+    setCurrentTimeType(key);
+    selectDate(key);
+  };
+
+  const adminStats = transformAdminData(last30AdminDay, currentTimeType);
 
   const data = {
     pie1: adminStats.total_log_count.map(item => ({
@@ -128,7 +145,7 @@ const SalesCard = ({
       colorField: 'area',
       data: data.pie1,
       label: { text: 'bill' },
-      legend: true,
+      legend: false,
       tooltip: { title: 'area' },
       interaction: { elementHighlight: true },
       state: { inactive: { opacity: 0.5 } },
@@ -172,16 +189,16 @@ const SalesCard = ({
           tabBarExtraContent={
             <div className={styles.salesExtraWrap}>
               <div className={styles.salesExtra}>
-                <a className={isActive('today')} onClick={() => selectDate('today')}>
+                <a className={currentTimeType == 'today' ? styles.currentDate : styles.currentDate2} onClick={() => handleSelectDate('today')}>
                   今日
                 </a>
-                <a className={isActive('week')} onClick={() => selectDate('week')}>
+                <a className={isActive('week')} onClick={() => handleSelectDate('week')}>
                   本周
                 </a>
-                <a className={isActive('month')} onClick={() => selectDate('month')}>
-
+                <a className={isActive('month')} onClick={() => handleSelectDate('month')}>
+                  本月
                 </a>
-                <a className={isActive('year')} onClick={() => selectDate('year')}>
+                <a className={isActive('year')} onClick={() => handleSelectDate('year')}>
                   本年
                 </a>
               </div>
@@ -205,25 +222,25 @@ const SalesCard = ({
               children: (
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
-                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                       {Object.keys(configs).map((pieKey, index) => (
-                        <Pie
-                          key={pieKey}
-                          style={{ width: '30%', minWidth: '300px', margin: '10px 0' }}
-                          {...configs[pieKey]}
-                          onReady={(plot) => {
-                            PlotMaps[`pie${index + 1}`] = plot;
-                            plot.chart.on('element:pointerover', (evt) => {
-                              showTooltip(evt, `pie${index + 1}`);
-                            });
-                            plot.chart.on('element:pointerout', (evt) => {
-                              hideTooltip(evt, `pie${index + 1}`);
-                            });
-                          }}
-                        />
+                        <div key={pieKey} style={{ flex: '0 0 32%', marginBottom: '10px' }}>
+                          <Pie
+                            {...configs[pieKey]}
+                            width={300}  // 设置宽度
+                            height={300} // 设置高度
+                            onReady={(plot) => {
+                              PlotMaps[`pie${index + 1}`] = plot;
+                              plot.chart.on('element:pointerover', (evt) => {
+                                showTooltip(evt, `pie${index + 1}`);
+                              });
+                              plot.chart.on('element:pointerout', (evt) => {
+                                hideTooltip(evt, `pie${index + 1}`);
+                              });
+                            }}
+                          />
+                        </div>
                       ))}
-
-
                     </div>
                   </Col>
                   <Col xl={8} lg={12} md={12} sm={24} xs={24}>

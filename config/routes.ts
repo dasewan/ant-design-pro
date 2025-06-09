@@ -44,6 +44,12 @@ export default [
         component: './dashboard/analysis',
       },
       {
+        name: 'analysis2',
+        icon: 'smile',
+        path: '/dashboard/analysis2',
+        component: './dashboard/analysis2',
+      },
+      {
         name: 'monitor',
         icon: 'smile',
         path: '/dashboard/monitor',

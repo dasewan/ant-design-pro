@@ -22,11 +22,11 @@ const RiskAxes = ({
     const keys = ['b_init_count', 'c_success_count', 'i_log_count', 'g_call_count'];
     return keys.map(key => ({
       a_date: item.a_date,
-      value: item[key as keyof Last30Day],
+      value: parseInt(item[key as keyof Last30Day]!),
       type: key
     }));
   });
-
+console.log(restructuredData);
   const config = {
     data: restructuredData,
     xField: 'a_date',
@@ -42,7 +42,7 @@ const RiskAxes = ({
       loading={loading}
       className={styles.salesCard}
       bordered={false}
-      title="通过-拒绝-复审"
+      title="近7天数据"
       style={{
         height: '100%',
       }}

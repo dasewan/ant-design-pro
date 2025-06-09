@@ -90,6 +90,9 @@ const useStyles = createStyles(({ token }) => {
     currentDate: {
       color: token.colorPrimary,
     },
+    currentDate2: {
+      color: token.colorTextBase,
+    },
     salesBar: {
       padding: '0 0 32px 32px',
       [`@media screen and (max-width: ${token.screenMD}px)`]: {

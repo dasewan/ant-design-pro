@@ -173,25 +173,6 @@ const Analysis: FC<AnalysisProps> = () => {
             </Suspense>
           </Col>
         </Row>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <Suspense fallback={null} >
           {/*催收*/}
           <SalesCard
@@ -204,69 +185,6 @@ const Analysis: FC<AnalysisProps> = () => {
             last30AdminDay={myData?.last30AdminDay || []}
           />
         </Suspense>
-
-        <Row
-          gutter={24}
-          style={{
-            marginTop: 24,
-          }}
-        >
-
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-            <Suspense fallback={null}>
-              {/*字段拒绝率*/}
-              <RiskFields
-                dropdownGroup={dropdownGroup}
-                salesType={salesType}
-                loading={loading}
-                salesPieData={salesPieData || []}
-                handleChangeSalesType={handleChangeSalesType}
-              />
-            </Suspense>
-          </Col>
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-            <Suspense fallback={null}>
-              <Overdue2
-                dropdownGroup={dropdownGroup}
-                salesType={salesType}
-                loading={loading}
-                salesPieData={salesPieData || []}
-                handleChangeSalesType={handleChangeSalesType}
-              />
-
-            </Suspense>
-          </Col>
-        </Row>
-        <Row
-          gutter={24}
-          style={{
-            marginTop: 24,
-          }}
-        >
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-            <Suspense fallback={null}>
-              <Reloan
-                dropdownGroup={dropdownGroup}
-                salesType={salesType}
-                loading={loading}
-                salesPieData={salesPieData || []}
-                handleChangeSalesType={handleChangeSalesType}
-              />
-            </Suspense>
-          </Col>
-          <Col xl={12} lg={24} md={24} sm={24} xs={24}>
-            <Suspense fallback={null}>
-              <OverdueDays
-                dropdownGroup={dropdownGroup}
-                salesType={salesType}
-                loading={loading}
-                salesPieData={salesPieData || []}
-                handleChangeSalesType={handleChangeSalesType}
-              />
-            </Suspense>
-          </Col>
-        </Row>
-
       </>
     </GridContent>
   );
