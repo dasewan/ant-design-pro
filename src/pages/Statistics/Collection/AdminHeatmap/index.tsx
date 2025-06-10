@@ -189,6 +189,9 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.e_collection_admin_id', defaultMessage: '' }),
       dataIndex: 'e_collection_admin_id',
       key: 'e_collection_admin_id',
+      valueType: 'select',
+      request: _getUsersEnum,
+      params: { timestamp: Math.random() },
     },
     {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_init_count', defaultMessage: '' }),

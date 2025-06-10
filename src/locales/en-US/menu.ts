@@ -134,6 +134,7 @@ export default {
   'menu.collection.my-collection': 'My Collection',
   'menu.collection.collection-order-flow-history': 'Collection Order Flow History',
   'menu.collection.collection-assign-log': 'Collection Assign Log',
+  'menu.collection.collection-news': 'Logs',
   'menu.statistics': 'Statistics',
   'menu.statistics.register': 'Register',
   'menu.statistics.register.daily-report': 'Daily Report',

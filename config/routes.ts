@@ -556,6 +556,12 @@ export default [
         path: '/collection/collection-assign-log',
         component: './Collection/CollectionAssignLog',
       },
+      {
+        name: 'collection-news',
+        icon: 'smile',
+        path: '/collection/collection-news',
+        component: './Collection/CollectionNews',
+      },
     ],
   },
 
@@ -937,6 +943,7 @@ export default [
             path: '/statistics/collection/flow',
             component: './Statistics/Collection/Flow',
           },
+
         ],
       },
 

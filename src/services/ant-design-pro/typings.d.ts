@@ -3711,6 +3711,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1QCCollectionNewsAdminParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1QCCollectionNewsIdParams = {
     /** id of QCCollectionNews */
     id: number;
@@ -11628,12 +11633,38 @@ declare namespace API {
     a_s_broken_count?: number;
     /** 拒绝还款 */
     a_t_refuse_count?: number;
+    /** 呼叫联系人次数 */
+    a_u_call_contact_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 上午日志数 */
+    b_a_12_log_count?: number;
+    /** 上午电话数 */
+    b_b_12_call_count?: number;
+    /** 上午联系人电话数 */
+    b_c_12_contact_call_count?: number;
+    /** 上午附件数 */
+    b_d_12_appendix?: number;
+    /** 下午日志数 */
+    b_e_18_log_count?: number;
+    /** 下午电话数 */
+    b_f_18_call_count?: number;
+    /** 下午联系人电话数 */
+    b_g_18_contact_call_count?: number;
+    /** 下午附件数 */
+    b_h_18_appendix?: number;
+    /** 晚上日志数 */
+    b_i_24_log_count?: number;
+    /** 晚上电话数 */
+    b_j_24_call_count?: number;
+    /** 晚上联系人电话数 */
+    b_k_24_contact_call_count?: number;
+    /** 晚上附件数 */
+    b_l_24_appendix?: number;
   };
 
   type WTCollectionAdminHeatmapDetail = {
