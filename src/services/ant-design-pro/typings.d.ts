@@ -1084,6 +1084,8 @@ declare namespace API {
   type BLCollectionOrder = {
     /** id */
     id?: number;
+    /** App\Models\BLCollectionOrder */
+    a_a_a_a_a_q_c_collection_news?: QCCollectionNews[];
     /** 父id */
     a_borrow_id?: number;
     /** 阶段 */
@@ -1106,7 +1108,7 @@ declare namespace API {
     j_system_sms_count?: number;
     /** 状态（只针对催员记录状态和承诺未还） */
     k_status?: number;
-    /** 累计催回金额 */
+    /** 应还金额金额 */
     l_collection_amount?: number;
     /** 分期id */
     m_period_id?: number;
@@ -1182,6 +1184,38 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 上午日志数 */
+    b_a_12_log_count?: number;
+    /** 下午日志数 */
+    b_e_18_log_count?: number;
+    /** 下午电话数 */
+    b_f_18_call_count?: number;
+    /** 下午联系人电话数 */
+    b_g_18_contact_call_count?: number;
+    /** 下午附件数 */
+    b_h_18_appendix?: number;
+    /** 晚上日志数 */
+    b_i_24_log_count?: number;
+    /** 晚上电话数 */
+    b_j_24_call_count?: number;
+    /** 晚上联系人电话数 */
+    b_k_24_contact_call_count?: number;
+    /** 晚上附件数 */
+    b_l_24_appendix?: number;
+    /** 昨日日志数 */
+    b_m_yesterday_log_count?: number;
+    /** 昨日电话数 */
+    b_n_yesterday_call_count?: number;
+    /** 昨日联系人电话数 */
+    b_o_yesterday_contact_call_count?: number;
+    /** 昨日附件数 */
+    b_p_yesterday_appendix?: number;
+    /** 上午电话数 */
+    b_b_12_call_count?: number;
+    /** 上午联系人电话数 */
+    b_c_12_contact_call_count?: number;
+    /** 上午附件数 */
+    b_d_12_appendix?: number;
   };
 
   type BMBorrowRiskResult = {
