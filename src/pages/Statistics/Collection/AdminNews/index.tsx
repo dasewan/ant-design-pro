@@ -204,7 +204,7 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_date', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.a_date', defaultMessage: '' }),
       dataIndex: 'a_date',
       key: 'a_date',
       render: (text) => {
@@ -216,14 +216,14 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.e_collection_admin_id', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.e_collection_admin_id', defaultMessage: '' }),
       dataIndex: 'e_collection_admin_id',
       key: 'e_collection_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
     },
     {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.b_init_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_init_count', defaultMessage: '' }),
       dataIndex: 'b_init_count',
       key: 'b_init_count',
       render: (__, value) => {
@@ -231,18 +231,18 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.n_no_log_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.n_no_log_count', defaultMessage: '' }),
       dataIndex: 'n_no_log_count',
       key: 'n_no_log_count',
     },
     {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.o_no_call_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.o_no_call_count', defaultMessage: '' }),
       dataIndex: 'o_no_call_count',
       key: 'o_no_call_count',
     },
     
     {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.a_q_neo_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.a_q_neo_count', defaultMessage: '' }),
       dataIndex: 'a_q_neo_count',
       key: 'a_q_neo_count',
       render: (__, value) => {
@@ -258,12 +258,12 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.i_log_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.i_log_count', defaultMessage: '' }),
       dataIndex: 'i_log_count',
       key: 'i_log_count',
     },
     {
-      title: intl.formatMessage({ id: 'pages.GAMarketingDetailFactory.g_call_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.g_call_count', defaultMessage: '' }),
       dataIndex: 'g_call_count',
       key: 'g_call_count',
     },

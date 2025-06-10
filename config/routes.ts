@@ -920,6 +920,12 @@ export default [
             component: './Statistics/Collection/Admin',
           },
           {
+            name: 'admin-heatmap',
+            icon: 'smile',
+            path: '/statistics/collection/admin-heatmap',
+            component: './Statistics/Collection/AdminHeatmap',
+          },
+          {
             name: 'report',
             icon: 'smile',
             path: '/statistics/collection/report',
