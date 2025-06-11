@@ -195,9 +195,9 @@ const TableList: React.FC = () => {
       key: 'f_cat',
       render: (text) => {
         switch(text) {
-          case 0: return <EditOutlined />;
-          case 1: return <PhoneOutlined />;
-          case 6: return <ContactsOutlined />;
+          case 0: return <EditOutlined style={{ color: 'black', fontSize: '18px' }} />;
+          case 1: return <PhoneOutlined style={{ color: 'blue' , fontSize: '18px' }} />;
+          case 6: return <ContactsOutlined style={{ color: 'green', fontSize: '18px'  }} />;
           default: return text;
         }
       },
