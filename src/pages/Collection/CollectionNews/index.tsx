@@ -188,6 +188,14 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.f_cat', defaultMessage: '' }),
       dataIndex: 'f_cat',
       key: 'f_cat',
+      render: (text) => {
+        switch(text) {
+          case 0: return <EditOutlined />;
+          case 1: return <PhoneOutlined />;
+          case 6: return <ContactsOutlined />;
+          default: return text;
+        }
+      },
     },
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.g_type', defaultMessage: '' }),
@@ -235,6 +243,18 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.j_content', defaultMessage: '' }),
       dataIndex: 'j_content',
       key: 'j_content',
+      render: (text, record) => {
+        if (!text) return null;
+        if (record.f_cat === 1 || record.f_cat === 6) {
+          return (
+            <audio
+              controls
+              src={`https://api.dasewan.cn/storage/${text}`}
+            />
+          );
+        }
+        return text;
+      },
     },
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.k_promise_time', defaultMessage: '' }),
