@@ -19,6 +19,11 @@ import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
 import { FieldIndex, FieldLabels } from './service';
 import { useIntl } from '@@/exports';
+import {
+  EditOutlined,
+  PhoneOutlined,
+  ContactsOutlined,
+} from '@ant-design/icons';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
