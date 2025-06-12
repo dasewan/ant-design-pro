@@ -164,15 +164,7 @@ const TableList: React.FC = () => {
   };
 
   const columns: ProColumns<TableListItem>[] = [
-   
-    {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNews.c_collection_agency_id', defaultMessage: '' }),
-      dataIndex: 'c_collection_agency_id',
-      key: 'c_collection_agency_id',
-      valueType: 'select',
-      request: _getCollectionAgenciesEnum,
-      params: { timestamp: Math.random() },
-    },
+
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.d_collection_group_id', defaultMessage: '' }),
       dataIndex: 'd_collection_group_id',
@@ -188,6 +180,11 @@ const TableList: React.FC = () => {
       valueType: 'select',
       request: _getCollectionAdminsEnum,
       params: { timestamp: Math.random() },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNews.s_borrow_sn', defaultMessage: 'SN' }),
+      dataIndex: 's_borrow_sn',
+      key: 's_borrow_sn',
     },
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.f_cat', defaultMessage: '' }),
@@ -265,6 +262,7 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.k_promise_time', defaultMessage: '' }),
       dataIndex: 'k_promise_time',
       key: 'k_promise_time',
+      valueType: 'dateTime',
     },
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.m_overdue_days', defaultMessage: '' }),
@@ -272,9 +270,10 @@ const TableList: React.FC = () => {
       key: 'm_overdue_days',
     },
     {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNews.created_at', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' }),
       dataIndex: 'created_at',
       key: 'created_at',
+      valueType: 'dateTime',
     }
    
   ];

@@ -1204,6 +1204,7 @@ export default {
 'pages.QCCollectionNews.c_collection_agency_id': '机构',
 'pages.QCCollectionNews.d_collection_group_id': '小组',
 'pages.QCCollectionNews.e_collection_admin_id': '催员',
+'pages.QCCollectionNews.s_borrow_sn': '订单号',
 'pages.QCCollectionNews.f_cat': '大类',
 'pages.QCCollectionNews.g_type': '小类',
 'pages.QCCollectionNews.h_phone': '电话',

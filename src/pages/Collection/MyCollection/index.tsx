@@ -1,14 +1,13 @@
 import { getAdminV1BLCollectionOrders as index } from '@/services/ant-design-pro/BLCollectionOrder';
+import { getAdminV1GMCollectionAdminsEnum as getUsersEnum } from '@/services/ant-design-pro/GMCollectionAdmin';
+import { useIntl } from '@@/exports';
+import { ContactsOutlined, EditOutlined, PhoneOutlined } from '@ant-design/icons';
+import { RequestOptionsType } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
-import { FieldIndex, FieldLabels } from './service';
-import { RequestOptionsType } from '@ant-design/pro-components';
-import { getAdminV1GMCollectionAdminsEnum as getUsersEnum } from '@/services/ant-design-pro/GMCollectionAdmin';
-import { useIntl } from '@@/exports';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -64,7 +63,10 @@ const TableList: React.FC = () => {
   //
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.e_collection_admin_id', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.BLCollectionOrder.e_collection_admin_id',
+        defaultMessage: '',
+      }),
       dataIndex: 'e_collection_admin_id',
       key: 'e_collection_admin_id',
       valueType: 'select',
@@ -77,7 +79,10 @@ const TableList: React.FC = () => {
       key: 't_borrow_sn',
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.n_borrow_amount', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.BLCollectionOrder.n_borrow_amount',
+        defaultMessage: '',
+      }),
       dataIndex: 'n_borrow_amount',
       key: 'n_borrow_amount',
     },
@@ -88,92 +93,215 @@ const TableList: React.FC = () => {
       valueType: 'select',
       valueEnum: {
         0: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.new', defaultMessage: '新案件' }),
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.new',
+            defaultMessage: '新案件',
+          }),
           status: 'Default',
         },
         1: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.negotiating', defaultMessage: '协商中' }),
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.negotiating',
+            defaultMessage: '协商中',
+          }),
           status: 'Processing',
         },
         2: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.promised', defaultMessage: '承诺还款' }),
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.promised',
+            defaultMessage: '承诺还款',
+          }),
           status: 'Processing',
         },
         3: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.unfulfilled', defaultMessage: '承诺未还' }),
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.unfulfilled',
+            defaultMessage: '承诺未还',
+          }),
           status: 'Warning',
         },
         4: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.rejected', defaultMessage: '拒绝还款' }),
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.rejected',
+            defaultMessage: '拒绝还款',
+          }),
           status: 'Error',
         },
         7: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.repay', defaultMessage: '已还款' }),
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.repay',
+            defaultMessage: '已还款',
+          }),
           status: 'Success',
         },
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.r_flow_in_time', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.BLCollectionOrder.r_flow_in_time',
+        defaultMessage: '',
+      }),
       dataIndex: 'r_flow_in_time',
       key: 'r_flow_in_time',
-      valueType: 'date',
+      render: (text) => {
+        if (text) {
+          const validText =
+            typeof text === 'string' || typeof text === 'number' ? text : Date.now();
+          const date = new Date(validText);
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          return `${month}-${day}`;
+        }
+        return text;
+      },
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.p_expect_repay_time', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.BLCollectionOrder.p_expect_repay_time',
+        defaultMessage: '',
+      }),
       dataIndex: 'p_expect_repay_time',
       key: 'p_expect_repay_time',
-      valueType: 'date',
+      render: (text) => {
+        if (text) {
+          const validText =
+            typeof text === 'string' || typeof text === 'number' ? text : Date.now();
+          const date = new Date(validText);
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          return `${month}-${day}`;
+        }
+        return text;
+      },
     },
 
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.s_flow_out_time', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.BLCollectionOrder.s_flow_out_time',
+        defaultMessage: '',
+      }),
       dataIndex: 's_flow_out_time',
       key: 's_flow_out_time',
-      valueType: 'date',
+      render: (text) => {
+        if (text) {
+          const validText =
+            typeof text === 'string' || typeof text === 'number' ? text : Date.now();
+          const date = new Date(validText);
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          return `${month}-${day}`;
+        }
+        return text;
+      },
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_m_yesterday_count', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.BLCollectionOrder.b_m_yesterday_count',
+        defaultMessage: '',
+      }),
       dataIndex: 'b_m_yesterday_log_count',
       key: 'b_m_yesterday_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_m_yesterday_log_count', defaultMessage: '' }) + ' - ' + 
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_n_yesterday_call_count', defaultMessage: '' }) + ' - ' +
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_o_yesterday_contact_call_count', defaultMessage: '' }),
+      tooltip:
+        intl.formatMessage({
+          id: 'pages.BLCollectionOrder.b_m_yesterday_log_count',
+          defaultMessage: '',
+        }) +
+        ' - ' +
+        intl.formatMessage({
+          id: 'pages.BLCollectionOrder.b_n_yesterday_call_count',
+          defaultMessage: '',
+        }) +
+        ' - ' +
+        intl.formatMessage({
+          id: 'pages.BLCollectionOrder.b_o_yesterday_contact_call_count',
+          defaultMessage: '',
+        }),
       render: (_, record) => {
-        return record!.b_m_yesterday_log_count + '-' + record!.b_n_yesterday_call_count + '-' + record!.b_o_yesterday_contact_call_count;
+        return (
+          record!.b_m_yesterday_log_count +
+          '-' +
+          record!.b_n_yesterday_call_count +
+          '-' +
+          record!.b_o_yesterday_contact_call_count
+        );
       },
     },
     {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_count', defaultMessage: '' }),
       dataIndex: 'b_a_12_log_count',
       key: 'b_a_12_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_b_12_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_c_12_contact_call_count', defaultMessage: '' }),
+      tooltip:
+        intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_log_count', defaultMessage: '' }) +
+        '-' +
+        intl.formatMessage({
+          id: 'pages.BLCollectionOrder.b_b_12_call_count',
+          defaultMessage: '',
+        }) +
+        '-' +
+        intl.formatMessage({
+          id: 'pages.BLCollectionOrder.b_c_12_contact_call_count',
+          defaultMessage: '',
+        }),
       render: (_, record) => {
-        return record!.b_a_12_log_count + '-' + record!.b_b_12_call_count + '-' + record!.b_c_12_contact_call_count;
+        return (
+          record!.b_a_12_log_count +
+          '-' +
+          record!.b_b_12_call_count +
+          '-' +
+          record!.b_c_12_contact_call_count
+        );
       },
     },
     {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_count', defaultMessage: '' }),
       dataIndex: 'b_e_18_log_count',
       key: 'b_e_18_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_f_18_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_g_18_contact_call_count', defaultMessage: '' }),
+      tooltip:
+        intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_log_count', defaultMessage: '' }) +
+        '-' +
+        intl.formatMessage({
+          id: 'pages.BLCollectionOrder.b_f_18_call_count',
+          defaultMessage: '',
+        }) +
+        '-' +
+        intl.formatMessage({
+          id: 'pages.BLCollectionOrder.b_g_18_contact_call_count',
+          defaultMessage: '',
+        }),
       render: (_, record) => {
-        return record!.b_e_18_log_count + '-' + record!.b_f_18_call_count + '-' + record!.b_g_18_contact_call_count;
+        return (
+          record!.b_e_18_log_count +
+          '-' +
+          record!.b_f_18_call_count +
+          '-' +
+          record!.b_g_18_contact_call_count
+        );
       },
     },
     {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_i_24_count', defaultMessage: '' }),
       dataIndex: 'b_i_24_log_count',
       key: 'b_i_24_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_i_24_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_j_24_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_k_24_contact_call_count', defaultMessage: '' }),
+      tooltip:
+        intl.formatMessage({ id: 'pages.BLCollectionOrder.b_i_24_log_count', defaultMessage: '' }) +
+        '-' +
+        intl.formatMessage({
+          id: 'pages.BLCollectionOrder.b_j_24_call_count',
+          defaultMessage: '',
+        }) +
+        '-' +
+        intl.formatMessage({
+          id: 'pages.BLCollectionOrder.b_k_24_contact_call_count',
+          defaultMessage: '',
+        }),
       render: (_, record) => {
-        return record!.b_i_24_log_count + '-' + record!.b_j_24_call_count + '-' + record!.b_k_24_contact_call_count;
+        return (
+          record!.b_i_24_log_count +
+          '-' +
+          record!.b_j_24_call_count +
+          '-' +
+          record!.b_k_24_contact_call_count
+        );
       },
     },
     {
@@ -182,12 +310,128 @@ const TableList: React.FC = () => {
       key: 'w_view_times',
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.a_m_current_day_view_time', defaultMessage: '' }),
+      title: intl.formatMessage({
+        id: 'pages.BLCollectionOrder.a_m_current_day_view_time',
+        defaultMessage: '',
+      }),
       dataIndex: 'a_m_current_day_view_time',
       key: 'a_m_current_day_view_time',
     },
+  ];
 
-
+  const columns2: ProColumns<API.QCCollectionNews>[] = [
+    {
+      title: intl.formatMessage({
+        id: 'pages.QCCollectionNews.e_collection_admin_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'e_collection_admin_id',
+      key: 'e_collection_admin_id',
+      valueType: 'select',
+      request: _getUsersEnum,
+      params: { timestamp: Math.random() },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNews.f_cat', defaultMessage: '' }),
+      dataIndex: 'f_cat',
+      key: 'f_cat',
+      render: (text) => {
+        switch (text) {
+          case 0:
+            return <EditOutlined style={{ color: 'black', fontSize: '18px' }} />;
+          case 1:
+            return <PhoneOutlined style={{ color: 'blue', fontSize: '18px' }} />;
+          case 6:
+            return <ContactsOutlined style={{ color: 'green', fontSize: '18px' }} />;
+          default:
+            return text;
+        }
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNews.g_type', defaultMessage: '' }),
+      dataIndex: 'g_type',
+      key: 'g_type',
+      valueType: 'select',
+      valueEnum: {
+        0: {
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.new',
+            defaultMessage: '新案件',
+          }),
+          status: 'Default',
+        },
+        1: {
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.negotiating',
+            defaultMessage: '协商中',
+          }),
+          status: 'Processing',
+        },
+        2: {
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.promised',
+            defaultMessage: '承诺还款',
+          }),
+          status: 'Processing',
+        },
+        3: {
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.unfulfilled',
+            defaultMessage: '承诺未还',
+          }),
+          status: 'Warning',
+        },
+        4: {
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.rejected',
+            defaultMessage: '拒绝还款',
+          }),
+          status: 'Error',
+        },
+        7: {
+          text: intl.formatMessage({
+            id: 'pages.BLCollectionOrder.k_status.repay',
+            defaultMessage: '已还款',
+          }),
+          status: 'Success',
+        },
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNews.j_content', defaultMessage: '' }),
+      dataIndex: 'j_content',
+      key: 'j_content',
+      render: (text, record) => {
+        if (!text) return null;
+        if (record.f_cat === 1 || record.f_cat === 6) {
+          return <audio controls src={`https://api.dasewan.cn/storage/${text}`} />;
+        }
+        return text;
+      },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.QCCollectionNews.k_promise_time',
+        defaultMessage: '',
+      }),
+      dataIndex: 'k_promise_time',
+      key: 'k_promise_time',
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.QCCollectionNews.m_overdue_days',
+        defaultMessage: '',
+      }),
+      dataIndex: 'm_overdue_days',
+      key: 'm_overdue_days',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' }),
+      dataIndex: 'created_at',
+      key: 'created_at',
+      valueType: 'dateTime',
+    },
   ];
 
   // @ts-ignore
@@ -212,6 +456,29 @@ const TableList: React.FC = () => {
         }}
         pagination={{
           pageSize: 50,
+        }}
+        expandable={{
+          // 为了避免返回 undefined，添加默认返回值 false
+          rowExpandable: (record) => {
+            if (
+              record.a_a_a_a_a_q_c_collection_news &&
+              record.a_a_a_a_a_q_c_collection_news.length > 0
+            ) {
+              return true;
+            }
+            return false;
+          },
+          expandedRowRender: (record) => (
+            <ProTable
+              rowKey="id"
+              columns={columns2}
+              dataSource={record.a_a_a_a_a_q_c_collection_news || []}
+              pagination={false}
+              headerTitle={false}
+              search={false}
+              options={false}
+            />
+          ),
         }}
       />
     </PageContainer>

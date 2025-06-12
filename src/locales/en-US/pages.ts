@@ -1075,6 +1075,7 @@ export default {
 'pages.QCCollectionNews.c_collection_agency_id': 'Collection Agency',
 'pages.QCCollectionNews.d_collection_group_id': 'Collection Group',
 'pages.QCCollectionNews.e_collection_admin_id': 'Collection Admin',
+'pages.QCCollectionNews.s_borrow_sn': 'Order No',
 'pages.QCCollectionNews.f_cat': 'Cat',
 'pages.QCCollectionNews.g_type': 'Type',
 'pages.QCCollectionNews.h_phone': 'Phone',
