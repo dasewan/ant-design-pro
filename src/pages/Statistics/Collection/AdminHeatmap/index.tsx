@@ -12,7 +12,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Button, Dropdown, MenuProps, Tooltip } from 'antd';
+import { Button, Dropdown, MenuProps, Progress  } from 'antd';
 import { isEqual } from 'lodash';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
@@ -138,7 +138,7 @@ const TableList: React.FC = () => {
       setPreParams(params2);
       // @ts-ignore
       res = await index({ page: params.current, ...params });
-      setRecords(res.data);
+      setRecords(res.data!);
       setTotal(res.total);
     } else {
       res = {
@@ -184,6 +184,31 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.a_date', defaultMessage: '' }),
       dataIndex: 'a_date',
       key: 'a_date',
+      render: (text, record, index) => {
+        const prevRecord = records[index - 1];
+        if (prevRecord && prevRecord.a_date === text) {
+          return {
+            children: text,
+            props: {
+              rowSpan: 0
+            }
+          };
+        }
+        let rowSpan = 1;
+        for (let i = index + 1; i < records.length; i++) {
+          if (records[i].a_date === text) {
+            rowSpan++;
+          } else {
+            break;
+          }
+        }
+        return {
+          children: text,
+          props: {
+            rowSpan: rowSpan
+          }
+        };
+      },
     },
     {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.e_collection_admin_id', defaultMessage: '' }),
@@ -211,7 +236,23 @@ const TableList: React.FC = () => {
       dataIndex: 'success_rate',
       key: 'success_rate',
       render: (_, record) => {
-        return `${Math.round((record!.c_success_count! / record!.b_init_count!) * 100)}%`;
+        const percent = Math.round((record!.c_success_count! / record!.b_init_count!) * 100);
+        let strokeColor = '#1890ff'; // 默认蓝色
+        
+        switch(record.p_kpi) {
+          case 1: strokeColor = '#ff4d4f'; break; // BB: 红色
+          case 2: strokeColor = '#faad14'; break; // B: 橙色
+          case 3: strokeColor = '#1890ff'; break; // A: 绿色
+          case 4: strokeColor = '#52c41a'; break; // AA: 青色
+          default: strokeColor = '#1890ff';
+        }
+        
+        return <Progress 
+          percent={percent} 
+          size="small" 
+          strokeColor={strokeColor}
+          trailColor="#f5f5f5"
+        />;
       },
     },
     {
@@ -367,6 +408,7 @@ const TableList: React.FC = () => {
         revalidateOnFocus={false}
         actionRef={actionRef}
         rowKey="id"
+        rowClassName="even-row"
         search={{
           span: 4,
         }}

@@ -24,6 +24,7 @@ import HeatmapChart from '@/pages/Statistics/Collection/AdminNews/components/Hea
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
+  const [records, setRecords] = useState<TableListItem[]>([]);
   /** 新建催收组 */
   const [createModalVisible, handleCreateModalVisible] = useState<boolean>(false);
   /** 释放 */
@@ -134,6 +135,7 @@ const TableList: React.FC = () => {
     // 如果需要转化参数可以在这里进行修改
     // @ts-ignore
     const res = await index({ page: params.current, ...params });
+    setRecords(res.data!);
     if (admins.length === 0) {
       // @ts-ignore
       await _getUsersEnum();
@@ -207,12 +209,30 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.a_date', defaultMessage: '' }),
       dataIndex: 'a_date',
       key: 'a_date',
-      render: (text) => {
-        const date = moment(text);
-        if (date.isValid()) {
-          return date.format('MM-DD');
+      render: (text, record, index) => {
+        const prevRecord = records[index - 1];
+        if (prevRecord && prevRecord.a_date === text) {
+          return {
+            children: text,
+            props: {
+              rowSpan: 0
+            }
+          };
         }
-        return text;
+        let rowSpan = 1;
+        for (let i = index + 1; i < records.length; i++) {
+          if (records[i].a_date === text) {
+            rowSpan++;
+          } else {
+            break;
+          }
+        }
+        return {
+          children: text,
+          props: {
+            rowSpan: rowSpan
+          }
+        };
       },
     },
     {
@@ -291,6 +311,7 @@ const TableList: React.FC = () => {
         search={{
           labelWidth: 120,
         }}
+        bordered={true}
         request={_index}
         columns={columns}
         postData={(data: any[]) => {

@@ -164,7 +164,15 @@ const TableList: React.FC = () => {
   };
 
   const columns: ProColumns<TableListItem>[] = [
-
+   
+    {
+      title: intl.formatMessage({ id: 'pages.QCCollectionNews.c_collection_agency_id', defaultMessage: '' }),
+      dataIndex: 'c_collection_agency_id',
+      key: 'c_collection_agency_id',
+      valueType: 'select',
+      request: _getCollectionAgenciesEnum,
+      params: { timestamp: Math.random() },
+    },
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.d_collection_group_id', defaultMessage: '' }),
       dataIndex: 'd_collection_group_id',
@@ -182,19 +190,14 @@ const TableList: React.FC = () => {
       params: { timestamp: Math.random() },
     },
     {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNews.s_borrow_sn', defaultMessage: 'SN' }),
-      dataIndex: 's_borrow_sn',
-      key: 's_borrow_sn',
-    },
-    {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.f_cat', defaultMessage: '' }),
       dataIndex: 'f_cat',
       key: 'f_cat',
       render: (text) => {
         switch(text) {
-          case 0: return <EditOutlined style={{ color: 'black', fontSize: '18px' }} />;
-          case 1: return <PhoneOutlined style={{ color: 'blue' , fontSize: '18px' }} />;
-          case 6: return <ContactsOutlined style={{ color: 'green', fontSize: '18px'  }} />;
+          case 0: return <EditOutlined />;
+          case 1: return <PhoneOutlined />;
+          case 6: return <ContactsOutlined />;
           default: return text;
         }
       },
@@ -262,7 +265,6 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.k_promise_time', defaultMessage: '' }),
       dataIndex: 'k_promise_time',
       key: 'k_promise_time',
-      valueType: 'dateTime',
     },
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.m_overdue_days', defaultMessage: '' }),
@@ -270,10 +272,9 @@ const TableList: React.FC = () => {
       key: 'm_overdue_days',
     },
     {
-      title: intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.QCCollectionNews.created_at', defaultMessage: '' }),
       dataIndex: 'created_at',
       key: 'created_at',
-      valueType: 'dateTime',
     }
    
   ];
