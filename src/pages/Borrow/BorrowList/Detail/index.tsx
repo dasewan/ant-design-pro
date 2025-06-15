@@ -1,4 +1,6 @@
 import { DownloadOutlined, EllipsisOutlined, FileTextOutlined } from '@ant-design/icons';
+import { InputNumber, Form, message } from 'antd';
+import { Modal } from 'antd';
 import { PageContainer, RouteContext } from '@ant-design/pro-layout';
 import type { TabPaneProps } from 'antd';
 import {
@@ -25,6 +27,7 @@ import {
   VERIFY_STATUS_MAP,
 } from '@/pages/enums';
 import { getAdminV1DBorrowsProfileId as show } from '@/services/ant-design-pro/DBorrow';
+import { postAdminV1OADeductions as   applyReduction } from '@/services/ant-design-pro/OADeduction';
 import { Outlet } from '@@/exports';
 import {
   AlertOutlined,
@@ -80,6 +83,8 @@ const Advanced: FC = () => {
   const [verifyId, setVerifyId] = useState<number>();
   const [showReviewButton, setShowReviewButton] = useState<boolean>(true);
   const [reviewModalVisible, handleReviewModalVisible] = useState<boolean>(false);
+  const [reductionModalVisible, setReductionModalVisible] = useState<boolean>(false);
+  const [reductionAmount, setReductionAmount] = useState<number>(0);
   const [tabActiveKey, handleTabActiveKey] = useState<string>('urge');
   const statusIcons: { [key: number]: React.ReactNode } = {
     3010: (
@@ -550,13 +555,9 @@ const Advanced: FC = () => {
     { label: '展期', key: 'item-1', icon: <FileTextOutlined /> },
     {
       label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
-        >
+        <span onClick={() => setReductionModalVisible(true)} style={{ cursor: 'pointer', color: '#1890ff' }}>
           减免
-        </a>
+        </span>
       ),
       key: 'item-2',
       icon: <DownloadOutlined />,
@@ -579,13 +580,9 @@ const Advanced: FC = () => {
     { label: '展期', key: 'item-1', icon: <FileTextOutlined /> },
     {
       label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={'/admin/v1/aLAdminFiles_templete/black_info_list.xlsx'}
-        >
+        <span onClick={() => setReductionModalVisible(true)} style={{ cursor: 'pointer', color: '#1890ff' }}>
           减免
-        </a>
+        </span>
       ),
       key: 'item-2',
       icon: <DownloadOutlined />,
@@ -792,6 +789,7 @@ const Advanced: FC = () => {
           </Descriptions.Item>
 
         </Descriptions>
+
       )}
     </RouteContext.Consumer>
   ) : (
@@ -897,6 +895,47 @@ const Advanced: FC = () => {
           showReviewRecord={!showReviewButton}
           verifyId={verifyId}
         />
+                <Modal
+          title="减免申请"
+          visible={reductionModalVisible}
+          onCancel={() => setReductionModalVisible(false)}
+          footer={[
+            <Button key="cancel" onClick={() => setReductionModalVisible(false)}>
+              取消
+            </Button>,
+            <Button key="ok" type="primary" onClick={async () => {
+              // 调用减免申请接口
+              try {
+                await applyReduction({ id: borrowId, reductionAmount });
+                message.success('减免申请提交成功');
+                setReductionModalVisible(false);
+                // 刷新数据
+              } catch (error) {
+                message.error('减免申请提交失败');
+              }
+            }}>
+              确认
+            </Button>,
+          ]}
+        >
+          <Form layout="vertical" style={{ maxWidth: 300 }}>
+            <Form.Item
+              name="reductionAmount"
+              label="减免金额"
+              rules={[{ required: true, message: '请输入减免金额' }]}
+              initialValue={0}
+            >
+              <InputNumber
+                min={0}
+                precision={2}
+                style={{ width: '100%' }}
+                formatter={value => `¥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                parser={value => value!.replace(/\¥\s?|(,*)/g, '')}
+                onChange={value => setReductionAmount(value as number)}
+              />
+            </Form.Item>
+          </Form>
+        </Modal>
       </PageContainer>
     </AliveScope>
   );

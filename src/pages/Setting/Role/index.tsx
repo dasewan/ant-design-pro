@@ -45,7 +45,7 @@ const TableList: React.FC = () => {
         const path2 = currentPath2 ? `${currentPath2}.${part}` : part;
         if (!nodeMap[path]) {
           const newNode: TreeDataNode = {
-            key: '/' + path,
+            key: item.name,
             title: intl.formatMessage({ id: 'menu.' + path2, defaultMessage: 'menu.' + path2 }),
             children: [],
           };

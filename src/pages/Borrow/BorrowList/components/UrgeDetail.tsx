@@ -18,7 +18,7 @@ import { useIntl } from '@@/exports';
 import { GridContent } from '@ant-design/pro-layout';
 import ProTable, { type ProColumns } from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import { Alert, Card, Descriptions, Spin, Table } from 'antd';
+import { Alert, Card, Descriptions, Spin, Table, InputNumber, Form, message, Modal,Button   } from 'antd';
 import { CardTabListType } from 'antd/es/card/Card';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
@@ -26,6 +26,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'umi';
 import type { TableListItem } from '../data';
 import styles from '../style.less';
+import { postAdminV1OADeductions as  deduction } from '@/services/ant-design-pro/OADeduction';
 import {
   PeriodDetailFieldIndex,
   PeriodDetailFieldLabels,
@@ -42,6 +43,7 @@ const UrgeDetail: React.FC = () => {
   const params = useParams<{ id: string }>();
   const intl = useIntl();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
+  const [period, setPeriod] = useState<API.QBPeriod>();
   const [collectionNews, setcollectionNews] = useState<API.QCCollectionNews[]>();
   const [other, setOther] = useState<API.BorrowDetail>();
   // const [defaultExpandedRowKey, setDefaultExpandedRowKey] = useState<number>();
@@ -50,6 +52,8 @@ const UrgeDetail: React.FC = () => {
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
   const [collectionAgencies, setCollectionAgencies] = useState<RequestOptionsType[]>([]);
   const [collectionGroups, setCollectionGroups] = useState<RequestOptionsType[]>([]);
+  const [reductionModalVisible, setReductionModalVisible] = useState<boolean>(false);
+  const [reductionAmount, setReductionAmount] = useState<number>(0);
   const [collectionSub, setCollectionSub] = useState<{
     logCount: number;
     callCount: number;
@@ -275,6 +279,11 @@ const UrgeDetail: React.FC = () => {
     seTabStatus({ ...tabStatus, operationKey: key });
     setcollectionNews([]);
   };
+  const showDeducationModal = (item: API.QBPeriod) => {
+    setReductionModalVisible(true);
+    setPeriod(item);
+
+  };
 
   const columns: ColumnsType<API.QBPeriod> = [
     {
@@ -357,6 +366,17 @@ const UrgeDetail: React.FC = () => {
         }else{
           return amount;
         }
+      },
+    },
+    {
+      title: intl.formatMessage({
+        id: 'pages.common.option',
+        defaultMessage: '操作',
+      }),
+      render: (_, record) => {
+        return <span onClick={() => showDeducationModal(record)} style={{ cursor: 'pointer', color: '#1890ff' }}>
+        减免
+      </span>;
       },
     },
 
@@ -901,6 +921,47 @@ const UrgeDetail: React.FC = () => {
               }
             />
           </Card>
+          <Modal
+          title="减免申请"
+          visible={reductionModalVisible}
+          onCancel={() => setReductionModalVisible(false)}
+          footer={[
+            <Button key="cancel" onClick={() => setReductionModalVisible(false)}>
+              取消
+            </Button>,
+            <Button key="ok" type="primary" onClick={async () => {
+              // 调用减免申请接口
+              try {
+                await deduction({ c_period_id: period?.id, q_deduction_total_amount:reductionAmount });
+                message.success('减免申请提交成功');
+                setReductionModalVisible(false);
+                // 刷新数据
+              } catch (error) {
+                message.error('减免申请提交失败');
+              }
+            }}>
+              确认
+            </Button>,
+          ]}
+        >
+          <Form layout="vertical" style={{ maxWidth: 300 }}>
+            <Form.Item
+              name="reductionAmount"
+              label="减免金额"
+              rules={[{ required: true, message: '请输入减免金额' }]}
+              initialValue={0}
+            >
+              <InputNumber
+                min={0}
+                precision={2}
+                style={{ width: '100%' }}
+                formatter={value => `¥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                parser={value => value!.replace(/\¥\s?|(,*)/g, '')}
+                onChange={value => setReductionAmount(value as number)}
+              />
+            </Form.Item>
+          </Form>
+        </Modal>
         </GridContent>
       </Spin>
     </div>
