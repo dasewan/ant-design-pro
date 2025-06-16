@@ -30,35 +30,20 @@ const TableList: React.FC = () => {
   const [permissionTreeData, setPermissionTreeData] = useState<TreeDataNode[]>([]);
 
   function convertToTreeData(data: API.Permission[]): TreeDataNode[] {
-    const root: TreeDataNode = { key: 'root', title: 'root', children: [] };
-    const nodeMap: { [key: string]: TreeDataNode } = { '': root };
-
-    data.forEach(item => {
-      const parts = item.path.split('/');
-      let currentPath = '';
-      let currentPath2 = '';
-      let parentNode = root;
-
-      parts.forEach((part, index) => {
-        const path = currentPath ? `${currentPath}/${part}` : part;
-        console.log(path);
-        const path2 = currentPath2 ? `${currentPath2}.${part}` : part;
-        if (!nodeMap[path]) {
-          const newNode: TreeDataNode = {
-            key: item.name,
-            title: intl.formatMessage({ id: 'menu.' + path2, defaultMessage: 'menu.' + path2 }),
-            children: [],
-          };
-          nodeMap[path] = newNode;
-          parentNode.children!.push(newNode);
-        }
-        parentNode = nodeMap[path];
-        currentPath = path;
-        currentPath2 = path2;
-      });
-    });
-    setPermissionTreeData(root.children || []);
-    return root.children || [];
+    const convertNode = (node: API.Permission): TreeDataNode => {
+      return {
+        key: node.name,
+        title: intl.formatMessage({ 
+          id: `menu${node.path.replace(/\//g, '.')}`, 
+          defaultMessage: `menu${node.path.replace(/\//g, '.')}` 
+        }),
+        children: node.children?.map(convertNode) || []
+      };
+    };
+    
+    const treeData = data.map(convertNode);
+    setPermissionTreeData(treeData);
+    return treeData;
   }
   /** table */
   const _index = async (

@@ -8,9 +8,9 @@ export default function access(initialState: { currentUser?: API.CurrentUser } |
     // normalRouteFilter: (route) => currentUser?.permissions?.includes(route.name),
     normalRouteFilter: (route) => currentUser?.permissions?.includes(route.path),
     // normalRouteFilter: (route) => {
-    //   console.log(route);
+    //   // console.log(route);
     //   return true;
-    //
+    
     // },
   };
 }
