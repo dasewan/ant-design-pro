@@ -10,7 +10,6 @@ export default function access(initialState: { currentUser?: API.CurrentUser } |
     // normalRouteFilter: (route) => {
     //   // console.log(route);
     //   return true;
-    
     // },
   };
 }
