@@ -85,7 +85,7 @@ export default [
     redirect: '/welcome',
   },
   {
-    name: 'user',
+    name: 'user-manager',
     icon: 'TeamOutlined',
     path: '/user-manager',
     // component: './AUser',
@@ -110,7 +110,7 @@ export default [
         hideChildrenInMenu: true,
         routes: [
           {
-            name: 'user',
+            name: 'white-user',
             icon: 'smile',
             path: '/user-manager/white/user',
             component: './UserManager/BAWhiteUser/BAWhiteUser',
@@ -306,7 +306,7 @@ export default [
             component: './Borrow/BorrowList/components/UrgeDetail',
           },
           {
-            name: 'verify-detail',
+            name: 'verify-detail2',
             icon: 'smile',
             path: '/borrow/detail/:id/verify/:verifyId',
             component: './Borrow/VerifyList/components/VerifyDetail',
@@ -596,7 +596,7 @@ export default [
         hideInMenu: true,
       },
       {
-        name: 'risk-tag',
+        name: 'risk-tag2',
         icon: 'smile',
         path: '/risk/risk-tag',
         component: './Risk/RiskTag',
@@ -826,7 +826,7 @@ export default [
         path: '/statistics/overdue',
         routes: [
           {
-            name: 'product',
+            name: 'product2',
             icon: 'smile',
             path: '/statistics/overdue/product',
             component: './Statistics/Overdue/Product',
@@ -845,7 +845,7 @@ export default [
         path: '/statistics/loan-overdue',
         routes: [
           {
-            name: 'product',
+            name: 'product3',
             icon: 'smile',
             path: '/statistics/loan-overdue/product',
             component: './Statistics/LoanOverdue/Product',
@@ -858,7 +858,7 @@ export default [
         path: '/statistics/profit',
         routes: [
           {
-            name: 'product',
+            name: 'product4',
             icon: 'smile',
             path: '/statistics/profit/product',
             component: './Statistics/Profit/Product',
@@ -920,7 +920,7 @@ export default [
             component: './Statistics/Collection/AdminNews',
           },
           {
-            name: 'admin',
+            name: 'admin2',
             icon: 'smile',
             path: '/statistics/collection/admin',
             component: './Statistics/Collection/Admin',
@@ -959,13 +959,13 @@ export default [
             component: './Statistics/Sms/BackFill',
           },
           {
-            name: 'report',
+            name: 'report2',
             icon: 'smile',
             path: '/statistics/sms/report',
             component: './Statistics/Sms/Report',
           },
           {
-            name: 'template',
+            name: 'template2',
             icon: 'smile',
             path: '/statistics/sms/template',
             component: './Statistics/Sms/Template',
