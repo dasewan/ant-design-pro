@@ -401,10 +401,10 @@ const SmsDetail: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.Borrow.Sms.date_sent', defaultMessage: '' }),
       dataIndex: 'date_sent',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => a.date_sent - b.date_sent,
+      sorter: (a, b) => a.date_sent! - b.date_sent!,
       render: (__, value) => {
         // @ts-ignore
-        return moment(new Date(value.date)).format('YYYY-MM-DD HH:mm');
+        return moment(new Date(value.date_sent * 1000)).format('YYYY-MM-DD HH:mm');
       },
     },
 

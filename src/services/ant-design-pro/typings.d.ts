@@ -3906,6 +3906,11 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1SGContactsAdminParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1SGContactsIdParams = {
     /** id of SGContact */
     id: number;
@@ -7783,21 +7788,21 @@ declare namespace API {
     d_collection_group_id?: number;
     /** 催员id */
     e_collection_admin_id?: number;
-    /** 1:催员日志 2：催员拨打电话 3：入催  4：系统记录日志 5：还款日志 */
+    /** 0:催员日志 1：催员拨打电话 2：入催  3：系统记录日志 4：还款日志 */
     f_cat?: number;
-    /** 11:承诺还款 12：支付确认 13：还款协商  14：电话未接通 15：接通非本人 16：疑似欺诈用户 41：承诺未还 42：无日志 43：催收短信 51：部分还款 52： 展期 53：结清 */
+    /** 0: 流入1:还款协商 2:承诺还款  3:电话未接通 4:疑似欺诈用户 5:部分还款日志 6:承诺未还 7：结清日志8: 管理员催收短信 */
     g_type?: number;
     /** 拨打的电话 */
     h_phone?: string;
-    /** 1:本人 2：紧急联系人 3：通讯录  4：其他 */
+    /** 1:本人 2：紧急联系人 3：通讯录  4：其他 5：亲人 */
     i_target?: number;
     /** 日志内容 */
     j_content?: string;
     /** 承诺还款时间 */
     k_promise_time?: string;
-    /** 所在阶段第几天（只针对f_cat=5还款的情况） */
+    /** 距离入催的小时数 */
     l_stage_day_index?: number;
-    /** 逾期天数（只针对f_cat=5还款的情况） */
+    /** 逾期天数 */
     m_overdue_days?: number;
     /** created_at */
     created_at?: string;
@@ -7805,6 +7810,12 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
+    /** 短信模板id */
+    q_sms_template_id?: number;
+    /** 联系人 */
+    r_contact_id?: number;
+    /** 订单号 */
+    s_borrow_sn?: string;
   };
 
   type QEPaymentGatewayLog = {
@@ -8743,6 +8754,8 @@ declare namespace API {
   type SGContact = {
     /** id */
     id?: number;
+    /** App\Models\SGContact */
+    a_a_a_a_a_h_k_contact_smss?: HKContactSms[];
     /** 证件号 */
     a_idnumber?: string;
     /** 用户 */
