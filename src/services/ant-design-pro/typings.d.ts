@@ -1216,6 +1216,10 @@ declare namespace API {
     b_c_12_contact_call_count?: number;
     /** 上午附件数 */
     b_d_12_appendix?: number;
+    /** c_a_origin_collection_admin_id */
+    c_a_origin_collection_admin_id?: number;
+    /** c_b_tmp_collection_admin_id */
+    c_b_tmp_collection_admin_id?: string;
   };
 
   type BMBorrowRiskResult = {
@@ -4609,6 +4613,10 @@ declare namespace API {
     c_a_today_no_call_count?: number;
     /** 上次拨打电话时间 */
     c_b_last_call?: string;
+    /** 待审核订单数 */
+    c_c_reviewing_count?: number;
+    /** 中午新增 */
+    c_d_today_addition_count?: number;
   };
 
   type GNCollectionStage = {

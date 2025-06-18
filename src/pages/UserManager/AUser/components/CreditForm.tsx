@@ -3,7 +3,7 @@ import {
   postAdminV1ABCreditHistories as postABCreditHistories,
 } from '@/services/ant-design-pro/ABCreditHistory';
 import type { ProFormInstance } from '@ant-design/pro-form';
-import { ModalForm, ProFormRadio, ProFormText } from '@ant-design/pro-form';
+import { ModalForm, ProFormRadio, ProFormText,ProFormCheckbox } from '@ant-design/pro-form';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { Badge, Col, Divider, message, Row, Typography } from 'antd';
@@ -206,6 +206,12 @@ const CreditForm: React.FC<FormProps> = (props) => {
         label="备注"
         placeholder="请输入备注"
         rules={[{ required: true, message: '这是必填项' }]}
+      />
+      {/* todo */}
+      <ProFormCheckbox
+        name="send_notification"
+        label="发送通知短信"
+        initialValue={true}
       />
       <Row>
         <Col span={4} style={{ textAlign: 'right' }}>
