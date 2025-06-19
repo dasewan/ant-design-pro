@@ -302,6 +302,14 @@ const TableList: React.FC = () => {
               {
                 value: 26,
                 label: '催收短信',
+              },
+              {
+                value: 26,
+                label: '借款人催收短信',
+              },
+              {
+                value: 28,
+                label: '联系人催收短信',
               }
             ],
           },
