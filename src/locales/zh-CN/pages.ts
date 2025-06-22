@@ -1025,7 +1025,7 @@ export default {
   'pages.DACollectionKpi.f_collection_amount_end_rate': '催回率',
   'pages.DACollectionKpi.g_commission_rate': '佣金',
   'pages.DACollectionKpi.h_additional_1_days': 'B阈值',
-  'pages.DACollectionKpi.i_addition_2_bonus': 'B奖励',
+  'pages.DACollectionKpi.i_addition_1_bonus': 'B奖励',
   'pages.DACollectionKpi.j_additional_2_days': 'A阈值',
   'pages.DACollectionKpi.k_addition_2_bonus': 'A奖励',
   'pages.DACollectionKpi.l_additional_3_days': 'AA阈值',
