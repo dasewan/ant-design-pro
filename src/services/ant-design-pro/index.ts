@@ -85,6 +85,8 @@ import * as nfSmsContact from './nfSmsContact';
 import * as ngNotification from './ngNotification';
 import * as nhCreditRole from './nhCreditRole';
 import * as niAdminRecording from './niAdminRecording';
+import * as njCollectionOrderSub from './njCollectionOrderSub';
+import * as nkCollectionOrderTemplate from './nkCollectionOrderTemplate';
 import * as noticeIconItem from './noticeIconItem';
 import * as oaDeduction from './oaDeduction';
 import * as oaRepay from './oaRepay';
@@ -94,6 +96,7 @@ import * as qcCollectionNews from './qcCollectionNews';
 import * as qePaymentGatewayLog from './qePaymentGatewayLog';
 import * as qfSmsGatewayLog from './qfSmsGatewayLog';
 import * as qgCollectionCommissionLog from './qgCollectionCommissionLog';
+import * as qhCollectionOrderSubDetail from './qhCollectionOrderSubDetail';
 import * as qhSmsChannel from './qhSmsChannel';
 import * as qVerifyItem from './qVerifyItem';
 import * as raRepayLog from './raRepayLog';
@@ -218,6 +221,8 @@ export default {
   ngNotification,
   nhCreditRole,
   niAdminRecording,
+  njCollectionOrderSub,
+  nkCollectionOrderTemplate,
   noticeIconItem,
   oaDeduction,
   oaRepay,
@@ -227,6 +232,7 @@ export default {
   qePaymentGatewayLog,
   qfSmsGatewayLog,
   qgCollectionCommissionLog,
+  qhCollectionOrderSubDetail,
   qhSmsChannel,
   qVerifyItem,
   raRepayLog,
