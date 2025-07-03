@@ -1086,6 +1086,8 @@ declare namespace API {
     id?: number;
     /** App\Models\BLCollectionOrder */
     a_a_a_a_a_q_c_collection_news?: QCCollectionNews[];
+    /** App\Models\BLCollectionOrder */
+    a_a_a_a_a_n_j_collection_order_sub?: NJCollectionOrderSub;
     /** 父id */
     a_borrow_id?: number;
     /** 阶段 */
@@ -1102,7 +1104,7 @@ declare namespace API {
     g_collection_order_flow_history_count?: number;
     /** 累计催记数 */
     h_collection_admin_log_count?: number;
-    /** 累计电话数 */
+    /** 累计借款人电话 */
     i_collection_admin_call_count?: number;
     /** 系统短信数 */
     j_system_sms_count?: number;
@@ -1136,7 +1138,7 @@ declare namespace API {
     x_current_view_times?: number;
     /** 当前日志数 */
     y_current_log_count?: number;
-    /** 当前电催数 */
+    /** 当前阶段借款人电话 */
     z_current_call_count?: number;
     /** 累计佣金 */
     a_a_commission?: number;
@@ -1166,18 +1168,22 @@ declare namespace API {
     a_m_current_day_view_time?: number;
     /** 今日日志数（计划任务，无差别） */
     a_n_current_day_log_count?: number;
-    /** 今日外呼数（计划任务无差别） */
+    /** 今日借款人电话（计划任务无差别） */
     a_o_current_day_call_count?: number;
-    /** 催员累计发送短信数 */
+    /** 催员累计发送借款人短信数 */
     a_p_collection_admin_sms_count?: number;
-    /** 阶段催员发送短信数 */
+    /** 阶段催员发送借款人短信数 */
     a_q_current_sms_count?: string;
     /** 结清时间 */
     a_r_repay_at?: string;
-    /** 今日发送短信数 */
+    /** 今日发送借款人短信数 */
     a_s_current_day_sms_count?: number;
     /** 用户id */
     a_t_user_id?: number;
+    /** a_u_origin_collection_admin_id */
+    a_u_origin_collection_admin_id?: number;
+    /** a_v_tmp_collection_admin_id */
+    a_v_tmp_collection_admin_id?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1187,39 +1193,81 @@ declare namespace API {
     /** 上午日志数 */
     b_a_12_log_count?: number;
     /** 下午日志数 */
-    b_e_18_log_count?: number;
+    b_b_18_log_count?: number;
+    /** 晚上日志数 */
+    b_c_24_log_count?: number;
+    /** 昨日日志数 */
+    b_d_yesterday_log_count?: number;
+    /** 上午电话数 */
+    b_e_12_call_count?: number;
     /** 下午电话数 */
     b_f_18_call_count?: number;
-    /** 下午联系人电话数 */
-    b_g_18_contact_call_count?: number;
-    /** 下午附件数 */
-    b_h_18_appendix?: number;
-    /** 晚上日志数 */
-    b_i_24_log_count?: number;
     /** 晚上电话数 */
-    b_j_24_call_count?: number;
-    /** 晚上联系人电话数 */
-    b_k_24_contact_call_count?: number;
-    /** 晚上附件数 */
-    b_l_24_appendix?: number;
-    /** 昨日日志数 */
-    b_m_yesterday_log_count?: number;
+    b_g_24_call_count?: number;
     /** 昨日电话数 */
-    b_n_yesterday_call_count?: number;
-    /** 昨日联系人电话数 */
-    b_o_yesterday_contact_call_count?: number;
-    /** 昨日附件数 */
-    b_p_yesterday_appendix?: number;
-    /** 上午电话数 */
-    b_b_12_call_count?: number;
+    b_h_yesterday_call_count?: number;
+    /** 累计电话数 */
+    b_i_total_call_count?: number;
+    /** 上午wa */
+    b_j_12_wa_count?: number;
+    /** 下午wa */
+    b_k_18_wa_count?: number;
+    /** 晚上wa */
+    b_l_24_wa_count?: number;
+    /** 昨日wa数 */
+    b_m_yesterday_wa_count?: number;
+    /** 累计wa数 */
+    b_n_total_wa_count?: number;
     /** 上午联系人电话数 */
-    b_c_12_contact_call_count?: number;
+    b_o_12_contact_call_count?: number;
+    /** 下午联系人电话数 */
+    b_p_18_contact_call_count?: number;
+    /** 晚上联系人电话数 */
+    b_q_24_contact_call_count?: number;
+    /** 昨日联系人电话数 */
+    b_r_yesterday_contact_call_count?: number;
+    /** 累计联系人电话数 */
+    c_s_total_contact_call_count?: number;
     /** 上午附件数 */
-    b_d_12_appendix?: number;
-    /** c_a_origin_collection_admin_id */
-    c_a_origin_collection_admin_id?: number;
-    /** c_b_tmp_collection_admin_id */
-    c_b_tmp_collection_admin_id?: string;
+    b_t_12_appendix?: number;
+    /** 下午附件数 */
+    b_u_18_appendix?: number;
+    /** 晚上附件数 */
+    b_v_24_appendix?: number;
+    /** 昨日附件数 */
+    b_w_yesterday_appendix?: number;
+    /** 累计附件数 */
+    b_x_total_appendix?: number;
+    /** 上午短信 */
+    b_y_12_sms_count?: number;
+    /** 下午短信 */
+    b_z_18_sms_count?: number;
+    /** 晚上短信 */
+    c_a_24_sms_count?: number;
+    /** 昨日短信 */
+    c_b_yesterday_sms_count?: number;
+    /** 累计短信 */
+    c_c_total_sms_count?: number;
+    /** 上午联系人wa */
+    c_d_12_contact_wa_count?: number;
+    /** 下午联系人wa */
+    c_e_18_contact_wa_count?: number;
+    /** 晚上联系人wa */
+    c_f_24_contact_wa_count?: number;
+    /** 昨日联系人wa */
+    c_g_yesterday_contact_wa_count?: number;
+    /** 累计联系人wa */
+    c_h_total_contact_wa_count?: number;
+    /** 上午联系人短信 */
+    c_i_12_contact_sms_count?: number;
+    /** 下午联系人短信 */
+    c_j_18_contact_sms_count?: number;
+    /** 晚上联系人短信 */
+    c_k_24_contact_sms_count?: number;
+    /** 昨日联系人短信 */
+    c_l_yesterday_contact_sms_count?: number;
+    /** 累计联系人短信 */
+    c_m_total_contact_sms_count?: number;
   };
 
   type BMBorrowRiskResult = {
@@ -2155,6 +2203,16 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1NJCollectionOrderSubsIdParams = {
+    /** id of NJCollectionOrderSub */
+    id: number;
+  };
+
+  type deleteAdminV1NKCollectionOrderTemplatesIdParams = {
+    /** id of NKCollectionOrderTemplate */
+    id: number;
+  };
+
   type deleteAdminV1OADeductionsIdParams = {
     /** id of OADeduction */
     id: number;
@@ -2192,6 +2250,11 @@ declare namespace API {
 
   type deleteAdminV1QGCollectionCommissionLogsIdParams = {
     /** id of QGCollectionCommissionLog */
+    id: number;
+  };
+
+  type deleteAdminV1QHCollectionOrderSubDetailsIdParams = {
+    /** id of QHCollectionOrderSubDetail */
     id: number;
   };
 
@@ -3670,6 +3733,26 @@ declare namespace API {
     foo: number;
   };
 
+  type getAdminV1NJCollectionOrderSubsIdParams = {
+    /** id of NJCollectionOrderSub */
+    id: number;
+  };
+
+  type getAdminV1NJCollectionOrderSubsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1NKCollectionOrderTemplatesIdParams = {
+    /** id of NKCollectionOrderTemplate */
+    id: number;
+  };
+
+  type getAdminV1NKCollectionOrderTemplatesParams = {
+    /** foo */
+    foo: number;
+  };
+
   type getAdminV1OADeductionsIdParams = {
     /** id of OADeduction */
     id: number;
@@ -3756,6 +3839,16 @@ declare namespace API {
   };
 
   type getAdminV1QGCollectionCommissionLogsParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1QHCollectionOrderSubDetailsIdParams = {
+    /** id of QHCollectionOrderSubDetail */
+    id: number;
+  };
+
+  type getAdminV1QHCollectionOrderSubDetailsParams = {
     /** foo */
     foo: number;
   };
@@ -4617,6 +4710,8 @@ declare namespace API {
     c_c_reviewing_count?: number;
     /** 中午新增 */
     c_d_today_addition_count?: number;
+    /** 移除案件数 */
+    c_e_today_delete_count?: number;
   };
 
   type GNCollectionStage = {
@@ -5424,7 +5519,7 @@ declare namespace API {
     /** 发送条数 */
     g_count?: number;
     /** 昨日发送条数 */
-    h_yesterday_count?: number;
+    h_today_count?: number;
     /** 是否开启分流 */
     i_proportion?: number;
     /** 默认渠道 */
@@ -5498,6 +5593,12 @@ declare namespace API {
     a_a_contact_id?: number;
     /** 姓名 */
     a_b_contact_name?: string;
+    /** 电话数 */
+    a_c_call_count?: number;
+    /** 短信数 */
+    a_d_sms_count?: number;
+    /** wa数 */
+    a_e_wa_count?: number;
   };
 
   type HProductSnapshot = {
@@ -6202,18 +6303,22 @@ declare namespace API {
     a_q_current_sms_count?: string;
     /** 结清时间 */
     a_r_repay_at?: string;
+    /** 今日发送短信数 */
+    a_s_current_day_sms_count?: number;
+    /** 用户 */
+    a_t_user_id?: number;
     /** 阶段 */
-    b_a_collection_stage_id?: number;
+    f_a_collection_stage_id?: number;
     /** 机构 */
-    b_b_collection_agency_id?: number;
+    f_b_collection_agency_id?: number;
     /** 小组 */
-    b_c_collection_group_id?: number;
+    f_c_collection_group_id?: number;
     /** 催员 */
-    b_d_collection_admin_id?: number;
+    f_d_collection_admin_id?: number;
     /** 管理员 */
-    b_e_admin_id?: number;
-    /** 类型 1：系统 2：管理员分配 3：释放 */
-    b_f_type?: number;
+    f_e_admin_id?: number;
+    /** 类型 1：系统 2：管理员分配 3：释放 4:中午 5：晚上 */
+    f_f_type?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -6476,6 +6581,122 @@ declare namespace API {
     j_comment?: string;
     /** k_call_at */
     k_call_at?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type NJCollectionOrderSub = {
+    /** id */
+    id?: number;
+    /** 案件 */
+    a_collection_order_id?: number;
+    /** 上午日志数 */
+    b_12_log_count?: number;
+    /** 上午日志数 */
+    c_12_log_count?: number;
+    /** 下午日志数 */
+    d_18_log_count?: number;
+    /** 晚上日志数 */
+    e_24_log_count?: number;
+    /** 昨日日志数 */
+    f_yesterday_log_count?: number;
+    /** 累计日志数 */
+    g_total_log_count?: number;
+    /** 上午电话数 */
+    h_12_call_count?: number;
+    /** 下午电话数 */
+    i_18_call_count?: number;
+    /** 晚上电话数 */
+    j_24_call_count?: number;
+    /** 昨日电话数 */
+    k_yesterday_call_count?: number;
+    /** 累计电话数 */
+    l_total_call_count?: number;
+    /** 上午wa */
+    m_12_wa_count?: number;
+    /** 下午wa */
+    n_18_wa_count?: number;
+    /** 晚上wa */
+    o_24_wa_count?: number;
+    /** 昨日wa数 */
+    p_yesterday_wa_count?: number;
+    /** 累计wa数 */
+    q_total_wa_count?: number;
+    /** 上午联系人电话数 */
+    r_12_contact_call_count?: number;
+    /** 下午联系人电话数 */
+    s_18_contact_call_count?: number;
+    /** 晚上联系人电话数 */
+    t_24_contact_call_count?: number;
+    /** 昨日联系人电话数 */
+    u_yesterday_contact_call_count?: number;
+    /** 累计联系人电话数 */
+    v_s_total_contact_call_count?: number;
+    /** 上午附件数 */
+    w_12_appendix?: number;
+    /** 下午附件数 */
+    x_18_appendix?: number;
+    /** 晚上附件数 */
+    y_24_appendix?: number;
+    /** 昨日附件数 */
+    z_yesterday_appendix?: number;
+    /** 累计附件数 */
+    b_a_total_appendix?: number;
+    /** 上午短信 */
+    b_b_12_sms_count?: number;
+    /** 下午短信 */
+    b_c_18_sms_count?: number;
+    /** 晚上短信 */
+    b_d_24_sms_count?: number;
+    /** 昨日短信 */
+    b_e_yesterday_sms_count?: number;
+    /** 累计短信 */
+    b_f_total_sms_count?: number;
+    /** 上午联系人wa */
+    b_g_12_contact_wa_count?: number;
+    /** 下午联系人wa */
+    b_h_18_contact_wa_count?: number;
+    /** 晚上联系人wa */
+    b_i_24_contact_wa_count?: number;
+    /** 昨日联系人wa */
+    b_j_yesterday_contact_wa_count?: number;
+    /** 累计联系人wa */
+    b_k_total_contact_wa_count?: number;
+    /** 上午联系人短信 */
+    b_l_12_contact_sms_count?: number;
+    /** 下午联系人短信 */
+    b_m_18_contact_sms_count?: number;
+    /** 晚上联系人短信 */
+    b_n_24_contact_sms_count?: number;
+    /** 昨日联系人短信 */
+    b_o_yesterday_contact_sms_count?: number;
+    /** 累计联系人短信 */
+    b_q_total_contact_sms_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type NKCollectionOrderTemplate = {
+    /** id */
+    id?: number;
+    /** 案件 */
+    a_collection_order_id?: number;
+    /** 模板 */
+    b_sms_template_id?: number;
+    /** 催员 */
+    c_collection_admin_id?: number;
+    /** 联系人 */
+    d_contact_id?: number;
+    /** 联系人短信 */
+    e_contact_sms_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -7342,6 +7563,16 @@ declare namespace API {
     id: number;
   };
 
+  type putAdminV1NJCollectionOrderSubsIdParams = {
+    /** id of NJCollectionOrderSub */
+    id: number;
+  };
+
+  type putAdminV1NKCollectionOrderTemplatesIdParams = {
+    /** id of NKCollectionOrderTemplate */
+    id: number;
+  };
+
   type putAdminV1OADeductionsIdParams = {
     /** id of OADeduction */
     id: number;
@@ -7379,6 +7610,11 @@ declare namespace API {
 
   type putAdminV1QGCollectionCommissionLogsIdParams = {
     /** id of QGCollectionCommissionLog */
+    id: number;
+  };
+
+  type putAdminV1QHCollectionOrderSubDetailsIdParams = {
+    /** id of QHCollectionOrderSubDetail */
     id: number;
   };
 
@@ -7929,7 +8165,7 @@ declare namespace API {
     m_collection_order_id?: number;
     /** 订单号 */
     n_borrow_sn?: string;
-    /** 佣金类型，1：催回佣金 2：额外佣金 3：手动发放奖励 */
+    /** 佣金类型，1：催回佣金 2：额外佣金 3：手动发放奖励 4： week 5:month */
     o_type?: number;
     /** 用户手机号 */
     p_phone?: string;
@@ -7959,6 +8195,107 @@ declare namespace API {
     deleted_at?: string;
     /** account number */
     z_account_number?: string;
+    /** comment */
+    a_a_comment?: string;
+  };
+
+  type QHCollectionOrderSubDetail = {
+    /** id */
+    id?: number;
+    /** 案件 */
+    a_collection_order_id?: number;
+    /** 催员 */
+    d_a_collection_admin_id?: number;
+    /** 日期 */
+    d_b_date?: string;
+    /** 上午日志数 */
+    b_12_log_count?: number;
+    /** 上午日志数 */
+    c_12_log_count?: number;
+    /** 下午日志数 */
+    d_18_log_count?: number;
+    /** 晚上日志数 */
+    e_24_log_count?: number;
+    /** 昨日日志数 */
+    f_yesterday_log_count?: number;
+    /** 累计日志数 */
+    g_total_log_count?: number;
+    /** 上午电话数 */
+    h_12_call_count?: number;
+    /** 下午电话数 */
+    i_18_call_count?: number;
+    /** 晚上电话数 */
+    j_24_call_count?: number;
+    /** 昨日电话数 */
+    k_yesterday_call_count?: number;
+    /** 累计电话数 */
+    l_total_call_count?: number;
+    /** 上午wa */
+    m_12_wa_count?: number;
+    /** 下午wa */
+    n_18_wa_count?: number;
+    /** 晚上wa */
+    o_24_wa_count?: number;
+    /** 昨日wa数 */
+    p_yesterday_wa_count?: number;
+    /** 累计wa数 */
+    q_total_wa_count?: number;
+    /** 上午联系人电话数 */
+    r_12_contact_call_count?: number;
+    /** 下午联系人电话数 */
+    s_18_contact_call_count?: number;
+    /** 晚上联系人电话数 */
+    t_24_contact_call_count?: number;
+    /** 昨日联系人电话数 */
+    u_yesterday_contact_call_count?: number;
+    /** 累计联系人电话数 */
+    v_s_total_contact_call_count?: number;
+    /** 上午附件数 */
+    w_12_appendix?: number;
+    /** 下午附件数 */
+    x_18_appendix?: number;
+    /** 晚上附件数 */
+    y_24_appendix?: number;
+    /** 昨日附件数 */
+    z_yesterday_appendix?: number;
+    /** 累计附件数 */
+    b_a_total_appendix?: number;
+    /** 上午短信 */
+    b_b_12_sms_count?: number;
+    /** 下午短信 */
+    b_c_18_sms_count?: number;
+    /** 晚上短信 */
+    b_d_24_sms_count?: number;
+    /** 昨日短信 */
+    b_e_yesterday_sms_count?: number;
+    /** 累计短信 */
+    b_f_total_sms_count?: number;
+    /** 上午联系人wa */
+    b_g_12_contact_wa_count?: number;
+    /** 下午联系人wa */
+    b_h_18_contact_wa_count?: number;
+    /** 晚上联系人wa */
+    b_i_24_contact_wa_count?: number;
+    /** 昨日联系人wa */
+    b_j_yesterday_contact_wa_count?: number;
+    /** 累计联系人wa */
+    b_k_total_contact_wa_count?: number;
+    /** 上午联系人短信 */
+    b_l_12_contact_sms_count?: number;
+    /** 下午联系人短信 */
+    b_m_18_contact_sms_count?: number;
+    /** 晚上联系人短信 */
+    b_n_24_contact_sms_count?: number;
+    /** 昨日联系人短信 */
+    b_o_yesterday_contact_sms_count?: number;
+    /** 累计联系人短信 */
+    b_q_total_contact_sms_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
   };
 
   type QHSmsChannel = {
@@ -8792,6 +9129,8 @@ declare namespace API {
     m_relation_level?: number;
     /** 拨打次数 */
     n_call_count?: number;
+    /** wa */
+    o_wa_count?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

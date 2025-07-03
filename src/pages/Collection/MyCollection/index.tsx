@@ -65,7 +65,15 @@ const TableList: React.FC = () => {
       total: res.total,
     };
   };
-
+  const formatValue = (value: number) => (
+    <span style={{ 
+      fontSize: value !== 0 ? '16px' : 'inherit', 
+      fontWeight: value !== 0 ? 'bold' : 'normal',
+      margin: '0 4px'
+    }}>
+      {value}
+    </span>
+  );
   //
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -164,15 +172,67 @@ const TableList: React.FC = () => {
         return text;
       },
     },
+ 
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_m_yesterday_count', defaultMessage: '' }),
-      dataIndex: 'b_m_yesterday_log_count',
-      key: 'b_m_yesterday_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_m_yesterday_log_count', defaultMessage: '' }) + ' - ' + 
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_n_yesterday_call_count', defaultMessage: '' }) + ' - ' +
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_o_yesterday_contact_call_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_count', defaultMessage: '' }),
+      dataIndex: 'b_a_12_log_count',
+      key: 'b_a_12_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_log_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_b_12_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_c_12_contact_call_count', defaultMessage: '' }),
+      render: (_, record) => (
+        <>
+          {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.h_12_call_count!)}
+          -
+          {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.b_b_12_sms_count!)}
+          -
+          {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.m_12_wa_count!)}
+        </>
+      ),
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_count', defaultMessage: '' }),
+      dataIndex: 'b_a_12_log_count',
+      key: 'b_a_12_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_log_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_b_12_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_c_12_contact_call_count', defaultMessage: '' }),
+      render: (_, record) => (
+        <>
+          {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.r_12_contact_call_count!)}
+          -
+          {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.b_l_12_contact_sms_count!)}
+          -
+          {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.b_g_12_contact_wa_count!)}
+        </>
+      ),
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_count', defaultMessage: '' }),
+      dataIndex: 'b_e_18_log_count',
+      key: 'b_e_18_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_log_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_f_18_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_g_18_contact_call_count', defaultMessage: '' }),
       render: (_, record) => {
-        return record!.b_m_yesterday_log_count + '-' + record!.b_n_yesterday_call_count + '-' + record!.b_o_yesterday_contact_call_count;
+        const formatValue = (value: number) => (
+          <span style={{ 
+            fontSize: value !== 0 ? '16px' : 'inherit', 
+            fontWeight: value !== 0 ? 'bold' : 'normal',
+            margin: '0 4px'
+          }}>
+            {value}
+          </span>
+        );
+        return (
+          <>
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.i_18_call_count!)}
+            -
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.b_c_18_sms_count!)}
+            -
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.n_18_wa_count!)}
+          </>
+        );
       },
     },
     {
@@ -183,18 +243,24 @@ const TableList: React.FC = () => {
       intl.formatMessage({ id: 'pages.BLCollectionOrder.b_b_12_call_count', defaultMessage: '' }) +'-'+
       intl.formatMessage({ id: 'pages.BLCollectionOrder.b_c_12_contact_call_count', defaultMessage: '' }),
       render: (_, record) => {
-        return record!.b_a_12_log_count + '-' + record!.b_b_12_call_count + '-' + record!.b_c_12_contact_call_count;
-      },
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_count', defaultMessage: '' }),
-      dataIndex: 'b_e_18_log_count',
-      key: 'b_e_18_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_f_18_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_g_18_contact_call_count', defaultMessage: '' }),
-      render: (_, record) => {
-        return record!.b_e_18_log_count + '-' + record!.b_f_18_call_count + '-' + record!.b_g_18_contact_call_count;
+        const formatValue = (value: number) => (
+          <span style={{ 
+            fontSize: value !== 0 ? '16px' : 'inherit', 
+            fontWeight: value !== 0 ? 'bold' : 'normal',
+            margin: '0 4px'
+          }}>
+            {value}
+          </span>
+        );
+        return (
+          <>
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.s_18_contact_call_count!)}
+            -
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.b_m_18_contact_sms_count!)}
+            -
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.b_h_18_contact_wa_count!)}
+          </>
+        );
       },
     },
     {
@@ -205,7 +271,52 @@ const TableList: React.FC = () => {
       intl.formatMessage({ id: 'pages.BLCollectionOrder.b_j_24_call_count', defaultMessage: '' }) +'-'+
       intl.formatMessage({ id: 'pages.BLCollectionOrder.b_k_24_contact_call_count', defaultMessage: '' }),
       render: (_, record) => {
-        return record!.b_i_24_log_count + '-' + record!.b_j_24_call_count + '-' + record!.b_k_24_contact_call_count;
+        const formatValue = (value: number) => (
+          <span style={{ 
+            fontSize: value !== 0 ? '16px' : 'inherit', 
+            fontWeight: value !== 0 ? 'bold' : 'normal',
+            margin: '0 4px'
+          }}>
+            {value}
+          </span>
+        );
+        return (
+          <>
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.j_24_call_count!)}
+            -
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.b_d_24_sms_count!)}
+            -
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.o_24_wa_count!)}
+          </>
+        );
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_count', defaultMessage: '' }),
+      dataIndex: 'b_a_12_log_count',
+      key: 'b_a_12_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_log_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_b_12_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_c_12_contact_call_count', defaultMessage: '' }),
+      render: (_, record) => {
+        const formatValue = (value: number) => (
+          <span style={{ 
+            fontSize: value !== 0 ? '16px' : 'inherit', 
+            fontWeight: value !== 0 ? 'bold' : 'normal',
+            margin: '0 4px'
+          }}>
+            {value}
+          </span>
+        );
+        return (
+          <>
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.t_24_contact_call_count!)}
+            -
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.b_n_24_contact_sms_count!)}
+            -
+            {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.b_i_24_contact_wa_count!)}
+          </>
+        );
       },
     },
     {
@@ -217,6 +328,17 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.a_m_current_day_view_time', defaultMessage: '' }),
       dataIndex: 'a_m_current_day_view_time',
       key: 'a_m_current_day_view_time',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_m_yesterday_count', defaultMessage: '' }),
+      dataIndex: 'b_m_yesterday_log_count',
+      key: 'b_m_yesterday_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_m_yesterday_log_count', defaultMessage: '' }) + ' - ' + 
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_n_yesterday_call_count', defaultMessage: '' }) + ' - ' +
+      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_o_yesterday_contact_call_count', defaultMessage: '' }),
+      render: (_, record) => {
+        return record!.a_a_a_a_a_n_j_collection_order_sub!.f_yesterday_log_count! + '-' + (record!.a_a_a_a_a_n_j_collection_order_sub!.b_12_log_count! + record!.a_a_a_a_a_n_j_collection_order_sub!.d_18_log_count!+ record!.a_a_a_a_a_n_j_collection_order_sub!.e_24_log_count!);
+      },
     },
   ];
 
