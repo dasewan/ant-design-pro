@@ -15,9 +15,10 @@ const Settings: ProLayoutProps & {
   fixSiderbar: true,
   colorWeak: false,
   pwa: true,
-  title: 'Ant Design Pro',
+  title: 'Kaka',
   logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   token: {},
+  
   splitMenus: false,
 };
 

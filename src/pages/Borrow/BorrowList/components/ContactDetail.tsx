@@ -155,7 +155,7 @@ const ContactDetail: React.FC = () => {
       render: (text, record) => (
          (
           <a 
-            href={`https://wa.me/234${record.g_phone}`} 
+            href={`https://wa.me/234${record.g_phone}?text=Hello%2C%20hope%20you're%20doing%20well.%20Please%20do%20you%20know%20someone%20called%20Abbie%3F`} 
             target="_blank" 
             rel="noopener noreferrer"
             style={{ color: '#1890ff', cursor: 'pointer' }}

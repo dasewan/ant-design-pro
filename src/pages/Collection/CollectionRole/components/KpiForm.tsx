@@ -112,8 +112,8 @@ const KpiForm: React.FC<FormProps> = (props) => {
     },
     {
       title: intl.formatMessage({ id: 'pages.DACollectionKpi.i_addition_2_bonus', defaultMessage: '' }),
-      dataIndex: 'i_addition_2_bonus',
-      key: 'i_addition_2_bonus',
+      dataIndex: 'i_addition_1_bonus',
+      key: 'i_addition_1_bonus',
       valueType: 'digit',
     },
     {

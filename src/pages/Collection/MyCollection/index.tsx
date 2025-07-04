@@ -174,12 +174,12 @@ const TableList: React.FC = () => {
     },
  
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.common.morning', defaultMessage: '' }),
       dataIndex: 'b_a_12_log_count',
       key: 'b_a_12_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_b_12_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_c_12_contact_call_count', defaultMessage: '' }),
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.h_12_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_b_12_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.m_12_wa_count', defaultMessage: '' }),
       render: (_, record) => (
         <>
           {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.h_12_call_count!)}
@@ -191,12 +191,12 @@ const TableList: React.FC = () => {
       ),
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.common.morning', defaultMessage: '' }),
       dataIndex: 'b_a_12_log_count',
       key: 'b_a_12_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_b_12_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_c_12_contact_call_count', defaultMessage: '' }),
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.r_12_contact_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_l_12_contact_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_g_12_contact_wa_count', defaultMessage: '' }),
       render: (_, record) => (
         <>
           {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.r_12_contact_call_count!)}
@@ -208,22 +208,13 @@ const TableList: React.FC = () => {
       ),
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.common.afternoon', defaultMessage: '' }),
       dataIndex: 'b_e_18_log_count',
       key: 'b_e_18_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_f_18_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_g_18_contact_call_count', defaultMessage: '' }),
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.i_18_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_c_18_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.n_18_wa_count', defaultMessage: '' }),
       render: (_, record) => {
-        const formatValue = (value: number) => (
-          <span style={{ 
-            fontSize: value !== 0 ? '16px' : 'inherit', 
-            fontWeight: value !== 0 ? 'bold' : 'normal',
-            margin: '0 4px'
-          }}>
-            {value}
-          </span>
-        );
         return (
           <>
             {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.i_18_call_count!)}
@@ -236,22 +227,13 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.common.afternoon', defaultMessage: '' }),
       dataIndex: 'b_a_12_log_count',
       key: 'b_a_12_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_b_12_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_c_12_contact_call_count', defaultMessage: '' }),
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.s_18_contact_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_m_18_contact_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_h_18_contact_wa_count', defaultMessage: '' }),
       render: (_, record) => {
-        const formatValue = (value: number) => (
-          <span style={{ 
-            fontSize: value !== 0 ? '16px' : 'inherit', 
-            fontWeight: value !== 0 ? 'bold' : 'normal',
-            margin: '0 4px'
-          }}>
-            {value}
-          </span>
-        );
         return (
           <>
             {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.s_18_contact_call_count!)}
@@ -264,22 +246,13 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_i_24_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.common.night', defaultMessage: '' }),
       dataIndex: 'b_i_24_log_count',
       key: 'b_i_24_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_i_24_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_j_24_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_k_24_contact_call_count', defaultMessage: '' }),
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.j_24_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_d_24_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.o_24_wa_count', defaultMessage: '' }),
       render: (_, record) => {
-        const formatValue = (value: number) => (
-          <span style={{ 
-            fontSize: value !== 0 ? '16px' : 'inherit', 
-            fontWeight: value !== 0 ? 'bold' : 'normal',
-            margin: '0 4px'
-          }}>
-            {value}
-          </span>
-        );
         return (
           <>
             {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.j_24_call_count!)}
@@ -292,22 +265,14 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.common.night', defaultMessage: '' }),
       dataIndex: 'b_a_12_log_count',
       key: 'b_a_12_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_log_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_b_12_call_count', defaultMessage: '' }) +'-'+
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_c_12_contact_call_count', defaultMessage: '' }),
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.t_24_contact_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_n_24_contact_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_i_24_contact_wa_count', defaultMessage: '' }),
       render: (_, record) => {
-        const formatValue = (value: number) => (
-          <span style={{ 
-            fontSize: value !== 0 ? '16px' : 'inherit', 
-            fontWeight: value !== 0 ? 'bold' : 'normal',
-            margin: '0 4px'
-          }}>
-            {value}
-          </span>
-        );
+
         return (
           <>
             {formatValue(record!.a_a_a_a_a_n_j_collection_order_sub!.t_24_contact_call_count!)}

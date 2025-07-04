@@ -37,10 +37,18 @@ export default defineConfig({
    * @doc umi 的theme 配置 https://umijs.org/docs/api/config#theme
    */
   theme: {
-    // 如果不想要 configProvide 动态设置主题需要把这个设置为 default
-    // 只有设置为 variable， 才能使用 configProvide 动态设置主色调
-    'root-entry-name': 'variable',
+    components: {
+      Table: {
+        rowHoverBg: 'rgb(167,71,76)',
+        headerBg: '#fafafa',
+        borderColor: '#f0f0f0',
+        // 补充可能需要的其他属性
+        rowSelectedBg: 'rgb(167,71,76)', // 选中行背景色
+        cellPadding: '12px 16px', // 单元格内边距
+      }
+    }
   },
+
   /**
    * @name moment 的国际化配置
    * @description 如果对国际化没有要求，打开之后能减少js的包大小
