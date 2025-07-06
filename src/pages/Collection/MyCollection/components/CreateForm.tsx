@@ -11,7 +11,7 @@ import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem } from '../data';
 import { FieldIndex, FieldLabels } from '../service';
-
+import { useIntl } from '@@/exports';
 export type FormValueType = Partial<TableListItem>;
 export type FormRecord = TableListItem;
 export type FormProps = {
@@ -19,7 +19,6 @@ export type FormProps = {
   onSubmit: (values: boolean) => Promise<void>;
   modalVisible: boolean;
   id: number;
-  collectionStages: RequestOptionsType[];
   admins: RequestOptionsType[];
 };
 
@@ -32,6 +31,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
   const formRef = useRef<ProFormInstance>();
   const [currentTableListItemMoment, setCurrentTableListItemMoment] = useState<moment.Moment>();
   const [oldRecord, setOldRecord] = useState<TableListItem>();
+  const intl = useIntl();
 
   /**
    * 提交渠道
@@ -49,7 +49,6 @@ const CreateForm: React.FC<FormProps> = (props) => {
     }
     try {
       if (props.id > 0) {
-        delete values.a_name;
         // @ts-ignore
         const res = await update({ id: props.id, ...values });
         if (!res.success) {
@@ -87,19 +86,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
           props.onCancel();
         }
       }}
-      // @ts-ignore
-      request={async () => {
-        if (props.id > 0) {
-          const res = await show({ id: props.id });
-          setCurrentTableListItemMoment(moment());
-          setOldRecord(res.data);
-          return res.data;
-        } else {
-          setCurrentTableListItemMoment(moment());
-          setOldRecord({});
-          return {};
-        }
-      }}
+     
       formRef={formRef}
       onFinish={async (formData) => {
         const success = await onFinish(formData);
@@ -116,96 +103,20 @@ const CreateForm: React.FC<FormProps> = (props) => {
         o_send_email: 1,
       }}
     >
-      {/*催收机构名称*/}
-      <ProFormText
-        label={FieldLabels.a_name}
-        name={FieldIndex.a_name}
-        disabled={oldRecord?.a_name !== undefined}
-        rules={[
-          { required: true, message: `请输入${FieldLabels.a_name}` },
-          {
-            validator: (_, value) => {
-              return value === oldRecord?.a_name || !oldRecord?.a_name
-                ? Promise.resolve()
-                : Promise.reject(new Error(`旧值：   ${oldRecord?.a_name}`));
-            },
-            warningOnly: true,
-          },
-        ]}
-        placeholder={`请输入${FieldLabels.a_name}`}
-      />
+      
 
       {/*催收机构管理员*/}
       <ProFormSelect
-        label={FieldLabels.b_admin_id}
+        label={intl.formatMessage({ id: 'pages.BLCollectionOrder.e_collection_admin_id', defaultMessage: '' })}
         tooltip={<></>}
-        name={FieldIndex.b_admin_id}
+        name="after_collection_admin_id"
         rules={[
-          { required: true, message: `请选择${FieldLabels.b_admin_id}` },
-          {
-            validator: (_, value) => {
-              const oldValue = props.admins.find(
-                (item) => item.value === oldRecord?.b_admin_id,
-              )?.label;
-              // @ts-ignore
-              return value === oldRecord?.b_admin_id || !oldRecord?.b_admin_id
-                ? Promise.resolve()
-                : Promise.reject(new Error(`旧值：  ${oldValue} `));
-            },
-            warningOnly: true,
-          },
+          { required: true, message: `${intl.formatMessage({ id: 'pages.BLCollectionOrder.e_collection_admin_id', defaultMessage: '' })}` },
         ]}
         // @ts-ignore
         options={props.admins}
       />
-      {/*起始阶段*/}
-      <ProFormSelect
-        label={FieldLabels.c_begin_collection_stage}
-        tooltip={<></>}
-        name={FieldIndex.c_begin_collection_stage}
-        rules={[
-          { required: true, message: `请选择${FieldLabels.c_begin_collection_stage}` },
-          {
-            validator: (_, value) => {
-              const oldValue = props.collectionStages.find(
-                (item) => item.value === oldRecord?.c_begin_collection_stage,
-              )?.label;
-              // @ts-ignore
-              return value === oldRecord?.c_begin_collection_stage ||
-                !oldRecord?.c_begin_collection_stage
-                ? Promise.resolve()
-                : Promise.reject(new Error(`旧值：  ${oldValue} `));
-            },
-            warningOnly: true,
-          },
-        ]}
-        // @ts-ignore
-        options={props.collectionStages}
-      />
-
-      {/*状态*/}
-      <ProFormSwitch
-        name={FieldIndex.f_status}
-        label={FieldLabels.f_status}
-        checkedChildren="启用"
-        unCheckedChildren="禁用"
-      />
-      <ProFormText
-        label={<>{FieldLabels.g_comment}</>}
-        name={FieldIndex.g_comment}
-        rules={[
-          { required: true, message: `请输入${FieldLabels.g_comment}` },
-          {
-            validator: (_, value) => {
-              return value === oldRecord?.g_comment || !oldRecord?.g_comment
-                ? Promise.resolve()
-                : Promise.reject(new Error(`旧值：   ${oldRecord?.g_comment}`));
-            },
-            warningOnly: true,
-          },
-        ]}
-        placeholder={`请输入${FieldLabels.g_comment}`}
-      />
+      
     </ModalForm>
   );
 };

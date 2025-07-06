@@ -9,15 +9,22 @@ import { FieldIndex, FieldLabels } from './service';
 import { RequestOptionsType } from '@ant-design/pro-components';
 import { getAdminV1GMCollectionAdminsEnum as getUsersEnum } from '@/services/ant-design-pro/GMCollectionAdmin';
 import { useIntl } from '@@/exports';
+import DrawerFC from './components/DrawerFC';
 import {
   EditOutlined,
   PhoneOutlined,
   ContactsOutlined,
 } from '@ant-design/icons';
+import CreateForm from './components/CreateForm';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
+  const [currentRow, setCurrentRow] = useState<TableListItem>();
+  const [showDetail, setShowDetail] = useState<boolean>(false);
+  const [type, setType] = useState<string>('');
+  const [id, setId] = useState<number>(0);
+  const [createModalVisible, handleCreateModalVisible] = useState<boolean>(false);
   const intl = useIntl();
   const _getUsersEnum = async () => {
     const data: RequestOptionsType[] = [];
@@ -74,6 +81,51 @@ const TableList: React.FC = () => {
       {value}
     </span>
   );
+  function calculateDaysFromMidnight(targetDateStr: string): number {
+    // 解析目标日期
+    const targetDate = new Date(targetDateStr);
+    if (isNaN(targetDate.getTime())) {
+        throw new Error("无效的日期格式");
+    }
+    
+    // 获取目标日期的开始时间（午夜00:00:00）
+    const targetMidnight = new Date(targetDate);
+    targetMidnight.setHours(0, 0, 0, 0);
+    
+    // 获取当前日期的开始时间（午夜00:00:00）
+    const currentDate = new Date();
+    const currentMidnight = new Date(currentDate);
+    currentMidnight.setHours(0, 0, 0, 0);
+    
+    // 计算时间差（毫秒）
+    const timeDifference = currentMidnight.getTime() - targetMidnight.getTime();
+    
+    // 将毫秒转换为天数（1天 = 24 * 60 * 60 * 1000毫秒）
+    const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+    
+    // 返回整数天数
+    return Math.floor(daysDifference);
+}
+
+  /**
+   * 授信额度drawer
+   * @param record
+   * @param _type
+   */
+  const _showDrawer = (record: TableListItem, _type: string) => {
+    setCurrentRow(record);
+    setType(_type);
+    setShowDetail(true);
+  };
+
+    /**
+   * 新建催收组model
+   * @param _id
+   */
+  const onEditClick = async (_id: number) => {
+    setId(_id);
+    handleCreateModalVisible(true);
+  };
   //
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -93,6 +145,22 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.n_borrow_amount', defaultMessage: '' }),
       dataIndex: 'n_borrow_amount',
       key: 'n_borrow_amount',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.g_collection_order_flow_history_count', defaultMessage: '' }),
+      dataIndex: 'g_collection_order_flow_history_count',
+      key: 'g_collection_order_flow_history_count',
+       render: (_, record) => {
+        return (
+          <a
+            onClick={() => {
+              _showDrawer(record, 'flow');
+            }}
+          >
+            {record.g_collection_order_flow_history_count}
+          </a>
+        );
+      },
     },
     {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status', defaultMessage: '' }),
@@ -126,53 +194,33 @@ const TableList: React.FC = () => {
         },
       },
     },
-    {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.r_flow_in_time', defaultMessage: '' }),
-      dataIndex: 'r_flow_in_time',
-      key: 'r_flow_in_time',
-      render: (text) => {
-        if (text) {
-          const validText = typeof text === 'string' || typeof text === 'number' ? text : Date.now();
-          const date = new Date(validText);
-          const month = String(date.getMonth() + 1).padStart(2, '0');
-          const day = String(date.getDate()).padStart(2, '0');
-          return `${month}-${day}`;
-        }
-        return text;
-      },
-    },
+    
+    // {
+    //   title: intl.formatMessage({ id: 'pages.BLCollectionOrder.p_expect_repay_time', defaultMessage: '' }),
+    //   dataIndex: 'p_expect_repay_time',
+    //   key: 'p_expect_repay_time',
+    //   render: (text) => {
+    //     if (text) {
+    //       const validText = typeof text === 'string' || typeof text === 'number' ? text : Date.now();
+    //       const date = new Date(validText);
+    //       const month = String(date.getMonth() + 1).padStart(2, '0');
+    //       const day = String(date.getDate()).padStart(2, '0');
+    //       return `${month}-${day}`;
+    //     }
+    //     return text;
+    //   },
+    // },
     {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.p_expect_repay_time', defaultMessage: '' }),
       dataIndex: 'p_expect_repay_time',
       key: 'p_expect_repay_time',
       render: (text) => {
         if (text) {
-          const validText = typeof text === 'string' || typeof text === 'number' ? text : Date.now();
-          const date = new Date(validText);
-          const month = String(date.getMonth() + 1).padStart(2, '0');
-          const day = String(date.getDate()).padStart(2, '0');
-          return `${month}-${day}`;
+          return typeof text === 'string' ? calculateDaysFromMidnight(text) : text;
         }
         return text;
       },
     },
-
-    {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.s_flow_out_time', defaultMessage: '' }),
-      dataIndex: 's_flow_out_time',
-      key: 's_flow_out_time',
-      render: (text) => {
-        if (text) {
-          const validText = typeof text === 'string' || typeof text === 'number' ? text : Date.now();
-          const date = new Date(validText);
-          const month = String(date.getMonth() + 1).padStart(2, '0');
-          const day = String(date.getDate()).padStart(2, '0');
-          return `${month}-${day}`;
-        }
-        return text;
-      },
-    },
- 
     {
       title: intl.formatMessage({ id: 'pages.common.morning', defaultMessage: '' }),
       dataIndex: 'b_a_12_log_count',
@@ -305,6 +353,20 @@ const TableList: React.FC = () => {
         return record!.a_a_a_a_a_n_j_collection_order_sub!.f_yesterday_log_count! + '-' + (record!.a_a_a_a_a_n_j_collection_order_sub!.b_12_log_count! + record!.a_a_a_a_a_n_j_collection_order_sub!.d_18_log_count!+ record!.a_a_a_a_a_n_j_collection_order_sub!.e_24_log_count!);
       },
     },
+    {
+      title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),
+      dataIndex: 'option',
+      valueType: 'option',
+      render: (_, record) => {
+        const edit = (
+          <a key="edit" onClick={() => onEditClick(record.id!)}>
+            {intl.formatMessage({ id: 'pages.common.transfer', defaultMessage: '' })}
+          </a>
+        );
+        return [edit];
+      },
+    },
+    
   ];
 
   const columns2: ProColumns<API.QCCollectionNews>[] = [
@@ -433,6 +495,35 @@ const TableList: React.FC = () => {
             />
           ),
         }}
+      />
+      <DrawerFC
+        showDetail={showDetail}
+        onClose={() => {
+          setCurrentRow(undefined);
+          setShowDetail(false);
+        }}
+        admins={admins}
+        data={currentRow?.a_a_a_a_a_n_c_collection_order_flow_histories!}
+        type={type}
+      />
+
+      <CreateForm
+        onSubmit={async (success) => {
+          if (success) {
+            handleCreateModalVisible(false);
+            setId(0);
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+          }
+        }}
+        onCancel={() => {
+          handleCreateModalVisible(false);
+          setId(0);
+        }}
+        id={id}
+        modalVisible={createModalVisible}
+        admins={admins}
       />
     </PageContainer>
   );

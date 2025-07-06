@@ -1087,6 +1087,7 @@ declare namespace API {
     /** App\Models\BLCollectionOrder */
     a_a_a_a_a_q_c_collection_news?: QCCollectionNews[];
     /** App\Models\BLCollectionOrder */
+    a_a_a_a_a_n_c_collection_order_flow_histories?: NCCollectionOrderFlowHistory[];
     a_a_a_a_a_n_j_collection_order_sub?: NJCollectionOrderSub;
     /** 父id */
     a_borrow_id?: number;
@@ -1190,84 +1191,12 @@ declare namespace API {
     updated_at?: string;
     /** deleted_at */
     deleted_at?: string;
-    /** 上午日志数 */
-    b_a_12_log_count?: number;
-    /** 下午日志数 */
-    b_b_18_log_count?: number;
-    /** 晚上日志数 */
-    b_c_24_log_count?: number;
-    /** 昨日日志数 */
-    b_d_yesterday_log_count?: number;
-    /** 上午电话数 */
-    b_e_12_call_count?: number;
-    /** 下午电话数 */
-    b_f_18_call_count?: number;
-    /** 晚上电话数 */
-    b_g_24_call_count?: number;
-    /** 昨日电话数 */
-    b_h_yesterday_call_count?: number;
-    /** 累计电话数 */
-    b_i_total_call_count?: number;
-    /** 上午wa */
-    b_j_12_wa_count?: number;
-    /** 下午wa */
-    b_k_18_wa_count?: number;
-    /** 晚上wa */
-    b_l_24_wa_count?: number;
-    /** 昨日wa数 */
-    b_m_yesterday_wa_count?: number;
-    /** 累计wa数 */
-    b_n_total_wa_count?: number;
-    /** 上午联系人电话数 */
-    b_o_12_contact_call_count?: number;
-    /** 下午联系人电话数 */
-    b_p_18_contact_call_count?: number;
-    /** 晚上联系人电话数 */
-    b_q_24_contact_call_count?: number;
-    /** 昨日联系人电话数 */
-    b_r_yesterday_contact_call_count?: number;
-    /** 累计联系人电话数 */
-    c_s_total_contact_call_count?: number;
-    /** 上午附件数 */
-    b_t_12_appendix?: number;
-    /** 下午附件数 */
-    b_u_18_appendix?: number;
-    /** 晚上附件数 */
-    b_v_24_appendix?: number;
-    /** 昨日附件数 */
-    b_w_yesterday_appendix?: number;
-    /** 累计附件数 */
-    b_x_total_appendix?: number;
-    /** 上午短信 */
-    b_y_12_sms_count?: number;
-    /** 下午短信 */
-    b_z_18_sms_count?: number;
-    /** 晚上短信 */
-    c_a_24_sms_count?: number;
-    /** 昨日短信 */
-    c_b_yesterday_sms_count?: number;
-    /** 累计短信 */
-    c_c_total_sms_count?: number;
-    /** 上午联系人wa */
-    c_d_12_contact_wa_count?: number;
-    /** 下午联系人wa */
-    c_e_18_contact_wa_count?: number;
-    /** 晚上联系人wa */
-    c_f_24_contact_wa_count?: number;
-    /** 昨日联系人wa */
-    c_g_yesterday_contact_wa_count?: number;
-    /** 累计联系人wa */
-    c_h_total_contact_wa_count?: number;
-    /** 上午联系人短信 */
-    c_i_12_contact_sms_count?: number;
-    /** 下午联系人短信 */
-    c_j_18_contact_sms_count?: number;
-    /** 晚上联系人短信 */
-    c_k_24_contact_sms_count?: number;
-    /** 昨日联系人短信 */
-    c_l_yesterday_contact_sms_count?: number;
-    /** 累计联系人短信 */
-    c_m_total_contact_sms_count?: number;
+    /** 流转过的管理员 */
+    a_w_admins?: string;
+    /** 中午流转次数 */
+    a_x_noon_count?: number;
+    /** 承诺未还次数 */
+    a_y_broken_count?: number;
   };
 
   type BMBorrowRiskResult = {
@@ -11953,6 +11882,14 @@ declare namespace API {
     q_last_collection_admin_heatmap_detail_id?: number;
     /** 奖金 */
     r_bonus?: number;
+    /** wa */
+    s_wa_count?: number;
+    /** 联系人电话 */
+    t_contact_call_count?: number;
+    /** 联系人短信 */
+    u_contact_sms_count?: number;
+    /** 联系人wa */
+    v_contact_wa_count?: number;
     /** 新案件数-0 */
     a_a_0_new_count?: number;
     /** 新案件数-12 */
@@ -12025,6 +11962,34 @@ declare namespace API {
     b_k_24_contact_call_count?: number;
     /** 晚上附件数 */
     b_l_24_appendix?: number;
+    /** 上午wa数 */
+    b_m_12_wa_count?: number;
+    /** 上午联系人wa */
+    b_n_12_contact_wa_count?: number;
+    /** 上午短信 */
+    b_o_12_sms_count?: number;
+    /** 上午联系人短信 */
+    b_p_12_contact_sms_count?: number;
+    /** 下午wa */
+    b_q_18_wa_count?: number;
+    /** 下午联系人wa */
+    b_r_18_contact_wa_count?: number;
+    /** 下午短信 */
+    b_s_18_sms_count?: number;
+    /** 下午联系人短信 */
+    b_t_18_contact_sms_count?: number;
+    /** 晚上wa */
+    b_u_24_wa_count?: number;
+    /** 晚上联系人wa */
+    b_v_24_contact_wa_count?: number;
+    /** 晚上短信 */
+    b_w_24_sms_count?: number;
+    /** 晚上联系人短信 */
+    b_x_24_contact_sms_count?: number;
+    /** 转移催回数 */
+    d_a_resign_repay_count?: number;
+    /** 中午转移数 */
+    d_b_today_delete_count?: number;
   };
 
   type WTCollectionAdminHeatmapDetail = {
@@ -12054,6 +12019,14 @@ declare namespace API {
     l_repay_count?: number;
     /** 日志 */
     m_collection_news_ids?: string;
+    /** wa */
+    s_wa_count?: number;
+    /** 联系人电话 */
+    t_contact_call_count?: number;
+    /** 联系人短信 */
+    u_contact_sms_count?: number;
+    /** 联系人wa */
+    v_contact_wa_count?: number;
     /** 已还金额 */
     a_h_repay_amount?: number;
     /** lv1奖金 */
