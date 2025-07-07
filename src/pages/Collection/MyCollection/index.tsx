@@ -8,20 +8,20 @@ import type { TableListItem, TableListPagination } from './data';
 import { FieldIndex, FieldLabels } from './service';
 import { RequestOptionsType } from '@ant-design/pro-components';
 import { getAdminV1GMCollectionAdminsEnum as getUsersEnum } from '@/services/ant-design-pro/GMCollectionAdmin';
+import { getAdminV1UsersEnum as getUsersEnum2 } from '@/services/ant-design-pro/User';
 import { useIntl } from '@@/exports';
 import DrawerFC from './components/DrawerFC';
-import {
-  EditOutlined,
-  PhoneOutlined,
-  ContactsOutlined,
-} from '@ant-design/icons';
+
 import CreateForm from './components/CreateForm';
+import LogDrawerFC from './components/LogDrawerFC';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
+  const [admins2, setAdmins2] = useState<RequestOptionsType[]>([]);
   const [currentRow, setCurrentRow] = useState<TableListItem>();
   const [showDetail, setShowDetail] = useState<boolean>(false);
+  const [showLogDetail, setShowLogDetail] = useState<boolean>(false);
   const [type, setType] = useState<string>('');
   const [id, setId] = useState<number>(0);
   const [createModalVisible, handleCreateModalVisible] = useState<boolean>(false);
@@ -37,6 +37,26 @@ const TableList: React.FC = () => {
         });
       }
       setAdmins(data);
+      return data;
+    } else {
+      return admins;
+    }
+  };
+
+    /**
+   * 查询管理员enum
+   */
+  const _getUsersEnum2 = async () => {
+    const data: RequestOptionsType[] = [];
+    if (admins.length === 0) {
+      const res = await getUsersEnum2({ foo: 1 });
+      for (const item of res.data!) {
+        data.push({
+          label: item.name,
+          value: item.id,
+        });
+      }
+      setAdmins2(data);
       return data;
     } else {
       return admins;
@@ -61,6 +81,10 @@ const TableList: React.FC = () => {
     if (admins.length === 0) {
       // @ts-ignore
       await _getUsersEnum();
+    }
+    if (admins2.length === 0) {
+      // @ts-ignore
+      await _getUsersEnum2();
     }
 
     return {
@@ -117,6 +141,11 @@ const TableList: React.FC = () => {
     setType(_type);
     setShowDetail(true);
   };
+    const _showLogDrawer = (record: TableListItem, _type: string) => {
+    setCurrentRow(record);
+    setType(_type);
+    setShowLogDetail(true);
+  };
 
     /**
    * 新建催收组model
@@ -158,6 +187,23 @@ const TableList: React.FC = () => {
             }}
           >
             {record.g_collection_order_flow_history_count}
+          </a>
+        );
+      },
+    },
+    ,
+    {
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.h_collection_admin_log_count', defaultMessage: '' }),
+      dataIndex: 'h_collection_admin_log_count',
+      key: 'h_collection_admin_log_count',
+       render: (_, record) => {
+        return (
+          <a
+            onClick={() => {
+              _showLogDrawer(record, 'log');
+            }}
+          >
+            {record.h_collection_admin_log_count}
           </a>
         );
       },
@@ -343,17 +389,6 @@ const TableList: React.FC = () => {
       key: 'a_m_current_day_view_time',
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_m_yesterday_count', defaultMessage: '' }),
-      dataIndex: 'b_m_yesterday_log_count',
-      key: 'b_m_yesterday_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_m_yesterday_log_count', defaultMessage: '' }) + ' - ' + 
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_n_yesterday_call_count', defaultMessage: '' }) + ' - ' +
-      intl.formatMessage({ id: 'pages.BLCollectionOrder.b_o_yesterday_contact_call_count', defaultMessage: '' }),
-      render: (_, record) => {
-        return record!.a_a_a_a_a_n_j_collection_order_sub!.f_yesterday_log_count! + '-' + (record!.a_a_a_a_a_n_j_collection_order_sub!.b_12_log_count! + record!.a_a_a_a_a_n_j_collection_order_sub!.d_18_log_count!+ record!.a_a_a_a_a_n_j_collection_order_sub!.e_24_log_count!);
-      },
-    },
-    {
       title: intl.formatMessage({ id: 'pages.common.option', defaultMessage: '' }),
       dataIndex: 'option',
       valueType: 'option',
@@ -369,93 +404,132 @@ const TableList: React.FC = () => {
     
   ];
 
-  const columns2: ProColumns<API.QCCollectionNews>[] = [
+  const columns2: ProColumns<API.QHCollectionOrderSubDetail>[] = [
+    {
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.a_date', defaultMessage: '' }),
+      dataIndex: 'd_b_date',
+      key: 'd_b_date',
+    },
     {
       title: intl.formatMessage({ id: 'pages.QCCollectionNews.e_collection_admin_id', defaultMessage: '' }),
-      dataIndex: 'e_collection_admin_id',
-      key: 'e_collection_admin_id',
+      dataIndex: 'd_a_collection_admin_id',
+      key: 'd_a_collection_admin_id',
       valueType: 'select',
       request: _getUsersEnum,
       params: { timestamp: Math.random() },
     },
     {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNews.f_cat', defaultMessage: '' }),
-      dataIndex: 'f_cat',
-      key: 'f_cat',
-      render: (text) => {
-        switch(text) {
-          case 0: return <EditOutlined style={{ color: 'black', fontSize: '18px' }} />;
-          case 1: return <PhoneOutlined style={{ color: 'blue' , fontSize: '18px' }} />;
-          case 6: return <ContactsOutlined style={{ color: 'green', fontSize: '18px'  }} />;
-          default: return text;
-        }
+      title: intl.formatMessage({ id: 'pages.common.morning', defaultMessage: '' }),
+      dataIndex: 'b_a_12_log_count',
+      key: 'b_a_12_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.h_12_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_b_12_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.m_12_wa_count', defaultMessage: '' }),
+      render: (_, record) => (
+        <>
+          {formatValue(record!.h_12_call_count!)}
+          -
+          {formatValue(record!.b_b_12_sms_count!)}
+          -
+          {formatValue(record!.m_12_wa_count!)}
+        </>
+      ),
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.common.morning', defaultMessage: '' }),
+      dataIndex: 'b_a_12_log_count',
+      key: 'b_a_12_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.r_12_contact_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_l_12_contact_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_g_12_contact_wa_count', defaultMessage: '' }),
+      render: (_, record) => (
+        <>
+          {formatValue(record!.r_12_contact_call_count!)}
+          -
+          {formatValue(record!.b_l_12_contact_sms_count!)}
+          -
+          {formatValue(record!.b_g_12_contact_wa_count!)}
+        </>
+      ),
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.common.afternoon', defaultMessage: '' }),
+      dataIndex: 'b_e_18_log_count',
+      key: 'b_e_18_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.i_18_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_c_18_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.n_18_wa_count', defaultMessage: '' }),
+      render: (_, record) => {
+        return (
+          <>
+            {formatValue(record!.i_18_call_count!)}
+            -
+            {formatValue(record!.b_c_18_sms_count!)}
+            -
+            {formatValue(record!.n_18_wa_count!)}
+          </>
+        );
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNews.g_type', defaultMessage: '' }),
-      dataIndex: 'g_type',
-      key: 'g_type',
-      valueType: 'select',
-      valueEnum: {
-        0: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.new', defaultMessage: '新案件' }),
-          status: 'Default',
-        },
-        1: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.negotiating', defaultMessage: '协商中' }),
-          status: 'Processing',
-        },
-        2: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.promised', defaultMessage: '承诺还款' }),
-          status: 'Processing',
-        },
-        3: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.unfulfilled', defaultMessage: '承诺未还' }),
-          status: 'Warning',
-        },
-        4: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.rejected', defaultMessage: '拒绝还款' }),
-          status: 'Error',
-        },
-        7: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.repay', defaultMessage: '已还款' }),
-          status: 'Success',
-        },
+      title: intl.formatMessage({ id: 'pages.common.afternoon', defaultMessage: '' }),
+      dataIndex: 'b_a_12_log_count',
+      key: 'b_a_12_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.s_18_contact_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_m_18_contact_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_h_18_contact_wa_count', defaultMessage: '' }),
+      render: (_, record) => {
+        return (
+          <>
+            {formatValue(record!.s_18_contact_call_count!)}
+            -
+            {formatValue(record!.b_m_18_contact_sms_count!)}
+            -
+            {formatValue(record!.b_h_18_contact_wa_count!)}
+          </>
+        );
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNews.j_content', defaultMessage: '' }),
-      dataIndex: 'j_content',
-      key: 'j_content',
-      render: (text, record) => {
-        if (!text) return null;
-        if (record.f_cat === 1 || record.f_cat === 6) {
-          return (
-            <audio
-              controls
-              src={`https://api.dasewan.cn/storage/${text}`}
-            />
-          );
-        }
-        return text;
+      title: intl.formatMessage({ id: 'pages.common.night', defaultMessage: '' }),
+      dataIndex: 'b_i_24_log_count',
+      key: 'b_i_24_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.j_24_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_d_24_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.o_24_wa_count', defaultMessage: '' }),
+      render: (_, record) => {
+        return (
+          <>
+            {formatValue(record!.j_24_call_count!)}
+            -
+            {formatValue(record!.b_d_24_sms_count!)}
+            -
+            {formatValue(record!.o_24_wa_count!)}
+          </>
+        );
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNews.k_promise_time', defaultMessage: '' }),
-      dataIndex: 'k_promise_time',
-      key: 'k_promise_time',
+      title: intl.formatMessage({ id: 'pages.common.night', defaultMessage: '' }),
+      dataIndex: 'b_a_12_log_count',
+      key: 'b_a_12_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.NJCollectionOrderSub.t_24_contact_call_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_n_24_contact_sms_count', defaultMessage: '' }) +'-'+
+      intl.formatMessage({ id: 'pages.NJCollectionOrderSub.b_i_24_contact_wa_count', defaultMessage: '' }),
+      render: (_, record) => {
+
+        return (
+          <>
+            {formatValue(record!.t_24_contact_call_count!)}
+            -
+            {formatValue(record!.b_n_24_contact_sms_count!)}
+            -
+            {formatValue(record!.b_i_24_contact_wa_count!)}
+          </>
+        );
+      },
     },
-    {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNews.m_overdue_days', defaultMessage: '' }),
-      dataIndex: 'm_overdue_days',
-      key: 'm_overdue_days',
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.common.created_at', defaultMessage: '' }),
-      dataIndex: 'created_at',
-      key: 'created_at',
-      valueType: 'date',
-    }
+    
   ];
 
   // @ts-ignore
@@ -482,12 +556,12 @@ const TableList: React.FC = () => {
           pageSize: 50,
         }}
         expandable={{
-    rowExpandable: (record) => record.a_a_a_a_a_q_c_collection_news && record.a_a_a_a_a_q_c_collection_news.length > 0,
+          rowExpandable: (record) => record.a_a_a_a_a_q_h_collection_order_sub_details && record.a_a_a_a_a_q_h_collection_order_sub_details.length > 0,
           expandedRowRender: (record) => (
             <ProTable
               rowKey="id"
               columns={columns2}
-              dataSource={record.a_a_a_a_a_q_c_collection_news || []}
+              dataSource={record.a_a_a_a_a_q_h_collection_order_sub_details || []}
               pagination={false}
               headerTitle={false}
               search={false}
@@ -503,7 +577,18 @@ const TableList: React.FC = () => {
           setShowDetail(false);
         }}
         admins={admins}
+        admins2={admins2}
         data={currentRow?.a_a_a_a_a_n_c_collection_order_flow_histories!}
+        type={type}
+      />
+      <LogDrawerFC
+        showDetail={showLogDetail}
+        onClose={() => {
+          setCurrentRow(undefined);
+          setShowLogDetail(false);
+        }}
+        admins={admins}
+        data={currentRow?.a_a_a_a_a_q_c_collection_news!}
         type={type}
       />
 

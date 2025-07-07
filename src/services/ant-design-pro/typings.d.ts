@@ -1087,6 +1087,8 @@ declare namespace API {
     /** App\Models\BLCollectionOrder */
     a_a_a_a_a_q_c_collection_news?: QCCollectionNews[];
     /** App\Models\BLCollectionOrder */
+    a_a_a_a_a_q_h_collection_order_sub_details?: QHCollectionOrderSubDetail[];
+    /** App\Models\BLCollectionOrder */
     a_a_a_a_a_n_c_collection_order_flow_histories?: NCCollectionOrderFlowHistory[];
     a_a_a_a_a_n_j_collection_order_sub?: NJCollectionOrderSub;
     /** 父id */

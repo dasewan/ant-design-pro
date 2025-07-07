@@ -12,6 +12,7 @@ export type DrawerFCProps = {
   data: API.NCCollectionOrderFlowHistory[];
   type: string;
   admins: RequestOptionsType[];
+  admins2: RequestOptionsType[];
 };
 
 const DrawerFC: React.FC<DrawerFCProps> = (props) => {
@@ -75,12 +76,6 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
       },
     },
     {
-      title: 'created_at',
-      dataIndex: 'created_at',
-      valueType: 'dateTime',
-      key: 'created_at',
-    },
-    {
       title: intl.formatMessage({
         id: 'pages.NCCollectionOrderFlowHistory.f_e_admin_id',
         defaultMessage: '',
@@ -89,8 +84,14 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
       key: 'f_e_admin_id',
       valueType: 'select',
       request: async () => {
-        return props.admins;
+        return props.admins2;
       },
+    },
+    {
+      title: 'created_at',
+      dataIndex: 'created_at',
+      valueType: 'dateTime',
+      key: 'created_at',
     },
   ];
 

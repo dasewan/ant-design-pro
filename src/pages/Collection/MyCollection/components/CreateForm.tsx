@@ -1,8 +1,4 @@
-import {
-  getAdminV1TCollectionAgenciesId as show,
-  postAdminV1TCollectionAgencies as store,
-  putAdminV1TCollectionAgenciesId as update,
-} from '@/services/ant-design-pro/TCollectionAgency';
+import { postAdminV1BLCollectionOrdersTransfer as transfer } from '@/services/ant-design-pro/BLCollectionOrder';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import { ModalForm, ProFormSelect, ProFormSwitch, ProFormText } from '@ant-design/pro-form';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
@@ -50,13 +46,7 @@ const CreateForm: React.FC<FormProps> = (props) => {
     try {
       if (props.id > 0) {
         // @ts-ignore
-        const res = await update({ id: props.id, ...values });
-        if (!res.success) {
-          message.error(res.message);
-          return false;
-        }
-      } else {
-        const res = await store(values);
+        const res = await transfer({ ids: props.id, ...values });
         if (!res.success) {
           message.error(res.message);
           return false;

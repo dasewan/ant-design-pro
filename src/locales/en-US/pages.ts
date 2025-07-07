@@ -961,7 +961,7 @@ export default {
 'pages.BLCollectionOrder.e_collection_admin_id': 'Collection Admin',
 'pages.BLCollectionOrder.f_collection_news_id': 'Collection News',
 'pages.BLCollectionOrder.g_collection_order_flow_history_count': 'Collection Order Flow History Count',
-'pages.BLCollectionOrder.h_collection_admin_log_count': 'Collection Admin Log Count',
+'pages.BLCollectionOrder.h_collection_admin_log_count': 'Log',
 'pages.BLCollectionOrder.i_collection_admin_call_count': 'Collection Admin Call Count',
 'pages.BLCollectionOrder.j_system_sms_count': 'System Sms Count',
 'pages.BLCollectionOrder.k_status': 'Status',
