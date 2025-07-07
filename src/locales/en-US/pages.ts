@@ -1009,6 +1009,7 @@ export default {
 'pages.BLCollectionOrder.b_j_24_call_count': 'Call Count',
 'pages.BLCollectionOrder.b_k_24_contact_call_count': 'Contact Call Count',
 'pages.BLCollectionOrder.b_l_24_appendix': 'Appendix',
+'pages.BLCollectionOrder.detail': 'heatmap',
 'pages.BLCollectionOrder.b_m_yesterday_log_count': 'Yesterday Log Count',
 'pages.BLCollectionOrder.b_n_yesterday_call_count': 'Yesterday Call Count',
 'pages.BLCollectionOrder.b_o_yesterday_contact_call_count': 'Yesterday Contact Call Count',

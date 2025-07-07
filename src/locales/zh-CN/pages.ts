@@ -1201,6 +1201,7 @@ export default {
 'pages.WSCollectionAdminHeatmap.b_j_24_call_count': '晚上电话数',
 'pages.WSCollectionAdminHeatmap.b_k_24_contact_call_count': '晚上联系人电话数',
 'pages.WSCollectionAdminHeatmap.b_l_24_appendix': '晚上附件数',
+'pages.WSCollectionAdminHeatmap.detail': '热力图',
 'pages.QCCollectionNews.n_borrow_id': '订单id',
 'pages.QCCollectionNews.o_period_id': '分期id',
 'pages.QCCollectionNews.a_parent_id': '父id',

@@ -60,6 +60,8 @@ const HeatmapChart: React.FC<Props> = ({ data, activeButtonKey }) => {
   // 修改 useEffect 依赖项，添加 activeButtonKey
   useEffect(() => {
     dataMapRef.current = createDataMap();
+    console.log(":::::::::::::::");
+    console.log(activeButtonKey);
   }, [data, activeButtonKey]);
 
   return (
@@ -69,23 +71,61 @@ const HeatmapChart: React.FC<Props> = ({ data, activeButtonKey }) => {
           const timeKey = `${slot.hour}:${slot.minute}`;
           const data = dataMapRef.current[timeKey];
           let count;
+          let tooltipTitle;
           switch (activeButtonKey) {
-            case 'show':
+            case 'all':
               count = data?.h_count;
+              tooltipTitle = data !== undefined
+                ? `${formatTime(slot.hour, slot.minute)} - total cnt: ${data.h_count ?? 0}, log cnt: ${data.i_log_count ?? 0}, call cnt: ${data.g_call_count ?? 0}, sms cnt: ${data.k_sms_count ?? 0}, wa cnt: ${data.s_wa_count ?? 0}, contact call cnt: ${data.t_contact_call_count ?? 0}, contact sms cnt: ${data.u_contact_sms_count ?? 0}, contact wa cnt: ${data.v_contact_wa_count ?? 0}`
+                : `${formatTime(slot.hour, slot.minute)} - no data`;
               break;
-            case 'out':
+            case 'log':
               count = data?.i_log_count;
+              tooltipTitle = data !== undefined
+                ? `${formatTime(slot.hour, slot.minute)} - log cnt: ${data.i_log_count ?? 0}`
+                : `${formatTime(slot.hour, slot.minute)} - no data`;
               break;
-            case 'primary':
+            case 'call':
               count = data?.g_call_count;
+              tooltipTitle = data !== undefined
+                ? `${formatTime(slot.hour, slot.minute)} - call cnt: ${data.g_call_count ?? 0}`
+                : `${formatTime(slot.hour, slot.minute)} - no data`;
+              break;
+            case 'wa':
+              count = data?.s_wa_count;
+              tooltipTitle = data !== undefined
+                ? `${formatTime(slot.hour, slot.minute)} - wa cnt: ${data.s_wa_count ?? 0}`
+                : `${formatTime(slot.hour, slot.minute)} - no data`;
+              break;
+            case 'sms':
+              count = data?.k_sms_count;
+              tooltipTitle = data !== undefined
+                ? `${formatTime(slot.hour, slot.minute)} - sms cnt: ${data.k_sms_count ?? 0}`
+                : `${formatTime(slot.hour, slot.minute)} - no data`;
+              break;
+            case 'contact-call':
+              count = data?.t_contact_call_count;
+              tooltipTitle = data !== undefined
+                ? `${formatTime(slot.hour, slot.minute)} - contact call cnt: ${data.t_contact_call_count ?? 0}`
+                : `${formatTime(slot.hour, slot.minute)} - no data`;
+              break;
+            case 'contact-wa':
+              count = data?.v_contact_wa_count;
+              tooltipTitle = data !== undefined
+                ? `${formatTime(slot.hour, slot.minute)} - contact wa cnt: ${data.v_contact_wa_count ?? 0}`
+                : `${formatTime(slot.hour, slot.minute)} - no data`;
+              break;
+            case 'contact-sms':
+              count = data?.u_contact_sms_count;
+              tooltipTitle = data !== undefined
+                ? `${formatTime(slot.hour, slot.minute)} - contact sms cnt: ${data.u_contact_sms_count ?? 0}`
+                : `${formatTime(slot.hour, slot.minute)} - no data`;
               break;
             default:
               count = data?.h_count;
           }
 
-          const tooltipTitle = data !== undefined
-            ? `${formatTime(slot.hour, slot.minute)} - total cnt: ${data.h_count ?? 0}, log cnt: ${data.i_log_count ?? 0}, call cnt: ${data.g_call_count ?? 0}`
-            : `${formatTime(slot.hour, slot.minute)} - no data`;
+
 
           return (
             <Col key={index}>

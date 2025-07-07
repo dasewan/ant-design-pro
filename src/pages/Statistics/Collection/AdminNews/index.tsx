@@ -1,6 +1,6 @@
 import CreateForm from '@/pages/Collection/CollectionGroup/components/CreateForm';
 import ReleaseForm from '@/pages/Collection/CollectionGroup/components/ReleaseForm';
-import { PhoneOutlined ,HighlightOutlined,NumberOutlined} from '@ant-design/icons';
+import { PhoneOutlined ,HighlightOutlined,NumberOutlined, WhatsAppOutlined, MessageOutlined, PhoneFilled, MessageFilled} from '@ant-design/icons';
 
 import { getAdminV1GNCollectionStagesEnum as getCollectionStagesEnum } from '@/services/ant-design-pro/GNCollectionStage';
 import {
@@ -270,7 +270,7 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: '操作',
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.detail', defaultMessage: '' }),
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
@@ -294,13 +294,8 @@ const TableList: React.FC = () => {
   return (
     <PageContainer
       header={{
-        title: '催收组管理',
+        title: intl.formatMessage({ id: 'menu.statistics.collection.admin-news', defaultMessage: '' }),
         ghost: true,
-        extra: [
-          <Button key="3" type="primary" onClick={() => onEditClick(0)}>
-            新建催收组
-          </Button>,
-        ],
       }}
     >
       <Spin spinning={loading}>
@@ -320,41 +315,100 @@ const TableList: React.FC = () => {
         pagination={{
           pageSize: 50,
         }}
-        // toolBarRender={() => [
-        //   <Button
-        //     key="all"
-        //     type={activeButtonKey === 'all' ? 'primary' : 'default'}
-        //     onClick={() => {
-        //       setActiveButtonKey('all');
-        //       // 这里可以添加点击 'All' 按钮后的逻辑
-        //     }}
-        //   >
-        //     All
-        //     <NumberOutlined />
-        //   </Button>,
-        //   <Button
-        //     key="log"
-        //     type={activeButtonKey === 'log' ? 'primary' : 'default'}
-        //     onClick={() => {
-        //       setActiveButtonKey('log');
-        //       // 这里可以添加点击 'Log' 按钮后的逻辑
-        //     }}
-        //   >
-        //     Log
-        //     <HighlightOutlined />
-        //   </Button>,
-        //   <Button
-        //     key="call"
-        //     type={activeButtonKey === 'call' ? 'primary' : 'default'}
-        //     onClick={() => {
-        //       setActiveButtonKey('call');
-        //       // 这里可以添加点击 'Call' 按钮后的逻辑
-        //     }}
-        //   >
-        //     Call
-        //     <PhoneOutlined />
-        //   </Button>,
-        // ]}
+        toolBarRender={() => [
+          <Button
+            key="all"
+            type={activeButtonKey === 'all' ? 'primary' : 'default'}
+            onClick={() => {
+              setActiveButtonKey('all');
+              // 这里可以添加点击 'All' 按钮后的逻辑
+            }}
+          >
+            All
+            <NumberOutlined />
+          </Button>,
+          <Button
+            key="log"
+            type={activeButtonKey === 'log' ? 'primary' : 'default'}
+            onClick={() => {
+              setActiveButtonKey('log');
+              // 这里可以添加点击 'Log' 按钮后的逻辑
+            }}
+          >
+            Log
+            <HighlightOutlined />
+          </Button>,
+          <Button
+            key="call"
+            type={activeButtonKey === 'call' ? 'primary' : 'default'}
+            onClick={() => {
+              setActiveButtonKey('call');
+              // 这里可以添加点击 'Call' 按钮后的逻辑
+            }}
+          >
+            Call
+            
+            <PhoneFilled />
+          </Button>,
+          <Button
+            key="contact-call"
+            type={activeButtonKey === 'contact-call' ? 'primary' : 'default'}
+            onClick={() => {
+              setActiveButtonKey('contact-call');
+              // 这里可以添加点击 'Call' 按钮后的逻辑
+            }}
+          >
+            Contact Call
+            <PhoneOutlined />
+          </Button>,
+          <Button
+            key="call"
+            type={activeButtonKey === 'sms' ? 'primary' : 'default'}
+            onClick={() => {
+              setActiveButtonKey('sms');
+              // 这里可以添加点击 'Call' 按钮后的逻辑
+            }}
+          >
+            Sms
+          <MessageFilled />
+
+          </Button>,
+          <Button
+            key="contact-sms"
+            type={activeButtonKey === 'contact-sms' ? 'primary' : 'default'}
+            onClick={() => {
+              setActiveButtonKey('contact-sms');
+              // 这里可以添加点击 'Call' 按钮后的逻辑
+            }}
+          >
+            Contact Sms
+          <MessageOutlined />
+
+          </Button>,
+          <Button
+            key="call"
+            type={activeButtonKey === 'wa' ? 'primary' : 'default'}
+            onClick={() => {
+              setActiveButtonKey('wa');
+              // 这里可以添加点击 'Call' 按钮后的逻辑
+            }}
+          >
+            WA
+            <WhatsAppOutlined />
+          </Button>,
+          <Button
+            key="contact-wa"
+            type={activeButtonKey === 'contact-wa' ? 'primary' : 'default'}
+            onClick={() => {
+              setActiveButtonKey('contact-wa');
+              // 这里可以添加点击 'Call' 按钮后的逻辑
+            }}
+          >
+            Contact WA
+            <WhatsAppOutlined />
+          </Button>,
+          
+        ]}
       />
       </Spin>
       
