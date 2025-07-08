@@ -11992,6 +11992,10 @@ declare namespace API {
     d_a_resign_repay_count?: number;
     /** 中午转移数 */
     d_b_today_delete_count?: number;
+    /** 管理员转移数 */
+    d_c_admin_delete_count?: number;
+    /** 管理员转移数 */
+    d_e_admin_new_count?: number;
   };
 
   type WTCollectionAdminHeatmapDetail = {
