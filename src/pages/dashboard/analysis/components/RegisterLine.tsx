@@ -32,8 +32,16 @@ const RegisterLine = ({
   const config = {
     data: mergedData,
     xField: (d:Last30AdminDay) => d.a_date,
-    yField: (d:Last30AdminDay) => parseInt(d.b_init_count ?? '0', 10),
-    sizeField: (d:Last30AdminDay) => parseInt(d.b_init_count ?? '0', 10),
+    yField: (d: Last30AdminDay) => {
+      const initCount = parseInt(d.b_init_count ?? '0', 10);
+      const successCount = parseInt(d.c_success_count ?? '0', 10);
+      return initCount === 0 ? 0 : Math.round((successCount / initCount) * 100);
+    },
+    sizeField: (d: Last30AdminDay) => {
+      const initCount = parseInt(d.b_init_count ?? '0', 10);
+      const successCount = parseInt(d.c_success_count ?? '0', 10);
+      return initCount === 0 ? 0 : Math.round((successCount / initCount) * 100);
+    },
     shapeField: 'trail',
     legend: { size: false },
     height: 246,
