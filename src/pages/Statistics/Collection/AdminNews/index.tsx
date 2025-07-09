@@ -1,6 +1,6 @@
 import CreateForm from '@/pages/Collection/CollectionGroup/components/CreateForm';
 import ReleaseForm from '@/pages/Collection/CollectionGroup/components/ReleaseForm';
-import { PhoneOutlined ,HighlightOutlined,NumberOutlined, WhatsAppOutlined, MessageOutlined, PhoneFilled, MessageFilled} from '@ant-design/icons';
+import { PhoneOutlined, HighlightFilled, NumberOutlined, WhatsAppOutlined, MessageOutlined, PhoneFilled, MessageFilled } from '@ant-design/icons';
 
 import { getAdminV1GNCollectionStagesEnum as getCollectionStagesEnum } from '@/services/ant-design-pro/GNCollectionStage';
 import {
@@ -14,7 +14,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type { RequestOptionsType } from '@ant-design/pro-utils';
-import {Button, message, Popconfirm, Spin, Switch} from 'antd';
+import { Button, message, Popconfirm, Spin, Progress } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import type { TableListItem, TableListPagination } from './data';
@@ -204,6 +204,16 @@ const TableList: React.FC = () => {
   // 添加一个状态来记录当前被点击的按钮的 key
   const [activeButtonKey, setActiveButtonKey] = useState<string>('all');
 
+  const formatValue = (value: number) => (
+    <span style={{
+      fontSize: value !== 0 ? '16px' : 'inherit',
+      fontWeight: value !== 0 ? 'bold' : 'normal',
+      margin: '0 4px'
+    }}>
+      {value}
+    </span>
+  );
+
   const columns: ProColumns<TableListItem>[] = [
     {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.a_date', defaultMessage: '' }),
@@ -243,31 +253,83 @@ const TableList: React.FC = () => {
       request: _getUsersEnum,
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_init_count', defaultMessage: '' }),
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_init_count', defaultMessage: '' }),
       dataIndex: 'b_init_count',
       key: 'b_init_count',
-      render: (__, value) => {
-        return (value.c_success_count ?? 0) + ' / ' + (value.b_init_count?? 0) ;
+      render: (_, record) => {
+        return record!.b_init_count + '+' + record!.a_b_12_new_count + '+' + record!.d_e_admin_new_count + '+' + record!.a_b_12_new_count;
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.n_no_log_count', defaultMessage: '' }),
-      dataIndex: 'n_no_log_count',
-      key: 'n_no_log_count',
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.c_success_count', defaultMessage: '' }),
+      dataIndex: 'c_success_count',
+      key: 'c_success_count',
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.o_no_call_count', defaultMessage: '' }),
-      dataIndex: 'o_no_call_count',
-      key: 'o_no_call_count',
-    },
-    
-    {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.a_q_neo_count', defaultMessage: '' }),
-      dataIndex: 'a_q_neo_count',
-      key: 'a_q_neo_count',
-      render: (__, value) => {
-        return (value.a_q_neo_count ?? 0) + '-' + (value.a_r_promise_count?? 0) + '-' + (value.a_s_broken_count?? 0) + '-' + (value.a_t_refuse_count?? 0);
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.success_rate', defaultMessage: '' }),
+      dataIndex: 'success_rate',
+      key: 'success_rate',
+      render: (_, record) => {
+        const percent = Math.round((record!.c_success_count! / record!.b_init_count!) * 100);
+        let strokeColor = '#1890ff'; // 默认蓝色
+
+        switch (record.p_kpi) {
+          case 1: strokeColor = '#ff4d4f'; break; // BB: 红色
+          case 2: strokeColor = '#faad14'; break; // B: 橙色
+          case 3: strokeColor = '#1890ff'; break; // A: 绿色
+          case 4: strokeColor = '#52c41a'; break; // AA: 青色
+          default: strokeColor = '#1890ff';
+        }
+
+        return <Progress
+          percent={percent}
+          size="small"
+          strokeColor={strokeColor}
+          trailColor="#f5f5f5"
+        />;
       },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.p_kpi', defaultMessage: '' }),
+      dataIndex: 'p_kpi',
+      key: 'p_kpi',
+      render: (_, record) => {
+        switch (record.p_kpi) {
+          case 1: return 'BB';
+          case 2: return 'B';
+          case 3: return 'A';
+          case 4: return 'AA';
+          default: return '-';
+        }
+      },
+    },
+
+    {
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.r_bonus', defaultMessage: '' }),
+      dataIndex: 'r_bonus',
+      key: 'r_bonus',
+    },
+
+
+    {
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.a_i_lv1_bonus', defaultMessage: '' }),
+      dataIndex: 'a_i_lv1_bonus',
+      key: 'a_i_lv1_bonus',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.a_j_lv2_bonus', defaultMessage: '' }),
+      dataIndex: 'a_j_lv2_bonus',
+      key: 'a_j_lv2_bonus',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.a_k_lv3_bonus', defaultMessage: '' }),
+      dataIndex: 'a_k_lv3_bonus',
+      key: 'a_k_lv3_bonus',
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.a_l_lv4_bonus', defaultMessage: '' }),
+      dataIndex: 'a_l_lv4_bonus',
+      key: 'a_l_lv4_bonus',
     },
     {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.detail', defaultMessage: '' }),
@@ -278,14 +340,91 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.i_log_count', defaultMessage: '' }),
-      dataIndex: 'i_log_count',
-      key: 'i_log_count',
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_a_12_count', defaultMessage: '' }),
+      dataIndex: 'b_a_12_log_count',
+      key: 'b_a_12_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_a_12_log_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_b_12_call_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_o_12_sms_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_m_12_wa_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_c_12_contact_call_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.u_contact_sms_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_n_12_contact_wa_count', defaultMessage: '' }),
+      render: (_, record) => {
+        return <>
+          {formatValue(record!.b_a_12_log_count!)}
+          -
+          {formatValue(record!.b_b_12_call_count!)}
+          -
+          {formatValue(record!.b_o_12_sms_count!)}
+          -
+          {formatValue(record!.b_m_12_wa_count!)}
+          -
+          {formatValue(record!.b_c_12_contact_call_count!)}
+          -
+          {formatValue(record!.u_contact_sms_count!)}
+          -
+          {formatValue(record!.b_n_12_contact_wa_count!)}
+        </>
+      },
     },
     {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.g_call_count', defaultMessage: '' }),
-      dataIndex: 'g_call_count',
-      key: 'g_call_count',
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_count', defaultMessage: '' }),
+      dataIndex: 'b_e_18_log_count',
+      key: 'b_e_18_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_e_18_log_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_f_18_call_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_s_18_sms_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_q_18_wa_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_g_18_contact_call_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_t_18_contact_sms_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_r_18_contact_wa_count', defaultMessage: '' }),
+      render: (_, record) => {
+        return <>
+          {formatValue(record!.b_e_18_log_count!)}
+          -
+          {formatValue(record!.b_f_18_call_count!)}
+          -
+          {formatValue(record!.b_s_18_sms_count!)}
+          -
+          {formatValue(record!.b_q_18_wa_count!)}
+          -
+          {formatValue(record!.b_g_18_contact_call_count!)}
+          -
+          {formatValue(record!.b_t_18_contact_sms_count!)}
+          -
+          {formatValue(record!.b_r_18_contact_wa_count!)}
+        </>
+      },
+    },
+    {
+      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_i_24_count', defaultMessage: '' }),
+      dataIndex: 'b_i_24_log_count',
+      key: 'b_i_24_log_count',
+      tooltip: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_i_24_log_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_j_24_call_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_w_24_sms_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_u_24_wa_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_k_24_contact_call_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_x_24_contact_sms_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_v_24_contact_wa_count', defaultMessage: '' }),
+      render: (_, record) => {
+        return <>
+          {formatValue(record!.b_i_24_log_count!)}
+          -
+          {formatValue(record!.b_j_24_call_count!)}
+          -
+          {formatValue(record!.b_w_24_sms_count!)}
+          -
+          {formatValue(record!.b_u_24_wa_count!)}
+          -
+          {formatValue(record!.b_k_24_contact_call_count!)}
+          -
+          {formatValue(record!.b_x_24_contact_sms_count!)}
+          -
+          {formatValue(record!.b_v_24_contact_wa_count!)}
+        </>
+      },
     },
   ];
 
@@ -299,119 +438,121 @@ const TableList: React.FC = () => {
       }}
     >
       <Spin spinning={loading}>
-      <ProTable<TableListItem, TableListPagination>
-        revalidateOnFocus={false}
-        actionRef={actionRef}
-        rowKey="id"
-        search={{
-          labelWidth: 120,
-        }}
-        bordered={true}
-        request={_index}
-        columns={columns}
-        postData={(data: any[]) => {
-          return data;
-        }}
-        pagination={{
-          pageSize: 50,
-        }}
-        toolBarRender={() => [
-          <Button
-            key="all"
-            type={activeButtonKey === 'all' ? 'primary' : 'default'}
-            onClick={() => {
-              setActiveButtonKey('all');
-              // 这里可以添加点击 'All' 按钮后的逻辑
-            }}
-          >
-            All
-            <NumberOutlined />
-          </Button>,
-          <Button
-            key="log"
-            type={activeButtonKey === 'log' ? 'primary' : 'default'}
-            onClick={() => {
-              setActiveButtonKey('log');
-              // 这里可以添加点击 'Log' 按钮后的逻辑
-            }}
-          >
-            Log
-            <HighlightOutlined />
-          </Button>,
-          <Button
-            key="call"
-            type={activeButtonKey === 'call' ? 'primary' : 'default'}
-            onClick={() => {
-              setActiveButtonKey('call');
-              // 这里可以添加点击 'Call' 按钮后的逻辑
-            }}
-          >
-            Call
-            
-            <PhoneFilled />
-          </Button>,
-          <Button
-            key="contact-call"
-            type={activeButtonKey === 'contact-call' ? 'primary' : 'default'}
-            onClick={() => {
-              setActiveButtonKey('contact-call');
-              // 这里可以添加点击 'Call' 按钮后的逻辑
-            }}
-          >
-            Contact Call
-            <PhoneOutlined />
-          </Button>,
-          <Button
-            key="call"
-            type={activeButtonKey === 'sms' ? 'primary' : 'default'}
-            onClick={() => {
-              setActiveButtonKey('sms');
-              // 这里可以添加点击 'Call' 按钮后的逻辑
-            }}
-          >
-            Sms
-          <MessageFilled />
+        <ProTable<TableListItem, TableListPagination>
+          revalidateOnFocus={false}
+          actionRef={actionRef}
+          rowKey="id"
+          search={{
+            labelWidth: 120,
+          }}
+          bordered={true}
+          request={_index}
+          columns={columns}
+          postData={(data: any[]) => {
+            return data;
+          }}
+          pagination={{
+            pageSize: 50,
+          }}
+          toolBarRender={() => [
+            <Button
+              key="all"
+              type={activeButtonKey === 'all' ? 'primary' : 'default'}
+              onClick={() => {
+                setActiveButtonKey('all');
+                // 这里可以添加点击 'All' 按钮后的逻辑
+              }}
+            >
+              All
+              <NumberOutlined />
+            </Button>,
+            <Button
+              key="log"
+              type={activeButtonKey === 'log' ? 'primary' : 'default'}
+              onClick={() => {
+                setActiveButtonKey('log');
+                // 这里可以添加点击 'Log' 按钮后的逻辑
+              }}
+            >
+              Log
+              <HighlightFilled />
+            </Button>,
+            <Button
+              key="call"
+              type={activeButtonKey === 'call' ? 'primary' : 'default'}
+              onClick={() => {
+                setActiveButtonKey('call');
+                // 这里可以添加点击 'Call' 按钮后的逻辑
+              }}
+            >
+              Call
 
-          </Button>,
-          <Button
-            key="contact-sms"
-            type={activeButtonKey === 'contact-sms' ? 'primary' : 'default'}
-            onClick={() => {
-              setActiveButtonKey('contact-sms');
-              // 这里可以添加点击 'Call' 按钮后的逻辑
-            }}
-          >
-            Contact Sms
-          <MessageOutlined />
+              <PhoneFilled />
+            </Button>,
+            <Button
+              key="call"
+              type={activeButtonKey === 'sms' ? 'primary' : 'default'}
+              onClick={() => {
+                setActiveButtonKey('sms');
+                // 这里可以添加点击 'Call' 按钮后的逻辑
+              }}
+            >
+              Sms
+              <MessageFilled />
 
-          </Button>,
-          <Button
-            key="call"
-            type={activeButtonKey === 'wa' ? 'primary' : 'default'}
-            onClick={() => {
-              setActiveButtonKey('wa');
-              // 这里可以添加点击 'Call' 按钮后的逻辑
-            }}
-          >
-            WA
-            <WhatsAppOutlined />
-          </Button>,
-          <Button
-            key="contact-wa"
-            type={activeButtonKey === 'contact-wa' ? 'primary' : 'default'}
-            onClick={() => {
-              setActiveButtonKey('contact-wa');
-              // 这里可以添加点击 'Call' 按钮后的逻辑
-            }}
-          >
-            Contact WA
-            <WhatsAppOutlined />
-          </Button>,
-          
-        ]}
-      />
+            </Button>,
+            <Button
+              key="wa"
+              type={activeButtonKey === 'wa' ? 'primary' : 'default'}
+              onClick={() => {
+                setActiveButtonKey('wa');
+                // 这里可以添加点击 'Call' 按钮后的逻辑
+              }}
+            >
+              WA
+              <WhatsAppOutlined />
+            </Button>,
+            <Button
+              key="contact-call"
+              type={activeButtonKey === 'contact-call' ? 'primary' : 'default'}
+              onClick={() => {
+                setActiveButtonKey('contact-call');
+                // 这里可以添加点击 'Call' 按钮后的逻辑
+              }}
+            >
+              Contact Call
+              <PhoneOutlined />
+            </Button>,
+
+            <Button
+              key="contact-sms"
+              type={activeButtonKey === 'contact-sms' ? 'primary' : 'default'}
+              onClick={() => {
+                setActiveButtonKey('contact-sms');
+                // 这里可以添加点击 'Call' 按钮后的逻辑
+              }}
+            >
+              Contact Sms
+              <MessageOutlined />
+
+            </Button>,
+
+            <Button
+              key="contact-wa"
+              type={activeButtonKey === 'contact-wa' ? 'primary' : 'default'}
+              onClick={() => {
+                setActiveButtonKey('contact-wa');
+                // 这里可以添加点击 'Call' 按钮后的逻辑
+              }}
+            >
+              Contact WA
+              <WhatsAppOutlined />
+            </Button>,
+
+          ]}
+        />
       </Spin>
-      
+
     </PageContainer>
   );
 };
