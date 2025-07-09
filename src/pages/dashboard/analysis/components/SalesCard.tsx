@@ -3,7 +3,7 @@ import { Card, Col, DatePicker, Row, Tabs } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
 import dayjs from 'dayjs'; 
 import numeral from 'numeral';
-import type { DataItem, Last30AdminDay, Last30Day } from '../data.d';
+import type { DataItem,  Last30Day } from '../data.d';
 import useStyles from '../style.style';
 import React, { useEffect, useState } from 'react';
 import OverdueDays from './OverdueDays';
@@ -38,14 +38,14 @@ const SalesCard = ({
   loading: boolean;
   handleRangePickerChange: RangePickerProps<dayjs.Dayjs>['onChange'];
   selectDate: (key: TimeType) => void;
-  last30AdminDay: Last30AdminDay[];
+  last30AdminDay: API.WSCollectionAdminHeatmap[];
   admins: RequestOptionsType[];
 }) => {
   const { styles } = useStyles();
   const [currentTimeType, setCurrentTimeType] = useState<TimeType>('today');
 
   // 转换last30AdminDay数据结构，增加时间过滤
-  const transformAdminData = (data: Last30AdminDay[], timeType: TimeType) => {
+  const transformAdminData = (data: API.WSCollectionAdminHeatmap[], timeType: TimeType) => {
     const today = dayjs();
     let filteredData = data;
     
@@ -57,16 +57,21 @@ const SalesCard = ({
     } else if (timeType === 'month') {
       filteredData = data.filter(item => dayjs(item.a_date).isSame(today, 'month'));
     }
-    const adminMap = new Map<number, { total_log_count: number, total_call_count: number, total_repay_count: number }>();
+    const adminMap = new Map<number, { total_log_count: number, total_call_count: number, total_sms_count: number, total_wa_count: number, total_contact_call_count: number, total_contact_sms_count: number, total_contact_wa_count: number, total_repay_count: number }>();
 
     filteredData.forEach(item => {
       const adminId = item.e_collection_admin_id;
-      const current = adminMap.get(adminId!) || { total_log_count: 0, total_call_count: 0, total_repay_count: 0 };
+      const current = adminMap.get(adminId!) || { total_log_count: 0, total_call_count: 0, total_sms_count: 0, total_wa_count: 0, total_contact_call_count: 0, total_contact_sms_count: 0, total_contact_wa_count: 0, total_repay_count: 0 };
 
       adminMap.set(adminId!, {
-        total_log_count: current.total_log_count + parseInt(item.i_log_count!),
-        total_call_count: current.total_call_count + parseInt(item.g_call_count!),
-        total_repay_count: current.total_repay_count + parseInt(item.l_repay_count!)
+        total_log_count: current.total_log_count + item.i_log_count!,
+        total_call_count: current.total_call_count + item.i_log_count!,
+        total_sms_count: current.total_sms_count + item.k_sms_count!,
+        total_wa_count: current.total_wa_count + item.s_wa_count!,
+        total_contact_call_count: current.total_contact_call_count + item.a_u_call_contact_count!,
+        total_contact_sms_count: current.total_contact_sms_count + item.u_contact_sms_count!,
+        total_contact_wa_count: current.total_contact_wa_count + item.v_contact_wa_count!,
+        total_repay_count: current.total_repay_count + item.l_repay_count!,
       });
     });
 
@@ -79,10 +84,30 @@ const SalesCard = ({
         e_collection_admin_id,
         total_call_count
       })),
+      total_sms_count: Array.from(adminMap).map(([e_collection_admin_id, { total_sms_count }]) => ({
+        e_collection_admin_id,
+        total_sms_count
+      })),
+      total_wa_count: Array.from(adminMap).map(([e_collection_admin_id, { total_wa_count }]) => ({
+        e_collection_admin_id,
+        total_wa_count
+      })),
+      total_contact_call_count: Array.from(adminMap).map(([e_collection_admin_id, { total_contact_call_count }]) => ({
+        e_collection_admin_id,
+        total_contact_call_count
+      })),
+      total_contact_sms_count: Array.from(adminMap).map(([e_collection_admin_id, { total_contact_sms_count }]) => ({
+        e_collection_admin_id,
+        total_contact_sms_count
+      })),
+      total_contact_wa_count: Array.from(adminMap).map(([e_collection_admin_id, { total_contact_wa_count }]) => ({
+        e_collection_admin_id,
+        total_contact_wa_count
+      })),
       total_repay_count: Array.from(adminMap).map(([e_collection_admin_id, { total_repay_count }]) => ({
         e_collection_admin_id,
         total_repay_count
-      }))
+      })),
     };
   };
 
@@ -95,17 +120,37 @@ const SalesCard = ({
 
   const data = {
     pie1: adminStats.total_log_count.map(item => ({
-      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `管理员${item.e_collection_admin_id}`,
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `${item.e_collection_admin_id}`,
       bill: item.total_log_count
     })),
     pie2: adminStats.total_call_count.map(item => ({
-      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `管理员${item.e_collection_admin_id}`,
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `${item.e_collection_admin_id}`,
       value: item.total_call_count
     })),
-    pie3: adminStats.total_repay_count.map(item => ({
-      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `管理员${item.e_collection_admin_id}`,
-      profit: item.total_repay_count
-    }))
+    pie3: adminStats.total_sms_count.map(item => ({
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `${item.e_collection_admin_id}`,
+      value: item.total_sms_count
+    })),
+    pie4: adminStats.total_wa_count.map(item => ({
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `${item.e_collection_admin_id}`,
+      value: item.total_wa_count
+    })),
+    pie5: adminStats.total_contact_call_count.map(item => ({
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `${item.e_collection_admin_id}`,
+      value: item.total_contact_call_count
+    })),
+    pie6: adminStats.total_contact_sms_count.map(item => ({
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `${item.e_collection_admin_id}`,
+      value: item.total_contact_sms_count
+    })),
+    pie7: adminStats.total_contact_wa_count.map(item => ({
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `${item.e_collection_admin_id}`,
+      value: item.total_contact_wa_count
+    })),
+    pie8: adminStats.total_repay_count.map(item => ({
+      area: admins.find(a => a.value === item.e_collection_admin_id)?.label || `${item.e_collection_admin_id}`,
+      value: item.total_repay_count
+    })),
   };
 
   const showTooltip = (evt, currentPie) => {
@@ -163,16 +208,73 @@ const SalesCard = ({
       statistic: { title: { content: '电话总数' } }
     },
     pie3: {
-      angleField: 'profit',
+      angleField: 'value',
       colorField: 'area',
       data: data.pie3,
-      label: { text: 'profit' },
+      label: { text: 'value' },
       legend: false,
       tooltip: { title: 'area' },
       interaction: { elementHighlight: true },
       state: { inactive: { opacity: 0.5 } },
-      statistic: { title: { content: '还款总数' } }
-    }
+      statistic: { title: { content: '短信总数' } }
+    },
+    pie4: {
+      angleField: 'value',
+      colorField: 'area',
+      data: data.pie4,
+      label: { text: 'value' },
+      legend: false,
+      tooltip: { title: 'area' },
+      interaction: { elementHighlight: true },
+      state: { inactive: { opacity: 0.5 } },
+      statistic: { title: { content: 'Whatsapp总数' } }
+    },
+    pie5: {
+      angleField: 'value',
+      colorField: 'area',
+      data: data.pie5,
+      label: { text: 'value' },
+      legend: false,
+      tooltip: { title: 'area' },
+      interaction: { elementHighlight: true },
+      state: { inactive: { opacity: 0.5 } },
+      statistic: { title: { content: '联系电话总数' } }
+    },
+    pie6: {
+      angleField: 'value',
+      colorField: 'area',
+      data: data.pie6,
+      label: { text: 'value' },
+      legend: false,
+      tooltip: { title: 'area' },
+      interaction: { elementHighlight: true },
+      state: { inactive: { opacity: 0.5 } },
+      statistic: { title: { content: '联系短信总数' } }
+    },
+    pie7: {
+      angleField: 'value',
+      colorField: 'area',
+      data: data.pie7,
+      label: { text: 'value' },
+      legend: false,
+      tooltip: { title: 'area' },
+      interaction: { elementHighlight: true },
+      state: { inactive: { opacity: 0.5 } },
+      statistic: { title: { content: '联系Whatsapp总数' } }
+    },
+    pie8: {
+      angleField: 'value',
+      colorField: 'area',
+      data: data.pie8,
+      label: { text: 'value' },
+      legend: false,
+      tooltip: { title: 'area' },
+      interaction: { elementHighlight: true },
+      state: { inactive: { opacity: 0.5 } },
+      statistic: { title: { content: '联系还款总数' } }
+    },
+
+
   };
 
 
@@ -224,11 +326,11 @@ const SalesCard = ({
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                       {Object.keys(configs).map((pieKey, index) => (
-                        <div key={pieKey} style={{ flex: '0 0 32%', marginBottom: '10px' }}>
+                        <div key={pieKey} style={{ flex: '0 0 12%', marginBottom: '10px' }}>
                           <Pie
                             {...configs[pieKey]}
-                            width={300}  // 设置宽度
-                            height={300} // 设置高度
+                            width={150}  // 设置宽度
+                            height={150} // 设置高度
                             onReady={(plot) => {
                               PlotMaps[`pie${index + 1}`] = plot;
                               plot.chart.on('element:pointerover', (evt) => {

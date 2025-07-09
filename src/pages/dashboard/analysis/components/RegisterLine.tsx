@@ -6,6 +6,7 @@ import numeral from 'numeral';
 import React from 'react';
 import type { DataItem, Last30AdminDay, Last30Day } from '../data.d';
 import useStyles from '../style.style';
+import { RequestOptionsType } from '@ant-design/pro-components';
 const { Text } = Typography;
 const options: SelectProps['options'] = [];
 const RegisterLine = ({
@@ -13,11 +14,13 @@ const RegisterLine = ({
   loading,
   last30AdminDay,
   last30Day,
+  admins,
 }: {
   loading: boolean;
   dropdownGroup: React.ReactNode;
   last30AdminDay: Last30AdminDay[];
   last30Day: Last30Day[];
+  admins: RequestOptionsType[];
 }) => {
   const { styles } = useStyles();
   // 合并 last30Day 到 last30AdminDay
@@ -45,7 +48,7 @@ const RegisterLine = ({
     shapeField: 'trail',
     legend: { size: false },
     height: 246,
-    colorField: (d:Last30AdminDay) => d.e_collection_admin_id!.toString(),
+    colorField: (d:Last30AdminDay) => admins.find(a => a.value === d.e_collection_admin_id)?.label || `AVG`,
   };
   return (
     <Card

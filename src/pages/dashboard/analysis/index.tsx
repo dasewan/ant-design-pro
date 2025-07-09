@@ -160,6 +160,7 @@ const Analysis: FC<AnalysisProps> = () => {
                 loading={loading}
                 last30AdminDay={myData?.last30AdminDay || []}
                 last30Day={myData?.last30Day || []}
+                admins={admins}
               />
             </Suspense>
           </Col>
