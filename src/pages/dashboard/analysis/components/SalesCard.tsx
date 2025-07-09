@@ -324,13 +324,14 @@ const SalesCard = ({
               children: (
                 <Row>
                   <Col xl={16} lg={12} md={12} sm={24} xs={24}>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                    <Row gutter={[16, 16]} justify="space-around">
                       {Object.keys(configs).map((pieKey, index) => (
-                        <div key={pieKey} style={{ flex: '0 0 12%', marginBottom: '10px' }}>
+                        <Col key={pieKey} xs={6} sm={6} md={6} lg={6} xl={6}>
+                          <div>{pieKey}</div>
                           <Pie
                             {...configs[pieKey]}
-                            width={150}  // 设置宽度
-                            height={150} // 设置高度
+                            // width="100%"  // 使用百分比宽度以适应不同屏幕
+                            height={160} // 设置高度
                             onReady={(plot) => {
                               PlotMaps[`pie${index + 1}`] = plot;
                               plot.chart.on('element:pointerover', (evt) => {
@@ -341,9 +342,9 @@ const SalesCard = ({
                               });
                             }}
                           />
-                        </div>
+                        </Col>
                       ))}
-                    </div>
+                    </Row>
                   </Col>
                   <Col xl={8} lg={12} md={12} sm={24} xs={24}>
                     <div className={styles.salesRank} style={{ maxHeight: '300px', overflowY: 'auto' }}>
