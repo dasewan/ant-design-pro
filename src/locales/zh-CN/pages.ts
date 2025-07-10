@@ -109,6 +109,7 @@ export default {
   'pages.common.afternoon': '下午',
   'pages.common.night': '晚上',
   'pages.common.yesterday': '昨日',
+  'pages.common.success_rate': '成功率',
   'pages.statistics.collection.flow.id': 'id',
   'pages.statistics.collection.flow.a_date': '日期',
   'pages.statistics.collection.flow.source': 'source',

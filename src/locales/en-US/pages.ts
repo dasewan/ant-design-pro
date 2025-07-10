@@ -106,6 +106,7 @@ export default {
   'pages.common.afternoon': 'Afternoon',
   'pages.common.night': 'Night',
   'pages.common.yesterday': 'Yesterday',
+  'pages.common.success_rate': 'Success Rate',
   'pages.statistics.collection.flow.id': 'id',
   'pages.statistics.collection.flow.a_date': 'Date',
   'pages.statistics.collection.flow.source': 'Source',

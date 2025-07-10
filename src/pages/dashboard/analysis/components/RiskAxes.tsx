@@ -5,6 +5,7 @@ import type { RadioChangeEvent } from 'antd/es/radio';
 import numeral from 'numeral';
 import React from 'react';
 import type { DataItem, Last30AdminDay, Last30Day } from '../data.d';
+import { useIntl } from '@@/exports';
 import useStyles from '../style.style';
 const { Text } = Typography;
 const options: SelectProps['options'] = [];
@@ -15,6 +16,7 @@ const RiskAxes = ({
   loading: boolean;
   last30Day: API.WSCollectionAdminHeatmap[];
 }) => {
+  const intl = useIntl();
   const { styles } = useStyles();
 
   // 重组 last30Day 数据
@@ -23,7 +25,10 @@ const RiskAxes = ({
     return keys.map(key => ({
       time: item.a_date,
       value: parseInt((item as any)[key]!),
-      type: key
+      type: intl.formatMessage({
+        id: 'pages.WSCollectionAdminHeatmap.' + key,
+        defaultMessage: '',
+      })
     }));
   });
 
@@ -31,9 +36,11 @@ const RiskAxes = ({
   const transformData = last30Day.map(item => ({
     time: item.a_date,
     count: +((parseInt(item.c_success_count)*100 / parseInt(item.b_init_count)).toFixed(1)),
-    name: "success_rate"
+    name: intl.formatMessage({
+        id: 'pages.common.success_rate' ,
+        defaultMessage: '',
+      })
   }));
-  console.log(transformData);
   const config = {
     xField: 'time',
     interaction: { tooltip: { sort: (d) => ['uv', 'bill', 'a', 'b', 'c'].indexOf(d.name) } },
