@@ -1,4 +1,4 @@
-import { Column } from '@ant-design/plots';
+import { DualAxes } from '@ant-design/plots';
 import { Card, Radio, Typography, Select } from 'antd';
 import type { SelectProps } from 'antd';
 import type { RadioChangeEvent } from 'antd/es/radio';
@@ -13,29 +13,56 @@ const RiskAxes = ({
   last30Day,
 }: {
   loading: boolean;
-  last30Day: Last30Day[];
-})  => {
+  last30Day: API.WSCollectionAdminHeatmap[];
+}) => {
   const { styles } = useStyles();
 
   // 重组 last30Day 数据
-  const restructuredData = last30Day.flatMap(item => {
-    const keys = ['b_init_count', 'c_success_count', 'i_log_count', 'g_call_count'];
+  const uvBillData = last30Day.flatMap(item => {
+    const keys = ['i_log_count', 'g_call_count', 'k_sms_count', 's_wa_count', 't_contact_call_count', 'u_contact_sms_count', 'v_contact_wa_count'];
     return keys.map(key => ({
-      a_date: item.a_date,
-      value: parseInt(item[key as keyof Last30Day]!),
+      time: item.a_date,
+      value: parseInt((item as any)[key]!),
       type: key
     }));
   });
+
+
+  const transformData = last30Day.map(item => ({
+    time: item.a_date,
+    count: +((parseInt(item.c_success_count)*100 / parseInt(item.b_init_count)).toFixed(1)),
+    name: "success_rate"
+  }));
+  console.log(transformData);
   const config = {
-    data: restructuredData,
-    xField: 'a_date',
-    yField: 'value',
-    colorField: 'type',
-    group: true,
-    style: {
-      inset: 5,
-    },
-  };
+    xField: 'time',
+    interaction: { tooltip: { sort: (d) => ['uv', 'bill', 'a', 'b', 'c'].indexOf(d.name) } },
+    children: [
+      {
+        data: uvBillData,
+        type: 'interval',
+        yField: 'value',
+        colorField: 'type',
+        stack: true,
+        style: { maxWidth: 80 },
+        // scale: { y: { domainMax: 300 } },
+        interaction: { elementHighlight: { background: true } },
+      },
+      {
+        data: transformData,
+        type: 'line',
+        yField: 'count',
+        colorField: 'name',
+        axis: { y: { position: 'right' } },
+        interaction: {
+          tooltip: {
+            crosshairs: false,
+            marker: false,
+          },
+        },
+      },
+    ],
+  };;
   return (
     <Card
       loading={loading}
@@ -47,7 +74,7 @@ const RiskAxes = ({
       }}
     >
       <div>
-        <Column {...config} />
+        <DualAxes {...config} />
       </div>
     </Card>
   );

@@ -225,7 +225,6 @@ const SalesCard = ({
       }
     });
   };
-console.log(data);
 
   // 配置对象
   const configs = {
@@ -371,7 +370,8 @@ console.log(data);
                     <Row gutter={[16, 16]} justify="space-around">
                       {Object.keys(configs).map((pieKey, index) => (
                         <Col key={pieKey} xs={6} sm={6} md={6} lg={6} xl={6}>
-                          <div>{configs[pieKey].statistic?.title?.content}</div>
+                          {/* <div>{configs[pieKey].statistic?.title?.content}</div> */}
+                          <div><h5 className={styles.rankingTitle} style={{ textAlign: 'center' }}>{configs[pieKey].statistic?.title?.content}</h5></div>
                           <Pie
                             {...configs[pieKey]}
                             // width="100%"  // 使用百分比宽度以适应不同屏幕
