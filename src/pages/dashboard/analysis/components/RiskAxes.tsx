@@ -26,7 +26,6 @@ const RiskAxes = ({
       type: key
     }));
   });
-console.log(restructuredData);
   const config = {
     data: restructuredData,
     xField: 'a_date',

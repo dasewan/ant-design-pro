@@ -58,9 +58,9 @@ export interface CollectionDashboard {
 }
 
 export interface CollectionDashboardData {
-  todayHour?: TodayHour[]
-  today?: Today
-  yesterday?: Today
+  todayHour?: API.WTCollectionAdminHeatmapDetail[]
+  today?: API.WSCollectionAdminHeatmap
+  yesterday?: API.WSCollectionAdminHeatmap
   last30AdminDay?: Last30AdminDay[]
   last30Day?: Last30Day[]
 }
