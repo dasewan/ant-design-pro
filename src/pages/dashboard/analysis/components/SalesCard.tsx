@@ -87,7 +87,7 @@ const SalesCard = ({
         total_sms_count: current.total_sms_count + item.k_sms_count!,
         total_wa_count: current.total_wa_count + item.s_wa_count!,
         total_log_count: current.total_log_count + item.i_log_count!,
-        total_contact_call_count: current.total_contact_call_count + item.a_u_call_contact_count!,
+        total_contact_call_count: current.total_contact_call_count + item.t_contact_call_count!,
         total_contact_sms_count: current.total_contact_sms_count + item.u_contact_sms_count!,
         total_contact_wa_count: current.total_contact_wa_count + item.v_contact_wa_count!,
         total_repay_count: current.total_repay_count + item.l_repay_count!,
@@ -225,7 +225,7 @@ const SalesCard = ({
       }
     });
   };
-
+console.log(data);
 
   // 配置对象
   const configs = {
@@ -233,7 +233,7 @@ const SalesCard = ({
       angleField: 'value',
       colorField: 'area',
       data: data.pie1,
-      label: { text: 'call' },
+      label: { text: 'value' },
       legend: false,
       tooltip: { title: 'area' },
       interaction: { elementHighlight: true },

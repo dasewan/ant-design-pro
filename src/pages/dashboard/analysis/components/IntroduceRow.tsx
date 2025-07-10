@@ -66,7 +66,6 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
     return fullData;
   })();
 
-  console.log(processedTodayHour);
 
   return (
     <Row gutter={24}>

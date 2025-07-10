@@ -61,8 +61,8 @@ export interface CollectionDashboardData {
   todayHour?: API.WTCollectionAdminHeatmapDetail[]
   today?: API.WSCollectionAdminHeatmap
   yesterday?: API.WSCollectionAdminHeatmap
-  last30AdminDay?: Last30AdminDay[]
-  last30Day?: Last30Day[]
+  last30AdminDay?: API.WSCollectionAdminHeatmap[]
+  last30Day?: API.WSCollectionAdminHeatmap[]
 }
 
 export interface TodayHour {
