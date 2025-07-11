@@ -154,7 +154,7 @@ const Analysis: FC<AnalysisProps> = () => {
         >
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={null}>
-              {/*催回率*/}
+              {/*近30天催回率*/}
               <RegisterLine
                 dropdownGroup={dropdownGroup}
                 loading={loading}
@@ -166,7 +166,7 @@ const Analysis: FC<AnalysisProps> = () => {
           </Col>
           <Col xl={12} lg={24} md={24} sm={24} xs={24}>
             <Suspense fallback={null}>
-              {/*总案件，日志，电话，催回*/}
+              {/* 近7天数据 */}
               <RiskAxes
                 loading={loading}
                 last30Day={myData?.last30Day || []}

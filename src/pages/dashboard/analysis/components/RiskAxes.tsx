@@ -75,7 +75,7 @@ const RiskAxes = ({
       loading={loading}
       className={styles.salesCard}
       bordered={false}
-      title="近7天数据"
+      title={intl.formatMessage({id:'pages.statistics.dashboard.last_7_action'})}
       style={{
         height: '100%',
       }}

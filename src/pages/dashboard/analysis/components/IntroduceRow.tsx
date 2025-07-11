@@ -6,6 +6,7 @@ import type { DataItem, Today, TodayHour } from '../data.d';
 import useStyles from '../style.style';
 import Yuan from '../utils/Yuan';
 import { ChartCard, Field } from './Charts';
+import { useIntl } from '@@/exports';
 import Trend from './Trend';
 const topColResponsiveProps = {
   xs: 24,
@@ -19,6 +20,7 @@ const topColResponsiveProps = {
 };
 const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boolean; today?: API.WSCollectionAdminHeatmap; yesterday?: API.WSCollectionAdminHeatmap; todayHour?: API.WTCollectionAdminHeatmapDetail[]; }) => {
   const { styles } = useStyles();
+  const intl = useIntl();
 
   // 处理数据补充逻辑
   const processedTodayHour = (() => {
@@ -73,9 +75,9 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
         <ChartCard
           bordered={false}
           loading={loading}
-          title="今日通话数"
+          title={intl.formatMessage({id:'pages.statistics.dashboard.today_call'})}
           action={
-            <Tooltip title="今日各个时段通话数">
+            <Tooltip title={intl.formatMessage({id:'pages.statistics.dashboard.today_call_tip'})}>
               <InfoCircleOutlined />
             </Tooltip>
           }
@@ -87,17 +89,17 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
               display: 'flex',
             }}
           >
-            <Field label="昨日通话数" value={numeral(yesterday?.g_call_count).format('0,0') + '+' +  numeral(yesterday?.t_contact_call_count).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label={intl.formatMessage({id:'pages.statistics.dashboard.yesterday_call'})} value={numeral(yesterday?.g_call_count).format('0,0') + '+' +  numeral(yesterday?.t_contact_call_count).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
             {today?.g_call_count !== undefined && yesterday?.g_call_count !== undefined && (parseInt(yesterday.g_call_count, 10) + parseInt(yesterday.t_contact_call_count, 10)) !== 0 ? (
               <Trend flag={(parseInt(today.g_call_count, 10) + parseInt(today.t_contact_call_count, 10)) >= (parseInt(yesterday.g_call_count, 10) + parseInt(yesterday.t_contact_call_count, 10)) ? 'up' : 'down'}>
-                日同比
+                {intl.formatMessage({id:'pages.common.day_on_day'})}
                 <span className={styles.trendText}>
                   {numeral(((parseInt(today.g_call_count, 10) + parseInt(today.t_contact_call_count, 10)) - (parseInt(yesterday.g_call_count, 10) + parseInt(yesterday.t_contact_call_count, 10))) / (parseInt(yesterday.g_call_count, 10) + parseInt(yesterday.t_contact_call_count, 10))).format('0.0%')}
                 </span>
               </Trend>
             ) : (
               <Trend flag="down">
-                日同比
+                {intl.formatMessage({id:'pages.common.day_on_day'})}
                 <span className={styles.trendText}>N/A</span>
               </Trend>
             )}
@@ -126,9 +128,9 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
         <ChartCard
           bordered={false}
           loading={loading}
-          title="今日短信数"
+          title={intl.formatMessage({id:'pages.statistics.dashboard.today_sms'})}
           action={
-            <Tooltip title="今日各个时段发送短信数">
+            <Tooltip title={intl.formatMessage({id:'pages.statistics.dashboard.today_sms_tip'})}>
               <InfoCircleOutlined />
             </Tooltip>
           }
@@ -140,17 +142,17 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
               display: 'flex',
             }}
           >
-            <Field label="昨日短信数" value={numeral(yesterday?.k_sms_count).format('0,0') + '+' + numeral(yesterday?.u_contact_sms_count).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label={intl.formatMessage({id:'pages.statistics.dashboard.yesterday_sms'})} value={numeral(yesterday?.k_sms_count).format('0,0') + '+' + numeral(yesterday?.u_contact_sms_count).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
             {today?.k_sms_count !== undefined && yesterday?.k_sms_count !== undefined && (parseInt(yesterday.k_sms_count, 10) + parseInt(yesterday.u_contact_sms_count, 10)) !== 0 ? (
               <Trend flag={(parseInt(today.k_sms_count, 10) + parseInt(today.u_contact_sms_count, 10)) >= (parseInt(yesterday.k_sms_count, 10) + parseInt(yesterday.u_contact_sms_count, 10)) ? 'up' : 'down'}>
-                日同比
+                {intl.formatMessage({id:'pages.common.day_on_day'})}
                 <span className={styles.trendText}>
                   {numeral(((parseInt(today.k_sms_count, 10) + parseInt(today.u_contact_sms_count, 10)) - (parseInt(yesterday.k_sms_count, 10) + parseInt(yesterday.u_contact_sms_count, 10))) / (parseInt(yesterday.k_sms_count, 10) + parseInt(yesterday.u_contact_sms_count, 10))).format('0.0%')}
                 </span>
               </Trend>
             ) : (
               <Trend flag="down">
-                日同比
+                {intl.formatMessage({id:'pages.common.day_on_day'})}
                 <span className={styles.trendText}>N/A</span>
               </Trend>
             )}
@@ -177,9 +179,9 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
         <ChartCard
           bordered={false}
           loading={loading}
-          title="今日WA数"
+          title={intl.formatMessage({id:'pages.statistics.dashboard.today_wa'})}
           action={
-            <Tooltip title="今日各个时段WA数">
+            <Tooltip title={intl.formatMessage({id:'pages.statistics.dashboard.today_wa_tip'})}>
               <InfoCircleOutlined />
             </Tooltip>
           }
@@ -191,18 +193,18 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
               display: 'flex',
             }}
           >
-            <Field label="昨日WA数" value={numeral(yesterday?.s_wa_count).format('0,0') + '+' +  numeral(yesterday?.v_contact_wa_count).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label={intl.formatMessage({id:'pages.statistics.dashboard.yesterday_wa'})} value={numeral(yesterday?.s_wa_count).format('0,0') + '+' +  numeral(yesterday?.v_contact_wa_count).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
 
             {today?.s_wa_count !== undefined && yesterday?.s_wa_count !== undefined && (parseInt(yesterday.s_wa_count, 10) + parseInt(yesterday.v_contact_wa_count, 10)) !== 0 ? (
               <Trend flag={(parseInt(today.s_wa_count, 10) + parseInt(today.v_contact_wa_count, 10)) >= (parseInt(yesterday.s_wa_count, 10) + parseInt(yesterday.v_contact_wa_count, 10)) ? 'up' : 'down'}>
-                日同比
+                {intl.formatMessage({id:'pages.common.day_on_day'})}
                 <span className={styles.trendText}>
                   {numeral(((parseInt(today.s_wa_count, 10) + parseInt(today.v_contact_wa_count, 10)) - (parseInt(yesterday.s_wa_count, 10) + parseInt(yesterday.v_contact_wa_count, 10))) / (parseInt(yesterday.s_wa_count, 10) + parseInt(yesterday.v_contact_wa_count, 10))).format('0.0%')}
                 </span>
               </Trend>
             ) : (
               <Trend flag="down">
-                日同比
+                {intl.formatMessage({id:'pages.common.day_on_day'})}
                 <span className={styles.trendText}>N/A</span>
               </Trend>
             )}
@@ -229,9 +231,9 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
         <ChartCard
           bordered={false}
           loading={loading}
-          title="今日还款数"
+          title={intl.formatMessage({id:'pages.statistics.dashboard.today_success'})}
           action={
-            <Tooltip title="今日各个时段还款数">
+            <Tooltip title={intl.formatMessage({id:'pages.statistics.dashboard.today_success_tip'})}>
               <InfoCircleOutlined />
             </Tooltip>
           }
@@ -243,8 +245,8 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
               display: 'flex',
             }}
           >
-            <Field label="今日总案件" value={numeral(today?.b_init_count).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
-            <Field label="昨日总案件" value={numeral(parseInt(yesterday?.l_repay_count || '0', 10)).format('0,0') + '/' + numeral(parseInt(yesterday?.b_init_count || '0', 10)).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label={intl.formatMessage({id:'pages.statistics.dashboard.today_init_count'})} value={numeral(today?.b_init_count).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
+            <Field label={intl.formatMessage({id:'pages.statistics.dashboard.yesterday_init_count'})} value={numeral(parseInt(yesterday?.l_repay_count || '0', 10)).format('0,0') + '/' + numeral(parseInt(yesterday?.b_init_count || '0', 10)).format('0,0')} />&nbsp;&nbsp;&nbsp;&nbsp;
             {
               (today?.l_repay_count !== undefined && today?.b_init_count !== undefined && yesterday?.l_repay_count !== undefined && yesterday?.b_init_count !== undefined) &&
                 (parseInt(yesterday?.b_init_count || '0', 10) > 0 && parseInt(today?.b_init_count || '0', 10) > 0) ? (
@@ -262,7 +264,7 @@ const IntroduceRow = ({ loading, today, yesterday, todayHour }: { loading: boole
                 })()
               ) : (
                 <Trend flag="down">
-                  还款率日同比
+                  {intl.formatMessage({id:'pages.statistics.dashboard.success_rate'})}{intl.formatMessage({id:'pages.common.day_on_day'})}
                   <span className={styles.trendText}>N/A</span>
                 </Trend>
               )

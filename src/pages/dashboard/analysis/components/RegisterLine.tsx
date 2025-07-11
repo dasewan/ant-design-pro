@@ -7,6 +7,7 @@ import React from 'react';
 import type { DataItem, Last30AdminDay, Last30Day } from '../data.d';
 import useStyles from '../style.style';
 import { RequestOptionsType } from '@ant-design/pro-components';
+import { useIntl } from '@@/exports';
 const { Text } = Typography;
 const options: SelectProps['options'] = [];
 const RegisterLine = ({
@@ -22,6 +23,7 @@ const RegisterLine = ({
   last30Day: Last30Day[];
   admins: RequestOptionsType[];
 }) => {
+  const intl = useIntl();
   const { styles } = useStyles();
   // 合并 last30Day 到 last30AdminDay
   const mergedData = [
@@ -55,7 +57,7 @@ const RegisterLine = ({
       loading={loading}
       className={styles.salesCard}
       bordered={false}
-      title="注册-认证"
+      title={intl.formatMessage({id:'pages.statistics.dashboard.last_30_rate'})}
       // styles={{body:{padding: '4px'}, header:{padding: '4px'}}}
       style={{
         height: '100%',

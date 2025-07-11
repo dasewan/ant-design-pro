@@ -120,6 +120,26 @@ export default {
   'pages.statistics.collection.flow.code': 'code',
   'pages.statistics.collection.flow.created_at': '创建时间',
   'pages.statistics.collection.flow.updated_at': '更新时间',
+  'pages.statistics.dashboard.day_on_day': '日同比',
+  //催收dashboard
+  'pages.statistics.dashboard.last_30_rate': '近30天催回率',
+  'pages.statistics.dashboard.last_7_action': '近7天行为',
+  'pages.statistics.dashboard.today_call': '今日通话',
+  'pages.statistics.dashboard.today_call_tip': '今天每个小时通话次数',
+  'pages.statistics.dashboard.yesterday_call': '昨日通话',
+  'pages.statistics.dashboard.today_sms': '今日短信',
+  'pages.statistics.dashboard.today_sms_tip': '今天每个小时发送短信次数',
+  'pages.statistics.dashboard.yesterday_sms': '昨日短信',
+  'pages.statistics.dashboard.today_wa': '今日WhatsApp',
+  'pages.statistics.dashboard.today_wa_tip': '今天每个小时WhatsApp沟通次数',
+  'pages.statistics.dashboard.yesterday_wa': '昨日WhatsApp',
+  'pages.statistics.dashboard.today_success': '今日成功',
+  'pages.statistics.dashboard.today_success_tip': '今天每个小时成功催回数量',
+  'pages.statistics.dashboard.yesterday_success': '昨日成功',
+  'pages.statistics.dashboard.today_init_count': '今日总案件数',
+  'pages.statistics.dashboard.yesterday_init_count': '昨日总案件数',
+  
+
   //用户
   'pages.userManager.aUser.id': 'id',
   'pages.userManager.aUser.a_phone': '手机号',
