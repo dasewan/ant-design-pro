@@ -163,4 +163,5 @@ export default {
   'menu.statistics.sms.template': 'Template',
   'menu.statistics.finance': 'Finance',
   'menu.statistics.finance.fee': 'Fee',
+  'menu.statistics.collection.admin-news': 'Collector Daily'
 };

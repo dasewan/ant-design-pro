@@ -219,6 +219,8 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.BLCollectionOrder.a_date', defaultMessage: '' }),
       dataIndex: 'a_date',
       key: 'a_date',
+      fixed: 'left',
+      width: 100,
       render: (text, record, index) => {
         const prevRecord = records[index - 1];
         if (prevRecord && prevRecord.a_date === text) {
@@ -250,6 +252,8 @@ const TableList: React.FC = () => {
       dataIndex: 'e_collection_admin_id',
       key: 'e_collection_admin_id',
       valueType: 'select',
+      fixed: 'left',
+      width: 100,
       request: _getUsersEnum,
     },
     {
@@ -335,6 +339,7 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.detail', defaultMessage: '' }),
       dataIndex: 'option',
       valueType: 'option',
+      width: 600,
       render: (_, record) => {
         return <HeatmapChart data={record.a_a_a_a_a_w_t_collection_admin_heatmap_details!} activeButtonKey={activeButtonKey} />
       },
@@ -448,6 +453,7 @@ const TableList: React.FC = () => {
           bordered={true}
           request={_index}
           columns={columns}
+          scroll={{ x: true }}
           postData={(data: any[]) => {
             return data;
           }}
