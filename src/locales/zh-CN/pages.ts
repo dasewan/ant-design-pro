@@ -107,6 +107,9 @@ export default {
   'pages.common.known': '知道了',
   'pages.common.morning': '上午',
   'pages.common.afternoon': '下午',
+  'pages.common.today': '今日',
+  'pages.common.this_week': '本周',
+  'pages.common.this_month': '本月',
   'pages.common.night': '晚上',
   'pages.common.yesterday': '昨日',
   'pages.common.success_rate': '成功率',
@@ -138,6 +141,7 @@ export default {
   'pages.statistics.dashboard.yesterday_success': '昨日成功',
   'pages.statistics.dashboard.today_init_count': '今日总案件数',
   'pages.statistics.dashboard.yesterday_init_count': '昨日总案件数',
+  'pages.statistics.dashboard.collection_admin_rank': '催员排名',
   
 
   //用户

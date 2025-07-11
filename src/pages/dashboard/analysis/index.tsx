@@ -175,7 +175,7 @@ const Analysis: FC<AnalysisProps> = () => {
           </Col>
         </Row>
         <Suspense fallback={null} >
-          {/*催收*/}
+          {/*催员排名*/}
           <SalesCard
             rangePickerValue={rangePickerValue}
             isActive={isActive}

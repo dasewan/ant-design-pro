@@ -6,8 +6,9 @@ import dayjs from 'dayjs';
 import numeral from 'numeral';
 import { useState } from 'react';
 import useStyles from '../style.style';
+import { useIntl } from '@@/exports';
 
-export type TimeType = 'today' | 'week' | 'month' | 'year';
+export type TimeType = 'today' | 'week' | 'month' | 'year' | 'range';
 const { RangePicker } = DatePicker;
 
 const rankingListData: {
@@ -41,6 +42,7 @@ const SalesCard = ({
 }) => {
   const { styles } = useStyles();
   const [currentTimeType, setCurrentTimeType] = useState<TimeType>('week');
+  const intl = useIntl();
 
   // 转换last30AdminDay数据结构，增加时间过滤
   const transformAdminData = (data: API.WSCollectionAdminHeatmap[], timeType: TimeType) => {
@@ -54,6 +56,8 @@ const SalesCard = ({
       filteredData = data.filter((item) => dayjs(item.a_date).isSame(today, 'week'));
     } else if (timeType === 'month') {
       filteredData = data.filter((item) => dayjs(item.a_date).isSame(today, 'month'));
+    } else if (timeType === 'range') {
+      filteredData = data.filter((item) => dayjs(item.a_date).isBefore(rangePickerValue[1]) && dayjs(item.a_date).isAfter(rangePickerValue[0]));
     }
     const adminMap = new Map<
       number,
@@ -144,7 +148,52 @@ const SalesCard = ({
     setCurrentTimeType(key);
     selectDate(key);
   };
+
+  const sumAdminBonuses = (data: API.WSCollectionAdminHeatmap[], timeType: TimeType): API.WSCollectionAdminHeatmap[] => {
+
+    const today = dayjs();
+    let filteredData = data;
+
+    // 根据时间类型过滤数据
+    if (timeType === 'today') {
+      filteredData = data.filter((item) => dayjs(item.a_date).isSame(today, 'day'));
+    } else if (timeType === 'week') {
+      filteredData = data.filter((item) => dayjs(item.a_date).isSame(today, 'week'));
+    } else if (timeType === 'month') {
+      filteredData = data.filter((item) => dayjs(item.a_date).isSame(today, 'month'));
+    } else if (timeType === 'range') {
+      filteredData = data.filter((item) => dayjs(item.a_date).isBefore(rangePickerValue[1]) && dayjs(item.a_date).isAfter(rangePickerValue[0]));
+    }
+
+    const adminMap = new Map<number, API.WSCollectionAdminHeatmap>();
+
+    for (const item of filteredData) {
+      const adminId = item.e_collection_admin_id;
+
+      if (!adminMap.has(adminId!)) {
+        adminMap.set(adminId!, {
+          e_collection_admin_id: adminId,
+          a_i_lv1_bonus: 0,
+          a_j_lv2_bonus: 0,
+          a_k_lv3_bonus: 0,
+          a_l_lv4_bonus: 0,
+          r_bonus: 0,
+        });
+      }
+
+      const adminData = adminMap.get(adminId!)!;
+      adminData.a_i_lv1_bonus! += item.a_i_lv1_bonus!;
+      adminData.a_j_lv2_bonus! += item.a_j_lv2_bonus!;
+      adminData.a_k_lv3_bonus! += item.a_k_lv3_bonus!;
+      adminData.a_l_lv4_bonus! += item.a_l_lv4_bonus!;
+      adminData.r_bonus! += item.r_bonus!;
+    }
+
+    // 将Map转换为数组并按r_bonus降序排序
+    return Array.from(adminMap.values()).sort((a, b) => b.r_bonus! - a.r_bonus!);
+  }
   const adminStats = transformAdminData(last30AdminDay, currentTimeType);
+  const adminRank = sumAdminBonuses(last30AdminDay, currentTimeType);
   const data = {
     pie1: adminStats.total_call_count.map((item) => ({
       area:
@@ -225,6 +274,8 @@ const SalesCard = ({
       }
     });
   };
+
+
 
   // 配置对象
   const configs = {
@@ -317,7 +368,7 @@ const SalesCard = ({
       statistic: { title: { content: 'Success' } },
     },
   };
-
+  
   return (
     <Card
       loading={loading}
@@ -335,25 +386,22 @@ const SalesCard = ({
                   className={currentTimeType == 'today' ? styles.currentDate : styles.currentDate2}
                   onClick={() => handleSelectDate('today')}
                 >
-                  今日
+                  {intl.formatMessage({ id: 'pages.common.today' })}
                 </a>
                 <a className={isActive('week')} onClick={() => handleSelectDate('week')}>
-                  本周
+                  {intl.formatMessage({ id: 'pages.common.this_week' })}
                 </a>
                 <a className={isActive('month')} onClick={() => handleSelectDate('month')}>
-                  本月
-                </a>
-                <a className={isActive('year')} onClick={() => handleSelectDate('year')}>
-                  本年
+                  {intl.formatMessage({ id: 'pages.common.this_month' })}
                 </a>
               </div>
-              <RangePicker
+              {/* <RangePicker
                 value={rangePickerValue}
-                onChange={handleRangePickerChange}
+                onChange={()=> {handleSelectDate('range'); handleRangePickerChange}}
                 style={{
                   width: 256,
                 }}
-              />
+              /> */}
             </div>
           }
           size="large"
@@ -395,21 +443,30 @@ const SalesCard = ({
                       className={styles.salesRank}
                       style={{ maxHeight: '300px', overflowY: 'auto' }}
                     >
-                      <h4 className={styles.rankingTitle}>催员排名</h4>
+                      <h4 className={styles.rankingTitle}>{intl.formatMessage({ id: 'pages.statistics.dashboard.collection_admin_rank' })}</h4>
                       <ul className={styles.rankingList}>
-                        {rankingListData.map((item, i) => (
-                          <li key={item.title}>
+                        {adminRank.map((item, i) => (
+                          <li key={item.e_collection_admin_id}>
                             <span
-                              className={`${styles.rankingItemNumber} ${
-                                i < 3 ? styles.rankingItemNumberActive : ''
-                              }`}
+                              className={`${styles.rankingItemNumber} ${i < 2 ? styles.rankingItemNumberActive : ''
+                                }`}
                             >
                               {i + 1}
                             </span>
-                            <span className={styles.rankingItemTitle} title={item.title}>
-                              {item.title}
+                            <span className={styles.rankingItemTitle} title={admins.find((a) => a.value === item.e_collection_admin_id)?.label}>
+                              {admins.find((a) => a.value === item.e_collection_admin_id)?.label}
                             </span>
-                            <span>{numeral(item.total).format('0,0')}</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                              <span>{numeral(item.a_i_lv1_bonus).format('0,0')}</span>
+                              <span>+</span>
+                              <span>{numeral(item.a_j_lv2_bonus).format('0,0')}</span>
+                              <span>+</span>
+                              <span>{numeral(item.a_k_lv3_bonus).format('0,0')}</span>
+                              <span>+</span>
+                              <span>{numeral(item.a_l_lv4_bonus).format('0,0')}</span>
+                              <span>=</span>
+                              <span style={{ fontWeight: 'bold', color: '#1890ff' }}>{numeral(item.r_bonus).format('0,0')}</span>
+                            </div>
                           </li>
                         ))}
                       </ul>

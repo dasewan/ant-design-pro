@@ -102,7 +102,9 @@ export default {
   'pages.common.move': 'Move',
   'pages.common.switch_tip': 'Are you sure to switch',
   'pages.common.known': 'I Known',
-  'pages.common.morning': 'Morning',
+  'pages.common.today': 'Today',
+  'pages.common.this_week': 'This Week',
+  'pages.common.this_month': 'This Month',
   'pages.common.afternoon': 'Afternoon',
   'pages.common.night': 'Night',
   'pages.common.yesterday': 'Yesterday',
@@ -124,6 +126,7 @@ export default {
   'pages.statistics.dashboard.yesterday_success': 'Yesterday Success',
   'pages.statistics.dashboard.today_init_count': 'Today Case Count',
   'pages.statistics.dashboard.yesterday_init_count': 'Yesterday Case Count',
+  'pages.statistics.dashboard.collection_admin_rank': 'Collector Rank',
 
   'pages.common.success_rate': 'Success Rate',
   'pages.statistics.collection.flow.id': 'id',
