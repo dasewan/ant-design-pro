@@ -97,7 +97,7 @@ const DrawerFC: React.FC<DrawerFCProps> = (props) => {
 
   return (
     <Drawer
-      width={600}
+      width={800}
       open={props.showDetail}
       onClose={() => {
         props.onClose();
