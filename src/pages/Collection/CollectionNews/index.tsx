@@ -272,9 +272,10 @@ const TableList: React.FC = () => {
       key: 'm_overdue_days',
     },
     {
-      title: intl.formatMessage({ id: 'pages.QCCollectionNews.created_at', defaultMessage: '' }),
+      title: intl.formatMessage({ id:   'pages.common.created_at', defaultMessage: '' }),
       dataIndex: 'created_at',
       key: 'created_at',
+      valueType: 'dateTime',
     }
    
   ];

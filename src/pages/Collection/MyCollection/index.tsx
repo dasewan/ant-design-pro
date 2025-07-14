@@ -231,7 +231,7 @@ const TableList: React.FC = () => {
           status: 'Warning',
         },
         4: {
-          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.rejected', defaultMessage: '拒绝还款' }),
+          text: intl.formatMessage({ id: 'pages.BLCollectionOrder.k_status.refused', defaultMessage: '拒绝还款' }),
           status: 'Error',
         },
         7: {

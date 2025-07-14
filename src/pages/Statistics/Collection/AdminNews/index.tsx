@@ -208,7 +208,7 @@ const TableList: React.FC = () => {
     <span style={{
       fontSize: value !== 0 ? '16px' : 'inherit',
       fontWeight: value !== 0 ? 'bold' : 'normal',
-      margin: '0 4px'
+      margin: '0 3px'
     }}>
       {value}
     </span>
@@ -259,20 +259,30 @@ const TableList: React.FC = () => {
     {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_init_count', defaultMessage: '' }),
       dataIndex: 'b_init_count',
+            tooltip: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_init_count', defaultMessage: '' }) + '+' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.d_e_admin_new_count', defaultMessage: '' }) + '+' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.a_b_12_new_count', defaultMessage: '' }) + '+' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.d_c_admin_delete_count', defaultMessage: '' }) + '-' +
+        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.d_b_today_delete_count', defaultMessage: '' }),
       key: 'b_init_count',
       render: (_, record) => {
-        return record!.b_init_count + '+' + record!.a_b_12_new_count + '+' + record!.d_e_admin_new_count + '+' + record!.a_b_12_new_count;
+        return record!.b_init_count + '+' + record!.d_e_admin_new_count + '+' + record!.a_b_12_new_count + '-' + record!.d_c_admin_delete_count + '-' + record!.d_b_today_delete_count;
       },
     },
     {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.c_success_count', defaultMessage: '' }),
       dataIndex: 'c_success_count',
+      tooltip: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.c_success_count', defaultMessage: '' }) + "(" + intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.d_a_resign_repay_count', defaultMessage: '' })+ ")",
       key: 'c_success_count',
+      render: (_, record) => {
+        return record!.c_success_count + (record!.d_a_resign_repay_count! > 0 ? "("  + record!.d_a_resign_repay_count! + ")": "");
+      },
     },
     {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.success_rate', defaultMessage: '' }),
       dataIndex: 'success_rate',
       key: 'success_rate',
+      width:80,
       render: (_, record) => {
         const percent = Math.round((record!.c_success_count! / record!.b_init_count!) * 100);
         let strokeColor = '#1890ff'; // 默认蓝色
@@ -339,6 +349,13 @@ const TableList: React.FC = () => {
       title: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.detail', defaultMessage: '' }),
       dataIndex: 'option',
       valueType: 'option',
+      tooltip: <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ width: 50, height: 26, backgroundColor: '#b7eb8f', marginRight: 8 }}>0-3</div>
+            <div style={{ width: 50, height: 26, backgroundColor: '#237804', marginRight: 8 }}>4-6</div>
+            <div style={{ width: 50, height: 26, backgroundColor: '#FB7CC8', marginRight: 8 }}>7-10</div> 
+            <div style={{ width: 50, height: 26, backgroundColor: '#FF0033', marginRight: 8 }}>11-15</div>
+            <div style={{ width: 50, height: 26, backgroundColor: '#660000', marginRight: 8 }}>16-50</div>
+          </div>,
       width: 600,
       render: (_, record) => {
         return <HeatmapChart data={record.a_a_a_a_a_w_t_collection_admin_heatmap_details!} activeButtonKey={activeButtonKey} />
@@ -357,6 +374,22 @@ const TableList: React.FC = () => {
         intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_n_12_contact_wa_count', defaultMessage: '' }),
       render: (_, record) => {
         return <>
+        <div>
+          <HighlightFilled style={{ fontSize: 14 }}/>
+          -
+          <PhoneFilled style={{ fontSize: 14 }}/>
+          -
+          <MessageFilled style={{ fontSize: 14 }}/>
+          -
+          <WhatsAppOutlined style={{ fontSize: 14 }}/>
+          -
+          <PhoneOutlined style={{ fontSize: 14 }}/>
+          -
+          <MessageOutlined style={{ fontSize: 14 }}/>
+          -
+          <WhatsAppOutlined style={{ fontSize: 14 }}/>
+        </div>
+        <div>
           {formatValue(record!.b_a_12_log_count!)}
           -
           {formatValue(record!.b_b_12_call_count!)}
@@ -370,22 +403,8 @@ const TableList: React.FC = () => {
           {formatValue(record!.u_contact_sms_count!)}
           -
           {formatValue(record!.b_n_12_contact_wa_count!)}
-        </>
-      },
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_e_18_count', defaultMessage: '' }),
-      dataIndex: 'b_e_18_log_count',
-      key: 'b_e_18_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_e_18_log_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_f_18_call_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_s_18_sms_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_q_18_wa_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_g_18_contact_call_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_t_18_contact_sms_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_r_18_contact_wa_count', defaultMessage: '' }),
-      render: (_, record) => {
-        return <>
+        </div>
+        <div>
           {formatValue(record!.b_e_18_log_count!)}
           -
           {formatValue(record!.b_f_18_call_count!)}
@@ -399,22 +418,8 @@ const TableList: React.FC = () => {
           {formatValue(record!.b_t_18_contact_sms_count!)}
           -
           {formatValue(record!.b_r_18_contact_wa_count!)}
-        </>
-      },
-    },
-    {
-      title: intl.formatMessage({ id: 'pages.BLCollectionOrder.b_i_24_count', defaultMessage: '' }),
-      dataIndex: 'b_i_24_log_count',
-      key: 'b_i_24_log_count',
-      tooltip: intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_i_24_log_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_j_24_call_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_w_24_sms_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_u_24_wa_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_k_24_contact_call_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_x_24_contact_sms_count', defaultMessage: '' }) + '-' +
-        intl.formatMessage({ id: 'pages.WSCollectionAdminHeatmap.b_v_24_contact_wa_count', defaultMessage: '' }),
-      render: (_, record) => {
-        return <>
+        </div>
+        <div>
           {formatValue(record!.b_i_24_log_count!)}
           -
           {formatValue(record!.b_j_24_call_count!)}
@@ -428,9 +433,10 @@ const TableList: React.FC = () => {
           {formatValue(record!.b_x_24_contact_sms_count!)}
           -
           {formatValue(record!.b_v_24_contact_wa_count!)}
+        </div>
         </>
       },
-    },
+    }
   ];
 
 
@@ -453,7 +459,8 @@ const TableList: React.FC = () => {
           bordered={true}
           request={_index}
           columns={columns}
-          scroll={{ x: true }}
+          //@bookmark
+          scroll={{ x: 'max-content' }}
           postData={(data: any[]) => {
             return data;
           }}
