@@ -1,4 +1,5 @@
 import { getAdminV1ChannelsEnum as getChannelsEnum } from '@/services/ant-design-pro/AFChannel';
+import { getAdminV1NLPackagesEnum as getPackagesEnum } from '@/services/ant-design-pro/NLPackage';
 import { postAdminV1GBMarketings as store } from '@/services/ant-design-pro/GBMarketing';
 import { useIntl } from '@@/exports';
 import type { ProFormInstance } from '@ant-design/pro-form';
@@ -35,6 +36,8 @@ const ImportForm: React.FC<FormProps> = (props) => {
   const formRef = useRef<ProFormInstance>();
   /** 渠道enum */
   const [channels, setChannels] = useState<RequestOptionsType[]>([]);
+  /** 包enum */
+  const [packages, setPackages] = useState<RequestOptionsType[]>([]);
   /** 提交按钮是否可用 */
   const [_confirmLoading, setConfirmLoading] = useState<boolean>(true);
   /** 设置上传文件id */
@@ -48,6 +51,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
       intl.formatMessage({ id: 'pages.common.editIng', defaultMessage: '正在配置' }),
     );
     // props.values.id
+    console.log(fields);
     try {
       // @ts-ignore
       await store({
@@ -85,6 +89,23 @@ const ImportForm: React.FC<FormProps> = (props) => {
       return data;
     } else {
       return channels;
+    }
+  };
+
+  const _getPackagesEnum: ProFieldRequestData = async () => {
+    const data: RequestOptionsType[] = [];
+    if (packages.length === 0) {
+      const res = await getPackagesEnum({ foo: 1 });
+      for (const item of res.data!) {
+        data.push({
+          label: item.a_name,
+          value: item.id,
+        });
+      }
+      setPackages(data);
+      return data;
+    } else {
+      return packages;
     }
   };
 
@@ -193,6 +214,16 @@ const ImportForm: React.FC<FormProps> = (props) => {
         placeholder="Please select a channel"
         rules={[{ required: true, message: 'Please select your reason!' }]}
       />
+      <ProFormSelect
+        name="y_package_id"
+        label={intl.formatMessage({
+          id: 'pages.userManager.gBMarketing.y_package_id',
+          defaultMessage: '',
+        })}
+        request={_getPackagesEnum}
+        placeholder="Please select a package"
+        rules={[{ required: true, message: 'Please select your reason!' }]}
+      />
       <ProFormRadio.Group
         tooltip={
           <div>
@@ -233,7 +264,7 @@ const ImportForm: React.FC<FormProps> = (props) => {
         // width="md"
         name="j_comment"
         label={intl.formatMessage({
-          id: 'pages.userManager.marketingHistory.j_comment',
+          id: 'pages.userManager.gBMarketing.j_comment',
           defaultMessage: '',
         })}
       />

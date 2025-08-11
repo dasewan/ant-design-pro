@@ -10,7 +10,7 @@ import {useIntl} from '@@/exports';
 import {
   postAdminV1GCMarketingHistories as storeGCMarketingHistories
 } from '@/services/ant-design-pro/GCMarketingHistory';
-import { VERIFY_STATUS_OPTION } from '@/pages/enums';
+
 
 export type FormValueType = Partial<API.GBMarketing>;
 export type FormRecord = API.GBMarketing;
@@ -68,12 +68,7 @@ const MarketingForm: React.FC<FormProps> = (props) => {
     }
   };
 
-  /**
-   * 查询短信enum
-   */
-  const _getSMSsEnum: ProFieldRequestData = async () => {
-    return props.smss;
-  };
+
 
   return (
     <ModalForm<FormRecord>
@@ -101,6 +96,26 @@ const MarketingForm: React.FC<FormProps> = (props) => {
         o_send_email: 1,
       }}
     >
+            <ProFormSelect
+        name="z_sms_channel"
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.sms_channel',
+          defaultMessage: '',
+        })}
+        options={[
+            {
+              label: 'Linkinfo',
+              value: 'linkinfo',
+            },
+            {
+              label: 'Songliang',
+              value: 'songliang',
+            },
+            
+        ]}
+        placeholder="Please select a channel"
+        rules={[{ required: true, message: 'Please select your reason!' }]}
+      />
       <ProFormSelect
         name="c_sms_templete_id"
         label={intl.formatMessage({
@@ -148,6 +163,16 @@ const MarketingForm: React.FC<FormProps> = (props) => {
           addonBefore: 'https://',
           addonAfter: '/',
         }}
+
+      />
+      <ProFormText
+        // width="md"
+        name="y_signature"
+        label={intl.formatMessage({
+          id: 'pages.userManager.marketingHistory.y_signature',
+          defaultMessage: '',
+        })}
+
       />
       <ProFormRadio.Group
         name="d_theme_id"

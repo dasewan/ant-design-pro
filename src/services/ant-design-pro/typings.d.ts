@@ -30,6 +30,8 @@ declare namespace API {
     m_after_credit_score?: number;
     /** 放款期数 */
     n_loan_period_index?: number;
+    /** 父类产品 */
+    o_credit_amount_type?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -569,9 +571,9 @@ declare namespace API {
     f_credit_amount?: number;
     /** 信用分* */
     g_credit_fraction?: number;
-    /** 1：未认证 2：认证过期 3：活体 4：待签约 */
+    /** 1：创建认证 2：认证列表 3：活体 4：签约 */
     h_index_no?: number;
-    /** 客户首页动作：【11：创建订单 12：认证列表 13：活体 14：签约】【 21：待机审 22：待人审 23：待放款】【31：活体被拒 32：机审被拒 33：人审被拒】【41：逾前还款 42：还款日 43：逾期 44：严重逾期】【51：创建订单 52：认证列表 53：活体 54：签约】 */
+    /** 11：创建认证 12：认证列表 13：活体 14：签约 */
     i_index_action?: number;
     /** facebook* */
     j_facebook?: string;
@@ -601,7 +603,7 @@ declare namespace API {
     v_max_count?: number;
     /** 注册类型 网页，手机，邀请，电销* */
     w_register_type?: string;
-    /** 用户标签 */
+    /** 头像 */
     x_tags?: string;
     /** 是否卸载 */
     y_suspect_unload?: string;
@@ -632,7 +634,7 @@ declare namespace API {
     /** 最后一次结清时间 */
     a_l_last_settled_time?: string;
     /** 最后一次访问时间 */
-    a_m_access_time?: Date;
+    a_m_access_time?: string;
     /** 累计逾期天数* */
     a_n_total_overdue_days?: number;
     /** 客服消息数 */
@@ -641,6 +643,30 @@ declare namespace API {
     a_p_borrow_count?: number;
     /** 结清次数 */
     a_q_settled_count?: number;
+    /** 冻结额度 */
+    a_r_frozen_credit_amount?: number;
+    /** 已使用额度 */
+    a_s_used_credit_amount?: number;
+    /** 授信额度 */
+    a_t_credit_amount?: number;
+    /** 冻结额度 */
+    a_u_frozen_credit_amount?: number;
+    /** 已使用额度 */
+    a_v_used_credit_amount?: number;
+    /** 授信额度 */
+    a_w_credit_amount?: number;
+    /** 冻结额度 */
+    a_x_frozen_credit_amount?: number;
+    /** 已使用额度 */
+    a_y_used_credit_amount?: number;
+    /** 银行 */
+    a_z_bank_id?: number;
+    /** 包 */
+    b_a_package?: string;
+    /** 信用类型 */
+    b_b_credit_type?: string;
+    /** 包id */
+    b_c_package_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -683,6 +709,8 @@ declare namespace API {
     n_last_hit_time?: string;
     /** 初始信用分 */
     o_credit_fraction?: number;
+    /** 授信类型 */
+    p_credit_type?: string;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -1358,6 +1386,8 @@ declare namespace API {
     a_e_features?: string;
     /** 图片 */
     a_f_pic?: string;
+    /** 产品父id */
+    b_b_product_parent_id?: number;
     /** App\Models\BProduct */
     a_a_a_a_b_c_product_features?: BCProductFeature[];
     /** created_at */
@@ -1585,6 +1615,10 @@ declare namespace API {
     a_y_risk_result?: string;
     /** 放款次数 */
     a_z_loan_count?: number;
+    /** app */
+    b_a_app_name?: string;
+    /** 产品id */
+    b_b_product_parent_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2144,6 +2178,11 @@ declare namespace API {
     id: number;
   };
 
+  type deleteAdminV1NLPackagesIdParams = {
+    /** id of NLPackage */
+    id: number;
+  };
+
   type deleteAdminV1OADeductionsIdParams = {
     /** id of OADeduction */
     id: number;
@@ -2519,6 +2558,8 @@ declare namespace API {
     deleted_at?: string;
     /** u_register_time */
     u_register_time?: string;
+    /** v_package_id */
+    v_package_id?: number;
   };
 
   type GBMarketing = {
@@ -2572,6 +2613,8 @@ declare namespace API {
     w_download_deduplication_count?: number;
     /** 注册数量 */
     x_register_count?: number;
+    /** 包id */
+    y_package_id?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */
@@ -2638,6 +2681,8 @@ declare namespace API {
     w_first_register_time?: string;
     /** x_last_register_time */
     x_last_register_time?: string;
+    /** y_signature */
+    y_signature?: string;
   };
 
   type GDRiskItem = {
@@ -3680,6 +3725,21 @@ declare namespace API {
   };
 
   type getAdminV1NKCollectionOrderTemplatesParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1NLPackagesEnumParams = {
+    /** foo */
+    foo: number;
+  };
+
+  type getAdminV1NLPackagesIdParams = {
+    /** id of NLPackage */
+    id: number;
+  };
+
+  type getAdminV1NLPackagesParams = {
     /** foo */
     foo: number;
   };
@@ -5188,7 +5248,7 @@ declare namespace API {
     /** 所属机构 */
     c_collection_agency_id?: number;
     /** 负责的催收阶段 */
-    d_collection_stage_id?: string;
+    d_collection_stage_id?: number;
     /** 催员数 */
     e_collection_admin_count?: number;
     /** 状态 */
@@ -6636,6 +6696,21 @@ declare namespace API {
     deleted_at?: string;
   };
 
+  type NLPackage = {
+    /** id */
+    id?: number;
+    /** a_name */
+    a_name: string;
+    /** b_url */
+    b_url?: string;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
   type NoticeIconItem = {
     /** id */
     id?: number;
@@ -7501,6 +7576,11 @@ declare namespace API {
 
   type putAdminV1NKCollectionOrderTemplatesIdParams = {
     /** id of NKCollectionOrderTemplate */
+    id: number;
+  };
+
+  type putAdminV1NLPackagesIdParams = {
+    /** id of NLPackage */
     id: number;
   };
 
@@ -9054,7 +9134,7 @@ declare namespace API {
     j_admin_id?: number;
     /** 审核次数 */
     k_review_count?: number;
-    /** 短信条数 */
+    /** 来往短信条数 */
     l_sms_count?: number;
     /** 关系等级 */
     m_relation_level?: number;
@@ -9062,6 +9142,85 @@ declare namespace API {
     n_call_count?: number;
     /** wa */
     o_wa_count?: number;
+    /** 催员短信条数 */
+    p_sms_count?: number;
+    /** created_at */
+    created_at?: string;
+    /** updated_at */
+    updated_at?: string;
+    /** deleted_at */
+    deleted_at?: string;
+  };
+
+  type SHProductParent = {
+    /** id */
+    id?: number;
+    /** 当前快照id */
+    a_product_snapshot_id?: number;
+    /** 产品名称* */
+    b_name: string;
+    /** 产品额度* */
+    c_amount: string;
+    /** 产品单位* */
+    d_unit: string;
+    /** 产品周期* */
+    e_life: string;
+    /** 结算方式* 1:先扣除手续费和利息 2:先扣除手续费 3:到期扣除所有费用 */
+    f_settlement_type?: number;
+    /** 利息* */
+    g_interest: string;
+    /** 服务费率* */
+    h_service_fee_rate: string;
+    /** 逾期费率* */
+    i_overdue_rate: string;
+    /** 违约金费率* */
+    j_violate_fee_rate: string;
+    /** 展期费率* */
+    k_extend_rate: string;
+    /** 最低还款金额* */
+    l_min_pay: string;
+    /** 是否允许部分还款* */
+    m_can_part_pay: string;
+    /** 是否可以展期 */
+    n_can_extend: string;
+    /** 产品类型* 1:真实产品 2:虚拟产品 3:贷超产品 */
+    o_type?: number;
+    /** 产品链接 */
+    p_url?: string;
+    /** 解锁信用分* */
+    q_unlock_credit_fraction?: number;
+    /** 最小结清次数 */
+    r_settled_times?: number;
+    /** 最大逾期天数 */
+    s_max_overdue_days?: number;
+    /** 最大逾期次数 */
+    t_max_overdue_times?: number;
+    /** 状态* */
+    u_status?: string;
+    /** 展示排序 */
+    v_sort?: number;
+    /** 浏览次数 */
+    w_views?: number;
+    /** 描述* */
+    x_introduction?: string;
+    /** 备注* */
+    y_comment?: string;
+    /** 产品期数* */
+    z_period?: number;
+    /** 产品额度类型：1 灵活额度（用户授信额度）2：固定额度* */
+    a_a_amount_type?: number;
+    /** 每日可借数量* */
+    a_b_day_valid_count?: number;
+    /** 快照数量* */
+    a_c_snapshot_count?: number;
+    /** 产品标签* */
+    a_d_tags?: string;
+    /** 产品标签* */
+    a_e_features?: string;
+    /** 图片 */
+    a_f_pic?: string;
+    /** 用户额度字段 */
+    a_g_credit_amount_type?: number;
     /** created_at */
     created_at?: string;
     /** updated_at */

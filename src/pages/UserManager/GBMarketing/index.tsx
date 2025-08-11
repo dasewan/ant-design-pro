@@ -14,6 +14,7 @@ import type {TableListItem, TableListPagination} from './data';
 
 import {US_STATUS_ENUM} from '@/pages/enumsUs';
 import {getAdminV1ChannelsEnum as getChannelsEnum} from '@/services/ant-design-pro/AFChannel';
+import {getAdminV1NLPackagesEnum as getPackagesEnum} from '@/services/ant-design-pro/NLPackage';
 import {getAdminV1HJSmsTemplatesEnum as getSmsTemplatesEnum} from '@/services/ant-design-pro/HJSmsTemplate';
 import {getAdminV1GBMarketings as index} from '@/services/ant-design-pro/GBMarketing';
 import {getAdminV1UsersEnum as getUserEnum} from '@/services/ant-design-pro/User';
@@ -27,6 +28,8 @@ const TableList: React.FC = () => {
   const [admins, setAdmins] = useState<RequestOptionsType[]>([]);
   /** 渠道enum */
   const [channels, setChannels] = useState<RequestOptionsType[]>([]);
+  /** 包enum */
+  const [packages, setPackages] = useState<RequestOptionsType[]>([]);
   /** 导入营销名单excel */
   const [importModalVisible, handleImportModalVisible] = useState<boolean>(false);
   /** 操作营销 */
@@ -139,25 +142,24 @@ const TableList: React.FC = () => {
     }
   };
 
-  /**
-   * 查询渠道enum
-   */
-  const _getSmsTemplateEnum: ProFieldRequestData = async () => {
+  const _getPackagesEnum: ProFieldRequestData = async () => {
     const data: RequestOptionsType[] = [];
-    if (channels.length === 0) {
-      const res = await getSmsTemplatesEnum({ c_type: 25 });
+    if (packages.length === 0) {
+      const res = await getPackagesEnum({ foo: 1 });
       for (const item of res.data!) {
         data.push({
-          label: item.a_title,
+          label: item.a_name,
           value: item.id,
         });
       }
-      setChannels(data);
+      setPackages(data);
       return data;
     } else {
-      return channels;
+      return packages;
     }
   };
+
+
 
   // @ts-ignore
   // @ts-ignore
@@ -320,6 +322,16 @@ const TableList: React.FC = () => {
     },
     {
       title: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.y_package_id',
+        defaultMessage: '',
+      }),
+      dataIndex: 'y_package_id',
+      valueType: 'select',
+      request: _getPackagesEnum,
+      params: { timestamp: Math.random() },
+    },
+    {
+      title: intl.formatMessage({
         id: 'pages.userManager.gBMarketing.c_admin_id',
         defaultMessage: '',
       }),
@@ -328,40 +340,42 @@ const TableList: React.FC = () => {
       request: _getUserEnum,
       params: { timestamp: Math.random() },
     },
+    
     {
       title: intl.formatMessage({
-        id: 'pages.userManager.gBMarketing.d_import_count',
+        id: 'pages.userManager.gBMarketing.summary_count',
         defaultMessage: '',
       }),
-      dataIndex: 'd_import_count',
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.gBMarketing.e_valid_count',
+      tooltip: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.summary_count_tip',
         defaultMessage: '',
       }),
-      dataIndex: 'e_valid_count',
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.gBMarketing.t_black_count',
-        defaultMessage: '',
-      }),
-      dataIndex: 't_black_count',
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.gBMarketing.r_register_count',
-        defaultMessage: '',
-      }),
-      dataIndex: 'r_register_count',
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.gBMarketing.s_repeat_count',
-        defaultMessage: '',
-      }),
-      dataIndex: 's_repeat_count',
+      dataIndex: 'summary_count',
+      search: false,
+      render: (_, record) => {
+        const importCount = record.d_import_count || 0;
+        const blackCount = record.t_black_count || 0;
+        const registerCount = record.r_register_count || 0;
+        const repeatCount = record.s_repeat_count || 0;
+        const validCount = record.e_valid_count || 0;
+        
+        const calculatedValid = importCount - blackCount - registerCount - repeatCount;
+        const isCorrect = calculatedValid === validCount;
+        
+        return (
+          <div>
+
+            <div style={{ fontSize: '12px', color: '#666' }}>
+              {importCount} - {blackCount} - {registerCount} - {repeatCount} = {calculatedValid}
+            </div>
+            {!isCorrect && (
+              <div style={{ fontSize: '11px', color: '#ff4d4f' }}>
+                与数据库值({validCount})不符
+              </div>
+            )}
+          </div>
+        );
+      },
     },
     {
       title: intl.formatMessage({
@@ -369,15 +383,14 @@ const TableList: React.FC = () => {
         defaultMessage: '',
       }),
       dataIndex: 'n_viewed_count',
-      search: false,
-    },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.gBMarketing.o_viewed_deduplication_count',
+      tooltip: intl.formatMessage({
+        id: 'pages.userManager.gBMarketing.n_viewed_count_tip',
         defaultMessage: '',
       }),
-      dataIndex: 'o_viewed_deduplication_count',
       search: false,
+      render: (_, record) => {
+        return (record.n_viewed_count || 0) + "("+  (record.o_viewed_deduplication_count || 0) + ")";
+      },
     },
     {
       title: intl.formatMessage({
@@ -633,7 +646,7 @@ const TableList: React.FC = () => {
         postData={(data: any[]) => {
           return data;
         }}
-        scroll={{ x: '230%' }}
+        scroll={{ x: '140%' }}
         pagination={{
           pageSize: 50,
         }}

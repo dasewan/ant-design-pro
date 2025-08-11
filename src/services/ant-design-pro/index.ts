@@ -87,6 +87,7 @@ import * as nhCreditRole from './nhCreditRole';
 import * as niAdminRecording from './niAdminRecording';
 import * as njCollectionOrderSub from './njCollectionOrderSub';
 import * as nkCollectionOrderTemplate from './nkCollectionOrderTemplate';
+import * as nlPackage from './nlPackage';
 import * as noticeIconItem from './noticeIconItem';
 import * as oaDeduction from './oaDeduction';
 import * as oaRepay from './oaRepay';
@@ -223,6 +224,7 @@ export default {
   niAdminRecording,
   njCollectionOrderSub,
   nkCollectionOrderTemplate,
+  nlPackage,
   noticeIconItem,
   oaDeduction,
   oaRepay,
