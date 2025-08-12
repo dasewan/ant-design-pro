@@ -191,6 +191,7 @@ export default {
   'pages.userManager.bAWhite.b_user_id': 'User',
   'pages.userManager.bAWhite.d_market_times': 'Market Times',
   'pages.userManager.bAWhite.e_channel_id': 'Channel',
+  'pages.userManager.bAWhite.p_credit_type': 'Credit Type',
   'pages.userManager.bAWhite.i_valid_date': 'Valid Date',
   'pages.userManager.bAWhite.i_valid_date_tip': 'Default Valid Date Is System Setting',
   'pages.userManager.bAWhite.j_status': 'Status',

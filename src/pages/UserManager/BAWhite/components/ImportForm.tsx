@@ -178,6 +178,32 @@ const ImportForm: React.FC<FormProps> = (props) => {
         placeholder="Please select a channel"
         rules={[{ required: true, message: 'Please select your reason!' }]}
       />
+      <ProFormRadio.Group
+        name="p_credit_type"
+        label={intl.formatMessage({
+          id: 'pages.userManager.bAWhite.p_credit_type',
+          defaultMessage: '',
+        })}
+        radioType="button"
+        options={[
+          {
+            label: "A",
+            value: "A",
+          },
+          {
+            label: "B",
+            value: "B",
+          },
+          {
+            label: "C",
+            value: "C",
+          },
+          {
+            label: "D",
+            value: "D",
+          }
+        ]}
+      />
       <ProFormDatePicker
         name="i_valid_date"
         label={intl.formatMessage({

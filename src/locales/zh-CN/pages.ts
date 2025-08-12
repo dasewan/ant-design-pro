@@ -195,6 +195,7 @@ export default {
   'pages.userManager.bAWhite.b_user_id': '用户',
   'pages.userManager.bAWhite.d_market_times': '营销次数',
   'pages.userManager.bAWhite.e_channel_id': '渠道',
+  'pages.userManager.bAWhite.p_credit_type': '授信类型',
   'pages.userManager.bAWhite.i_valid_date': '有效时间',
   'pages.userManager.bAWhite.i_valid_date_tip': '默认有效时间为系统设置的有效时间',
   'pages.userManager.bAWhite.j_status': '白名单状态',
