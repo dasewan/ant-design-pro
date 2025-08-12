@@ -304,6 +304,7 @@ export default {
   'pages.userManager.marketingHistory.a_marketing_id': 'Marketing',
   'pages.userManager.marketingHistory.b_admin_id': 'Admin',
   'pages.userManager.marketingHistory.c_sms_templete_id': 'Sms Templete',
+  'pages.userManager.marketingHistory.z_sms_channel': 'Sms Channel',
   'pages.userManager.marketingHistory.sms_channel': 'Sms Channel',
   'pages.userManager.marketingHistory.d_theme_id': 'Theme',
   'pages.userManager.marketingHistory.e_batch_sn': 'Batch',

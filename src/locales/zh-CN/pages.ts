@@ -308,6 +308,7 @@ export default {
   'pages.userManager.marketingHistory.a_marketing_id': '营销',
   'pages.userManager.marketingHistory.b_admin_id': '管理员',
   'pages.userManager.marketingHistory.c_sms_templete_id': '短信模版',
+  'pages.userManager.marketingHistory.z_sms_channel': '短信渠道',
   'pages.userManager.marketingHistory.sms_channel': '短信渠道',
   'pages.userManager.marketingHistory.d_theme_id': '主题',
   'pages.userManager.marketingHistory.e_batch_sn': '营销批次',

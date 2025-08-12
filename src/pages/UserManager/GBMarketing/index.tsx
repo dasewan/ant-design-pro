@@ -182,6 +182,14 @@ const TableList: React.FC = () => {
       request: _getUserEnum,
       params: { timestamp: Math.random() },
     },
+    {
+      title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.z_sms_channel',
+        defaultMessage: '',
+      }),
+      dataIndex: 'z_sms_channel',
+
+    },
     //todo 短信开发完改成request
     {
       title: intl.formatMessage({
@@ -202,6 +210,14 @@ const TableList: React.FC = () => {
     },
     {
       title: intl.formatMessage({
+        id: 'pages.userManager.marketingHistory.k_marketing_count',
+        defaultMessage: '',
+      }),
+      dataIndex: 'k_marketing_count',
+      search: false,
+    },
+    {
+      title: intl.formatMessage({
         id: 'pages.userManager.marketingHistory.i_viewed_count',
         defaultMessage: '',
       }),
@@ -216,14 +232,7 @@ const TableList: React.FC = () => {
       dataIndex: 'j_viewed_deduplication_count',
       search: false,
     },
-    {
-      title: intl.formatMessage({
-        id: 'pages.userManager.marketingHistory.k_marketing_count',
-        defaultMessage: '',
-      }),
-      dataIndex: 'k_marketing_count',
-      search: false,
-    },
+
     {
       title: intl.formatMessage({
         id: 'pages.userManager.marketingHistory.f_register_count',
